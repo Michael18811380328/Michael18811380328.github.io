@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
-date:   2019-04-08 17:59:11 +0800
+title:  "Install Ruby"
+date:   2019-03-08 17:59:11 +0800
 categories: jekyll update
 ---
 

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.0 -->
+<title>JSzip库说明 | Michael An</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="JSzip库说明" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="JSzip库说明" />
+<meta property="og:description" content="JSzip库说明" />
+<link rel="canonical" href="http://localhost:4000/jekyll/update/2019/03/16/JSzip.html" />
+<meta property="og:url" content="http://localhost:4000/jekyll/update/2019/03/16/JSzip.html" />
+<meta property="og:site_name" content="Michael An" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-03-16T17:59:11+08:00" />
+<script type="application/ld+json">
+{"description":"JSzip库说明","@type":"BlogPosting","url":"http://localhost:4000/jekyll/update/2019/03/16/JSzip.html","headline":"JSzip库说明","dateModified":"2019-03-16T17:59:11+08:00","datePublished":"2019-03-16T17:59:11+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/jekyll/update/2019/03/16/JSzip.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Michael An" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Michael An</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">JSzip库说明</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2019-03-16T17:59:11+08:00" itemprop="datePublished">Mar 16, 2019
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="jszip库说明">JSzip库说明</h2>
+
+<h3 id="前言">前言</h3>
+
+<p>前端在处理文件时，对于大文件或者多个文件上传、下载、编辑，直接使用原文件不方便，最近使用一个可以前端中处理 zip 文件的库，JSzip。主要功能：前端中压缩、解压缩、编辑zip文件。</p>
+
+<p>这个库的官网：https://stuk.github.io/jszip/</p>
+
+<h3 id="安装">安装</h3>
+
+<h5 id="浏览器环境">浏览器环境</h5>
+
+<p>代码下载链接 http://github.com/Stuk/jszip/zipball/master</p>
+
+<h5 id="node-环境">node 环境</h5>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install </span>jszip <span class="nt">--save</span>
+</code></pre></div></div>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 使用ES5引入</span>
+<span class="kd">var</span> <span class="nx">JSZip</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"jszip"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">saveAs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'file-saver'</span><span class="p">);</span>
+
+<span class="c1">// 新建一个zip压缩对象实例</span>
+<span class="kd">var</span> <span class="nx">zip</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JSZip</span><span class="p">();</span>
+
+<span class="c1">// 压缩一个文件</span>
+<span class="nx">zip</span><span class="p">.</span><span class="nx">file</span><span class="p">(</span><span class="s2">"Hello.txt"</span><span class="p">,</span> <span class="s2">"Hello World</span><span class="se">\n</span><span class="s2">"</span><span class="p">);</span>
+
+<span class="c1">// 压缩一个文件夹，内部包含一个图片</span>
+<span class="nx">zip</span><span class="p">.</span><span class="nx">folder</span><span class="p">(</span><span class="s2">"images"</span><span class="p">).</span><span class="nx">file</span><span class="p">(</span><span class="s2">"smile.gif"</span><span class="p">,</span> <span class="nx">imgData</span><span class="p">,</span> <span class="p">{</span><span class="na">base64</span><span class="p">:</span> <span class="kc">true</span><span class="p">});</span>
+
+<span class="c1">// 异步生成压缩文件</span>
+<span class="nx">zip</span><span class="p">.</span><span class="nx">generateAsync</span><span class="p">({</span><span class="na">type</span><span class="p">:</span><span class="s2">"blob"</span><span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">content</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 保存到本地</span>
+  <span class="nx">saveAs</span><span class="p">(</span><span class="nx">content</span><span class="p">,</span> <span class="s2">"example.zip"</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>这样就可以将浏览器中的文本（文件）保存成zip格式存储到本地了。</p>
+
+  </div><a class="u-url" href="/jekyll/update/2019/03/16/JSzip.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Michael An</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Michael An</li><li><a class="u-email" href="mailto:2444590709@qq.com">2444590709@qq.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Michael18811380328"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Michael18811380328</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>This is my blog using jekyll. </p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

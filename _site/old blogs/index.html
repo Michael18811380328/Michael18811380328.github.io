@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Michael An React</title>
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+  <link rel="stylesheet" type="text/css" href="css/css-reset.css">
+  <link rel="stylesheet" type="text/css" href='lib/bootstrap.min.css'>
+  <link rel="stylesheet" href="./css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./css/index.css">
+  <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+<body>
+  <div id="container"></div>
+  <!-- <script src="https://unpkg.com/react@16/umd/react.development.js"></script> -->
+  <script src="./lib/react.development.js"></script>
+
+  <!-- <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script> -->
+  <script src="./lib/react-dom.development.js"></script>
+
+  <!-- <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
+  <script src="./lib/babel.min.js"></script>
+
+  <!-- You are using the in-browser Babel transformer.  -->
+  <script src="./data/article.json" type="text/javascript"></script>
+  <!-- this page use online React and react-dom development -->
+  <script type="text/babel">
+
+    class App extends React.Component {  
+      render() {
+        return (
+          <div className={this.props.className}>
+            <Title/>
+            <Body/>
+            <Footer/>
+          </div>
+        );
+      }
+    }
+
+    class Title extends React.Component {
+
+      render() {
+        return (
+          <div className="title">
+            <h1>Music is a legend</h1>
+          </div>
+        );
+      }
+
+    }
+
+    class Footer extends React.Component {
+
+      render() {
+        return (
+          <div className="footer">
+            <h3>Please contact me at 18811380328</h3>
+            <a href="https://github.com/Michael18811380328" target="_blank">
+              <button>Follow me at my github</button>
+            </a>
+          </div>
+        );
+      }
+
+    }
+
+    class Body extends React.Component {
+
+      constructor(props) {
+        super(props);
+        this.state = {
+          index: 0,
+        };
+        this.musics = [56766, 33440, 48776, 36013, 48682, 53689, 46401];
+      }
+
+      nextmusic = () => {
+        if (this.state.index < this.musics.length - 1) {
+          this.setState({
+            index: this.state.index + 1
+          });
+        } else {
+          this.setState({
+            index: 0
+          });
+        }
+      }
+
+      render() {
+        const src = "http://www.ytmp3.cn/down/" + this.musics[this.state.index] + ".mp3";
+        console.log(src);
+        return (
+          <div className="body">
+            {/*
+                <h3>Image1</h3>
+                <span className="fa fa-chevron-circle-right poa t50 fa-5" ></span>
+                <span className="fa fa-chevron-circle-left poa t50 fa-5" ></span>
+            */}
+            <div>
+              <audio autoPlay controls loop src={src}></audio>
+              <button onClick={this.nextmusic}>Next</button>
+            </div>
+          </div>
+        );
+      }
+
+    }
+
+    ReactDOM.render(
+      <App className="root" />,
+      document.getElementById("container")
+    );
+  </script>
+</body>
+</html>
+
+<!-- 设计思路 -->
+<!-- 设计一个以React为结构的单页面框架 -->
+<!-- 第一步：静态界面中，展示不同歌曲的专辑和对应的场景 -->
+<!-- 第二部：点击界面中的预设按钮，播放对应的音乐。唱片的样式可以参考网易云音乐-->
+<!-- 第三部：用户点击不同的内容，可以选择原始网页中的信息。检索音乐库进行在线欣赏和下载-->

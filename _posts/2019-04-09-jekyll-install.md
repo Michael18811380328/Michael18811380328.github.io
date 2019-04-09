@@ -1,9 +1,11 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
+title:  "Install Ruby in terminal"
 date:   2019-04-08 17:59:11 +0800
 categories: jekyll update
 ---
+
+在Mac终端下安装Ruby过程
 
 ~~~bash
 Last login: Mon Apr  8 17:43:19 on ttys002

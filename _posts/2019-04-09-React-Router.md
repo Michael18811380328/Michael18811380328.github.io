@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
+title:  "React-Router"
 date:   2019-04-08 17:59:11 +0800
 categories: jekyll update
 ---
@@ -22,20 +22,3 @@ React-router 解决问题：UI与URL解耦
 Link 组件通过 to 属性设置界面的切换。实际上，Link渲染成 A 标签，to属性可以作为href。Link 组件最终会渲染为 HTML 标签 <a>，它的 to、query、hash 属性会被组合在一起并渲染为 href 属性。虽然 Link 被渲染为超链接，但在内部实现上使用脚本拦截了浏览器的默认行为，然后调用了history.pushState 方法。
 
 To 通常可以使字符串或者对象
-
-~~~jsx
-<Link to="/about">关于</Link>
-// 在当前URL的基础上增加一个/about
-
-<Link to="http://www.seafile.com/org/about" replace={true}></Link>
-// replace 属性：true 表示用新的地址替换原始地址，false表示在旧地址上添加字符串。默认是false。
-
-<Link to={{
-	pathname: '/about',
-  search: '?name=name&password=123456',
-  hash: '#content-1',
-  state: { fromDashboard: true }
-}} />
-// 这样可以整体定位界面的属性
-~~~
-
