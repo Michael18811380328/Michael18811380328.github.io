@@ -1,0 +1,44 @@
+  <%= form_for @student do |f| %>
+    <p>
+      <%= f.label "姓名:" %>
+      <%= f.text_field :name %>
+      </p>
+    <p>
+      性别:
+      <%= f.radio_button :sex, "male" %>
+      <label for="sex_male">男</label>
+      <%= f.radio_button :sex, "female" %>
+    <label for="sex_female">女</label>
+    </p>
+
+    <p>
+      爱好:
+      <% hobbies = YAML.load(@student.hobby) rescue[] %>
+      <%= check_box_tag "hobby[]", "吸烟", hobbies.include?('吸烟') %>
+      <%#= check_box_tag 'hobby[]', "吸烟", true %>
+      <%= f.label :hobby, "吸烟" %>
+      <%#= check_box_tag 'hobby[]', "吸毒", true %>
+      <%= check_box_tag "hobby[]", "吸毒", hobbies.include?('吸毒') %>
+      <%= f.label :hobby, "吸毒" %>
+    <p>
+
+    <p>
+      <%= f.label "星座:" %>
+      <%#= select_tag :constellation, options_for_select([["水瓶座","水瓶座"], ["双鱼座","双鱼座"]]) %>
+      <%= f.select :constellation, options_for_select(["水瓶座", "双鱼座","天蝎座"], @student.constellation) %>
+      <!-- 高级用法（最后一个参数是默认值
+      <select>
+      # raw(<option>请选择星座</option>
+      #          #options_from_collection_for_select(Constellation.all, :id, :name, 3))
+      #                 -->
+    </p>
+
+    <p>
+      <%= f.label "自我介绍:" %>
+      <%= f.text_area :evaluation %>
+    </p>
+
+    <p>
+      <%= f.submit "提交" %>
+    </p>
+  <% end %>
