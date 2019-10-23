@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "docker 常见操作补充"
+title:  "docker"
 date:   2019-04-08 17:59:11 +0800
 categories: jekyll update
 ---

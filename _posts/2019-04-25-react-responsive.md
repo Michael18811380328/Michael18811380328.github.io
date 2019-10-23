@@ -18,8 +18,8 @@ npm install react-responsive --save
 
 basic use
 
-~~~js
-import MediaQuery form 'react-responsive';
+~~~jsx
+import MediaQuery from 'react-responsive';
 
 const Example = () => (
   <div>
@@ -43,7 +43,7 @@ const Example2 = () => (
 
 common use case
 
-~~~js
+~~~jsx
 import Respnosive from 'react-responsive';
 
 const Desktop = props => (<Responsive {...props} minWidth={992}/>);

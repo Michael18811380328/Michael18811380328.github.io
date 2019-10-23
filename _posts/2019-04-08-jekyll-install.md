@@ -1,26 +1,25 @@
 ---
 layout: post
-title:  "Mac 环境初始化 jekyll"
+title:  "Initialize jekyll blogs"
 date:   2019-04-08 17:59:11 +0800
 categories: jekyll update
 ---
 
-在Mac终端下初始化 jekyll 框架过程
+In termanal, initialize jekyll then generate some bolgs.
 
 ~~~bash
-# 创建博客目录
-daniels-mbp:Michael seafile$ mkdir test-blog
-daniels-mbp:Michael seafile$ cd test-blog/
+# make directory
+mkdir test-blog
+cd test-blog/
 
-# 使用 jekyll 初始化博客
-daniels-mbp:test-blog seafile$ jekyll new blog
+# use jekyll generate bolgs
+jekyll new blog
 Could not load Bundler. Bundle install skipped. 
 New jekyll site installed in /Users/seafile/Desktop/code-myrepo/Michael/test-blog/blog. 
 
-# 进入博客目录内部
-daniels-mbp:test-blog seafile$ cd blog/
+cd blog/
 
-# 运行博客服务，但是报错：cannot load such file -- bundler (LoadError)
+# run blogs，but there are some bugs：cannot load such file -- bundler (LoadError)
 daniels-mbp:blog seafile$ jekyll serve --watch
 /System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/lib/ruby/2.3.0/rubygems/core_ext/kernel_require.rb:55:in `require': cannot load such file -- bundler (LoadError)
 	from /System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/lib/ruby/2.3.0/rubygems/core_ext/kernel_require.rb:55:in `require'
@@ -29,8 +28,9 @@ daniels-mbp:blog seafile$ jekyll serve --watch
 	from /usr/local/bin/jekyll:22:in `load'
 	from /usr/local/bin/jekyll:22:in `<main>'
 	
-# 根据提示，安装 bundler
-daniels-mbp:blog seafile$ sudo gem install bundler -r --source http://rubygems.org/
+# install bundler to fix
+sudo gem install bundler -r --source http://rubygems.org/
+
 Fetching: bundler-2.0.1.gem (100%)
 Successfully installed bundler-2.0.1
 Parsing documentation for bundler-2.0.1
@@ -38,7 +38,7 @@ Installing ri documentation for bundler-2.0.1
 Done installing documentation for bundler after 5 seconds
 1 gem installed
 
-# 再次运行博客服务，但是报错：Could not find gem minima
+# run blogs again，but there are other bugs：Could not find gem minima
 daniels-mbp:blog seafile$ jekyll serve --watch
 /Library/Ruby/Gems/2.3.0/gems/bundler-2.0.1/lib/bundler/resolver.rb:287:in `block in verify_gemfile_dependencies_are_found!': Could not find gem 'minima (~> 2.0)' in any of the gem sources listed in your Gemfile. (Bundler::GemNotFound)
 	from /Library/Ruby/Gems/2.3.0/gems/bundler-2.0.1/lib/bundler/resolver.rb:255:in `each'
@@ -57,14 +57,15 @@ daniels-mbp:blog seafile$ jekyll serve --watch
 	from /usr/local/bin/jekyll:22:in `load'
 	from /usr/local/bin/jekyll:22:in `<main>'
 
-# 安装 minima
-daniels-mbp:blog seafile$ sudo gem install minima
+# install minima to fix bug
+sudo gem install minima
 Fetching: jekyll-feed-0.12.1.gem (100%)
 Successfully installed jekyll-feed-0.12.1
 3 gems installed
 
-# 再次运行服务，基本运行成功
-daniels-mbp:blog seafile$ jekyll serve --watch
+# run blogs again，successfully
+jekyll serve --watch
+
 Configuration file: /Users/seafile/Desktop/code-myrepo/Michael/test-blog/blog/_config.yml
             Source: /Users/seafile/Desktop/code-myrepo/Michael/test-blog/blog
        Destination: /Users/seafile/Desktop/code-myrepo/Michael/test-blog/blog/_site
@@ -78,6 +79,7 @@ Configuration file: /Users/seafile/Desktop/code-myrepo/Michael/test-blog/blog/_c
 [2019-04-08 18:02:46] ERROR `/favicon.ico' not found.
 ^Cdaniels-mbp:blog seafile$ 
 
-# 下面可以打开 http://127.0.0.1:4000/ 访问博客界面了
-# 警告：`/favicon.ico' not found. 需要在根目录加入界面图标
+# open http://127.0.0.1:4000/ in browser to view blogs
+# warning：`/favicon.ico' not found. 
+# we should put page ico file in /
 ~~~

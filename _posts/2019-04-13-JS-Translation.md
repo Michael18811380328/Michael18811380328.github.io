@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "JS实现翻译的多种方案"
+title:  "JS translation"
 date:   2019-04-13 17:59:11 +0800
 categories: jekyll update
 ---

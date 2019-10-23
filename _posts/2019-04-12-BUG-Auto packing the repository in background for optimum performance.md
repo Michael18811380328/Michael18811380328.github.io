@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "报错 Auto packing the repository in background for optimum performance"
+title:  "Bug: Auto packing the repository in background for optimum performance"
 date:   2019-04-08 17:59:11 +0800
 categories: jekyll update
 ---
