@@ -17,8 +17,6 @@
 
 
 
-
-
 # 需求分析
 
 1、分析其他几个网站界面效果和功能实现，基本评估自己的功能（什么需要实现，具体多少时间可以实现）9月16日晚上前完成
@@ -29,16 +27,16 @@ https://faculty.washington.edu/fteng/people_fangzhen.html
 
 http://reinhard.gatech.edu/
 
-http://reinhard.gatech.edu/research.html
+http://reinhard.gatech.edu/Research.html
 
 这个人的，基本上就是分几块，简单实用就行。实验室有新人进来，和新文章发表，我能随时更新的
 
 - [Home](https://faculty.washington.edu/fteng/index.html)
 - [People](https://faculty.washington.edu/fteng/people.html)
-- [Research](https://faculty.washington.edu/fteng/research.html)
-- [Publications](https://faculty.washington.edu/fteng/publications.html)
-- [Facilities](https://faculty.washington.edu/fteng/facilities.html)
-- [Opportunities](https://faculty.washington.edu/fteng/opportunities.html)
+- [Research](https://faculty.washington.edu/fteng/Research.html)
+- [Publications](https://faculty.washington.edu/fteng/Publications.html)
+- [Facilities](https://faculty.washington.edu/fteng/Facilities.html)
+- [Opportunities](https://faculty.washington.edu/fteng/Opportunities.html)
 
 
 
