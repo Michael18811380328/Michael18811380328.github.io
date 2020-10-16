@@ -1,62 +1,69 @@
 # 使用说明
 
-## 基本配置
+1、首先 cd 到虚拟环境目录下面并开启虚拟环境
 
-当前的界面是静态界面，暂时不考虑复杂交互
+```bash
+cd ~/workroom/VirtualEnv/mkdocs-env
+cd bin
+source activate
+```
 
+2、在虚拟环境内部，切换到当前文件夹下面（mkdocs.yml）
 
-## todo
+~~~bash
+cd ***
+~~~
 
-页眉和页脚部分的超链接需要更换
+3、编辑
 
-右侧导航栏的超链接需要更换
+编辑博客配置文件YML
 
-入口文件是 index.html
+编辑博客的文档 DOCS
 
-后续增加人员，使用 XXX_People.html 的模板进行增加
+4、开启本地服务器
 
+~~~bash
+mkdocs serve
+~~~
 
+5、编译HTML界面
 
-# 需求分析
+~~~bash
+mkdocs build
+~~~
 
-1、分析其他几个网站界面效果和功能实现，基本评估自己的功能（什么需要实现，具体多少时间可以实现）9月16日晚上前完成
+编译后的文件放在 site 目录下面
 
-https://faculty.washington.edu/fteng/people_fangzhen.html
+可以使用 http-server 本地再次测试一下编译后界面效果
 
-分页：home, peopoe, research, publication, etc
-
-http://reinhard.gatech.edu/
-
-http://reinhard.gatech.edu/Research.html
-
-这个人的，基本上就是分几块，简单实用就行。实验室有新人进来，和新文章发表，我能随时更新的
-
-- [Home](https://faculty.washington.edu/fteng/index.html)
-- [People](https://faculty.washington.edu/fteng/people.html)
-- [Research](https://faculty.washington.edu/fteng/Research.html)
-- [Publications](https://faculty.washington.edu/fteng/Publications.html)
-- [Facilities](https://faculty.washington.edu/fteng/Facilities.html)
-- [Opportunities](https://faculty.washington.edu/fteng/Opportunities.html)
-
-
-
-2、写一个架构文档（主要包括几个功能，显示几个界面等）然后写一个网站使用说明书。9月19日前晚上完成
-
-3、基于 master 分支设置 dev 分支，搭建基本的页面（看看需要支持静态界面，还是直接使用React搭建），优先使用静态页面，稍后重构。9月20日一天搭建一个基本框架。
+6、拷贝 site 下面的目录到外部根目录下面，然后push到github上面，即可显示编译后的界面
 
 
 
 
 
-直接把当前的页面静态HTML做上去，然后更新一下先看看效果。
+### 其他说明
+
+执行 pip install mkdocs
+
+报错
+
+command "python setup.py egg_info" failed with error code 1 in /private/tmp/p
+
+注意：不能直接在Mac上面安装，需要设置虚拟环境，然后在虚拟环境中安装比较好，这样不同的项目不会互相影响。
 
 
 
+### 参考文档
 
+https://mkdocs.zimoapps.com/
 
-全局替换一下，如果是首页的6个页面，需要变成大写的首字母？
+https://markdown-docs-zh.readthedocs.io/zh_CN/latest/
 
-然后找一下老师的头像和基本文案
+https://blog.csdn.net/wirelessqa/article/details/78173401
 
-测试一下单页面用户详情截图
+https://www.jianshu.com/p/9f618689954a
 
+（https://blog.csdn.net/u011324454/article/details/79076885）
+
+https://blog.csdn.net/u011092188/article/details/64123561
