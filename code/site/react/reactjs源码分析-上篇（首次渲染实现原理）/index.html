@@ -1,0 +1,1813 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
+    
+    
+      
+        <title>reactjs源码分析-上篇（首次渲染实现原理）.md - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6910b76c.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.196e0c26.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#reactjs-" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Michale An Blog
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              reactjs源码分析-上篇（首次渲染实现原理）.md
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" class="md-nav__link">
+      介绍
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+    <label class="md-nav__link" for="nav-2">
+      算法
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="算法" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        算法
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../algre/in-place/" class="md-nav__link">
+      原地算法
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../algre/part-two/" class="md-nav__link">
+      二分算法
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../algre/double-pointer/" class="md-nav__link">
+      双指针
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../algre/diverce/" class="md-nav__link">
+      分治算法
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../algre/K-means/" class="md-nav__link">
+      聚类算法
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+    <label class="md-nav__link" for="nav-3">
+      Javascript
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Javascript" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Javascript
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../javascript/ES6%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8/" class="md-nav__link">
+      ES6 迭代器与生成器
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../javascript/ES6-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+      ES6-阮一峰.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../javascript/ES6newFeature/" class="md-nav__link">
+      ES6newFeature.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../javascript/JS%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+      JS 性能优化.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../javascript/es6/" class="md-nav__link">
+      es6.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../javascript/%E5%B8%B8%E7%94%A8%E5%88%B0%E7%9A%84ES6%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+      常用到的ES6语法.md
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+    <label class="md-nav__link" for="nav-4">
+      SQL
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="SQL" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        SQL
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SQL/Mac%20pip%20install%20mysql-python%20unsuccessful/" class="md-nav__link">
+      Mac pip install mysql-python unsuccessful
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SQL/Mac%E5%AE%89%E8%A3%85MySQLdb%EF%BC%88python-mysql%EF%BC%89%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+      Mac安装MySQLdb（python-mysql）模块
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SQL/Python%E6%93%8D%E4%BD%9C%20MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+      Python操作 MySQL数据库
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SQL/SQLite-API-Python/" class="md-nav__link">
+      SQLite-API-Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SQL/%E6%B7%B1%E5%85%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+      深入MySQL数据库
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SQL/%E9%98%BF%E9%87%8C%E4%BA%91MySQL%E5%85%A5%E9%97%A8/" class="md-nav__link">
+      阿里云MySQL入门
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../SQL/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+      数据库概念
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+    <label class="md-nav__link" for="nav-5">
+      python
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="python" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/ERROR%20No%20matching%20distribution%20found%20for%20Django%3D%3D3.0.2%20%28from%20-r%20requirements.txt%20%28line%204%29%29/" class="md-nav__link">
+      ERROR No matching distribution found for Django==3.0.2 (from -r requirements.txt (line 4)).md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/django-basic/" class="md-nav__link">
+      django-basic.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/django/" class="md-nav__link">
+      django.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/falsk%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/" class="md-nav__link">
+      flask快速开始.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/flask%20%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82/" class="md-nav__link">
+      flask 网易云课堂.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/%E5%AE%89%E8%A3%85pandas%E6%97%B6%E5%87%BA%E7%8E%B0%E7%8E%AF%E5%A2%83%E9%94%99%E8%AF%AF/" class="md-nav__link">
+      安装pandas时出现环境错误.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/%E6%90%AD%E5%BB%BApython3%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="md-nav__link">
+      搭建python3开发环境.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/%E3%80%90%E8%A7%A3%E5%86%B3%E3%80%91ValueError%20Length%20mismatch%20Expected%20axis%20has%200%20elements%2C%20new%20values%20have%202%20elements/" class="md-nav__link">
+      ValueError Length mismatch Expected axis has 0 elements, new values have 2 elements.md
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+    <label class="md-nav__link" for="nav-6">
+      typescript
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="typescript" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon"></span>
+        typescript
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../typescript/01-%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+      01-简介.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../typescript/02-%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+      02-基础.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../typescript/03-%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+      03-进阶.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../typescript/04-%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%BC%80%E5%8F%91-%E6%B5%8B%E8%AF%95%E7%BC%96%E8%AF%91/" class="md-nav__link">
+      04-工程化开发-测试编译.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../typescript/%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82TS%E5%85%A5%E9%97%A8/" class="md-nav__link">
+      网易云课堂TS入门.md
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" checked>
+    <label class="md-nav__link" for="nav-7">
+      react
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="react" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon"></span>
+        react
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7-1" type="checkbox" id="nav-7-1" checked>
+    <label class="md-nav__link" for="nav-7-1">
+      basic
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="basic" data-md-level="2">
+      <label class="md-nav__title" for="nav-7-1">
+        <span class="md-nav__icon md-icon"></span>
+        basic
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React%20FAQ/" class="md-nav__link">
+      React FAQ.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React%20PureComponent%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="md-nav__link">
+      React PureComponent 使用指南.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React%20%E7%9A%84%20PureComponent%20%E4%B8%8E%20Component/" class="md-nav__link">
+      React 的 PureComponent 与 Component.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React%20%E5%90%84%E7%A7%8Dbug%20%E4%BC%9A%E5%AE%9E%E6%97%B6%E6%9B%B4%E6%96%B0/" class="md-nav__link">
+      React 各种bug 会实时更新.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React%20%E6%93%8D%E4%BD%9C%E5%85%83%E7%B4%A0%E7%9A%84API/" class="md-nav__link">
+      React 操作元素的API.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React%E6%96%B0%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F--getDerivedStateFromProps/" class="md-nav__link">
+      React新生命周期--getDerivedStateFromProps.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React%E4%B8%AD%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/" class="md-nav__link">
+      React中数据传输.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%B5%81%E7%A8%8B%E5%9B%BE/" class="md-nav__link">
+      React生命周期流程图.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Refs%20%26%20DOM/" class="md-nav__link">
+      Refs & DOM.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../getDerivedStateFromProps%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+      getDerivedStateFromProps的使用.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../react%20%E4%B8%AD%E9%80%9A%E8%BF%87ref%E8%8E%B7%E5%8F%96%E9%AB%98%E9%98%B6%EF%BC%88HOC%EF%BC%89%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="md-nav__link">
+      react 中通过ref获取高阶（HOC）子组件实例的解决方案.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        reactjs源码分析-上篇（首次渲染实现原理）.md
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      reactjs源码分析-上篇（首次渲染实现原理）.md
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    前言
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    入门
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elemetnt" class="md-nav__link">
+    引入基本elemetnt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    自定义元素
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    结语
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8B%E7%AF%87%EF%BC%88%E6%9B%B4%E6%96%B0%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+      reactjs源码分析-下篇（更新机制实现原理）.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../%E5%AF%B9React%20children%E7%90%86%E8%A7%A3/" class="md-nav__link">
+      对React children理解.md
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7-2" type="checkbox" id="nav-7-2" >
+    <label class="md-nav__link" for="nav-7-2">
+      advance
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="advance" data-md-level="2">
+      <label class="md-nav__title" for="nav-7-2">
+        <span class="md-nav__icon md-icon"></span>
+        advance
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React%20%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+      React 高阶组件.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React%20%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/" class="md-nav__link">
+      React 中的事件处理.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React-advanced-guides/" class="md-nav__link">
+      React-advanced-guides.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../react%20%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" class="md-nav__link">
+      react 项目结构及编码规范.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React-%E9%AB%98%E9%98%B6API/" class="md-nav__link">
+      React-高阶API.md
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7-3" type="checkbox" id="nav-7-3" >
+    <label class="md-nav__link" for="nav-7-3">
+      性能优化
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="性能优化" data-md-level="2">
+      <label class="md-nav__title" for="nav-7-3">
+        <span class="md-nav__icon md-icon"></span>
+        性能优化
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React%20%E5%BC%BA%E5%88%B6%E6%9B%B4%E6%96%B0%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+      React 强制更新组件.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React-Design%20Principles/" class="md-nav__link">
+      React-Design Principles.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React-Hooks/" class="md-nav__link">
+      React-Hooks.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React-Suspense%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%8E%A2%E8%AE%A8-%E6%B2%A1%E7%9C%8B%E6%98%8E%E7%99%BD/" class="md-nav__link">
+      React-Suspense的实现与探讨-没看明白.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+      React-性能优化.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React.Children%E7%9A%84API/" class="md-nav__link">
+      React.Children的API.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React.Component/" class="md-nav__link">
+      React.Component.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React.children%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+      React.children介绍.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+      React事件.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React%E6%95%B0%E6%8D%AE%E6%B5%81/" class="md-nav__link">
+      React数据流.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../React%E8%8E%B7%E5%8F%96%E5%B0%BA%E5%AF%B8/" class="md-nav__link">
+      React获取尺寸.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../.." class="md-nav__link">
+      
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" >
+    <label class="md-nav__link" for="nav-8">
+      About
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="About" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon"></span>
+        About
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" class="md-nav__link">
+      关于我
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    前言
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    入门
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elemetnt" class="md-nav__link">
+    引入基本elemetnt
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    自定义元素
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    结语
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="reactjs-"><a href="http://purplebamboo.github.io/2015/09/15/reactjs_source_analyze_part_one/">reactjs源码分析-上篇（首次渲染实现原理）</a></h1>
+<p>reactjs是目前比较火的前端框架，但是目前并没有很好的解释原理的项目。reactjs源码比较复杂不适合初学者去学习。所以本文通过实现一套简易版的reactjs，使得理解原理更加容易。</p>
+<p>所有实例源码都托管在github。<a href="https://github.com/purplebamboo/little-reactjs">点这里</a>里面有分步骤的例子，可以一边看一边运行例子。</p>
+<p>这个帖子是2015年，需要考虑是否符合最新的版本，知识是否过时</p>
+<h2 id="_1">前言</h2>
+<p>前端的发展特别快，经历过jQuery一统天下的工具库时代后，现在各种框架又开始百家争鸣了。angular，ember，backbone，vue，avalon，ploymer还有reactjs，作为一个前端真是稍不留神就感觉要被淘汰了，就在去年大家还都是angularjs的粉丝，到了今年又开始各种狂追reactjs了。前端都是喜新厌旧的，不知道最后这些框架由谁来一统天下，用句很俗的话说，这是最好的时代也是最坏的时代。作为一个前端，只能多学点，尽量多的了解他们的原理。</p>
+<p>reactjs的代码非常绕，对于没有后台开发经验的前端来说看起来会比较吃力。其实reactjs的核心内容并不多，主要是下面这些：</p>
+<ul>
+<li>虚拟dom对象(Virtual DOM)</li>
+<li>虚拟dom差异化算法（diff algorithm）</li>
+<li>单向数据流渲染（Data Flow）</li>
+<li>组件生命周期</li>
+<li>事件处理</li>
+</ul>
+<p>下面我们将一点点的来实现一个简易版的reactjs，实现上面的那些功能，最后用这个reactjs做一个todolist的小应用，看完这个，或者跟着敲一遍代码。希望让大家能够更好的理解reactjs的运行原理。</p>
+<h2 id="_2">入门</h2>
+<p>我们先从渲染hello world开始吧。</p>
+<p>我们看下面的代码：</p>
+<pre><code class="language-jsx">&lt;script type=&quot;text/javascript&quot;&gt;
+  React.render('hello world',document.getElementById(&quot;container&quot;))
+&lt;/script&gt;
+
+/**
+对应的html为
+
+&lt;div id=&quot;container&quot;&gt;&lt;/div&gt;
+
+
+生成后的html为：
+
+&lt;div id=&quot;container&quot;&gt;
+    &lt;span data-reactid=&quot;0&quot;&gt;hello world&lt;/span&gt;
+&lt;/div&gt;
+
+*/
+</code></pre>
+<p>假定这一行代码,就可以把<code>hello world</code>渲染到对应的div里面。</p>
+<p>我们来看看我们需要为此做些什么：</p>
+<pre><code class="language-jsx">//component类，用来表示文本在渲染，更新，删除时应该做些什么事情
+function ReactDOMTextComponent(text) {
+  //存下当前的字符串
+  this._currentElement = '' + text;
+  //用来标识当前component
+  this._rootNodeID = null;
+}
+
+//component渲染时生成的dom结构
+ReactDOMTextComponent.prototype.mountComponent = function(rootID) {
+  this._rootNodeID = rootID;
+  return '&lt;span data-reactid=&quot;' + rootID + '&quot;&gt;' + this._currentElement + '&lt;/span&gt;';
+}
+
+//component工厂  用来返回一个component实例
+function instantiateReactComponent(node){
+  if(typeof node === 'string' || typeof node === 'number'){
+    return new ReactDOMTextComponent(node)
+  }
+}
+
+React = {
+  nextReactRootIndex:0,
+  render:function(element,container){
+    var componentInstance = instantiateReactComponent(element);
+    var markup = componentInstance.mountComponent(React.nextReactRootIndex++);
+    $(container).html(markup);
+    //触发完成mount的事件
+    $(document).trigger('mountReady');    }
+}
+</code></pre>
+<p>代码分为三个部分：</p>
+<ol>
+<li>React.render 作为入口负责调用渲染</li>
+<li>我们引入了component类的概念，ReactDOMTextComponent是一个component类定义，定义对于这种<code>文本类型</code>的节点，在渲染，更新，删除时应该做什么操作，这边暂时只用到渲染，另外两个可以先忽略</li>
+<li>instantiateReactComponent用来根据element的类型（现在只有一种string类型），返回一个component的实例。其实就是个类工厂。</li>
+</ol>
+<p>nextReactRootIndex作为每个component的标识id，不断加1，确保唯一性。这样我们以后可以通过这个标识找到这个元素。</p>
+<p>可以看到我们把逻辑分为几个部分，主要的渲染逻辑放在了具体的componet类去定义。React.render负责调度整个流程，这里是调用instantiateReactComponent生成一个对应component类型的实例对象，然后调用此对象的mountComponent获取生成的内容。最后写到对应的container节点中。</p>
+<p>可能有人问，这么p大点功能，有必要这么复杂嘛，别急。往下看才能体会这种分层的好处。</p>
+<h2 id="elemetnt">引入基本elemetnt</h2>
+<p>我们知道reactjs最大的卖点就是它的虚拟dom概念，我们一般使用<code>React.createElement</code>来创建一个虚拟dom元素。</p>
+<p>虚拟dom元素分为两种，一种是浏览器自带的基本元素比如 div p input form 这种，一种是自定义的元素。</p>
+<blockquote>
+<p>这边需要说一下我们上节提到的文本节点，它不算虚拟dom，但是reacjs为了保持渲染的一致性。文本节点是在外面包了一层span标记，也给它配了个简化版component（ReactDOMTextComponent）。</p>
+</blockquote>
+<p>这节我们先讨论浏览器的基本元素。</p>
+<p>在reactjs里，当我们希望在hello world外面包一层div,并且带上一些属性，甚至事件时我们可以这么写：</p>
+<pre><code class="language-jsx">//演示事件监听怎么用
+function hello(){
+  alert('hello')
+}
+var element = React.createElement('div',{id:'test',onclick:hello},'click me')
+React.render(element,document.getElementById(&quot;container&quot;))
+
+/**
+
+//生成的html为：
+
+&lt;div data-reactid=&quot;0&quot; id=&quot;test&quot;&gt;
+    &lt;span data-reactid=&quot;0.0&quot;&gt;click me&lt;/span&gt;
+&lt;/div&gt;
+//点击文字，会弹出hello的对话框
+*/
+</code></pre>
+<p>上面使用<code>React.createElement</code>创建了一个基本元素，我们来看看简易版本<code>React.createElement</code>的实现：</p>
+<pre><code class="language-jsx">//ReactElement就是虚拟dom的概念，具有一个type属性代表当前的节点类型，还有节点的属性props
+//比如对于div这样的节点type就是div，props就是那些attributes
+//另外这里的key,可以用来标识这个element，用于优化以后的更新，这里可以先不管，知道有这么个东西就好了
+function ReactElement(type,key,props){
+  this.type = type;
+  this.key = key;
+  this.props = props;
+}
+
+
+React = {
+  nextReactRootIndex:0,
+  createElement:function(type,config,children){
+    var props = {},propName;
+    config = config || {}
+    //看有没有key，用来标识element的类型，方便以后高效的更新，这里可以先不管
+    var key = config.key || null;
+
+    //复制config里的内容到props
+    for (propName in config) {
+      if (config.hasOwnProperty(propName) &amp;&amp; propName !== 'key') {
+        props[propName] = config[propName];
+      }
+    }
+
+    //处理children,全部挂载到props的children属性上
+    //支持两种写法，如果只有一个参数，直接赋值给children，否则做合并处理
+    var childrenLength = arguments.length - 2;
+    if (childrenLength === 1) {
+      props.children = $.isArray(children) ? children : [children] ;
+    } else if (childrenLength &gt; 1) {
+      var childArray = Array(childrenLength);
+      for (var i = 0; i &lt; childrenLength; i++) {
+        childArray[i] = arguments[i + 2];
+      }
+      props.children = childArray;
+    }
+
+    return new ReactElement(type, key,props);
+
+  },
+  render:function(element,container){
+    var componentInstance = instantiateReactComponent(element);
+    var markup = componentInstance.mountComponent(React.nextReactRootIndex++);
+    $(container).html(markup);
+    //触发完成mount的事件
+    $(document).trigger('mountReady');
+  }
+}
+</code></pre>
+<p>createElement只是做了简单的参数修正，最终返回一个ReactElement实例对象也就是我们说的虚拟元素的实例。</p>
+<blockquote>
+<p>这里注意key的定义，主要是为了以后更新时优化效率，这边可以先不管忽略。</p>
+</blockquote>
+<p>好了有了元素实例，我们得把他渲染出来，此时render接受的是一个ReactElement而不是文本，我们先改造下instantiateReactComponent：</p>
+<pre><code class="language-jsx">function instantiateReactComponent(node){
+  //文本节点的情况
+  if(typeof node === 'string' || typeof node === 'number'){
+    return new ReactDOMTextComponent(node);
+  }
+  //浏览器默认节点的情况
+  if(typeof node === 'object' &amp;&amp; typeof node.type === 'string'){
+    //注意这里，使用了一种新的component
+    return new ReactDOMComponent(node);
+
+  }
+}
+</code></pre>
+<p>我们增加了一个判断，这样当render的不是文本而是浏览器的基本元素时。我们使用另外一种component来处理它渲染时应该返回的内容。这里就体现了工厂方法instantiateReactComponent的好处了，不管来了什么类型的node，都可以负责生产出一个负责渲染的component实例。这样render完全不需要做任何修改，只需要再做一种对应的component类型（这里是ReactDOMComponent）就行了。</p>
+<p>所以重点我们来看看<code>ReactDOMComponent</code>的具体实现：</p>
+<pre><code class="language-jsx">//component类，用来表示文本在渲染，更新，删除时应该做些什么事情
+function ReactDOMComponent(element){
+  //存下当前的element对象引用
+  this._currentElement = element;
+  this._rootNodeID = null;
+}
+
+//component渲染时生成的dom结构
+ReactDOMComponent.prototype.mountComponent = function(rootID){
+  //赋值标识
+  this._rootNodeID = rootID;
+  var props = this._currentElement.props;
+  var tagOpen = '&lt;' + this._currentElement.type;
+  var tagClose = '&lt;/' + this._currentElement.type + '&gt;';
+
+  //加上reactid标识
+  tagOpen += ' data-reactid=' + this._rootNodeID;
+
+  //拼凑出属性
+  for (var propKey in props) {
+
+    //这里要做一下事件的监听，就是从属性props里面解析拿出on开头的事件属性的对应事件监听
+    if (/^on[A-Za-z]/.test(propKey)) {
+      var eventType = propKey.replace('on', '');
+      //针对当前的节点添加事件代理,以_rootNodeID为命名空间
+      $(document).delegate('[data-reactid=&quot;' + this._rootNodeID + '&quot;]', eventType + '.' + this._rootNodeID, props[propKey]);
+    }
+
+    //对于children属性以及事件监听的属性不需要进行字符串拼接
+    //事件会代理到全局。这边不能拼到dom上不然会产生原生的事件监听
+    if (props[propKey] &amp;&amp; propKey != 'children' &amp;&amp; !/^on[A-Za-z]/.test(propKey)) {
+      tagOpen += ' ' + propKey + '=' + props[propKey];
+    }
+  }
+  //获取子节点渲染出的内容
+  var content = '';
+  var children = props.children || [];
+
+  var childrenInstances = []; //用于保存所有的子节点的componet实例，以后会用到
+  var that = this;
+  $.each(children, function(key, child) {
+    //这里再次调用了instantiateReactComponent实例化子节点component类，拼接好返回
+    var childComponentInstance = instantiateReactComponent(child);
+    childComponentInstance._mountIndex = key;
+
+    childrenInstances.push(childComponentInstance);
+    //子节点的rootId是父节点的rootId加上新的key也就是顺序的值拼成的新值
+    var curRootId = that._rootNodeID + '.' + key;
+    //得到子节点的渲染内容
+    var childMarkup = childComponentInstance.mountComponent(curRootId);
+    //拼接在一起
+    content += ' ' + childMarkup;
+  })
+
+  //留给以后更新时用的这边先不用管
+  this._renderedChildren = childrenInstances;
+
+  //拼出整个html内容
+  return tagOpen + '&gt;' + content + tagClose;
+}
+</code></pre>
+<p>我们增加了虚拟dom reactElement的定义，增加了一个新的componet类ReactDOMComponent。
+这样我们就实现了渲染浏览器基本元素的功能了。</p>
+<p>对于虚拟dom的渲染逻辑，本质上还是个递归渲染的东西，reactElement会递归渲染自己的子节点。可以看到我们通过instantiateReactComponent屏蔽了子节点的差异，只需要使用不同的componet类，这样都能保证通过mountComponent最终拿到渲染后的内容。</p>
+<p>另外这边的事件也要说下，可以在传递props的时候传入{onClick:function(){}}这样的参数，这样就会在当前元素上添加事件，代理到document。由于reactjs本身全是在写js，所以监听的函数的传递变得特别简单。</p>
+<blockquote>
+<p>这里很多东西没有考虑，比如一些特殊的类型input select等等，再比如img不需要有对应的tagClose等。这里为了保持简单就不再扩展了。另外reactjs的事件处理其实很复杂，实现了一套标准的w3c事件。这里偷懒直接使用jQuery的事件代理到document上了。</p>
+</blockquote>
+<h2 id="_3">自定义元素</h2>
+<p>上面实现了基本的元素内容，我们下面实现自定义元素的功能。</p>
+<p>随着前端技术的发展浏览器的那些基本元素已经满足不了我们的需求了，如果你对<a href="https://developer.mozilla.org/zh-CN/docs/Web/Web_Components">webcomponents</a>有一定的了解，就会知道人们一直在尝试扩展一些自己的标记。</p>
+<p>reactjs通过虚拟dom做到了类似的功能，还记得我们上面element.type只是个简单的字符串，如果是个类呢？如果这个类恰好还有自己的生命周期管理，那扩展性就很高了。</p>
+<blockquote>
+<p>如果对生命周期等概念不是很理解的，可以看看我以前的另一片文章：<a href="http://www.html-js.com/article/2760">javascript组件化</a></p>
+</blockquote>
+<p>我们看下reactjs怎么使用自定义元素：</p>
+<pre><code class="language-jsx">var HelloMessage = React.createClass({
+  getInitialState: function() {
+    return {type: 'say:'};
+  },
+  componentWillMount: function() {
+    console.log('我就要开始渲染了。。。')
+  },
+  componentDidMount: function() {
+    console.log('我已经渲染好了。。。')
+  },
+  render: function() {
+    return React.createElement(&quot;div&quot;, null,this.state.type, &quot;Hello &quot;, this.props.name);
+  }
+});
+
+
+React.render(React.createElement(HelloMessage, {name: &quot;John&quot;}), document.getElementById(&quot;container&quot;));
+
+/**
+结果为：
+
+html:
+&lt;div data-reactid=&quot;0&quot;&gt;
+    &lt;span data-reactid=&quot;0.0&quot;&gt;say:&lt;/span&gt;
+    &lt;span data-reactid=&quot;0.1&quot;&gt;Hello &lt;/span&gt;
+    &lt;span data-reactid=&quot;0.2&quot;&gt;John&lt;/span&gt;
+&lt;/div&gt;
+
+console:
+我就要开始渲染了。。。
+我已经渲染好了。。。
+
+*/
+</code></pre>
+<p><code>React.createElement</code>接受的不再是字符串，而是一个class。</p>
+<p><code>React.createClass</code>生成一个自定义标记类，带有基本的生命周期：</p>
+<ul>
+<li>getInitialState 获取最初的属性值this.state</li>
+<li>componentWillmount 在组件准备渲染时调用</li>
+<li>componentDidMount 在组件渲染完成后调用</li>
+</ul>
+<p>对reactjs稍微有点了解的应该都可以明白上面的用法。</p>
+<p>我们先来看看React.createClass的实现：</p>
+<pre><code class="language-jsx">//定义ReactClass类,所有自定义的超级父类
+var ReactClass = function(){
+}
+//留给子类去继承覆盖
+ReactClass.prototype.render = function(){}
+
+
+
+React = {
+  nextReactRootIndex:0,
+  createClass:function(spec){
+    //生成一个子类
+    var Constructor = function (props) {
+      this.props = props;
+      this.state = this.getInitialState ? this.getInitialState() : null;
+    }
+    //原型继承，继承超级父类
+    Constructor.prototype = new ReactClass();
+    Constructor.prototype.constructor = Constructor;
+    //混入spec到原型
+    $.extend(Constructor.prototype,spec);
+    return Constructor;
+
+  },
+  createElement:function(type,config,children){
+    ...
+  },
+    render:function(element,container){
+      ...
+    }
+    }
+</code></pre>
+<p>可以看到createClass生成了一个继承ReactClass的子类，在构造函数里调用this.getInitialState获得最初的state。</p>
+<blockquote>
+<p>为了演示方便,我们这边的ReactClass相当简单，实际上原始的代码处理了很多东西，比如类的mixin的组合继承支持,比如componentDidMount等可以定义多次，需要合并调用等等，有兴趣的去翻源码吧，不是本文的主要目的，这里就不详细展开了。</p>
+</blockquote>
+<p>我们这里只是返回了一个继承类的定义，那么具体的componentWillmount，这些生命周期函数在哪里调用呢。</p>
+<p>看看我们上面的两种类型就知道，我们是时候为自定义元素也提供一个componet类了，在那个类里我们会实例化ReactClass，并且管理生命周期，还有父子组件依赖。</p>
+<p>好，我们老规矩先改造instantiateReactComponent</p>
+<pre><code class="language-jsx">function instantiateReactComponent(node){
+  //文本节点的情况
+  if(typeof node === 'string' || typeof node === 'number'){
+    return new ReactDOMTextComponent(node);
+  }
+  //浏览器默认节点的情况
+  if(typeof node === 'object' &amp;&amp; typeof node.type === 'string'){
+    //注意这里，使用了一种新的component
+    return new ReactDOMComponent(node);
+
+  }
+  //自定义的元素节点
+  if(typeof node === 'object' &amp;&amp; typeof node.type === 'function'){
+    //注意这里，使用新的component,专门针对自定义元素
+    return new ReactCompositeComponent(node);
+
+  }
+}
+</code></pre>
+<p>很简单我们增加了一个判断，使用新的component类形来处理自定义的节点。我们看下
+ReactCompositeComponent的具体实现:</p>
+<pre><code class="language-jsx">function ReactCompositeComponent(element){
+  //存放元素element对象
+  this._currentElement = element;
+  //存放唯一标识
+  this._rootNodeID = null;
+  //存放对应的ReactClass的实例
+  this._instance = null;
+}
+
+//用于返回当前自定义元素渲染时应该返回的内容
+ReactCompositeComponent.prototype.mountComponent = function(rootID){
+  this._rootNodeID = rootID;
+  //拿到当前元素对应的属性值
+  var publicProps = this._currentElement.props;
+  //拿到对应的ReactClass
+  var ReactClass = this._currentElement.type;
+  // Initialize the public class
+  var inst = new ReactClass(publicProps);
+  this._instance = inst;
+  //保留对当前comonent的引用，下面更新会用到
+  inst._reactInternalInstance = this;
+
+  if (inst.componentWillMount) {
+    inst.componentWillMount();
+    //这里在原始的reactjs其实还有一层处理，就是  componentWillMount调用setstate，不会触发rerender而是自动提前合并，这里为了保持简单，就略去了
+  }
+  //调用ReactClass的实例的render方法,返回一个element或者一个文本节点
+  var renderedElement = this._instance.render();
+  //得到renderedElement对应的component类实例
+  var renderedComponentInstance = instantiateReactComponent(renderedElement);
+  this._renderedComponent = renderedComponentInstance; //存起来留作后用
+
+  //拿到渲染之后的字符串内容，将当前的_rootNodeID传给render出的节点
+  var renderedMarkup = renderedComponentInstance.mountComponent(this._rootNodeID);
+
+  //之前我们在React.render方法最后触发了mountReady事件，所以这里可以监听，在渲染完成后会触发。
+  $(document).on('mountReady', function() {
+    //调用inst.componentDidMount
+    inst.componentDidMount &amp;&amp; inst.componentDidMount();
+  });
+
+  return renderedMarkup;
+}
+</code></pre>
+<p>实现并不难，ReactClass的render一定是返回一个虚拟节点(包括element和text)，这个时候我们使用instantiateReactComponent去得到实例，再使用mountComponent拿到结果作为当前自定义元素的结果。</p>
+<p>应该说本身自定义元素不负责具体的内容，他更多的是负责生命周期。具体的内容是由它的render方法返回的虚拟节点来负责渲染的。</p>
+<p>本质上也是递归的去渲染内容的过程。同时因为这种递归的特性，父组件的componentWillMount一定在某个子组件的componentWillMount之前调用，而父组件的componentDidMount肯定在子组件之后，因为监听mountReady事件，肯定是子组件先监听的。</p>
+<blockquote>
+<p>需要注意的是自定义元素并不会处理我们createElement时传入的子节点，它只会处理自己render返回的节点作为自己的子节点。不过我们在render时可以使用this.props.children拿到那些传入的子节点，可以自己处理。其实有点类似webcomponents里面的shadow dom的作用。</p>
+</blockquote>
+<p>上面实现了三种类型的元素，其实我们发现本质上没有太大的区别，都是有自己对应component类来处理自己的渲染过程。</p>
+<p>大概的关系是下面这样。</p>
+<p><img alt="结构图" src="https://img.alicdn.com/tps/TB1NPA_JpXXXXcVXXXXXXXXXXXX-1024-768.jpg" /></p>
+<p>于是我们发现初始化的渲染流程都已经完成了。</p>
+<h2 id="_4">结语</h2>
+<p>整个初次渲染的流程基本就分析完毕了。看看我们目前的进展，事件监听做了，虚拟dom有了。基本的组件生命周期也有了。我们这个小玩具已经可以简单跑跑了。下篇文章我们将一起去实现reactjs的更新机制，看看它最核心的diff算法是怎么回事。</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../react%20%E4%B8%AD%E9%80%9A%E8%BF%87ref%E8%8E%B7%E5%8F%96%E9%AB%98%E9%98%B6%EF%BC%88HOC%EF%BC%89%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                react 中通过ref获取高阶（HOC）子组件实例的解决方案.md
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8B%E7%AF%87%EF%BC%88%E6%9B%B4%E6%96%B0%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                reactjs源码分析-下篇（更新机制实现原理）.md
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; TEST
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

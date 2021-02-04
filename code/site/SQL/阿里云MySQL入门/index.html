@@ -1,0 +1,1883 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.6">
+    
+    
+      
+        <title>阿里云MySQL入门 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6910b76c.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.196e0c26.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mysql" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Michale An Blog
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              阿里云MySQL入门
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" class="md-nav__link">
+      介绍
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+    <label class="md-nav__link" for="nav-2">
+      算法
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="算法" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        算法
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../algre/in-place/" class="md-nav__link">
+      原地算法
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../algre/part-two/" class="md-nav__link">
+      二分算法
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../algre/double-pointer/" class="md-nav__link">
+      双指针
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../algre/diverce/" class="md-nav__link">
+      分治算法
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../algre/K-means/" class="md-nav__link">
+      聚类算法
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+    <label class="md-nav__link" for="nav-3">
+      Javascript
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Javascript" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Javascript
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../javascript/ES6%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8/" class="md-nav__link">
+      ES6 迭代器与生成器
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../javascript/ES6-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+      ES6-阮一峰.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../javascript/ES6newFeature/" class="md-nav__link">
+      ES6newFeature.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../javascript/JS%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+      JS 性能优化.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../javascript/es6/" class="md-nav__link">
+      es6.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../javascript/%E5%B8%B8%E7%94%A8%E5%88%B0%E7%9A%84ES6%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+      常用到的ES6语法.md
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    <label class="md-nav__link" for="nav-4">
+      SQL
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="SQL" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        SQL
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Mac%20pip%20install%20mysql-python%20unsuccessful/" class="md-nav__link">
+      Mac pip install mysql-python unsuccessful
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Mac%E5%AE%89%E8%A3%85MySQLdb%EF%BC%88python-mysql%EF%BC%89%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+      Mac安装MySQLdb（python-mysql）模块
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Python%E6%93%8D%E4%BD%9C%20MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+      Python操作 MySQL数据库
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../SQLite-API-Python/" class="md-nav__link">
+      SQLite-API-Python
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../%E6%B7%B1%E5%85%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+      深入MySQL数据库
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        阿里云MySQL入门
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      阿里云MySQL入门
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#01" class="md-nav__link">
+    01 简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#02" class="md-nav__link">
+    02 安装
+  </a>
+  
+    <nav class="md-nav" aria-label="02 安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    windows 安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    linux 安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mac" class="md-nav__link">
+    Mac 安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#03" class="md-nav__link">
+    03 配置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#04" class="md-nav__link">
+    04 数据库操作
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#05" class="md-nav__link">
+    05 数据类型
+  </a>
+  
+    <nav class="md-nav" aria-label="05 数据类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    文本类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    日期类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    数值类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#06-table" class="md-nav__link">
+    06 数据表操作（table）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#07" class="md-nav__link">
+    07 列操作
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#08" class="md-nav__link">
+    08 表数据操作
+  </a>
+  
+    <nav class="md-nav" aria-label="08 表数据操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#insert" class="md-nav__link">
+    insert 插入
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#select" class="md-nav__link">
+    select 查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where" class="md-nav__link">
+    where 筛选
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distinct" class="md-nav__link">
+    distinct 去重
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#order-by" class="md-nav__link">
+    order by 排序
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limit" class="md-nav__link">
+    limit 限制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insert-select" class="md-nav__link">
+    组合使用 insert select
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    update 更新
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where_1" class="md-nav__link">
+    where 高级用法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+      数据库概念
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+    <label class="md-nav__link" for="nav-5">
+      python
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="python" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        python
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/ERROR%20No%20matching%20distribution%20found%20for%20Django%3D%3D3.0.2%20%28from%20-r%20requirements.txt%20%28line%204%29%29/" class="md-nav__link">
+      ERROR No matching distribution found for Django==3.0.2 (from -r requirements.txt (line 4)).md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/django-basic/" class="md-nav__link">
+      django-basic.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/django/" class="md-nav__link">
+      django.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/falsk%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/" class="md-nav__link">
+      flask快速开始.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/flask%20%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82/" class="md-nav__link">
+      flask 网易云课堂.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/%E5%AE%89%E8%A3%85pandas%E6%97%B6%E5%87%BA%E7%8E%B0%E7%8E%AF%E5%A2%83%E9%94%99%E8%AF%AF/" class="md-nav__link">
+      安装pandas时出现环境错误.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/%E6%90%AD%E5%BB%BApython3%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="md-nav__link">
+      搭建python3开发环境.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../python/%E3%80%90%E8%A7%A3%E5%86%B3%E3%80%91ValueError%20Length%20mismatch%20Expected%20axis%20has%200%20elements%2C%20new%20values%20have%202%20elements/" class="md-nav__link">
+      ValueError Length mismatch Expected axis has 0 elements, new values have 2 elements.md
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+    <label class="md-nav__link" for="nav-6">
+      typescript
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="typescript" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon"></span>
+        typescript
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../typescript/01-%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+      01-简介.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../typescript/02-%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+      02-基础.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../typescript/03-%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+      03-进阶.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../typescript/04-%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%BC%80%E5%8F%91-%E6%B5%8B%E8%AF%95%E7%BC%96%E8%AF%91/" class="md-nav__link">
+      04-工程化开发-测试编译.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../typescript/%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82TS%E5%85%A5%E9%97%A8/" class="md-nav__link">
+      网易云课堂TS入门.md
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" >
+    <label class="md-nav__link" for="nav-7">
+      react
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="react" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon"></span>
+        react
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7-1" type="checkbox" id="nav-7-1" >
+    <label class="md-nav__link" for="nav-7-1">
+      basic
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="basic" data-md-level="2">
+      <label class="md-nav__title" for="nav-7-1">
+        <span class="md-nav__icon md-icon"></span>
+        basic
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React%20FAQ/" class="md-nav__link">
+      React FAQ.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React%20PureComponent%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="md-nav__link">
+      React PureComponent 使用指南.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React%20%E7%9A%84%20PureComponent%20%E4%B8%8E%20Component/" class="md-nav__link">
+      React 的 PureComponent 与 Component.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React%20%E5%90%84%E7%A7%8Dbug%20%E4%BC%9A%E5%AE%9E%E6%97%B6%E6%9B%B4%E6%96%B0/" class="md-nav__link">
+      React 各种bug 会实时更新.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React%20%E6%93%8D%E4%BD%9C%E5%85%83%E7%B4%A0%E7%9A%84API/" class="md-nav__link">
+      React 操作元素的API.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React%E6%96%B0%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F--getDerivedStateFromProps/" class="md-nav__link">
+      React新生命周期--getDerivedStateFromProps.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React%E4%B8%AD%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/" class="md-nav__link">
+      React中数据传输.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%B5%81%E7%A8%8B%E5%9B%BE/" class="md-nav__link">
+      React生命周期流程图.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/Refs%20%26%20DOM/" class="md-nav__link">
+      Refs & DOM.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/getDerivedStateFromProps%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+      getDerivedStateFromProps的使用.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/react%20%E4%B8%AD%E9%80%9A%E8%BF%87ref%E8%8E%B7%E5%8F%96%E9%AB%98%E9%98%B6%EF%BC%88HOC%EF%BC%89%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="md-nav__link">
+      react 中通过ref获取高阶（HOC）子组件实例的解决方案.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8A%E7%AF%87%EF%BC%88%E9%A6%96%E6%AC%A1%E6%B8%B2%E6%9F%93%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+      reactjs源码分析-上篇（首次渲染实现原理）.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8B%E7%AF%87%EF%BC%88%E6%9B%B4%E6%96%B0%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+      reactjs源码分析-下篇（更新机制实现原理）.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/%E5%AF%B9React%20children%E7%90%86%E8%A7%A3/" class="md-nav__link">
+      对React children理解.md
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7-2" type="checkbox" id="nav-7-2" >
+    <label class="md-nav__link" for="nav-7-2">
+      advance
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="advance" data-md-level="2">
+      <label class="md-nav__title" for="nav-7-2">
+        <span class="md-nav__icon md-icon"></span>
+        advance
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React%20%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+      React 高阶组件.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React%20%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/" class="md-nav__link">
+      React 中的事件处理.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React-advanced-guides/" class="md-nav__link">
+      React-advanced-guides.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/react%20%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" class="md-nav__link">
+      react 项目结构及编码规范.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React-%E9%AB%98%E9%98%B6API/" class="md-nav__link">
+      React-高阶API.md
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7-3" type="checkbox" id="nav-7-3" >
+    <label class="md-nav__link" for="nav-7-3">
+      性能优化
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="性能优化" data-md-level="2">
+      <label class="md-nav__title" for="nav-7-3">
+        <span class="md-nav__icon md-icon"></span>
+        性能优化
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React%20%E5%BC%BA%E5%88%B6%E6%9B%B4%E6%96%B0%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+      React 强制更新组件.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React-Design%20Principles/" class="md-nav__link">
+      React-Design Principles.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React-Hooks/" class="md-nav__link">
+      React-Hooks.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React-Suspense%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%8E%A2%E8%AE%A8-%E6%B2%A1%E7%9C%8B%E6%98%8E%E7%99%BD/" class="md-nav__link">
+      React-Suspense的实现与探讨-没看明白.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+      React-性能优化.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React.Children%E7%9A%84API/" class="md-nav__link">
+      React.Children的API.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React.Component/" class="md-nav__link">
+      React.Component.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React.children%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+      React.children介绍.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+      React事件.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React%E6%95%B0%E6%8D%AE%E6%B5%81/" class="md-nav__link">
+      React数据流.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../react/React%E8%8E%B7%E5%8F%96%E5%B0%BA%E5%AF%B8/" class="md-nav__link">
+      React获取尺寸.md
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../.." class="md-nav__link">
+      
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" >
+    <label class="md-nav__link" for="nav-8">
+      About
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="About" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon"></span>
+        About
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../about/" class="md-nav__link">
+      关于我
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#01" class="md-nav__link">
+    01 简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#02" class="md-nav__link">
+    02 安装
+  </a>
+  
+    <nav class="md-nav" aria-label="02 安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    windows 安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    linux 安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mac" class="md-nav__link">
+    Mac 安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#03" class="md-nav__link">
+    03 配置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#04" class="md-nav__link">
+    04 数据库操作
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#05" class="md-nav__link">
+    05 数据类型
+  </a>
+  
+    <nav class="md-nav" aria-label="05 数据类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    文本类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    日期类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    数值类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#06-table" class="md-nav__link">
+    06 数据表操作（table）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#07" class="md-nav__link">
+    07 列操作
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#08" class="md-nav__link">
+    08 表数据操作
+  </a>
+  
+    <nav class="md-nav" aria-label="08 表数据操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#insert" class="md-nav__link">
+    insert 插入
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#select" class="md-nav__link">
+    select 查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where" class="md-nav__link">
+    where 筛选
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distinct" class="md-nav__link">
+    distinct 去重
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#order-by" class="md-nav__link">
+    order by 排序
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limit" class="md-nav__link">
+    limit 限制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insert-select" class="md-nav__link">
+    组合使用 insert select
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    update 更新
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where_1" class="md-nav__link">
+    where 高级用法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="mysql">MySQL 数据库入门学习</h1>
+<p>阿里云大学 链接地址：https://edu.aliyun.com/course/153/lesson/list</p>
+<p>mysql 数据库的简单介绍，安装配置MYSQL，基本的SQL命令。</p>
+<h2 id="01">01 简介</h2>
+<p>SQL：一种编程语言，strcutured query language 结构化的查询语言，主要用于数据库中的增删改查</p>
+<pre><code class="language-mysql">select * from tb
+</code></pre>
+<p>MySQL 关系型数据库，是数据库的一种（其他的Oracle）。MYSQL是开源数据库。</p>
+<h2 id="02">02 安装</h2>
+<p>官网：dev.mysql.com/downloads/mysql</p>
+<h3 id="windows">windows 安装</h3>
+<p>在官网下载安装包后，选择默认的developer安装方式进行安装；</p>
+<p>安装过程中如果检测到office中缺少插件，可以不用处理，因为主要在CLI模式下使用MYSQL</p>
+<p>安装中需要设置root用户的密码，其他类型的用户（不添加其他用户）</p>
+<p>按照安装包的流程安装完成后，可以在任务管理器下面看到服务正在运行，需要在cmd下面确认安装.</p>
+<pre><code class="language-bash">mysql -u root -p
+# -u 表示用户 -p 表示需要密码
+</code></pre>
+<h3 id="linux">linux 安装</h3>
+<pre><code class="language-bash">sudo yum install mysql mysql-server
+sudo apt-get install mysql mysql-server (ubuntu)
+mysqladmin -u root -p password 'root'
+# 设置新密码是root
+</code></pre>
+<h3 id="mac">Mac 安装</h3>
+<p>安装包的格式是 dmg 安装完毕后需要设置root密码</p>
+<pre><code class="language-bash">/usr/local/mysql/bin/mysqladmin -u root -p password root
+# 安装测试成功，密码和开机密码一致
+
+/usr/local/mysql/bin/mysql -u root -p
+# 打开mysql的密码是 root
+</code></pre>
+<p>开启或者关闭服务有两种方法</p>
+<p>CLI</p>
+<p>sudo /Library/StartupItems/MySQLCOM/MYSQLCOM start | stop | restart</p>
+<p>GUI</p>
+<p>系统配置 - MYSQL - stop |start</p>
+<p>==注意==：安装过程中，会选择强密码或者是弱密码。现在本地测试使用弱密码。密码最少是8位，这里设置12345678 作为root的密码。 现在密码是 root </p>
+<p>==注意2==：</p>
+<p>如果mysql已经运行，但是输入 mysql 显示命令不存在：遇上-bash: mysql: command not found的情况别着急</p>
+<p>这个是因为/usr/local/bin目录下缺失mysql导致，只需要一下方法建立软链接，即可以解决：
+把mysql安装目录，比如MYSQLPATH/bin/mysql，映射到/usr/local/bin目录下： </p>
+<p># cd /usr/local/bin
+# ln -fs /MYSQLPATH/bin/mysql mysql</p>
+<p>还有其它常用命令mysqladmin、mysqldump等不可用时候都可按用此方法解决。
+注：其中MYSQLPATH是mysql的实际安装路径（MAC 默认路径 /usr/local/mysql/bin/mysql）</p>
+<p>原文链接：https://www.cnblogs.com/yang1314/p/9288767.html</p>
+<h2 id="03">03 配置</h2>
+<p>MYSQL 的配置文件是一个文本文件 my.cof</p>
+<p>Mac 的文件路径是 /usr/local/mysql/my.cof 默认的配置文件是空的</p>
+<p>可以配置字符集，缓存大小等</p>
+<pre><code class="language-txt">[client]
+default-character-set=utf8
+# 添加字符集，避免乱码
+
+[mysqld]
+character-set-server=utf8
+default-storage-engine=INNODB
+# 默认存储引擎 INNODB
+</code></pre>
+<p>修改配置后，需要重启 mysql (或者在设置中重启)</p>
+<pre><code class="language-bash">sudo /Library/StartupItems/MySQLCOM/MYSQLCOM restart
+</code></pre>
+<p>自己配置的问题：使用vim编辑器保存的时候，不能保存配置；使用sudo也不行</p>
+<p>"/usr/local/mysql-8.0.18-macos10.14-x86_64/my.cof" E212: Can't open file for writing</p>
+<p>Warning: Changing a readonly file</p>
+<h2 id="04">04 数据库操作</h2>
+<pre><code class="language-mysql">show databases;
+create database gc;
+drop database gc;
+</code></pre>
+<p>不同数据库的数据是不会干扰的。数据库是数据库软件中基本的单位</p>
+<h2 id="05">05 数据类型</h2>
+<p>database 包括 tables 表中每一行就是一条数据；列就是不同的字段，不同的字段对应不同的数据类型和数据结构（例如ID是自增长的整形，Name是长字符串），是否有默认值等。下面是常见的数据类型。根据实际业务逻辑使用不同的数据类型。</p>
+<h4 id="_1">文本类</h4>
+<p>VARCHAR(size) 长度小于255的可变长度字符串：varchar 长度小于65535字符（通常文本足够使用），长度可以改变（mqsql 5.0.3 之前表示65535字节），查询速度中等</p>
+<p>TEXT 长度中等的字符串，text 字符串长度不受限制，查询速度最慢，通常优先使用varchar</p>
+<p>LONGTEXT 长度很长的字符串</p>
+<p>CHAR：char 表示传统的字符串，字符串的长度小于255字符，长度固定，适用于较短固定长度的数据（身份证号和电话号），查询表速度最快</p>
+<p>Foreign key 外键</p>
+<p>primary key 主键</p>
+<p>在mysql中，如果把表的主键设为auto_increment类型，数据库就会自动为主键赋值。</p>
+<h4 id="_2">日期类</h4>
+<p>DATETIME 年月日时分秒</p>
+<h4 id="_3">数值类</h4>
+<p>TINYINT -128~127 或者存储布尔值</p>
+<p>INT 小数字</p>
+<p>BIGINT 大数字（ID，自增长）</p>
+<p>DOUBLE 浮点型（不使用FLOAT）</p>
+<h2 id="06-table">06 数据表操作（table）</h2>
+<pre><code class="language-mysql">CREATE TABLE account(
+  id bigint(20),
+  createTime datetime,
+  ip varchar(255),
+  mobile varchar(255),
+  name varchar(255),
+  brief text,
+  comments text,
+  location varchar(255),
+  qq varchar(255),
+  gender int(11),
+  city varchar(255),
+  province varchar(255)
+);
+
+drop table account;
+
+describe account;
+# 查看当前的表的内部结构
+
+create database Michael;
+use Michael;
+show tables;
+CREATE TABLE gc(...);
+describe gc;
+drop table gc;
+</code></pre>
+<p>表重命名</p>
+<pre><code class="language-mysql">alter table 表名 rename 新表名
+</code></pre>
+<h2 id="07">07 列操作</h2>
+<p>增加删除表的列</p>
+<pre><code class="language-mysql">alter table 表名 add 新列名 列数据类型 not null default 1;
+# 后面的 not null default 1 是可选参数
+alter table 表名 drop 已有列名;
+</code></pre>
+<p>修改列名或者数据类型: 可以单独修改列名后者数据类型，可以一起修改列名和数据类型</p>
+<pre><code class="language-mysql">alter table 表名 change 旧列名 新列名 新的数据类型
+</code></pre>
+<h2 id="08">08 表数据操作</h2>
+<h4 id="insert">insert 插入</h4>
+<p>增加（插入）表数据</p>
+<pre><code class="language-mysql">insert into 表名 values(key1, key2, key3...)
+insert into tableName (column1, column2) values(key1, key2)
+</code></pre>
+<h4 id="select">select 查询</h4>
+<p>查询表数据</p>
+<pre><code class="language-mysql">select * from 表名
+select 列名1, 列名2 from 表名
+</code></pre>
+<h4 id="where">where 筛选</h4>
+<pre><code class="language-mysql">select * from tableName where title = 't';
+# 查询条件可以是大于小于等于不等于，或者between范围
+# 可以通过 and or 进行多元选择，括号增加优先级
+# 注意：判断相等是 = 不是两个等号
+select * from gc where name = 'Michael' and (id = 20 or id = 22);
+</code></pre>
+<p>判断 null 是特殊的，需要通过 is  is not 判断，不能通过 = != 判断</p>
+<pre><code class="language-mysql">select * from gc where email is null and name is not null;
+</code></pre>
+<h4 id="distinct">distinct 去重</h4>
+<p>如果筛选过程中有重复的数据，那么可以加上关键字 distinct 去除重复的行。下面的查询结果中，如果name和age相同的数据有多行，那么结果中只显示一行</p>
+<pre><code class="language-mysql">select distinct name,age from gc;
+</code></pre>
+<h4 id="order-by">order by 排序</h4>
+<p>升序或者降序</p>
+<pre><code class="language-mysql"># 查询结果排序(升序或者降序) order by columnName desc/asc
+select * from gc order by id asc;
+# 将查询的结果按照ID升序的情况进行排序
+select * from gc order by age asc, name desc;
+</code></pre>
+<h4 id="limit">limit 限制</h4>
+<p>使用 limit 截取查询结果（类似于splice函数）limit 第一个参数是开始的位置（默认是0，可以不选），第二个参数是截取的数量。</p>
+<pre><code class="language-mysql">select * from gc [where name is not null] [order by id asc] limit 5;
+select * from gc [where name is not null] [order by id asc] limit 3, 5;
+# 中括号内部是可选参数（order必须在where后面）
+# 第一句：在获取的结果中，截取前五条记录（index = 0 到 index = 4）
+# 第二句：limit 从index=3 开始截取，截取5条记录
+</code></pre>
+<h4 id="insert-select">组合使用 insert select</h4>
+<p>可以在一个表中查询数据，select * from table， 然后把查询的结果插入到另一个表中（数据迁移会用到）</p>
+<pre><code class="language-mysql">insert into account values(10);
+insert into account select name, age from oldAccount;
+</code></pre>
+<h4 id="update">update 更新</h4>
+<p>update tableName set columnName = newValue where XXX</p>
+<p>如果使用where添加，那么修改满足条件的部分；否则修改整列的数据；</p>
+<pre><code class="language-mysql">update account set name = 'Tom', email = '123@qq.com' where id = 1;
+</code></pre>
+<h4 id="where_1">where 高级用法</h4>
+<p>in 字符串范围（离散值）</p>
+<pre><code class="language-mysql">select * from account where id in (value1, value2...);
+select * from account where id in (select id from oldAccount where id  &lt; 10);
+</code></pre>
+<p>从一个集合中选择另一个集合（选择的可以使字符串范围，是数值范围的扩大）</p>
+<p>between 数值范围（连续）</p>
+<pre><code class="language-mysql">select * from account where id between 5 and 10;
+# 这里的选择是[5, 10]
+select * from account where id not between 5 and 10;
+
+# Like 字符串的模糊匹配
+select * from account where name like '%ab%';
+</code></pre>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../%E6%B7%B1%E5%85%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                深入MySQL数据库
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                数据库概念
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; TEST
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.fd16492e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.7836ba4d.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
