@@ -142,45 +142,6 @@ module.exports = router.routes();
 
 admin.ejs
 
-~~~ejs
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-  <script src="./js/jquery.min.js"></script>
-</head>
-<body>
-  <p>
-    用户名：<input type="text"/>
-  </p>
-  <p>
-    密码：<input type="password" name="password"/>
-  </p>
-  <button type="submit">提交</button>
-  <script>
-  	$(function() {
-      $('button').click(function() {
-        var username = $(':text').val();
-        var password = $('password').val();
-        $.ajax({
-          url: '/admin/login',
-          method: 'post',
-          data: {
-            username,
-            password
-          },
-          success(data) {
-            console.log(data);
-          }
-        });
-      });
-    });
-  </script>
-</body>
-</html>
-~~~
-
 现在 dtable-server 就相当于中间件，基于express框架，把这部分的代码写三次。
 
 Query.js

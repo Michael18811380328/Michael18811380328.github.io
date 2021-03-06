@@ -229,33 +229,6 @@ app.listen(3000);
 
 模板 /template/index.ejs 这个属于非侵入式框架
 
-~~~ejs
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>{%=title%}</title>
-</head>
-<body>
-  <ul>
-    <%list.forEach((item) => {%>
-    	<li>
-        <span>{%=item.name%}{%=item.age%}</span>
-    	</li>
-    <%})%>
-  </ul>
-  <script>
-    // 直接在JS部分使用参数
-    window.onload = function() {
-      alert('<%=title%>');
-    }
-  </script>
-</body>
-</html>
-~~~
-
 开启项目后打开浏览器 localhost:3000 即可显示
 
 ~~~bash
