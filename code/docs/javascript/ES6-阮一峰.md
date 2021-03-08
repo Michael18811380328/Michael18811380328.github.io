@@ -119,14 +119,13 @@ console.log(arr2);  // 12  5
 console.log(arr);   // 12  5  8
 ```
 
-
-
 **附加：Array.from用法**
 
 **Array.from(arr, [mapfn], [thisArg])**
-arr：伪数组或者可以遍历的对象(具有length属性)。length绝对够数组会转化成什么样。from会根据length属性创建新的数组。
-mapFn：类似于array.map方法，对数组元素进行操作后返回数组
-thisArg: 对于this关键字的指向。
+arr：伪数组或者可以遍历的对象(具有length属性)。
+length 决定数组会转化成什么样。from会根据 length 属性创建新的数组。
+mapFn：类似于 array.map 方法，对数组元素进行操作后返回数组
+thisArg: 对于 this 关键字的指向。
 
 **用途**
 
