@@ -1,0 +1,1522 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/react/getDerivedStateFromProps%E7%9A%84%E4%BD%BF%E7%94%A8/">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>React16新的getDerivedStateFromProps的使用 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#react16getderivedstatefromprops" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              React16新的getDerivedStateFromProps的使用
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        介绍
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+      
+      <label class="md-nav__link" for="nav-2">
+        NodeJS
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="NodeJS" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          NodeJS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1" >
+      
+      <label class="md-nav__link" for="nav-2-1">
+        基础
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="基础" data-md-level="2">
+        <label class="md-nav__title" for="nav-2-1">
+          <span class="md-nav__icon md-icon"></span>
+          基础
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/01-Node.js%20%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        01-Node.js 教程.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/02-Node.js%20%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="md-nav__link">
+        02-Node.js 安装配置.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/03-Node.js%20%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        03-Node.js 创建第一个应用.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/05-Node.js%20REPL%28%E4%BA%A4%E4%BA%92%E5%BC%8F%E8%A7%A3%E9%87%8A%E5%99%A8%29/" class="md-nav__link">
+        05-Node.js REPL(交互式解释器).md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/06-Node.js%20%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        06-Node.js 回调函数.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/07-Node.js%20%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" class="md-nav__link">
+        07-Node.js 事件循环.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/08-Node.js%20EventEmitter/" class="md-nav__link">
+        08-Node.js EventEmitter.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/09-Node.js%20Buffer%28%E7%BC%93%E5%86%B2%E5%8C%BA%29/" class="md-nav__link">
+        09-Node.js Buffer(缓冲区).md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/10-Node.js%20Stream%28%E6%B5%81%29/" class="md-nav__link">
+        10-Node.js Stream(流).md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/11-Node.js%E6%A8%A1%E5%9D%97%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        11-Node.js模块系统.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/12-Node.js%20%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        12-Node.js 函数.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/13-Node.js%20%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        13-Node.js 路由.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/14-Node.js%20%E5%85%A8%E5%B1%80%E5%AF%B9%E8%B1%A1/" class="md-nav__link">
+        14-Node.js 全局对象.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/15-Node.js%20%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        15-Node.js 常用工具.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/16-Node.js%20%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        16-Node.js 文件系统.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/17-Node.js%20GETPOST%E8%AF%B7%E6%B1%82/" class="md-nav__link">
+        17-Node.js GETPOST请求.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/18-Node.js%20%E5%B7%A5%E5%85%B7%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        18-Node.js 工具模块.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/19-Node.js%20Web%20%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        19-Node.js Web 模块.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/20-Node.js%20Express%20%E6%A1%86%E6%9E%B6/" class="md-nav__link">
+        20-Node.js Express 框架.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/21-Node.js%20RESTful%20API/" class="md-nav__link">
+        21-Node.js RESTful API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/22-Node.js%20%E5%A4%9A%E8%BF%9B%E7%A8%8B/" class="md-nav__link">
+        22-Node.js 多进程.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/23-Node.js%20JXcore%20%E6%89%93%E5%8C%85/" class="md-nav__link">
+        23-Node.js JXcore 打包.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/24-Node.js%20%E8%BF%9E%E6%8E%A5%20MySQL/" class="md-nav__link">
+        24-Node.js 连接 MySQL.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/25-Node.js%20%E8%BF%9E%E6%8E%A5%20MongoDB/" class="md-nav__link">
+        25-Node.js 连接 MongoDB.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2" >
+      
+      <label class="md-nav__link" for="nav-2-2">
+        高级
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="高级" data-md-level="2">
+        <label class="md-nav__title" for="nav-2-2">
+          <span class="md-nav__icon md-icon"></span>
+          高级
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node%20%E4%B8%8B%20LDAP%20%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        Node 下 LDAP 实现.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js-fs%E6%96%87%E6%A1%A3/" class="md-nav__link">
+        Node.js-fs文档.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js-path/" class="md-nav__link">
+        Node.js-path.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F/" class="md-nav__link">
+        Node.js-全局变量.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js%E4%BD%BF%E7%94%A8Nodemailer%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" class="md-nav__link">
+        Node.js使用 Nodemailer 发送邮件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/NodeJS/" class="md-nav__link">
+        NodeJS.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/node-debug/" class="md-nav__link">
+        node-debug.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/nodeJS%20%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        nodeJS 基础教程.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/nodeJS%2Bmysql%2B%E8%BF%9E%E6%8E%A5%E6%B1%A0/" class="md-nav__link">
+        nodeJS+mysql+连接池.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/nodejs%20api%E5%AD%A6%E4%B9%A0%EF%BC%9Afs.createReadStreame%28%29/" class="md-nav__link">
+        nodejs api学习：fs.createReadStreame().md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/node%E5%AE%9A%E6%97%B6%E5%99%A8/" class="md-nav__link">
+        node定时器.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E4%BD%BF%E7%94%A8nodejs%E8%BF%9E%E6%8E%A5mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" class="md-nav__link">
+        使用nodejs连接mysql数据库实现增删改查.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E5%BB%96%E9%9B%AA%E5%B3%B0%20NodeJS/" class="md-nav__link">
+        廖雪峰 NodeJS.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84nodeJS/" class="md-nav__link">
+        命令行的nodeJS.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
+        SQL
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="SQL" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          SQL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/%E9%98%BF%E9%87%8C%E4%BA%91MySQL%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        阿里云MySQL入门
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        数据库概念
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/%E6%B7%B1%E5%85%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        深入MySQL数据库
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/Mac%20pip%20install%20mysql-python%20unsuccessful/" class="md-nav__link">
+        Mac pip install mysql-python unsuccessful
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/Mac%E5%AE%89%E8%A3%85MySQLdb%EF%BC%88python-mysql%EF%BC%89%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        Mac 安装 MySQLdb（python-mysql）模块
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/Python%E6%93%8D%E4%BD%9C%20MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        Python 操作 MySQL数据库
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/SQLite-API-Python/" class="md-nav__link">
+        SQLite-API-Python
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
+        python
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="python" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/django-basic/" class="md-nav__link">
+        django-basic
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/django/" class="md-nav__link">
+        django
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/falsk%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/" class="md-nav__link">
+        flask快速开始
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/flask%20%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82/" class="md-nav__link">
+        flask 网易云课堂
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/%E5%AE%89%E8%A3%85pandas%E6%97%B6%E5%87%BA%E7%8E%B0%E7%8E%AF%E5%A2%83%E9%94%99%E8%AF%AF/" class="md-nav__link">
+        安装pandas时出现环境错误
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/%E6%90%AD%E5%BB%BApython3%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="md-nav__link">
+        搭建python3开发环境
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/%E3%80%90%E8%A7%A3%E5%86%B3%E3%80%91ValueError%20Length%20mismatch%20Expected%20axis%20has%200%20elements%2C%20new%20values%20have%202%20elements/" class="md-nav__link">
+        ValueError Length mismatch Expected axis has 0 elements, new values have 2 elements
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/ERROR%20No%20matching%20distribution%20found%20for%20Django%3D%3D3.0.2%20%28from%20-r%20requirements.txt%20%28line%204%29%29/" class="md-nav__link">
+        ERROR No matching distribution found for Django==3.0.2 (from -r requirements.txt (line 4))
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+      
+      <label class="md-nav__link" for="nav-5">
+        About
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="nav-5">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        关于我
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/log/" class="md-nav__link">
+        学习日志
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    何时使用派生状态
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug" class="md-nav__link">
+    使用派生状态遇到的常见bug
+  </a>
+  
+    <nav class="md-nav" aria-label="使用派生状态遇到的常见bug">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#propsstate" class="md-nav__link">
+    反模式：无条件得使用props对state赋值
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#propsstate_1" class="md-nav__link">
+    反模式：当props改变时清除state
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    首选方案
+  </a>
+  
+    <nav class="md-nav" aria-label="首选方案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    推荐: 完全受控组件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key" class="md-nav__link">
+    推荐: 有"key"的完全非受控组件
+  </a>
+  
+    <nav class="md-nav" aria-label="推荐: 有"key"的完全非受控组件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-id" class="md-nav__link">
+    备选 1: 通过ID属性重置非受控组件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    备选 2: 通过实例方法重置非受控组件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    回顾
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memoization" class="md-nav__link">
+    什么是memoization?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    最后
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/react/getDerivedStateFromProps的使用.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="react16getderivedstatefromprops">React16新的getDerivedStateFromProps的使用<a class="headerlink" href="#react16getderivedstatefromprops" title="Permanent link">&para;</a></h1>
+<p>在很长一段时间内，<code>componentWillReceiveProps</code>是在没有附加渲染的情况下更新状态的唯一方法。在版本16.3中，我们引入了一个全新的生命周期函数——<code>getDerivedStateFromProps</code>——用来替换<code>componentWillReceiveProps</code>，并用更安全的方式处理相同的场景。与此同时，我们意识到人们对如何使用这两种方法有很多误解，我们发现了一些反模式，这些错误导致了微妙而令人困惑的bug。在16.4中，有关<code>getDerivedStateFromProps</code>的修复使得派生状态更加可预测，因此错误使用的结果更容易被注意到。</p>
+<blockquote>
+<p>注意</p>
+<p>这篇文章中描述的所有反模式都适用于较老的<code>componentWillReceiveProps</code>和较新的<code>getDerivedStateFromProps</code>.</p>
+</blockquote>
+<p>这篇博客文章将介绍以下主题：</p>
+<ul>
+<li><a href="https://blog.csdn.net/nnxxyy1111/article/details/80832525#何时使用派生状态">何时使用派生状态</a></li>
+<li>使用派生类遇到的常见bug</li>
+<li><a href="https://blog.csdn.net/nnxxyy1111/article/details/80832525#反模式：无条件得使用props对state赋值">反模式：无条件得使用props对state赋值</a></li>
+<li><a href="https://blog.csdn.net/nnxxyy1111/article/details/80832525#反模式：当props改变时清除state">反模式：当props改变时清除state</a></li>
+<li><a href="https://blog.csdn.net/nnxxyy1111/article/details/80832525#首选方案">首选方案</a></li>
+<li><a href="https://blog.csdn.net/nnxxyy1111/article/details/80832525#什么是memoization">什么是memoization?</a></li>
+</ul>
+<h2 id="_1">何时使用派生状态<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><code>getDerivedStateFromProps</code>的存在只有一个目的。它使组件能够根据**changes in props**的结果更新其内部状态。</p>
+<p>根据一般规则——<strong>谨慎使用派生状态</strong>，我们没有提供很多例子。我们所看到的有关派生状态的所有问题最终都可以归结为（1）无条件地更新状态，或者（2）当props和state不匹配时更新state。（我们将在下面详细讨论这两个问题。）</p>
+<h2 id="bug">使用派生状态遇到的常见bug<a class="headerlink" href="#bug" title="Permanent link">&para;</a></h2>
+<p>“受控”和“不受控制”的术语通常指的是表单输入，但他们还可以描述任何组件数据的位置。作为props传递进组件的数据可以被认为是**受控的**（因为父组件控制数据）。只存在于内部状态的数据可以被认为是**不受控制的**（因为父类不能直接更改它）。</p>
+<p>派生状态最常见的错误是混合这两个;当一个派生状态值也通过<code>setState</code>被更新时，数据就没有单一的真实来源。</p>
+<p>当这些约束被改变时，就会出现问题。这通常有两种形式。让我们来看看这两种情况。</p>
+<h3 id="propsstate">反模式：无条件得使用props对state赋值<a class="headerlink" href="#propsstate" title="Permanent link">&para;</a></h3>
+<p>一个常见的误解是，当props“改变”时，<code>getDerivedStateFromProps</code>和<code>componentWillReceiveProps</code>才会被调用。事实上，只要父组件重新渲染，这些生命周期函数就会被调用，不管这些props是否与以前“不同”。正因为如此，使用任何一个去 <em>无条件</em> 地覆盖覆盖state都是不安全的。<strong>这样做会导致状态更新丢失。</strong></p>
+<p>让我们看个例子来说明这个问题。这是一个<code>EmailInput</code>组件，该组件通过props “email” 来映射state “email”：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">EmailInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> 
+    <span class="nx">email</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">email</span> 
+  <span class="p">};</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">}</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">email</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleChange</span> <span class="o">=</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">email</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span> <span class="p">});</span>
+  <span class="p">};</span>
+
+  <span class="nx">componentWillReceiveProps</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// This will erase any local state updates!</span>
+    <span class="c1">// Do not do this.</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">email</span><span class="o">:</span> <span class="nx">nextProps</span><span class="p">.</span><span class="nx">email</span> <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这个组件可能看起来不错。state被初始化为由props指定的值，并且在输入<code>时实时更新state。但是，如果我们的组件的父类重新渲染，我们在</code>输入的任何东西都将丢失！（<a href="https://codesandbox.io/s/m3w9zn1z8x">参见这个演示示例。</a>）即使我们在重置之前比较<code>nextProps.email !== this.state.email</code>，也一样。</p>
+<p>在这个简单的例子中，为了解决这个问题，必须通过添加<code>shouldComponentUpdate</code>，并判断只有prop email发生改变时才重新渲染。然而在实际情况中，组件通常接受多个prop;任何一个prop发生改变都会导致重新运行和不正确的重置。而且对于Function和object类型的prop，<code>shouldComponentUpdate</code>很难判断是否发生了实质性的变化。<a href="https://codesandbox.io/s/jl0w6r9w59">这里有一个演示</a>，<code>shouldComponentUpdate</code>最好作为性能优化使用，而不是为了确保派生状态的正确性。</p>
+<p>希望你现在可以清楚地知道为什么**无条件得使用props对state赋值是一个坏主意**。在回顾可能的解决方案之前，让我们看看一个于此相关的另外一个问题模式：如果我们只在属性email改变时更新状态会怎样？</p>
+<h3 id="propsstate_1">反模式：当props改变时清除state<a class="headerlink" href="#propsstate_1" title="Permanent link">&para;</a></h3>
+<p>继续上边的例子，我们判断只有当<code>props.email</code>发生改变时才去执行更新，以此来避免状态被清除：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">EmailInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">email</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">email</span>
+  <span class="p">};</span>
+
+  <span class="nx">componentWillReceiveProps</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Any time props.email changes, update state.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">nextProps</span><span class="p">.</span><span class="nx">email</span> <span class="o">!==</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">email</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+        <span class="nx">email</span><span class="o">:</span> <span class="nx">nextProps</span><span class="p">.</span><span class="nx">email</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<blockquote>
+<p>注意</p>
+<p>尽管上面的示例显示了<code>componentWillReceiveProps</code>，但同样的反模式也适用于<code>getDerivedStateFromProps</code></p>
+</blockquote>
+<p>我们刚刚取得了很大的进步。现在，只有当props真正改变的时候,组件才会擦除我们输入的内容。</p>
+<p>现在出现了一个微妙的问题。想象一个使用上述输入组件的密码管理器应用程序。当使用相同的电子邮件在两个帐户的详细信息之间导航时，输入将无法重置。这是因为传递给组件的属性值对于两个帐户都是相同的！这对用户来说是一个惊喜，因为一个账户的未保存的变更似乎会影响到其他的帐户，这些帐户碰巧共享相同的电子邮件。</p>
+<p>这种设计从根本上来说是有缺陷的，但这却是一个极易犯的错误。幸运的是，有两种替代方案可以更好地工作。两种方案的关键在于——对于任何数据，您都需要确保只有一个组件作为实际的来源，并避免在其他组件中复制它。现在来看一下这两种方案。</p>
+<h2 id="_2">首选方案<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">推荐: 完全受控组件<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>避免上面提到的问题的一种方法是彻底从组件中删除状态。如果"邮件地址"只是作为属性存在，那么我们就不必担心与状态的冲突。我们甚至可以把<code>EmailInput</code>转换成轻量的函数组件：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">EmailInput</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">onChange</span><span class="p">}</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">email</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="mf">123</span>
+</code></pre></div>
+<p>这种方法简化了组件的实现，但是如果我们仍然想要储存一个中间值（draft value），那么父表单组件现在就只能手动完成这件事。</p>
+<h3 id="key">推荐: 有"key"的完全非受控组件<a class="headerlink" href="#key" title="Permanent link">&para;</a></h3>
+<p>另一种方案是，让组件完全拥有中间的email状态（draft email state）。在这个示例中，我们的组件仍然接收一个属性用来设置email的初始值，但是却无法接收这个属性之后的变化：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">EmailInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">email</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">defaultEmail</span> <span class="p">};</span>
+
+  <span class="nx">handleChange</span> <span class="o">=</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">email</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span> <span class="p">});</span>
+  <span class="p">};</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">}</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">email</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>为了在移动到另一项（如密码管理器场景）时可以重新赋值，我们可以使用“key”这个React的特殊属性。当一个“key”发生变化时，React将创建一个新的组件实例，而不是更新当前的一个实例。“key”通常用于动态列表，但在这里也很有用。在我们的例子中，我们可以使用用户ID在新用户被选中时重新创建"EmailInput"：</p>
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">EmailInput</span>
+  <span class="nx">defaultEmail</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">email</span><span class="p">}</span>
+  <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span>
+<span class="err">/&gt;</span>
+</code></pre></div>
+<p>每当ID改变时，<code>EmailInput</code>将被重新创建，它的状态将被重置为最新的<code>defaultEmail</code>值(<a href="https://codesandbox.io/s/6v1znlxyxn">示例</a>)。使用这种方法，您不需要向每个输入项添加<code>key</code>。把<code>key</code>放在整个表单上可能更有意义。每次改变时，表单中的所有组件都将用一个新初始化的状态重新创建。</p>
+<p>在大多数情况下，这是处理有重置要求的状态的最好方法。</p>
+<blockquote>
+<p>注意</p>
+<p>这看起来似乎会变慢，不过这点性能差异通常情况是无关紧要的（原文：While this may sound slow, the performance difference is usually insignificant）。相反，如果组件具有在更新上运行的重逻辑，则使用“key”甚至可以更快，因为该子树的diff运算被省略了。</p>
+</blockquote>
+<h4 id="1-id">备选 1: 通过ID属性重置非受控组件<a class="headerlink" href="#1-id" title="Permanent link">&para;</a></h4>
+<p>如果<code>key</code>方案由于某些原因不便使用（比如组件的初始化非常昂贵），一个可行但有点麻烦的解决方案是在<code>getDerivedStateFromProps</code>中观察“userID”的变化：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">EmailInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">email</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">defaultEmail</span><span class="p">,</span>
+    <span class="nx">prevPropsUserID</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">userID</span>
+  <span class="p">};</span>
+
+  <span class="k">static</span> <span class="nx">getDerivedStateFromProps</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Any time the current user changes,</span>
+    <span class="c1">// Reset any parts of state that are tied to that user.</span>
+    <span class="c1">// In this simple example, that&#39;s just the email.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">userID</span> <span class="o">!==</span> <span class="nx">state</span><span class="p">.</span><span class="nx">prevPropsUserID</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">prevPropsUserID</span><span class="o">:</span> <span class="nx">props</span><span class="p">.</span><span class="nx">userID</span><span class="p">,</span>
+        <span class="nx">email</span><span class="o">:</span> <span class="nx">props</span><span class="p">.</span><span class="nx">defaultEmail</span>
+      <span class="p">};</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// ...</span>
+<span class="p">}</span>
+<span class="mf">123456789101112131415161718192021</span>
+</code></pre></div>
+<p>这也提供了另一种灵活的处理方案，我们可以有选择的，只重置组件内部的某些状态。(<a href="https://codesandbox.io/s/rjyvp7l3rq">示例</a>)</p>
+<blockquote>
+<p>注意</p>
+<p>虽然上边的示例使用的是<code>getDerivedStateFromProps</code>，对于<code>componentWillReceiveProps</code>也同样有效</p>
+</blockquote>
+<h4 id="2">备选 2: 通过实例方法重置非受控组件<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<p>比较不常见的情况是，您需要重新设置状态，却没有合适的ID作为<code>key</code>。一种解决方案是在每次想要重置的时候，将“key”重置为一个随机值或自动递增的数字。另一种可行的替代方法是公开实例方法，以强制重置内部状态：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">EmailInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">email</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">defaultEmail</span>
+  <span class="p">};</span>
+
+  <span class="nx">resetEmailForNewUser</span><span class="p">(</span><span class="nx">newEmail</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">email</span><span class="o">:</span> <span class="nx">newEmail</span> <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>父级表单组件可以通过ref调用该方法</p>
+<p>在某些情况下，Refs可能会很有用，但一般来说，我们建议您谨慎地使用它们。即使在示例中，这种命令式方法也是不理想的，因为要发生两次渲染。</p>
+<h3 id="_4">回顾<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>回顾一下，在设计组件时，最重要的是决定它的数据是否需要被控制。</p>
+<p>与其尝试在状态中**镜像一个属性值，不如让组件被控制**，并在某些父组件的状态中合并两个不同的值。例如，与其让子组件既接收一个“committed”属性又要维护一个“draft”的状态，不如让父级组件同时管理两个状态——<code>state.committedValue</code>和<code>state.draftValue</code>——直接控制子组件的值。这使得数据流更加清晰和可预测。</p>
+<p>对于**非受控**的组件，如果您试图在某特定的属性（通常是ID）更改时重置状态，那么您有几个选项：</p>
+<ul>
+<li><strong>推荐：如果要重置全部内部状态，使用<code>key</code>特性</strong></li>
+<li>备选 1：只重置某些特定的状态字段，关注特定属性的更改（例如<code>props.userID</code>)。</li>
+<li>备选 2：您还可以考虑使用refs调用一个命令式实例方法。</li>
+</ul>
+<h2 id="memoization">什么是memoization?<a class="headerlink" href="#memoization" title="Permanent link">&para;</a></h2>
+<p>派生状态可用于确保执行<code>render</code>时使用的值仅在输入发生变化时才会重新计算。这种技术被称为<a href="https://en.wikipedia.org/wiki/Memoization">memoization</a>。</p>
+<p>使用派生状态进行记忆并不一定是不好的，但它通常不是最好的解决方案。管理派生状态存在一定的复杂性，并且这种复杂性会随着附加属性而增加。例如，如果我们向组件状态添加第二个派生字段，那么我们的实现将需要分别跟踪两者的更改。</p>
+<p>我们来看一个例子，这个组件带有一个prop（一个项目列表），并呈现与用户输入的搜索查询匹配的项目。 我们可以使用派生状态来存储过滤后的列表：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">Example</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">filterText</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+  <span class="p">};</span>
+
+  <span class="c1">// *******************************************************</span>
+  <span class="c1">// NOTE: this example is NOT the recommended approach.</span>
+  <span class="c1">// See the examples below for our recommendations instead.</span>
+  <span class="c1">// *******************************************************</span>
+
+  <span class="k">static</span> <span class="nx">getDerivedStateFromProps</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span> <span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Re-run the filter whenever the list array or filter text change.</span>
+    <span class="c1">// Note we need to store prevPropsList and prevFilterText to detect changes.</span>
+    <span class="k">if</span> <span class="p">(</span>
+      <span class="nx">props</span><span class="p">.</span><span class="nx">list</span> <span class="o">!==</span> <span class="nx">state</span><span class="p">.</span><span class="nx">prevPropsList</span> <span class="o">||</span>
+      <span class="nx">state</span><span class="p">.</span><span class="nx">prevFilterText</span> <span class="o">!==</span> <span class="nx">state</span><span class="p">.</span><span class="nx">filterText</span>
+    <span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">prevPropsList</span><span class="o">:</span> <span class="nx">props</span><span class="p">.</span><span class="nx">list</span><span class="p">,</span>
+        <span class="nx">prevFilterText</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">filterText</span><span class="p">,</span>
+        <span class="nx">filteredList</span><span class="o">:</span> <span class="nx">props</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">text</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">filterText</span><span class="p">))</span>
+      <span class="p">};</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleChange</span> <span class="o">=</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">filterText</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span> <span class="p">});</span>
+  <span class="p">};</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">Fragment</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">}</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">filterText</span><span class="p">}</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">filteredList</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">text</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/li&gt;)}&lt;/ul&gt;</span>
+      <span class="o">&lt;</span><span class="err">/Fragment&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这个实现避免了不必要的重新计算<code>filteredList</code>。但我们却做很多啰嗦的工作，因为它必须分别跟踪和检测道具和状态的变化，以便正确更新过滤列表。在这个例子中，我们可以通过使用<code>PureComponent</code>并将过滤器操作移动到渲染方法来简化：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// PureComponents only rerender if at least one state or prop value changes.</span>
+<span class="c1">// Change is determined by doing a shallow comparison of state and prop keys.</span>
+<span class="kd">class</span> <span class="nx">Example</span> <span class="k">extends</span> <span class="nx">PureComponent</span> <span class="p">{</span>
+  <span class="c1">// State only needs to hold the current filter text value:</span>
+  <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">filterText</span><span class="o">:</span> <span class="s2">&quot;&quot;</span>
+  <span class="p">};</span>
+
+  <span class="nx">handleChange</span> <span class="o">=</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">filterText</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span> <span class="p">});</span>
+  <span class="p">};</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// The render method on this PureComponent is called only if</span>
+    <span class="c1">// props.list or state.filterText has changed.</span>
+    <span class="kd">const</span> <span class="nx">filteredList</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span>
+      <span class="nx">item</span> <span class="p">=&gt;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">text</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">filterText</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">Fragment</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">}</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">filterText</span><span class="p">}</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">filteredList</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">text</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/li&gt;)}&lt;/ul&gt;</span>
+      <span class="o">&lt;</span><span class="err">/Fragment&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面的方法比派生状态版本更清洁和简单。 但是有时，这样并不好——对于大型列表，过滤可能会很慢，如果另一个属性改变，“PureComponent”不会阻止重新渲染。 为了解决这两个问题，我们可以添加一个记忆帮助器，以避免不必要地重新过滤我们的列表：</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nx">memoize</span> <span class="nx">from</span> <span class="s2">&quot;memoize-one&quot;</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">Example</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+  <span class="c1">// State only needs to hold the current filter text value:</span>
+  <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">filterText</span><span class="o">:</span> <span class="s2">&quot;&quot;</span> <span class="p">};</span>
+
+  <span class="c1">// Re-run the filter whenever the list array or filter text changes:</span>
+  <span class="nx">filter</span> <span class="o">=</span> <span class="nx">memoize</span><span class="p">(</span>
+    <span class="p">(</span><span class="nx">list</span><span class="p">,</span> <span class="nx">filterText</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">list</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="nx">item</span><span class="p">.</span><span class="nx">text</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">filterText</span><span class="p">))</span>
+  <span class="p">);</span>
+
+  <span class="nx">handleChange</span> <span class="o">=</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span> <span class="nx">filterText</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span> <span class="p">});</span>
+  <span class="p">};</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Calculate the latest filtered list. If these arguments haven&#39;t changed</span>
+    <span class="c1">// since the last render, `memoize-one` will reuse the last return value.</span>
+    <span class="kd">const</span> <span class="nx">filteredList</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">list</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">filterText</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">Fragment</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">}</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">filterText</span><span class="p">}</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">filteredList</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="p">=&gt;</span> <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">text</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/li&gt;)}&lt;/ul&gt;</span>
+      <span class="o">&lt;</span><span class="err">/Fragment&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这非常简单，并且与派生状态版本一样好！</p>
+<p>在使用memoization时，需要注意一些约束：</p>
+<ol>
+<li>在大多数情况下，您需要**将memoized函数附加到组件实例**。这可以防止组件的多个实例重置彼此的memoized key。</li>
+<li>通常情况下，您需要使用具有**可控缓存大小**的记忆辅助程序，以防止随着时间的推移内存泄漏。 （在上面的例子中，我们使用了<code>memoize-one</code>，因为它只缓存最近的参数和结果。）</li>
+<li>如果父组件每次渲染时都重新创建了“props.list”，本节中显示的任何实现都不起作用。但在大多数情况下，这种设置是合适的。</li>
+</ol>
+<h2 id="_5">最后<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>在现实世界的应用程序中，组件通常包含受控和非受控行为的混合。如果每个值都有明确的真相来源，则可以避免上述的反模式。</p>
+<p>值得重新思考的是getDerivedStateFromProps（和通常的派生状态）是一个高级特性，也因为这种复杂性，使用时务必谨慎。</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>

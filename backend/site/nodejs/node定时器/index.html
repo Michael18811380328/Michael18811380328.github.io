@@ -1,0 +1,1533 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/nodejs/node%E5%AE%9A%E6%97%B6%E5%99%A8/">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>node定时器.md - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#node" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              node定时器.md
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        介绍
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+      
+      <label class="md-nav__link" for="nav-2">
+        NodeJS
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="NodeJS" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          NodeJS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1" >
+      
+      <label class="md-nav__link" for="nav-2-1">
+        基础
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="基础" data-md-level="2">
+        <label class="md-nav__title" for="nav-2-1">
+          <span class="md-nav__icon md-icon"></span>
+          基础
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-Node.js%20%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        01-Node.js 教程.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-Node.js%20%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="md-nav__link">
+        02-Node.js 安装配置.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-Node.js%20%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        03-Node.js 创建第一个应用.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-Node.js%20REPL%28%E4%BA%A4%E4%BA%92%E5%BC%8F%E8%A7%A3%E9%87%8A%E5%99%A8%29/" class="md-nav__link">
+        05-Node.js REPL(交互式解释器).md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-Node.js%20%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        06-Node.js 回调函数.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-Node.js%20%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" class="md-nav__link">
+        07-Node.js 事件循环.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-Node.js%20EventEmitter/" class="md-nav__link">
+        08-Node.js EventEmitter.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-Node.js%20Buffer%28%E7%BC%93%E5%86%B2%E5%8C%BA%29/" class="md-nav__link">
+        09-Node.js Buffer(缓冲区).md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-Node.js%20Stream%28%E6%B5%81%29/" class="md-nav__link">
+        10-Node.js Stream(流).md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-Node.js%E6%A8%A1%E5%9D%97%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        11-Node.js模块系统.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-Node.js%20%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        12-Node.js 函数.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-Node.js%20%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        13-Node.js 路由.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-Node.js%20%E5%85%A8%E5%B1%80%E5%AF%B9%E8%B1%A1/" class="md-nav__link">
+        14-Node.js 全局对象.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-Node.js%20%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        15-Node.js 常用工具.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-Node.js%20%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        16-Node.js 文件系统.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-Node.js%20GETPOST%E8%AF%B7%E6%B1%82/" class="md-nav__link">
+        17-Node.js GETPOST请求.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-Node.js%20%E5%B7%A5%E5%85%B7%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        18-Node.js 工具模块.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-Node.js%20Web%20%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        19-Node.js Web 模块.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-Node.js%20Express%20%E6%A1%86%E6%9E%B6/" class="md-nav__link">
+        20-Node.js Express 框架.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-Node.js%20RESTful%20API/" class="md-nav__link">
+        21-Node.js RESTful API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-Node.js%20%E5%A4%9A%E8%BF%9B%E7%A8%8B/" class="md-nav__link">
+        22-Node.js 多进程.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-Node.js%20JXcore%20%E6%89%93%E5%8C%85/" class="md-nav__link">
+        23-Node.js JXcore 打包.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-Node.js%20%E8%BF%9E%E6%8E%A5%20MySQL/" class="md-nav__link">
+        24-Node.js 连接 MySQL.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-Node.js%20%E8%BF%9E%E6%8E%A5%20MongoDB/" class="md-nav__link">
+        25-Node.js 连接 MongoDB.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2" checked>
+      
+      <label class="md-nav__link" for="nav-2-2">
+        高级
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="高级" data-md-level="2">
+        <label class="md-nav__title" for="nav-2-2">
+          <span class="md-nav__icon md-icon"></span>
+          高级
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Node%20%E4%B8%8B%20LDAP%20%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        Node 下 LDAP 实现.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Node.js-fs%E6%96%87%E6%A1%A3/" class="md-nav__link">
+        Node.js-fs文档.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Node.js-path/" class="md-nav__link">
+        Node.js-path.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Node.js-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F/" class="md-nav__link">
+        Node.js-全局变量.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Node.js%E4%BD%BF%E7%94%A8Nodemailer%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" class="md-nav__link">
+        Node.js使用 Nodemailer 发送邮件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NodeJS/" class="md-nav__link">
+        NodeJS.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../node-debug/" class="md-nav__link">
+        node-debug.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nodeJS%20%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        nodeJS 基础教程.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nodeJS%2Bmysql%2B%E8%BF%9E%E6%8E%A5%E6%B1%A0/" class="md-nav__link">
+        nodeJS+mysql+连接池.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nodejs%20api%E5%AD%A6%E4%B9%A0%EF%BC%9Afs.createReadStreame%28%29/" class="md-nav__link">
+        nodejs api学习：fs.createReadStreame().md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          node定时器.md
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        node定时器.md
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一、同步任务和异步任务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    二、本轮循环和次轮循环
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#processnexttick" class="md-nav__link">
+    三、process.nextTick()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    四、微任务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    五、事件循环的概念
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    六、事件循环的六个阶段
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    七、事件循环的示例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settimeout-setimmediate" class="md-nav__link">
+    八、setTimeout 和 setImmediate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    九、参考链接
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8nodejs%E8%BF%9E%E6%8E%A5mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" class="md-nav__link">
+        使用nodejs连接mysql数据库实现增删改查.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BB%96%E9%9B%AA%E5%B3%B0%20NodeJS/" class="md-nav__link">
+        廖雪峰 NodeJS.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84nodeJS/" class="md-nav__link">
+        命令行的nodeJS.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
+        SQL
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="SQL" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          SQL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/%E9%98%BF%E9%87%8C%E4%BA%91MySQL%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        阿里云MySQL入门
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        数据库概念
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/%E6%B7%B1%E5%85%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        深入MySQL数据库
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/Mac%20pip%20install%20mysql-python%20unsuccessful/" class="md-nav__link">
+        Mac pip install mysql-python unsuccessful
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/Mac%E5%AE%89%E8%A3%85MySQLdb%EF%BC%88python-mysql%EF%BC%89%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        Mac 安装 MySQLdb（python-mysql）模块
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/Python%E6%93%8D%E4%BD%9C%20MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        Python 操作 MySQL数据库
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/SQLite-API-Python/" class="md-nav__link">
+        SQLite-API-Python
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
+        python
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="python" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/django-basic/" class="md-nav__link">
+        django-basic
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/django/" class="md-nav__link">
+        django
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/falsk%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/" class="md-nav__link">
+        flask快速开始
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/flask%20%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82/" class="md-nav__link">
+        flask 网易云课堂
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/%E5%AE%89%E8%A3%85pandas%E6%97%B6%E5%87%BA%E7%8E%B0%E7%8E%AF%E5%A2%83%E9%94%99%E8%AF%AF/" class="md-nav__link">
+        安装pandas时出现环境错误
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/%E6%90%AD%E5%BB%BApython3%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="md-nav__link">
+        搭建python3开发环境
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/%E3%80%90%E8%A7%A3%E5%86%B3%E3%80%91ValueError%20Length%20mismatch%20Expected%20axis%20has%200%20elements%2C%20new%20values%20have%202%20elements/" class="md-nav__link">
+        ValueError Length mismatch Expected axis has 0 elements, new values have 2 elements
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/ERROR%20No%20matching%20distribution%20found%20for%20Django%3D%3D3.0.2%20%28from%20-r%20requirements.txt%20%28line%204%29%29/" class="md-nav__link">
+        ERROR No matching distribution found for Django==3.0.2 (from -r requirements.txt (line 4))
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+      
+      <label class="md-nav__link" for="nav-5">
+        About
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="nav-5">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        关于我
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/log/" class="md-nav__link">
+        学习日志
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一、同步任务和异步任务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    二、本轮循环和次轮循环
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#processnexttick" class="md-nav__link">
+    三、process.nextTick()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    四、微任务
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    五、事件循环的概念
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    六、事件循环的六个阶段
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    七、事件循环的示例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#settimeout-setimmediate" class="md-nav__link">
+    八、setTimeout 和 setImmediate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    九、参考链接
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/nodejs/node定时器.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="node">Node 定时器详解<a class="headerlink" href="#node" title="Permanent link">&para;</a></h1>
+<p>JavaScript 是单线程运行，异步操作特别重要。</p>
+<p>只要用到引擎之外的功能，就需要跟外部交互，从而形成异步操作。由于异步操作实在太多，JavaScript 不得不提供很多异步语法。这就好比，有些人老是受打击， 他的抗打击能力必须变得很强，否则他就完蛋了。</p>
+<p>Node 的异步语法比浏览器更复杂，因为它可以跟内核对话，不得不搞了一个专门的库 <a href="http://thlorenz.com/learnuv/book/history/history_1.html">libuv</a> 做这件事。这个库负责各种回调函数的执行时间，毕竟异步任务最后还是要回到主线程，一个个排队执行。</p>
+<p><img alt="" src="http://www.ruanyifeng.com/blogimg/asset/2018/bg2018022301.jpg" /></p>
+<p>为了协调异步任务，Node 居然提供了四个定时器，让任务可以在指定的时间运行。</p>
+<blockquote>
+<ul>
+<li>setTimeout()</li>
+<li>setInterval()</li>
+<li>setImmediate()</li>
+<li>process.nextTick()</li>
+</ul>
+</blockquote>
+<p>前两个是语言的标准，后两个是 Node 独有的。它们的写法差不多，作用也差不多，不太容易区别。</p>
+<p>你能说出下面代码的运行结果吗？</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// test.js</span>
+<span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">1</span><span class="p">));</span>
+<span class="nx">setImmediate</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">2</span><span class="p">));</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">3</span><span class="p">));</span>
+<span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">4</span><span class="p">));</span>
+<span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">5</span><span class="p">))();</span>
+</code></pre></div>
+<p>运行结果如下。</p>
+<div class="highlight"><pre><span></span><code>$ node test.js
+<span class="m">5</span>
+<span class="m">3</span>
+<span class="m">4</span>
+<span class="m">1</span>
+<span class="m">2</span>
+</code></pre></div>
+<p>如果你能一口说对，可能就不需要再看下去了。本文详细解释，Node 怎么处理各种定时器，或者更广义地说，libuv 库怎么安排异步任务在主线程上执行。</p>
+<h2 id="_1">一、同步任务和异步任务<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>首先，同步任务总是比异步任务更早执行。</p>
+<p>前面的那段代码，只有最后一行是同步任务，因此最早执行。</p>
+<div class="highlight"><pre><span></span><code><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">5</span><span class="p">))();</span>
+</code></pre></div>
+<h2 id="_2">二、本轮循环和次轮循环<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>异步任务可以分成两种。</p>
+<blockquote>
+<ul>
+<li>追加在**本轮循环**的异步任务</li>
+<li>追加在**次轮循环**的异步任务</li>
+</ul>
+</blockquote>
+<p>所谓“循环”，指的是事件循环（event loop）。这是 JavaScript 引擎处理异步任务的方式，后文会详细解释。这里只要理解，本轮循环一定早于次轮循环执行即可。</p>
+<p>Node 规定，<code>process.nextTick</code>和<code>Promise</code>的回调函数，追加在本轮循环，即同步任务一旦执行完成，就开始执行它们。而<code>setTimeout</code>、<code>setInterval</code>、<code>setImmediate</code>的回调函数，追加在次轮循环。</p>
+<p>这就是说，文首那段代码的第三行和第四行，一定比第一行和第二行更早执行。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 下面两行，次轮循环执行</span>
+<span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">1</span><span class="p">));</span>
+<span class="nx">setImmediate</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">2</span><span class="p">));</span>
+<span class="c1">// 下面两行，本轮循环执行</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">3</span><span class="p">));</span>
+<span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">4</span><span class="p">));</span>
+</code></pre></div>
+<h2 id="processnexttick">三、process.nextTick()<a class="headerlink" href="#processnexttick" title="Permanent link">&para;</a></h2>
+<p><code>process.nextTick</code>这个名字有点误导，它是在本轮循环执行的，而且是所有异步任务里面最快执行的。</p>
+<p><img alt="" src="http://www.ruanyifeng.com/blogimg/asset/2018/bg2018022302.png" /></p>
+<p>Node 执行完所有同步任务，接下来就会执行<code>process.nextTick</code>的任务队列。所以，下面这行代码是第二个输出结果。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">3</span><span class="p">));</span>
+</code></pre></div>
+<p>基本上，如果你希望异步任务尽可能快地执行，那就使用<code>process.nextTick</code>。</p>
+<h2 id="_3">四、微任务<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>根据语言规格，<code>Promise</code>对象的回调函数，会进入异步任务里面的“微任务”（microtask）队列。</p>
+<p>微任务队列追加在<code>process.nextTick</code>队列的后面，也属于本轮循环。所以，下面的代码总是先输出<code>3</code>，再输出<code>4</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">3</span><span class="p">));</span>
+<span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">4</span><span class="p">));</span>
+<span class="c1">// 3</span>
+<span class="c1">// 4</span>
+</code></pre></div>
+<p><img alt="" src="http://www.ruanyifeng.com/blogimg/asset/2018/bg2018022303.png" /></p>
+<p>注意，只有前一个队列全部清空以后，才会执行下一个队列。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">1</span><span class="p">));</span>
+<span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">2</span><span class="p">));</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">3</span><span class="p">));</span>
+<span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">().</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">4</span><span class="p">));</span>
+<span class="c1">// 1</span>
+<span class="c1">// 3</span>
+<span class="c1">// 2</span>
+<span class="c1">// 4</span>
+</code></pre></div>
+<p>上面代码中，全部<code>process.nextTick</code>的回调函数，执行都会早于<code>Promise</code>的。</p>
+<p>至此，本轮循环的执行顺序就讲完了。</p>
+<blockquote>
+<ol>
+<li>同步任务</li>
+<li>process.nextTick()</li>
+<li>微任务</li>
+</ol>
+</blockquote>
+<h2 id="_4">五、事件循环的概念<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>下面开始介绍次轮循环的执行顺序，这就必须理解什么是事件循环（event loop）了。</p>
+<p>Node 的<a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/">官方文档</a>是这样介绍的。</p>
+<blockquote>
+<p>"When Node.js starts, it initializes the event loop, processes the provided input script  which may make async API calls, schedule timers, or call process.nextTick(), then begins processing the event loop."</p>
+</blockquote>
+<p>这段话很重要，需要仔细读。它表达了三层意思。</p>
+<p>首先，有些人以为，除了主线程，还存在一个单独的事件循环线程。不是这样的，只有一个主线程，事件循环是在主线程上完成的。</p>
+<p>其次，Node 开始执行脚本时，会先进行事件循环的初始化，但是这时事件循环还没有开始，会先完成下面的事情。</p>
+<blockquote>
+<ul>
+<li>同步任务</li>
+<li>发出异步请求</li>
+<li>规划定时器生效的时间</li>
+<li>执行<code>process.nextTick()</code>等等</li>
+</ul>
+</blockquote>
+<p>最后，上面这些事情都干完了，事件循环就正式开始了。</p>
+<h2 id="_5">六、事件循环的六个阶段<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>事件循环会无限次地执行，一轮又一轮。只有异步任务的回调函数队列清空了，才会停止执行。</p>
+<p>每一轮的事件循环，分成六个阶段。这些阶段会依次执行。</p>
+<blockquote>
+<ol>
+<li>timers</li>
+<li>I/O callbacks</li>
+<li>idle, prepare</li>
+<li>poll</li>
+<li>check</li>
+<li>close callbacks</li>
+</ol>
+</blockquote>
+<p>每个阶段都有一个先进先出的回调函数队列。只有一个阶段的回调函数队列清空了，该执行的回调函数都执行了，事件循环才会进入下一个阶段。</p>
+<p><img alt="" src="http://www.ruanyifeng.com/blogimg/asset/2018/bg2018022304.png" /></p>
+<p>下面简单介绍一下每个阶段的含义，详细介绍可以看<a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/">官方文档</a>，也可以参考 libuv 的<a href="https://jsblog.insiderattack.net/handling-io-nodejs-event-loop-part-4-418062f917d1">源码解读</a>。</p>
+<p><strong>（1）timers</strong></p>
+<p>这个是定时器阶段，处理<code>setTimeout()</code>和<code>setInterval()</code>的回调函数。进入这个阶段后，主线程会检查一下当前时间，是否满足定时器的条件。如果满足就执行回调函数，否则就离开这个阶段。</p>
+<p><strong>（2）I/O callbacks</strong></p>
+<p>除了以下操作的回调函数，其他的回调函数都在这个阶段执行。</p>
+<blockquote>
+<ul>
+<li><code>setTimeout()</code>和<code>setInterval()</code>的回调函数</li>
+<li><code>setImmediate()</code>的回调函数</li>
+<li>用于关闭请求的回调函数，比如<code>socket.on('close', ...)</code></li>
+</ul>
+</blockquote>
+<p><strong>（3）idle, prepare</strong></p>
+<p>该阶段只供 libuv 内部调用，这里可以忽略。</p>
+<p><strong>（4）Poll</strong></p>
+<p>这个阶段是轮询时间，用于等待还未返回的 I/O 事件，比如服务器的回应、用户移动鼠标等等。</p>
+<p>这个阶段的时间会比较长。如果没有其他异步任务要处理（比如到期的定时器），会一直停留在这个阶段，等待 I/O 请求返回结果。</p>
+<p><strong>（5）check</strong></p>
+<p>该阶段执行<code>setImmediate()</code>的回调函数。</p>
+<p><strong>（6）close callbacks</strong></p>
+<p>该阶段执行关闭请求的回调函数，比如<code>socket.on('close', ...)</code>。</p>
+<h2 id="_6">七、事件循环的示例<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>下面是来自官方文档的一个示例。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">timeoutScheduled</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
+
+<span class="c1">// 异步任务一：100ms 后执行的定时器</span>
+<span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">delay</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nx">timeoutScheduled</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">delay</span><span class="si">}</span><span class="sb">ms`</span><span class="p">);</span>
+<span class="p">},</span> <span class="mf">100</span><span class="p">);</span>
+
+<span class="c1">// 异步任务二：至少需要 200ms 的文件读取</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="s1">&#39;test.js&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">startCallback</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">();</span>
+  <span class="k">while</span> <span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span> <span class="o">-</span> <span class="nx">startCallback</span> <span class="o">&lt;</span> <span class="mf">200</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 什么也不做</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>上面代码有两个异步任务，一个是 100ms 后执行的定时器，一个是至少需要 200ms 的文件读取。请问运行结果是什么？</p>
+<p><img alt="" src="http://www.ruanyifeng.com/blogimg/asset/2018/bg2018022305.jpg" /></p>
+<p>脚本进入第一轮事件循环以后，没有到期的定时器，也没有已经可以执行的 I/O 回调函数，所以会进入 Poll 阶段，等待内核返回文件读取的结果。由于读取小文件一般不会超过 100ms，所以在定时器到期之前，Poll 阶段就会得到结果，因此就会继续往下执行。</p>
+<p>第二轮事件循环，依然没有到期的定时器，但是已经有了可以执行的 I/O 回调函数，所以会进入 I/O callbacks 阶段，执行<code>fs.readFile</code>的回调函数。这个回调函数需要 200ms，也就是说，在它执行到一半的时候，100ms 的定时器就会到期。但是，必须等到这个回调函数执行完，才会离开这个阶段。</p>
+<p>第三轮事件循环，已经有了到期的定时器，所以会在 timers 阶段执行定时器。最后输出结果大概是200多毫秒。</p>
+<h2 id="settimeout-setimmediate">八、setTimeout 和 setImmediate<a class="headerlink" href="#settimeout-setimmediate" title="Permanent link">&para;</a></h2>
+<p>由于<code>setTimeout</code>在 timers 阶段执行，而<code>setImmediate</code>在 check 阶段执行。所以，<code>setTimeout</code>会早于<code>setImmediate</code>完成。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">1</span><span class="p">));</span>
+<span class="nx">setImmediate</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">2</span><span class="p">));</span>
+</code></pre></div>
+<p>上面代码应该先输出<code>1</code>，再输出<code>2</code>，但是实际执行的时候，结果却是不确定，有时还会先输出<code>2</code>，再输出<code>1</code>。</p>
+<p>这是因为<code>setTimeout</code>的第二个参数默认为<code>0</code>。但是实际上，Node 做不到0毫秒，最少也需要1毫秒，根据<a href="https://nodejs.org/api/timers.html#timers_settimeout_callback_delay_args">官方文档</a>，第二个参数的取值范围在1毫秒到2147483647毫秒之间。也就是说，<code>setTimeout(f, 0)</code>等同于<code>setTimeout(f, 1)</code>。</p>
+<p>实际执行的时候，进入事件循环以后，有可能到了1毫秒，也可能还没到1毫秒，取决于系统当时的状况。如果没到1毫秒，那么 timers 阶段就会跳过，进入 check 阶段，先执行<code>setImmediate</code>的回调函数。</p>
+<p>但是，下面的代码一定是先输出2，再输出1。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+
+<span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="s1">&#39;test.js&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">1</span><span class="p">));</span>
+  <span class="nx">setImmediate</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">2</span><span class="p">));</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>上面代码会先进入 I/O callbacks 阶段，然后是 check 阶段，最后才是 timers 阶段。因此，<code>setImmediate</code>才会早于<code>setTimeout</code>执行。</p>
+<h2 id="_7">九、参考链接<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/">The Node.js Event Loop, Timers, and process.nextTick()</a>, by Node.js</li>
+<li><a href="https://jsblog.insiderattack.net/handling-io-nodejs-event-loop-part-4-418062f917d1">Handling IO — NodeJS Event Loop</a>, by Deepal Jayasekara</li>
+<li><a href="http://voidcanvas.com/setimmediate-vs-nexttick-vs-settimeout/">setImmediate() vs nextTick() vs setTimeout(fn,0) – in depth explanation</a>, by Paul Shan</li>
+<li><a href="http://voidcanvas.com/nodejs-event-loop/">Node.js event loop workflow &amp; lifecycle in low level</a>, by Paul Shan</li>
+</ul>
+<p>（完）</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../nodejs%20api%E5%AD%A6%E4%B9%A0%EF%BC%9Afs.createReadStreame%28%29/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                nodejs api学习：fs.createReadStreame().md
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../%E4%BD%BF%E7%94%A8nodejs%E8%BF%9E%E6%8E%A5mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                使用nodejs连接mysql数据库实现增删改查.md
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>

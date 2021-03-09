@@ -1,0 +1,1704 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/nodejs/20-Node.js%20Express%20%E6%A1%86%E6%9E%B6/">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>20-Node.js Express 框架.md - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#nodejs-express" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              20-Node.js Express 框架.md
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        介绍
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+      
+      <label class="md-nav__link" for="nav-2">
+        NodeJS
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="NodeJS" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          NodeJS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1" checked>
+      
+      <label class="md-nav__link" for="nav-2-1">
+        基础
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="基础" data-md-level="2">
+        <label class="md-nav__title" for="nav-2-1">
+          <span class="md-nav__icon md-icon"></span>
+          基础
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-Node.js%20%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        01-Node.js 教程.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-Node.js%20%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="md-nav__link">
+        02-Node.js 安装配置.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-Node.js%20%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        03-Node.js 创建第一个应用.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-Node.js%20REPL%28%E4%BA%A4%E4%BA%92%E5%BC%8F%E8%A7%A3%E9%87%8A%E5%99%A8%29/" class="md-nav__link">
+        05-Node.js REPL(交互式解释器).md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-Node.js%20%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        06-Node.js 回调函数.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-Node.js%20%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" class="md-nav__link">
+        07-Node.js 事件循环.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-Node.js%20EventEmitter/" class="md-nav__link">
+        08-Node.js EventEmitter.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-Node.js%20Buffer%28%E7%BC%93%E5%86%B2%E5%8C%BA%29/" class="md-nav__link">
+        09-Node.js Buffer(缓冲区).md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-Node.js%20Stream%28%E6%B5%81%29/" class="md-nav__link">
+        10-Node.js Stream(流).md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-Node.js%E6%A8%A1%E5%9D%97%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        11-Node.js模块系统.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-Node.js%20%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        12-Node.js 函数.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-Node.js%20%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        13-Node.js 路由.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-Node.js%20%E5%85%A8%E5%B1%80%E5%AF%B9%E8%B1%A1/" class="md-nav__link">
+        14-Node.js 全局对象.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-Node.js%20%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        15-Node.js 常用工具.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-Node.js%20%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        16-Node.js 文件系统.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-Node.js%20GETPOST%E8%AF%B7%E6%B1%82/" class="md-nav__link">
+        17-Node.js GETPOST请求.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-Node.js%20%E5%B7%A5%E5%85%B7%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        18-Node.js 工具模块.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-Node.js%20Web%20%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        19-Node.js Web 模块.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          20-Node.js Express 框架.md
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        20-Node.js Express 框架.md
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#express" class="md-nav__link">
+    Express 简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#express_1" class="md-nav__link">
+    安装 Express
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#express_2" class="md-nav__link">
+    第一个 Express 框架实例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#express_demojs" class="md-nav__link">
+    express_demo.js 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    请求和响应
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    路由
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#express_demo2js" class="md-nav__link">
+    express_demo2.js 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    静态文件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#express_demo3js" class="md-nav__link">
+    express_demo3.js 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get" class="md-nav__link">
+    GET 方法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexhtml" class="md-nav__link">
+    index.html 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serverjs" class="md-nav__link">
+    server.js 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post" class="md-nav__link">
+    POST 方法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexhtml_1" class="md-nav__link">
+    index.html 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serverjs_1" class="md-nav__link">
+    server.js 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    文件上传
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexhtml_2" class="md-nav__link">
+    index.html 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serverjs_2" class="md-nav__link">
+    server.js 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cookie" class="md-nav__link">
+    Cookie 管理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#express_cookiejs" class="md-nav__link">
+    express_cookie.js 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    相关资料
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-Node.js%20RESTful%20API/" class="md-nav__link">
+        21-Node.js RESTful API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-Node.js%20%E5%A4%9A%E8%BF%9B%E7%A8%8B/" class="md-nav__link">
+        22-Node.js 多进程.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-Node.js%20JXcore%20%E6%89%93%E5%8C%85/" class="md-nav__link">
+        23-Node.js JXcore 打包.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-Node.js%20%E8%BF%9E%E6%8E%A5%20MySQL/" class="md-nav__link">
+        24-Node.js 连接 MySQL.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-Node.js%20%E8%BF%9E%E6%8E%A5%20MongoDB/" class="md-nav__link">
+        25-Node.js 连接 MongoDB.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2" >
+      
+      <label class="md-nav__link" for="nav-2-2">
+        高级
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="高级" data-md-level="2">
+        <label class="md-nav__title" for="nav-2-2">
+          <span class="md-nav__icon md-icon"></span>
+          高级
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Node%20%E4%B8%8B%20LDAP%20%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        Node 下 LDAP 实现.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Node.js-fs%E6%96%87%E6%A1%A3/" class="md-nav__link">
+        Node.js-fs文档.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Node.js-path/" class="md-nav__link">
+        Node.js-path.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Node.js-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F/" class="md-nav__link">
+        Node.js-全局变量.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Node.js%E4%BD%BF%E7%94%A8Nodemailer%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" class="md-nav__link">
+        Node.js使用 Nodemailer 发送邮件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NodeJS/" class="md-nav__link">
+        NodeJS.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../node-debug/" class="md-nav__link">
+        node-debug.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nodeJS%20%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        nodeJS 基础教程.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nodeJS%2Bmysql%2B%E8%BF%9E%E6%8E%A5%E6%B1%A0/" class="md-nav__link">
+        nodeJS+mysql+连接池.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nodejs%20api%E5%AD%A6%E4%B9%A0%EF%BC%9Afs.createReadStreame%28%29/" class="md-nav__link">
+        nodejs api学习：fs.createReadStreame().md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../node%E5%AE%9A%E6%97%B6%E5%99%A8/" class="md-nav__link">
+        node定时器.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8nodejs%E8%BF%9E%E6%8E%A5mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" class="md-nav__link">
+        使用nodejs连接mysql数据库实现增删改查.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BB%96%E9%9B%AA%E5%B3%B0%20NodeJS/" class="md-nav__link">
+        廖雪峰 NodeJS.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84nodeJS/" class="md-nav__link">
+        命令行的nodeJS.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
+        SQL
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="SQL" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          SQL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/%E9%98%BF%E9%87%8C%E4%BA%91MySQL%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        阿里云MySQL入门
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        数据库概念
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/%E6%B7%B1%E5%85%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        深入MySQL数据库
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/Mac%20pip%20install%20mysql-python%20unsuccessful/" class="md-nav__link">
+        Mac pip install mysql-python unsuccessful
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/Mac%E5%AE%89%E8%A3%85MySQLdb%EF%BC%88python-mysql%EF%BC%89%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        Mac 安装 MySQLdb（python-mysql）模块
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/Python%E6%93%8D%E4%BD%9C%20MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        Python 操作 MySQL数据库
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SQL/SQLite-API-Python/" class="md-nav__link">
+        SQLite-API-Python
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
+        python
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="python" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/django-basic/" class="md-nav__link">
+        django-basic
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/django/" class="md-nav__link">
+        django
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/falsk%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/" class="md-nav__link">
+        flask快速开始
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/flask%20%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82/" class="md-nav__link">
+        flask 网易云课堂
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/%E5%AE%89%E8%A3%85pandas%E6%97%B6%E5%87%BA%E7%8E%B0%E7%8E%AF%E5%A2%83%E9%94%99%E8%AF%AF/" class="md-nav__link">
+        安装pandas时出现环境错误
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/%E6%90%AD%E5%BB%BApython3%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="md-nav__link">
+        搭建python3开发环境
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/%E3%80%90%E8%A7%A3%E5%86%B3%E3%80%91ValueError%20Length%20mismatch%20Expected%20axis%20has%200%20elements%2C%20new%20values%20have%202%20elements/" class="md-nav__link">
+        ValueError Length mismatch Expected axis has 0 elements, new values have 2 elements
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/ERROR%20No%20matching%20distribution%20found%20for%20Django%3D%3D3.0.2%20%28from%20-r%20requirements.txt%20%28line%204%29%29/" class="md-nav__link">
+        ERROR No matching distribution found for Django==3.0.2 (from -r requirements.txt (line 4))
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+      
+      <label class="md-nav__link" for="nav-5">
+        About
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="nav-5">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        关于我
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/log/" class="md-nav__link">
+        学习日志
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#express" class="md-nav__link">
+    Express 简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#express_1" class="md-nav__link">
+    安装 Express
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#express_2" class="md-nav__link">
+    第一个 Express 框架实例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#express_demojs" class="md-nav__link">
+    express_demo.js 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    请求和响应
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    路由
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#express_demo2js" class="md-nav__link">
+    express_demo2.js 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    静态文件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#express_demo3js" class="md-nav__link">
+    express_demo3.js 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get" class="md-nav__link">
+    GET 方法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexhtml" class="md-nav__link">
+    index.html 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serverjs" class="md-nav__link">
+    server.js 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post" class="md-nav__link">
+    POST 方法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexhtml_1" class="md-nav__link">
+    index.html 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serverjs_1" class="md-nav__link">
+    server.js 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    文件上传
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexhtml_2" class="md-nav__link">
+    index.html 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serverjs_2" class="md-nav__link">
+    server.js 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cookie" class="md-nav__link">
+    Cookie 管理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#express_cookiejs" class="md-nav__link">
+    express_cookie.js 文件代码：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    相关资料
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/nodejs/20-Node.js Express 框架.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="nodejs-express">Node.js Express 框架<a class="headerlink" href="#nodejs-express" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="express">Express 简介<a class="headerlink" href="#express" title="Permanent link">&para;</a></h2>
+<p>Express 是一个简洁而灵活的 node.js Web应用框架, 提供了一系列强大特性帮助你创建各种 Web 应用，和丰富的 HTTP 工具。</p>
+<p>使用 Express 可以快速地搭建一个完整功能的网站。</p>
+<p>Express 框架核心特性：</p>
+<ul>
+<li>可以设置中间件来响应 HTTP 请求。</li>
+<li>定义了路由表用于执行不同的 HTTP 请求动作。</li>
+<li>可以通过向模板传递参数来动态渲染 HTML 页面。</li>
+</ul>
+<hr />
+<h2 id="express_1">安装 Express<a class="headerlink" href="#express_1" title="Permanent link">&para;</a></h2>
+<p>安装 Express 并将其保存到依赖列表中：</p>
+<div class="highlight"><pre><span></span><code>$ cnpm install express --save
+</code></pre></div>
+<p>以上命令会将 Express 框架安装在当前目录的 <strong>node_modules</strong> 目录中， <strong>node_modules</strong> 目录下会自动创建 express 目录。以下几个重要的模块是需要与 express 框架一起安装的：</p>
+<ul>
+<li><strong>body-parser</strong> - node.js 中间件，用于处理 JSON, Raw, Text 和 URL 编码的数据。</li>
+<li><strong>cookie-parser</strong> - 这就是一个解析Cookie的工具。通过req.cookies可以取到传过来的cookie，并把它们转成对象。</li>
+<li><strong>multer</strong> - node.js 中间件，用于处理 enctype="multipart/form-data"（设置表单的MIME编码）的表单数据。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>$ cnpm install body-parser --save
+$ cnpm install cookie-parser --save
+$ cnpm install multer --save
+</code></pre></div>
+<p>安装完后，我们可以查看下 express 使用的版本号：</p>
+<div class="highlight"><pre><span></span><code>$ cnpm list express
+/data/www/node
+└── express@4.15.2  -&gt; /Users/tianqixin/www/node/node_modules/.4.15.2@express
+</code></pre></div>
+<hr />
+<h2 id="express_2">第一个 Express 框架实例<a class="headerlink" href="#express_2" title="Permanent link">&para;</a></h2>
+<p>接下来我们使用 Express 框架来输出 "Hello World"。</p>
+<p>以下实例中我们引入了 express 模块，并在客户端发起请求后，响应 "Hello World" 字符串。</p>
+<p>创建 express_demo.js 文件，代码如下所示：</p>
+<h2 id="express_demojs">express_demo.js 文件代码：<a class="headerlink" href="#express_demojs" title="Permanent link">&para;</a></h2>
+<p>//express_demo.js 文件 var express = require('express'); var app = express();  app.get('/', function (req, res) {   res.send('Hello World'); })  var server = app.listen(8081, function () {   var host = server.address().address  var port = server.address().port   console.log("应用实例，访问地址为 http://%s:%s", host, port)  })</p>
+<p>执行以上代码：</p>
+<div class="highlight"><pre><span></span><code>$ node express_demo.js 
+应用实例，访问地址为 http://0.0.0.0:8081
+</code></pre></div>
+<p>在浏览器中访问 <a href="http://127.0.0.1:8081">http://127.0.0.1:8081</a>，结果如下图所示：</p>
+<p><img alt="img" src="https://www.runoob.com/wp-content/uploads/2015/09/nodejs_sample.jpg" /></p>
+<hr />
+<h2 id="_1">请求和响应<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Express 应用使用回调函数的参数： <strong>request</strong> 和 <strong>response</strong> 对象来处理请求和响应的数据。</p>
+<div class="highlight"><pre><span></span><code>app.get(&#39;/&#39;, function (req, res) {
+   // --
+})
+</code></pre></div>
+<p><strong>request</strong> 和 <strong>response</strong> 对象的具体介绍：</p>
+<p><strong>Request 对象</strong> - request 对象表示 HTTP 请求，包含了请求查询字符串，参数，内容，HTTP 头部等属性。常见属性有：</p>
+<ol>
+<li>req.app：当callback为外部文件时，用req.app访问express的实例</li>
+<li>req.baseUrl：获取路由当前安装的URL路径</li>
+<li>req.body / req.cookies：获得「请求主体」/ Cookies</li>
+<li>req.fresh / req.stale：判断请求是否还「新鲜」</li>
+<li>req.hostname / req.ip：获取主机名和IP地址</li>
+<li>req.originalUrl：获取原始请求URL</li>
+<li>req.params：获取路由的parameters</li>
+<li>req.path：获取请求路径</li>
+<li>req.protocol：获取协议类型</li>
+<li>req.query：获取URL的查询参数串</li>
+<li>req.route：获取当前匹配的路由</li>
+<li>req.subdomains：获取子域名</li>
+<li>req.accepts()：检查可接受的请求的文档类型</li>
+<li>req.acceptsCharsets / req.acceptsEncodings / req.acceptsLanguages：返回指定字符集的第一个可接受字符编码</li>
+<li>req.get()：获取指定的HTTP请求头</li>
+<li>req.is()：判断请求头Content-Type的MIME类型</li>
+</ol>
+<p><strong>Response 对象</strong> - response 对象表示 HTTP 响应，即在接收到请求时向客户端发送的 HTTP 响应数据。常见属性有：</p>
+<ol>
+<li>res.app：同req.app一样</li>
+<li>res.append()：追加指定HTTP头</li>
+<li>res.set()在res.append()后将重置之前设置的头</li>
+<li>res.cookie(name，value [，option])：设置Cookie</li>
+<li>opition: domain / expires / httpOnly / maxAge / path / secure / signed</li>
+<li>res.clearCookie()：清除Cookie</li>
+<li>res.download()：传送指定路径的文件</li>
+<li>res.get()：返回指定的HTTP头</li>
+<li>res.json()：传送JSON响应</li>
+<li>res.jsonp()：传送JSONP响应</li>
+<li>res.location()：只设置响应的Location HTTP头，不设置状态码或者close response</li>
+<li>res.redirect()：设置响应的Location HTTP头，并且设置状态码302</li>
+<li>res.render(view,[locals],callback)：渲染一个view，同时向callback传递渲染后的字符串，如果在渲染过程中有错误发生next(err)将会被自动调用。callback将会被传入一个可能发生的错误以及渲染后的页面，这样就不会自动输出了。</li>
+<li>res.send()：传送HTTP响应</li>
+<li>res.sendFile(path [，options] [，fn])：传送指定路径的文件 -会自动根据文件extension设定Content-Type</li>
+<li>res.set()：设置HTTP头，传入object可以一次设置多个头</li>
+<li>res.status()：设置HTTP状态码</li>
+<li>res.type()：设置Content-Type的MIME类型</li>
+</ol>
+<hr />
+<h2 id="_2">路由<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>我们已经了解了 HTTP 请求的基本应用，而路由决定了由谁(指定脚本)去响应客户端请求。</p>
+<p>在HTTP请求中，我们可以通过路由提取出请求的URL以及GET/POST参数。</p>
+<p>接下来我们扩展 Hello World，添加一些功能来处理更多类型的 HTTP 请求。</p>
+<p>创建 express_demo2.js 文件，代码如下所示：</p>
+<h2 id="express_demo2js">express_demo2.js 文件代码：<a class="headerlink" href="#express_demo2js" title="Permanent link">&para;</a></h2>
+<p>var express = require('express'); var app = express();  //  主页输出 "Hello World" app.get('/', function (req, res) {   console.log("主页 GET 请求");   res.send('Hello GET'); })   //  POST 请求 app.post('/', function (req, res) {   console.log("主页 POST 请求");   res.send('Hello POST'); })  //  /del_user 页面响应 app.get('/del_user', function (req, res) {   console.log("/del_user 响应 DELETE 请求");   res.send('删除页面'); })  //  /list_user 页面 GET 请求 app.get('/list_user', function (req, res) {   console.log("/list_user GET 请求");   res.send('用户列表页面'); })  // 对页面 abcd, abxcd, ab123cd, 等响应 GET 请求 app.get('/ab*cd', function(req, res) {      console.log("/ab*cd GET 请求");   res.send('正则匹配'); })   var server = app.listen(8081, function () {   var host = server.address().address  var port = server.address().port   console.log("应用实例，访问地址为 http://%s:%s", host, port)  })</p>
+<p>执行以上代码：</p>
+<div class="highlight"><pre><span></span><code>$ node express_demo2.js 
+应用实例，访问地址为 http://0.0.0.0:8081
+</code></pre></div>
+<p>接下来你可以尝试访问 <a href="http://127.0.0.1:8081">http://127.0.0.1:8081</a> 不同的地址，查看效果。</p>
+<p>在浏览器中访问 <a href="http://127.0.0.1:8081/list_user">http://127.0.0.1:8081/list_user</a>，结果如下图所示：</p>
+<p><img alt="img" src="https://www.runoob.com/wp-content/uploads/2015/09/express2.jpg" /></p>
+<p>在浏览器中访问 <a href="http://127.0.0.1:8081/abcd">http://127.0.0.1:8081/abcd</a>，结果如下图所示：</p>
+<p><img alt="img" src="https://www.runoob.com/wp-content/uploads/2015/09/express1.jpg" /></p>
+<p>在浏览器中访问 <a href="http://127.0.0.1:8081/abcdefg">http://127.0.0.1:8081/abcdefg</a>，结果如下图所示：</p>
+<p><img alt="img" src="https://www.runoob.com/wp-content/uploads/2015/09/express3.jpg" /></p>
+<hr />
+<h2 id="_3">静态文件<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>Express 提供了内置的中间件 <strong>express.static</strong> 来设置静态文件如：图片， CSS, JavaScript 等。</p>
+<p>你可以使用 <strong>express.static</strong> 中间件来设置静态文件路径。例如，如果你将图片， CSS, JavaScript 文件放在 public 目录下，你可以这么写：</p>
+<div class="highlight"><pre><span></span><code>app.use(&#39;/public&#39;, express.static(&#39;public&#39;));
+</code></pre></div>
+<p>我们可以到 public/images 目录下放些图片,如下所示：</p>
+<div class="highlight"><pre><span></span><code>node_modules
+server.js
+public/
+public/images
+public/images/logo.png
+</code></pre></div>
+<p>让我们再修改下 "Hello World" 应用添加处理静态文件的功能。</p>
+<p>创建 express_demo3.js 文件，代码如下所示：</p>
+<h2 id="express_demo3js">express_demo3.js 文件代码：<a class="headerlink" href="#express_demo3js" title="Permanent link">&para;</a></h2>
+<p>var express = require('express'); var app = express();  app.use('/public', express.static('public'));  app.get('/', function (req, res) {   res.send('Hello World'); })  var server = app.listen(8081, function () {   var host = server.address().address  var port = server.address().port   console.log("应用实例，访问地址为 http://%s:%s", host, port)  })</p>
+<p>执行以上代码：</p>
+<div class="highlight"><pre><span></span><code>$ node express_demo3.js 
+应用实例，访问地址为 http://0.0.0.0:8081
+</code></pre></div>
+<p>执行以上代码：</p>
+<p>在浏览器中访问 <a href="http://127.0.0.1:8081/public/images/logo.png">http://127.0.0.1:8081/public/images/logo.png</a>（本实例采用了菜鸟教程的 logo），结果如下图所示：</p>
+<p><img alt="img" src="https://www.runoob.com/wp-content/themes/runoob/assets/img/runoob-logo.png" /></p>
+<hr />
+<h2 id="get">GET 方法<a class="headerlink" href="#get" title="Permanent link">&para;</a></h2>
+<p>以下实例演示了在表单中通过 GET 方法提交两个参数，我们可以使用 server.js 文件内的 <strong>process_get</strong> 路由器来处理输入：</p>
+<h2 id="indexhtml">index.html 文件代码：<a class="headerlink" href="#indexhtml" title="Permanent link">&para;</a></h2>
+<p><html> <body> <form action="http://127.0.0.1:8081/process_get" method="GET"> First Name: <input type="text" name="first_name">  <br>  Last Name: <input type="text" name="last_name"> <input type="submit" value="Submit"> </form> </body> </html></p>
+<h2 id="serverjs">server.js 文件代码：<a class="headerlink" href="#serverjs" title="Permanent link">&para;</a></h2>
+<p>var express = require('express'); var app = express();  app.use('/public', express.static('public'));  app.get('/index.html', function (req, res) {   res.sendFile( __dirname + "/" + "index.html" ); })  app.get('/process_get', function (req, res) {    // 输出 JSON 格式   var response = {       "first_name":req.query.first_name,       "last_name":req.query.last_name   };   console.log(response);   res.end(JSON.stringify(response)); })  var server = app.listen(8081, function () {   var host = server.address().address  var port = server.address().port   console.log("应用实例，访问地址为 http://%s:%s", host, port)  })</p>
+<p>执行以上代码：</p>
+<div class="highlight"><pre><span></span><code>node server.js 
+应用实例，访问地址为 http://0.0.0.0:8081
+</code></pre></div>
+<p>浏览器访问 <a href="http://127.0.0.1:8081/index.html">http://127.0.0.1:8081/index.html</a>，如图所示：</p>
+<p><img alt="img" src="https://www.runoob.com/wp-content/uploads/2015/09/express5.jpg" /></p>
+<p>现在你可以向表单输入数据，并提交，如下演示：</p>
+<p><img alt="img" src="https://www.runoob.com/wp-content/uploads/2015/09/nodejs-gif6.gif" /></p>
+<hr />
+<h2 id="post">POST 方法<a class="headerlink" href="#post" title="Permanent link">&para;</a></h2>
+<p>以下实例演示了在表单中通过 POST 方法提交两个参数，我们可以使用 server.js 文件内的 <strong>process_post</strong> 路由器来处理输入：</p>
+<h2 id="indexhtml_1">index.html 文件代码：<a class="headerlink" href="#indexhtml_1" title="Permanent link">&para;</a></h2>
+<p><html> <body> <form action="http://127.0.0.1:8081/process_post" method="POST"> First Name: <input type="text" name="first_name">  <br>  Last Name: <input type="text" name="last_name"> <input type="submit" value="Submit"> </form> </body> </html></p>
+<h2 id="serverjs_1">server.js 文件代码：<a class="headerlink" href="#serverjs_1" title="Permanent link">&para;</a></h2>
+<p>var express = require('express'); var app = express(); var bodyParser = require('body-parser');  // 创建 application/x-www-form-urlencoded 编码解析 var urlencodedParser = bodyParser.urlencoded({ extended: false })  app.use('/public', express.static('public'));  app.get('/index.html', function (req, res) {   res.sendFile( __dirname + "/" + "index.html" ); })  app.post('/process_post', urlencodedParser, function (req, res) {    // 输出 JSON 格式   var response = {       "first_name":req.body.first_name,       "last_name":req.body.last_name   };   console.log(response);   res.end(JSON.stringify(response)); })  var server = app.listen(8081, function () {   var host = server.address().address  var port = server.address().port   console.log("应用实例，访问地址为 http://%s:%s", host, port)  })</p>
+<p>执行以上代码：</p>
+<div class="highlight"><pre><span></span><code>$ node server.js
+应用实例，访问地址为 http://0.0.0.0:8081
+</code></pre></div>
+<p>浏览器访问 <a href="http://127.0.0.1:8081/index.html">http://127.0.0.1:8081/index.html</a>，如图所示：</p>
+<p><img alt="img" src="https://www.runoob.com/wp-content/uploads/2015/09/express5.jpg" /></p>
+<p>现在你可以向表单输入数据，并提交，如下演示：</p>
+<p><img alt="img" src="https://www.runoob.com/wp-content/uploads/2015/09/nodejs-gif7.gif" /></p>
+<hr />
+<h2 id="_4">文件上传<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>以下我们创建一个用于上传文件的表单，使用 POST 方法，表单 enctype 属性设置为 multipart/form-data。</p>
+<h2 id="indexhtml_2">index.html 文件代码：<a class="headerlink" href="#indexhtml_2" title="Permanent link">&para;</a></h2>
+<p><html> <head> <title>文件上传表单</title> </head> <body> <h3>文件上传：</h3> 选择一个文件上传: <br /> <form action="/file_upload" method="post" enctype="multipart/form-data"> <input type="file" name="image" size="50" /> <br /> <input type="submit" value="上传文件" /> </form> </body> </html></p>
+<h2 id="serverjs_2">server.js 文件代码：<a class="headerlink" href="#serverjs_2" title="Permanent link">&para;</a></h2>
+<p>var express = require('express'); var app = express(); var fs = require("fs");  var bodyParser = require('body-parser'); var multer  = require('multer');  app.use('/public', express.static('public')); app.use(bodyParser.urlencoded({ extended: false })); app.use(multer({ dest: '/tmp/'}).array('image'));  app.get('/index.html', function (req, res) {   res.sendFile( __dirname + "/" + "index.html" ); })  app.post('/file_upload', function (req, res) {    console.log(req.files[0]);  // 上传的文件信息    var des_file = __dirname + "/" + req.files[0].originalname;   fs.readFile( req.files[0].path, function (err, data) {        fs.writeFile(des_file, data, function (err) {         if( err ){              console.log( err );         }else{               response = {                   message:'File uploaded successfully',                    filename:req.files[0].originalname              };          }          console.log( response );          res.end( JSON.stringify( response ) );       });   }); })  var server = app.listen(8081, function () {   var host = server.address().address  var port = server.address().port   console.log("应用实例，访问地址为 http://%s:%s", host, port)  })</p>
+<p>执行以上代码：</p>
+<div class="highlight"><pre><span></span><code>$ node server.js 
+应用实例，访问地址为 http://0.0.0.0:8081
+</code></pre></div>
+<p>浏览器访问 <a href="http://127.0.0.1:8081/index.html">http://127.0.0.1:8081/index.html</a>，如图所示：</p>
+<p><img alt="img" src="https://www.runoob.com/wp-content/uploads/2015/09/express6.jpg" /></p>
+<p>现在你可以向表单输入数据，并提交，如下演示：</p>
+<p><img alt="img" src="https://www.runoob.com/wp-content/uploads/2015/09/nodejs-gif8.gif" /></p>
+<hr />
+<h2 id="cookie">Cookie 管理<a class="headerlink" href="#cookie" title="Permanent link">&para;</a></h2>
+<p>我们可以使用中间件向 Node.js 服务器发送 cookie 信息，以下代码输出了客户端发送的 cookie 信息：</p>
+<h2 id="express_cookiejs">express_cookie.js 文件代码：<a class="headerlink" href="#express_cookiejs" title="Permanent link">&para;</a></h2>
+<p>// express_cookie.js 文件 var express      = require('express') var cookieParser = require('cookie-parser') var util = require('util');  var app = express() app.use(cookieParser())  app.get('/', function(req, res) {    console.log("Cookies: " + util.inspect(req.cookies)); })  app.listen(8081)</p>
+<p>执行以上代码：</p>
+<div class="highlight"><pre><span></span><code>$ node express_cookie.js 
+</code></pre></div>
+<p>现在你可以访问 <a href="http://127.0.0.1:8081">http://127.0.0.1:8081</a> 并查看终端信息的输出，如下演示：</p>
+<p><img alt="img" src="https://www.runoob.com/wp-content/uploads/2015/09/nodejs-gif9.gif" /></p>
+<hr />
+<h2 id="_5">相关资料<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Express官网： <a href="http://expressjs.com/">http://expressjs.com/</a></li>
+<li>Express4.x API 中文版： <a href="https://www.runoob.com/w3cnote/express-4-x-api.html">Express4.x API Chinese</a></li>
+<li>Express4.x API：<a href="http://expressjs.com/zh-cn/4x/api.html">http://expressjs.com/zh-cn/4x/api.html</a></li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../19-Node.js%20Web%20%E6%A8%A1%E5%9D%97/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                19-Node.js Web 模块.md
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../21-Node.js%20RESTful%20API/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                21-Node.js RESTful API.md
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>

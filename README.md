@@ -1,4 +1,8 @@
-# 使用说明
+# Michael An 的个人站点
+
+这是 Michael An 的 个人站点，欢迎大家交流。
+
+## 开发说明
 
 1、首先 cd 到虚拟环境目录下面并开启虚拟环境
 
@@ -39,7 +43,15 @@ mkdocs build
 6、拷贝 site 下面的目录到外部根目录下面，然后push到github上面，即可显示编译后的界面
 
 
+## todo 
 
+- 不同的子项目内容分类优化
+
+- 不同平台互相引流
+
+- 不同子项目设置不同的样式
+
+- 相关文档整理说明
 
 
 ### 其他说明
@@ -54,22 +66,8 @@ command "python setup.py egg_info" failed with error code 1 in /private/tmp/p
 
 
 
-### 参考文档
 
-https://mkdocs.zimoapps.com/
-
-https://markdown-docs-zh.readthedocs.io/zh_CN/latest/
-
-https://blog.csdn.net/wirelessqa/article/details/78173401
-
-https://www.jianshu.com/p/9f618689954a
-
-https://blog.csdn.net/u011324454/article/details/79076885
-
-https://blog.csdn.net/u011092188/article/details/64123561
-
-
-### 配置文件
+### Mkdocs 配置文件
 
 ~~~yml
 site_name: Michale An Blog
@@ -150,3 +148,19 @@ theme: material
 #       toc_depth: "1-4"
 
 ~~~
+
+
+
+### 参考文档
+
+https://mkdocs.zimoapps.com/
+
+https://markdown-docs-zh.readthedocs.io/zh_CN/latest/
+
+https://blog.csdn.net/wirelessqa/article/details/78173401
+
+https://www.jianshu.com/p/9f618689954a
+
+https://blog.csdn.net/u011324454/article/details/79076885
+
+https://blog.csdn.net/u011092188/article/details/64123561

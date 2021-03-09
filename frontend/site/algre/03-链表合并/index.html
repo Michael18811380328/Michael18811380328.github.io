@@ -1,0 +1,2199 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/algre/03-%E9%93%BE%E8%A1%A8%E5%90%88%E5%B9%B6/">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>03-链表合并 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              03-链表合并
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        介绍
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+      
+      <label class="md-nav__link" for="nav-2">
+        算法
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="算法" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          算法
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1" >
+      
+      <label class="md-nav__link" for="nav-2-1">
+        基础
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="基础" data-md-level="2">
+        <label class="md-nav__title" for="nav-2-1">
+          <span class="md-nav__icon md-icon"></span>
+          基础
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../in-place/" class="md-nav__link">
+        原地算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part-two/" class="md-nav__link">
+        二分算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../double-pointer/" class="md-nav__link">
+        双指针
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diverce/" class="md-nav__link">
+        分治算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E7%BB%84%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        数组算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        排序算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        字符串算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%A0%88%E9%98%9F%E5%88%97%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        栈队列算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%93%BE%E8%A1%A8%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        链表算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%A0%91%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        树算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%AD%97%E5%85%B8%E6%A0%91/" class="md-nav__link">
+        字典树
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        贪心算法
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2" checked>
+      
+      <label class="md-nav__link" for="nav-2-2">
+        前端算法指南
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="前端算法指南" data-md-level="2">
+        <label class="md-nav__title" for="nav-2-2">
+          <span class="md-nav__icon md-icon"></span>
+          前端算法指南
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" class="md-nav__link">
+        01-反转链表
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/" class="md-nav__link">
+        02-环形链表
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          03-链表合并
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        03-链表合并
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#no1" class="md-nav__link">
+    No.1 合并两个有序链表
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    递归解法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    循环解法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no2-k" class="md-nav__link">
+    No.2 合并 K 个有序链表
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    自上而下(递归)实现
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    自下而上实现
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-%E6%B1%82%E9%93%BE%E8%A1%A8%E4%B8%AD%E9%97%B4%E8%8A%82%E7%82%B9/" class="md-nav__link">
+        04-求链表中间节点
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" class="md-nav__link">
+        05-二叉树层序遍历
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-%E6%97%A0%E6%9D%83%E5%9B%BE%20BFS%20%E9%81%8D%E5%8E%86/" class="md-nav__link">
+        06-无权图 BFS 遍历
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-%E5%AE%9E%E7%8E%B0%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" class="md-nav__link">
+        07-实现优先队列
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97%E5%8F%8A%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        08-双端队列及应用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97%E7%9A%84%E7%9B%B8%E4%BA%92%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        09-栈和队列的相互实现
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-n%20%E6%95%B0%E4%B9%8B%E5%92%8C/" class="md-nav__link">
+        10-n 数之和
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-%E4%BA%8C%E5%8F%89%E6%A0%91/" class="md-nav__link">
+        11-二叉树
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3" >
+      
+      <label class="md-nav__link" for="nav-2-3">
+        高级
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="高级" data-md-level="2">
+        <label class="md-nav__title" for="nav-2-3">
+          <span class="md-nav__icon md-icon"></span>
+          高级
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../K-means/" class="md-nav__link">
+        K-means 聚类算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LeetCode%E5%88%B7%E9%A2%98%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        LeetCode刷题方法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%88%B7%E9%A2%98%E7%AA%8D%E9%97%A8/" class="md-nav__link">
+        刷题窍门
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/" class="md-nav__link">
+        常见算法思想
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%9B%BE%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        图算法
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
+        Javascript
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Javascript" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          Javascript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/ES6-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        ES6-阮一峰
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/ES6%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8/" class="md-nav__link">
+        ES6 迭代器与生成器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/ES6newFeature/" class="md-nav__link">
+        ES6newFeature
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/JS%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        JS 性能优化
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/es6/" class="md-nav__link">
+        es6
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%B8%B8%E7%94%A8%E5%88%B0%E7%9A%84ES6%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        常用到的ES6语法
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
+        typescript
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="typescript" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          typescript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/01-%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        01-简介
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/02-%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        02-基础
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/03-%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        03-进阶
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/04-%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%BC%80%E5%8F%91-%E6%B5%8B%E8%AF%95%E7%BC%96%E8%AF%91/" class="md-nav__link">
+        04-工程化开发-测试编译
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82TS%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        网易云课堂TS入门
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/01-%E4%B8%8A%E6%89%8BTypeScript/" class="md-nav__link">
+        01-上手TypeScript
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/02-TS-Gulp/" class="md-nav__link">
+        02-TS-Gulp
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/03-JavaScript%E8%BF%81%E7%A7%BB/" class="md-nav__link">
+        03-JavaScript迁移
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/04-React%20%26%20Webpack/" class="md-nav__link">
+        04-React & Webpack
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/TS%20%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/" class="md-nav__link">
+        TS 常见问题整理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/TypeScript%E7%BC%96%E8%AF%91%E5%99%A8%20%E2%80%93%20%E4%B8%BA%E4%BB%80%E4%B9%88%E9%BB%98%E8%AE%A4%E6%83%85%E5%86%B5%E4%B8%8B%E4%B8%8D%E5%90%AF%E7%94%A8downlevelIteration%EF%BC%9F/" class="md-nav__link">
+        TypeScript编译器-downlevelIteration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/typescript%20%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        typescript 编译选项和配置文件
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+      
+      <label class="md-nav__link" for="nav-5">
+        react
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="react" data-md-level="1">
+        <label class="md-nav__title" for="nav-5">
+          <span class="md-nav__icon md-icon"></span>
+          react
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1" >
+      
+      <label class="md-nav__link" for="nav-5-1">
+        基础
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="基础" data-md-level="2">
+        <label class="md-nav__title" for="nav-5-1">
+          <span class="md-nav__icon md-icon"></span>
+          基础
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20FAQ/" class="md-nav__link">
+        React FAQ
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20PureComponent%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        React PureComponent 使用指南
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%E7%9A%84%20PureComponent%20%E4%B8%8E%20Component/" class="md-nav__link">
+        React 的 PureComponent 与 Component
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%E5%90%84%E7%A7%8Dbug%20%E4%BC%9A%E5%AE%9E%E6%97%B6%E6%9B%B4%E6%96%B0/" class="md-nav__link">
+        React 各种bug 会实时更新
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%E6%93%8D%E4%BD%9C%E5%85%83%E7%B4%A0%E7%9A%84API/" class="md-nav__link">
+        React 操作元素的API
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%E6%96%B0%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F--getDerivedStateFromProps/" class="md-nav__link">
+        React 新生命周期--getDerivedStateFromProps
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%E4%B8%AD%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/" class="md-nav__link">
+        React 中数据传输
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%B5%81%E7%A8%8B%E5%9B%BE/" class="md-nav__link">
+        React 生命周期流程图
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/Refs%20%26%20DOM/" class="md-nav__link">
+        Refs & DOM
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/getDerivedStateFromProps%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        getDerivedStateFromProps的使用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react%20%E4%B8%AD%E9%80%9A%E8%BF%87ref%E8%8E%B7%E5%8F%96%E9%AB%98%E9%98%B6%EF%BC%88HOC%EF%BC%89%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="md-nav__link">
+        react 中通过ref获取高阶（HOC）子组件实例的解决方案
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8A%E7%AF%87%EF%BC%88%E9%A6%96%E6%AC%A1%E6%B8%B2%E6%9F%93%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+        reactjs源码分析-上篇（首次渲染实现原理）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8B%E7%AF%87%EF%BC%88%E6%9B%B4%E6%96%B0%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+        reactjs源码分析-下篇（更新机制实现原理）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/%E5%AF%B9React%20children%E7%90%86%E8%A7%A3/" class="md-nav__link">
+        对 React children理解
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2" type="checkbox" id="nav-5-2" >
+      
+      <label class="md-nav__link" for="nav-5-2">
+        高级
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="高级" data-md-level="2">
+        <label class="md-nav__title" for="nav-5-2">
+          <span class="md-nav__icon md-icon"></span>
+          高级
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        React 高阶组件
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/" class="md-nav__link">
+        React 中的事件处理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React-advanced-guides/" class="md-nav__link">
+        React-advanced-guides
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react%20%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        react 项目结构及编码规范
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React-%E9%AB%98%E9%98%B6API/" class="md-nav__link">
+        React-高阶API
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3" >
+      
+      <label class="md-nav__link" for="nav-5-3">
+        性能优化
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="性能优化" data-md-level="2">
+        <label class="md-nav__title" for="nav-5-3">
+          <span class="md-nav__icon md-icon"></span>
+          性能优化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%E5%BC%BA%E5%88%B6%E6%9B%B4%E6%96%B0%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        React 强制更新组件
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React-Design%20Principles/" class="md-nav__link">
+        React-Design Principles
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React-Hooks/" class="md-nav__link">
+        React-Hooks
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React-Suspense%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%8E%A2%E8%AE%A8-%E6%B2%A1%E7%9C%8B%E6%98%8E%E7%99%BD/" class="md-nav__link">
+        React-Suspense的实现与探讨
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        React-性能优化
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React.Children%E7%9A%84API/" class="md-nav__link">
+        React.Children的API
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React.Component/" class="md-nav__link">
+        React.Component
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React.children%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        React.children介绍
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+        React事件
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%E6%95%B0%E6%8D%AE%E6%B5%81/" class="md-nav__link">
+        React数据流
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%E8%8E%B7%E5%8F%96%E5%B0%BA%E5%AF%B8/" class="md-nav__link">
+        React获取尺寸
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+      
+      <label class="md-nav__link" for="nav-6">
+        工程化
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="工程化" data-md-level="1">
+        <label class="md-nav__title" for="nav-6">
+          <span class="md-nav__icon md-icon"></span>
+          工程化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7%E7%90%86%E8%AE%BA/" class="md-nav__link">
+        前端监控理论
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        真实项目webpack配置解析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
+        webpack编译原理分析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        webpack的高级技巧.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/React%20%26%20Webpack/" class="md-nav__link">
+        React & Webpack.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/TS-React-Webpack/" class="md-nav__link">
+        TS-React-Webpack.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" >
+      
+      <label class="md-nav__link" for="nav-7">
+        课程笔记
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="课程笔记" data-md-level="1">
+        <label class="md-nav__title" for="nav-7">
+          <span class="md-nav__icon md-icon"></span>
+          课程笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/00-%E7%9B%AE%E5%BD%95/" class="md-nav__link">
+        00-目录.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/02-v8%E5%BC%95%E6%93%8E%E5%9B%9E%E6%94%B6%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        02-v8引擎回收内存简介.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/03-node%E4%B8%8B%E9%9D%A2%E7%9A%84Restful%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        03-node下面的Restful实现.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/04-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%9A%84%E6%8F%90%E5%8D%87%E2%80%94%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E6%88%91%E4%BB%AC%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7/" class="md-nav__link">
+        04-编程思想的提升—如何提高我们代码的可扩展性.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/06-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8Cssr/" class="md-nav__link">
+        06-浏览器渲染原理和ssr.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/07-%E7%BD%91%E6%98%93%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        07-网易真实项目webpack配置解析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/08-%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90API%E5%B1%82/" class="md-nav__link">
+        08-从架构分析API层.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/09-%E5%89%8D%E7%AB%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        09-前端负责人的工作内容.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/10-%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%E5%AD%A6%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        10-分析源码学架构.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/11-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E9%AB%98%E8%B4%A8%E9%87%8F%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        11-设计模式高质量代码.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/12-nodeJS%2BMongoDB%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        12-nodeJS+MongoDB登录系统.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/12-nodejs-mongodb-mongoose/" class="md-nav__link">
+        12-nodejs-mongodb-mongoose.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/13-%E4%BD%BF%E7%94%A8VUE%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        13-使用VUE创建组件（没学完）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/16-%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        16-构建自己的脚手架工具.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/17-webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
+        17-webpack编译原理分析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/20-%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD-VUE%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        20-组件封装的基本技能-VUE（没学完）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/21-ssr/" class="md-nav__link">
+        21-ssr.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/24-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%A6%82%E4%BD%95%E5%81%9A/" class="md-nav__link">
+        24-单元测试如何做.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/25-%E5%9F%BA%E4%BA%8ENodeJS%E6%89%93%E9%80%A0Web%E6%9E%B6%E6%9E%84%E4%B8%AD%E9%97%B4%E5%B1%82/" class="md-nav__link">
+        25-基于NodeJS打造Web架构中间层.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/26-webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        26-webpack的高级技巧.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" >
+      
+      <label class="md-nav__link" for="nav-8">
+        About
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="nav-8">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        关于我
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/log/" class="md-nav__link">
+        学习日志
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#no1" class="md-nav__link">
+    No.1 合并两个有序链表
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    递归解法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    循环解法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#no2-k" class="md-nav__link">
+    No.2 合并 K 个有序链表
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    自上而下(递归)实现
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    自下而上实现
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/algre/03-链表合并.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="_1">链表合并<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="no1">No.1 合并两个有序链表<a class="headerlink" href="#no1" title="Permanent link">&para;</a></h2>
+<p>将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。</p>
+<p>示例:</p>
+<div class="codehilite"><pre><span></span><code>输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4
+输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4
+</code></pre></div>
+
+<p>来源: LeetCode第21题</p>
+<h2 id="_2">递归解法<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>递归解法更容易理解，我们先用递归来做一下:</p>
+<div class="highlight"><pre><span></span><code>    <span class="cm">/**</span>
+<span class="cm">     * @param {ListNode} l1</span>
+<span class="cm">     * @param {ListNode} l2</span>
+<span class="cm">     * @return {ListNode}</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">mergeTwoLists</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">l1</span><span class="p">,</span> <span class="nx">l2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">merge</span> <span class="o">=</span> <span class="p">(</span><span class="nx">l1</span><span class="p">,</span> <span class="nx">l2</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">l1</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="nx">l2</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">l2</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="nx">l1</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">l1</span><span class="p">.</span><span class="nx">val</span> <span class="o">&gt;</span> <span class="nx">l2</span><span class="p">.</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">l2</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">l1</span><span class="p">,</span> <span class="nx">l2</span><span class="p">.</span><span class="nx">next</span><span class="p">);</span>
+                <span class="k">return</span> <span class="nx">l2</span><span class="p">;</span>
+            <span class="p">}</span><span class="k">else</span> <span class="p">{</span>
+                <span class="nx">l1</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">l1</span><span class="p">.</span><span class="nx">next</span><span class="p">,</span> <span class="nx">l2</span><span class="p">);</span>
+                <span class="k">return</span> <span class="nx">l1</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">l1</span><span class="p">,</span> <span class="nx">l2</span><span class="p">);</span>
+    <span class="p">};</span>
+</code></pre></div>
+<h2 id="_3">循环解法<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>    <span class="kd">var</span> <span class="nx">mergeTwoLists</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">l1</span><span class="p">,</span> <span class="nx">l2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">l1</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="nx">l2</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">l2</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="nx">l1</span><span class="p">;</span>
+        <span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="nx">dummyHead</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ListNode</span><span class="p">();</span>
+        <span class="kd">let</span> <span class="nx">p1</span> <span class="o">=</span> <span class="nx">l1</span><span class="p">,</span> <span class="nx">p2</span> <span class="o">=</span> <span class="nx">l2</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="nx">p1</span> <span class="o">&amp;&amp;</span> <span class="nx">p2</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">p1</span><span class="p">.</span><span class="nx">val</span> <span class="o">&gt;</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">p</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">p2</span><span class="p">;</span>
+                <span class="nx">p</span> <span class="o">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">next</span><span class="p">;</span>
+                <span class="nx">p2</span> <span class="o">=</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">next</span><span class="p">;</span>
+            <span class="p">}</span><span class="k">else</span> <span class="p">{</span>
+                <span class="nx">p</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">p1</span><span class="p">;</span>
+                <span class="nx">p</span> <span class="o">=</span> <span class="nx">p</span><span class="p">.</span><span class="nx">next</span><span class="p">;</span>
+                <span class="nx">p1</span> <span class="o">=</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">next</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="c1">// 循环完成后务必检查剩下的部分</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">p1</span><span class="p">)</span> <span class="nx">p</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">p1</span><span class="p">;</span>
+        <span class="k">else</span> <span class="nx">p</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">p2</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nx">dummyHead</span><span class="p">.</span><span class="nx">next</span><span class="p">;</span>
+    <span class="p">};</span>
+</code></pre></div>
+<h2 id="no2-k">No.2 合并 K 个有序链表<a class="headerlink" href="#no2-k" title="Permanent link">&para;</a></h2>
+<p>合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。</p>
+<p>示例:</p>
+<div class="codehilite"><pre><span></span><code>输入:
+[
+  1-&gt;4-&gt;5,
+  1-&gt;3-&gt;4,
+  2-&gt;6
+]
+输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6
+</code></pre></div>
+
+<p>来源: LeetCode第23题</p>
+<h2 id="_4">自上而下(递归)实现<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>    <span class="cm">/**</span>
+<span class="cm">     * @param {ListNode[]} lists</span>
+<span class="cm">     * @return {ListNode}</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">mergeKLists</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lists</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 上面已经实现</span>
+        <span class="kd">var</span> <span class="nx">mergeTwoLists</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">l1</span><span class="p">,</span> <span class="nx">l2</span><span class="p">)</span> <span class="p">{</span><span class="cm">/*上面已经实现*/</span><span class="p">};</span>
+        <span class="kd">const</span> <span class="nx">_mergeLists</span> <span class="o">=</span> <span class="p">(</span><span class="nx">lists</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">end</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">end</span> <span class="o">-</span> <span class="nx">start</span> <span class="o">&lt;</span> <span class="mf">0</span><span class="p">)</span> <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">end</span> <span class="o">-</span> <span class="nx">start</span> <span class="o">==</span> <span class="mf">0</span><span class="p">)</span><span class="k">return</span> <span class="nx">lists</span><span class="p">[</span><span class="nx">end</span><span class="p">];</span>
+            <span class="kd">let</span> <span class="nx">mid</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">start</span> <span class="o">+</span> <span class="p">(</span><span class="nx">end</span> <span class="o">-</span> <span class="nx">start</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2</span><span class="p">);</span>
+            <span class="k">return</span> <span class="nx">mergeTwoList</span><span class="p">(</span><span class="nx">_mergeLists</span><span class="p">(</span><span class="nx">lists</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">mid</span><span class="p">),</span> <span class="nx">_mergeLists</span><span class="p">(</span><span class="nx">lists</span><span class="p">,</span> <span class="nx">mid</span> <span class="o">+</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">end</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">_mergeLists</span><span class="p">(</span><span class="nx">lists</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">lists</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mf">1</span><span class="p">);</span>
+    <span class="p">};</span>
+</code></pre></div>
+<h2 id="_5">自下而上实现<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>在这里需要提醒大家的是，在自下而上的实现方式中，我为每一个链表绑定了一个虚拟头指针(dummyHead)，为什么这么做？</p>
+<p>这是为了方便链表的合并，比如 l1 和 l2 合并之后，合并后链表的头指针就直接是 l1 的 dummyHead.next 值，等于说两个链表都合并到了 l1 当中，方便了后续的合并操作。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">mergeKLists</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lists</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">mergeTwoLists</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">l1</span><span class="p">,</span> <span class="nx">l2</span><span class="p">)</span> <span class="p">{</span><span class="cm">/*上面已经实现*/</span><span class="p">};</span>
+    <span class="c1">// 边界情况</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">lists</span> <span class="o">||</span> <span class="o">!</span><span class="nx">lists</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="c1">// 虚拟头指针集合</span>
+    <span class="kd">let</span> <span class="nx">dummyHeads</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="c1">// 初始化虚拟头指针</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lists</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">node</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ListNode</span><span class="p">();</span>
+        <span class="nx">node</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">lists</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+        <span class="nx">dummyHeads</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">node</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1">// 自底向上进行merge</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">size</span> <span class="o">=</span> <span class="mf">1</span><span class="p">;</span> <span class="nx">size</span> <span class="o">&lt;</span> <span class="nx">lists</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">size</span> <span class="o">+=</span> <span class="nx">size</span><span class="p">){</span>
+        <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+</span> <span class="nx">size</span> <span class="o">&lt;</span> <span class="nx">lists</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span> <span class="o">+=</span> <span class="mf">2</span> <span class="o">*</span> <span class="nx">size</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">dummyHeads</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">mergeTwoLists</span><span class="p">(</span><span class="nx">dummyHeads</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">next</span><span class="p">,</span> <span class="nx">dummyHeads</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="nx">size</span><span class="p">].</span><span class="nx">next</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">dummyHeads</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">next</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>多个链表的合并到这里就实现完成了，在这里顺便告诉你这种归并的方式同时也是对链表进行归并排序的核心代码。希望你能好好体会自上而下和自下而上两种不同的实现细节，相信对你的编程内功是一个不错的提升。</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../02-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                02-环形链表
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../04-%E6%B1%82%E9%93%BE%E8%A1%A8%E4%B8%AD%E9%97%B4%E8%8A%82%E7%82%B9/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                04-求链表中间节点
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>

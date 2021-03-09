@@ -1,0 +1,1571 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/SQL/SQLite-API-Python/">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>SQLite-API-Python - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sqlite-python" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              SQLite-API-Python
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        介绍
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+      
+      <label class="md-nav__link" for="nav-2">
+        NodeJS
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="NodeJS" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          NodeJS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1" >
+      
+      <label class="md-nav__link" for="nav-2-1">
+        基础
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="基础" data-md-level="2">
+        <label class="md-nav__title" for="nav-2-1">
+          <span class="md-nav__icon md-icon"></span>
+          基础
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/01-Node.js%20%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        01-Node.js 教程.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/02-Node.js%20%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="md-nav__link">
+        02-Node.js 安装配置.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/03-Node.js%20%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        03-Node.js 创建第一个应用.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/05-Node.js%20REPL%28%E4%BA%A4%E4%BA%92%E5%BC%8F%E8%A7%A3%E9%87%8A%E5%99%A8%29/" class="md-nav__link">
+        05-Node.js REPL(交互式解释器).md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/06-Node.js%20%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        06-Node.js 回调函数.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/07-Node.js%20%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" class="md-nav__link">
+        07-Node.js 事件循环.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/08-Node.js%20EventEmitter/" class="md-nav__link">
+        08-Node.js EventEmitter.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/09-Node.js%20Buffer%28%E7%BC%93%E5%86%B2%E5%8C%BA%29/" class="md-nav__link">
+        09-Node.js Buffer(缓冲区).md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/10-Node.js%20Stream%28%E6%B5%81%29/" class="md-nav__link">
+        10-Node.js Stream(流).md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/11-Node.js%E6%A8%A1%E5%9D%97%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        11-Node.js模块系统.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/12-Node.js%20%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        12-Node.js 函数.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/13-Node.js%20%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        13-Node.js 路由.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/14-Node.js%20%E5%85%A8%E5%B1%80%E5%AF%B9%E8%B1%A1/" class="md-nav__link">
+        14-Node.js 全局对象.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/15-Node.js%20%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        15-Node.js 常用工具.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/16-Node.js%20%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        16-Node.js 文件系统.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/17-Node.js%20GETPOST%E8%AF%B7%E6%B1%82/" class="md-nav__link">
+        17-Node.js GETPOST请求.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/18-Node.js%20%E5%B7%A5%E5%85%B7%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        18-Node.js 工具模块.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/19-Node.js%20Web%20%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        19-Node.js Web 模块.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/20-Node.js%20Express%20%E6%A1%86%E6%9E%B6/" class="md-nav__link">
+        20-Node.js Express 框架.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/21-Node.js%20RESTful%20API/" class="md-nav__link">
+        21-Node.js RESTful API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/22-Node.js%20%E5%A4%9A%E8%BF%9B%E7%A8%8B/" class="md-nav__link">
+        22-Node.js 多进程.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/23-Node.js%20JXcore%20%E6%89%93%E5%8C%85/" class="md-nav__link">
+        23-Node.js JXcore 打包.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/24-Node.js%20%E8%BF%9E%E6%8E%A5%20MySQL/" class="md-nav__link">
+        24-Node.js 连接 MySQL.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/25-Node.js%20%E8%BF%9E%E6%8E%A5%20MongoDB/" class="md-nav__link">
+        25-Node.js 连接 MongoDB.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2" >
+      
+      <label class="md-nav__link" for="nav-2-2">
+        高级
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="高级" data-md-level="2">
+        <label class="md-nav__title" for="nav-2-2">
+          <span class="md-nav__icon md-icon"></span>
+          高级
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node%20%E4%B8%8B%20LDAP%20%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        Node 下 LDAP 实现.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js-fs%E6%96%87%E6%A1%A3/" class="md-nav__link">
+        Node.js-fs文档.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js-path/" class="md-nav__link">
+        Node.js-path.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F/" class="md-nav__link">
+        Node.js-全局变量.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js%E4%BD%BF%E7%94%A8Nodemailer%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" class="md-nav__link">
+        Node.js使用 Nodemailer 发送邮件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/NodeJS/" class="md-nav__link">
+        NodeJS.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/node-debug/" class="md-nav__link">
+        node-debug.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/nodeJS%20%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        nodeJS 基础教程.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/nodeJS%2Bmysql%2B%E8%BF%9E%E6%8E%A5%E6%B1%A0/" class="md-nav__link">
+        nodeJS+mysql+连接池.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/nodejs%20api%E5%AD%A6%E4%B9%A0%EF%BC%9Afs.createReadStreame%28%29/" class="md-nav__link">
+        nodejs api学习：fs.createReadStreame().md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/node%E5%AE%9A%E6%97%B6%E5%99%A8/" class="md-nav__link">
+        node定时器.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E4%BD%BF%E7%94%A8nodejs%E8%BF%9E%E6%8E%A5mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" class="md-nav__link">
+        使用nodejs连接mysql数据库实现增删改查.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E5%BB%96%E9%9B%AA%E5%B3%B0%20NodeJS/" class="md-nav__link">
+        廖雪峰 NodeJS.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84nodeJS/" class="md-nav__link">
+        命令行的nodeJS.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+      
+      <label class="md-nav__link" for="nav-3">
+        SQL
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="SQL" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          SQL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%98%BF%E9%87%8C%E4%BA%91MySQL%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        阿里云MySQL入门
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        数据库概念
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%B7%B1%E5%85%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        深入MySQL数据库
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mac%20pip%20install%20mysql-python%20unsuccessful/" class="md-nav__link">
+        Mac pip install mysql-python unsuccessful
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mac%E5%AE%89%E8%A3%85MySQLdb%EF%BC%88python-mysql%EF%BC%89%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        Mac 安装 MySQLdb（python-mysql）模块
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%E6%93%8D%E4%BD%9C%20MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        Python 操作 MySQL数据库
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          SQLite-API-Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        SQLite-API-Python
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-sqlite3-api" class="md-nav__link">
+    Python sqlite3 模块 API
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    连接数据库
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    创建表
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#insert" class="md-nav__link">
+    INSERT 操作
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
+        python
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="python" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/django-basic/" class="md-nav__link">
+        django-basic
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/django/" class="md-nav__link">
+        django
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/falsk%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B/" class="md-nav__link">
+        flask快速开始
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/flask%20%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82/" class="md-nav__link">
+        flask 网易云课堂
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/%E5%AE%89%E8%A3%85pandas%E6%97%B6%E5%87%BA%E7%8E%B0%E7%8E%AF%E5%A2%83%E9%94%99%E8%AF%AF/" class="md-nav__link">
+        安装pandas时出现环境错误
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/%E6%90%AD%E5%BB%BApython3%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="md-nav__link">
+        搭建python3开发环境
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/%E3%80%90%E8%A7%A3%E5%86%B3%E3%80%91ValueError%20Length%20mismatch%20Expected%20axis%20has%200%20elements%2C%20new%20values%20have%202%20elements/" class="md-nav__link">
+        ValueError Length mismatch Expected axis has 0 elements, new values have 2 elements
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/ERROR%20No%20matching%20distribution%20found%20for%20Django%3D%3D3.0.2%20%28from%20-r%20requirements.txt%20%28line%204%29%29/" class="md-nav__link">
+        ERROR No matching distribution found for Django==3.0.2 (from -r requirements.txt (line 4))
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+      
+      <label class="md-nav__link" for="nav-5">
+        About
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="nav-5">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        关于我
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/log/" class="md-nav__link">
+        学习日志
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-sqlite3-api" class="md-nav__link">
+    Python sqlite3 模块 API
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    连接数据库
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    创建表
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#insert" class="md-nav__link">
+    INSERT 操作
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/SQL/SQLite-API-Python.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="sqlite-python">SQLite - Python<a class="headerlink" href="#sqlite-python" title="Permanent link">&para;</a></h1>
+<h2 id="_1">安装<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>SQLite3 可使用 sqlite3 模块与 Python 进行集成。sqlite3 模块是由 Gerhard Haring 编写的。它提供了一个与 PEP 249 描述的 DB-API 2.0 规范兼容的 SQL 接口。您不需要单独安装该模块，因为 Python 2.5.x 以上版本默认自带了该模块。</p>
+<p>为了使用 sqlite3 模块，您首先必须创建一个表示数据库的连接对象，然后您可以有选择地创建光标对象，这将帮助您执行所有的 SQL 语句。</p>
+<h2 id="python-sqlite3-api">Python sqlite3 模块 API<a class="headerlink" href="#python-sqlite3-api" title="Permanent link">&para;</a></h2>
+<p>以下是重要的 sqlite3 模块程序，可以满足您在 Python 程序中使用 SQLite 数据库的需求。如果您需要了解更多细节，请查看 Python sqlite3 模块的官方文档。</p>
+<table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">API &amp; 描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">1</td>
+<td align="left"><strong>sqlite3.connect(database [,timeout ,other optional arguments])</strong> 该 API 打开一个到 SQLite 数据库文件 database 的链接。您可以使用 ":memory:" 来在 RAM 中打开一个到 database 的数据库连接，而不是在磁盘上打开。如果数据库成功打开，则返回一个连接对象。当一个数据库被多个连接访问，且其中一个修改了数据库，此时 SQLite 数据库被锁定，直到事务提交。timeout 参数表示连接等待锁定的持续时间，直到发生异常断开连接。timeout 参数默认是 5.0（5 秒）。如果给定的数据库名称 filename 不存在，则该调用将创建一个数据库。如果您不想在当前目录中创建数据库，那么您可以指定带有路径的文件名，这样您就能在任意地方创建数据库。</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left"><strong>connection.cursor([cursorClass])</strong> 该例程创建一个 <strong>cursor</strong>，将在 Python 数据库编程中用到。该方法接受一个单一的可选的参数 cursorClass。如果提供了该参数，则它必须是一个扩展自 sqlite3.Cursor 的自定义的 cursor 类。</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left"><strong>cursor.execute(sql [, optional parameters])</strong> 该例程执行一个 SQL 语句。该 SQL 语句可以被参数化（即使用占位符代替 SQL 文本）。sqlite3 模块支持两种类型的占位符：问号和命名占位符（命名样式）。例如：cursor.execute("insert into people values (?, ?)", (who, age))</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"><strong>connection.execute(sql [, optional parameters])</strong> 该例程是上面执行的由光标（cursor）对象提供的方法的快捷方式，它通过调用光标（cursor）方法创建了一个中间的光标对象，然后通过给定的参数调用光标的 execute 方法。</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left"><strong>cursor.executemany(sql, seq_of_parameters)</strong> 该例程对 seq_of_parameters 中的所有参数或映射执行一个 SQL 命令。</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left"><strong>connection.executemany(sql[, parameters])</strong> 该例程是一个由调用光标（cursor）方法创建的中间的光标对象的快捷方式，然后通过给定的参数调用光标的 executemany 方法。</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left"><strong>cursor.executescript(sql_script)</strong> 该例程一旦接收到脚本，会执行多个 SQL 语句。它首先执行 COMMIT 语句，然后执行作为参数传入的 SQL 脚本。所有的 SQL 语句应该用分号（;）分隔。</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left"><strong>connection.executescript(sql_script)</strong> 该例程是一个由调用光标（cursor）方法创建的中间的光标对象的快捷方式，然后通过给定的参数调用光标的 executescript 方法。</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left"><strong>connection.total_changes()</strong> 该例程返回自数据库连接打开以来被修改、插入或删除的数据库总行数。</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left"><strong>connection.commit()</strong> 该方法提交当前的事务。如果您未调用该方法，那么自您上一次调用 commit() 以来所做的任何动作对其他数据库连接来说是不可见的。</td>
+</tr>
+<tr>
+<td align="left">11</td>
+<td align="left"><strong>connection.rollback()</strong> 该方法回滚自上一次调用 commit() 以来对数据库所做的更改。</td>
+</tr>
+<tr>
+<td align="left">12</td>
+<td align="left"><strong>connection.close()</strong> 该方法关闭数据库连接。请注意，这不会自动调用 commit()。如果您之前未调用 commit() 方法，就直接关闭数据库连接，您所做的所有更改将全部丢失！</td>
+</tr>
+<tr>
+<td align="left">13</td>
+<td align="left"><strong>cursor.fetchone()</strong> 该方法获取查询结果集中的下一行，返回一个单一的序列，当没有更多可用的数据时，则返回 None。</td>
+</tr>
+<tr>
+<td align="left">14</td>
+<td align="left"><strong>cursor.fetchmany([size=cursor.arraysize])</strong> 该方法获取查询结果集中的下一行组，返回一个列表。当没有更多的可用的行时，则返回一个空的列表。该方法尝试获取由 size 参数指定的尽可能多的行。</td>
+</tr>
+<tr>
+<td align="left">15</td>
+<td align="left"><strong>cursor.fetchall()</strong> 该例程获取查询结果集中所有（剩余）的行，返回一个列表。当没有可用的行时，则返回一个空的列表。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">连接数据库<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>下面的 Python 代码显示了如何连接到一个现有的数据库。如果数据库不存在，那么它就会被创建，最后将返回一个数据库对象。</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/python</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="s2">&quot;Opened database successfully&quot;</span><span class="p">;</span>
+
+<span class="c1">#</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;michael.db&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="s2">&quot;open database successfully&quot;</span>
+</code></pre></div>
+<p>在这里，您也可以把数据库名称复制为特定的名称 <strong>:memory:</strong>，这样就会在 RAM 中创建一个数据库。现在，让我们来运行上面的程序，在当前目录中创建我们的数据库 <strong>test.db</strong>。您可以根据需要改变路径。保存上面代码到 sqlite.py 文件中，并按如下所示执行。如果数据库成功创建，那么会显示下面所示的消息：</p>
+<div class="highlight"><pre><span></span><code><span class="nv">$chmod</span> +x sqlite.py
+$./sqlite.py
+Open database successfully
+</code></pre></div>
+<h2 id="_3">创建表<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>下面的 Python 代码段将用于在先前创建的数据库中创建一个表：</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/python</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="s2">&quot;Opened database successfully&quot;</span><span class="p">;</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;CREATE TABLE COMPANY</span>
+<span class="s1">       (ID INT PRIMARY KEY     NOT NULL,</span>
+<span class="s1">       NAME           TEXT    NOT NULL,</span>
+<span class="s1">       AGE            INT     NOT NULL,</span>
+<span class="s1">       ADDRESS        CHAR(50),</span>
+<span class="s1">       SALARY         REAL);&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="s2">&quot;Table created successfully&quot;</span><span class="p">;</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;michael.db&#39;</span><span class="p">)</span>
+<span class="nb">print</span> <span class="s2">&quot;OPEN database successfully&quot;</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+    <span class="sd">&#39;&#39;&#39;CREATE   TABLE ACCOUNT</span>
+<span class="sd">    (ID INT PRIMARY KEY NOT NULL,</span>
+<span class="sd">    NAME TEXT NOT NULL,</span>
+<span class="sd">    AGE INT NOT NULL,</span>
+<span class="sd">    ADDRESS CHAR(50),</span>
+<span class="sd">    SALARY REAL);&#39;&#39;&#39;</span>
+<span class="p">)</span>
+<span class="nb">print</span> <span class="s2">&quot;create table successfully&quot;</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p>上述程序执行时，它会在 <strong>test.db</strong> 中创建 COMPANY 表，并显示下面所示的消息：</p>
+<div class="highlight"><pre><span></span><code>Opened database successfully
+Table created successfully
+</code></pre></div>
+<h2 id="insert">INSERT 操作<a class="headerlink" href="#insert" title="Permanent link">&para;</a></h2>
+<p>下面的 Python 程序显示了如何在上面创建的 COMPANY 表中创建记录：</p>
+<p>```python </p>
+<h1 id="usrbinpython">!/usr/bin/python<a class="headerlink" href="#usrbinpython" title="Permanent link">&para;</a></h1>
+<p>import sqlite3</p>
+<p>conn = sqlite3.connect('test.db')
+c = conn.cursor()
+print "Opened database successfully"</p>
+<p>c.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) \
+      VALUES (1, 'Paul', 32, 'California', 20000.00 )")
+c.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) \
+      VALUES (2, 'Allen', 25, 'Texas', 15000.00 )")
+c.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) \
+      VALUES (3, 'Teddy', 23, 'Norway', 20000.00 )")
+c.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) \
+      VALUES (4, 'Mark', 25, 'Rich-Mond ', 65000.00 )")
+conn.commit()
+print "Records created successfully";
+conn.close()</p>
+<p>import sqlite3
+conn = sqlite3.connect('michael.db')
+c = conn.cursor()
+print 'Open successfully'
+c.execute("INSERT INTO ACCOUNT (ID,NAME,AGE,ADDRESS,SALARY)  VALUES(1, 'Mike', 32, NULL, 10000)")
+conn.commit()
+conn.close()
+<div class="highlight"><pre><span></span><code>上述程序执行时，它会在 COMPANY 表中创建给定记录，并会显示以下两行：
+</code></pre></div>
+Opened database successfully
+Records created successfully
+<div class="highlight"><pre><span></span><code>## SELECT 操作
+
+下面的 Python 程序显示了如何从前面创建的 COMPANY 表中获取并显示记录：
+
+```python
+#!/usr/bin/python
+import sqlite3
+conn = sqlite3.connect(&#39;test.db&#39;)
+c = conn.cursor()
+cursor = c.execute(&quot;SELECT id, name, address, salary  from COMPANY&quot;)
+for row in cursor:
+   print &quot;ID = &quot;, row[0]
+   print &quot;NAME = &quot;, row[1]
+   print &quot;ADDRESS = &quot;, row[2]
+   print &quot;SALARY = &quot;, row[3], &quot;\n&quot;
+conn.close()
+
+import sqlite3
+conn = sqlite3.connect(&#39;test.db&#39;)
+c = conn.cursor()
+cursor = c.execute(&quot;SELECT id, name, address, salary from ACCOUNT&quot;)
+for row in cursor:
+  print row[0]
+  print row[1]
+  print row[2]
+  print row[3]
+conn.close()
+</code></pre></div></p>
+<p>上述程序执行时，它会产生以下结果：</p>
+<div class="highlight"><pre><span></span><code>Opened database successfully
+<span class="nv">ID</span> <span class="o">=</span>  <span class="m">1</span>
+<span class="nv">NAME</span> <span class="o">=</span>  Paul
+<span class="nv">ADDRESS</span> <span class="o">=</span>  California
+<span class="nv">SALARY</span> <span class="o">=</span>  <span class="m">20000</span>.0
+
+<span class="nv">ID</span> <span class="o">=</span>  <span class="m">2</span>
+<span class="nv">NAME</span> <span class="o">=</span>  Allen
+<span class="nv">ADDRESS</span> <span class="o">=</span>  Texas
+<span class="nv">SALARY</span> <span class="o">=</span>  <span class="m">15000</span>.0
+
+<span class="nv">ID</span> <span class="o">=</span>  <span class="m">3</span>
+<span class="nv">NAME</span> <span class="o">=</span>  Teddy
+<span class="nv">ADDRESS</span> <span class="o">=</span>  Norway
+<span class="nv">SALARY</span> <span class="o">=</span>  <span class="m">20000</span>.0
+
+<span class="nv">ID</span> <span class="o">=</span>  <span class="m">4</span>
+<span class="nv">NAME</span> <span class="o">=</span>  Mark
+<span class="nv">ADDRESS</span> <span class="o">=</span>  Rich-Mond
+<span class="nv">SALARY</span> <span class="o">=</span>  <span class="m">65000</span>.0
+
+Operation <span class="k">done</span> successfully
+</code></pre></div>
+<h2 id="update">UPDATE 操作<a class="headerlink" href="#update" title="Permanent link">&para;</a></h2>
+<p>下面的 Python 代码显示了如何使用 UPDATE 语句来更新任何记录，然后从 COMPANY 表中获取并显示更新的记录：</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/python</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;UPDATE COMPANY set SALARY = 25000.00 where ID=1&quot;</span><span class="p">)</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT id, name, address, salary  from COMPANY&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+   <span class="nb">print</span> <span class="s2">&quot;ID = &quot;</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+   <span class="nb">print</span> <span class="s2">&quot;NAME = &quot;</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+   <span class="nb">print</span> <span class="s2">&quot;ADDRESS = &quot;</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+   <span class="nb">print</span> <span class="s2">&quot;SALARY = &quot;</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p>上述程序执行时，它会产生以下结果：</p>
+<div class="highlight"><pre><span></span><code>Opened database successfully
+Total number of rows updated : 1
+ID =  1
+NAME =  Paul
+ADDRESS =  California
+SALARY =  25000.0
+
+ID =  2
+NAME =  Allen
+ADDRESS =  Texas
+SALARY =  15000.0
+
+ID =  3
+NAME =  Teddy
+ADDRESS =  Norway
+SALARY =  20000.0
+
+ID =  4
+NAME =  Mark
+ADDRESS =  Rich-Mond
+SALARY =  65000.0
+
+Operation done successfully
+</code></pre></div>
+<h2 id="delete">DELETE 操作<a class="headerlink" href="#delete" title="Permanent link">&para;</a></h2>
+<p>下面的 Python 代码显示了如何使用 DELETE 语句删除任何记录，然后从 COMPANY 表中获取并显示剩余的记录：</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/usr/bin/python</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;test.db&#39;</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DELETE from COMPANY where ID=2;&quot;</span><span class="p">)</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="nb">print</span> <span class="s2">&quot;Total number of rows deleted :&quot;</span><span class="p">,</span> <span class="n">conn</span><span class="o">.</span><span class="n">total_changes</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT id, name, address, salary  from COMPANY&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+   <span class="nb">print</span> <span class="s2">&quot;ID = &quot;</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+   <span class="nb">print</span> <span class="s2">&quot;NAME = &quot;</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+   <span class="nb">print</span> <span class="s2">&quot;ADDRESS = &quot;</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+   <span class="nb">print</span> <span class="s2">&quot;SALARY = &quot;</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p>上述程序执行时，它会产生以下结果：</p>
+<div class="highlight"><pre><span></span><code>Opened database successfully
+Total number of rows deleted : 1
+ID =  1
+NAME =  Paul
+ADDRESS =  California
+SALARY =  20000.0
+
+ID =  3
+NAME =  Teddy
+ADDRESS =  Norway
+SALARY =  20000.0
+
+ID =  4
+NAME =  Mark
+ADDRESS =  Rich-Mond
+SALARY =  65000.0
+
+Operation done successfully
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../Python%E6%93%8D%E4%BD%9C%20MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Python 操作 MySQL数据库
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../../python/django-basic/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                django-basic
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>

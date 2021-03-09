@@ -1,0 +1,3102 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/react/React%20%E5%90%84%E7%A7%8Dbug%20%E4%BC%9A%E5%AE%9E%E6%97%B6%E6%9B%B4%E6%96%B0/">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>React 各种bug 会实时更新 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#react-bug" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              React 各种bug 会实时更新
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        介绍
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+      
+      <label class="md-nav__link" for="nav-2">
+        算法
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="算法" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          算法
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-1" type="checkbox" id="nav-2-1" >
+      
+      <label class="md-nav__link" for="nav-2-1">
+        基础
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="基础" data-md-level="2">
+        <label class="md-nav__title" for="nav-2-1">
+          <span class="md-nav__icon md-icon"></span>
+          基础
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/in-place/" class="md-nav__link">
+        原地算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/part-two/" class="md-nav__link">
+        二分算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/double-pointer/" class="md-nav__link">
+        双指针
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/diverce/" class="md-nav__link">
+        分治算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/%E6%95%B0%E7%BB%84%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        数组算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        排序算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        字符串算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/%E6%A0%88%E9%98%9F%E5%88%97%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        栈队列算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/%E9%93%BE%E8%A1%A8%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        链表算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/%E6%A0%91%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        树算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/%E5%AD%97%E5%85%B8%E6%A0%91/" class="md-nav__link">
+        字典树
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        贪心算法
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-2" type="checkbox" id="nav-2-2" >
+      
+      <label class="md-nav__link" for="nav-2-2">
+        前端算法指南
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="前端算法指南" data-md-level="2">
+        <label class="md-nav__title" for="nav-2-2">
+          <span class="md-nav__icon md-icon"></span>
+          前端算法指南
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/01-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" class="md-nav__link">
+        01-反转链表
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/02-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/" class="md-nav__link">
+        02-环形链表
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/03-%E9%93%BE%E8%A1%A8%E5%90%88%E5%B9%B6/" class="md-nav__link">
+        03-链表合并
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/04-%E6%B1%82%E9%93%BE%E8%A1%A8%E4%B8%AD%E9%97%B4%E8%8A%82%E7%82%B9/" class="md-nav__link">
+        04-求链表中间节点
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/05-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" class="md-nav__link">
+        05-二叉树层序遍历
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/06-%E6%97%A0%E6%9D%83%E5%9B%BE%20BFS%20%E9%81%8D%E5%8E%86/" class="md-nav__link">
+        06-无权图 BFS 遍历
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/07-%E5%AE%9E%E7%8E%B0%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" class="md-nav__link">
+        07-实现优先队列
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/08-%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97%E5%8F%8A%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        08-双端队列及应用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/09-%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97%E7%9A%84%E7%9B%B8%E4%BA%92%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        09-栈和队列的相互实现
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/10-n%20%E6%95%B0%E4%B9%8B%E5%92%8C/" class="md-nav__link">
+        10-n 数之和
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/11-%E4%BA%8C%E5%8F%89%E6%A0%91/" class="md-nav__link">
+        11-二叉树
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-3" type="checkbox" id="nav-2-3" >
+      
+      <label class="md-nav__link" for="nav-2-3">
+        高级
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="高级" data-md-level="2">
+        <label class="md-nav__title" for="nav-2-3">
+          <span class="md-nav__icon md-icon"></span>
+          高级
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/K-means/" class="md-nav__link">
+        K-means 聚类算法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/LeetCode%E5%88%B7%E9%A2%98%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        LeetCode刷题方法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/%E5%88%B7%E9%A2%98%E7%AA%8D%E9%97%A8/" class="md-nav__link">
+        刷题窍门
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/" class="md-nav__link">
+        常见算法思想
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algre/%E5%9B%BE%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        图算法
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
+        Javascript
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Javascript" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          Javascript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/ES6-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        ES6-阮一峰
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/ES6%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8/" class="md-nav__link">
+        ES6 迭代器与生成器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/ES6newFeature/" class="md-nav__link">
+        ES6newFeature
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/JS%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        JS 性能优化
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/es6/" class="md-nav__link">
+        es6
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%B8%B8%E7%94%A8%E5%88%B0%E7%9A%84ES6%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        常用到的ES6语法
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
+        typescript
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="typescript" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          typescript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/01-%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        01-简介
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/02-%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        02-基础
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/03-%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        03-进阶
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/04-%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%BC%80%E5%8F%91-%E6%B5%8B%E8%AF%95%E7%BC%96%E8%AF%91/" class="md-nav__link">
+        04-工程化开发-测试编译
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82TS%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        网易云课堂TS入门
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/01-%E4%B8%8A%E6%89%8BTypeScript/" class="md-nav__link">
+        01-上手TypeScript
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/02-TS-Gulp/" class="md-nav__link">
+        02-TS-Gulp
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/03-JavaScript%E8%BF%81%E7%A7%BB/" class="md-nav__link">
+        03-JavaScript迁移
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/04-React%20%26%20Webpack/" class="md-nav__link">
+        04-React & Webpack
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/TS%20%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/" class="md-nav__link">
+        TS 常见问题整理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/TypeScript%E7%BC%96%E8%AF%91%E5%99%A8%20%E2%80%93%20%E4%B8%BA%E4%BB%80%E4%B9%88%E9%BB%98%E8%AE%A4%E6%83%85%E5%86%B5%E4%B8%8B%E4%B8%8D%E5%90%AF%E7%94%A8downlevelIteration%EF%BC%9F/" class="md-nav__link">
+        TypeScript编译器-downlevelIteration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/typescript%20%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        typescript 编译选项和配置文件
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+      
+      <label class="md-nav__link" for="nav-5">
+        react
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="react" data-md-level="1">
+        <label class="md-nav__title" for="nav-5">
+          <span class="md-nav__icon md-icon"></span>
+          react
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1" checked>
+      
+      <label class="md-nav__link" for="nav-5-1">
+        基础
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="基础" data-md-level="2">
+        <label class="md-nav__title" for="nav-5-1">
+          <span class="md-nav__icon md-icon"></span>
+          基础
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React%20FAQ/" class="md-nav__link">
+        React FAQ
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React%20PureComponent%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        React PureComponent 使用指南
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React%20%E7%9A%84%20PureComponent%20%E4%B8%8E%20Component/" class="md-nav__link">
+        React 的 PureComponent 与 Component
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          React 各种bug 会实时更新
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        React 各种bug 会实时更新
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bug1" class="md-nav__link">
+    BUG1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug2" class="md-nav__link">
+    BUG2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug3" class="md-nav__link">
+    BUG3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug4" class="md-nav__link">
+    BUG4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug5" class="md-nav__link">
+    BUG5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug6" class="md-nav__link">
+    BUG6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug7" class="md-nav__link">
+    BUG7
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug8" class="md-nav__link">
+    BUG8
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug-android" class="md-nav__link">
+    BUG android 端
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_1" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_2" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_3" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_4" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_5" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_6" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_7" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_8" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_9" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_10" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_11" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_12" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_13" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_14" class="md-nav__link">
+    BUG
+  </a>
+  
+    <nav class="md-nav" aria-label="BUG">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    如果需要通过键来提取组件的话。
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scss" class="md-nav__link">
+    使用SCSS造成样式冲突的问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typeerror" class="md-nav__link">
+    TypeError
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    错误
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-command-failed-yarn-add-react-native-exact" class="md-nav__link">
+    Error: Command failed: yarn add react-native --exact 初始化错误
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configh-file-not-found" class="md-nav__link">
+    'config.h' file not found
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error" class="md-nav__link">
+    Error
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React%20%E6%93%8D%E4%BD%9C%E5%85%83%E7%B4%A0%E7%9A%84API/" class="md-nav__link">
+        React 操作元素的API
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React%E6%96%B0%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F--getDerivedStateFromProps/" class="md-nav__link">
+        React 新生命周期--getDerivedStateFromProps
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React%E4%B8%AD%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/" class="md-nav__link">
+        React 中数据传输
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%B5%81%E7%A8%8B%E5%9B%BE/" class="md-nav__link">
+        React 生命周期流程图
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Refs%20%26%20DOM/" class="md-nav__link">
+        Refs & DOM
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getDerivedStateFromProps%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        getDerivedStateFromProps的使用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../react%20%E4%B8%AD%E9%80%9A%E8%BF%87ref%E8%8E%B7%E5%8F%96%E9%AB%98%E9%98%B6%EF%BC%88HOC%EF%BC%89%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="md-nav__link">
+        react 中通过ref获取高阶（HOC）子组件实例的解决方案
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8A%E7%AF%87%EF%BC%88%E9%A6%96%E6%AC%A1%E6%B8%B2%E6%9F%93%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+        reactjs源码分析-上篇（首次渲染实现原理）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8B%E7%AF%87%EF%BC%88%E6%9B%B4%E6%96%B0%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+        reactjs源码分析-下篇（更新机制实现原理）
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%AF%B9React%20children%E7%90%86%E8%A7%A3/" class="md-nav__link">
+        对 React children理解
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2" type="checkbox" id="nav-5-2" >
+      
+      <label class="md-nav__link" for="nav-5-2">
+        高级
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="高级" data-md-level="2">
+        <label class="md-nav__title" for="nav-5-2">
+          <span class="md-nav__icon md-icon"></span>
+          高级
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React%20%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        React 高阶组件
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React%20%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/" class="md-nav__link">
+        React 中的事件处理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React-advanced-guides/" class="md-nav__link">
+        React-advanced-guides
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../react%20%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        react 项目结构及编码规范
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React-%E9%AB%98%E9%98%B6API/" class="md-nav__link">
+        React-高阶API
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-3" type="checkbox" id="nav-5-3" >
+      
+      <label class="md-nav__link" for="nav-5-3">
+        性能优化
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="性能优化" data-md-level="2">
+        <label class="md-nav__title" for="nav-5-3">
+          <span class="md-nav__icon md-icon"></span>
+          性能优化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React%20%E5%BC%BA%E5%88%B6%E6%9B%B4%E6%96%B0%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        React 强制更新组件
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React-Design%20Principles/" class="md-nav__link">
+        React-Design Principles
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React-Hooks/" class="md-nav__link">
+        React-Hooks
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React-Suspense%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%8E%A2%E8%AE%A8-%E6%B2%A1%E7%9C%8B%E6%98%8E%E7%99%BD/" class="md-nav__link">
+        React-Suspense的实现与探讨
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        React-性能优化
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React.Children%E7%9A%84API/" class="md-nav__link">
+        React.Children的API
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React.Component/" class="md-nav__link">
+        React.Component
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React.children%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        React.children介绍
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+        React事件
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React%E6%95%B0%E6%8D%AE%E6%B5%81/" class="md-nav__link">
+        React数据流
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../React%E8%8E%B7%E5%8F%96%E5%B0%BA%E5%AF%B8/" class="md-nav__link">
+        React获取尺寸
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+      
+      <label class="md-nav__link" for="nav-6">
+        工程化
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="工程化" data-md-level="1">
+        <label class="md-nav__title" for="nav-6">
+          <span class="md-nav__icon md-icon"></span>
+          工程化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7%E7%90%86%E8%AE%BA/" class="md-nav__link">
+        前端监控理论
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        真实项目webpack配置解析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
+        webpack编译原理分析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        webpack的高级技巧.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/React%20%26%20Webpack/" class="md-nav__link">
+        React & Webpack.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/TS-React-Webpack/" class="md-nav__link">
+        TS-React-Webpack.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" >
+      
+      <label class="md-nav__link" for="nav-7">
+        课程笔记
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="课程笔记" data-md-level="1">
+        <label class="md-nav__title" for="nav-7">
+          <span class="md-nav__icon md-icon"></span>
+          课程笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/00-%E7%9B%AE%E5%BD%95/" class="md-nav__link">
+        00-目录.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/02-v8%E5%BC%95%E6%93%8E%E5%9B%9E%E6%94%B6%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        02-v8引擎回收内存简介.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/03-node%E4%B8%8B%E9%9D%A2%E7%9A%84Restful%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        03-node下面的Restful实现.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/04-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%9A%84%E6%8F%90%E5%8D%87%E2%80%94%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E6%88%91%E4%BB%AC%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7/" class="md-nav__link">
+        04-编程思想的提升—如何提高我们代码的可扩展性.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/06-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8Cssr/" class="md-nav__link">
+        06-浏览器渲染原理和ssr.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/07-%E7%BD%91%E6%98%93%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        07-网易真实项目webpack配置解析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/08-%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90API%E5%B1%82/" class="md-nav__link">
+        08-从架构分析API层.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/09-%E5%89%8D%E7%AB%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        09-前端负责人的工作内容.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/10-%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%E5%AD%A6%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        10-分析源码学架构.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/11-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E9%AB%98%E8%B4%A8%E9%87%8F%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        11-设计模式高质量代码.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/12-nodeJS%2BMongoDB%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        12-nodeJS+MongoDB登录系统.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/12-nodejs-mongodb-mongoose/" class="md-nav__link">
+        12-nodejs-mongodb-mongoose.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/13-%E4%BD%BF%E7%94%A8VUE%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        13-使用VUE创建组件（没学完）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/16-%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        16-构建自己的脚手架工具.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/17-webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
+        17-webpack编译原理分析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/20-%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD-VUE%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        20-组件封装的基本技能-VUE（没学完）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/21-ssr/" class="md-nav__link">
+        21-ssr.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/24-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%A6%82%E4%BD%95%E5%81%9A/" class="md-nav__link">
+        24-单元测试如何做.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/25-%E5%9F%BA%E4%BA%8ENodeJS%E6%89%93%E9%80%A0Web%E6%9E%B6%E6%9E%84%E4%B8%AD%E9%97%B4%E5%B1%82/" class="md-nav__link">
+        25-基于NodeJS打造Web架构中间层.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../netease/26-webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        26-webpack的高级技巧.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" >
+      
+      <label class="md-nav__link" for="nav-8">
+        About
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="nav-8">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        关于我
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/log/" class="md-nav__link">
+        学习日志
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bug1" class="md-nav__link">
+    BUG1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug2" class="md-nav__link">
+    BUG2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug3" class="md-nav__link">
+    BUG3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug4" class="md-nav__link">
+    BUG4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug5" class="md-nav__link">
+    BUG5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug6" class="md-nav__link">
+    BUG6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug7" class="md-nav__link">
+    BUG7
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug8" class="md-nav__link">
+    BUG8
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug-android" class="md-nav__link">
+    BUG android 端
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_1" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_2" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_3" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_4" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_5" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_6" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_7" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_8" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_9" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_10" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_11" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_12" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_13" class="md-nav__link">
+    BUG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bug_14" class="md-nav__link">
+    BUG
+  </a>
+  
+    <nav class="md-nav" aria-label="BUG">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    如果需要通过键来提取组件的话。
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scss" class="md-nav__link">
+    使用SCSS造成样式冲突的问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typeerror" class="md-nav__link">
+    TypeError
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    错误
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-command-failed-yarn-add-react-native-exact" class="md-nav__link">
+    Error: Command failed: yarn add react-native --exact 初始化错误
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configh-file-not-found" class="md-nav__link">
+    'config.h' file not found
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error" class="md-nav__link">
+    Error
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/react/React 各种bug 会实时更新.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="react-bug">React 各种bug<a class="headerlink" href="#react-bug" title="Permanent link">&para;</a></h1>
+<h3 id="bug1">BUG1<a class="headerlink" href="#bug1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Module Error (from ./node_modules/af-webpack/node_modules/eslint-loader/index.js):
+
+Line 43:5:  Expected an assignment or function call and instead saw an expression  no-unused-expressions
+
+Search for the keywords to learn more about each error.
+</code></pre></div>
+<p>我这边查出来的错误代码是：</p>
+<div class="highlight"><pre><span></span><code>    cardGrid.push(fieldGridStr),cardGrid.push(valueGridStr2);
+</code></pre></div>
+<p>中间间隔是个逗号，改成分号就可以。</p>
+<div class="highlight"><pre><span></span><code>cardGrid.push(fieldGridStr);
+cardGrid.push(valueGridStr2);
+</code></pre></div>
+<h3 id="bug2">BUG2<a class="headerlink" href="#bug2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it&#39;s defined in, or you might have mixed up default and named imports.
+</code></pre></div>
+<p>这个错误从网上搜索说是因为你导出的类或者函数在导入的时候方式不正确造成的，而我今天造成这个错误的原因是：</p>
+<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">noDataImgShow</span><span class="o">:</span><span class="nx">PropTypes</span><span class="p">.</span><span class="kr">boolean</span><span class="p">.</span><span class="nx">isRequired</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>我写的<code>PropTypes.boolean</code>基本类型引用错误了，造成的。记得<code>PropTypes</code>的基本类型有：</p>
+<div class="highlight"><pre><span></span><code> optionalArray: PropTypes.array,
+  optionalBool: PropTypes.bool,
+  optionalFunc: PropTypes.func,
+  optionalNumber: PropTypes.number,
+  optionalObject: PropTypes.object,
+  optionalString: PropTypes.string,
+  optionalSymbol: PropTypes.symbol,
+</code></pre></div>
+<p>不要写错了。
+<a href="https://links.jianshu.com/go?to=%5Bhttp%3A%2F%2Fnpm.taobao.org%2Fpackage%2Fprop-types%5D(http%3A%2F%2Fnpm.taobao.org%2Fpackage%2Fprop-types)">prop-types</a></p>
+<h3 id="bug3">BUG3<a class="headerlink" href="#bug3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Creating an optimized production build...
+Failed to compile.
+
+Module parse failed: C:\Users\玉丽\AppData\Roaming\npm\node_modules\roadhog\node_modules\babel-loader\lib\index.js!C:\Users\玉丽\Desktop\company_work\vitark-web-ui\src\common\router.js Unexpected token (70:15)
+</code></pre></div>
+<p>解决办法：</p>
+<div class="highlight"><pre><span></span><code> npm install @babel/core @babel/preset-env
+</code></pre></div>
+<h3 id="bug4">BUG4<a class="headerlink" href="#bug4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Build failed: The &#39;decorators&#39; plugin requires a &#39;decoratorsBeforeExport&#39; option, whose value must be a boolean. If you are migrating from Babylon/Babel 6 or want to use the old decorators proposal, you should use the &#39;decorators-legacy&#39; plugin instead of &#39;decorators&#39;.
+</code></pre></div>
+<p><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Fant-design%2Fant-design-pro%2Fissues%2F2043">https://github.com/ant-design/ant-design-pro/issues/2043</a></p>
+<p>安装制定版本的<code>roadhog</code></p>
+<div class="highlight"><pre><span></span><code>npm install --save 2.5.0-beta.1
+</code></pre></div>
+<h3 id="bug5">BUG5<a class="headerlink" href="#bug5" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Module build failed: ReferenceError: Unknown plugin &quot;transform-runtime&quot; specified in &quot;base&quot; at 2, attempted to resolve relative to &quot;C:\\Users\\玉丽\\Desktop\\company_work\\vitark-web-ui\\src&quot;
+</code></pre></div>
+<p>安装依赖：</p>
+<div class="highlight"><pre><span></span><code> npm install --save babel-plugin-transform-runtime
+</code></pre></div>
+<h3 id="bug6">BUG6<a class="headerlink" href="#bug6" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Module build failed: ReferenceError: Unknown plugin &quot;transform-class-properties&quot; specified in &quot;base&quot; at 4, attempted to resolve relative to &quot;C:\\Users\\玉丽\\Desktop\\company_work\\vitark-web-ui\\src&quot;
+</code></pre></div>
+<p>需要安装依赖：</p>
+<div class="highlight"><pre><span></span><code>npm install 
+babel-plugin-transform-class-properties
+babel-plugin-transform-decorators-legacy
+babel-plugin-transform-export-extensions
+babel-plugin-transform-object-rest-spread
+babel-preset-env
+--save-dev
+</code></pre></div>
+<h3 id="bug7">BUG7<a class="headerlink" href="#bug7" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Module not found:Error:Can&#39;t resolve &#39;@babel/runtime/helpers/esm/extends&#39;
+</code></pre></div>
+<p>这个错误坑的地方在哪里呢？是它的这个方法只有过去的<code>npm</code>包里可以找到，如果你用</p>
+<div class="highlight"><pre><span></span><code>npm install @babel/runtime --save
+yarn add @babel/runtime
+</code></pre></div>
+<p>来安装，安装的是最新的包，然后新的包里面并没有这个它要找的方法，所以仍然会报错，这个时候你就会想，我已经安装了，为什么还找不到。</p>
+<p>思路来了：<strong>如果你安装了包了，然后还是说找不到包里的方法的话，就说明你需要降级，安装它之前的包</strong></p>
+<div class="highlight"><pre><span></span><code>npm i @babel/runtime@7.0.0-beta.55 --save
+</code></pre></div>
+<p>我觉的这条思路可以应对所有找不到包内部方法的问题。</p>
+<h3 id="bug8">BUG8<a class="headerlink" href="#bug8" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Failed to minify the bundle. Error: 0.0f3f4c41.async.js from UglifyJs
+</code></pre></div>
+<p>通常 webpack 在构建时，是不会让 node_modules 下的文件走 babel tranpile 的，一是会慢很多，二是 babel@6 时编译编译过的代码会不安全（据说 babel@7 下没问题了），所以业界有个潜在的约定，<strong>npm 包发布前需要先用 babel 转出一份 es5 的代码</strong>。</p>
+<p>但是有些 npm 包不遵守这个约定，没有转成 es5 就发上去，比如 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Fsindresorhus%2Fquery-string%2Fblob%2F597f14a%2Findex.js%23L8%3A31">query-string@6</a>。然后压缩工具 uglify 又只支持 es5 的语法，遇到 <code>const</code>、<code>let</code>、<code>()=&gt;</code> 类似的语法，就抛错了。</p>
+<p>原文看这里的<a href="https://links.jianshu.com/go?to=%5Bhttps%3A%2F%2Fgithub.com%2Fsorrycc%2Fblog%2Fissues%2F68%5D(https%3A%2F%2Fgithub.com%2Fsorrycc%2Fblog%2Fissues%2F68)">async.js from UglifyJs</a></p>
+<h3 id="bug">BUG<a class="headerlink" href="#bug" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>super expression must either bu null or a function not undefined
+</code></pre></div>
+<p>错误代码：</p>
+<div class="highlight"><pre><span></span><code>import React from &#39;react-native&#39;;
+</code></pre></div>
+<p>引用了错误的引用：
+正确的写法是</p>
+<div class="highlight"><pre><span></span><code>import React, { Component } from &#39;react&#39;;
+</code></pre></div>
+<h3 id="bug-android">BUG android 端<a class="headerlink" href="#bug-android" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>React-native Android: Error calling AppRegistry.runApplication
+</code></pre></div>
+<p>解决办法：</p>
+<div class="highlight"><pre><span></span><code>adb reverse tcp:8081 tcp:8081
+</code></pre></div>
+<p>然后重新reload</p>
+<p><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F43776638%2Freact-native-android-error-calling-appregistry-runapplication">stackoverflow</a>这个问题的地址！</p>
+<h3 id="bug_1">BUG<a class="headerlink" href="#bug_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>The development server returned response error code:500
+</code></pre></div>
+<p>这个是引入的本地文件找不到，在下面的错误里就可以看到</p>
+<h3 id="bug_2">BUG<a class="headerlink" href="#bug_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Unable to open a realm at path &#39;,management&#39;.Please use a path where your
+app has read-write permissions
+</code></pre></div>
+<h3 id="bug_3">BUG<a class="headerlink" href="#bug_3" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Module AppRegistry is not a registered callable module (calling runApplicati
+</code></pre></div>
+<p>由于是发生在IOS端，网上找到的方法通通都是android的，切换了project就好了，在xcode里!!!</p>
+<h3 id="bug_4">BUG<a class="headerlink" href="#bug_4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Migration is required due to the following errors
+</code></pre></div>
+<p>这个发生的情况是android上面的app是很久之前的代码，好久没有更新了，然后点击reload就会爆出这个错误，解决办法就是删掉重新安装，就可以了！！</p>
+<h3 id="bug_5">BUG<a class="headerlink" href="#bug_5" title="Permanent link">&para;</a></h3>
+<p>This error can also happen due to a require() error during initialization or failure to call AppRegistry.registerComponent.</p>
+<div class="highlight"><pre><span></span><code>2017-09-19 16:01:20.557 [fatal][tid:com.facebook.react.ExceptionsManagerQueue] Unhandled JS Exception: Application ReactP has not been registered.
+
+Hint: This error often happens when you&#39;re running the packager (local dev server) from a wrong folder. For example you have multiple apps and the packager is still running for the app you were working on before.
+If this is the case, simply kill the old packager instance (e.g. close the packager terminal window) and start the packager in the correct app folder (e.g. cd into app folder and run &#39;npm start&#39;).
+
+This error can also happen due to a require() error during initialization or failure to call AppRegistry.registerComponent.
+</code></pre></div>
+<p>这个错误有两种情况，第一种:</p>
+<div class="highlight"><pre><span></span><code> Application ReactP has not been registered.
+</code></pre></div>
+<p>就是在你其实注册App的地方，你写错了，比如：</p>
+<div class="highlight"><pre><span></span><code>AppRegistry.registerComponent(&#39;AppleReactNative&#39;, () =&gt; App)
+</code></pre></div>
+<p>至</p>
+<div class="highlight"><pre><span></span><code>AppRegistry.registerComponent(&#39;applereactnative&#39;, () =&gt; App)
+</code></pre></div>
+<p>第二种情况就是它的最后一句话。</p>
+<div class="highlight"><pre><span></span><code>This error can also happen due to a require() error during initialization or failure to call AppRegistry.registerComponent.
+</code></pre></div>
+<p>比如：</p>
+<div class="highlight"><pre><span></span><code>export const  ColorConfig = {
+
+    minorColor:ColorConfig.minorColor,                 //提示性文字，正文
+}
+</code></pre></div>
+<p>你引用了一个错误的引用，自己引自己
+又或者是：</p>
+<div class="highlight"><pre><span></span><code>export  const SizeConfig = {
+    circleTextSize:38,
+    remindTitleSize:20,                    //提示文字 大号
+    navigationSize:18,                    //顶部导航栏，栏目名称
+    contentSize:17,                       //主要文字/标题                    contentColor
+    nameFontSize:16,
+    minorSize:14,                         //次要文字/正文                    assistColor
+    smallerSize:12,                       //文字提示
+    assistSize:11,                        //辅助文字/日期/时间/底部导航        assistColor
+    buttonSize:16                         //按钮文字
+
+}
+
+export const  ColorConfig = {
+    white:&#39;#ffffff&#39;,                      //按钮文字
+    assistColor:&#39;#c1c1c1&#39;,                //失效，辅助文字
+    minorColor:ColorConfig.minorColor,                 //提示性文字，正文
+    contentColor:&#39;#5e5e5e&#39;,               //标题，重要文字
+    remindColor:&#39;#ee5765&#39;,                //重要提醒文字
+    connectColor:&#39;#3eabf5&#39;,               //链接文字    按钮背景颜色
+    buttonBackgroundColor:&#39;#3eabf5&#39;,      //按钮背景颜色
+    backgroundColor:&#39;#f1f1f1&#39;,            //背景颜色
+    lineColor:&#39;#e8e8e8&#39;,                  //线的颜色
+    headerTextColor:&#39;#5c5c5c&#39;,            //CTGroupInfo
+
+}
+
+
+global.SizeConfig = SizeConfig;
+global.ColorConfig = ColorConfig;
+</code></pre></div>
+<p>写了一个全局的变量，然后准备在其他的地方使用，</p>
+<div class="highlight"><pre><span></span><code>headerImage:{
+        height:60,
+        width:60,
+        borderRadius:30,
+        backgroundColor:ColorConfig.lineColor,
+
+},
+</code></pre></div>
+<p>直接就会报上面的错误，原因是文件没有引入，你需要在其他的地方引入一下就可以了</p>
+<div class="highlight"><pre><span></span><code>import {SizeConfig} from &#39;./SizeAndColorConfig&#39;; //引入是为了编译入系统，不要删除这行
+</code></pre></div>
+<p>参考文章：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F35449248%2Ffailure-to-call-appregistry-registercomponent">Failure to call AppRegistry.registerComponent
+</a></p>
+<h3 id="bug_6">BUG<a class="headerlink" href="#bug_6" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>doctor_third.bundle.js:55 Uncaught TypeError: Cannot read property &#39;call&#39; of undefined
+    at __webpack_require__ (doctor_third.bundle.js:55)
+    at Object.&lt;anonymous&gt; (zrk_doctor_doctor_root.bundle.js:22679)
+    at __webpack_require__ (doctor_third.bundle.js:55)
+    at webpackJsonpCallback (doctor_third.bundle.js:26)
+    at zrk_doctor_doctor_root.bundle.js:1
+__webpack_require__ @ doctor_third.bundle.js:55
+(anonymous) @ zrk_doctor_doctor_root.bundle.js:22679
+__webpack_require__ @ doctor_third.bundle.js:55
+webpackJsonpCallback @ doctor_third.bundle.js:26
+(anonymous) @ zrk_doctor_doctor_root.bundle.js:1
+</code></pre></div>
+<p>造成的原因和上面的错误完全没有关系，是因为<code>/public/index.html</code>下面<code>js</code>文件的引用不对。</p>
+<div class="highlight"><pre><span></span><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    document.write(&quot;&lt;script language=&#39;javascript&#39; src=&#39;&quot;+getStaticFileHost()+&quot;/static/js/jquery-2.1.4.min.js&#39;&gt;&lt;\/script&gt;&quot;);
+    document.write(&quot;&lt;script language=&#39;javascript&#39; src=&#39;&quot;+getStaticFileHost()+&quot;/static/js/mobiscroll.custom-3.0.0-beta2.min.js&#39;&gt;&lt;\/script&gt;&quot;);
+    document.write(&quot;&lt;script language=&#39;javascript&#39; src=&#39;&quot;+getStaticFileHost()+&quot;/static/js/jweixin-1.2.0.js&#39;&gt;&lt;\/script&gt;&quot;);
+    document.write(&quot;&lt;script language=&#39;javascript&#39; src=&#39;&quot;+getStaticFileHost()+&quot;/static/js/react/zrk_doctor_commons.bundle.js&#39;&gt;&lt;\/script&gt;&quot;);
+    document.write(&quot;&lt;script language=&#39;javascript&#39; src=&#39;&quot;+getStaticFileHost()+&quot;/static/js/react/zrk_doctor_doctor_root.bundle.js&#39;&gt;&lt;\/script&gt;&quot;);
+&lt;/script&gt;
+</code></pre></div>
+<p>下次再碰到这个问题，直接过来检查一下。</p>
+<h3 id="bug_7">BUG<a class="headerlink" href="#bug_7" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>doctor.js?26ed:60 Uncaught ReferenceError: regeneratorRuntime is not defined
+    at doctor.js?26ed:60
+    at Object.&lt;anonymous&gt; (zrk_doctor_doctor_root.bundle.js:9522)
+    at Object.exports.__esModule (zrk_doctor_doctor_root.bundle.js:9652)
+    at __webpack_require__ (bootstrap 7befce6a489d409de85e:693)
+    at fn (bootstrap 7befce6a489d409de85e:114)
+    at Object.defineProperty.value (DoctorContainer.js:4)
+    at __webpack_require__ (bootstrap 7befce6a489d409de85e:693)
+    at fn (bootstrap 7befce6a489d409de85e:114)
+    at Object.&lt;anonymous&gt; (root.js:19)
+    at __webpack_require__ (bootstrap 7befce6a489d409de85e:693)
+</code></pre></div>
+<p>出错的地方在<code>docotr.js</code>文件下</p>
+<div class="highlight"><pre><span></span><code>//体格数据
+export async function get_growth(patient_id) {
+    return request(config.user_api_ip, &#39;/patient/growth/list&#39;, {patient_id}, &quot;GET&quot;, true);
+}
+
+export async function post_growth(patient_plan_id, period_id, timestamp, height, weight, hc) {
+    return request(config.user_api_ip, &#39;/patient/growth?patient_id=&#39;+global.patient_id, {patient_plan_id, period_id, timestamp, height, weight, hc}, &quot;POST&quot;);
+}
+
+export async function get_birth(patient_id) {
+    return request(config.user_api_ip, &#39;/patient/birth&#39;, {patient_id}, &quot;GET&quot;, true);
+}
+</code></pre></div>
+<p>把<code>async</code>去掉就可以了！</p>
+<h3 id="bug_8">BUG<a class="headerlink" href="#bug_8" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Uncaught (in promise) Error: Objects are not valid as a React child (found: object with keys {status}). If you meant to render a collection of children, use an array instead or wrap the object using createFragment(object) from the React add-ons.
+    at invariant (invariant.js:44)
+    at traverseAllChildrenImpl (traverseAllChildren.js:144)
+    at traverseAllChildren (traverseAllChildren.js:172)
+    at Object.instantiateChildren (ReactChildReconciler.js:70)
+    at ReactDOMComponent._reconcilerInstantiateChildren (ReactMultiChild.js:187)
+    at ReactDOMComponent.mountChildren (ReactMultiChild.js:226)
+    at ReactDOMComponent._createInitialChildren (ReactDOMComponent.js:697)
+    at ReactDOMComponent.mountComponent (ReactDOMComponent.js:516)
+    at Object.mountComponent (ReactReconciler.js:46)
+    at ReactDOMComponent.mountChildren (ReactMultiChild.js:238)
+</code></pre></div>
+<p>解决办法：</p>
+<div class="highlight"><pre><span></span><code>https://stackoverflow.com/questions/34919111/how-to-debug-this-error-uncaught-in-promise-error-objects-are-not-valid-as-a
+</code></pre></div>
+<h3 id="bug_9">BUG<a class="headerlink" href="#bug_9" title="Permanent link">&para;</a></h3>
+<p>如果一个包安装了很多次还是会出现不能加载的resolve的bug，有可能会是需要安装制定版本的包 下面是npm 的常用命令</p>
+<div class="highlight"><pre><span></span><code>npm install &lt;name&gt;安装nodejs的依赖包
+例如npm install express 就会默认安装express的最新版本，也可以通过在后面加版本号的方式安装指定版本，如npm install express@3.0.6
+npm install &lt;name&gt; -g  将包安装到全局环境中
+但是代码中，直接通过require()的方式是没有办法调用全局安装的包的。全局的安装是供命令行使用的，就好像全局安装了vmarket后，就可以在命令行中直接运行vm命令
+npm install &lt;name&gt; --save  安装的同时，将信息写入package.json中
+项目路径中如果有package.json文件时，直接使用npm install方法就可以根据dependencies配置安装所有的依赖包
+这样代码提交到github时，就不用提交node_modules这个文件夹了。
+npm init  会引导你创建一个package.json文件，包括名称、版本、作者这些信息等
+npm remove &lt;name&gt;移除
+npm update &lt;name&gt;更新
+npm ls 列出当前安装的了所有包
+npm root 查看当前包的安装路径
+npm root -g  查看全局的包的安装路径
+npm help  帮助，如果要单独查看install命令的帮助，可以使用的npm help install
+</code></pre></div>
+<h3 id="bug_10">BUG<a class="headerlink" href="#bug_10" title="Permanent link">&para;</a></h3>
+<p>Babel 6 regeneratorRuntime is not defined</p>
+<p>解决办法：</p>
+<p>首先babel基础包(不安装额外东西)并不是支持完整的es6语言，加上浏览器也不是支持所有的es6语言，如果你写的es6语言刚好撞上这样的情况了.</p>
+<div class="highlight"><pre><span></span><code>那么就需要babel的拓展包(Polyfill),网址链接描述
+
+这是一个补完babel支持es6的拓展包，配置步骤为3个
+1.打开命令行键入 npm install --save-dev babel-polyfill 安装polyfill
+2.在webpack.config.js中最上面写上var babelpolyfill = require(&quot;babel-polyfill&quot;);
+3.在自己的项目js文件中最开头写上import &quot;babel-polyfill&quot;;
+</code></pre></div>
+<p>上面是网上的解决版本。
+链接:
+<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fsegmentfault.com%2Fq%2F1010000006801859">ES6 写法报错regeneratorRuntime is not defined</a>
+扩展:
+<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F33527653%2Fbabel-6-regeneratorruntime-is-not-defined">StackOverFlow Babel 6 regeneratorRuntime is not defined</a>
+我这边的解决办法</p>
+<div class="highlight"><pre><span></span><code>        recordPatientBitrth: [&quot;regenerator-runtime/runtime&quot;, path.join(PATHS.entry, &#39;RecordPatientBirth.js&#39;)],
+</code></pre></div>
+<p>在入口的地方添加regenerator-runtime/runtime以申明！</p>
+<h3 id="bug_11">BUG<a class="headerlink" href="#bug_11" title="Permanent link">&para;</a></h3>
+<p>Cannot read property 'split' of undefine</p>
+<p>这个问题你应该调用调用的split是否为空，空的话就会报错，就像下面的例子，item.body为空就会报这个错，恩，低级错误。</p>
+<div class="highlight"><pre><span></span><code>let arr = item.body.splic(&#39;,&#39;);
+</code></pre></div>
+<h3 id="bug_12">BUG<a class="headerlink" href="#bug_12" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>rror: Couldn&#39;t find preset &quot;env&quot; relative to directory &quot;/Users/name/plugin/7ada6103-7315-4c24-93f3-4a3a6a0fa7ee&quot;
+    at /Users/name/project/node_modules/babel-core/lib/transformation/file/options/option-manager.js:293:19
+    at Array.map (native)
+    at OptionManager.resolvePresets (/Users/name/project/node_modules/babel-core/lib/transformation/file/options/option-manager.js:275:20)
+    at OptionManager.mergePresets (/Users/name/project/node_modules/babel-core/lib/transformation/file/options/option-manager.js:264:10)
+    at OptionManager.mergeOptions (/Users/name/project/node_modules/babel-core/lib/transformation/file/options/option-manager.js:249:14)
+    at OptionManager.init (/Users/name/project/node_modules/babel-core/lib/transformation/file/options/option-manager.js:368:12)
+    at File.initOptions (/Users/name/project/node_modules/babel-core/lib/transformation/file/index.js:216:65)
+    at new File (/Users/name/project/node_modules/babel-core/lib/transformation/file/index.js:139:24)
+    at Pipeline.transform (/Users/name/project/node_modules/babel-core/lib/transformation/pipeline.js:46:16)
+    at BabelCompiler.compileSync (/Users/name/project/node_modules/electron-compilers/lib/js/babel.js:76:26)
+</code></pre></div>
+<p>解决方案<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Fbabel%2Fbabel-preset-env%2Fissues%2F186">：stackOverFlow</a></p>
+<h3 id="bug_13">BUG<a class="headerlink" href="#bug_13" title="Permanent link">&para;</a></h3>
+<p>VM20008:7 Warning: setState(...): Cannot update during an existing state transition (such as within <code>render</code> or another component's constructor). Render methods should be a pure function of props and state; constructor side-effects are an anti-pattern, but can be moved to <code>componentWillMount</code>.</p>
+<p>这个错误的出现往往都是直接浏览器直接卡爆了，出现问题的原因其实非常简单。</p>
+<p>你在render方法里面进行了state的操作，造成的结果就是一直在不断的render，值得卡爆！</p>
+<p>还有一个错误也是描述这个的。</p>
+<div class="highlight"><pre><span></span><code>ReactDebugTool.js:173 Uncaught (in promise) RangeError: Maximum call stack size exceeded
+   at resumeCurrentLifeCycleTimer (ReactDebugTool.js:173)
+   at ReactReconcileTransaction.onEndFlush (ReactDebugTool.js:280)
+   at ReactReconcileTransaction.closeAll (Transaction.js:206)
+   at ReactReconcileTransaction.perform (Transaction.js:153)
+   at ReactUpdatesFlushTransaction.perform (Transaction.js:140)
+   at ReactUpdatesFlushTransaction.perform (ReactUpdates.js:89)
+   at flushBatchedUpdates (ReactUpdates.js:172)
+   at ReactUpdatesFlushTransaction.close (ReactUpdates.js:47)
+   at ReactUpdatesFlushTransaction.closeAll (Transaction.js:206)
+   at ReactUpdatesFlushTransaction.perform (Transaction.js:153)
+</code></pre></div>
+<p>下面是错误代码：</p>
+<div class="highlight"><pre><span></span><code>&lt;Modal
+       visible={this.state.visible}
+       onClose={this.onClickCloseImage()}
+       transparent
+       className = &#39;doctor_show_layout&#39;
+       &lt;div className=&quot;doctor_show_layout&quot;&gt;
+           &lt;img src={default_avatar}/&gt;
+      &lt;/div&gt;
+&lt;/Modal&gt;
+</code></pre></div>
+<p>比如你在一个Modal里直接调用方法<code>onClose={this.onClickCloseImage()}</code>,然后在这个方法里还修改了<code>state</code>:</p>
+<div class="highlight"><pre><span></span><code>onClickCloseImage(){
+    this.setState({
+      visible: false
+    });
+  }
+</code></pre></div>
+<p>接着就是爆炸了。解决的办法很简单。</p>
+<div class="highlight"><pre><span></span><code>onClose={this.onClickCloseImage.bind(this)}
+</code></pre></div>
+<p>改调用为绑定，或者如果你在构造函数<code>constructor</code>里进行了绑定</p>
+<div class="highlight"><pre><span></span><code>this.onClickCloseImage = this.onClickCloseImage.bind(this)
+</code></pre></div>
+<p>那下面调用的地方就改成传函数名.</p>
+<div class="highlight"><pre><span></span><code>&lt;Modal
+       visible={this.state.visible}
+       onClose={this.onClickCloseImage}
+       transparent
+       className = &#39;doctor_show_layout&#39;&gt;
+       &lt;div className=&quot;doctor_show_layout&quot;&gt;
+             &lt;img src={default_avatar}/&gt;
+       &lt;/div&gt;
+&lt;/Modal&gt;
+</code></pre></div>
+<h3 id="bug_14">BUG<a class="headerlink" href="#bug_14" title="Permanent link">&para;</a></h3>
+<p>Warning: Each child in an array or iterator should have a unique "key" prop.</p>
+<div class="highlight"><pre><span></span><code>warning.js:33 Warning: Each child in an array or iterator should have a unique &quot;key&quot; prop. Check the render method of `OrderTypeContainer`. See https://fb.me/react-warning-keys for more information.
+    in ul (created by OrderTypeContainer)
+    in OrderTypeContainer (created by RouterContext)
+    in RouterContext (created by Router)
+    in Router
+</code></pre></div>
+<p>这个<code>BUG</code>或者说是警告的信息可以直接在它给出的连接地址里找到问题的答案，这里我也列举一下为什么我们要给遍历的元素添加一个<code>key</code>的键。是因为：
+**键可帮助React识别哪些项目已更改，添加或删除，**所以需要。</p>
+<p>解决办法：你可以用你数据的<code>id</code>来设置</p>
+<div class="highlight"><pre><span></span><code>const todoItems = todos.map((todo) =&gt;
+  &lt;li key={todo.id}&gt;
+    {todo.text}
+  &lt;/li&gt;
+);
+</code></pre></div>
+<p>如果没有的话，你也可以设置<code>map</code>的。</p>
+<div class="highlight"><pre><span></span><code>const todoItems = todos.map((todo, index) =&gt;
+  // Only do this if items have no stable IDs
+  &lt;li key={index}&gt;
+    {todo.text}
+  &lt;/li&gt;
+);
+</code></pre></div>
+<p>但是如果你有操作项目顺序的需求，就不推荐这种做法了。这可能会对性能产生负面影响，并可能导致组件状态问题。</p>
+<h4 id="_1">如果需要通过键来提取组件的话。<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<p>不推荐的</p>
+<div class="highlight"><pre><span></span><code>function ListItem(props) {
+  const value = props.value;
+  return (
+    // Wrong! There is no need to specify the key here:
+    &lt;li key={value.toString()}&gt;
+      {value}
+    &lt;/li&gt;
+  );
+}
+
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =&gt;
+    // Wrong! The key should have been specified here:
+    &lt;ListItem value={number} /&gt;
+  );
+  return (
+    &lt;ul&gt;
+      {listItems}
+    &lt;/ul&gt;
+  );
+}
+</code></pre></div>
+<p>推荐的写法：</p>
+<div class="highlight"><pre><span></span><code>function ListItem(props) {
+  // Correct! There is no need to specify the key here:
+  return &lt;li&gt;{props.value}&lt;/li&gt;;
+}
+
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =&gt;
+    // Correct! Key should be specified inside the array.
+    &lt;ListItem key={number.toString()}
+              value={number} /&gt;
+
+  );
+  return (
+    &lt;ul&gt;
+      {listItems}
+    &lt;/ul&gt;
+  );
+}
+</code></pre></div>
+<p>这个key值必须在<code>list</code>中，必须是唯一的。同时要记住，如果你本来就想要这个值，那么你必须用另外的一个明确的值来传递，而不能获取这个<code>key</code>.</p>
+<h3 id="scss">使用SCSS造成样式冲突的问题<a class="headerlink" href="#scss" title="Permanent link">&para;</a></h3>
+<p>非常抱歉，我并没有找到一个好的办法，我的做法是每一个SCSS文件都使用它独有的开头来做标记。</p>
+<div class="highlight"><pre><span></span><code>@import &quot;../../../../static/css/commons/base_layout&quot;;
+.header_container {
+  @extend .base_column;
+  background-color: $buttonColor;
+}
+//-----------------------header------------------
+.header_container_v1 {
+  @extend .base_column;
+  background-color: $buttonColor;
+}
+
+...
+</code></pre></div>
+<p>比如这个<code>header.scss</code>的文件，我们可以用<code>header</code>来开头，原则就是你的这个命名名称是独一无二的就可以，大家有好的办法记得分享给我，谢谢！</p>
+<p>[access] This app has crashed because it attempted to access privacy-sensitive data without a usage description. The app's Info.plist must contain an NSCameraUsageDescription key with a string value explaining to the user how the app uses this data.</p>
+<p>Message from debugger: Terminated due to signal 9</p>
+<p>解决办法：搜索<code>NSCameraUsageDescription</code>,然后配置一下：
+例如：</p>
+<p><a href="https://www.jianshu.com/p/78411e82e8fd">xcode8 iOS10上关于NSPhotoLibraryUsageDescription NSCameraUsageDescription 等问题</a>
+OK...</p>
+<p>Requiring unknown module "1360".If you are sure the module is there, try restarting Metro Bundler. You may also want to run <code>yarn</code>, or <code>npm install</code> (depending on your environment).</p>
+<p>这个错误特别邪门，是因为我们复制的图片出的问题还是怎么的，如果出现这个问题，你可以通过禁止导入那个图片来排除，然后重新试几次</p>
+<h3 id="typeerror">TypeError<a class="headerlink" href="#typeerror" title="Permanent link">&para;</a></h3>
+<p>undefined is not a function (evaluating '_iterator<a href="https://www.jianshu.com/p/28534cc5b757">typeof Symbol === 'function' ? Symbol.iterator : '@@iterator'</a>')</p>
+<p>出现这个问题是因为<code>react native</code>不支持遍历的问题，例如下面的代码：</p>
+<div class="highlight"><pre><span></span><code>for (let [index, data] of current_month_data.entries()) {
+            for (let value of data) {
+                if ( value.day === this.props.day &amp;&amp;
+                    value.month === this.props.month ) {
+                    return index;
+                }
+            }
+        }
+</code></pre></div>
+<p>你需要把它改成传统的<code>for</code>循环就好了：</p>
+<div class="highlight"><pre><span></span><code>for(let i = 0;i&lt;current_month_data.length;i++){
+            let value = current_month_data[i];
+            if(value.day === this.props.day &amp;&amp; value.month === this.props.month){
+                return i;
+            }
+        }
+</code></pre></div>
+<h3 id="_2">错误<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>ReactNative: Exception in native call com.facebook.react.uimanager.IllegalViewOperationException: Unexpected view type nested under text node: class com.facebook.react.uimanager.LayoutShadowNode</p>
+<p>完整错误是这样的：</p>
+<div class="highlight"><pre><span></span><code>07-03 22:47:55.157 31157-3931/com.zrk_user_client E/unknown:ReactNative: Exception in native call
+                                                                         com.facebook.react.uimanager.IllegalViewOperationException: Unexpected view type nested under text node: class com.facebook.react.uimanager.LayoutShadowNode
+                                                                             at com.facebook.react.views.text.ReactBaseTextShadowNode.buildSpannedFromShadowNode(ReactBaseTextShadowNode.java:107)
+                                                                             at com.facebook.react.views.text.ReactBaseTextShadowNode.spannedFromShadowNode(ReactBaseTextShadowNode.java:182)
+                                                                             at com.facebook.react.views.text.ReactTextShadowNode.onBeforeLayout(ReactTextShadowNode.java:176)
+                                                                             at com.facebook.react.uimanager.UIImplementation.notifyOnBeforeLayoutRecursive(UIImplementation.java:933)
+                                                                             at com.facebook.react.uimanager.UIImplementation.notifyOnBeforeLayoutRecursive(UIImplementation.java:931)
+                                                                             at com.facebook.react.uimanager.UIImplementation.notifyOnBeforeLayoutRecursive(UIImplementation.java:931)
+                                                                             at com.facebook.react.uimanager.UIImplementation.notifyOnBeforeLayoutRecursive(UIImplementation.java:931)
+                                                                             at com.facebook.react.uimanager.UIImplementation.notifyOnBeforeLayoutRecursive(UIImplementation.java:931)
+                                                                             at com.facebook.react.uimanager.UIImplementation.notifyOnBeforeLayoutRecursive(UIImplementation.java:931)
+                                                                             at com.facebook.react.uimanager.UIImplementation.notifyOnBeforeLayoutRecursive(UIImplementation.java:931)
+                                                                             at com.facebook.react.uimanager.UIImplementation.notifyOnBeforeLayoutRecursive(UIImplementation.java:931)
+                                                                             at com.facebook.react.uimanager.UIImplementation.notifyOnBeforeLayoutRecursive(UIImplementation.java:931)
+                                                                             at com.facebook.react.uimanager.UIImplementation.notifyOnBeforeLayoutRecursive(UIImplementation.java:931)
+                                                                             at com.facebook.react.uimanager.UIImplementation.notifyOnBeforeLayoutRecursive(UIImplementation.java:931)
+                                                                             at com.facebook.react.uimanager.UIImplementation.notifyOnBeforeLayoutRecursive(UIImplementation.java:931)
+                                                                             at com.facebook.react.uimanager.UIImplementation.notifyOnBeforeLayoutRecursive(UIImplementation.java:931)
+                                                                             at com.facebook.react.uimanager.UIImplementation.notifyOnBeforeLayoutRecursive(UIImplementation.java:931)
+                                                                             at com.facebook.react.uimanager.UIImplementation.notifyOnBeforeLayoutRecursive(UIImplementation.java:931)
+                                                                             at com.facebook.react.uimanager.UIImplementation.updateViewHierarchy(UIImplementation.java:689)
+                                                                             at com.facebook.react.uimanager.UIImplementation.dispatchViewUpdates(UIImplementation.java:654)
+                                                                             at com.facebook.react.uimanager.UIManagerModule.updateRootLayoutSpecs(UIManagerModule.java:754)
+                                                                             at com.facebook.react.ReactRootView$1.runGuarded(ReactRootView.java:396)
+                                                                             at com.facebook.react.bridge.GuardedRunnable.run(GuardedRunnable.java:21)
+                                                                             at android.os.Handler.handleCallback(Handler.java:751)
+                                                                             at android.os.Handler.dispatchMessage(Handler.java:95)
+                                                                             at com.facebook.react.bridge.queue.MessageQueueThreadHandler.dispatchMessage(MessageQueueThreadHandler.java:29)
+                                                                             at android.os.Looper.loop(Looper.java:154)
+                                                                             at com.facebook.react.bridge.queue.MessageQueueThreadImpl$3.run(MessageQueueThreadImpl.java:192)
+                                                                             at java.lang.Thread.run(Thread.java:761)
+</code></pre></div>
+<p>这个bug真的很懵逼，定位不到在哪里，所以这里提供一个思路，那就是注释代码，注释你<code>render</code>里的代码，哪行错误找哪里。而造成上面错误的原因是因为：</p>
+<div class="highlight"><pre><span></span><code>//星期标题
+    _renderWeekHeader() {
+        return (
+            &lt;Text ref=&quot;header&quot;
+                  style={styles.calendar_header_row}&gt;
+                {
+                   //.....
+                }
+            &lt;/Text&gt;
+        );
+    }
+</code></pre></div>
+<p>我把View这里替换成了Text。</p>
+<p>07-04 00:28:15.008 31157-6351/com.zrk_user_client E/unknown:ReactNative: Exception in native call java.lang.RuntimeException: Cannot add a child that doesn't have a YogaNode to a parent without a measure function! (Trying to add a 'RCTRawText</p>
+<p>这个错误高级了，你猜是啥不？
+因为你在布局里添加了注释代码</p>
+<div class="highlight"><pre><span></span><code>&lt;View&gt;
+   //TODO 缺一个Modal
+&lt;/View&gt;
+</code></pre></div>
+<h3 id="error-command-failed-yarn-add-react-native-exact">Error: Command failed: yarn add react-native --exact 初始化错误<a class="headerlink" href="#error-command-failed-yarn-add-react-native-exact" title="Permanent link">&para;</a></h3>
+<p>解决方案：</p>
+<div class="highlight"><pre><span></span><code>npm config set registry https://registry.npm.taobao.org
+npm config set disturl https://npm.taobao.org/dist
+</code></pre></div>
+<p>如果不行，我们可以在init的时候制定版本号，就像这样：</p>
+<div class="highlight"><pre><span></span><code>react-native init demo --verbose --version 0.38.0
+</code></pre></div>
+<p>Realm数据库IOS端下载不下来，xcode一直在build</p>
+<p>解决方案，手动下载，然后复制进去。</p>
+<h3 id="configh-file-not-found">'config.h' file not found<a class="headerlink" href="#configh-file-not-found" title="Permanent link">&para;</a></h3>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/788601-7b6437f795690fd6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" /></p>
+<p>QQ20180718-180605.png</p>
+<p>解决办法：</p>
+<div class="highlight"><pre><span></span><code>cd node_modules/react-native/third-party/glog-0.3.4
+../../scripts/ios-configure-glog.sh
+</code></pre></div>
+<p>跑上面的命令。</p>
+<h3 id="error">Error<a class="headerlink" href="#error" title="Permanent link">&para;</a></h3>
+<p>JSON value '<null>' of type NSNull cannot be converted to NSString</p>
+<p><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Ffacebook%2Freact-native%2Fissues%2F11140">google搜索出来的答案</a></p>
+<p>话说现在百度真是越来越堕落了，简直不能忍啊。</p>
+<p>出这个问题是我们不能把值<code>null</code>转为<code>string</code>,所以报错了，处理也非常简单，只需要判断是否为空，就可以搞定，我们
+经常发生这个错误的地方就是:</p>
+<div class="highlight"><pre><span></span><code> &lt;Image style={styles.image_style} source={{uri:avatar}}&gt;&lt;/Image&gt;
+</code></pre></div>
+<p>如果这个值是<code>null</code>,那么就会报这个错误。
+这里也分享给大家一个我们用的工具，可以用来判断是否为空：</p>
+<div class="highlight"><pre><span></span><code>/**
+ * 判断是否为空
+ */
+export default class StringUtils {
+
+    isEmpty(str) {
+        let flag = false;
+        if (!str || str &amp;&amp; this.isNull(str) || !this.removeAllSpaces(str)) {
+            flag = true;
+        }
+        return flag;
+    }
+
+    //判断是否有空
+    isNull(str) {
+        if (str === &quot;&quot;) return true;
+        let regu = &quot;^[ ]+$&quot;;
+        let re = new RegExp(regu);
+        return re.test(str);
+    }
+
+    //获取中文状态下获取后两位否则前两位
+    getNameSubstr(str) {
+        if (str) {
+
+            if (!this.isChinese(str)) {
+                if (str.length &gt;= 2) {
+                    return str.substr(str.length - 2, 2)
+                } else {
+                    return str.substr(str.length - 1, 1)
+                }
+            } else {
+                if (str.length &gt;= 2) {
+                    return str.substr(0, 2)
+                } else {
+                    return str.substr(0, 1)
+                }
+            }
+        } else {
+            return &#39;&#39;;
+        }
+    }
+
+    //判断是否中文和英文
+    isChinese(str) {
+        if (/.*[\u4e00-\u9fa5]+.*$/.test(str)) {
+            return false;
+        }
+        return true;
+    }
+
+    /***
+     * 去除所有空格
+     * @param str
+     * @returns {string}
+     */
+    removeAllSpaces(str) {
+        try {
+            return str.replace(/\s+/g, &quot;&quot;)
+        } catch (e) {
+            return &#39;&#39;
+        }
+    }
+
+    /***
+     * 去除两头空格
+     * @param str
+     * @returns {string}
+     */
+    removeBothSpaces(str) {
+        try {
+            return str.replace(/^\s+|\s+$/g, &quot;&quot;)
+        } catch (e) {
+            return &#39;&#39;
+        }
+    }
+}
+
+global.StringUtils = new StringUtils();
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../React%20%E7%9A%84%20PureComponent%20%E4%B8%8E%20Component/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                React 的 PureComponent 与 Component
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../React%20%E6%93%8D%E4%BD%9C%E5%85%83%E7%B4%A0%E7%9A%84API/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                React 操作元素的API
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>
