@@ -49,7 +49,7 @@ static getDerivedStateFromProps(nextProps, prevState) {
 
 以下是一个错误边界组件
 
-```jsx
+```js
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);

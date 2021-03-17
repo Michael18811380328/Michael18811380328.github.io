@@ -8,7 +8,7 @@
 
 通常你定义一个React组件相当于一个纯[JavaScript类](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes)：
 
-```jsx
+```js
 class Greeting extends React.Component {
   render() {
     return <h1>Hello, {this.props.name}</h1>;
@@ -113,7 +113,7 @@ React组件的构造函数将会在装配之前被调用。当为一个`React.Co
 
 可以基于属性来初始化状态。这样有效地“分离（forks）”属性并根据初始属性设置状态。这有一个有效的`React.Component`子类构造函数的例子：
 
-```jsx
+```js
 constructor(props) {
   super(props);
   this.state = {
@@ -128,7 +128,7 @@ constructor(props) {
 
 ### `static getDerivedStateFromProps()`
 
-```jsx
+```js
 static getDerivedStateFromProps(nextProps, prevState)
 ```
 
@@ -232,7 +232,7 @@ UNSAFE_componentWillUpdate(nextProps, nextState)
 
 例如：
 
-```jsx
+```js
 class ScrollingList extends React.Component {
   listRef = React.createRef();
 
@@ -329,7 +329,7 @@ setState(updater, [callback])
 
 `prevState`是之前状态的引用。其不应该被直接改变。代替地，改变应该通过构建一个来自于`prevState` 和 `props`输入的新对象来表示。例如，假设我们想通过`props.step`在状态中增加一个值：
 
-```jsx
+```js
 this.setState((prevState, props) => {
   return {counter: prevState.counter + props.step};
 });
@@ -353,7 +353,7 @@ this.setState({quantity: 2})
 
 这一形式的`setState()`也是异步的，并在相同的周期中多次调用可能会被合并到一起。例如，若你在相同的周期中尝试多次增加一件物品的数量，其等价于：
 
-```jsx
+```js
 Object.assign(
   previousState,
   {quantity: state.quantity + 1},
@@ -390,7 +390,7 @@ component.forceUpdate(callback)
 
 `defaultProps`可以被定义为组件类的一个属性，用以为类设置默认的属性。这对于未定义（undefined）的属性来说有用，而对于设为空（null）的属性并没用。例如：
 
-```jsx
+```js
 class CustomButton extends React.Component {
   // ...
 }
@@ -402,7 +402,7 @@ CustomButton.defaultProps = {
 
 若未设置`props.color`，其将被设置默认为`'blue'`:
 
-```jsx
+```js
   render() {
     return <CustomButton /> ; // props.color will be set to blue
   }
@@ -410,7 +410,7 @@ CustomButton.defaultProps = {
 
 若`props.color`设为null，则其值则为null：
 
-```jsx
+```js
   render() {
     return <CustomButton color={null} /> ; // props.color will remain null
   }

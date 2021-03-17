@@ -22,7 +22,7 @@ React的核心为组件。你可以像嵌套HTML标签一样嵌套使用这些�
 
 这三个 `Row` 组件都成为了 `Grid` 的 `props.children` 。使用一个表达式容器，父组件就能够渲染它们的子组件：
 
-```jsx
+```js
 class Grid extends React.Component {
   render() {
     return (<div>{this.props.children}</div>);
@@ -32,7 +32,7 @@ class Grid extends React.Component {
 
 父组件也能够决定不渲染任何的子组件或者在渲染之前对它们进行操作。例如 Fullstop 组件就没有渲染子组件。
 
-```jsx
+```js
 class Fullstop extends React.Component {
   render() {
     return <h1>Hello world!</h1>
@@ -91,7 +91,7 @@ React中的Children不一定是组件，它们可以使任何东西。例如，�
 
 为了说明这种情况，以下是一个组件，它将执行一个传递过来的作为child的函数：
 
-```jsx
+```js
 class Executioner extends React.Component {
   render() {
     // See how we're calling the child as a function?
@@ -131,7 +131,7 @@ React提供了一系列的函数助手来使得操作children更加方便。
 
 两个最显眼的函数助手就是 `React.Children.map` 以及 `React.Children.forEach` 。它们在对应数组的情况下能起作用，除此之外，当函数、对象或者任何东西作为children传递时，它们也会起作用。
 
-```jsx
+```js
 class IgnoreFirstChild extends React.Component {
   render() {
     return (
@@ -149,7 +149,7 @@ class IgnoreFirstChild extends React.Component {
 
 `IgnoreFirstChild` 组件在这里会遍历所有的children，忽略第一个child然后返回其他的。
 
-```jsx
+```js
 <IgnoreFirstChild>
   <h1>First</h1>
   <h1>Second</h1> // <- Only this is rendered
@@ -160,7 +160,7 @@ class IgnoreFirstChild extends React.Component {
 
 然而使用 `React.Children.map` 函数，==无论什么参数都不会报错==。
 
-```jsx
+```js
 <IgnoreFirstChild>
   {() => <h1>First</h1>} // <- Ignored 💪
 </IgnoreFirstChild>
@@ -172,7 +172,7 @@ class IgnoreFirstChild extends React.Component {
 
 这就是为什么我们有 `React.Children.count` 方法的原因
 
-```jsx
+```js
 class ChildrenCounter extends React.Component {
   render() {
     return <p>React.Children.count(this.props.children)</p>
@@ -182,7 +182,7 @@ class ChildrenCounter extends React.Component {
 
 无论时什么类型它都会返回children的数量
 
-```jsx
+```js
 // Renders "1"
 <ChildrenCounter>
   Second!
@@ -206,7 +206,7 @@ class ChildrenCounter extends React.Component {
 
 如果以上的方法你都不适合，你能将children转换为数组通过 `React.Children.toArray` 方法。如果你需要对它们进行排序，这个方法是非常有用的。
 
-```jsx
+```js
 class Sort extends React.Component {
   render() {
     const children = React.Children.toArray(this.props.children)
@@ -216,7 +216,7 @@ class Sort extends React.Component {
 }
 ```
 
-```jsx
+```js
 <Sort>
   // We use expression containers to make sure our strings
   // are passed as three children, not as one string
@@ -264,7 +264,7 @@ class Executioner extends React.Component {
 
 `RadioButtons` 不会从 `RadioGroup` 本身上进行渲染，它们只是作为children使用。这意味着我们将会有这样的代码。
 
-```jsx
+```js
 render() {
   return(
     <RadioGroup>
@@ -331,7 +331,7 @@ renderChildren() {
 
 这是今天展示的最后一个辅助方法。顾名思义，`React.cloneElement` 会克隆一个元素。我们将想要克隆的元素当作第一个参数，然后将想要设置的属性以对象的方式作为第二个参数。
 
-```jsx
+```js
 const cloned = React.cloneElement(element, {
   new: 'yes!'
 })
@@ -341,7 +341,7 @@ const cloned = React.cloneElement(element, {
 
 这正是我们的 `RadioGroup` 所需的。我们克隆所有的child并且设置`name` 属性
 
-```jsx
+```js
 renderChildren() {
   return React.Children.map(this.props.children, child => {
     return React.cloneElement(child, {
@@ -353,7 +353,7 @@ renderChildren() {
 
 最后一步就是传递一个唯一的 `name` 给`RadioGroup`
 
-```jsx
+```js
 <RadioGroup name="g1">
   <RadioButton value="first">First</RadioButton>
   <RadioButton value="second">Second</RadioButton>

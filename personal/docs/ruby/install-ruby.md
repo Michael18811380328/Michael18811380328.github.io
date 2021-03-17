@@ -1,9 +1,4 @@
----
-layout: post
-title:  "Install Ruby and jekyll"
-date:   2019-01-02 17:59:11 +0800
-categories: jekyll update
----
+# install ruby env
 
 run this in terminal, then create new blogs.
 
@@ -20,9 +15,9 @@ jelyll new bolb
 ~~~bash
 # install rvm toolc(Ruby version management tool)
 curl -L https://get.rvm.io | bash -s stable
-Installation of RVM in /Users/seafile/.rvm/ is almost complete:
+Installation of RVM in /.rvm/ is almost complete:
 
-# start use RVM: To start using RVM you need to run `source /Users/seafile/.rvm/scripts/rvm`
+# start use RVM: To start using RVM you need to run `source /.rvm/scripts/rvm`
 source ~/.rvm/scripts/rvm
 
 # view Ruby version and make sure install successfully
@@ -69,10 +64,10 @@ rvm install 2.6.0
 
 Searching for binary rubies, this might take some time.
 ruby-2.6.0 - @making binaries executable..
-ruby-2.6.0 - @gemset created /Users/seafile/.rvm/gems/ruby-2.6.0@global
-ruby-2.6.0 - @importing gemset /Users/seafile/.rvm/gemsets/global.gems.........-
+ruby-2.6.0 - @gemset created /.rvm/gems/ruby-2.6.0@global
+ruby-2.6.0 - @importing gemset /.rvm/gemsets/global.gems.........-
 ruby-2.6.0 - @generating global wrappers.......
-ruby-2.6.0 - @gemset created /Users/seafile/.rvm/gems/ruby-2.6.0
+ruby-2.6.0 - @gemset created /.rvm/gems/ruby-2.6.0
 ruby-2.6.0 - @generating default wrappers.......
 ruby-2.6.0 - @adjusting @shebangs for (gem irb erb ri rdoc testrb rake).
 Install of ruby-2.6.0 - @complete 

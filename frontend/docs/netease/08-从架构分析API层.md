@@ -192,7 +192,7 @@ axios.interceptors.response.use(config => {
 
 ## 大型项目api层
 
-大型项目 API 复杂，专门设置一个api层（seafile-js）
+大型项目 API 复杂，专门设置一个api层（test-js）
 
 可以管理前后拦截，统一封装API
 

@@ -8,7 +8,7 @@ React.Children提供了处理 this.props.children 的 API，this.props.children 
 React.Children.map()有些类似Array.prototype.map()。如果children是数组，则此方法返回一个数组，如果是null 或 undefined 则返回null或undefined。第一参数是children，即示例中的Father组件里的 'hello world!' 和`() => <p>2333</p>`函数。第二个参数是fucntion，function的参数第一个是遍历的每一项，第二个是对应的索引。
 
 
-```jsx
+```js
 function Father({children}) {
   return(
     <div>
@@ -35,7 +35,7 @@ function Father({children}) {
 　　React.Children.count()用来计数，返回child个数。不要用children.length来计数，如果Father组件里只有'hello world!'会返回12，显然是错误的结果。
 
 
-```jsx
+```js
 function Father({children}) {
     return(
       <div>
@@ -53,7 +53,7 @@ function Father({children}) {
 ### React.Children.only()
 　　验证children里只有唯一的孩子并返回他。否则这个方法抛出一个错误。
 
-```jsx
+```js
 function Father({children}) {
   return(
     <div>
@@ -73,7 +73,7 @@ function Father({children}) {
 　　将children转换成Array，对children排序时需要使用
 
 
-```jsx
+```js
 function Father({children}) {
   let children1 = React.Children.toArray(children);
   return(
@@ -109,7 +109,7 @@ function Father({children}) {
 
 index.jsx
 
-```jsx
+```js
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {Steps, Step} from './Steps';
@@ -130,7 +130,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 Steps.jsx
 
-```jsx
+```js
 import * as React from 'react';
 import './step.less';
 

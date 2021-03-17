@@ -87,35 +87,36 @@ function deepCopy(obj) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>事件冒泡</title>
+  <meta charset="UTF-8">
+  <title>事件冒泡</title>
 </head>
 <body>
-    <div>
-        <p id="parEle">我是父元素    <span id="sonEle">我是子元素</span></p>
-    </div>
+  <div>
+    <p id="parEle">我是父元素    
+      <span id="sonEle">我是子元素</span>
+    </p>
+  </div>
 </body>
 </html>
-<script type="text/javascript">
-var sonEle = document.getElementById('sonEle');
-var parEle = document.getElementById('parEle');
+```
 
-parEle.addEventListener('click', function () {
-    alert('父级 冒泡');
-}, false);
-parEle.addEventListener('click', function () {
-    alert('父级 捕获');
-}, true);
+```js
+  var sonEle = document.getElementById('sonEle');
+  var parEle = document.getElementById('parEle');
 
-sonEle.addEventListener('click', function () {
-    alert('子级冒泡');
-}, false);
-sonEle.addEventListener('click', function () {
-    alert('子级捕获');
-}, true);
+  parEle.addEventListener('click', function () {
+      alert('父级 冒泡');
+  }, false);
+  parEle.addEventListener('click', function () {
+      alert('父级 捕获');
+  }, true);
 
-</script>
-
+  sonEle.addEventListener('click', function () {
+      alert('子级冒泡');
+  }, false);
+  sonEle.addEventListener('click', function () {
+      alert('子级捕获');
+  }, true);
 ```
 
 当容器元素及嵌套元素，即在`捕获阶段`又在`冒泡阶段`调用事件处理程序时：**事件按DOM事件流的顺序**执行事件处理程序：
@@ -178,8 +179,6 @@ Symbol.for() 可以在全局访问 symbol
 闭包是指有权访问另外一个函数作用域中的变量的函数
 
 JavaScript代码的整个执行过程，分为两个阶段，代码编译阶段与代码执行阶段。编译阶段由编译器完成，将代码翻译成可执行代码，这个阶段作用域规则会确定。执行阶段由引擎完成，主要任务是执行可执行代码，执行上下文在这个阶段创建。
-
-![image.png](data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>)
 
 ### 什么是作用域？
 
@@ -276,7 +275,10 @@ Not a Number，表示非数字，typeof NaN === 'number'
 
 它们都是函数的方法
 
-`call: Array.prototype.call(this, args1, args2])` `apply: Array.prototype.apply(this, [args1, args2])` ：ES6 之前用来展开数组调用, `foo.appy(null, [])`，ES6 之后使用 ... 操作符
+`call: Array.prototype.call(this, args1, args2])`
+`apply: Array.prototype.apply(this, [args1, args2])`
+
+ES6 之前用来展开数组调用, `foo.apply(null, [])`，ES6 之后使用 ... 操作符
 
 - New 绑定 > 显示绑定 > 隐式绑定 > 默认绑定
 - 如果需要使用 bind 的柯里化和 apply 的数组解构，绑定到 null，尽可能使用 Object.create(null) 创建一个 DMZ 对象
@@ -480,9 +482,14 @@ Object.keys(obj).length === 0
 
 手写题：在线编程，getUrlParams(url,key); 就是很简单的获取url的某个参数的问题，但要考虑边界情况，多个返回值等等
 
-## 问： <script src=’xxx’ ’xxx’/>外部js文件先加载还是onload先执行，为什么？
 
-onload 是所以加载完成之后执行的
+03-17
+----
+
+
+## 问： 外部js文件先加载还是onload先执行，为什么？
+
+`<script src=’xxx’ ’xxx’/>` onload 是所以加载完成之后执行的
 
 ## 问：怎么加事件监听，两种
 
