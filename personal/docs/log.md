@@ -249,3 +249,19 @@ How to improve programming ability？
 ### 2020.12
 
 learn leetcode basic methods(sort, search) review basic data structure(array, object, list, tree, graph and so on).
+
+## 2021
+
+### 2021.01
+
+todo
+
+### 2021.02
+
+todo
+
+### 2021.03
+
+- rebuild personal blog using mkdocs and seperate it into several parts
+- use some autometic method to refresh blog
+- todo: read, remember and rewrite blog soon.

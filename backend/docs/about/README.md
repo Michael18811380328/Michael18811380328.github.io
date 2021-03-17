@@ -1,55 +1,72 @@
 # 写在前面
 
-这里是总结的 `web开发` 相关归档学习资料，同时也是自己平时工作中的总结。
+这里是总结的 `web开发` 后端开发相关资料。
 
-欢迎大家提交 PR 或者 issue。喜欢的朋友可以 `star` ，你们的支持是我持续更新的动力!
+喜欢的朋友可以 `star` ，你们的支持是我持续更新的动力！
 
-网站改版试运行中（所以有不少 todos，需要后面不断完善）
+网站改版试运行中（所以有不少 todos，需要后面不断完善），欢迎大家提交 PR 或者 issue。
 
-## 关于我
+## 目录结构
 
-2016年本科毕业，现在是 Seafile Ltd 的前端开发工程师，email:1822852997@qq.com.
+~~~txt
 
-本人偶尔也会写写博客，如果有喜欢玩博客的朋友也可以一起分享交流，分享也是一种学习！
+├── nodejs
+│   ├── 01-Node.js 教程.md
+│   ├── 02-Node.js 安装配置.md
+│   ├── 03-Node.js 创建第一个应用.md
+│   ├── 05-Node.js REPL(交互式解释器).md
+│   ├── 06-Node.js 回调函数.md
+│   ├── 07-Node.js 事件循环.md
+│   ├── 08-Node.js EventEmitter.md
+│   ├── 09-Node.js Buffer(缓冲区).md
+│   ├── 10-Node.js Stream(流).md
+│   ├── 11-Node.js模块系统.md
+│   ├── 12-Node.js 函数.md
+│   ├── 13-Node.js 路由.md
+│   ├── 14-Node.js 全局对象.md
+│   ├── 15-Node.js 常用工具.md
+│   ├── 16-Node.js 文件系统.md
+│   ├── 17-Node.js GETPOST请求.md
+│   ├── 18-Node.js 工具模块.md
+│   ├── 19-Node.js Web 模块.md
+│   ├── 20-Node.js Express 框架.md
+│   ├── 21-Node.js RESTful API.md
+│   ├── 22-Node.js 多进程.md
+│   ├── 23-Node.js JXcore 打包.md
+│   ├── 24-Node.js 连接 MySQL.md
+│   ├── 25-Node.js 连接 MongoDB.md
+│   ├── Node 下 LDAP 实现.md
+│   ├── Node.js-fs文档.md
+│   ├── Node.js-path.md
+│   ├── Node.js-全局变量.md
+│   ├── Node.js使用Nodemailer发送邮件.md
+│   ├── NodeJS.md
+│   ├── node-debug.md
+│   ├── nodeJS 基础教程.md
+│   ├── nodeJS+mysql+连接池.md
+│   ├── nodejs api学习：fs.createReadStreame().md
+│   ├── node定时器.md
+│   ├── 使用nodejs连接mysql数据库实现增删改查.md
+│   ├── 廖雪峰 NodeJS.md
+│   └── 命令行的nodeJS.md
 
-[github](https://github.com/Michael18811380328)
+├── SQL
+│   ├── Mac pip install mysql-python unsuccessful.md
+│   ├── Mac安装MySQLdb（python-mysql）模块.md
+│   ├── Python操作 MySQL数据库.md
+│   ├── SQLite-API-Python.md
+│   ├── 深入MySQL数据库.md
+│   ├── 阿里云MySQL入门.md
+│   └── 数据库概念.md
 
-[CSDN](https://blog.csdn.net/weixin_41697143)
+└── python
+    ├── ERROR No matching distribution found for Django==3.0.2 (from -r requirements.txt (line 4)).md
+    ├── django-basic.md
+    ├── django.md
+    ├── falsk快速开始.md
+    ├── flask 网易云课堂.md
+    ├── 安装pandas时出现环境错误.md
+    ├── 搭建python3开发环境.md
+    └── 【解决】ValueError Length mismatch Expected axis has 0 elements, new values have 2 elements.md
 
-[stackoverflow](https://stackoverflow.com/users/14245047/michael-an)
-
-## 其他项目
-
-我的其他项目还在 coding 中，基本成型后我会逐步开源。
-
-[小游戏开发](https://github.com/Michael18811380328/game)
-
-[JS知识点](https://github.com/Michael18811380328/HelloJS)
-
-[Leetcode](https://github.com/Michael18811380328/LeetCode)
-
-[webpack前端工程化](https://github.com/Michael18811380328/webpack-babel)
-
-[Python](https://github.com/Michael18811380328/HelloPython)
-
-[Typescript](https://github.com/Michael18811380328/HelloTs)
-
-
-## 博客
-
-For full documentation visit [mkdocs.org](https://mkdocs.org).
-
-## Commands
-
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs help` - Print this help message.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
-
+~~~
