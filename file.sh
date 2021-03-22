@@ -14,7 +14,7 @@
 #     # 根据实际子目录确定这里的格式
 # done
 
-cat ./frontend/docs/res.md | while read line
+cat ./book/docs/res.md | while read line
 
 do
     echo "- '$line': '$line'"
