@@ -10,7 +10,7 @@
 
 一般在reactjs中我们需要更新时都是调用的setState。看下面的例子：
 
-```jsx
+```js
 var HelloMessage = React.createClass({
   getInitialState: function() {
     return {type: 'say:'};
@@ -40,7 +40,7 @@ React.render(React.createElement(HelloMessage, {name: "John"}), document.getElem
 
 点击文字，调用setState就会更新，所以我们扩展下ReactClass，看下setState的实现：
 
-```jsx
+```js
 //定义ReactClass类
 var ReactClass = function(){
 }
@@ -64,7 +64,7 @@ ReactClass.prototype.setState = function(newState) {
 
 所以我们照葫芦画瓢来给自定义元素的对应component类（ReactCompositeComponent）实现一个receiveComponent方法：
 
-```jsx
+```js
 //更新
 ReactCompositeComponent.prototype.receiveComponent = function(nextElement, newState) {
 
@@ -148,7 +148,7 @@ var _shouldUpdateReactComponent ＝ function(prevElement, nextElement){
 
 我们再看看文本节点的，比较简单：
 
-```jsx
+```js
 ReactDOMTextComponent.prototype.receiveComponent = function(nextText) {
   var nextStringText = '' + nextText;
   //跟以前保存的字符串比较
@@ -168,7 +168,7 @@ ReactDOMTextComponent.prototype.receiveComponent = function(nextText) {
 最后我们开始看比较复杂的浏览器基本元素的更新机制。
 比如我们看看下面的html:
 
-```jsx
+```js
 <div id="test" name="hello">
     <span></span>
     <span></span>
@@ -184,7 +184,7 @@ ReactDOMTextComponent.prototype.receiveComponent = function(nextText) {
 
 所以更新代码结构如下：
 
-```jsx
+```js
 ReactDOMComponent.prototype.receiveComponent = function(nextElement) {
   var lastProps = this._currentElement.props;
   var nextProps = nextElement.props;
@@ -201,7 +201,7 @@ ReactDOMComponent.prototype.receiveComponent = function(nextElement) {
 
 我们一步步来，先看看，更新属性怎么变更：
 
-```jsx
+```js
 ReactDOMComponent.prototype._updateDOMProperties = function(lastProps, nextProps) {
   var propKey;
   //遍历，当一个老的属性不在新的属性集合里时，需要删除掉。
@@ -248,7 +248,7 @@ ReactDOMComponent.prototype._updateDOMProperties = function(lastProps, nextProps
 
 下面我们看子节点的更新，也是最复杂的部分。
 
-```jsx
+```js
 ReactDOMComponent.prototype.receiveComponent = function(nextElement){
   var lastProps = this._currentElement.props;
   var nextProps = nextElement.props;
@@ -287,7 +287,7 @@ ReactDOMComponent.prototype._updateDOMChildren = function(nextChildrenElements){
 
 我们先看_diff的实现：
 
-```jsx
+```js
 //差异更新的几种类型
 var UPATE_TYPES = {
   MOVE_EXISTING: 1,
@@ -467,7 +467,7 @@ generateComponentChildren会尽量的复用以前的component，也就是那些�
 
 我们看下_patch的实现：
 
-```jsx
+```js
 //用于将childNode插入到指定位置
 function insertChildAt(parentNode, childNode, index) {
   var beforeChild = parentNode.children().get(index);
@@ -523,7 +523,7 @@ ReactDOMComponent.prototype._patch = function(updates) {
 
 我们来改造下代码：
 
-```jsx
+```js
 //_diff用来递归找出差别,组装差异对象,添加到更新队列diffQueue。
 ReactDOMComponent.prototype._diff = function(diffQueue, nextChildrenElements){
   。。。
@@ -598,7 +598,7 @@ react有一个全局_shouldUpdateReactComponent用来根据element的key来判�
 
 有了上面简易版的reaactjs，我们来实现一个简单的todolist吧。
 
-```jsx
+```js
 var TodoList = React.createClass({
   getInitialState: function() {
     return {items: []};

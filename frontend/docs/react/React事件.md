@@ -103,7 +103,7 @@
 
 ### 实例演示
 
-```jsx
+```js
 var HelloDada = React.createClass({
   getInitialState:function(){
     return{
@@ -128,7 +128,7 @@ ReactDom.render(<HelloDada/>,document.body);
 
 虚拟事件对象已经被合并。这意味着虚拟事件对象将被重新使用，而该事件回调被调用之后所有的属性将无效。这是出于性能的考虑。因此，您不能以异步的方式访问事件。
 
-```jsx
+```js
 function onClick(event) {
   console.log(event); // =>无效的对象
   console.log(event.type); // => "click"
@@ -153,7 +153,7 @@ function onClick(event) {
 
 > 对于 v0.14，在事件处理函数中返回 false 将不会阻止事件冒泡。取而代之的是在合适的应用场景下，手动调用`e.stopPropagation()`或者`e.preventDefault()`。
 
-```jsx
+```js
     handleChange:function(e){
         console.log(e.target.value);
     }
@@ -249,7 +249,7 @@ function onClick(event) {
 
 1. 滚动事件对象
 
-```jsx
+```js
 var HelloDada = React.creatClass({
   getInitialState:function(){
     return {
@@ -273,7 +273,7 @@ ReactDOM.render(<HelloDada />,document.body)
 
 2.键盘事件对象
 
-```jsx
+```js
 var Dada =React.creatClass{
   getInitialState:function(){
     return{
@@ -304,7 +304,7 @@ ReactDOM.render(<Dada />,document.body)
 
 状态不仅仅实现了组件内部结果的清晰对应，还实现了组件与用户之间的交互，使用户与组件的行为紧紧结合起来
 
-```jsx
+```js
 handleChange:function(e){
     this.setState({Dada:e.target.value});
 }
@@ -314,7 +314,7 @@ handleChange:function(e){
 
 ### 实例
 
-```jsx
+```js
 var Dada =React.creatClass({
   getInitialState:function(){
     return{
@@ -362,7 +362,7 @@ react对于每个html元素都添加了很多事件处理函数，这些事件�
 我的代码如下： 
 reactjs中的部分代码
 
-```jsx
+```js
 construction(props){
   super(props);
   this.state={

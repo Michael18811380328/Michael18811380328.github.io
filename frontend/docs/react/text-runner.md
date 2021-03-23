@@ -25,14 +25,14 @@ readme-driven development: documentation is your product prototype and drives it
 
 ~~~bash
 # 打开项目文件夹
-Daniels-MBP:desktop seafile$ cd test
+cd test
 
 # 列出项目的目录(已经执行了npm install --dev text-runner)
-Daniels-MBP:test seafile$ ls
+ls
 node_modules      package-lock.json package.json
 
 # 运行帮助
-Daniels-MBP:test seafile$ node_modules/.bin/text-run help
+node_modules/.bin/text-run help
 
 TextRunner 3.6.0
 
@@ -50,11 +50,11 @@ OPTIONS
   --offline         don't check external links
 
 # 初始化配置 创建一个 text-run.yml 文件
-Daniels-MBP:test seafile$ node_modules/.bin/text-run setup
+node_modules/.bin/text-run setup
 Created configuration file text-run.yml with default values
 
 # 测试文件
-Daniels-MBP:test seafile$ node_modules/.bin/text-run test.md
+node_modules/.bin/text-run test.md
 
 # 初始化没有 helloworld 的命令，下面是默认的活动类型
 test.md:1 -- unknown activity type: helloworld
@@ -90,13 +90,13 @@ run "text-run add helloworld"
 1 errors, 1 activities in 1 files, 26ms
 
 # 新建一个JS文件并放入官方文档中的内容。
-Daniels-MBP:test seafile$ touch hello-world.js
+touch hello-world.js
 
 # 加入自定义的命令
-Daniels-MBP:test seafile$ node_modules/.bin/text-run add hello-world
+node_modules/.bin/text-run add hello-world
 
 # 运行自定义的命令(获取文档内部的节点)
-Daniels-MBP:test seafile$ node_modules/.bin/text-run test.md
+node_modules/.bin/text-run test.md
 This code runs inside the "hello-world" block implementation.
 I found these elements in your document:
 AstNodeList [
@@ -120,7 +120,7 @@ Success! 1 activities in 1 files, 25ms
 # 可以看出，将内部的HTML标签读取，获取一对a标签
 
 # 在a标签内放置一段内容，即可获取内部的内容
-Daniels-MBP:test seafile$ node_modules/.bin/text-run test.md
+node_modules/.bin/text-run test.md
 This code runs inside the "hello-world" block implementation.
 I found these elements in your document:
 AstNodeList [
@@ -150,7 +150,7 @@ test.md:1 -- Hello world
 
 Success! 1 activities in 1 files, 24ms
 
-Daniels-MBP:test seafile$ node_modules/.bin/text-run test.md
+node_modules/.bin/text-run test.md
 This code runs inside the "hello-world" block implementation.
 I found these elements in your document:
 AstNodeList [
@@ -171,8 +171,8 @@ AstNodeList [
 test.md:1 -- Hello world
 
 Success! 1 activities in 1 files, 17ms
-Daniels-MBP:test seafile$ 
-Daniels-MBP:test seafile$ node_modules/.bin/text-run test.md
+
+node_modules/.bin/text-run test.md
 This code runs inside the "hello-world" block implementation.
 I found these elements in your document:
 AstNodeList [
@@ -201,7 +201,7 @@ AstNodeList [
 test.md:1 -- Hello world
 
 Success! 1 activities in 1 files, 19ms
-Daniels-MBP:test seafile$ node_modules/.bin/text-run test.md
+node_modules/.bin/text-run test.md
 
 # 改变规则，输出文档的全部属性和节点
 This code runs inside the "hello-world" block implementation.
@@ -216,9 +216,9 @@ I found these elements in your document:
      keepTmp: false,
      offline: false,
      publications: Publications [],
-     sourceDir: '/Users/seafile/Desktop/test',
+     sourceDir: '/Desktop/test',
      useSystemTempDirectory: false,
-     workspace: '/Users/seafile/Desktop/test/tmp' },
+     workspace: '/Desktop/test/tmp' },
   file: 'test.md',
   formatter:
    DetailedFormatter {
@@ -238,7 +238,7 @@ I found these elements in your document:
      stderr: { write: [Function: bound log] },
      output: '',
      title: 'Hello world',
-     sourceDir: '/Users/seafile/Desktop/test',
+     sourceDir: '/Desktop/test',
      skipped: false,
      warned: false,
      console: { log: [Function: log] } },
@@ -273,7 +273,7 @@ test.md:1 -- Hello world
 Success! 1 activities in 1 files, 27ms
 
 # 显示下面的帮助文档
-Daniels-MBP:test seafile$ node_modules/.bin/text-run help
+node_modules/.bin/text-run help
 
 TextRunner 3.6.0
 
@@ -290,10 +290,10 @@ OPTIONS
   --config          provide a custom configuration filename
   --offline         don't check external links
 
-Daniels-MBP:test seafile$ node_modules/.bin/text-run version
+node_modules/.bin/text-run version
 TextRunner v3.6.0
-Daniels-MBP:test seafile$ node_modules/.bin/text-run cd test.md
+node_modules/.bin/text-run cd test.md
 file or directory does not exist: cd
-Daniels-MBP:test seafile$ node_modules/.bin/text-run 
+node_modules/.bin/text-run 
 
 ~~~

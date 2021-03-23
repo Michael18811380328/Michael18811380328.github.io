@@ -1,9 +1,4 @@
----
-layout: post
-title:  "Initialize jekyll blogs"
-date:   2019-04-08 17:59:11 +0800
-categories: jekyll update
----
+# Initialize jekyll blogs
 
 In termanal, initialize jekyll then generate some bolgs.
 
@@ -15,7 +10,7 @@ cd test-blog/
 # use jekyll generate bolgs
 jekyll new blog
 Could not load Bundler. Bundle install skipped. 
-New jekyll site installed in /Users/seafile/Desktop/code-myrepo/Michael/test-blog/blog. 
+New jekyll site installed in /blog. 
 
 cd blog/
 
@@ -66,14 +61,14 @@ Successfully installed jekyll-feed-0.12.1
 # run blogs again，successfully
 jekyll serve --watch
 
-Configuration file: /Users/seafile/Desktop/code-myrepo/Michael/test-blog/blog/_config.yml
-            Source: /Users/seafile/Desktop/code-myrepo/Michael/test-blog/blog
-       Destination: /Users/seafile/Desktop/code-myrepo/Michael/test-blog/blog/_site
+Configuration file: /blog/_config.yml
+            Source: /blog
+       Destination: /blog/_site
  Incremental build: disabled. Enable with --incremental
       Generating... 
        Jekyll Feed: Generating feed for posts
                     done in 0.469 seconds.
- Auto-regeneration: enabled for '/Users/seafile/Desktop/code-myrepo/Michael/test-blog/blog'
+ Auto-regeneration: enabled for '/blog'
     Server address: http://127.0.0.1:4000/
   Server running... press ctrl-c to stop.
 [2019-04-08 18:02:46] ERROR `/favicon.ico' not found.

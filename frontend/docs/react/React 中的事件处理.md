@@ -32,7 +32,7 @@ class App extends React.Component {
 
 `React`中，默认的事件传播方式为**冒泡**：
 
-```jsx
+```js
 import React, { Component } from "react"
 import ReactDOM from "react-dom"
 
@@ -55,7 +55,7 @@ ReactDOM.render(<App />, document.querySelector("#root"));
 
 当用户点击 `div`元素时，可以看到，控制台先后输出了`child -> parent -> ancestor`，==这是因为在React的事件处理系统中，默认的事件流就是冒泡==，如果说我们希望以捕获的方式来触发事件的话，可以使用`onClickCapture`来绑定事件，也就是在事件类型后面加一个后缀`Capture`：
 
-```jsx
+```js
 import React, { Component } from "react"
 import ReactDOM from "react-dom"
 
@@ -86,7 +86,7 @@ ReactDOM.render(<App />, document.querySelector("#root"));
 
 我们在红色区域的`div`里，也就是最里层的那个元素上，使用`e.stopPropagation()`方法来阻止事件流的传播：
 
-```jsx
+```js
 <div onClick={() => {console.log("ancestor")}}>
     <div onClick={() => {console.log("parent");}}>
         <div onClick={e => { console.log("child"); e.stopPropagation();}}></div>
@@ -106,7 +106,7 @@ ReactDOM.render(<App />, document.querySelector("#root"));
 
 在`SyntheticEvent`中，我们依然可以获取到事件发生时的`event`对象：
 
-```jsx
+```js
 import React, { Component } from "react"
 import ReactDOM from "react-dom"
 
@@ -140,7 +140,7 @@ ReactDOM.render(<App />, document.querySelector("#root"));
 
 接下来将用户点击时的坐标在`div`元素中显示出来，可以通过`clientX`和`clientY`来访问：
 
-```jsx
+```js
 <div
     style={styles["DEBUG_DISPLAY"]}
     onClick={e => {
@@ -156,7 +156,7 @@ ReactDOM.render(<App />, document.querySelector("#root"));
 
 合成事件中的`event`对象，并不是原生的`event`，只是说，我们可以通过它获取到原生`event`对象上的某些属性，比如以上示例中的`clientX`和`clientY`。而且，对于这个`event`对象，在整个合成事件中，只有一个，被全局共享，也就是说，当这次事件调用完成之后，这个`event`对象会被清空，等待下一次的事件触发，因此，我们无法在异步的操作中获取到`event`：
 
-```jsx
+```js
 <div
     style={styles["DEBUG_DISPLAY"]}
     onClick={e => {
@@ -178,7 +178,7 @@ ReactDOM.render(<App />, document.querySelector("#root"));
 
 在异步操作中想要获取`event`对象中的数据，在事件发生时就需要将数据通过变量保存下来：
 
-```jsx
+```js
 <div
     style={styles["DEBUG_DISPLAY"]}
     onClick={e => {
@@ -199,7 +199,7 @@ ReactDOM.render(<App />, document.querySelector("#root"));
 
 `react`鼓励我们使用合成事件，但是，在某些需求中，还是需要通过原生事件来进行处理，这时，就涉及到合成事件和原生事件的混合使用，例如以下示例：
 
-```jsx
+```js
 import React, { Component } from "react"
 import ReactDOM from "react-dom"
 
@@ -239,7 +239,7 @@ ReactDOM.render(<App />, document.querySelector("#root"));
 
 要实现 *点击其他区域隐藏`div`元素* 的功能，需要将事件绑定在`document`元素上，接下来，在`compnentDidMount`生命周期函数中，来绑定该事件：
 
-```jsx
+```js
 class App extends Component {
 
   state = {
@@ -268,7 +268,7 @@ class App extends Component {
 
 处理方法：
 
-```jsx
+```js
 import React, { Component } from "react"
 import ReactDOM from "react-dom"
 

@@ -23,7 +23,7 @@ if (this._compositeType === CompositeTypes.PureClass) {
 
 案例：
 
-```jsx
+```js
 class App extends PureComponent {
   state = {
     items: [1, 2, 3]
@@ -46,7 +46,7 @@ class App extends PureComponent {
 
 会发现，无论怎么点 `delete` 按钮， `li` 都不会变少，因为 `items` 用的是一个引用， `shallowEqual` 的结果为 `true` 。改正：
 
-```jsx
+```js
 handleClick = () => {
   const { items } = this.state;
   items.pop();
@@ -62,7 +62,7 @@ handleClick = () => {
 
 上面易变数据不能使用一个引用的案例中有一个点击删除操作，如果我们删除的代码这么写：
 
-```jsx
+```js
 handleClick = () => {
   const { items } = this.state;
   items.splice(items.length - 1, 1);
@@ -72,13 +72,13 @@ handleClick = () => {
 
 `items` 的引用也是改变的，但如果 `items` 里面是引用类型数据：
 
-```jsx
+```js
 items: [{a: 1}, {a: 2}, {a: 3}]
 ```
 
 这个时候
 
-```jsx
+```js
 state.items[0] === nextState.items[0] // false
 ```
 
@@ -88,7 +88,7 @@ state.items[0] === nextState.items[0] // false
 
 我们在给组件传一个函数的时候，有时候总喜欢:
 
-```jsx
+```js
 // 1
 <MyInput onChange={e => this.props.update(e.target.value)} />
 // 2
@@ -102,7 +102,7 @@ render() {
 
 由于每次 `render` 操作 `MyInput` 组件的 `onChange` 属性都会返回一个新的函数，由于引用不一样，所以父组件的 `render` 也会导致 `MyInput` 组件的 `render` ，即使没有任何改动，所以需要尽量避免这样的写法，最好这样写：
 
-```jsx
+```js
 // 1,2
 update = (e) => {
   this.props.update(e.target.value)
@@ -116,7 +116,7 @@ render() {
 
 有时候后台返回的数据中，数组长度为0或者对象没有属性会直接给一个 `null` ，这时候我们需要做一些容错：
 
-```jsx
+```js
 class App extends PureComponent {
   state = {
     items: [{ name: 'test1' }, null, { name: 'test3'  }]
@@ -152,7 +152,7 @@ const style = { color: 'red' };
 
 这点可能和 `PureComponent` 没多少关系，但做的不好可能会浪费很多性能，比如一个页面上面一部分是一个复杂的列表，下面是一个输入框，抽象代码：
 
-```jsx
+```js
 change = (e) => {
   this.setState({ value: e.target.value });
 }

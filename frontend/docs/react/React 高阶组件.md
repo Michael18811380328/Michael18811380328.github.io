@@ -19,7 +19,7 @@ const EnhancedComponent = higherOrderComponent(WrappedComponent);
 
 先来一个最简单的高阶组件
 
-```jsx
+```js
 import React, { Component } from 'react';
 import simpleHoc from './simple-hoc';
 
@@ -34,7 +34,7 @@ class Usual extends Component {
 export default simpleHoc(Usual);
 ```
 
-```jsx
+```js
 import React, { Component } from 'react';
 
 const simpleHoc = WrappedComponent => {
@@ -57,7 +57,7 @@ export default simpleHoc;
 
 ES7中添加了一个decorator的属性，使用@符表示，可以更精简的书写。那上面的例子就可以改成：
 
-```jsx
+```js
 import React, { Component } from 'react';
 import simpleHoc from './simple-hoc';
 
@@ -134,7 +134,7 @@ export default class Usual extends Component {
 
   这里不是通过ref获取state， 而是通过 { props, 回调函数 } 传递给wrappedComponent组件，通过回调函数获取state。这里用的比较多的就是react处理表单的时候。通常react在处理表单的时候，一般使用的是受控组件（[文档](https://link.juejin.im/?target=https%3A%2F%2Ffacebook.github.io%2Freact%2Fdocs%2Fforms.html%23controlled-components)），即把input都做成受控的，改变value的时候，用onChange事件同步到state中。当然这种操作通过Container组件也可以做到，具体的区别放到后面去比较。看一下代码就知道怎么回事了：
 
-  ```jsx
+  ```js
   // 普通组件Login
   import React, { Component } from 'react';
   import formCreate from './form-create';
@@ -164,7 +164,7 @@ export default class Usual extends Component {
   }
   ```
 
-  ```jsx
+  ```js
   //HOC
   import React, { Component } from 'react';
   
@@ -213,7 +213,7 @@ export default class Usual extends Component {
 跟属性代理的方式不同的是，II采用通过 去继承WrappedComponent，本来是一种嵌套的关系，结果II返回的组件却继承了WrappedComponent，这看起来是一种反转的关系。
 通过继承WrappedComponent，除了一些静态方法，包括生命周期，state，各种function，我们都可以得到。上栗子：
 
-```jsx
+```js
  // usual
 import React, { Component } from 'react';
 import iiHoc from './ii-hoc';
@@ -238,7 +238,7 @@ export default class Usual extends Component {
 }
 ```
 
-```jsx
+```js
 //IIHOC
 import React from 'react';
 
@@ -259,7 +259,7 @@ iiHoc return的组件通过继承，拥有了Usual的生命周期及属性，所
 
 这里HOC里定义的组件继承了WrappedComponent的render(渲染)，我们可以以此进行hijack(劫持)，也就是控制它的render函数。栗子：
 
-```jsx
+```js
   //hijack-hoc
   import React from 'react';
 
@@ -280,7 +280,7 @@ iiHoc return的组件通过继承，拥有了Usual的生命周期及属性，所
   export default hijackRenderHoc;
 ```
 
-```jsx
+```js
   //usual
   @hijackRenderHoc({type: 'add-style', style: { color: 'red'}})
   class Usual extends Component {
@@ -301,7 +301,7 @@ iiHoc return的组件通过继承，拥有了Usual的生命周期及属性，所
 
 - Container解决不了的时候甚至不太优雅的时候。其实大部分时候包一层Container组件也能做到差不多的效果，比如操作props，渲染劫持。但其实还是有很大区别的。比如我们现在有两个功能的container，添加样式和添加处理函数的，对Usual进行包装。栗子：
 
-  ```jsx
+  ```js
   //usual
   class Usual extends Component {
   
@@ -316,7 +316,7 @@ iiHoc return的组件通过继承，拥有了Usual的生命周期及属性，所
   //console - Object {handleClick: function}  "props"
   ```
 
-  ```jsx
+  ```js
   import React, { Component } from 'react';
   import Usual from './usual';
   
@@ -333,7 +333,7 @@ iiHoc return的组件通过继承，拥有了Usual的生命周期及属性，所
   export default StyleContainer;
   ```
 
-  ```jsx
+  ```js
   import React, { Component } from 'react';
   import StyleContainer from './container-add-style';
   
@@ -356,7 +356,7 @@ iiHoc return的组件通过继承，拥有了Usual的生命周期及属性，所
 
   外层Container必须要引入内层Container，进行包装，还有props的传递，同样要注意包装的顺序。当然你可以把所有的处理都放到一个Container里。那用HOC怎么处理呢，相信大家有清晰的答案了。
 
-  ```jsx
+  ```js
   const addFunc = WrappedComponent => class extends Component {
     handleClick() {
       console.log('click');
@@ -372,7 +372,7 @@ iiHoc return的组件通过继承，拥有了Usual的生命周期及属性，所
   };
   ```
 
-  ```jsx
+  ```js
   const addStyle = WrappedComponent => class extends Component {
   
     render() {
@@ -383,7 +383,7 @@ iiHoc return的组件通过继承，拥有了Usual的生命周期及属性，所
   };
   ```
 
-  ```jsx
+  ```js
   const WrappenComponent = addStyle(addFunc(Usual));
   
   class WrappedUsual extends Component {

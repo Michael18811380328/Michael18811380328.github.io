@@ -7,7 +7,7 @@
 
 我们这里讲的属于后者，但是又有些特殊，特殊就在于子组件是个高阶组件，比如使用`@connect` `@withRouter`包裹过的组件（其实大部分组件都会被这两个包裹），具体示例如下：
 
-```jsx
+```js
 @withRouter
 export default class childComponent extends Component {
   constructor(props) {

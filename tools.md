@@ -29,6 +29,7 @@ mkdocs build
 
 ```bash
 cd ./book/docs
+# 如果有子目录，那么不能使用这个命令，这里需要优化
 ls -a >> res.md
 ```
 

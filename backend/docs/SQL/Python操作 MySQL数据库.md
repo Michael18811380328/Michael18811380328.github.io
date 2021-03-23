@@ -54,7 +54,7 @@ $ python setup.py install
 安装报错1: 执行 sudo python setup.py build 出现问题(SSL权限)
 
 ~~~bash
-AAAtest:MySQL-python-1.2.4b4 seafile$ sudo python setup.py build
+sudo python setup.py build
 Downloading http://pypi.python.org/packages/source/d/distribute/distribute-0.6.28.tar.gz
 urllib2.HTTPError: HTTP Error 403: SSL is required
 ~~~

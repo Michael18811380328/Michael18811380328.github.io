@@ -26,7 +26,7 @@ reactjs的代码非常绕，对于没有后台开发经验的前端来说看起�
 
 我们看下面的代码：
 
-```jsx
+```js
 <script type="text/javascript">
   React.render('hello world',document.getElementById("container"))
 </script>
@@ -50,7 +50,7 @@ reactjs的代码非常绕，对于没有后台开发经验的前端来说看起�
 
 我们来看看我们需要为此做些什么：
 
-```jsx
+```js
 //component类，用来表示文本在渲染，更新，删除时应该做些什么事情
 function ReactDOMTextComponent(text) {
   //存下当前的字符串
@@ -107,7 +107,7 @@ nextReactRootIndex作为每个component的标识id，不断加1，确保唯一�
 
 在reactjs里，当我们希望在hello world外面包一层div,并且带上一些属性，甚至事件时我们可以这么写：
 
-```jsx
+```js
 //演示事件监听怎么用
 function hello(){
   alert('hello')
@@ -128,7 +128,7 @@ React.render(element,document.getElementById("container"))
 
 上面使用`React.createElement`创建了一个基本元素，我们来看看简易版本`React.createElement`的实现：
 
-```jsx
+```js
 //ReactElement就是虚拟dom的概念，具有一个type属性代表当前的节点类型，还有节点的属性props
 //比如对于div这样的节点type就是div，props就是那些attributes
 //另外这里的key,可以用来标识这个element，用于优化以后的更新，这里可以先不管，知道有这么个东西就好了
@@ -186,7 +186,7 @@ createElement只是做了简单的参数修正，最终返回一个ReactElement�
 
 好了有了元素实例，我们得把他渲染出来，此时render接受的是一个ReactElement而不是文本，我们先改造下instantiateReactComponent：
 
-```jsx
+```js
 function instantiateReactComponent(node){
   //文本节点的情况
   if(typeof node === 'string' || typeof node === 'number'){
@@ -205,7 +205,7 @@ function instantiateReactComponent(node){
 
 所以重点我们来看看`ReactDOMComponent`的具体实现：
 
-```jsx
+```js
 //component类，用来表示文本在渲染，更新，删除时应该做些什么事情
 function ReactDOMComponent(element){
   //存下当前的element对象引用
@@ -289,7 +289,7 @@ reactjs通过虚拟dom做到了类似的功能，还记得我们上面element.ty
 
 我们看下reactjs怎么使用自定义元素：
 
-```jsx
+```js
 var HelloMessage = React.createClass({
   getInitialState: function() {
     return {type: 'say:'};
@@ -337,7 +337,7 @@ console:
 
 我们先来看看React.createClass的实现：
 
-```jsx
+```js
 //定义ReactClass类,所有自定义的超级父类
 var ReactClass = function(){
 }
@@ -381,7 +381,7 @@ React = {
 
 好，我们老规矩先改造instantiateReactComponent
 
-```jsx
+```js
 function instantiateReactComponent(node){
   //文本节点的情况
   if(typeof node === 'string' || typeof node === 'number'){
@@ -405,7 +405,7 @@ function instantiateReactComponent(node){
 很简单我们增加了一个判断，使用新的component类形来处理自定义的节点。我们看下
 ReactCompositeComponent的具体实现:
 
-```jsx
+```js
 function ReactCompositeComponent(element){
   //存放元素element对象
   this._currentElement = element;

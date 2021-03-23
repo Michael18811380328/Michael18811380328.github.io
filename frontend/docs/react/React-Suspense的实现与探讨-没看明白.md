@@ -55,7 +55,7 @@ export const createFetcher = (promiseTask) => {
 
 **1.2实现Placeholder**
 
-```jsx
+```js
 export class Placeholder extends React.Component {
   state = {
     isLoading: false
@@ -99,7 +99,7 @@ render() {
 
 **1.3测试用例**
 
-```jsx
+```js
 export var fetchSometingApi = () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -144,7 +144,7 @@ render() {
 
 在外部的时候这么使用
 
-```jsx
+```js
 const getData = createFetcher(fetchSometingApi);
 
 const FangZheng = ({ name }) => {
