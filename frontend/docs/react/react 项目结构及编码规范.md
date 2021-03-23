@@ -52,7 +52,7 @@
 
     将 React 类放在一个变量中（const Name = React.createClass），还是直接继承自组件（class Name  extends React.Component）？如果内部含有state 或者refs 等，最好设置 React.Component. 如果仅仅是单向组件，只有props, 没有复杂用户交互，可以设置 createClass 或者 Purecomponent.
 
-    ```jsx
+    ```js
     // bad
     const Listing = React.createClass({
       // ...
@@ -72,7 +72,7 @@
 
     And if you don’t have state or refs, prefer normal functions (not arrow functions) over classes。如果没有 state 和 refs，只有 props 不需要使用箭头函数，直接使用普通函数传值即可。
 
-    ```jsx
+    ```js
     // bad
     class Listing extends React.Component {
       render() {
@@ -109,7 +109,7 @@
 
     文件名使用小写开头（连接符）
 
-    ```jsx
+    ```js
     // bad
     import reservationCard from './reservation-card';
     
@@ -127,7 +127,7 @@
 
     React 组件使用大写开头，组件名和文件名相同（便于调用）。变量名使用小写开头（驼峰）
 
-    ```jsx
+    ```js
     // bad
     import Footer from './Footer/Footer';
     
@@ -142,7 +142,7 @@
 
     > Why? A component’s `displayName` may be used by developer tools or in error messages, and having a value that clearly expresses this relationship helps people understand what is happening.
 
-    ```jsx
+    ```js
     // bad
     export default function withFoo(WrappedComponent) {
       return function WithFoo(props) {
@@ -172,7 +172,7 @@
 props不能和已有 HTML 属性重复
 
 
-```jsx
+```js
 // bad
 <MyComponent style="fancy" />
 
@@ -187,7 +187,7 @@ props不能和已有 HTML 属性重复
 
   - Do not use `displayName` for naming components. Instead, name the component by reference.
 
-    ```jsx
+    ```js
     // bad
     export default React.createClass({
       displayName: 'ReservationCard',
@@ -203,7 +203,7 @@ props不能和已有 HTML 属性重复
 
   - Follow these alignment styles for JSX syntax. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md) [`react/jsx-closing-tag-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-tag-location.md) JSX 对齐规则
 
-    ```jsx
+    ```js
     // bad
     <Foo superLongParam="bar"
          anotherSuperLongParam="baz" />
@@ -251,7 +251,7 @@ props不能和已有 HTML 属性重复
 
     > Why? Regular HTML attributes also typically use double quotes instead of single, so JSX attributes mirror this convention.
 
-    ```jsx
+    ```js
     // bad
     <Foo bar='bar' />
 
@@ -269,7 +269,7 @@ props不能和已有 HTML 属性重复
 
   - Always include a single space in your self-closing tag. eslint: [`no-multi-spaces`](https://eslint.org/docs/rules/no-multi-spaces), [`react/jsx-tag-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-tag-spacing.md)
 
-    ```jsx
+    ```js
     // bad
     <Foo/>
 
@@ -286,7 +286,7 @@ props不能和已有 HTML 属性重复
 
   - Do not pad JSX curly braces with spaces. eslint: [`react/jsx-curly-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md)
 
-    ```jsx
+    ```js
     // bad
     <Foo bar={ baz } />
 
@@ -298,7 +298,7 @@ props不能和已有 HTML 属性重复
 
   - Always use camelCase for prop names.
 
-    ```jsx
+    ```js
     // bad
     <Foo
       UserName="hello"
@@ -316,7 +316,7 @@ props不能和已有 HTML 属性重复
 
     如果传值是 true 可以省略
 
-    ```jsx
+    ```js
     // bad
     <Foo
       hidden={true}
@@ -333,7 +333,7 @@ props不能和已有 HTML 属性重复
 
   - Always include an `alt` prop on `<img>` tags. If the image is presentational, `alt` can be an empty string or the `<img>` must have `role="presentation"`. eslint: [`jsx-a11y/alt-text`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/alt-text.md)
 
-    ```jsx
+    ```js
     // bad
     <img src="hello.jpg" />
     
@@ -351,7 +351,7 @@ props不能和已有 HTML 属性重复
 
     > Why? Screenreaders already announce `img` elements as images, so there is no need to include this information in the alt text.
 
-    ```jsx
+    ```js
     // bad
     <img src="hello.jpg" alt="Picture of me waving hello" />
     
@@ -361,7 +361,7 @@ props不能和已有 HTML 属性重复
 
   - Use only valid, non-abstract [ARIA roles](https://www.w3.org/TR/wai-aria/#usage_intro). eslint: [`jsx-a11y/aria-role`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/aria-role.md)
 
-    ```jsx
+    ```js
     // bad - not an ARIA role
     <div role="datepicker" />
     
@@ -376,7 +376,7 @@ props不能和已有 HTML 属性重复
 
   > Why? Inconsistencies between keyboard shortcuts and keyboard commands used by people using screenreaders and keyboards complicate accessibility.
 
-  ```jsx
+  ```js
   // bad
   <div accessKey="h" />
 
@@ -392,7 +392,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
 注意：避免使用箭头函数的 index 作为子组件的 key 值。不使用稳定ID是一种反模式，因为它会对性能产生负面影响，并导致组件状态问题。如果子组件item可能变化是，例如评论，最好使用id不使用index。
 
-  ```jsx
+  ```js
   // bad
   {todos.map((todo, index) =>
     <Todo
@@ -416,7 +416,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
 使用  SFC.defaultProps  可以让使用组件的人知道需要传入的参数和类型；同时写 propTypes 也更好
 
-  ```jsx
+  ```js
   // bad
   function SFC({ foo, bar, children }) {
     return <div>{foo}{bar}{children}</div>;
@@ -449,7 +449,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
   - HOCs that proxy down props and hoist propTypes
 
-  ```jsx
+  ```js
   function HOC(WrappedComponent) {
     return class Proxy extends React.Component {
       Proxy.propTypes = {
@@ -466,7 +466,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
   - Spreading objects with known, explicit props. This can be particularly useful when testing React components with Mocha’s beforeEach construct.
 
-  ```jsx
+  ```js
   export default function Foo {
     const props = {
       text: '',
@@ -480,7 +480,7 @@ We don’t recommend using indexes for keys if the order of items may change.
   Notes for use:
   Filter out unnecessary props when possible. Also, use [prop-types-exact](https://www.npmjs.com/package/prop-types-exact) to help prevent bugs.
 
-  ```jsx
+  ```js
   // bad
   render() {
     const { irrelevantProp, ...relevantProps  } = this.props;
@@ -500,7 +500,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
     使用箭头函数将refs绑定到属性上，避免直接使用字符串。
 
-    ```jsx
+    ```js
     // bad
     <Foo
       ref="myRef"
@@ -518,7 +518,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
     return 多行加括号，单行不需要加括号
 
-    ```jsx
+    ```js
     // bad
     render() {
       return <MyComponent variant="long body" foo="bar">
@@ -546,7 +546,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
   - Always self-close tags that have no children. eslint: [`react/self-closing-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md)
 
-    ```jsx
+    ```js
     // bad
     <Foo variant="stuff"></Foo>
 
@@ -556,7 +556,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
   - If your component has multi-line properties, close its tag on a new line. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
 
-    ```jsx
+    ```js
     // bad
     <Foo
       bar="bar"
@@ -573,7 +573,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
   - Use arrow functions to close over local variables.
 
-    ```jsx
+    ```js
     function ItemList(props) {
       return (
         <ul>
@@ -592,7 +592,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
     > Why? A bind call in the render path creates a brand new function on every single render.
 
-    ```jsx
+    ```js
     // bad
     class extends React.Component {
       onClickDiv() {
@@ -620,7 +620,7 @@ We don’t recommend using indexes for keys if the order of items may change.
   - Do not use underscore prefix for internal methods of a React component. 组件内部的函数名不要以下划线开头。
     > Why? Underscore prefixes are sometimes used as a convention in other languages to denote privacy. But, unlike those languages, there is no native support for privacy in JavaScript, everything is public. Regardless of your intentions, adding underscore prefixes to your properties does not actually make them private, and any property (underscore-prefixed or not) should be treated as being public. See issues [#1024](https://github.com/airbnb/javascript/issues/1024), and [#490](https://github.com/airbnb/javascript/issues/490) for a more in-depth discussion.
 
-    ```jsx
+    ```js
     // bad
     React.createClass({
       _onClickSubmit() {
@@ -644,7 +644,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
     render 中必须有 return 方法。
 
-    ```jsx
+    ```js
     // bad
     render() {
       (<div />);
@@ -679,7 +679,7 @@ We don’t recommend using indexes for keys if the order of items may change.
 
     生命周期函数+事件处理函数+获取信息函数+渲染函数
 
-    ```jsx
+    ```js
     import React from 'react';
     import PropTypes from 'prop-types';
     

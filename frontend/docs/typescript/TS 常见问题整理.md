@@ -1808,7 +1808,7 @@ function HelloHOC<P>(WrappedComponent: React.ComponentType<P>) {
 
 ### **15. 快速获取事件处理函数的 event 参数类型**
 
-```jsx
+```js
 class Login extends React.Component <Props>{
 
   handlerLinkBtnClick = (ev) => {

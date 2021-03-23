@@ -6,7 +6,7 @@
 
 ## ES6 classes
 
-```jsx
+```js
 import * as React from 'react';
 
 class Page extends React.Component {  
@@ -20,7 +20,7 @@ class Page extends React.Component {
 
 ## 无状态函数
 
-```jsx
+```js
 function Button(props, context) {    
   return (        
     <button>            
@@ -47,13 +47,13 @@ react里面的用户事件都是合成事件，被React封装过。内部使用�
 
 #### 通过bind
 
-```jsx
+```js
 <button onClick={this.update.bind(this)}>更新</button>
 ```
 
 #### 构造器内部指定
 
-```jsx
+```js
 import * as React from 'react';
 
 class Child extends React.Component {  
@@ -79,7 +79,7 @@ class Child extends React.Component {
 
 #### 箭头函数
 
-```jsx
+```js
 import * as React from 'react';
 
 class Child extends React.Component {  
@@ -97,7 +97,7 @@ class Child extends React.Component {
 
 #### 装饰器
 
-```jsx
+```js
 import * as React from 'react'
 
 class Child extends React.Component {  
@@ -129,7 +129,7 @@ class Child extends React.Component {
 
 通过e.nativeEvent获取原生事件对象
 
-```jsx
+```js
 import * as React from 'react'
 
 class Child extends React.Component {  
@@ -168,7 +168,7 @@ e.stopPropagation() //取消冒泡
 
 回文：回文字符串是指正着读和反着读该字符串都是相同拼写
 
-```jsx
+```js
 function palindrome(str){
     // \W匹配任何非单词字符。等价于“[^A-Za-z0-9_]”。
     var re = /[\W_]/g;
@@ -187,7 +187,7 @@ function palindrome(str){
 
 #### **数组去重** 🐛
 
-```jsx
+```js
 function unique(arr) {
     var obj = {}
     var data = []
@@ -207,7 +207,7 @@ function unique(arr) {
 
 特殊的props，ref组件对象的引用，现在官方也不建议直接给ref赋值，需要通过函数来赋值。
 
-```jsx
+```js
 ReactDOM.render((  
   <div>    
     <Calendar ref={ref => this.c = ref} any-ss="text"/>  

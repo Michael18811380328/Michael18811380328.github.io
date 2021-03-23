@@ -230,25 +230,28 @@ http://www.runoob.com/react/react-tutorial.html
 1、webpack 编译流程（http://www.runoob.com/react/react-install.html）
 
 ```bash
-// 使用淘宝 cnpm 安装速度较快
+# 使用淘宝 cnpm 安装速度较快
 npm install -g cnpm --registry=http://registry.npm.taobao.org
 npm config set registry https://registry.npm.taobao.org
+# 注意：使用淘宝源安装，package-lock.json 的依赖地址就会改变，项目中不能使用这个安装
 
 cnpm install [name]
 
-// 快速搭建 React 开发环境
+# 快速搭建 React 开发环境
 cnpm install -g create-react-app
-create-reast-app my-app
+create-react-app my-app
 cd my-app/
 npm start
-localhost://3000
+# localhost://3000
+```
+
 开始界面 index.html
+
 App.js
 
 https://blog.csdn.net/u012859720/article/details/70597119/
-```
 
-```jsx
+```js
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
@@ -300,7 +303,7 @@ src/config.js
 
 ES6 与 传统代码——ES6 需要使用 this.props
 
-```jsx
+```js
 function Clock(props) {
   return (
     <div>
@@ -328,7 +331,7 @@ JSX 语法补充：
 
 为了提高代码的复用性，最好使用复合组件；在一个界面中使用多个独立的组件，这样可以最好的做到组件的复用。组件的主要目的就是组件的复用。
 
-```jsx
+```js
 /* es5 函数定义组件 */
 function Hello(props) {
   return (<h1 className={this.props.h1}>Hello</h1>);
@@ -355,7 +358,7 @@ class Welcome extends React.Compoennt {
 
 2.react 中使用 state 控制属性的变化，将原生的受控组件和 react 中 state 结合。
 
-```jsx
+```js
 class Text extends React.Component {
   constructor(props) {
     super(props);
@@ -373,7 +376,7 @@ class Text extends React.Component {
   
   handleSubmit = (e) => {
     e.preventDefault();
-    seafile.addComment(this.state.value).then((res) => {
+    test.addComment(this.state.value).then((res) => {
       console.log(res.data.success);
     })
   }

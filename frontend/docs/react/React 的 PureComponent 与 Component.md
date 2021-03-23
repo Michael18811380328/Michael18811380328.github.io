@@ -6,7 +6,7 @@
 
 > `React.Component` is the base class for React components when they are defined using [ES6 classes](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes):
 
->```jsx
+>```js
 >class Greeting extends React.Component {
 >      render() {
 >         return <h1>Hello, {this.props.name}</h1>;
@@ -71,7 +71,7 @@ shouldComponentUpdate(nextProps, nextState) {
 
 **小结：如果传值都是简单对象，可以放心使用；如果传值有复杂对象，需要慎重使用。**
 
-```jsx
+```js
 import React, { PureComponent } from 'react';
 
 class Test extends PureComponent{
@@ -105,7 +105,7 @@ class Test extends PureComponent{
 
 **小结：如果是复杂数据类型，使用Component可以正确显示**
 
-```jsx
+```js
 import React, { PureComponent } from 'react';
 
 class Test extends PureComponent {
@@ -143,7 +143,7 @@ class Test extends PureComponent {
 
 **小结：如果state或者Props是深复制，那么两种方法都可以实现更新**
 
-```jsx
+```js
 import React, { PureComponent } from 'react';
 
 class Test extends PureComponent{
@@ -195,7 +195,7 @@ class Test extends PureComponent{
 
 6.所以正如下面第四条说的，如果`state`和`prop`一直变化的话，还是建议使用`Component`，并且`PureComponent`的最好作为展示组件
 
-```jsx
+```js
 import React, { PureComponent, Component } from 'react';
 import Example from "../components/Example";
 

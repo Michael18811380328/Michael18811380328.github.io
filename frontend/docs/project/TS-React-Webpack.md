@@ -92,14 +92,14 @@ npm install --save-dev typescript awesome-typescript-loader source-map-loader
 ```
 ## 编写代码
 首先在 src/components目录下创建一个Demo.tsx的文件，代码如下：
-```jsx
+```js
 import * as React from "react";
 export interface DemoProps { compiler: string; framework: string;}
 export const Demo = (props: DemoProps) => <h1>Hello from {props.compiler} and {props.framework}!</h1>;
  
 ```
 这个例子使用了无状态的功能组件，我们可以让它更像一点类。
-```jsx
+```js
 import * as React from "react";
 export interface DemoProps { compiler: string; framework: string;}
 // 'DemoProps ' describes the shape of props.
@@ -111,7 +111,7 @@ export class Demo extends React.Component<DemoProps , {}> {
 }
 ```
 接下来，在src下创建index.tsx文件，代码如下：
-```jsx
+```js
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Demo } from "./components/Demo";

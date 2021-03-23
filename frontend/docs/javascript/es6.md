@@ -158,16 +158,16 @@ es6的继承==>静态方法
         console.log("promise");
         return wait100();
     }).then(() => {
-        console.log("hi Seafile");
+        console.log("hi test");
     });
 
 8. class 类
 
     //创建一个类
-    class Seafile {
+    class test {
         constructor(opt,data){
-            this.name = 'Seafile';
-            this.url = 'docs.seafile.com';
+            this.name = 'test';
+            this.url = 'docs.test.com';
             this.data = data;
             this.options = opt;
         }
@@ -176,11 +176,11 @@ es6的继承==>静态方法
         }
     }
     //继承
-    class SeafileAPI extends Seafile {
+    class testAPI extends test {
         constructor(opt,data){
             //调用父级构造函数super()方法
             super({private:true},[1,2,3]);
-            this.name = 'SeafileAPI';
+            this.name = 'testAPI';
             this.url += '/API/';
         }
     }
