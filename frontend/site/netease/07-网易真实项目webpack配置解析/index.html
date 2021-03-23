@@ -226,7 +226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../about/readme.md" class="md-nav__link">
+      <a href="../../about/" class="md-nav__link">
         关于我
       </a>
     </li>
@@ -1497,42 +1497,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../project/%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
-        真实项目webpack配置解析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
-        webpack编译原理分析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
-        webpack的高级技巧
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../project/React%20%26%20Webpack/" class="md-nav__link">
         React & Webpack
       </a>
@@ -2313,13 +2277,14 @@
 <p>生产环境中：增加 tree-shaking devtool(source-map)操作(压缩操作) </p>
 <p>不同模式下对应不同的文件：开发环境下 npm run dev =&gt; dev.config.js；生产环境下面npm run build =&gt; prod.config.js。实际操作时，有一个 base.config.js 是基础默认配置，不同环境都会执行，运行时会执行多个脚本。</p>
 <p><code>npm run build</code> 实际执行了什么操作？</p>
-<div class="highlight"><pre><span></span><code>node build.js
+<div class="codehilite"><pre><span></span><code>node build.js
 内部脚本：使用 webpack 打包（webpack.pro.js）进行打包
 webpack.base.js 与 webpack.pro.js 合并
 从 config 中拿出 index.js 和 pro.env 中的环境变量
 </code></pre></div>
+
 <p>package.json</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
   <span class="nt">&quot;author&quot;</span><span class="p">:</span> <span class="s2">&quot;xxx&quot;</span><span class="p">,</span>
     <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;npm run dev&quot;</span><span class="p">,</span>
@@ -2331,8 +2296,9 @@ webpack.base.js 与 webpack.pro.js 合并
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p>Build.js （这是网易项目中自定义的build脚本）</p>
-<div class="highlight"><pre><span></span><code><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
 <span class="c1">// 执行检查版本函数</span>
 <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./check-versions&#39;</span><span class="p">)();</span>
@@ -2447,16 +2413,18 @@ webpack.base.js 与 webpack.pro.js 合并
   <span class="p">}</span>
 <span class="p">});</span>
 </code></pre></div>
+
 <p>使用第三方插件创建的build.js 也差不多，@vue/cli 创建的build脚本。</p>
 <p>在命令行中输入 webpack config.js 和执行 node build.js 并在JS文件中使用的效果是一样的。webpack本质上是一个方法。</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack&#39;</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack&#39;</span><span class="p">);</span>
 <span class="nx">webpack</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
 </code></pre></div>
+
 <p>打包过程是异步的，所以先进行DLL打包，然后再引入生产环境配置，进行下一步打包。</p>
 <p>build 脚本：导入配置文件，调用webpack打包方法进行打包
 其他的脚手架中的build脚本也很简单</p>
 <p>build.js</p>
-<div class="highlight"><pre><span></span><code><span class="nx">rm</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">build</span><span class="p">.</span><span class="nx">assetsRoot</span><span class="p">,</span> <span class="nx">config</span><span class="p">.</span><span class="nx">build</span><span class="p">.</span><span class="nx">assetsSubDirectory</span><span class="p">),</span> <span class="nx">err</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="nx">rm</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">build</span><span class="p">.</span><span class="nx">assetsRoot</span><span class="p">,</span> <span class="nx">config</span><span class="p">.</span><span class="nx">build</span><span class="p">.</span><span class="nx">assetsSubDirectory</span><span class="p">),</span> <span class="nx">err</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
   <span class="p">}</span>
@@ -2479,10 +2447,11 @@ webpack.base.js 与 webpack.pro.js 合并
   <span class="p">});</span>
 <span class="p">});</span>
 </code></pre></div>
+
 <p>prod 脚本中，有一个webpack-merge 方法，可以合并多个脚本 </p>
 <p>配置的本质就是一个对象，merge就是合并多个对象</p>
 <p>webpack.prod.conf.js</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">utils</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;utils&#39;</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack&#39;</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../config&#39;</span><span class="p">);</span>
@@ -2520,6 +2489,7 @@ webpack.base.js 与 webpack.pro.js 合并
   <span class="p">}</span>
 <span class="p">})</span>
 </code></pre></div>
+
 <h2 id="02-loader">02 常用 loader 和插件<a class="headerlink" href="#02-loader" title="Permanent link">&para;</a></h2>
 <p>常用插件 plugins，下面依次介绍</p>
 <ul>
@@ -2532,7 +2502,7 @@ webpack.base.js 与 webpack.pro.js 合并
 <h3 id="webpackdefineplugin">webpack.DefinePlugin<a class="headerlink" href="#webpackdefineplugin" title="Permanent link">&para;</a></h3>
 <p>指定当前的环境变量（打包阶段定义全局变量）</p>
 <p>可以使用 webpack --env production 通过命令行的形式传参，或者使用这个对象指定当前的环境变量是开发环境还是生产环境，在业务代码中获取到当前的环境变量。</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// --env process.env 无法在业务代码中拿到（所以要初始化定义环境，把用户输入的环境放在node中）</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// --env process.env 无法在业务代码中拿到（所以要初始化定义环境，把用户输入的环境放在node中）</span>
 <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
   <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">DefinePlugin</span><span class="p">({</span>
     <span class="s1">&#39;process.env&#39;</span><span class="o">:</span> <span class="nx">env</span><span class="p">,</span>
@@ -2553,17 +2523,19 @@ webpack.base.js 与 webpack.pro.js 合并
   <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">optimize</span><span class="p">.</span><span class="nx">ModuleConcatenationPlugin</span><span class="p">(),</span>
 <span class="p">]</span>
 </code></pre></div>
+
 <p>prod.env.js 简化版</p>
-<div class="highlight"><pre><span></span><code><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">NODE_ENV</span><span class="o">:</span> <span class="s1">&#39;&quot;production&quot;&#39;</span><span class="p">,</span>
   <span class="nx">publish_env</span><span class="o">:</span> <span class="s1">&#39;&quot;online&quot;&#39;</span>
 <span class="p">};</span>
 </code></pre></div>
+
 <h3 id="webpackhashedmoduleidsplugin">webpack.HashedModuleIdsPlugin<a class="headerlink" href="#webpackhashedmoduleidsplugin" title="Permanent link">&para;</a></h3>
 <p>保持模块的 module.id 稳定</p>
 <p>如何判断一个文件是新的还是旧的（浏览器读取新文件，还是读取缓存文件），就根据文件后面的hash值判断。所以webpack打包输出的文件中就增加了哈希值。</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">webpackConfig</span> <span class="o">=</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">baseWebpackConfig</span><span class="p">,</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">webpackConfig</span> <span class="o">=</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">baseWebpackConfig</span><span class="p">,</span> <span class="p">{</span>
   <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;production&#39;</span><span class="p">,</span>
   <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">rules</span><span class="o">:</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">styleLoaders</span><span class="p">({</span>
@@ -2588,13 +2560,14 @@ webpack.base.js 与 webpack.pro.js 合并
   <span class="p">],</span>
 <span class="p">});</span>
 </code></pre></div>
+
 <h3 id="webpacknoemitonerrorsplugin">webpack.NoEmitOnErrorsPlugin<a class="headerlink" href="#webpacknoemitonerrorsplugin" title="Permanent link">&para;</a></h3>
 <p>这个插件在上面已经使用了。如果代码出现问题，webpack 默认不会继续编译，显示错误。这个插件可以继续编译并让浏览器显示（操作更友好）。</p>
 <h3 id="webpackprovideplugin">webpack.providePlugin 提供库<a class="headerlink" href="#webpackprovideplugin" title="Permanent link">&para;</a></h3>
 <p>如果我们在全局中使用某些库，例如jquery，可以使用这个插件</p>
 <p>base.conf.js</p>
 <p>对于 axios jquery 等通用组件，每个组件都需要import，可以只用这个插件。直接在这里定义，不需要在不同组件中全局定义，定以后可以打包到环境中（React等是否可以这样使用？）</p>
-<div class="highlight"><pre><span></span><code><span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+<div class="codehilite"><pre><span></span><code><span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
   <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">ProvidePlugin</span><span class="p">({</span>
     <span class="nx">Regular</span><span class="o">:</span> <span class="s1">&#39;Regular&#39;</span><span class="p">,</span>
     <span class="nx">$</span><span class="o">:</span> <span class="s1">&#39;jquery&#39;</span><span class="p">,</span>
@@ -2608,9 +2581,10 @@ webpack.base.js 与 webpack.pro.js 合并
   <span class="p">}),</span>
 <span class="p">]</span>
 </code></pre></div>
+
 <h3 id="copy-webpack-plugin">copy-webpack-plugin 可以帮助拷贝内容<a class="headerlink" href="#copy-webpack-plugin" title="Permanent link">&para;</a></h3>
 <p>这个插件不是自带的，需要安装</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">CopyWebpackPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;copy-webpack-plugin&#39;</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">CopyWebpackPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;copy-webpack-plugin&#39;</span><span class="p">);</span>
 
 <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
   <span class="c1">// copy-webpack-plugin 可以帮助拷贝内容</span>
@@ -2625,20 +2599,23 @@ webpack.base.js 与 webpack.pro.js 合并
   <span class="p">])</span>
 <span class="p">],</span>
 </code></pre></div>
+
 <h2 id="03">03 优化的内容<a class="headerlink" href="#03" title="Permanent link">&para;</a></h2>
 <h3 id="dll">DLL优化<a class="headerlink" href="#dll" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+<div class="codehilite"><pre><span></span><code><span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
   <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">DllReferencePlugin</span><span class="p">({</span>
     <span class="nx">manifest</span><span class="o">:</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./dll/vender-manifest.json&quot;</span><span class="p">)</span>
   <span class="p">})</span>
 <span class="p">]</span>
 </code></pre></div>
+
 <p>什么是DLL优化？我们需要用第三方库，不会修改第三方库的内容，每次webpack打包会处理第三方库代码。既然第三方库代码不变，我们可以先把第三方库代码处理了，放在一边，然后下一次打包不需要再次处理这部分代码，直接使用。</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nx">$</span> <span class="nx">from</span> <span class="s1">&#39;jquery&#39;</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nx">$</span> <span class="nx">from</span> <span class="s1">&#39;jquery&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="nx">_</span> <span class="nx">from</span> <span class="s1">&#39;lodash&#39;</span><span class="p">;</span>
 </code></pre></div>
+
 <p>Webpack.dll.js</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack&#39;</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack&#39;</span><span class="p">);</span>
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">vender</span><span class="o">:</span><span class="p">[</span><span class="s1">&#39;jquery&#39;</span><span class="p">,</span> <span class="s1">&#39;lodash&#39;</span><span class="p">]</span>
@@ -2656,20 +2633,23 @@ webpack.base.js 与 webpack.pro.js 合并
   <span class="p">]</span>
 <span class="p">};</span>
 </code></pre></div>
+
 <p>bash 打包第三方库</p>
-<div class="highlight"><pre><span></span><code>webpack --config webpack.dll.js
+<div class="codehilite"><pre><span></span><code>webpack --config webpack.dll.js
 </code></pre></div>
+
 <p>输出 vender.dll.js</p>
 <p>然后在webpack配置文件中增加这个文件</p>
-<div class="highlight"><pre><span></span><code><span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+<div class="codehilite"><pre><span></span><code><span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
   <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">DllReferencePlugin</span><span class="p">({</span>
     <span class="nx">manifest</span><span class="o">:</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./dll/vender-manifest.js&quot;</span><span class="p">)</span>
   <span class="p">})</span>
 <span class="p">]</span>
 </code></pre></div>
+
 <p>webpack 继续打包</p>
 <h3 id="happypack">HappyPack<a class="headerlink" href="#happypack" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">happyPack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;happypack&#39;</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">happyPack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;happypack&#39;</span><span class="p">);</span>
 <span class="c1">// 配置连接池，容量等于CPU的个数（适合多核CPU并行打包）</span>
 <span class="kd">const</span> <span class="nx">happyThreadPool</span> <span class="o">=</span> <span class="nx">HappyPack</span><span class="p">.</span><span class="nx">ThreadPool</span><span class="p">({</span><span class="nx">size</span><span class="o">:</span> <span class="nx">os</span><span class="p">.</span><span class="nx">cpus</span><span class="p">().</span><span class="nx">length</span><span class="p">});</span>
 
@@ -2701,6 +2681,7 @@ webpack.base.js 与 webpack.pro.js 合并
   <span class="p">})</span>
 <span class="p">]</span>
 </code></pre></div>
+
 <p>如果项目较小，打包编译的时间反而更多</p>
 <p>因为这里使用多进程，调用进程也消耗时间；
 所以文件组件较少时，使用Happypack 可能增加打包时间。
@@ -2711,14 +2692,15 @@ webpack.base.js 与 webpack.pro.js 合并
 <p>如果对模块内容进行处理：loader 是首选方案；</p>
 <p>如果要加入特殊的功能：可以自定义增加插件 plugin；</p>
 <p>项目中打包简化：可变性配置：通过编写响应的操作函数；</p>
-<p>Myloader.js 自定义增加插件（使用正则替换代码中的字符，类似于AST，抽象语法树）开发的时候，我们使用static中的图片，生产环境中需要使用 <a href="http://www.baidu.com">www.baidu.com</a> 中的图片，所以可以自定义一个插件替换开发环境中的变量。</p>
-<div class="highlight"><pre><span></span><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+<p>Myloader.js 自定义增加插件（使用正则替换代码中的字符，类似于AST，抽象语法树）开发的时候，我们使用static中的图片，生产环境中需要使用 www.baidu.com 中的图片，所以可以自定义一个插件替换开发环境中的变量。</p>
+<div class="codehilite"><pre><span></span><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">context</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;bind&#39;</span><span class="p">,</span> <span class="s1">&#39;on&#39;</span><span class="p">);</span>
   <span class="k">return</span> <span class="nx">context</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p>使用</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./myplugin&#39;</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./myplugin&#39;</span><span class="p">);</span>
 
 <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
   <span class="nx">rules</span><span class="o">:</span> <span class="p">[</span>
@@ -2733,8 +2715,9 @@ webpack.base.js 与 webpack.pro.js 合并
   <span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p>index.js 插件就是监听webpack的生命周期函数，并在合适的时候处理代码</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">a</span><span class="p">;</span>
 <span class="kd">function</span> <span class="nx">a</span> <span class="p">()</span> <span class="p">{</span>
@@ -2754,6 +2737,7 @@ webpack.base.js 与 webpack.pro.js 合并
   <span class="p">})</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p>make 周期需要处理很多编译的配置，新手不好做，done 周期直接操作编译后的文件，相对简单</p>
 <p>loader 是对某一类文件进行处理（css-loader sass-loader）</p>
 <p>plugin 是监听到 webpack 的某个过程（make）执行的一个操作（webpack插件系统的生命周期）</p>

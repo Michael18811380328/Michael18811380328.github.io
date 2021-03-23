@@ -226,7 +226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../about/readme.md" class="md-nav__link">
+      <a href="../../about/" class="md-nav__link">
         关于我
       </a>
     </li>
@@ -2010,42 +2010,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../project/%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
-        真实项目webpack配置解析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
-        webpack编译原理分析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
-        webpack的高级技巧
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../project/React%20%26%20Webpack/" class="md-nav__link">
         React & Webpack
       </a>
@@ -3088,7 +3052,7 @@
                 
                 <h1 id="ts-60ing">TS 常见问题整理（60多个，持续更新ing）<a class="headerlink" href="#ts-60ing" title="Permanent link">&para;</a></h1>
 <p>2020-03-03阅读 1.1K0</p>
-<p><a href="https://cloud.tencent.com/developer/article/1593335">https://cloud.tencent.com/developer/article/1593335</a></p>
+<p>https://cloud.tencent.com/developer/article/1593335</p>
 <h2 id="_1"><strong>前言</strong><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <ul>
 <li>用 React 全家桶 + TS 写项目快一年了，大大小小的坑踩了很多，在此整理了在项目中遇到的疑惑和问题。</li>
@@ -3103,20 +3067,22 @@
 <li><strong>不推荐使用命名空间</strong></li>
 </ul>
 <p><strong>之前</strong></p>
-<div class="highlight"><pre><span></span><code><span class="nx">module</span> <span class="nb">Math</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="nx">module</span> <span class="nb">Math</span> <span class="p">{</span>
     <span class="k">export</span> <span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p><strong>之后</strong></p>
-<div class="highlight"><pre><span></span><code><span class="nx">namespace</span> <span class="nb">Math</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="nx">namespace</span> <span class="nb">Math</span> <span class="p">{</span>
     <span class="k">export</span> <span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <h3 id="2-null-undefined-void-null-undefined"><strong>2. null 和 undefined 是其它类型（包括 void）的子类型，可以赋值给其它类型（如：数字类型），赋值后的类型会变成 null 或 undefined</strong><a class="headerlink" href="#2-null-undefined-void-null-undefined" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>默认情况下，编译器会提示错误，这是因为 tsconfig.json 里面有一个配置项是默认开启的。</strong></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="c1">// tsconfig.json </span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// tsconfig.json </span>
 
 <span class="p">{</span>
       <span class="cm">/* Strict Type-Checking Options */</span>
@@ -3131,6 +3097,7 @@
     <span class="c1">// &quot;alwaysStrict&quot;: true,                  /* Parse in strict mode and emit &quot;use strict&quot; for each source file. */</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <ul>
 <li><strong><code>strictNullChecks</code></strong> 参数用于新的严格空检查模式，在严格空检查模式下，null 和 undefined 值都不属于任何一个类型，它们只能赋值给自己这种类型或者 any</li>
 </ul>
@@ -3142,7 +3109,7 @@
 <li><strong>拥有 void 返回值类型的函数能正常运行。拥有 never 返回值类型的函数无法正常返回，无法终止，或会抛出异常。</strong></li>
 </ul>
 <h3 id="4"><strong>4. 元祖越界问题</strong><a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">let</span> <span class="nx">aaa</span><span class="o">:</span> <span class="p">[</span><span class="nx">string</span><span class="p">,</span> <span class="nx">number</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;aaa&#39;</span><span class="p">,</span> <span class="mf">5</span><span class="p">];</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">aaa</span><span class="o">:</span> <span class="p">[</span><span class="nx">string</span><span class="p">,</span> <span class="nx">number</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;aaa&#39;</span><span class="p">,</span> <span class="mf">5</span><span class="p">];</span>
 <span class="c1">// 添加时不会报错</span>
 <span class="nx">aaa</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mf">6</span><span class="p">);</span>
 <span class="c1">// 打印整个元祖不会报错</span>
@@ -3150,18 +3117,20 @@
 <span class="c1">// 打印添加的元素时会报错</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">aaa</span><span class="p">[</span><span class="mf">2</span><span class="p">]);</span> <span class="c1">// error</span>
 </code></pre></div>
+
 <h3 id="5"><strong>5. 枚举成员的特点</strong><a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
 <ul>
 <li>是只读属性，无法修改</li>
 <li>枚举成员值默认从 0 开始递增，可以自定义设置初始值</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kr">enum</span> <span class="nx">Gender</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kr">enum</span> <span class="nx">Gender</span> <span class="p">{</span>
     <span class="nx">BOY</span> <span class="o">=</span> <span class="mf">1</span><span class="p">,</span>
     <span class="nx">GRIL</span>
 <span class="p">}</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Gender</span><span class="p">.</span><span class="nx">BOY</span><span class="p">);</span><span class="c1">// 1</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Gender</span><span class="p">);</span><span class="c1">// { &#39;1&#39;: &#39;BOY&#39;, &#39;2&#39;: &#39;GRIL&#39;, BOY: 1, GRIL: 2 }</span>
 </code></pre></div>
+
 <ul>
 <li>枚举成员值</li>
 <li>可以没有初始值</li>
@@ -3169,7 +3138,7 @@
 <li>可以是一个常量表达式</li>
 <li>也可以是一个非常量表达式</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kr">enum</span> <span class="nx">Char</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kr">enum</span> <span class="nx">Char</span> <span class="p">{</span>
     <span class="c1">// const member 常量成员：在编译阶段被计算出结果</span>
     <span class="nx">a</span><span class="p">,</span>                 <span class="c1">// 没有初始值</span>
     <span class="nx">b</span> <span class="o">=</span> <span class="nx">Char</span><span class="p">.</span><span class="nx">a</span><span class="p">,</span><span class="c1">// 对常量成员的引用</span>
@@ -3183,12 +3152,13 @@
     <span class="nx">g</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <h3 id="6"><strong>6. 常量枚举与普通枚举的区别</strong><a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>常量枚举会在编译阶段被删除</strong></li>
 <li><strong>枚举成员只能是常量成员</strong></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="kr">enum</span> <span class="nx">Colors</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="kr">enum</span> <span class="nx">Colors</span> <span class="p">{</span>
     <span class="nx">Red</span><span class="p">,</span>
     <span class="nx">Yellow</span><span class="p">,</span>
     <span class="nx">Blue</span>
@@ -3196,24 +3166,27 @@
 <span class="c1">// 常量枚举会在编译阶段被删除</span>
 <span class="kd">let</span> <span class="nx">myColors</span> <span class="o">=</span> <span class="p">[</span><span class="nx">Colors</span><span class="p">.</span><span class="nx">Red</span><span class="p">,</span> <span class="nx">Colors</span><span class="p">.</span><span class="nx">Yellow</span><span class="p">,</span> <span class="nx">Colors</span><span class="p">.</span><span class="nx">Blue</span><span class="p">];</span>
 </code></pre></div>
+
 <p>编译成 JS</p>
-<div class="highlight"><pre><span></span><code><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;use strict&quot;</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">myColors</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0</span> <span class="cm">/* Red */</span><span class="p">,</span> <span class="mf">1</span> <span class="cm">/* Yellow */</span><span class="p">,</span> <span class="mf">2</span> <span class="cm">/* Blue */</span><span class="p">];</span>
 </code></pre></div>
+
 <ul>
 <li><strong>常量枚举*不能包含计算成员，如果*包含了计算成员，则会在编译阶段报错</strong></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="c1">// 报错</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 报错</span>
 <span class="kd">const</span> <span class="kr">enum</span> <span class="nx">Color</span> <span class="p">{</span><span class="nx">Red</span><span class="p">,</span> <span class="nx">Yellow</span><span class="p">,</span> <span class="nx">Blue</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">.</span><span class="nx">length</span><span class="p">};</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Colors</span><span class="p">.</span><span class="nx">RED</span><span class="p">);</span>
 </code></pre></div>
+
 <h3 id="7"><strong>7. 枚举的使用场景</strong><a class="headerlink" href="#7" title="Permanent link">&para;</a></h3>
 <p>以下代码存在的问题：</p>
 <ul>
 <li><strong>可读性差</strong>：很难记住数字的含义</li>
 <li><strong>可维护性差</strong>：硬编码，后续修改的话牵一发动全身</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">initByRole</span><span class="p">(</span><span class="nx">role</span><span class="p">)</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">initByRole</span><span class="p">(</span><span class="nx">role</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">role</span> <span class="o">===</span> <span class="mf">1</span> <span class="o">||</span> <span class="nx">role</span> <span class="o">==</span> <span class="mf">2</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;1,2&quot;</span><span class="p">)</span>
     <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">role</span> <span class="o">==</span> <span class="mf">3</span> <span class="o">||</span> <span class="nx">role</span> <span class="o">==</span> <span class="mf">4</span><span class="p">)</span> <span class="p">{</span>
@@ -3225,8 +3198,9 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p>使用枚举后</p>
-<div class="highlight"><pre><span></span><code><span class="kr">enum</span> <span class="nx">Role</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kr">enum</span> <span class="nx">Role</span> <span class="p">{</span>
   <span class="nx">Reporter</span><span class="p">,</span>
   <span class="nx">Developer</span><span class="p">,</span>
   <span class="nx">Maintainer</span><span class="p">,</span>
@@ -3256,11 +3230,12 @@
 
 <span class="nx">init</span><span class="p">(</span><span class="nx">Role</span><span class="p">.</span><span class="nx">Developer</span><span class="p">);</span>
 </code></pre></div>
+
 <h3 id="8"><strong>8. 什么是可索引类型接口</strong><a class="headerlink" href="#8" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>一般用来约束数组和对象</strong></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="c1">// 数字索引——约束数组</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 数字索引——约束数组</span>
 <span class="c1">// index 是随便取的名字，可以任意取名</span>
 <span class="c1">// 只要 index 的类型是 number，那么值的类型必须是 string</span>
 <span class="kr">interface</span> <span class="nx">StringArray</span> <span class="p">{</span>
@@ -3281,11 +3256,12 @@
 <span class="p">}</span>
 <span class="kd">let</span> <span class="nx">obj</span><span class="o">:</span><span class="nx">StringObject</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;ccc&#39;</span><span class="p">};</span>
 </code></pre></div>
+
 <h3 id="9"><strong>9. 什么是函数类型接口</strong><a class="headerlink" href="#9" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>对方法传入的参数和返回值进行约束</strong></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="c1">// 注意区别</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 注意区别</span>
 
 <span class="c1">// 普通的接口</span>
 <span class="kr">interface</span> <span class="nx">discount1</span><span class="p">{</span>
@@ -3307,13 +3283,14 @@
 <span class="nx">type</span> <span class="nx">Add</span> <span class="o">=</span> <span class="p">(</span><span class="nx">x</span><span class="o">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">number</span>
 <span class="kd">let</span> <span class="nx">add</span><span class="o">:</span> <span class="nx">Add</span> <span class="o">=</span> <span class="p">(</span><span class="nx">a</span><span class="o">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
 </code></pre></div>
+
 <h3 id="10"><strong>10. 什么是类类型接口</strong><a class="headerlink" href="#10" title="Permanent link">&para;</a></h3>
 <ul>
 <li>如果接口用于一个类的话，那么接口会表示“行为的抽象”</li>
 <li><strong>对类的约束，让类去实现接口，类可以实现多个接口</strong></li>
 <li><strong>接口只能约束类的公有成员（实例属性/方法），无法约束私有成员、构造函数、静态属性/方法</strong></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="c1">// 接口可以在面向对象编程中表示为行为的抽象</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 接口可以在面向对象编程中表示为行为的抽象</span>
 <span class="kr">interface</span> <span class="nx">Speakable</span> <span class="p">{</span>
     <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
 
@@ -3338,11 +3315,12 @@
 <span class="kd">let</span> <span class="nx">dog</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Dog</span><span class="p">();</span>
 <span class="nx">dog</span><span class="p">.</span><span class="nx">speak</span><span class="p">(</span><span class="s1">&#39;汪汪汪&#39;</span><span class="p">);</span>
 </code></pre></div>
+
 <h3 id="11"><strong>11. 什么是混合类型接口</strong><a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
 <ul>
 <li>一个对象可以同时做为函数和对象使用</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">FnType</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kr">interface</span> <span class="nx">FnType</span> <span class="p">{</span>
     <span class="p">(</span><span class="nx">getName</span><span class="o">:</span><span class="nx">string</span><span class="p">)</span><span class="o">:</span><span class="nx">string</span><span class="p">;</span>
 <span class="p">}</span>
 
@@ -3368,6 +3346,7 @@
 <span class="nx">c</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
 <span class="nx">c</span><span class="p">.</span><span class="nx">interval</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">;</span>
 </code></pre></div>
+
 <h3 id="12"><strong>12. 什么是函数重载</strong><a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
 <ul>
 <li>在 Java 中的函数重载，指的是两个或者两个以上的同名函数，<strong>参数类型不同或者参数个数不同</strong>。函数重载的好处是：不需要为功能相似的函数起不同的名称。</li>
@@ -3377,7 +3356,7 @@
 <li>函数重载的声明只用于类型检查阶段，在编译后会被删除</li>
 <li><strong>TS 编译器在处理重载的时候，会去查询函数申明列表，从上至下直到匹配成功为止，所以要把最容易匹配的类型写到最前面</strong></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">attr</span><span class="p">(</span><span class="nx">val</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">attr</span><span class="p">(</span><span class="nx">val</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
 <span class="kd">function</span> <span class="nx">attr</span><span class="p">(</span><span class="nx">val</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span><span class="o">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="c1">// 前面两行是函数申明，这一行是实现函数重载</span>
 <span class="kd">function</span> <span class="nx">attr</span><span class="p">(</span><span class="nx">val</span><span class="o">:</span> <span class="nx">any</span><span class="p">)</span><span class="o">:</span> <span class="nx">any</span> <span class="p">{</span>
@@ -3391,10 +3370,11 @@
 <span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;aaa&#39;</span><span class="p">);</span>
 <span class="nx">attr</span><span class="p">(</span><span class="mf">666</span><span class="p">);</span>
 </code></pre></div>
+
 <ul>
-<li>上面的写法声明完函数后，必须实现函数重载。也可以**只声明函数**。</li>
+<li>上面的写法声明完函数后，必须实现函数重载。也可以<strong>只声明函数</strong>。</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="c1">// 后写的接口中的函数声明优先级高</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 后写的接口中的函数声明优先级高</span>
 <span class="kr">interface</span> <span class="nx">Cloner111</span> <span class="p">{</span>
     <span class="nx">clone</span><span class="p">(</span><span class="nx">animal</span><span class="o">:</span> <span class="nx">Animal</span><span class="p">)</span><span class="o">:</span> <span class="nx">Animal</span><span class="p">;</span>
 <span class="p">}</span>
@@ -3424,8 +3404,9 @@
     <span class="nx">clone</span><span class="p">(</span><span class="nx">animal</span><span class="o">:</span> <span class="nx">Animal</span><span class="p">)</span><span class="o">:</span> <span class="nx">Animal</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <h3 id="13"><strong>13. 什么是访问控制修饰符</strong><a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">Father</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nx">Father</span> <span class="p">{</span>
     <span class="nx">str</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span> <span class="c1">// 默认就是 public</span>
     <span class="nx">public</span> <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>   <span class="c1">// 在定义的类中、类的实例、子类、子类实例都可以访问</span>
     <span class="nx">protected</span> <span class="nx">age</span><span class="o">:</span> <span class="nx">number</span><span class="p">;</span> <span class="c1">// 只能在定义的类和子类中访问，不允许通过实例（定义的类的实例和子类实例）访问</span>
@@ -3465,12 +3446,13 @@
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">child</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span><span class="c1">// error</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">child</span><span class="p">.</span><span class="nx">money</span><span class="p">);</span><span class="c1">// error</span>
 </code></pre></div>
+
 <h3 id="14-override-vs-overload"><strong>14. 重写(override) vs 重载(overload)</strong><a class="headerlink" href="#14-override-vs-overload" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>重写是指子类重写“*继承*”自父类中的方法</strong> 。虽然 TS 和JAVA 相似，但是 TS 中的继承本质上还是 JS 的“<strong>继承</strong>”机制—<strong>原型链机制</strong></li>
 <li><strong>重载是指为同一个函数提供多个类型定义</strong></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">Animal</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nx">Animal</span> <span class="p">{</span>
     <span class="nx">speak</span><span class="p">(</span><span class="nx">word</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">string</span> <span class="p">{</span>
         <span class="k">return</span> <span class="s1">&#39;动作叫:&#39;</span> <span class="o">+</span> <span class="nx">word</span><span class="p">;</span>
     <span class="p">}</span>
@@ -3499,12 +3481,13 @@
 <span class="kd">let</span> <span class="nx">r</span> <span class="o">=</span> <span class="kr">double</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">r</span><span class="p">);</span>
 </code></pre></div>
+
 <h3 id="15-vs"><strong>15. 继承 vs 多态</strong><a class="headerlink" href="#15-vs" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>继承</strong>：子类继承父类，子类除了拥有父类的所有特性外，还有一些更具体的特性</li>
 <li><strong>多态</strong>：由继承而产生了相关的不同的类，对同一个方法可以有不同的响应</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">Animal</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nx">Animal</span> <span class="p">{</span>
     <span class="nx">speak</span><span class="p">(</span><span class="nx">word</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">string</span> <span class="p">{</span>
         <span class="k">return</span> <span class="s1">&#39;Animal: &#39;</span> <span class="o">+</span> <span class="nx">word</span><span class="p">;</span>
     <span class="p">}</span>
@@ -3527,12 +3510,13 @@
 <span class="kd">let</span> <span class="nx">dog</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Dog</span><span class="p">();</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">dog</span><span class="p">.</span><span class="nx">speak</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">));</span>
 </code></pre></div>
+
 <h3 id="16"><strong>16. 什么是泛型</strong><a class="headerlink" href="#16" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>泛型是指在定义函数、接口或类的时候，不预先指定具体的类型，使用时再去指定类型的一种特性。</strong></li>
 <li><strong>可以把泛型理解为代表类型的参数</strong></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="c1">// 我们希望传入的值是什么类型，返回的值就是什么类型</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 我们希望传入的值是什么类型，返回的值就是什么类型</span>
 <span class="c1">// 传入的值可以是任意的类型，这时候就可以用到 泛型</span>
 
 <span class="c1">// 如果使用 any 的话，就失去了类型检查的意义</span>
@@ -3577,8 +3561,9 @@
 
 <span class="nx">createArray4</span><span class="p">(</span><span class="mf">6</span><span class="p">,</span> <span class="s1">&#39;666&#39;</span><span class="p">);</span>
 </code></pre></div>
+
 <p><strong>使用泛型</strong></p>
-<div class="highlight"><pre><span></span><code><span class="c1">// 有关联的地方都改成 &lt;T&gt;</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 有关联的地方都改成 &lt;T&gt;</span>
 <span class="kd">function</span> <span class="nx">createArray</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">length</span><span class="o">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="nx">T</span><span class="p">)</span><span class="o">:</span> <span class="nb">Array</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">result</span><span class="o">:</span> <span class="nx">T</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
     <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -3594,12 +3579,13 @@
 <span class="kd">let</span> <span class="nx">result2</span> <span class="o">=</span> <span class="nx">createArray</span><span class="p">(</span><span class="mf">3</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">);</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
 </code></pre></div>
+
 <h3 id="17"><strong>17. 什么是类型谓词</strong><a class="headerlink" href="#17" title="Permanent link">&para;</a></h3>
 <ul>
 <li>类型保护函数：要自定义一个类型保护，只需要简单地为这个类型保护定义一个函数即可，这个函数的返回值是一个类型谓词</li>
-<li>**类型谓词**的语法为 <code>parameterName is Type</code> 这种形式，其中 <code>parameterName</code> 必须是当前函数签名里的一个参数名</li>
+<li><strong>类型谓词</strong>的语法为 <code>parameterName is Type</code> 这种形式，其中 <code>parameterName</code> 必须是当前函数签名里的一个参数名</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">Bird</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kr">interface</span> <span class="nx">Bird</span> <span class="p">{</span>
     <span class="nx">fly</span><span class="p">()</span>
     <span class="nx">layEggs</span><span class="p">()</span>
 <span class="p">}</span>
@@ -3618,9 +3604,10 @@
 <span class="p">(</span><span class="nx">pet</span> <span class="nx">as</span> <span class="nx">Fish</span><span class="p">).</span><span class="nx">swim</span><span class="p">();</span>
 <span class="nx">pet</span><span class="p">.</span><span class="nx">swim</span><span class="p">();</span>
 </code></pre></div>
+
 <p><img alt="img" src="https://ask.qcloudimg.com/http-save/yehe-1260054/jh1xlqfqrm.png?imageView2/2/w/1620" /></p>
 <p>image.png</p>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">Bird</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kr">interface</span> <span class="nx">Bird</span> <span class="p">{</span>
     <span class="nx">fly</span><span class="p">()</span>
     <span class="nx">layEggs</span><span class="p">()</span>
 <span class="p">}</span>
@@ -3645,15 +3632,16 @@
     <span class="nx">pet</span><span class="p">.</span><span class="nx">fly</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p><img alt="img" src="https://ask.qcloudimg.com/http-save/yehe-1260054/q5h5vuxrg2.png?imageView2/2/w/1620" /></p>
 <p>image.png</p>
 <h3 id="18"><strong>18. 可选链运算符的使用</strong><a class="headerlink" href="#18" title="Permanent link">&para;</a></h3>
 <ul>
-<li>**可选链**运算符是一种先检查属性是否存在，再尝试访问该属性的运算符，其符号为 <code>?.</code></li>
+<li><strong>可选链</strong>运算符是一种先检查属性是否存在，再尝试访问该属性的运算符，其符号为 <code>?.</code></li>
 <li>如果运算符左侧的操作数 <code>?.</code> 计算为 undefined 或 null，则表达式求值为 undefined 。否则，正常触发目标属性访问、方法或函数调用。</li>
 <li><strong>可选链运算符处于 stage3 阶段，使用 @babel/plugin-proposal-optional-chaining 插件可以提前使用，TS 3.7版本正式支持使用，以前的版本会报错</strong></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nx">a</span><span class="o">?</span><span class="p">.</span><span class="nx">b</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code><span class="nx">a</span><span class="o">?</span><span class="p">.</span><span class="nx">b</span><span class="p">;</span>
 <span class="c1">// 相当于 a == null ? undefined : a.b;</span>
 <span class="c1">// 如果 a 是 null/undefined，那么返回 undefined，否则返回 a.b 的值.</span>
 
@@ -3666,24 +3654,26 @@
 <span class="c1">// 如果 a 是 null/undefined，那么返回 undefined</span>
 <span class="c1">// 如果 a.b 不是函数的话，会抛类型错误异常，否则计算 a.b() 的结果</span>
 </code></pre></div>
+
 <h3 id="19"><strong>19. 非空断言符的使用</strong><a class="headerlink" href="#19" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>TS 3.7版本正式支持使用</strong></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">let</span> <span class="nx">root</span><span class="o">:</span> <span class="nx">any</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">root</span><span class="o">:</span> <span class="nx">any</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">);</span>
 <span class="nx">root</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">;</span>
 
 <span class="kd">let</span> <span class="nx">root2</span><span class="o">:</span> <span class="p">(</span><span class="nx">HTMLElement</span> <span class="o">|</span> <span class="kc">null</span><span class="p">)</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">);</span>
 <span class="c1">// 非空断言操作符--&gt; 这样写只是为了骗过编译器，防止编译的时候报错，打包后的代码可能还是会报错</span>
 <span class="nx">root2</span><span class="o">!</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">;</span>
 </code></pre></div>
+
 <h3 id="20"><strong>20. 空值合并运算符的使用</strong><a class="headerlink" href="#20" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>TS 3.7版本正式支持使用</strong></li>
 <li><strong><code>||</code> 运算符的缺点：</strong> 当左侧表达式的结果是数字 0 或空字符串时，会被视为 <code>false</code>。</li>
 <li><strong>空值合并运算符：只有左侧表达式结果为 <code>null</code> 或 <code>undefined</code> 时</strong>，才会返回右侧表达式的结果。<strong>通过这种方式可以明确地区分 <code>undefined、null</code> 与 <code>false</code> 的值</strong>。</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">str</span><span class="o">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
     <span class="c1">// num:0,</span>
     <span class="nx">flag</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
@@ -3709,8 +3699,9 @@
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;num=&gt;&#39;</span><span class="p">,</span> <span class="nx">num2</span><span class="p">);</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;status=&gt;&#39;</span><span class="p">,</span> <span class="nx">status2</span><span class="p">);</span>
 </code></pre></div>
+
 <h3 id="21-typeof-class-class"><strong>21. typeof class 和直接用 class 作为类型有什么区别</strong><a class="headerlink" href="#21-typeof-class-class" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">Greeter</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nx">Greeter</span> <span class="p">{</span>
     <span class="k">static</span> <span class="nx">message</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span><span class="p">;</span>
 
     <span class="nx">greet</span><span class="p">(){</span>
@@ -3730,12 +3721,13 @@
 <span class="kd">let</span> <span class="nx">greeter2</span><span class="o">:</span><span class="nx">Greeter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">greeterTwo</span><span class="p">();</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">greeter2</span><span class="p">.</span><span class="nx">greet</span><span class="p">());</span><span class="c1">// &#39;hey&#39;</span>
 </code></pre></div>
+
 <h3 id="22-ts-never"><strong>22. TS 中的 never 类型具体有什么用？</strong><a class="headerlink" href="#22-ts-never" title="Permanent link">&para;</a></h3>
 <h3 id="23"><strong>23. 当使用联合类型时，在类型未确定的情况下，默认只会从中获取共有的部分</strong><a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
 <ul>
 <li>使用类型断言</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">Bird</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kr">interface</span> <span class="nx">Bird</span> <span class="p">{</span>
     <span class="nx">fly</span><span class="p">()</span>
     <span class="nx">layEggs</span><span class="p">()</span>
 <span class="p">}</span>
@@ -3755,12 +3747,13 @@
 <span class="p">(</span><span class="nx">pet</span> <span class="nx">as</span> <span class="nx">Fish</span><span class="p">).</span><span class="nx">swim</span><span class="p">();</span>
 <span class="nx">pet</span><span class="p">.</span><span class="nx">swim</span><span class="p">();</span>
 </code></pre></div>
+
 <p><img alt="img" src="https://ask.qcloudimg.com/http-save/yehe-1260054/jh1xlqfqrm.png?imageView2/2/w/1620" /></p>
 <p>image.png</p>
 <ul>
 <li>可区分的联合类型（借助 never ）</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kr">enum</span> <span class="nx">KindType</span><span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kr">enum</span> <span class="nx">KindType</span><span class="p">{</span>
     <span class="nx">square</span> <span class="o">=</span> <span class="s1">&#39;square&#39;</span><span class="p">,</span>
     <span class="nx">rectangle</span> <span class="o">=</span> <span class="s1">&#39;rectangle&#39;</span><span class="p">,</span>
     <span class="nx">circle</span> <span class="o">=</span> <span class="s1">&#39;circle&#39;</span><span class="p">,</span>
@@ -3820,13 +3813,15 @@
 
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">area2</span><span class="p">({</span><span class="nx">kind</span><span class="o">:</span> <span class="nx">KindType</span><span class="p">.</span><span class="nx">circle</span><span class="p">,</span> <span class="nx">radius</span><span class="o">:</span> <span class="mf">1</span><span class="p">}));</span>
 </code></pre></div>
+
 <h3 id="24-whats-on-version-333333"><strong>24. What's on version 3.3.3333?</strong><a class="headerlink" href="#24-whats-on-version-333333" title="Permanent link">&para;</a></h3>
 <h3 id="25"><strong>25. 在全局环境中，不能给某些变量声明类型</strong><a class="headerlink" href="#25" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">let</span> <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
 
 <span class="c1">// 加了 export 后就不会报错</span>
 <span class="c1">// export {} </span>
 </code></pre></div>
+
 <p><img alt="img" src="https://ask.qcloudimg.com/http-save/yehe-1260054/23qvf177nl.png?imageView2/2/w/1620" /></p>
 <p>image.png</p>
 <h3 id="26"><strong>26. 不必要的命名空间：命名空间和模块不要混在一起使用，不要在一个模块中使用命名空间，命名空间要在一个全局的环境中使用</strong><a class="headerlink" href="#26" title="Permanent link">&para;</a></h3>
@@ -3834,47 +3829,53 @@
 <ul>
 <li><code>shapes.ts</code></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">export</span> <span class="nx">namespace</span> <span class="nx">Shapes</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span> <span class="nx">namespace</span> <span class="nx">Shapes</span> <span class="p">{</span>
     <span class="k">export</span> <span class="kd">class</span> <span class="nx">Triangle</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
     <span class="k">export</span> <span class="kd">class</span> <span class="nx">Square</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <ul>
 <li><code>shapeConsumer.ts</code></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">shapes</span> <span class="nx">from</span> <span class="s2">&quot;./shapes&quot;</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">shapes</span> <span class="nx">from</span> <span class="s2">&quot;./shapes&quot;</span><span class="p">;</span>
 <span class="kd">let</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">shapes</span><span class="p">.</span><span class="nx">Shapes</span><span class="p">.</span><span class="nx">Triangle</span><span class="p">();</span>
 </code></pre></div>
+
 <p><strong>不应该在模块中使用命名空间或者说将命名空间导出：</strong> 使用命名空间是为了提供逻辑分组和避免命名冲突，模块文件本身已经是一个逻辑分组，并且它的名字是由导入这个模块的代码指定，所以没有必要为导出的对象增加额外的模块层。</p>
 <p>下面是改进的例子：</p>
 <ul>
 <li><code>shapes.ts</code></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">export</span> <span class="kd">class</span> <span class="nx">Triangle</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
+<div class="codehilite"><pre><span></span><code><span class="k">export</span> <span class="kd">class</span> <span class="nx">Triangle</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 <span class="k">export</span> <span class="kd">class</span> <span class="nx">Square</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 </code></pre></div>
+
 <ul>
 <li><code>shapeConsumer.ts</code></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">shapes</span> <span class="nx">from</span> <span class="s2">&quot;./shapes&quot;</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">shapes</span> <span class="nx">from</span> <span class="s2">&quot;./shapes&quot;</span><span class="p">;</span>
 <span class="kd">let</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">shapes</span><span class="p">.</span><span class="nx">Triangle</span><span class="p">();</span>
 </code></pre></div>
+
 <p>或者</p>
 <ul>
 <li><code>shapes.ts</code></li>
 </ul>
-<div class="highlight"><pre><span></span><code> <span class="nx">namespace</span> <span class="nx">Shapes</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code> <span class="nx">namespace</span> <span class="nx">Shapes</span> <span class="p">{</span>
     <span class="k">export</span> <span class="kd">class</span> <span class="nx">Triangle</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
     <span class="k">export</span> <span class="kd">class</span> <span class="nx">Square</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <ul>
 <li><code>shapeConsumer.ts</code></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">let</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Shapes</span><span class="p">.</span><span class="nx">Triangle</span><span class="p">();</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Shapes</span><span class="p">.</span><span class="nx">Triangle</span><span class="p">();</span>
 </code></pre></div>
+
 <h3 id="27"><strong>27. 扩展全局变量的类型</strong><a class="headerlink" href="#27" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nb">String</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kr">interface</span> <span class="nb">String</span> <span class="p">{</span>
     <span class="c1">// 这里是扩展，不是覆盖，所以放心使用</span>
     <span class="kr">double</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
 <span class="p">}</span>
@@ -3898,13 +3899,14 @@
 <span class="c1">// 所以上面给 Window 扩展属性/方法就失效了</span>
 <span class="k">export</span> <span class="p">{}</span>
 </code></pre></div>
+
 <h3 id="28-export-xxx-import-xxx-requirexxx"><strong>28. export = xxx 和 import xxx = require('xxx')</strong><a class="headerlink" href="#28-export-xxx-import-xxx-requirexxx" title="Permanent link">&para;</a></h3>
 <ul>
 <li>CommonJS 和 AMD 的环境里都有一个 exports 变量，这个变量包含了一个模块的所有导出内容。CommonJS 和 AMD 的 exports 都可以被赋值为一个对象, 这种情况下其作用就类似于 es6 语法里的默认导出，即 export default 语法了。虽然作用相似，但是 export default 语法并不能兼容 CommonJS和 AMD 的 exports。</li>
-<li>如果一个模块遵循 ES6 模块规范，当默认导出内容时（export default xxx），ES6 模块系统会自动给当前模块的顶层对象加上一个 default 属性，指向导出的内容。当一个 ES6 模块引入该模块时（import moduleName from 'xxx'），ES6 模块系统**默认**会自动去该模块中的顶层对象上查找 default 属性并将值赋值给 moduleName。而如果一个非 ES6 规范的模块引入 ES6 模块直接使用时（var moduleName = require('xxx')），就会报错，可以通过 moduleName.default 来使用。</li>
+<li>如果一个模块遵循 ES6 模块规范，当默认导出内容时（export default xxx），ES6 模块系统会自动给当前模块的顶层对象加上一个 default 属性，指向导出的内容。当一个 ES6 模块引入该模块时（import moduleName from 'xxx'），ES6 模块系统<strong>默认</strong>会自动去该模块中的顶层对象上查找 default 属性并将值赋值给 moduleName。而如果一个非 ES6 规范的模块引入 ES6 模块直接使用时（var moduleName = require('xxx')），就会报错，可以通过 moduleName.default 来使用。</li>
 <li><strong>为了支持 CommonJS 和 AMD 的 exports，TypeScript 提供了 export = 语法。export = 语法定义一个模块的导出对象。 这里的对象一词指的是类，接口，命名空间，函数或枚举。若使用 export = 导出一个模块，则必须使用 TypeScript 的特定语法 import module = require("module") 来导入此模块</strong>。</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="c1">// exports === module.exports // 即：这两个变量共用一个内存地址</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// exports === module.exports // 即：这两个变量共用一个内存地址</span>
 
 <span class="c1">// 整体导出</span>
 <span class="c1">// module.exports = {}</span>
@@ -3913,10 +3915,11 @@
 <span class="nx">exports</span><span class="p">.</span><span class="nx">c</span> <span class="o">=</span> <span class="mf">3</span><span class="p">;</span>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">d</span> <span class="o">=</span> <span class="mf">4</span><span class="p">;</span>
 </code></pre></div>
+
 <ul>
 <li>一个 es6 模块默认导出，被一个 node 模块导入使用</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="c1">// 兼容性写法只在 TS 中有效 ！！！！！！</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 兼容性写法只在 TS 中有效 ！！！！！！</span>
 <span class="c1">// 兼容性写法只在 TS 中有效 ！！！！！！</span>
 <span class="c1">// 兼容性写法只在 TS 中有效 ！！！！！！</span>
 
@@ -3930,6 +3933,7 @@
 <span class="k">import</span> <span class="nx">fn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./a.es6.ts&#39;</span><span class="p">);</span>
 <span class="nx">fn</span><span class="p">();</span>
 </code></pre></div>
+
 <h3 id="29-node-ts"><strong>29. 如何在 Node 中使用 TS</strong><a class="headerlink" href="#29-node-ts" title="Permanent link">&para;</a></h3>
 <ul>
 <li>安装相关声明文件，如：@types/node；</li>
@@ -3940,7 +3944,7 @@
 <li>在 TS 可以使用尖括号来表示类型断言，但是在结合 JSX 的语法时将带来解析上的困难。因此，TS 在 <code>.tsx</code> 文件里禁用了使用尖括号的类型断言。</li>
 <li><code>as</code> 操作符在 <code>.ts</code> 文件和 <code>.tsx</code> 文件里都可用</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">Person</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kr">interface</span> <span class="nx">Person</span> <span class="p">{</span>
     <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
     <span class="nx">age</span><span class="o">:</span> <span class="nx">number</span>
 <span class="p">}</span>
@@ -3952,6 +3956,7 @@
 <span class="kd">let</span> <span class="nx">p2</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">Person</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">age</span><span class="o">:</span> <span class="mf">18</span><span class="p">};</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p2</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
 </code></pre></div>
+
 <h3 id="31-js"><strong>31. 如何对 JS 文件进行类型检查</strong><a class="headerlink" href="#31-js" title="Permanent link">&para;</a></h3>
 <ul>
 <li>在 tsconfig.json 中可以设置 <code>checkJs:true</code>，对 <code>.js</code> 文件进行类型检查和错误提示。</li>
@@ -3961,24 +3966,26 @@
 <li>你还可以使用 <code>// @ts-ignore</code> 来忽略本行的错误。</li>
 <li>在 <code>.js</code> 文件里，类型可以和在 <code>.ts</code> 文件里一样被推断出来。当类型不能被推断时，可以通过 JSDoc 来指定类型。</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="cm">/** @type {number} */</span>
+<div class="codehilite"><pre><span></span><code><span class="cm">/** @type {number} */</span>
 <span class="kd">var</span> <span class="nx">x</span><span class="p">;</span>
 
 <span class="nx">x</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>      <span class="c1">// OK</span>
 <span class="nx">x</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>  <span class="c1">// Error: boolean is not assignable to number</span>
 </code></pre></div>
+
 <ul>
 <li>TS 中支持的 JSDoc 注解</li>
 </ul>
 <h3 id="32-numberstringbooleanobjectnumberstringbooleanobject"><strong>32. 不要使用如下类型 Number，String，Boolean、Object，应该使用类型number、string、boolean、object</strong><a class="headerlink" href="#32-numberstringbooleanobjectnumberstringbooleanobject" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="cm">/* 错误 */</span>
+<div class="codehilite"><pre><span></span><code><span class="cm">/* 错误 */</span>
 <span class="kd">function</span> <span class="nx">reverse</span><span class="p">(</span><span class="nx">s</span><span class="o">:</span> <span class="nb">String</span><span class="p">)</span><span class="o">:</span> <span class="nb">String</span><span class="p">;</span>
 
 <span class="cm">/* OK */</span>
 <span class="kd">function</span> <span class="nx">reverse</span><span class="p">(</span><span class="nx">s</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
 </code></pre></div>
+
 <h3 id="33-function-fn-x-number"><strong>33. 如何在解构一个函数 <code>function fn({ x: number }) { /\* … \*/ }</code> 时，即能给变量声明类型，又能给变量设置默认值</strong><a class="headerlink" href="#33-function-fn-x-number" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1">// error</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// error</span>
 <span class="kd">function</span> <span class="nx">f</span><span class="p">({</span> <span class="nx">x</span><span class="o">:</span> <span class="nx">number</span> <span class="p">})</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
 <span class="p">}</span>
@@ -3988,15 +3995,17 @@
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <h3 id="34-pick"><strong>34. Pick摘取返回的结果是一个对象（或者说新的接口），里面包含摘取到的属性</strong><a class="headerlink" href="#34-pick" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">Test</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kr">interface</span> <span class="nx">Test</span> <span class="p">{</span>
     <span class="nx">arr</span><span class="o">:</span> <span class="nx">string</span><span class="p">[]</span>
 <span class="p">}</span>
 <span class="c1">// pick 摘取返回的结果 =&gt; {arr: string[]}</span>
 <span class="kd">let</span> <span class="nx">aaa</span><span class="o">:</span> <span class="nx">Pick</span><span class="o">&lt;</span><span class="nx">Test</span><span class="p">,</span> <span class="s1">&#39;arr&#39;</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span><span class="nx">arr</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">]};</span>
 </code></pre></div>
+
 <h3 id="35-for-of-map"><strong>35. 无法使用 for of 遍历 map 数据</strong><a class="headerlink" href="#35-for-of-map" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">([</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">([</span>
   <span class="p">[</span><span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">],</span>
   <span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">,</span>  <span class="s1">&#39;yes&#39;</span><span class="p">],</span>
 <span class="p">]);</span>
@@ -4009,12 +4018,13 @@
  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
 <span class="p">});</span>
 </code></pre></div>
+
 <ul>
 <li>设置 target=es5 的时候，会报错误，并且无法执行 for 语句</li>
 </ul>
 <p>TS2569: Type 'Map' is not an array type or a string type. Use compiler. option '- downlevellteration' to allow iterating of iterators.</p>
 <p><strong>配置 dom.iterable 和 downlevelIteration 就可以正常运行</strong> tsconfig.json</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
     <span class="cm">/*当目标是ES5或ES3的时候提供对for-of、扩展运算符和解构赋值中对于迭代器的完整支持*/</span>
     <span class="s2">&quot;downlevelIteration&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="s2">&quot;lib&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -4026,6 +4036,7 @@
   <span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <ul>
 <li>设置 target=es6 的时候，就能正常执行。原因：</li>
 </ul>
@@ -4034,7 +4045,7 @@
 <ul>
 <li>这个方法在 React 中经常用到，当父组件通过 props 向下传递数据的时候，通常需要复用父组件的 props 类型，但是又需要剔除一些无用的类型。</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">User</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kr">interface</span> <span class="nx">User</span> <span class="p">{</span>
     <span class="nx">username</span><span class="o">:</span> <span class="nx">string</span>
     <span class="nx">id</span><span class="o">:</span> <span class="nx">number</span>
     <span class="nx">token</span><span class="o">:</span> <span class="nx">string</span>
@@ -4043,10 +4054,11 @@
 <span class="p">}</span>
 <span class="nx">type</span> <span class="nx">UserWithoutToken</span> <span class="o">=</span> <span class="nx">Omit</span><span class="o">&lt;</span><span class="nx">User</span><span class="p">,</span> <span class="s1">&#39;token&#39;</span><span class="o">&gt;</span>
 </code></pre></div>
+
 <h3 id="37-exclude"><strong>37. 为什么在 exclude 列表里的模块还会被编译器使用</strong><a class="headerlink" href="#37-exclude" title="Permanent link">&para;</a></h3>
 <p>有时候是被 tsconfig.json 自动加入的，如果编译器识别出一个文件是模块导入目标，它就会加到编译列表里，不管它是否被排除了。因此，要从编译列表中排除一个文件，你需要在排除它的同时，还要排除所有对它进行 import 或使用了 ///指令的文件。</p>
 <h3 id="38-import-xxx-namespacexxx"><strong>38. 使用 import xxx= namespace.xxx 创建命名空间别名</strong><a class="headerlink" href="#38-import-xxx-namespacexxx" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1">// a.ts</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// a.ts</span>
 <span class="nx">namespace</span> <span class="nx">Shape</span> <span class="p">{</span>
     <span class="kd">const</span> <span class="nx">pi</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="p">;</span>
 
@@ -4066,11 +4078,12 @@
 <span class="k">import</span> <span class="nx">cricle</span> <span class="o">=</span> <span class="nx">Shape</span><span class="p">.</span><span class="nx">cricle</span><span class="p">;</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">cricle</span><span class="p">(</span><span class="mf">2</span><span class="p">));</span>  
 </code></pre></div>
+
 <ul>
 <li>注意，这里并没有使用 <code>require</code> 关键字，而是直接使用导入符号的限定名赋值。 这与使用 <code>var</code> 相似，但它还适用于类型和导入的具有命名空间含义的符号。 重要的是，对于值来讲，<code>import</code> 会生成与原始符号不同的引用，所以改变别名的 <code>var</code> 值并不会影响原始变量的值。</li>
 </ul>
 <h2 id="tsconfigjson"><strong>tsconfig.json 常用配置项注释</strong><a class="headerlink" href="#tsconfigjson" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
   <span class="s2">&quot;compilerOptions&quot;</span><span class="o">:</span> <span class="p">{</span>
 
     <span class="cm">/**************基础配置**************/</span>
@@ -4294,6 +4307,7 @@
 
   <span class="p">}</span>
 </code></pre></div>
+
 <h2 id="tsconfigjson_1"><strong>tsconfig.json 配置项问题</strong><a class="headerlink" href="#tsconfigjson_1" title="Permanent link">&para;</a></h2>
 <h3 id="1-jsx"><strong>1. 三种 JSX 模式</strong><a class="headerlink" href="#1-jsx" title="Permanent link">&para;</a></h3>
 <ul>
@@ -4345,7 +4359,7 @@
 </table>
 <h3 id="2-lib"><strong>2. "lib" 配置项需要注意的问题</strong><a class="headerlink" href="#2-lib" title="Permanent link">&para;</a></h3>
 <ul>
-<li>当你安装 <code>TypeScript</code> 时，会顺带安装 <code>lib.d.ts</code> 等声明文件，此文件**包含了 JavaScript 运行时以及 DOM 中存在各种常见的环境声明**。</li>
+<li>当你安装 <code>TypeScript</code> 时，会顺带安装 <code>lib.d.ts</code> 等声明文件，此文件<strong>包含了 JavaScript 运行时以及 DOM 中存在各种常见的环境声明</strong>。</li>
 <li>它自动包含在 TypeScript 项目的编译上下文中</li>
 <li>它能让你快速开始书写经过类型检查的 JavaScript 代码</li>
 <li><code>tsconfig.json</code> 中的 lib 选项用来指定当前项目需要注入哪些声明库文件。如果没有指定，默认注入的库文件列表为：</li>
@@ -4354,21 +4368,21 @@
 <li>如果在 TS 中想要使用一些 ES6 以上版本或者特殊的语法，就需要引入相关的类库。如：<code>ES7</code> 、 <code>DOM.Iterable</code></li>
 </ul>
 <h3 id="3-moduleresolution"><strong>3. "moduleResolution" 解析策略</strong><a class="headerlink" href="#3-moduleresolution" title="Permanent link">&para;</a></h3>
-<p><a href="https://www.tslang.cn/docs/handbook/module-resolution.html">https://www.tslang.cn/docs/handbook/module-resolution.html</a></p>
+<p>https://www.tslang.cn/docs/handbook/module-resolution.html</p>
 <h3 id="4-target-es6-tsc-classic-import-as-abc-from-babeltypes"><strong>4. 指定 target 为 es6 时，tsc 就会默认使用 "classic" 模块解析策略，这个策略对于 <code>import \* as abc from "@babel/types"</code> 这种非相对路径的导入，不能正确解析。</strong><a class="headerlink" href="#4-target-es6-tsc-classic-import-as-abc-from-babeltypes" title="Permanent link">&para;</a></h3>
 <ul>
 <li>解决方法：指定解析策略为 node =&gt; "moduleResolution": "node"。</li>
 </ul>
 <h3 id="5-esmoduleinterop"><strong>5. "esModuleInterop" 具体作用是什么</strong><a class="headerlink" href="#5-esmoduleinterop" title="Permanent link">&para;</a></h3>
 <ul>
-<li>如果一个模块遵循 ES6 模块规范，当默认导出内容时（export default xxx），ES6 模块系统会自动给当前模块的顶层对象加上一个 default 属性，指向导出的内容。当一个 ES6 模块引入该模块时（import moduleName from 'xxx'），ES6 模块系统**默认**会自动去该模块中的顶层对象上查找 default 属性并将值赋值给 moduleName。而如果一个非 ES6 规范的模块引入 ES6 模块直接使用时（var moduleName = require('xxx')），就会报错，需要通过  moduleName.default 来使用。</li>
+<li>如果一个模块遵循 ES6 模块规范，当默认导出内容时（export default xxx），ES6 模块系统会自动给当前模块的顶层对象加上一个 default 属性，指向导出的内容。当一个 ES6 模块引入该模块时（import moduleName from 'xxx'），ES6 模块系统<strong>默认</strong>会自动去该模块中的顶层对象上查找 default 属性并将值赋值给 moduleName。而如果一个非 ES6 规范的模块引入 ES6 模块直接使用时（var moduleName = require('xxx')），就会报错，需要通过  moduleName.default 来使用。</li>
 <li><strong>TypeScript 为了兼容，引入了 esModuleInterop 选项，设置 esModuleInterop 为 true ，在编译时自动给该模块添加 default 属性，就可以通过 import moduleName from 'xxx' 的形式导入 非 ES6 模块，不再需要使用 import moduleName = require('xxx') 的形式。</strong></li>
 </ul>
 <h3 id="6-allowsyntheticdefaultimports"><strong>6. "allowSyntheticDefaultImports" 具体作用是什么</strong><a class="headerlink" href="#6-allowsyntheticdefaultimports" title="Permanent link">&para;</a></h3>
 <ul>
 <li>允许 默认导入 没有设置默认导出（export default xxx）的模块，可以以 import xxx from 'xxx' 的形式来引入模块</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="c1">// 配置前</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 配置前</span>
 <span class="k">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">ReactDOM</span> <span class="nx">from</span> <span class="s1">&#39;react-dom&#39;</span><span class="p">;</span>
 
@@ -4376,8 +4390,9 @@
 <span class="k">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="nx">ReactDOM</span> <span class="nx">from</span> <span class="s1">&#39;react-dom&#39;</span><span class="p">;</span>
 </code></pre></div>
+
 <h3 id="7-paths"><strong>7. "paths" 配置路径映射集合时，需要注意的问题</strong><a class="headerlink" href="#7-paths" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
    <span class="s2">&quot;paths&quot;</span><span class="o">:</span> <span class="p">{</span>
       <span class="c1">// 这里的路径后面必须跟着 &quot;/*&quot;</span>
       <span class="s2">&quot;@public/*&quot;</span><span class="o">:</span> <span class="p">[</span>
@@ -4396,6 +4411,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <h3 id="8-allowjs"><strong>8. "allowJs" 时需要注意的问题</strong><a class="headerlink" href="#8-allowjs" title="Permanent link">&para;</a></h3>
 <ul>
 <li>设置 "allowJs": false ：在 .ts / .tsx 文件中引入 .js / .jsx 文件时，就不会有相关提示</li>
@@ -4404,16 +4420,17 @@
 <p>image.png</p>
 <h2 id="react-ts"><strong>React + TS 项目问题</strong><a class="headerlink" href="#react-ts" title="Permanent link">&para;</a></h2>
 <h3 id="1-import-js-require"><strong>1. 使用 import 引入非 JS 模块会报错，而使用 require 则没有问题</strong><a class="headerlink" href="#1-import-js-require" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nx">styles</span> <span class="nx">from</span> <span class="s1">&#39;./login.less&#39;</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nx">styles</span> <span class="nx">from</span> <span class="s1">&#39;./login.less&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="nx">logo</span> <span class="nx">from</span> <span class="s1">&#39;@assets/images/logo.svg&#39;</span><span class="p">;</span>
 
 <span class="kd">const</span> <span class="nx">logo2</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@assets/images/logo.svg&#39;</span><span class="p">);</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">logo2</span><span class="p">);</span><span class="c1">// path</span>
 </code></pre></div>
+
 <p><img alt="img" src="https://ask.qcloudimg.com/http-save/yehe-1260054/lksfgxnfbq.png?imageView2/2/w/1620" /></p>
 <p>image.png</p>
 <p><strong>解决办法：</strong> 给这些非 JS 模块添加申明</p>
-<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<div class="codehilite"><pre><span></span><code><span class="cm">/**</span>
 <span class="cm"> * style</span>
 <span class="cm"> */</span>
 <span class="nx">declare</span> <span class="nx">module</span> <span class="s1">&#39;*.css&#39;</span>
@@ -4435,6 +4452,7 @@
 <span class="nx">declare</span> <span class="nx">module</span> <span class="s1">&#39;*.gif&#39;</span>
 <span class="nx">declare</span> <span class="nx">module</span> <span class="s1">&#39;*.bmp&#39;</span>
 </code></pre></div>
+
 <h3 id="2-import-as-react-from-react-import-react-from-react"><strong>2. import * as React from 'react' 和 import React from 'react' 有什么区别</strong><a class="headerlink" href="#2-import-as-react-from-react-import-react-from-react" title="Permanent link">&para;</a></h3>
 <ul>
 <li>第一种写法是将所有用 export 导出的成员赋值给 React ，导入后用 React.xxx 访问</li>
@@ -4444,7 +4462,7 @@
 <ul>
 <li>配置 tsconfig.json</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
   <span class="c1">// 允许 默认导入 没有设置默认导出（export default xxx）的模块</span>
   <span class="c1">// 可以以 import xxx from &#39;xxx&#39; 的形式来引入模块</span>
     <span class="s2">&quot;allowSyntheticDefaultImports&quot;</span><span class="o">:</span><span class="kc">true</span>
@@ -4457,12 +4475,13 @@
 <span class="k">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="nx">ReactDOM</span> <span class="nx">from</span> <span class="s1">&#39;react-dom&#39;</span><span class="p">;</span>
 </code></pre></div>
+
 <h3 id="4-antd"><strong>4. 对 antd 组件库进行按需加载</strong><a class="headerlink" href="#4-antd" title="Permanent link">&para;</a></h3>
 <ul>
 <li>这里使用的是 ts-loader 转译 TS 方案，更多方案请看 <strong>Webpack 转译 Typescript 现有方案</strong></li>
 </ul>
 <p>.babelrc</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
   <span class="s2">&quot;presets&quot;</span><span class="o">:</span> <span class="p">[</span>
     <span class="s2">&quot;@babel/preset-react&quot;</span><span class="p">,</span>
     <span class="s2">&quot;@babel/preset-env&quot;</span>
@@ -4480,16 +4499,18 @@
     <span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p>tsconfig.json</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
   <span class="s2">&quot;compilerOptions&quot;</span><span class="o">:</span> <span class="p">{</span>
     <span class="s2">&quot;target&quot;</span><span class="o">:</span> <span class="s2">&quot;es5&quot;</span><span class="p">,</span>
     <span class="s2">&quot;jsx&quot;</span><span class="o">:</span> <span class="s2">&quot;preserve&quot;</span><span class="p">,</span><span class="c1">// 保留 jsx</span>
      <span class="p">...</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p>webpack.config.js</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
   <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.tsx?$/</span><span class="p">,</span>
     <span class="nx">use</span><span class="o">:</span> <span class="p">[</span>
       <span class="s1">&#39;babel-loader&#39;</span><span class="p">,</span>
@@ -4497,8 +4518,9 @@
     <span class="p">]</span>
 <span class="p">},</span>
 </code></pre></div>
+
 <h3 id="5-reactcreateref-ref"><strong>5. 声明通过 React.createRef（）创建的 ref 类型</strong><a class="headerlink" href="#5-reactcreateref-ref" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1">// 源码</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 源码</span>
 <span class="c1">// interface RefObject&lt;T&gt; {</span>
 <span class="c1">//     readonly current: T | null;</span>
 <span class="c1">// }</span>
@@ -4514,9 +4536,10 @@
 <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <h3 id="6-react-redux-react-redux-connect-ts"><strong>6. react + redux + react-redux 项目：使用 @connect 装饰器正常，但是一旦结合 TS 后，就会报错</strong><a class="headerlink" href="#6-react-redux-react-redux-connect-ts" title="Permanent link">&para;</a></h3>
-<p><a href="https://segmentfault.com/a/1190000016047027">https://segmentfault.com/a/1190000016047027</a></p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span><span class="nx">ComponentClass</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
+<p>https://segmentfault.com/a/1190000016047027</p>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="p">{</span><span class="nx">ComponentClass</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
 <span class="k">import</span> <span class="p">{</span>
   <span class="nx">connect</span> <span class="nx">as</span> <span class="nx">nativeConnect</span><span class="p">,</span>
   <span class="nx">MapDispatchToPropsParam</span><span class="p">,</span>
@@ -4534,11 +4557,12 @@
 
 <span class="k">export</span> <span class="kd">const</span> <span class="nx">withRouter</span><span class="o">:</span> <span class="nx">ComponentDecorator</span> <span class="o">=</span> <span class="nx">nativeWithRouter</span> <span class="nx">as</span> <span class="nx">any</span><span class="p">;</span>
 </code></pre></div>
+
 <h3 id="7-react-redux-react-redux-mapstatetopropsstate-state"><strong>7. react + redux + react-redux 项目：在使用 mapStateToProps(state) 函数时，想要给仓库中的 state 声明类型</strong><a class="headerlink" href="#7-react-redux-react-redux-mapstatetopropsstate-state" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>借助 ReturnType</strong></li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="c1">// rootReducer.ts</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// rootReducer.ts</span>
 <span class="k">import</span> <span class="p">{</span><span class="nx">combineReducers</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;redux&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span><span class="nx">connectRouter</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;connected-react-router&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="nx">history</span> <span class="nx">from</span> <span class="s1">&#39;../history&#39;</span><span class="p">;</span>
@@ -4591,11 +4615,12 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p>使用</p>
 <p><img alt="img" src="https://ask.qcloudimg.com/http-save/yehe-1260054/t82kv0vi5k.png?imageView2/2/w/1620" /></p>
 <p>image.png</p>
 <h3 id="8-react-redux-react-redux-action-creator"><strong>8. react + redux + react-redux 项目：想要给 action creator 函数声明类型</strong><a class="headerlink" href="#8-react-redux-react-redux-action-creator" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1">// 在 Mesh 组件中</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 在 Mesh 组件中</span>
 <span class="k">import</span> <span class="nx">workActions</span> <span class="nx">from</span> <span class="s2">&quot;@store/actions/work&quot;</span><span class="p">;</span>
 
 <span class="kr">interface</span> <span class="nx">MeshProps</span> <span class="p">{</span>
@@ -4619,8 +4644,9 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <h3 id="9-react-redux-react-redux-react-props"><strong>9. react + redux + react-redux 项目：给 React 组件的 Props 声明类型（较为便捷的方法）</strong><a class="headerlink" href="#9-react-redux-react-redux-react-props" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span><span class="nx">RouteComponentProps</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react-router&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span><span class="nx">connect</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;@store/connect&quot;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span><span class="nx">AppState</span><span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;@store/reducers&quot;</span><span class="p">;</span>
@@ -4664,9 +4690,10 @@
 <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <h3 id="10-react-redux-react-redux-redux-thunk"><strong>10. react + redux + react-redux 项目：想要给 redux-thunk 声明类型</strong><a class="headerlink" href="#10-react-redux-react-redux-redux-thunk" title="Permanent link">&para;</a></h3>
 <p>redux thunk 有一个内置类型 <code>ThunkAction</code>，我们可以这样使用：</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// src/thunks.ts</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// src/thunks.ts</span>
 
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Action</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;redux&#39;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">sendMessage</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./store/chat/actions&#39;</span>
@@ -4690,8 +4717,9 @@
   <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;Async&#39;</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <h3 id="11-webpack-modulehot"><strong>11. 使用 webpack 的 module.hot 会警告没有类型定义</strong><a class="headerlink" href="#11-webpack-modulehot" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="err">#</span> <span class="nx">下载这个类型声明文件</span>
+<div class="codehilite"><pre><span></span><code><span class="err">#</span> <span class="nx">下载这个类型声明文件</span>
 <span class="nx">$</span> <span class="nx">npm</span> <span class="nx">install</span> <span class="o">--</span><span class="nx">save</span> <span class="err">@</span><span class="nx">types</span><span class="o">/</span><span class="nx">webpack</span><span class="o">-</span><span class="nx">env</span>
 <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">!==</span> <span class="s1">&#39;production&#39;</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">hot</span><span class="p">)</span> <span class="p">{</span>
@@ -4699,11 +4727,12 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <h3 id="12-tsconfig-paths-webpack-plugin-tsconfigjson-path-webpack-webpack-alias"><strong>12. tsconfig-paths-webpack-plugin 这个包会将 tsconfig.json 中的 path 配置项内容映射到 webpack 配置中去，这样就不需要在 webpack 中的 alias 配置项里配置路径映射</strong><a class="headerlink" href="#12-tsconfig-paths-webpack-plugin-tsconfigjson-path-webpack-webpack-alias" title="Permanent link">&para;</a></h3>
 <p><img alt="img" src="https://ask.qcloudimg.com/http-save/yehe-1260054/z8kf4h8s6d.png?imageView2/2/w/1620" /></p>
 <p>image.png</p>
 <h3 id="13-react"><strong>13. react 函数组件声明</strong><a class="headerlink" href="#13-react" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kr">interface</span> <span class="nx">Greeting</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kr">interface</span> <span class="nx">Greeting</span> <span class="p">{</span>
   <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nx">age</span><span class="o">:</span> <span class="nx">number</span><span class="p">;</span>
 <span class="p">}</span>
@@ -4712,8 +4741,9 @@
 <span class="c1">// 推荐使用第二种</span>
 <span class="kd">const</span> <span class="nx">Hello2</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="o">:</span><span class="nx">Greeting</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h1&gt;;</span>
 </code></pre></div>
+
 <h3 id="14-react-ts-hoc"><strong>14. 如何编写 react + ts 版的 HOC</strong><a class="headerlink" href="#14-react-ts-hoc" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
 
 <span class="k">import</span> <span class="nx">HelloClass</span> <span class="nx">from</span> <span class="s1">&#39;./HelloClass&#39;</span><span class="p">;</span>
 
@@ -4734,8 +4764,9 @@
 
   <span class="k">export</span> <span class="k">default</span> <span class="nx">HelloHOC</span><span class="p">(</span><span class="nx">HelloClass</span><span class="p">);</span>
 </code></pre></div>
+
 <h3 id="15-event"><strong>15. 快速获取事件处理函数的 event 参数类型</strong><a class="headerlink" href="#15-event" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>class Login extends React.Component &lt;Props&gt;{
+<div class="codehilite"><pre><span></span><code>class Login extends React.Component &lt;Props&gt;{
 
   handlerLinkBtnClick = (ev) =&gt; {
     console.log(ev);
@@ -4762,6 +4793,7 @@ render() {
 }
 }
 </code></pre></div>
+
 <p>按住 Ctrl ，然后鼠标移动到事件名上就能获取当前事件处理函数的参数类型</p>
 <p><img alt="img" src="https://ask.qcloudimg.com/http-save/yehe-1260054/4qhmev47bt.png?imageView2/2/w/1620" /></p>
                 

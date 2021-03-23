@@ -226,7 +226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../about/readme.md" class="md-nav__link">
+      <a href="../../about/" class="md-nav__link">
         关于我
       </a>
     </li>
@@ -1755,42 +1755,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../project/%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
-        真实项目webpack配置解析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
-        webpack编译原理分析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
-        webpack的高级技巧
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../project/React%20%26%20Webpack/" class="md-nav__link">
         React & Webpack
       </a>
@@ -2576,29 +2540,34 @@
                 
                 <h1 id="react-bug">React 各种bug<a class="headerlink" href="#react-bug" title="Permanent link">&para;</a></h1>
 <h3 id="bug1">BUG1<a class="headerlink" href="#bug1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Module Error (from ./node_modules/af-webpack/node_modules/eslint-loader/index.js):
+<div class="codehilite"><pre><span></span><code>Module Error (from ./node_modules/af-webpack/node_modules/eslint-loader/index.js):
 
 Line 43:5:  Expected an assignment or function call and instead saw an expression  no-unused-expressions
 
 Search for the keywords to learn more about each error.
 </code></pre></div>
+
 <p>我这边查出来的错误代码是：</p>
-<div class="highlight"><pre><span></span><code>    cardGrid.push(fieldGridStr),cardGrid.push(valueGridStr2);
+<div class="codehilite"><pre><span></span><code>    cardGrid.push(fieldGridStr),cardGrid.push(valueGridStr2);
 </code></pre></div>
+
 <p>中间间隔是个逗号，改成分号就可以。</p>
-<div class="highlight"><pre><span></span><code>cardGrid.push(fieldGridStr);
+<div class="codehilite"><pre><span></span><code>cardGrid.push(fieldGridStr);
 cardGrid.push(valueGridStr2);
 </code></pre></div>
+
 <h3 id="bug2">BUG2<a class="headerlink" href="#bug2" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it&#39;s defined in, or you might have mixed up default and named imports.
+<div class="codehilite"><pre><span></span><code>Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it&#39;s defined in, or you might have mixed up default and named imports.
 </code></pre></div>
+
 <p>这个错误从网上搜索说是因为你导出的类或者函数在导入的时候方式不正确造成的，而我今天造成这个错误的原因是：</p>
-<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="k">static</span> <span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">noDataImgShow</span><span class="o">:</span><span class="nx">PropTypes</span><span class="p">.</span><span class="kr">boolean</span><span class="p">.</span><span class="nx">isRequired</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p>我写的<code>PropTypes.boolean</code>基本类型引用错误了，造成的。记得<code>PropTypes</code>的基本类型有：</p>
-<div class="highlight"><pre><span></span><code> optionalArray: PropTypes.array,
+<div class="codehilite"><pre><span></span><code> optionalArray: PropTypes.array,
   optionalBool: PropTypes.bool,
   optionalFunc: PropTypes.func,
   optionalNumber: PropTypes.number,
@@ -2606,35 +2575,43 @@ cardGrid.push(valueGridStr2);
   optionalString: PropTypes.string,
   optionalSymbol: PropTypes.symbol,
 </code></pre></div>
+
 <p>不要写错了。
 <a href="https://links.jianshu.com/go?to=%5Bhttp%3A%2F%2Fnpm.taobao.org%2Fpackage%2Fprop-types%5D(http%3A%2F%2Fnpm.taobao.org%2Fpackage%2Fprop-types)">prop-types</a></p>
 <h3 id="bug3">BUG3<a class="headerlink" href="#bug3" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Creating an optimized production build...
+<div class="codehilite"><pre><span></span><code>Creating an optimized production build...
 Failed to compile.
 
 Module parse failed: C:\Users\玉丽\AppData\Roaming\npm\node_modules\roadhog\node_modules\babel-loader\lib\index.js!C:\Users\玉丽\Desktop\company_work\vitark-web-ui\src\common\router.js Unexpected token (70:15)
 </code></pre></div>
+
 <p>解决办法：</p>
-<div class="highlight"><pre><span></span><code> npm install @babel/core @babel/preset-env
+<div class="codehilite"><pre><span></span><code> npm install @babel/core @babel/preset-env
 </code></pre></div>
+
 <h3 id="bug4">BUG4<a class="headerlink" href="#bug4" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Build failed: The &#39;decorators&#39; plugin requires a &#39;decoratorsBeforeExport&#39; option, whose value must be a boolean. If you are migrating from Babylon/Babel 6 or want to use the old decorators proposal, you should use the &#39;decorators-legacy&#39; plugin instead of &#39;decorators&#39;.
+<div class="codehilite"><pre><span></span><code>Build failed: The &#39;decorators&#39; plugin requires a &#39;decoratorsBeforeExport&#39; option, whose value must be a boolean. If you are migrating from Babylon/Babel 6 or want to use the old decorators proposal, you should use the &#39;decorators-legacy&#39; plugin instead of &#39;decorators&#39;.
 </code></pre></div>
+
 <p><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Fant-design%2Fant-design-pro%2Fissues%2F2043">https://github.com/ant-design/ant-design-pro/issues/2043</a></p>
 <p>安装制定版本的<code>roadhog</code></p>
-<div class="highlight"><pre><span></span><code>npm install --save 2.5.0-beta.1
+<div class="codehilite"><pre><span></span><code>npm install --save 2.5.0-beta.1
 </code></pre></div>
+
 <h3 id="bug5">BUG5<a class="headerlink" href="#bug5" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Module build failed: ReferenceError: Unknown plugin &quot;transform-runtime&quot; specified in &quot;base&quot; at 2, attempted to resolve relative to &quot;C:\\Users\\玉丽\\Desktop\\company_work\\vitark-web-ui\\src&quot;
+<div class="codehilite"><pre><span></span><code>Module build failed: ReferenceError: Unknown plugin &quot;transform-runtime&quot; specified in &quot;base&quot; at 2, attempted to resolve relative to &quot;C:\\Users\\玉丽\\Desktop\\company_work\\vitark-web-ui\\src&quot;
 </code></pre></div>
+
 <p>安装依赖：</p>
-<div class="highlight"><pre><span></span><code> npm install --save babel-plugin-transform-runtime
+<div class="codehilite"><pre><span></span><code> npm install --save babel-plugin-transform-runtime
 </code></pre></div>
+
 <h3 id="bug6">BUG6<a class="headerlink" href="#bug6" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Module build failed: ReferenceError: Unknown plugin &quot;transform-class-properties&quot; specified in &quot;base&quot; at 4, attempted to resolve relative to &quot;C:\\Users\\玉丽\\Desktop\\company_work\\vitark-web-ui\\src&quot;
+<div class="codehilite"><pre><span></span><code>Module build failed: ReferenceError: Unknown plugin &quot;transform-class-properties&quot; specified in &quot;base&quot; at 4, attempted to resolve relative to &quot;C:\\Users\\玉丽\\Desktop\\company_work\\vitark-web-ui\\src&quot;
 </code></pre></div>
+
 <p>需要安装依赖：</p>
-<div class="highlight"><pre><span></span><code>npm install 
+<div class="codehilite"><pre><span></span><code>npm install 
 babel-plugin-transform-class-properties
 babel-plugin-transform-decorators-legacy
 babel-plugin-transform-export-extensions
@@ -2642,88 +2619,108 @@ babel-plugin-transform-object-rest-spread
 babel-preset-env
 --save-dev
 </code></pre></div>
+
 <h3 id="bug7">BUG7<a class="headerlink" href="#bug7" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Module not found:Error:Can&#39;t resolve &#39;@babel/runtime/helpers/esm/extends&#39;
+<div class="codehilite"><pre><span></span><code>Module not found:Error:Can&#39;t resolve &#39;@babel/runtime/helpers/esm/extends&#39;
 </code></pre></div>
+
 <p>这个错误坑的地方在哪里呢？是它的这个方法只有过去的<code>npm</code>包里可以找到，如果你用</p>
-<div class="highlight"><pre><span></span><code>npm install @babel/runtime --save
+<div class="codehilite"><pre><span></span><code>npm install @babel/runtime --save
 yarn add @babel/runtime
 </code></pre></div>
+
 <p>来安装，安装的是最新的包，然后新的包里面并没有这个它要找的方法，所以仍然会报错，这个时候你就会想，我已经安装了，为什么还找不到。</p>
 <p>思路来了：<strong>如果你安装了包了，然后还是说找不到包里的方法的话，就说明你需要降级，安装它之前的包</strong></p>
-<div class="highlight"><pre><span></span><code>npm i @babel/runtime@7.0.0-beta.55 --save
+<div class="codehilite"><pre><span></span><code>npm i @babel/runtime@7.0.0-beta.55 --save
 </code></pre></div>
+
 <p>我觉的这条思路可以应对所有找不到包内部方法的问题。</p>
 <h3 id="bug8">BUG8<a class="headerlink" href="#bug8" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Failed to minify the bundle. Error: 0.0f3f4c41.async.js from UglifyJs
+<div class="codehilite"><pre><span></span><code>Failed to minify the bundle. Error: 0.0f3f4c41.async.js from UglifyJs
 </code></pre></div>
+
 <p>通常 webpack 在构建时，是不会让 node_modules 下的文件走 babel tranpile 的，一是会慢很多，二是 babel@6 时编译编译过的代码会不安全（据说 babel@7 下没问题了），所以业界有个潜在的约定，<strong>npm 包发布前需要先用 babel 转出一份 es5 的代码</strong>。</p>
 <p>但是有些 npm 包不遵守这个约定，没有转成 es5 就发上去，比如 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Fsindresorhus%2Fquery-string%2Fblob%2F597f14a%2Findex.js%23L8%3A31">query-string@6</a>。然后压缩工具 uglify 又只支持 es5 的语法，遇到 <code>const</code>、<code>let</code>、<code>()=&gt;</code> 类似的语法，就抛错了。</p>
 <p>原文看这里的<a href="https://links.jianshu.com/go?to=%5Bhttps%3A%2F%2Fgithub.com%2Fsorrycc%2Fblog%2Fissues%2F68%5D(https%3A%2F%2Fgithub.com%2Fsorrycc%2Fblog%2Fissues%2F68)">async.js from UglifyJs</a></p>
 <h3 id="bug">BUG<a class="headerlink" href="#bug" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>super expression must either bu null or a function not undefined
+<div class="codehilite"><pre><span></span><code>super expression must either bu null or a function not undefined
 </code></pre></div>
+
 <p>错误代码：</p>
-<div class="highlight"><pre><span></span><code>import React from &#39;react-native&#39;;
+<div class="codehilite"><pre><span></span><code>import React from &#39;react-native&#39;;
 </code></pre></div>
+
 <p>引用了错误的引用：
 正确的写法是</p>
-<div class="highlight"><pre><span></span><code>import React, { Component } from &#39;react&#39;;
+<div class="codehilite"><pre><span></span><code>import React, { Component } from &#39;react&#39;;
 </code></pre></div>
+
 <h3 id="bug-android">BUG android 端<a class="headerlink" href="#bug-android" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>React-native Android: Error calling AppRegistry.runApplication
+<div class="codehilite"><pre><span></span><code>React-native Android: Error calling AppRegistry.runApplication
 </code></pre></div>
+
 <p>解决办法：</p>
-<div class="highlight"><pre><span></span><code>adb reverse tcp:8081 tcp:8081
+<div class="codehilite"><pre><span></span><code>adb reverse tcp:8081 tcp:8081
 </code></pre></div>
+
 <p>然后重新reload</p>
 <p><a href="https://links.jianshu.com/go?to=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F43776638%2Freact-native-android-error-calling-appregistry-runapplication">stackoverflow</a>这个问题的地址！</p>
 <h3 id="bug_1">BUG<a class="headerlink" href="#bug_1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>The development server returned response error code:500
+<div class="codehilite"><pre><span></span><code>The development server returned response error code:500
 </code></pre></div>
+
 <p>这个是引入的本地文件找不到，在下面的错误里就可以看到</p>
 <h3 id="bug_2">BUG<a class="headerlink" href="#bug_2" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Unable to open a realm at path &#39;,management&#39;.Please use a path where your
+<div class="codehilite"><pre><span></span><code>Unable to open a realm at path &#39;,management&#39;.Please use a path where your
 app has read-write permissions
 </code></pre></div>
+
 <h3 id="bug_3">BUG<a class="headerlink" href="#bug_3" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Module AppRegistry is not a registered callable module (calling runApplicati
+<div class="codehilite"><pre><span></span><code>Module AppRegistry is not a registered callable module (calling runApplicati
 </code></pre></div>
+
 <p>由于是发生在IOS端，网上找到的方法通通都是android的，切换了project就好了，在xcode里!!!</p>
 <h3 id="bug_4">BUG<a class="headerlink" href="#bug_4" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Migration is required due to the following errors
+<div class="codehilite"><pre><span></span><code>Migration is required due to the following errors
 </code></pre></div>
+
 <p>这个发生的情况是android上面的app是很久之前的代码，好久没有更新了，然后点击reload就会爆出这个错误，解决办法就是删掉重新安装，就可以了！！</p>
 <h3 id="bug_5">BUG<a class="headerlink" href="#bug_5" title="Permanent link">&para;</a></h3>
 <p>This error can also happen due to a require() error during initialization or failure to call AppRegistry.registerComponent.</p>
-<div class="highlight"><pre><span></span><code>2017-09-19 16:01:20.557 [fatal][tid:com.facebook.react.ExceptionsManagerQueue] Unhandled JS Exception: Application ReactP has not been registered.
+<div class="codehilite"><pre><span></span><code>2017-09-19 16:01:20.557 [fatal][tid:com.facebook.react.ExceptionsManagerQueue] Unhandled JS Exception: Application ReactP has not been registered.
 
 Hint: This error often happens when you&#39;re running the packager (local dev server) from a wrong folder. For example you have multiple apps and the packager is still running for the app you were working on before.
 If this is the case, simply kill the old packager instance (e.g. close the packager terminal window) and start the packager in the correct app folder (e.g. cd into app folder and run &#39;npm start&#39;).
 
 This error can also happen due to a require() error during initialization or failure to call AppRegistry.registerComponent.
 </code></pre></div>
+
 <p>这个错误有两种情况，第一种:</p>
-<div class="highlight"><pre><span></span><code> Application ReactP has not been registered.
+<div class="codehilite"><pre><span></span><code> Application ReactP has not been registered.
 </code></pre></div>
+
 <p>就是在你其实注册App的地方，你写错了，比如：</p>
-<div class="highlight"><pre><span></span><code>AppRegistry.registerComponent(&#39;AppleReactNative&#39;, () =&gt; App)
+<div class="codehilite"><pre><span></span><code>AppRegistry.registerComponent(&#39;AppleReactNative&#39;, () =&gt; App)
 </code></pre></div>
+
 <p>至</p>
-<div class="highlight"><pre><span></span><code>AppRegistry.registerComponent(&#39;applereactnative&#39;, () =&gt; App)
+<div class="codehilite"><pre><span></span><code>AppRegistry.registerComponent(&#39;applereactnative&#39;, () =&gt; App)
 </code></pre></div>
+
 <p>第二种情况就是它的最后一句话。</p>
-<div class="highlight"><pre><span></span><code>This error can also happen due to a require() error during initialization or failure to call AppRegistry.registerComponent.
+<div class="codehilite"><pre><span></span><code>This error can also happen due to a require() error during initialization or failure to call AppRegistry.registerComponent.
 </code></pre></div>
+
 <p>比如：</p>
-<div class="highlight"><pre><span></span><code>export const  ColorConfig = {
+<div class="codehilite"><pre><span></span><code>export const  ColorConfig = {
 
     minorColor:ColorConfig.minorColor,                 //提示性文字，正文
 }
 </code></pre></div>
+
 <p>你引用了一个错误的引用，自己引自己
 又或者是：</p>
-<div class="highlight"><pre><span></span><code>export  const SizeConfig = {
+<div class="codehilite"><pre><span></span><code>export  const SizeConfig = {
     circleTextSize:38,
     remindTitleSize:20,                    //提示文字 大号
     navigationSize:18,                    //顶部导航栏，栏目名称
@@ -2754,8 +2751,9 @@ export const  ColorConfig = {
 global.SizeConfig = SizeConfig;
 global.ColorConfig = ColorConfig;
 </code></pre></div>
+
 <p>写了一个全局的变量，然后准备在其他的地方使用，</p>
-<div class="highlight"><pre><span></span><code>headerImage:{
+<div class="codehilite"><pre><span></span><code>headerImage:{
         height:60,
         width:60,
         borderRadius:30,
@@ -2763,13 +2761,15 @@ global.ColorConfig = ColorConfig;
 
 },
 </code></pre></div>
+
 <p>直接就会报上面的错误，原因是文件没有引入，你需要在其他的地方引入一下就可以了</p>
-<div class="highlight"><pre><span></span><code>import {SizeConfig} from &#39;./SizeAndColorConfig&#39;; //引入是为了编译入系统，不要删除这行
+<div class="codehilite"><pre><span></span><code>import {SizeConfig} from &#39;./SizeAndColorConfig&#39;; //引入是为了编译入系统，不要删除这行
 </code></pre></div>
+
 <p>参考文章：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F35449248%2Ffailure-to-call-appregistry-registercomponent">Failure to call AppRegistry.registerComponent
 </a></p>
 <h3 id="bug_6">BUG<a class="headerlink" href="#bug_6" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>doctor_third.bundle.js:55 Uncaught TypeError: Cannot read property &#39;call&#39; of undefined
+<div class="codehilite"><pre><span></span><code>doctor_third.bundle.js:55 Uncaught TypeError: Cannot read property &#39;call&#39; of undefined
     at __webpack_require__ (doctor_third.bundle.js:55)
     at Object.&lt;anonymous&gt; (zrk_doctor_doctor_root.bundle.js:22679)
     at __webpack_require__ (doctor_third.bundle.js:55)
@@ -2781,8 +2781,9 @@ __webpack_require__ @ doctor_third.bundle.js:55
 webpackJsonpCallback @ doctor_third.bundle.js:26
 (anonymous) @ zrk_doctor_doctor_root.bundle.js:1
 </code></pre></div>
+
 <p>造成的原因和上面的错误完全没有关系，是因为<code>/public/index.html</code>下面<code>js</code>文件的引用不对。</p>
-<div class="highlight"><pre><span></span><code>&lt;script type=&quot;text/javascript&quot;&gt;
+<div class="codehilite"><pre><span></span><code>&lt;script type=&quot;text/javascript&quot;&gt;
     document.write(&quot;&lt;script language=&#39;javascript&#39; src=&#39;&quot;+getStaticFileHost()+&quot;/static/js/jquery-2.1.4.min.js&#39;&gt;&lt;\/script&gt;&quot;);
     document.write(&quot;&lt;script language=&#39;javascript&#39; src=&#39;&quot;+getStaticFileHost()+&quot;/static/js/mobiscroll.custom-3.0.0-beta2.min.js&#39;&gt;&lt;\/script&gt;&quot;);
     document.write(&quot;&lt;script language=&#39;javascript&#39; src=&#39;&quot;+getStaticFileHost()+&quot;/static/js/jweixin-1.2.0.js&#39;&gt;&lt;\/script&gt;&quot;);
@@ -2790,9 +2791,10 @@ webpackJsonpCallback @ doctor_third.bundle.js:26
     document.write(&quot;&lt;script language=&#39;javascript&#39; src=&#39;&quot;+getStaticFileHost()+&quot;/static/js/react/zrk_doctor_doctor_root.bundle.js&#39;&gt;&lt;\/script&gt;&quot;);
 &lt;/script&gt;
 </code></pre></div>
+
 <p>下次再碰到这个问题，直接过来检查一下。</p>
 <h3 id="bug_7">BUG<a class="headerlink" href="#bug_7" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>doctor.js?26ed:60 Uncaught ReferenceError: regeneratorRuntime is not defined
+<div class="codehilite"><pre><span></span><code>doctor.js?26ed:60 Uncaught ReferenceError: regeneratorRuntime is not defined
     at doctor.js?26ed:60
     at Object.&lt;anonymous&gt; (zrk_doctor_doctor_root.bundle.js:9522)
     at Object.exports.__esModule (zrk_doctor_doctor_root.bundle.js:9652)
@@ -2804,8 +2806,9 @@ webpackJsonpCallback @ doctor_third.bundle.js:26
     at Object.&lt;anonymous&gt; (root.js:19)
     at __webpack_require__ (bootstrap 7befce6a489d409de85e:693)
 </code></pre></div>
+
 <p>出错的地方在<code>docotr.js</code>文件下</p>
-<div class="highlight"><pre><span></span><code>//体格数据
+<div class="codehilite"><pre><span></span><code>//体格数据
 export async function get_growth(patient_id) {
     return request(config.user_api_ip, &#39;/patient/growth/list&#39;, {patient_id}, &quot;GET&quot;, true);
 }
@@ -2818,9 +2821,10 @@ export async function get_birth(patient_id) {
     return request(config.user_api_ip, &#39;/patient/birth&#39;, {patient_id}, &quot;GET&quot;, true);
 }
 </code></pre></div>
+
 <p>把<code>async</code>去掉就可以了！</p>
 <h3 id="bug_8">BUG<a class="headerlink" href="#bug_8" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>Uncaught (in promise) Error: Objects are not valid as a React child (found: object with keys {status}). If you meant to render a collection of children, use an array instead or wrap the object using createFragment(object) from the React add-ons.
+<div class="codehilite"><pre><span></span><code>Uncaught (in promise) Error: Objects are not valid as a React child (found: object with keys {status}). If you meant to render a collection of children, use an array instead or wrap the object using createFragment(object) from the React add-ons.
     at invariant (invariant.js:44)
     at traverseAllChildrenImpl (traverseAllChildren.js:144)
     at traverseAllChildren (traverseAllChildren.js:172)
@@ -2832,12 +2836,14 @@ export async function get_birth(patient_id) {
     at Object.mountComponent (ReactReconciler.js:46)
     at ReactDOMComponent.mountChildren (ReactMultiChild.js:238)
 </code></pre></div>
+
 <p>解决办法：</p>
-<div class="highlight"><pre><span></span><code>https://stackoverflow.com/questions/34919111/how-to-debug-this-error-uncaught-in-promise-error-objects-are-not-valid-as-a
+<div class="codehilite"><pre><span></span><code>https://stackoverflow.com/questions/34919111/how-to-debug-this-error-uncaught-in-promise-error-objects-are-not-valid-as-a
 </code></pre></div>
+
 <h3 id="bug_9">BUG<a class="headerlink" href="#bug_9" title="Permanent link">&para;</a></h3>
 <p>如果一个包安装了很多次还是会出现不能加载的resolve的bug，有可能会是需要安装制定版本的包 下面是npm 的常用命令</p>
-<div class="highlight"><pre><span></span><code>npm install &lt;name&gt;安装nodejs的依赖包
+<div class="codehilite"><pre><span></span><code>npm install &lt;name&gt;安装nodejs的依赖包
 例如npm install express 就会默认安装express的最新版本，也可以通过在后面加版本号的方式安装指定版本，如npm install express@3.0.6
 npm install &lt;name&gt; -g  将包安装到全局环境中
 但是代码中，直接通过require()的方式是没有办法调用全局安装的包的。全局的安装是供命令行使用的，就好像全局安装了vmarket后，就可以在命令行中直接运行vm命令
@@ -2852,33 +2858,37 @@ npm root 查看当前包的安装路径
 npm root -g  查看全局的包的安装路径
 npm help  帮助，如果要单独查看install命令的帮助，可以使用的npm help install
 </code></pre></div>
+
 <h3 id="bug_10">BUG<a class="headerlink" href="#bug_10" title="Permanent link">&para;</a></h3>
 <p>Babel 6 regeneratorRuntime is not defined</p>
 <p>解决办法：</p>
 <p>首先babel基础包(不安装额外东西)并不是支持完整的es6语言，加上浏览器也不是支持所有的es6语言，如果你写的es6语言刚好撞上这样的情况了.</p>
-<div class="highlight"><pre><span></span><code>那么就需要babel的拓展包(Polyfill),网址链接描述
+<div class="codehilite"><pre><span></span><code>那么就需要babel的拓展包(Polyfill),网址链接描述
 
 这是一个补完babel支持es6的拓展包，配置步骤为3个
 1.打开命令行键入 npm install --save-dev babel-polyfill 安装polyfill
 2.在webpack.config.js中最上面写上var babelpolyfill = require(&quot;babel-polyfill&quot;);
 3.在自己的项目js文件中最开头写上import &quot;babel-polyfill&quot;;
 </code></pre></div>
+
 <p>上面是网上的解决版本。
 链接:
 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fsegmentfault.com%2Fq%2F1010000006801859">ES6 写法报错regeneratorRuntime is not defined</a>
 扩展:
 <a href="https://links.jianshu.com/go?to=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F33527653%2Fbabel-6-regeneratorruntime-is-not-defined">StackOverFlow Babel 6 regeneratorRuntime is not defined</a>
 我这边的解决办法</p>
-<div class="highlight"><pre><span></span><code>        recordPatientBitrth: [&quot;regenerator-runtime/runtime&quot;, path.join(PATHS.entry, &#39;RecordPatientBirth.js&#39;)],
+<div class="codehilite"><pre><span></span><code>        recordPatientBitrth: [&quot;regenerator-runtime/runtime&quot;, path.join(PATHS.entry, &#39;RecordPatientBirth.js&#39;)],
 </code></pre></div>
+
 <p>在入口的地方添加regenerator-runtime/runtime以申明！</p>
 <h3 id="bug_11">BUG<a class="headerlink" href="#bug_11" title="Permanent link">&para;</a></h3>
 <p>Cannot read property 'split' of undefine</p>
 <p>这个问题你应该调用调用的split是否为空，空的话就会报错，就像下面的例子，item.body为空就会报这个错，恩，低级错误。</p>
-<div class="highlight"><pre><span></span><code>let arr = item.body.splic(&#39;,&#39;);
+<div class="codehilite"><pre><span></span><code>let arr = item.body.splic(&#39;,&#39;);
 </code></pre></div>
+
 <h3 id="bug_12">BUG<a class="headerlink" href="#bug_12" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>rror: Couldn&#39;t find preset &quot;env&quot; relative to directory &quot;/Users/name/plugin/7ada6103-7315-4c24-93f3-4a3a6a0fa7ee&quot;
+<div class="codehilite"><pre><span></span><code>rror: Couldn&#39;t find preset &quot;env&quot; relative to directory &quot;/Users/name/plugin/7ada6103-7315-4c24-93f3-4a3a6a0fa7ee&quot;
     at /Users/name/project/node_modules/babel-core/lib/transformation/file/options/option-manager.js:293:19
     at Array.map (native)
     at OptionManager.resolvePresets (/Users/name/project/node_modules/babel-core/lib/transformation/file/options/option-manager.js:275:20)
@@ -2890,13 +2900,14 @@ npm help  帮助，如果要单独查看install命令的帮助，可以使用的
     at Pipeline.transform (/Users/name/project/node_modules/babel-core/lib/transformation/pipeline.js:46:16)
     at BabelCompiler.compileSync (/Users/name/project/node_modules/electron-compilers/lib/js/babel.js:76:26)
 </code></pre></div>
+
 <p>解决方案<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2Fbabel%2Fbabel-preset-env%2Fissues%2F186">：stackOverFlow</a></p>
 <h3 id="bug_13">BUG<a class="headerlink" href="#bug_13" title="Permanent link">&para;</a></h3>
 <p>VM20008:7 Warning: setState(...): Cannot update during an existing state transition (such as within <code>render</code> or another component's constructor). Render methods should be a pure function of props and state; constructor side-effects are an anti-pattern, but can be moved to <code>componentWillMount</code>.</p>
 <p>这个错误的出现往往都是直接浏览器直接卡爆了，出现问题的原因其实非常简单。</p>
 <p>你在render方法里面进行了state的操作，造成的结果就是一直在不断的render，值得卡爆！</p>
 <p>还有一个错误也是描述这个的。</p>
-<div class="highlight"><pre><span></span><code>ReactDebugTool.js:173 Uncaught (in promise) RangeError: Maximum call stack size exceeded
+<div class="codehilite"><pre><span></span><code>ReactDebugTool.js:173 Uncaught (in promise) RangeError: Maximum call stack size exceeded
    at resumeCurrentLifeCycleTimer (ReactDebugTool.js:173)
    at ReactReconcileTransaction.onEndFlush (ReactDebugTool.js:280)
    at ReactReconcileTransaction.closeAll (Transaction.js:206)
@@ -2908,8 +2919,9 @@ npm help  帮助，如果要单独查看install命令的帮助，可以使用的
    at ReactUpdatesFlushTransaction.closeAll (Transaction.js:206)
    at ReactUpdatesFlushTransaction.perform (Transaction.js:153)
 </code></pre></div>
+
 <p>下面是错误代码：</p>
-<div class="highlight"><pre><span></span><code>&lt;Modal
+<div class="codehilite"><pre><span></span><code>&lt;Modal
        visible={this.state.visible}
        onClose={this.onClickCloseImage()}
        transparent
@@ -2919,21 +2931,25 @@ npm help  帮助，如果要单独查看install命令的帮助，可以使用的
       &lt;/div&gt;
 &lt;/Modal&gt;
 </code></pre></div>
+
 <p>比如你在一个Modal里直接调用方法<code>onClose={this.onClickCloseImage()}</code>,然后在这个方法里还修改了<code>state</code>:</p>
-<div class="highlight"><pre><span></span><code>onClickCloseImage(){
+<div class="codehilite"><pre><span></span><code>onClickCloseImage(){
     this.setState({
       visible: false
     });
   }
 </code></pre></div>
+
 <p>接着就是爆炸了。解决的办法很简单。</p>
-<div class="highlight"><pre><span></span><code>onClose={this.onClickCloseImage.bind(this)}
+<div class="codehilite"><pre><span></span><code>onClose={this.onClickCloseImage.bind(this)}
 </code></pre></div>
+
 <p>改调用为绑定，或者如果你在构造函数<code>constructor</code>里进行了绑定</p>
-<div class="highlight"><pre><span></span><code>this.onClickCloseImage = this.onClickCloseImage.bind(this)
+<div class="codehilite"><pre><span></span><code>this.onClickCloseImage = this.onClickCloseImage.bind(this)
 </code></pre></div>
+
 <p>那下面调用的地方就改成传函数名.</p>
-<div class="highlight"><pre><span></span><code>&lt;Modal
+<div class="codehilite"><pre><span></span><code>&lt;Modal
        visible={this.state.visible}
        onClose={this.onClickCloseImage}
        transparent
@@ -2943,35 +2959,39 @@ npm help  帮助，如果要单独查看install命令的帮助，可以使用的
        &lt;/div&gt;
 &lt;/Modal&gt;
 </code></pre></div>
+
 <h3 id="bug_14">BUG<a class="headerlink" href="#bug_14" title="Permanent link">&para;</a></h3>
 <p>Warning: Each child in an array or iterator should have a unique "key" prop.</p>
-<div class="highlight"><pre><span></span><code>warning.js:33 Warning: Each child in an array or iterator should have a unique &quot;key&quot; prop. Check the render method of `OrderTypeContainer`. See https://fb.me/react-warning-keys for more information.
+<div class="codehilite"><pre><span></span><code>warning.js:33 Warning: Each child in an array or iterator should have a unique &quot;key&quot; prop. Check the render method of `OrderTypeContainer`. See https://fb.me/react-warning-keys for more information.
     in ul (created by OrderTypeContainer)
     in OrderTypeContainer (created by RouterContext)
     in RouterContext (created by Router)
     in Router
 </code></pre></div>
+
 <p>这个<code>BUG</code>或者说是警告的信息可以直接在它给出的连接地址里找到问题的答案，这里我也列举一下为什么我们要给遍历的元素添加一个<code>key</code>的键。是因为：
-**键可帮助React识别哪些项目已更改，添加或删除，**所以需要。</p>
+<strong>键可帮助React识别哪些项目已更改，添加或删除，</strong>所以需要。</p>
 <p>解决办法：你可以用你数据的<code>id</code>来设置</p>
-<div class="highlight"><pre><span></span><code>const todoItems = todos.map((todo) =&gt;
+<div class="codehilite"><pre><span></span><code>const todoItems = todos.map((todo) =&gt;
   &lt;li key={todo.id}&gt;
     {todo.text}
   &lt;/li&gt;
 );
 </code></pre></div>
+
 <p>如果没有的话，你也可以设置<code>map</code>的。</p>
-<div class="highlight"><pre><span></span><code>const todoItems = todos.map((todo, index) =&gt;
+<div class="codehilite"><pre><span></span><code>const todoItems = todos.map((todo, index) =&gt;
   // Only do this if items have no stable IDs
   &lt;li key={index}&gt;
     {todo.text}
   &lt;/li&gt;
 );
 </code></pre></div>
+
 <p>但是如果你有操作项目顺序的需求，就不推荐这种做法了。这可能会对性能产生负面影响，并可能导致组件状态问题。</p>
 <h4 id="_1">如果需要通过键来提取组件的话。<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
 <p>不推荐的</p>
-<div class="highlight"><pre><span></span><code>function ListItem(props) {
+<div class="codehilite"><pre><span></span><code>function ListItem(props) {
   const value = props.value;
   return (
     // Wrong! There is no need to specify the key here:
@@ -2994,8 +3014,9 @@ function NumberList(props) {
   );
 }
 </code></pre></div>
+
 <p>推荐的写法：</p>
-<div class="highlight"><pre><span></span><code>function ListItem(props) {
+<div class="codehilite"><pre><span></span><code>function ListItem(props) {
   // Correct! There is no need to specify the key here:
   return &lt;li&gt;{props.value}&lt;/li&gt;;
 }
@@ -3015,10 +3036,11 @@ function NumberList(props) {
   );
 }
 </code></pre></div>
+
 <p>这个key值必须在<code>list</code>中，必须是唯一的。同时要记住，如果你本来就想要这个值，那么你必须用另外的一个明确的值来传递，而不能获取这个<code>key</code>.</p>
 <h3 id="scss">使用SCSS造成样式冲突的问题<a class="headerlink" href="#scss" title="Permanent link">&para;</a></h3>
 <p>非常抱歉，我并没有找到一个好的办法，我的做法是每一个SCSS文件都使用它独有的开头来做标记。</p>
-<div class="highlight"><pre><span></span><code>@import &quot;../../../../static/css/commons/base_layout&quot;;
+<div class="codehilite"><pre><span></span><code>@import &quot;../../../../static/css/commons/base_layout&quot;;
 .header_container {
   @extend .base_column;
   background-color: $buttonColor;
@@ -3031,6 +3053,7 @@ function NumberList(props) {
 
 ...
 </code></pre></div>
+
 <p>比如这个<code>header.scss</code>的文件，我们可以用<code>header</code>来开头，原则就是你的这个命名名称是独一无二的就可以，大家有好的办法记得分享给我，谢谢！</p>
 <p>[access] This app has crashed because it attempted to access privacy-sensitive data without a usage description. The app's Info.plist must contain an NSCameraUsageDescription key with a string value explaining to the user how the app uses this data.</p>
 <p>Message from debugger: Terminated due to signal 9</p>
@@ -3043,7 +3066,7 @@ OK...</p>
 <h3 id="typeerror">TypeError<a class="headerlink" href="#typeerror" title="Permanent link">&para;</a></h3>
 <p>undefined is not a function (evaluating '_iterator<a href="https://www.jianshu.com/p/28534cc5b757">typeof Symbol === 'function' ? Symbol.iterator : '@@iterator'</a>')</p>
 <p>出现这个问题是因为<code>react native</code>不支持遍历的问题，例如下面的代码：</p>
-<div class="highlight"><pre><span></span><code>for (let [index, data] of current_month_data.entries()) {
+<div class="codehilite"><pre><span></span><code>for (let [index, data] of current_month_data.entries()) {
             for (let value of data) {
                 if ( value.day === this.props.day &amp;&amp;
                     value.month === this.props.month ) {
@@ -3052,18 +3075,20 @@ OK...</p>
             }
         }
 </code></pre></div>
+
 <p>你需要把它改成传统的<code>for</code>循环就好了：</p>
-<div class="highlight"><pre><span></span><code>for(let i = 0;i&lt;current_month_data.length;i++){
+<div class="codehilite"><pre><span></span><code>for(let i = 0;i&lt;current_month_data.length;i++){
             let value = current_month_data[i];
             if(value.day === this.props.day &amp;&amp; value.month === this.props.month){
                 return i;
             }
         }
 </code></pre></div>
+
 <h3 id="_2">错误<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>ReactNative: Exception in native call com.facebook.react.uimanager.IllegalViewOperationException: Unexpected view type nested under text node: class com.facebook.react.uimanager.LayoutShadowNode</p>
 <p>完整错误是这样的：</p>
-<div class="highlight"><pre><span></span><code>07-03 22:47:55.157 31157-3931/com.zrk_user_client E/unknown:ReactNative: Exception in native call
+<div class="codehilite"><pre><span></span><code>07-03 22:47:55.157 31157-3931/com.zrk_user_client E/unknown:ReactNative: Exception in native call
                                                                          com.facebook.react.uimanager.IllegalViewOperationException: Unexpected view type nested under text node: class com.facebook.react.uimanager.LayoutShadowNode
                                                                              at com.facebook.react.views.text.ReactBaseTextShadowNode.buildSpannedFromShadowNode(ReactBaseTextShadowNode.java:107)
                                                                              at com.facebook.react.views.text.ReactBaseTextShadowNode.spannedFromShadowNode(ReactBaseTextShadowNode.java:182)
@@ -3095,8 +3120,9 @@ OK...</p>
                                                                              at com.facebook.react.bridge.queue.MessageQueueThreadImpl$3.run(MessageQueueThreadImpl.java:192)
                                                                              at java.lang.Thread.run(Thread.java:761)
 </code></pre></div>
+
 <p>这个bug真的很懵逼，定位不到在哪里，所以这里提供一个思路，那就是注释代码，注释你<code>render</code>里的代码，哪行错误找哪里。而造成上面错误的原因是因为：</p>
-<div class="highlight"><pre><span></span><code>//星期标题
+<div class="codehilite"><pre><span></span><code>//星期标题
     _renderWeekHeader() {
         return (
             &lt;Text ref=&quot;header&quot;
@@ -3108,31 +3134,36 @@ OK...</p>
         );
     }
 </code></pre></div>
+
 <p>我把View这里替换成了Text。</p>
 <p>07-04 00:28:15.008 31157-6351/com.zrk_user_client E/unknown:ReactNative: Exception in native call java.lang.RuntimeException: Cannot add a child that doesn't have a YogaNode to a parent without a measure function! (Trying to add a 'RCTRawText</p>
 <p>这个错误高级了，你猜是啥不？
 因为你在布局里添加了注释代码</p>
-<div class="highlight"><pre><span></span><code>&lt;View&gt;
+<div class="codehilite"><pre><span></span><code>&lt;View&gt;
    //TODO 缺一个Modal
 &lt;/View&gt;
 </code></pre></div>
+
 <h3 id="error-command-failed-yarn-add-react-native-exact">Error: Command failed: yarn add react-native --exact 初始化错误<a class="headerlink" href="#error-command-failed-yarn-add-react-native-exact" title="Permanent link">&para;</a></h3>
 <p>解决方案：</p>
-<div class="highlight"><pre><span></span><code>npm config set registry https://registry.npm.taobao.org
+<div class="codehilite"><pre><span></span><code>npm config set registry https://registry.npm.taobao.org
 npm config set disturl https://npm.taobao.org/dist
 </code></pre></div>
+
 <p>如果不行，我们可以在init的时候制定版本号，就像这样：</p>
-<div class="highlight"><pre><span></span><code>react-native init demo --verbose --version 0.38.0
+<div class="codehilite"><pre><span></span><code>react-native init demo --verbose --version 0.38.0
 </code></pre></div>
+
 <p>Realm数据库IOS端下载不下来，xcode一直在build</p>
 <p>解决方案，手动下载，然后复制进去。</p>
 <h3 id="configh-file-not-found">'config.h' file not found<a class="headerlink" href="#configh-file-not-found" title="Permanent link">&para;</a></h3>
 <p><img alt="img" src="https://upload-images.jianshu.io/upload_images/788601-7b6437f795690fd6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" /></p>
 <p>QQ20180718-180605.png</p>
 <p>解决办法：</p>
-<div class="highlight"><pre><span></span><code>cd node_modules/react-native/third-party/glog-0.3.4
+<div class="codehilite"><pre><span></span><code>cd node_modules/react-native/third-party/glog-0.3.4
 ../../scripts/ios-configure-glog.sh
 </code></pre></div>
+
 <p>跑上面的命令。</p>
 <h3 id="error">Error<a class="headerlink" href="#error" title="Permanent link">&para;</a></h3>
 <p>JSON value '<null>' of type NSNull cannot be converted to NSString</p>
@@ -3140,11 +3171,12 @@ npm config set disturl https://npm.taobao.org/dist
 <p>话说现在百度真是越来越堕落了，简直不能忍啊。</p>
 <p>出这个问题是我们不能把值<code>null</code>转为<code>string</code>,所以报错了，处理也非常简单，只需要判断是否为空，就可以搞定，我们
 经常发生这个错误的地方就是:</p>
-<div class="highlight"><pre><span></span><code> &lt;Image style={styles.image_style} source={{uri:avatar}}&gt;&lt;/Image&gt;
+<div class="codehilite"><pre><span></span><code> &lt;Image style={styles.image_style} source={{uri:avatar}}&gt;&lt;/Image&gt;
 </code></pre></div>
+
 <p>如果这个值是<code>null</code>,那么就会报这个错误。
 这里也分享给大家一个我们用的工具，可以用来判断是否为空：</p>
-<div class="highlight"><pre><span></span><code>/**
+<div class="codehilite"><pre><span></span><code>/**
  * 判断是否为空
  */
 export default class StringUtils {

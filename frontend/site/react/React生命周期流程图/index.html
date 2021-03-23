@@ -226,7 +226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../about/readme.md" class="md-nav__link">
+      <a href="../../about/" class="md-nav__link">
         关于我
       </a>
     </li>
@@ -1609,42 +1609,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../project/%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
-        真实项目webpack配置解析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
-        webpack编译原理分析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
-        webpack的高级技巧
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../project/React%20%26%20Webpack/" class="md-nav__link">
         React & Webpack
       </a>
@@ -2289,7 +2253,7 @@
                 <h2 id="_1">组件创建时的生命周期<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <h3 id="static-getderivedstatefrompropsnextprops-prevstate">static getDerivedStateFromProps(nextProps, prevState)<a class="headerlink" href="#static-getderivedstatefrompropsnextprops-prevstate" title="Permanent link">&para;</a></h3>
 <p>该周期函数接收两个参数，新的属性作为第一个参数，先前的状态作为第二个参数。当函数返回 null 时，代表新的属性不需要更新状态；当函数返回了一个对象，对象中的属性则会被更新到 State 中。如下：</p>
-<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="nx">getDerivedStateFromProps</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">prevState</span><span class="p">)</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="k">static</span> <span class="nx">getDerivedStateFromProps</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">prevState</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">prevState</span><span class="p">.</span><span class="nx">currentId</span> <span class="err">！</span><span class="o">==</span> <span class="nx">nextProps</span><span class="p">.</span><span class="nx">itemId</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">{</span>
       <span class="nx">currentId</span><span class="o">:</span> <span class="nx">nextProps</span><span class="p">.</span><span class="nx">itemId</span>
@@ -2298,6 +2262,7 @@
   <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p>上图意思是，当新属性中的 itemId 与当前 State 的 currentId 不一致时，则执行 currentId 状态的更新，否则返回 null，不执行任何的更新。
  简单来说，如果你的组件中，接收新的属性不需要触发状态的更新，可以忽略该函数，或在该函数中直接返回 null。
  值得一提的是，该周期函数<code>getDerivedStateFromProps(){...}</code>是一个静态函数，无法访问组件的实例 this，所以在该函数中没办法访问 this.props 和 this.state。</p>
@@ -2319,7 +2284,7 @@
 </blockquote>
 <p>如果定义了这一生命周期方法，一个类组件将成为一个错误边界组件。我们可以在错误边界组件捕获到 JavaScript 错误的时候，显示回退的用户界面。</p>
 <p>以下是一个错误边界组件</p>
-<div class="highlight"><pre><span></span><code>class ErrorBoundary extends React.Component {
+<div class="codehilite"><pre><span></span><code>class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false };
@@ -2341,11 +2306,13 @@
   }
 }
 </code></pre></div>
+
 <p>然后将它作为常规组件</p>
-<div class="highlight"><pre><span></span><code>&lt;ErrorBoundary&gt;
+<div class="codehilite"><pre><span></span><code>&lt;ErrorBoundary&gt;
   &lt;MyWidget /&gt;
 &lt;/ErrorBoundary&gt;
 </code></pre></div>
+
 <p>该 componentDidCatch 方法的工作方式类似于 JavaScript catch {} 块，但它一个适用于组件的 catch 块。实际上，大多数情况下，我们只需要声明一次错误边界组件，并在整个应用程序中使用它。
  请注意，<strong>错误边界仅捕获组件树中处于它们子层级组件中的错误</strong>，错误边界本身的错误无法捕获。如果错误边界组件自身报错，则错误将传播到其上方最接近的错误边界。</p>
                 

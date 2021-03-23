@@ -226,7 +226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../about/readme.md" class="md-nav__link">
+      <a href="../../about/" class="md-nav__link">
         关于我
       </a>
     </li>
@@ -1631,42 +1631,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../project/%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
-        真实项目webpack配置解析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
-        webpack编译原理分析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
-        webpack的高级技巧
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../project/React%20%26%20Webpack/" class="md-nav__link">
         React & Webpack
       </a>
@@ -2335,16 +2299,17 @@
 <p>React15.3中新加了一个 <code>PureComponent</code> 类，顾名思义， <code>pure</code> 是纯的意思， <code>PureComponent</code> 也就是纯组件，取代其前身 <code>PureRenderMixin</code> , <code>PureComponent</code> 是优化 <code>React</code> 应用程序最重要的方法之一，易于实施，只要把继承类从 <code>Component</code> 换成 <code>PureComponent</code> 即可，可以减少不必要的 <code>render</code> 操作的次数，从而提高性能，而且可以少写 <code>shouldComponentUpdate</code> 函数，节省了点代码。</p>
 <h2 id="_2">原理<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>当组件更新时，如果组件的 <code>props</code> 和 <code>state</code> 都没发生改变， <code>render</code> 方法就不会触发，省去 <code>Virtual DOM</code> 的生成和比对过程，达到提升性能的目的。具体就是 <code>React</code> 自动帮我们做了一层浅比较：</p>
-<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_compositeType</span> <span class="o">===</span> <span class="nx">CompositeTypes</span><span class="p">.</span><span class="nx">PureClass</span><span class="p">)</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_compositeType</span> <span class="o">===</span> <span class="nx">CompositeTypes</span><span class="p">.</span><span class="nx">PureClass</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">shouldUpdate</span> <span class="o">=</span> <span class="o">!</span><span class="nx">shallowEqual</span><span class="p">(</span><span class="nx">prevProps</span><span class="p">,</span> <span class="nx">nextProps</span><span class="p">)</span>
   <span class="o">||</span> <span class="o">!</span><span class="nx">shallowEqual</span><span class="p">(</span><span class="nx">inst</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="nx">nextState</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p>而 <code>shallowEqual</code> 又做了什么呢？会比较 <code>Object.keys(state | props)</code> 的长度是否一致，每一个 <code>key</code> 是否两者都有，并且是否是一个引用，也就是只比较了第一层的值，确实很浅，所以深层的嵌套数据是对比不出来的。</p>
 <h2 id="_3">使用指南<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <h3 id="_4">易变数据不能使用一个引用<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>案例：</p>
-<div class="highlight"><pre><span></span><code>class App extends PureComponent {
+<div class="codehilite"><pre><span></span><code>class App extends PureComponent {
   state = {
     items: [1, 2, 3]
   }
@@ -2363,33 +2328,38 @@
   }
 }
 </code></pre></div>
+
 <p>会发现，无论怎么点 <code>delete</code> 按钮， <code>li</code> 都不会变少，因为 <code>items</code> 用的是一个引用， <code>shallowEqual</code> 的结果为 <code>true</code> 。改正：</p>
-<div class="highlight"><pre><span></span><code>handleClick = () =&gt; {
+<div class="codehilite"><pre><span></span><code>handleClick = () =&gt; {
   const { items } = this.state;
   items.pop();
   this.setState({ items: [].concat(items) });
 }
 </code></pre></div>
+
 <p>这样每次改变都会产生一个新的数组，也就可以 <code>render</code> 了。这里有一个矛盾的地方，如果没有 <code>items.pop();</code> 操作，每次 <code>items</code> 数据并没有变，但还是 <code>render</code> 了，这不就很操蛋么？呵呵，数据都不变，你 <code>setState</code> 干嘛？</p>
 <h3 id="_5">不变数据使用一个引用<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <h4 id="_6">子组件数据<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <p>上面易变数据不能使用一个引用的案例中有一个点击删除操作，如果我们删除的代码这么写：</p>
-<div class="highlight"><pre><span></span><code>handleClick = () =&gt; {
+<div class="codehilite"><pre><span></span><code>handleClick = () =&gt; {
   const { items } = this.state;
   items.splice(items.length - 1, 1);
   this.setState({ items });
 }
 </code></pre></div>
+
 <p><code>items</code> 的引用也是改变的，但如果 <code>items</code> 里面是引用类型数据：</p>
-<div class="highlight"><pre><span></span><code>items: [{a: 1}, {a: 2}, {a: 3}]
+<div class="codehilite"><pre><span></span><code>items: [{a: 1}, {a: 2}, {a: 3}]
 </code></pre></div>
+
 <p>这个时候</p>
-<div class="highlight"><pre><span></span><code>state.items[0] === nextState.items[0] // false
+<div class="codehilite"><pre><span></span><code>state.items[0] === nextState.items[0] // false
 </code></pre></div>
+
 <p>子组件里还是<code>re-render</code>了。这样就需要我们保证不变的子组件数据的引用不能改变。这个时候可以使用<a href="https://facebook.github.io/immutable-js/">immutable-js</a>函数库。</p>
 <h4 id="_7">函数属性<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
 <p>我们在给组件传一个函数的时候，有时候总喜欢:</p>
-<div class="highlight"><pre><span></span><code>// 1
+<div class="codehilite"><pre><span></span><code>// 1
 &lt;MyInput onChange={e =&gt; this.props.update(e.target.value)} /&gt;
 // 2
 update(e) {
@@ -2399,8 +2369,9 @@ render() {
   return &lt;MyInput onChange={this.update.bind(this)} /&gt;
 }
 </code></pre></div>
+
 <p>由于每次 <code>render</code> 操作 <code>MyInput</code> 组件的 <code>onChange</code> 属性都会返回一个新的函数，由于引用不一样，所以父组件的 <code>render</code> 也会导致 <code>MyInput</code> 组件的 <code>render</code> ，即使没有任何改动，所以需要尽量避免这样的写法，最好这样写：</p>
-<div class="highlight"><pre><span></span><code>// 1,2
+<div class="codehilite"><pre><span></span><code>// 1,2
 update = (e) =&gt; {
   this.props.update(e.target.value)
 }
@@ -2408,9 +2379,10 @@ render() {
   return &lt;MyInput onChange={this.update} /&gt;
 }
 </code></pre></div>
+
 <h4 id="_8">空对象、空数组或固定对象<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
 <p>有时候后台返回的数据中，数组长度为0或者对象没有属性会直接给一个 <code>null</code> ，这时候我们需要做一些容错：</p>
-<div class="highlight"><pre><span></span><code>class App extends PureComponent {
+<div class="codehilite"><pre><span></span><code>class App extends PureComponent {
   state = {
     items: [{ name: &#39;test1&#39; }, null, { name: &#39;test3&#39;  }]
   }
@@ -2430,15 +2402,17 @@ render() {
   }
 }
 </code></pre></div>
+
 <p>当某一个子组件调用 <code>store</code> 函数改变了自己的那条属性，触发 <code>render</code> 操作，如果数据是 <code>null</code> 的话 <code>data</code> 属性每次都是一个 <code>{}</code>，<code>{} ==== {}</code> 是 <code>false</code> 的，这样无端的让这几个子组件重新 <code>render</code> 了。<code>{ color: 'red' }</code>也是一样。</p>
 <p>最好设置一个 <code>defaultValue</code> 为 <code>{}</code>,如下：</p>
-<div class="highlight"><pre><span></span><code>static defaultValue = {}
+<div class="codehilite"><pre><span></span><code>static defaultValue = {}
 const style = { color: &#39;red&#39; };
 &lt;Item style={style} store={this.store} key={k} id={k} data={i || defaultValue} /&gt;
 </code></pre></div>
+
 <h3 id="_9">复杂状态与简单状态不要共用一个组件<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <p>这点可能和 <code>PureComponent</code> 没多少关系，但做的不好可能会浪费很多性能，比如一个页面上面一部分是一个复杂的列表，下面是一个输入框，抽象代码：</p>
-<div class="highlight"><pre><span></span><code>change = (e) =&gt; {
+<div class="codehilite"><pre><span></span><code>change = (e) =&gt; {
   this.setState({ value: e.target.value });
 }
 render() {
@@ -2450,10 +2424,11 @@ render() {
   &lt;/div&gt;)
 }
 </code></pre></div>
+
 <p>表单和列表其实是没有什么关联的，表单的值也可能经常变动，但它的会给列表也带来必然的 <code>diff</code>操作，这是没必要的，最好是给列表抽出成一个单独的 <code>PureComponent</code> 组件，这样 <code>state.items</code>不变的话，列表就不会重新 <code>render</code> 了。</p>
 <h3 id="shouldcomponentupdate">与 <code>shouldComponentUpdate</code> 共存<a class="headerlink" href="#shouldcomponentupdate" title="Permanent link">&para;</a></h3>
 <p>如果 <code>PureComponent</code> 里有 <code>shouldComponentUpdate</code> 函数的话，直接使用 <code>shouldComponentUpdate</code> 的结果作为是否更新的依据，没有 <code>shouldComponentUpdate</code> 函数的话，才会去判断是不是 <code>PureComponent</code> ，是的话再去做 <code>shallowEqual</code> 浅比较。</p>
-<div class="highlight"><pre><span></span><code>// 这个变量用来控制组件是否需要更新
+<div class="codehilite"><pre><span></span><code>// 这个变量用来控制组件是否需要更新
 var shouldUpdate = true;
 // inst 是组件实例
 if (inst.shouldComponentUpdate) {
@@ -2465,13 +2440,15 @@ if (inst.shouldComponentUpdate) {
   }
 }
 </code></pre></div>
+
 <h3 id="_10">老版本兼容写法<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>import React { PureComponent, Component } from &#39;react&#39;;
+<div class="codehilite"><pre><span></span><code>import React { PureComponent, Component } from &#39;react&#39;;
 
 class Foo extends (PureComponent || Component) {
   //...
 }
 </code></pre></div>
+
 <p>这样在老版本的 <code>React</code> 里也不会挂掉。</p>
 <h2 id="_11">总结<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
 <p><code>PureComponent</code> 真正起作用的，只是在一些纯展示组件上，复杂组件用了也没关系，反正 <code>shallowEqual</code> 那一关就过不了，不过记得 <code>props</code> 和 <code>state</code> 不能使用同一个引用哦。</p>

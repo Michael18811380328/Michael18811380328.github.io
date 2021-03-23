@@ -226,7 +226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../about/readme.md" class="md-nav__link">
+      <a href="../../about/" class="md-nav__link">
         关于我
       </a>
     </li>
@@ -1634,42 +1634,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../project/%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
-        真实项目webpack配置解析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
-        webpack编译原理分析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
-        webpack的高级技巧
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../project/React%20%26%20Webpack/" class="md-nav__link">
         React & Webpack
       </a>
@@ -2348,16 +2312,16 @@
 <li><a href="https://blog.csdn.net/nnxxyy1111/article/details/80832525#什么是memoization">什么是memoization?</a></li>
 </ul>
 <h2 id="_1">何时使用派生状态<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p><code>getDerivedStateFromProps</code>的存在只有一个目的。它使组件能够根据**changes in props**的结果更新其内部状态。</p>
+<p><code>getDerivedStateFromProps</code>的存在只有一个目的。它使组件能够根据<strong>changes in props</strong>的结果更新其内部状态。</p>
 <p>根据一般规则——<strong>谨慎使用派生状态</strong>，我们没有提供很多例子。我们所看到的有关派生状态的所有问题最终都可以归结为（1）无条件地更新状态，或者（2）当props和state不匹配时更新state。（我们将在下面详细讨论这两个问题。）</p>
 <h2 id="bug">使用派生状态遇到的常见bug<a class="headerlink" href="#bug" title="Permanent link">&para;</a></h2>
-<p>“受控”和“不受控制”的术语通常指的是表单输入，但他们还可以描述任何组件数据的位置。作为props传递进组件的数据可以被认为是**受控的**（因为父组件控制数据）。只存在于内部状态的数据可以被认为是**不受控制的**（因为父类不能直接更改它）。</p>
+<p>“受控”和“不受控制”的术语通常指的是表单输入，但他们还可以描述任何组件数据的位置。作为props传递进组件的数据可以被认为是<strong>受控的</strong>（因为父组件控制数据）。只存在于内部状态的数据可以被认为是<strong>不受控制的</strong>（因为父类不能直接更改它）。</p>
 <p>派生状态最常见的错误是混合这两个;当一个派生状态值也通过<code>setState</code>被更新时，数据就没有单一的真实来源。</p>
 <p>当这些约束被改变时，就会出现问题。这通常有两种形式。让我们来看看这两种情况。</p>
 <h3 id="propsstate">反模式：无条件得使用props对state赋值<a class="headerlink" href="#propsstate" title="Permanent link">&para;</a></h3>
 <p>一个常见的误解是，当props“改变”时，<code>getDerivedStateFromProps</code>和<code>componentWillReceiveProps</code>才会被调用。事实上，只要父组件重新渲染，这些生命周期函数就会被调用，不管这些props是否与以前“不同”。正因为如此，使用任何一个去 <em>无条件</em> 地覆盖覆盖state都是不安全的。<strong>这样做会导致状态更新丢失。</strong></p>
 <p>让我们看个例子来说明这个问题。这是一个<code>EmailInput</code>组件，该组件通过props “email” 来映射state “email”：</p>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">EmailInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nx">EmailInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
   <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> 
     <span class="nx">email</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">email</span> 
   <span class="p">};</span>
@@ -2377,12 +2341,13 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p>这个组件可能看起来不错。state被初始化为由props指定的值，并且在输入<code>时实时更新state。但是，如果我们的组件的父类重新渲染，我们在</code>输入的任何东西都将丢失！（<a href="https://codesandbox.io/s/m3w9zn1z8x">参见这个演示示例。</a>）即使我们在重置之前比较<code>nextProps.email !== this.state.email</code>，也一样。</p>
 <p>在这个简单的例子中，为了解决这个问题，必须通过添加<code>shouldComponentUpdate</code>，并判断只有prop email发生改变时才重新渲染。然而在实际情况中，组件通常接受多个prop;任何一个prop发生改变都会导致重新运行和不正确的重置。而且对于Function和object类型的prop，<code>shouldComponentUpdate</code>很难判断是否发生了实质性的变化。<a href="https://codesandbox.io/s/jl0w6r9w59">这里有一个演示</a>，<code>shouldComponentUpdate</code>最好作为性能优化使用，而不是为了确保派生状态的正确性。</p>
-<p>希望你现在可以清楚地知道为什么**无条件得使用props对state赋值是一个坏主意**。在回顾可能的解决方案之前，让我们看看一个于此相关的另外一个问题模式：如果我们只在属性email改变时更新状态会怎样？</p>
+<p>希望你现在可以清楚地知道为什么<strong>无条件得使用props对state赋值是一个坏主意</strong>。在回顾可能的解决方案之前，让我们看看一个于此相关的另外一个问题模式：如果我们只在属性email改变时更新状态会怎样？</p>
 <h3 id="propsstate_1">反模式：当props改变时清除state<a class="headerlink" href="#propsstate_1" title="Permanent link">&para;</a></h3>
 <p>继续上边的例子，我们判断只有当<code>props.email</code>发生改变时才去执行更新，以此来避免状态被清除：</p>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">EmailInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nx">EmailInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
   <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">email</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">email</span>
   <span class="p">};</span>
@@ -2399,6 +2364,7 @@
   <span class="c1">// ...</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <blockquote>
 <p>注意</p>
 <p>尽管上面的示例显示了<code>componentWillReceiveProps</code>，但同样的反模式也适用于<code>getDerivedStateFromProps</code></p>
@@ -2409,15 +2375,16 @@
 <h2 id="_2">首选方案<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3 id="_3">推荐: 完全受控组件<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>避免上面提到的问题的一种方法是彻底从组件中删除状态。如果"邮件地址"只是作为属性存在，那么我们就不必担心与状态的冲突。我们甚至可以把<code>EmailInput</code>转换成轻量的函数组件：</p>
-<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">EmailInput</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">EmailInput</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">onChange</span><span class="p">}</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">email</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="mf">123</span>
 </code></pre></div>
+
 <p>这种方法简化了组件的实现，但是如果我们仍然想要储存一个中间值（draft value），那么父表单组件现在就只能手动完成这件事。</p>
 <h3 id="key">推荐: 有"key"的完全非受控组件<a class="headerlink" href="#key" title="Permanent link">&para;</a></h3>
 <p>另一种方案是，让组件完全拥有中间的email状态（draft email state）。在这个示例中，我们的组件仍然接收一个属性用来设置email的初始值，但是却无法接收这个属性之后的变化：</p>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">EmailInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nx">EmailInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
   <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">email</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">defaultEmail</span> <span class="p">};</span>
 
   <span class="nx">handleChange</span> <span class="o">=</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
@@ -2429,12 +2396,14 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p>为了在移动到另一项（如密码管理器场景）时可以重新赋值，我们可以使用“key”这个React的特殊属性。当一个“key”发生变化时，React将创建一个新的组件实例，而不是更新当前的一个实例。“key”通常用于动态列表，但在这里也很有用。在我们的例子中，我们可以使用用户ID在新用户被选中时重新创建"EmailInput"：</p>
-<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">EmailInput</span>
+<div class="codehilite"><pre><span></span><code><span class="o">&lt;</span><span class="nx">EmailInput</span>
   <span class="nx">defaultEmail</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">email</span><span class="p">}</span>
   <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span>
 <span class="err">/&gt;</span>
 </code></pre></div>
+
 <p>每当ID改变时，<code>EmailInput</code>将被重新创建，它的状态将被重置为最新的<code>defaultEmail</code>值(<a href="https://codesandbox.io/s/6v1znlxyxn">示例</a>)。使用这种方法，您不需要向每个输入项添加<code>key</code>。把<code>key</code>放在整个表单上可能更有意义。每次改变时，表单中的所有组件都将用一个新初始化的状态重新创建。</p>
 <p>在大多数情况下，这是处理有重置要求的状态的最好方法。</p>
 <blockquote>
@@ -2443,7 +2412,7 @@
 </blockquote>
 <h4 id="1-id">备选 1: 通过ID属性重置非受控组件<a class="headerlink" href="#1-id" title="Permanent link">&para;</a></h4>
 <p>如果<code>key</code>方案由于某些原因不便使用（比如组件的初始化非常昂贵），一个可行但有点麻烦的解决方案是在<code>getDerivedStateFromProps</code>中观察“userID”的变化：</p>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">EmailInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nx">EmailInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
   <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">email</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">defaultEmail</span><span class="p">,</span>
     <span class="nx">prevPropsUserID</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">userID</span>
@@ -2466,6 +2435,7 @@
 <span class="p">}</span>
 <span class="mf">123456789101112131415161718192021</span>
 </code></pre></div>
+
 <p>这也提供了另一种灵活的处理方案，我们可以有选择的，只重置组件内部的某些状态。(<a href="https://codesandbox.io/s/rjyvp7l3rq">示例</a>)</p>
 <blockquote>
 <p>注意</p>
@@ -2473,7 +2443,7 @@
 </blockquote>
 <h4 id="2">备选 2: 通过实例方法重置非受控组件<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
 <p>比较不常见的情况是，您需要重新设置状态，却没有合适的ID作为<code>key</code>。一种解决方案是在每次想要重置的时候，将“key”重置为一个随机值或自动递增的数字。另一种可行的替代方法是公开实例方法，以强制重置内部状态：</p>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">EmailInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nx">EmailInput</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
   <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">email</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">defaultEmail</span>
   <span class="p">};</span>
@@ -2485,12 +2455,13 @@
   <span class="c1">// ...</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p>父级表单组件可以通过ref调用该方法</p>
 <p>在某些情况下，Refs可能会很有用，但一般来说，我们建议您谨慎地使用它们。即使在示例中，这种命令式方法也是不理想的，因为要发生两次渲染。</p>
 <h3 id="_4">回顾<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>回顾一下，在设计组件时，最重要的是决定它的数据是否需要被控制。</p>
-<p>与其尝试在状态中**镜像一个属性值，不如让组件被控制**，并在某些父组件的状态中合并两个不同的值。例如，与其让子组件既接收一个“committed”属性又要维护一个“draft”的状态，不如让父级组件同时管理两个状态——<code>state.committedValue</code>和<code>state.draftValue</code>——直接控制子组件的值。这使得数据流更加清晰和可预测。</p>
-<p>对于**非受控**的组件，如果您试图在某特定的属性（通常是ID）更改时重置状态，那么您有几个选项：</p>
+<p>与其尝试在状态中<strong>镜像一个属性值，不如让组件被控制</strong>，并在某些父组件的状态中合并两个不同的值。例如，与其让子组件既接收一个“committed”属性又要维护一个“draft”的状态，不如让父级组件同时管理两个状态——<code>state.committedValue</code>和<code>state.draftValue</code>——直接控制子组件的值。这使得数据流更加清晰和可预测。</p>
+<p>对于<strong>非受控</strong>的组件，如果您试图在某特定的属性（通常是ID）更改时重置状态，那么您有几个选项：</p>
 <ul>
 <li><strong>推荐：如果要重置全部内部状态，使用<code>key</code>特性</strong></li>
 <li>备选 1：只重置某些特定的状态字段，关注特定属性的更改（例如<code>props.userID</code>)。</li>
@@ -2500,7 +2471,7 @@
 <p>派生状态可用于确保执行<code>render</code>时使用的值仅在输入发生变化时才会重新计算。这种技术被称为<a href="https://en.wikipedia.org/wiki/Memoization">memoization</a>。</p>
 <p>使用派生状态进行记忆并不一定是不好的，但它通常不是最好的解决方案。管理派生状态存在一定的复杂性，并且这种复杂性会随着附加属性而增加。例如，如果我们向组件状态添加第二个派生字段，那么我们的实现将需要分别跟踪两者的更改。</p>
 <p>我们来看一个例子，这个组件带有一个prop（一个项目列表），并呈现与用户输入的搜索查询匹配的项目。 我们可以使用派生状态来存储过滤后的列表：</p>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">Example</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nx">Example</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
   <span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">filterText</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
   <span class="p">};</span>
@@ -2540,8 +2511,9 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p>这个实现避免了不必要的重新计算<code>filteredList</code>。但我们却做很多啰嗦的工作，因为它必须分别跟踪和检测道具和状态的变化，以便正确更新过滤列表。在这个例子中，我们可以通过使用<code>PureComponent</code>并将过滤器操作移动到渲染方法来简化：</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// PureComponents only rerender if at least one state or prop value changes.</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// PureComponents only rerender if at least one state or prop value changes.</span>
 <span class="c1">// Change is determined by doing a shallow comparison of state and prop keys.</span>
 <span class="kd">class</span> <span class="nx">Example</span> <span class="k">extends</span> <span class="nx">PureComponent</span> <span class="p">{</span>
   <span class="c1">// State only needs to hold the current filter text value:</span>
@@ -2569,8 +2541,9 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p>上面的方法比派生状态版本更清洁和简单。 但是有时，这样并不好——对于大型列表，过滤可能会很慢，如果另一个属性改变，“PureComponent”不会阻止重新渲染。 为了解决这两个问题，我们可以添加一个记忆帮助器，以避免不必要地重新过滤我们的列表：</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nx">memoize</span> <span class="nx">from</span> <span class="s2">&quot;memoize-one&quot;</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nx">memoize</span> <span class="nx">from</span> <span class="s2">&quot;memoize-one&quot;</span><span class="p">;</span>
 
 <span class="kd">class</span> <span class="nx">Example</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
   <span class="c1">// State only needs to hold the current filter text value:</span>
@@ -2599,11 +2572,12 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+
 <p>这非常简单，并且与派生状态版本一样好！</p>
 <p>在使用memoization时，需要注意一些约束：</p>
 <ol>
-<li>在大多数情况下，您需要**将memoized函数附加到组件实例**。这可以防止组件的多个实例重置彼此的memoized key。</li>
-<li>通常情况下，您需要使用具有**可控缓存大小**的记忆辅助程序，以防止随着时间的推移内存泄漏。 （在上面的例子中，我们使用了<code>memoize-one</code>，因为它只缓存最近的参数和结果。）</li>
+<li>在大多数情况下，您需要<strong>将memoized函数附加到组件实例</strong>。这可以防止组件的多个实例重置彼此的memoized key。</li>
+<li>通常情况下，您需要使用具有<strong>可控缓存大小</strong>的记忆辅助程序，以防止随着时间的推移内存泄漏。 （在上面的例子中，我们使用了<code>memoize-one</code>，因为它只缓存最近的参数和结果。）</li>
 <li>如果父组件每次渲染时都重新创建了“props.list”，本节中显示的任何实现都不起作用。但在大多数情况下，这种设置是合适的。</li>
 </ol>
 <h2 id="_5">最后<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>

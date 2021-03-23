@@ -226,7 +226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../about/readme.md" class="md-nav__link">
+      <a href="../../about/" class="md-nav__link">
         关于我
       </a>
     </li>
@@ -1600,42 +1600,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../project/%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
-        真实项目webpack配置解析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
-        webpack编译原理分析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
-        webpack的高级技巧
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../project/React%20%26%20Webpack/" class="md-nav__link">
         React & Webpack
       </a>
@@ -2266,18 +2230,19 @@
                 
                 <h1 id="react">React进阶之高阶组件<a class="headerlink" href="#react" title="Permanent link">&para;</a></h1>
 <h3 id="_1">前言<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
-<p>我们都知道高阶函数是什么, 高阶组件差不多的用法，<mark>传入的参数变成了react组件，并返回一个新的组件</mark></p>
+<p>我们都知道高阶函数是什么, 高阶组件差不多的用法，==传入的参数变成了react组件，并返回一个新的组件==</p>
 <blockquote>
 <p>A higher-order component is a function that takes a component and returns a new component.</p>
 </blockquote>
 <p>形如:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">EnhancedComponent</span> <span class="o">=</span> <span class="nx">higherOrderComponent</span><span class="p">(</span><span class="nx">WrappedComponent</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">EnhancedComponent</span> <span class="o">=</span> <span class="nx">higherOrderComponent</span><span class="p">(</span><span class="nx">WrappedComponent</span><span class="p">);</span>
 </code></pre></div>
+
 <p>高阶组件是react应用中很重要的一部分，最大的特点就是重用组件逻辑。它并不是由React API定义出来的功能，而是由React的组合特性衍生出来的一种设计模式。如果你用过redux，那你就一定接触过高阶组件，因为react-redux中的connect就是一个高阶组件。</p>
 <p>原文<a href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fsunyongjian%2Fblog%2Fissues%2F25">https://github.com/sunyongjian/blog/issues/25</a>
 另外本次demo代码都放在 <a href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fsunyongjian%2Fhoc-demo">https://github.com/sunyongjian/hoc-demo</a></p>
 <p>先来一个最简单的高阶组件</p>
-<div class="highlight"><pre><span></span><code>import React, { Component } from &#39;react&#39;;
+<div class="codehilite"><pre><span></span><code>import React, { Component } from &#39;react&#39;;
 import simpleHoc from &#39;./simple-hoc&#39;;
 
 class Usual extends Component {
@@ -2290,7 +2255,8 @@ class Usual extends Component {
 }
 export default simpleHoc(Usual);
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>import React, { Component } from &#39;react&#39;;
+
+<div class="codehilite"><pre><span></span><code>import React, { Component } from &#39;react&#39;;
 
 const simpleHoc = WrappedComponent =&gt; {
   return class extends Component {
@@ -2303,11 +2269,12 @@ const simpleHoc = WrappedComponent =&gt; {
 // 高阶组件返回的是一个组件(WrappedComponent)，将传入的 props 作为这个组件的 props
 export default simpleHoc;
 </code></pre></div>
+
 <p>组件Usual通过simpleHoc的包装，打了一个log... 那么形如simpleHoc就是一个高阶组件了，通过接收一个组件class Usual，并返回一个组件class。 其实我们可以看到，在这个函数里，我们可以做很多操作。 而且return的组件同样有自己的生命周期，function，另外，我们看到也可以把props传给WrappedComponent(被包装的组件)。 高阶组件的定义我都是用箭头函数去写的，如有不适请参照<a href="https://link.juejin.im/?target=http:%2F%2Fes6.ruanyifeng.com%2F%23docs%2Ffunction%23%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0">arrow function</a></p>
 <h3 id="_2">装饰器模式<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>高阶组件可以看做是装饰器模式(Decorator Pattern)在React的实现。即允许向一个现有的对象添加新的功能，同时又不改变其结构，属于包装模式(Wrapper Pattern)的一种。</p>
 <p>ES7中添加了一个decorator的属性，使用@符表示，可以更精简的书写。那上面的例子就可以改成：</p>
-<div class="highlight"><pre><span></span><code>import React, { Component } from &#39;react&#39;;
+<div class="codehilite"><pre><span></span><code>import React, { Component } from &#39;react&#39;;
 import simpleHoc from &#39;./simple-hoc&#39;;
 
 @simpleHoc
@@ -2322,6 +2289,7 @@ export default class Usual extends Component {
   }
 }
 </code></pre></div>
+
 <p>是同样的效果。
 当然兼容性是存在问题的，通常都是通过babel去编译的。 babel提供了plugin，高阶组件用的是类装饰器，所以用<code>transform-decorators-legacy</code> <a href="https://link.juejin.im/?target=https%3A%2F%2Fbabeljs.io%2Fdocs%2Fplugins%2Ftransform-decorators%2F">babel</a></p>
 <h2 id="_3">两种形式<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
@@ -2331,123 +2299,125 @@ export default class Usual extends Component {
 <li>操作props
   最直观的就是接受到props，我们可以做任何读取，编辑，删除的很多自定义操作。包括hoc中定义的自定义事件，都可以通过props再传下去。</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<p>```js
+  import React, { Component } from 'react';</p>
+<p>const propsProxyHoc = WrappedComponent =&gt; class extends Component {</p>
+<div class="codehilite"><pre><span></span><code>handleClick() {
+  console.log(&#39;click&#39;);
+}
 
-<span class="kd">const</span> <span class="nx">propsProxyHoc</span> <span class="o">=</span> <span class="nx">WrappedComponent</span> <span class="p">=&gt;</span> <span class="kd">class</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
-
-  <span class="nx">handleClick</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="p">(</span><span class="o">&lt;</span><span class="nx">WrappedComponent</span>
-      <span class="p">{...</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">}</span>
-      <span class="nx">handleClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">}</span>
-    <span class="o">/&gt;</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-<span class="k">export</span> <span class="k">default</span> <span class="nx">propsProxyHoc</span><span class="p">;</span>
+render() {
+  return (&lt;WrappedComponent
+    {...this.props}
+    handleClick={this.handleClick}
+  /&gt;);
+}
 </code></pre></div>
+
+<p>};
+  export default propsProxyHoc;
+  ```</p>
 <p>然后我们的Usual组件render的时候, <code>console.log(this.props)</code> 会得到handleClick.</p>
 <ul>
 <li>refs获取组件实例
   当我们包装Usual的时候，想获取到它的实例怎么办，可以通过引用(ref),在Usual组件挂载的时候，会执行ref的回调函数，在hoc中取到组件的实例。通过打印，可以看到它的props， state，都是可以取到的。</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<p>```js
+  import React, { Component } from 'react';</p>
+<p>const refHoc = WrappedComponent =&gt; class extends Component {</p>
+<div class="codehilite"><pre><span></span><code>componentDidMount() {
+  console.log(this.instanceComponent, &#39;instanceComponent&#39;);
+}
 
-<span class="kd">const</span> <span class="nx">refHoc</span> <span class="o">=</span> <span class="nx">WrappedComponent</span> <span class="p">=&gt;</span> <span class="kd">class</span> <span class="k">extends</span> <span class="nx">Component</span> <span class="p">{</span>
-
-  <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">instanceComponent</span><span class="p">,</span> <span class="s1">&#39;instanceComponent&#39;</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="p">(</span><span class="o">&lt;</span><span class="nx">WrappedComponent</span>
-      <span class="p">{...</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">}</span>
-      <span class="nx">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">instanceComponent</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">instanceComponent</span> <span class="o">=</span> <span class="nx">instanceComponent</span><span class="p">}</span>
-    <span class="o">/&gt;</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="k">export</span> <span class="k">default</span> <span class="nx">refHoc</span><span class="p">;</span>
+render() {
+  return (&lt;WrappedComponent
+    {...this.props}
+    ref={instanceComponent =&gt; this.instanceComponent = instanceComponent}
+  /&gt;);
+}
 </code></pre></div>
+
+<p>};</p>
+<p>export default refHoc;
+  ```</p>
 <ul>
 <li>抽离state</li>
 </ul>
 <p>这里不是通过ref获取state， 而是通过 { props, 回调函数 } 传递给wrappedComponent组件，通过回调函数获取state。这里用的比较多的就是react处理表单的时候。通常react在处理表单的时候，一般使用的是受控组件（<a href="https://link.juejin.im/?target=https%3A%2F%2Ffacebook.github.io%2Freact%2Fdocs%2Fforms.html%23controlled-components">文档</a>），即把input都做成受控的，改变value的时候，用onChange事件同步到state中。当然这种操作通过Container组件也可以做到，具体的区别放到后面去比较。看一下代码就知道怎么回事了：</p>
-<div class="highlight"><pre><span></span><code>// 普通组件Login
-import React, { Component } from &#39;react&#39;;
-import formCreate from &#39;./form-create&#39;;
-
-@formCreate
-export default class Login extends Component {
-  render() {
-    return (
-      &lt;div&gt;
-        &lt;div&gt;
-          &lt;label id=&quot;username&quot;&gt;
-            账户
-          &lt;/label&gt;
-          &lt;input name=&quot;username&quot; {...this.props.getField(&#39;username&#39;)}/&gt;
-        &lt;/div&gt;
-        &lt;div&gt;
-          &lt;label id=&quot;password&quot;&gt;
-            密码
-          &lt;/label&gt;
-          &lt;input name=&quot;password&quot; {...this.props.getField(&#39;password&#39;)}/&gt;
-        &lt;/div&gt;
-        &lt;div onClick={this.props.handleSubmit}&gt;提交&lt;/div&gt;
-        &lt;div&gt;other content&lt;/div&gt;
-      &lt;/div&gt;
-    )
+<p>```jsx
+  // 普通组件Login
+  import React, { Component } from 'react';
+  import formCreate from './form-create';</p>
+<p>@formCreate
+  export default class Login extends Component {
+    render() {
+      return (
+        <div>
+          <div>
+            <label id="username">
+              账户
+            </label>
+            <input name="username" {...this.props.getField('username')}/>
+          </div>
+          <div>
+            <label id="password">
+              密码
+            </label>
+            <input name="password" {...this.props.getField('password')}/>
+          </div>
+          <div onClick={this.props.handleSubmit}>提交</div>
+          <div>other content</div>
+        </div>
+      )
+    }
+  }
+  ```</p>
+<p>```jsx
+  //HOC
+  import React, { Component } from 'react';</p>
+<p>const formCreate = WrappedComponent =&gt; class extends Component {</p>
+<div class="codehilite"><pre><span></span><code>constructor() {
+  super();
+  this.state = {
+    fields: {},
   }
 }
+onChange = key =&gt; e =&gt; {
+  const { fields } = this.state;
+  fields[key] = e.target.value;
+  this.setState({
+    fields,
+  })
+}
+handleSubmit = () =&gt; {
+  console.log(this.state.fields);
+}
+getField = fieldName =&gt; {
+  return {
+    onChange: this.onChange(fieldName),
+  }
+}
+render() {
+  const props = {
+    ...this.props,
+    handleSubmit: this.handleSubmit,
+    getField: this.getField,
+  }
+  return (&lt;WrappedComponent
+    {...props}
+  /&gt;);
+}
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>//HOC
-import React, { Component } from &#39;react&#39;;
 
-const formCreate = WrappedComponent =&gt; class extends Component {
-
-  constructor() {
-    super();
-    this.state = {
-      fields: {},
-    }
-  }
-  onChange = key =&gt; e =&gt; {
-    const { fields } = this.state;
-    fields[key] = e.target.value;
-    this.setState({
-      fields,
-    })
-  }
-  handleSubmit = () =&gt; {
-    console.log(this.state.fields);
-  }
-  getField = fieldName =&gt; {
-    return {
-      onChange: this.onChange(fieldName),
-    }
-  }
-  render() {
-    const props = {
-      ...this.props,
-      handleSubmit: this.handleSubmit,
-      getField: this.getField,
-    }
-    return (&lt;WrappedComponent
-      {...props}
-    /&gt;);
-  }
-};
-export default formCreate;
-</code></pre></div>
+<p>};
+  export default formCreate;
+  ```</p>
 <p>这里我们把state，onChange等方法都放到HOC里，其实是遵从的react组件的一种规范，子组件简单，傻瓜，负责展示，逻辑与操作放到Container。比如说我们在HOC获取到用户名密码之后，再去做其他操作，就方便多了，而state，处理函数放到Form组件里，只会让Form更加笨重，承担了本不属于它的工作，这样我们可能其他地方也需要用到这个组件，但是处理方式稍微不同，就很麻烦了。</p>
 <h3 id="_5">反向继承<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>反向继承(Inheritance Inversion)，简称II，本来我是叫继承反转的...因为有个模式叫控制反转嘛...
 跟属性代理的方式不同的是，II采用通过 去继承WrappedComponent，本来是一种嵌套的关系，结果II返回的组件却继承了WrappedComponent，这看起来是一种反转的关系。
 通过继承WrappedComponent，除了一些静态方法，包括生命周期，state，各种function，我们都可以得到。上栗子：</p>
-<div class="highlight"><pre><span></span><code> // usual
+<div class="codehilite"><pre><span></span><code> // usual
 import React, { Component } from &#39;react&#39;;
 import iiHoc from &#39;./ii-hoc&#39;;
 
@@ -2470,7 +2440,8 @@ export default class Usual extends Component {
   }
 }
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>//IIHOC
+
+<div class="codehilite"><pre><span></span><code>//IIHOC
 import React from &#39;react&#39;;
 
 const iiHoc = WrappedComponent =&gt; class extends WrappedComponent {
@@ -2482,11 +2453,12 @@ const iiHoc = WrappedComponent =&gt; class extends WrappedComponent {
 
 export default iiHoc;
 </code></pre></div>
+
 <p>iiHoc return的组件通过继承，拥有了Usual的生命周期及属性，所以didMount会打印，state也通过constructor执行，得到state.usual。
 其实，你还可以通过II：</p>
 <h4 id="_6">渲染劫持<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <p>这里HOC里定义的组件继承了WrappedComponent的render(渲染)，我们可以以此进行hijack(劫持)，也就是控制它的render函数。栗子：</p>
-<div class="highlight"><pre><span></span><code>  //hijack-hoc
+<div class="codehilite"><pre><span></span><code>  //hijack-hoc
   import React from &#39;react&#39;;
 
   const hijackRenderHoc = config =&gt; WrappedComponent =&gt; class extends WrappedComponent {
@@ -2505,12 +2477,14 @@ export default iiHoc;
 
   export default hijackRenderHoc;
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>  //usual
+
+<div class="codehilite"><pre><span></span><code>  //usual
   @hijackRenderHoc({type: &#39;add-style&#39;, style: { color: &#39;red&#39;}})
   class Usual extends Component {
     ...
   }
 </code></pre></div>
+
 <p>我这里通过二阶函数，把config参数预制进HOC， 算是一种柯理化的思想。
 栗子很简单，这个hoc就是添加样式的功能。但是它暴露出来的信息却不少。首先我们可以通过config参数进行逻辑判断，有条件的渲染，当然这个参数的作用很多，react-redux中的connect不就是传入了props-key 嘛。再就是我们还可以拿到WrappedComponent的元素树，可以进行修改操作。最后就是我们通过div包裹，设置了style。但其实具体如何操作还是根据业务逻辑去处理的...</p>
 <p><img alt="element-tree" src="https://user-images.githubusercontent.com/18378034/27580292-bc808a92-5b5c-11e7-9ad4-afec34cab854.png" /></p>
@@ -2526,89 +2500,96 @@ export default iiHoc;
 <p>Container解决不了的时候甚至不太优雅的时候。其实大部分时候包一层Container组件也能做到差不多的效果，比如操作props，渲染劫持。但其实还是有很大区别的。比如我们现在有两个功能的container，添加样式和添加处理函数的，对Usual进行包装。栗子：</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code>//usual
-class Usual extends Component {
-
-  render() {
-    console.log(this.props, &#39;props&#39;);
-    return &lt;div&gt;
-      Usual
-    &lt;/div&gt;
-  }
-};
-export default Usual;
-//console - Object {handleClick: function}  &quot;props&quot;
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>import React, { Component } from &#39;react&#39;;
-import Usual from &#39;./usual&#39;;
-
-class StyleContainer extends Component {
-
-  render() {
-    return (&lt;div style={{ color: &#39;#76d0a3&#39; }}&gt;
-      &lt;div&gt;container&lt;/div&gt;
-      &lt;Usual {...this.props} /&gt;
-    &lt;/div&gt;);
-  }
+<p>```jsx
+  //usual
+  class Usual extends Component {</p>
+<div class="codehilite"><pre><span></span><code>render() {
+  console.log(this.props, &#39;props&#39;);
+  return &lt;div&gt;
+    Usual
+  &lt;/div&gt;
 }
-
-export default StyleContainer;
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>import React, { Component } from &#39;react&#39;;
-import StyleContainer from &#39;./container-add-style&#39;;
 
-class FuncContainer extends Component {
-  handleClick() {
-    console.log(&#39;click&#39;);
-  }
-
-  render() {
-    const props = {
-      ...this.props,
-      handleClick: this.handleClick,
-    };
-    return (&lt;StyleContainer {...props} /&gt;);
-  }
+<p>};
+  export default Usual;
+  //console - Object {handleClick: function}  "props"
+  ```</p>
+<p>```jsx
+  import React, { Component } from 'react';
+  import Usual from './usual';</p>
+<p>class StyleContainer extends Component {</p>
+<div class="codehilite"><pre><span></span><code>render() {
+  return (&lt;div style={{ color: &#39;#76d0a3&#39; }}&gt;
+    &lt;div&gt;container&lt;/div&gt;
+    &lt;Usual {...this.props} /&gt;
+  &lt;/div&gt;);
 }
-
-export default FuncContainer;
 </code></pre></div>
+
+<p>}</p>
+<p>export default StyleContainer;
+  ```</p>
+<p>```jsx
+  import React, { Component } from 'react';
+  import StyleContainer from './container-add-style';</p>
+<p>class FuncContainer extends Component {
+    handleClick() {
+      console.log('click');
+    }</p>
+<div class="codehilite"><pre><span></span><code>render() {
+  const props = {
+    ...this.props,
+    handleClick: this.handleClick,
+  };
+  return (&lt;StyleContainer {...props} /&gt;);
+}
+</code></pre></div>
+
+<p>}</p>
+<p>export default FuncContainer;
+  ```</p>
 <p>外层Container必须要引入内层Container，进行包装，还有props的传递，同样要注意包装的顺序。当然你可以把所有的处理都放到一个Container里。那用HOC怎么处理呢，相信大家有清晰的答案了。</p>
-<div class="highlight"><pre><span></span><code>const addFunc = WrappedComponent =&gt; class extends Component {
-  handleClick() {
-    console.log(&#39;click&#39;);
-  }
-
-  render() {
-    const props = {
-      ...this.props,
-      handleClick: this.handleClick,
-    };
-    return &lt;WrappedComponent {...props} /&gt;;
-  }
-};
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>const addStyle = WrappedComponent =&gt; class extends Component {
-
-  render() {
-    return (&lt;div style={{ color: &#39;#76d0a3&#39; }}&gt;
-      &lt;WrappedComponent {...this.props} /&gt;
-    &lt;/div&gt;);
-  }
-};
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>const WrappenComponent = addStyle(addFunc(Usual));
-
-class WrappedUsual extends Component {
-
-  render() {
-    console.log(this.props, &#39;props&#39;);
-    return (&lt;div&gt;
-      &lt;WrappedComponent /&gt;
-    &lt;/div&gt;);
-  }
+<p>```jsx
+  const addFunc = WrappedComponent =&gt; class extends Component {
+    handleClick() {
+      console.log('click');
+    }</p>
+<div class="codehilite"><pre><span></span><code>render() {
+  const props = {
+    ...this.props,
+    handleClick: this.handleClick,
+  };
+  return &lt;WrappedComponent {...props} /&gt;;
 }
 </code></pre></div>
+
+<p>};
+  ```</p>
+<p>```jsx
+  const addStyle = WrappedComponent =&gt; class extends Component {</p>
+<div class="codehilite"><pre><span></span><code>render() {
+  return (&lt;div style={{ color: &#39;#76d0a3&#39; }}&gt;
+    &lt;WrappedComponent {...this.props} /&gt;
+  &lt;/div&gt;);
+}
+</code></pre></div>
+
+<p>};
+  ```</p>
+<p>```jsx
+  const WrappenComponent = addStyle(addFunc(Usual));</p>
+<p>class WrappedUsual extends Component {</p>
+<div class="codehilite"><pre><span></span><code>render() {
+  console.log(this.props, &#39;props&#39;);
+  return (&lt;div&gt;
+    &lt;WrappedComponent /&gt;
+  &lt;/div&gt;);
+}
+</code></pre></div>
+
+<p>}
+  ```</p>
 <p>显然HOC是更优雅一些的，每个HOC都定义自己独有的处理逻辑，需要的时候只需要去包装你的组件。相较于Container的方式，HOC耦合性更低，灵活性更高，可以自由组合，更适合应付复杂的业务。当然当你的需求很简单的时候，还是用Container去自由组合，应用场景需要你清楚。</p>
 <h3 id="_8">注意点(约束)<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <p>其实官网有很多，简单介绍一下。</p>
@@ -2631,36 +2612,36 @@ class WrappedUsual extends Component {
 <p>不要在render方法内部使用高阶组件。简单来说react的差分算法会去比较 NowElement === OldElement, 来决定要不要替换这个elementTree。也就是如果你每次返回的结果都不是一个引用，react以为发生了变化，去更替这个组件会导致之前组件的状态丢失。</p>
 </li>
 </ul>
-<div class="highlight"><pre><span></span><code> // HOC不要放到render函数里面
+<p>```
+   // HOC不要放到render函数里面</p>
+<p>class WrappedUsual extends Component {</p>
+<div class="codehilite"><pre><span></span><code>render() {
+  const WrappenComponent = addStyle(addFunc(Usual));
 
- class WrappedUsual extends Component {
-
-  render() {
-    const WrappenComponent = addStyle(addFunc(Usual));
-
-    console.log(this.props, &#39;props&#39;);
-    return (&lt;div&gt;
-      &lt;WrappedComponent /&gt;
-    &lt;/div&gt;);
-  }
+  console.log(this.props, &#39;props&#39;);
+  return (&lt;div&gt;
+    &lt;WrappedComponent /&gt;
+  &lt;/div&gt;);
 }
 </code></pre></div>
+
+<p>}
+  ```</p>
 <ul>
 <li>使用compose组合HOC。函数式编程的套路... 例如应用redux中的middleware以增强功能。<a href="https://link.juejin.im/?target=https%3A%2F%2Fgithub.com%2Fsunyongjian%2Fblog%2Fissues%2F21">redux-middleware解析</a></li>
 </ul>
-<div class="highlight"><pre><span></span><code>const addFuncHOC = ...
-const addStyleHOC = ...//省略
-
-const compose = (...funcs) =&gt; component =&gt; {
-  if (funcs.lenght === 0) {
-    return component;
-  }
-  const last = funcs[funcs.length - 1];
-  return funcs.reduceRight((res, cur) =&gt; cur(res), last(component));
-};
-
-const WrappedComponent = compose(addFuncHOC, addStyleHOC)(Usual);
-</code></pre></div>
+<p>```
+  const addFuncHOC = ...
+  const addStyleHOC = ...//省略</p>
+<p>const compose = (...funcs) =&gt; component =&gt; {
+    if (funcs.lenght === 0) {
+      return component;
+    }
+    const last = funcs[funcs.length - 1];
+    return funcs.reduceRight((res, cur) =&gt; cur(res), last(component));
+  };</p>
+<p>const WrappedComponent = compose(addFuncHOC, addStyleHOC)(Usual);
+  ```</p>
                 
               
               

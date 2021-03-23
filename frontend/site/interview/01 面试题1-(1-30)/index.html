@@ -226,7 +226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../about/readme.md" class="md-nav__link">
+      <a href="../../about/" class="md-nav__link">
         关于我
       </a>
     </li>
@@ -1487,42 +1487,6 @@
     <li class="md-nav__item">
       <a href="../../project/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7%E7%90%86%E8%AE%BA/" class="md-nav__link">
         前端监控理论
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
-        真实项目webpack配置解析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
-        webpack编译原理分析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
-        webpack的高级技巧
       </a>
     </li>
   
@@ -2951,12 +2915,12 @@
                 
                 
                 <h1 id="_1">大厂面试题第一部分<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p><a href="https://github.com/Advanced-Frontend/Daily-Interview-Question/blob/master/datum/summary.md">https://github.com/Advanced-Frontend/Daily-Interview-Question/blob/master/datum/summary.md</a></p>
+<p>https://github.com/Advanced-Frontend/Daily-Interview-Question/blob/master/datum/summary.md</p>
 <h2 id="1-react-vue-key">第 1 题：（滴滴、饿了么）写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？<a class="headerlink" href="#1-react-vue-key" title="Permanent link">&para;</a></h2>
 <p>解析：第 1 题</p>
 <p>受楼下答案的一些特殊情况影响，导致很多人都认为key不能"提高"diff速度。在此继续重新梳理一下答案。</p>
 <p>在楼下的答案中，部分讨论都是基于没有key的情况diff速度会更快。确实，这种观点并没有错。没有绑定key的情况下，并且在遍历模板<code>简单</code>的情况下，会导致虚拟新旧节点对比更快，节点也会复用。而这种复用是<code>就地复用</code>，一种<code>鸭子辩型</code>的复用。以下为简单的例子:</p>
-<div class="highlight"><pre><span></span><code>&lt;div id=&quot;app&quot;&gt;
+<div class="codehilite"><pre><span></span><code>&lt;div id=&quot;app&quot;&gt;
     &lt;div v-for=&quot;i in dataList&quot;&gt;{{ i }}&lt;/div&gt;
 &lt;/div&gt;
 var vm = new Vue({
@@ -2966,8 +2930,9 @@ var vm = new Vue({
   }
 })
 </code></pre></div>
+
 <p>以上的例子，v-for的内容会生成以下的dom节点数组，我们给每一个节点标记一个身份id：</p>
-<div class="highlight"><pre><span></span><code>  [
+<div class="codehilite"><pre><span></span><code>  [
     &#39;&lt;div&gt;1&lt;/div&gt;&#39;, // id： A
     &#39;&lt;div&gt;2&lt;/div&gt;&#39;, // id:  B
     &#39;&lt;div&gt;3&lt;/div&gt;&#39;, // id:  C
@@ -2975,12 +2940,13 @@ var vm = new Vue({
     &#39;&lt;div&gt;5&lt;/div&gt;&#39;  // id:  E
   ]
 </code></pre></div>
+
 <blockquote>
 <ol>
 <li>改变dataList数据，进行数据位置替换，对比改变后的数据</li>
 </ol>
 </blockquote>
-<div class="highlight"><pre><span></span><code> vm.dataList = [4, 1, 3, 5, 2] // 数据位置替换
+<div class="codehilite"><pre><span></span><code> vm.dataList = [4, 1, 3, 5, 2] // 数据位置替换
 
  // 没有key的情况， 节点位置不变，但是节点innerText内容更新了
   [
@@ -3001,10 +2967,11 @@ var vm = new Vue({
     &#39;&lt;div&gt;2&lt;/div&gt;&#39;  // id:  B
   ]
 </code></pre></div>
+
 <blockquote>
 <p>增删dataList列表项</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>  vm.dataList = [3, 4, 5, 6, 7] // 数据进行增删
+<div class="codehilite"><pre><span></span><code>  vm.dataList = [3, 4, 5, 6, 7] // 数据进行增删
 
   // 1. 没有key的情况， 节点位置不变，内容也更新了
   [
@@ -3025,6 +2992,7 @@ var vm = new Vue({
     &#39;&lt;div&gt;7&lt;/div&gt;&#39;  // id:  G
   ]
 </code></pre></div>
+
 <p>从以上来看，不带有key，并且使用简单的模板，基于这个前提下，可以更有效的复用节点，diff速度来看也是不带key更加快速的，因为带key在增删节点上有耗时。这就是vue文档所说的<code>默认模式</code>。但是这个并不是key作用，而是没有key的情况下可以对节点<code>就地复用</code>，提高性能。</p>
 <p>这种模式会带来一些隐藏的副作用，比如可能不会产生过渡效果，或者在某些节点有绑定数据（表单）状态，会出现状态错位。VUE文档也说明了 <a href="https://cn.vuejs.org/v2/guide/list.html#key"><code>这个默认的模式是高效的，但是只适用于不依赖子组件状态或临时 DOM 状态 (例如：表单输入值) 的列表渲染输出</code></a></p>
 <p>楼下 <a href="https://github.com/yeild">@yeild</a> 也提到，在不带key的情况下，对于<code>简单列表页渲染</code>来说diff节点更快是没有错误的。但是这并不是key的作用呀。</p>
@@ -3042,7 +3010,7 @@ var vm = new Vue({
 <p>vue和react都是采用diff算法来对比新旧虚拟节点，从而更新节点。在vue的diff函数中（建议先了解一下diff算法过程）。
 在交叉对比中，当新节点跟旧节点<code>头尾交叉对比</code>没有结果时，会根据新节点的key去对比旧节点数组中的key，从而找到相应旧节点（这里对应的是一个key =&gt; index 的map映射）。如果没找到就认为是一个新增节点。而如果没有key，那么就会采用遍历查找的方式去找到对应的旧节点。一种一个map映射，另一种是遍历查找。相比而言。map映射的速度更快。
 vue部分源码如下：</p>
-<div class="highlight"><pre><span></span><code>// vue项目  src/core/vdom/patch.js  -488行
+<div class="codehilite"><pre><span></span><code>// vue项目  src/core/vdom/patch.js  -488行
 // 以下是为了阅读性进行格式化后的代码
 
 // oldCh 是一个旧虚拟节点数组
@@ -3057,8 +3025,9 @@ if(isDef(newStartVnode.key)) {
   idxInOld = findIdxInOld(newStartVnode, oldCh, oldStartIdx, oldEndIdx)
 }
 </code></pre></div>
+
 <p>创建map函数</p>
-<div class="highlight"><pre><span></span><code>function createKeyToOldIdx (children, beginIdx, endIdx) {
+<div class="codehilite"><pre><span></span><code>function createKeyToOldIdx (children, beginIdx, endIdx) {
   let i, key
   const map = {}
   for (i = beginIdx; i &lt;= endIdx; ++i) {
@@ -3068,8 +3037,9 @@ if(isDef(newStartVnode.key)) {
   return map
 }
 </code></pre></div>
+
 <p>遍历寻找</p>
-<div class="highlight"><pre><span></span><code>// sameVnode 是对比新旧节点是否相同的函数
+<div class="codehilite"><pre><span></span><code>// sameVnode 是对比新旧节点是否相同的函数
  function findIdxInOld (node, oldCh, start, end) {
     for (let i = start; i &lt; end; i++) {
       const c = oldCh[i]
@@ -3078,11 +3048,12 @@ if(isDef(newStartVnode.key)) {
     }
   }
 </code></pre></div>
-<p>就我的使用来说(Vue)key的作用是为了在数据变化时强制更新组件，以避免“原地复用”带来的副作用。另外，某些情况下**不带key可能性能更好**，见：<a href="https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/1#issuecomment-465847432">issuecomment</a>
+
+<p>就我的使用来说(Vue)key的作用是为了在数据变化时强制更新组件，以避免“原地复用”带来的副作用。另外，某些情况下<strong>不带key可能性能更好</strong>，见：<a href="https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/1#issuecomment-465847432">issuecomment</a>
 官方文档对于key的描述： <a href="https://cn.vuejs.org/v2/guide/list.html#key">列表渲染-key</a> | <a href="https://cn.vuejs.org/v2/api/#key">API-key</a></p>
 <h2 id="2-1-2-3mapparseint-what-why">第 2 题：['1', '2', '3'].map(parseInt) what &amp; why ?<a class="headerlink" href="#2-1-2-3mapparseint-what-why" title="Permanent link">&para;</a></h2>
 <p>解析：第 2 题</p>
-<p>第一眼看到这个题目的时候，脑海跳出的答案是 [1, 2, 3]，但是**真正的答案是[1, NaN, NaN]**。</p>
+<p>第一眼看到这个题目的时候，脑海跳出的答案是 [1, 2, 3]，但是<strong>真正的答案是[1, NaN, NaN]</strong>。</p>
 <ul>
 <li>首先让我们回顾一下，map函数的第一个参数callback：</li>
 </ul>
@@ -3124,7 +3095,7 @@ if(isDef(newStartVnode.key)) {
 <blockquote>
 <p>每次触发事件时都取消之前的延时调用方法</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>function debounce(fn) {
+<div class="codehilite"><pre><span></span><code>function debounce(fn) {
       let timeout = null; // 创建一个标记用来存放定时器的返回值
       return function () {
         clearTimeout(timeout); // 每当用户输入的时候把前一个 setTimeout clear 掉
@@ -3140,6 +3111,7 @@ if(isDef(newStartVnode.key)) {
     var inp = document.getElementById(&#39;inp&#39;);
     inp.addEventListener(&#39;input&#39;, debounce(sayHi)); // 防抖
 </code></pre></div>
+
 <ol>
 <li><strong>节流</strong></li>
 </ol>
@@ -3152,7 +3124,7 @@ if(isDef(newStartVnode.key)) {
 <blockquote>
 <p>每次触发事件时都判断当前是否有等待执行的延时函数</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>function throttle(fn) {
+<div class="codehilite"><pre><span></span><code>function throttle(fn) {
       let canRun = true; // 通过闭包保存一个标记
       return function () {
         if (!canRun) return; // 在函数开头判断标记是否为true，不为true则return
@@ -3169,9 +3141,10 @@ if(isDef(newStartVnode.key)) {
     }
     window.addEventListener(&#39;resize&#39;, throttle(sayHi));
 </code></pre></div>
+
 <h2 id="4-setmapweakset-weakmap">第 4 题：介绍下 Set、Map、WeakSet 和 WeakMap 的区别？<a class="headerlink" href="#4-setmapweakset-weakmap" title="Permanent link">&para;</a></h2>
 <p>解析：第 4 题</p>
-<p><a href="https://es6.ruanyifeng.com/#docs/set-map">https://es6.ruanyifeng.com/#docs/set-map</a></p>
+<p>https://es6.ruanyifeng.com/#docs/set-map</p>
 <p>Set
 1.成员不能重复
 2.只有健值，没有健名，有点类似数组。
@@ -3199,7 +3172,7 @@ weakSet</p>
 <hr />
 <p>深度优先遍历DFS 与树的先序遍历比较类似。
 假设初始状态是图中所有顶点均未被访问，则从某个顶点v出发，首先访问该顶点然后依次从它的各个未被访问的邻接点出发深度优先搜索遍历图，直至图中所有和v有路径相通的顶点都被访问到。若此时尚有其他顶点未被访问到，则另选一个未被访问的顶点作起始点，重复上述过程，直至图中所有顶点都被访问到为止。</p>
-<div class="highlight"><pre><span></span><code>/*深度优先遍历三种方式*/
+<div class="codehilite"><pre><span></span><code>/*深度优先遍历三种方式*/
 let deepTraversal1 = (node, nodeList = []) =&gt; {
   if (node !== null) {
     nodeList.push(node)
@@ -3244,13 +3217,14 @@ let deepTraversal3 = (node) =&gt; {
   return nodes
 }
 </code></pre></div>
+
 <h5 id="_2">输出结果<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
 <p><a href="https://user-images.githubusercontent.com/27856388/52606984-88282e80-2eaf-11e9-8640-5220d1d2dc74.png"><img alt="image" src="https://user-images.githubusercontent.com/27856388/52606984-88282e80-2eaf-11e9-8640-5220d1d2dc74.png" /></a></p>
 <p>广度优先遍历</p>
 <hr />
 <p>广度优先遍历 BFS
 从图中某顶点v出发，在访问了v之后依次访问v的各个未曾访问过的邻接点，然后分别从这些邻接点出发依次访问它们的邻接点，并使得“先被访问的顶点的邻接点先于后被访问的顶点的邻接点被访问，直至图中所有已被访问的顶点的邻接点都被访问到。 如果此时图中尚有顶点未被访问，则需要另选一个未曾被访问过的顶点作为新的起始点，重复上述过程，直至图中所有顶点都被访问到为止。</p>
-<div class="highlight"><pre><span></span><code>let widthTraversal2 = (node) =&gt; {
+<div class="codehilite"><pre><span></span><code>let widthTraversal2 = (node) =&gt; {
   let nodes = []
   let stack = []
   if (node) {
@@ -3272,6 +3246,7 @@ let deepTraversal3 = (node) =&gt; {
   return nodes
 }
 </code></pre></div>
+
 <p>输出结果</p>
 <p><a href="https://user-images.githubusercontent.com/27856388/52607770-63818600-2eb2-11e9-9f5e-fc3e87950cd2.png"><img alt="image" src="https://user-images.githubusercontent.com/27856388/52607770-63818600-2eb2-11e9-9f5e-fc3e87950cd2.png" /></a></p>
 <h2 id="6">第 6 题：请分别用深度优先思想和广度优先思想实现一个拷贝函数？<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
@@ -3279,7 +3254,7 @@ let deepTraversal3 = (node) =&gt; {
 <p>话不多说直接放代码
 发现了比较多的错误，但由于最近工作有点忙，一直没来得及纠正</p>
 <p>更改(0226)</p>
-<div class="highlight"><pre><span></span><code>// 工具函数
+<div class="codehilite"><pre><span></span><code>// 工具函数
 let _toString = Object.prototype.toString
 let map = {
   array: &#39;Array&#39;,
@@ -3298,8 +3273,9 @@ let isTypeOf = (item, type) =&gt; {
   return map[type] &amp;&amp; map[type] === getType(item)
 }
 </code></pre></div>
+
 <p>深复制 深度优先遍历</p>
-<div class="highlight"><pre><span></span><code>let DFSdeepClone = (obj, visitedArr = []) =&gt; {
+<div class="codehilite"><pre><span></span><code>let DFSdeepClone = (obj, visitedArr = []) =&gt; {
   let _obj = {}
   if (isTypeOf(obj, &#39;array&#39;) || isTypeOf(obj, &#39;object&#39;)) {
     let index = visitedArr.indexOf(obj)
@@ -3320,8 +3296,9 @@ let isTypeOf = (item, type) =&gt; {
   return _obj
 }
 </code></pre></div>
+
 <p>广度优先遍历</p>
-<div class="highlight"><pre><span></span><code>let BFSdeepClone = (obj) =&gt; {
+<div class="codehilite"><pre><span></span><code>let BFSdeepClone = (obj) =&gt; {
     let origin = [obj],
       copyObj = {},
       copy = [copyObj]
@@ -3369,8 +3346,9 @@ let isTypeOf = (item, type) =&gt; {
   return copyObj
 }
 </code></pre></div>
+
 <p>测试</p>
-<div class="highlight"><pre><span></span><code>/**测试数据 */
+<div class="codehilite"><pre><span></span><code>/**测试数据 */
 // 输入 字符串String
 // 预期输出String
 let str = &#39;String&#39;
@@ -3446,6 +3424,7 @@ var circleObjCopy = DFSdeepClone(circleObj)
 var circleObjCopy1 = BFSdeepClone(circleObj)
 console.log(circleObjCopy, circleObjCopy1) // 测试通过?
 </code></pre></div>
+
 <p>ps</p>
 <p>关于深浅拷贝的问题博主已经在他的git上有文章说过了，我就不做多的叙述
 这两个方法我认为主要区别在于对于深层次以及环状数据，用深度优先遍历递归去做容易爆栈，广度优先遍历我对环状数据进行了处理，已经存在过的对象会存在数组中，下次直接赋值即可，无需继续遍历
@@ -3456,7 +3435,7 @@ console.log(circleObjCopy, circleObjCopy1) // 测试通过?
 <ol>
 <li><code>class</code> 声明会提升，但不会初始化赋值。<code>Foo</code> 进入暂时性死区，类似于 <code>let</code>、<code>const</code> 声明变量。</li>
 </ol>
-<div class="highlight"><pre><span></span><code>const bar = new Bar(); // it&#39;s ok
+<div class="codehilite"><pre><span></span><code>const bar = new Bar(); // it&#39;s ok
 function Bar() {
   this.bar = 42;
 }
@@ -3468,10 +3447,11 @@ class Foo {
   }
 }
 </code></pre></div>
+
 <ol>
 <li><code>class</code> 声明内部会启用严格模式。</li>
 </ol>
-<div class="highlight"><pre><span></span><code>// 引用一个未声明的变量
+<div class="codehilite"><pre><span></span><code>// 引用一个未声明的变量
 function Bar() {
   baz = 42; // it&#39;s ok
 }
@@ -3484,10 +3464,11 @@ class Foo {
 }
 const foo = new Foo();
 </code></pre></div>
+
 <ol>
 <li><code>class</code> 的所有方法（包括静态方法和实例方法）都是不可枚举的。</li>
 </ol>
-<div class="highlight"><pre><span></span><code>// 引用一个未声明的变量
+<div class="codehilite"><pre><span></span><code>// 引用一个未声明的变量
 function Bar() {
   this.bar = 42;
 }
@@ -3514,10 +3495,11 @@ class Foo {
 const fooKeys = Object.keys(Foo); // []
 const fooProtoKeys = Object.keys(Foo.prototype); // []
 </code></pre></div>
+
 <ol>
 <li><code>class</code> 的所有方法（包括静态方法和实例方法）都没有原型对象 prototype，所以也没有<code>[[construct]]</code>，不能使用 <code>new</code> 来调用。</li>
 </ol>
-<div class="highlight"><pre><span></span><code>function Bar() {
+<div class="codehilite"><pre><span></span><code>function Bar() {
   this.bar = 42;
 }
 Bar.prototype.print = function() {
@@ -3538,10 +3520,11 @@ class Foo {
 const foo = new Foo();
 const fooPrint = new foo.print(); // TypeError: foo.print is not a constructor
 </code></pre></div>
+
 <ol>
 <li>必须使用 <code>new</code> 调用 <code>class</code>。</li>
 </ol>
-<div class="highlight"><pre><span></span><code>function Bar() {
+<div class="codehilite"><pre><span></span><code>function Bar() {
   this.bar = 42;
 }
 const bar = Bar(); // it&#39;s ok
@@ -3553,10 +3536,11 @@ class Foo {
 }
 const foo = Foo(); // TypeError: Class constructor Foo cannot be invoked without &#39;new&#39;
 </code></pre></div>
+
 <ol>
 <li><code>class</code> 内部无法重写类名。</li>
 </ol>
-<div class="highlight"><pre><span></span><code>function Bar() {
+<div class="codehilite"><pre><span></span><code>function Bar() {
   Bar = &#39;Baz&#39;; // it&#39;s ok
   this.bar = 42;
 }
@@ -3573,6 +3557,7 @@ class Foo {
 const foo = new Foo();
 Foo = &#39;Fol&#39;; // it&#39;s ok
 </code></pre></div>
+
 <h2 id="8-settimeoutpromiseasyncawait">第 8 题：setTimeout、Promise、Async/Await 的区别<a class="headerlink" href="#8-settimeoutpromiseasyncawait" title="Permanent link">&para;</a></h2>
 <p>解析：第 8 题</p>
 <p>这题怎么没人答，我说下我粗浅的认识，抛砖引玉，欢迎指正和补充。
@@ -3580,16 +3565,17 @@ Foo = &#39;Fol&#39;; // it&#39;s ok
 其中settimeout的回调函数放到宏任务队列里，等到执行栈清空以后执行；
 promise.then里的回调函数会放到相应宏任务的微任务队列里，等宏任务里面的同步代码执行完再执行；async函数表示函数里面可能会有异步方法，await后面跟一个表达式，async方法执行时，遇到await会立即执行表达式，然后把表达式后面的代码放到微任务队列里，让出执行栈让同步代码先执行。</p>
 <h4 id="1-settimeout">1. setTimeout<a class="headerlink" href="#1-settimeout" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>console.log(&#39;script start&#39;) //1. 打印 script start
+<div class="codehilite"><pre><span></span><code>console.log(&#39;script start&#39;) //1. 打印 script start
 setTimeout(function(){
     console.log(&#39;settimeout&#39;)   // 4. 打印 settimeout
 })  // 2. 调用 setTimeout 函数，并定义其完成后执行的回调函数
 console.log(&#39;script end&#39;)   //3. 打印 script start
 // 输出顺序：script start-&gt;script end-&gt;settimeout
 </code></pre></div>
+
 <h4 id="2-promise">2. Promise<a class="headerlink" href="#2-promise" title="Permanent link">&para;</a></h4>
-<p>Promise本身是**同步的立即执行函数**， 当在executor中执行resolve或者reject的时候, 此时是异步操作， 会先执行then/catch等，当主栈完成后，才会去调用resolve/reject中存放的方法执行，打印p的时候，是打印的返回结果，一个Promise实例。</p>
-<div class="highlight"><pre><span></span><code>console.log(&#39;script start&#39;)
+<p>Promise本身是<strong>同步的立即执行函数</strong>， 当在executor中执行resolve或者reject的时候, 此时是异步操作， 会先执行then/catch等，当主栈完成后，才会去调用resolve/reject中存放的方法执行，打印p的时候，是打印的返回结果，一个Promise实例。</p>
+<div class="codehilite"><pre><span></span><code>console.log(&#39;script start&#39;)
 let promise1 = new Promise(function (resolve) {
     console.log(&#39;promise1&#39;)
     resolve()
@@ -3603,6 +3589,7 @@ setTimeout(function(){
 console.log(&#39;script end&#39;)
 // 输出顺序: script start-&gt;promise1-&gt;promise1 end-&gt;script end-&gt;promise2-&gt;settimeout
 </code></pre></div>
+
 <p>当JS主线程执行到Promise对象时，</p>
 <ul>
 <li>promise1.then() 的回调就是一个 task</li>
@@ -3611,7 +3598,7 @@ console.log(&#39;script end&#39;)
 <li>setTimeout 的回调也是个 task ，它会被放入 macrotask queue 即使是 0ms 的情况</li>
 </ul>
 <h4 id="3-asyncawait">3. async/await<a class="headerlink" href="#3-asyncawait" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>async function async1(){
+<div class="codehilite"><pre><span></span><code>async function async1(){
    console.log(&#39;async1 start&#39;);
     await async2();
     console.log(&#39;async1 end&#39;)
@@ -3626,20 +3613,23 @@ console.log(&#39;script end&#39;)
 
 // 输出顺序：script start-&gt;async1 start-&gt;async2-&gt;script end-&gt;async1 end
 </code></pre></div>
+
 <p>async 函数返回一个 Promise 对象，当函数执行的时候，一旦遇到 await 就会先返回，等到触发的异步操作完成，再执行函数体内后面的语句。可以理解为，是让出了线程，跳出了 async 函数体。</p>
 <p>举个例子：</p>
-<div class="highlight"><pre><span></span><code>async function func1() {
+<div class="codehilite"><pre><span></span><code>async function func1() {
     return 1
 }
 
 console.log(func1())
 </code></pre></div>
+
 <p><a href="https://camo.githubusercontent.com/cdf382b45dfc37ae972c480664cefd416ee13d234453deaae506230f6c3f55ea/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303139303133313137343431333536322e706e67"><img alt="在这里插入图片描述" src="https://camo.githubusercontent.com/cdf382b45dfc37ae972c480664cefd416ee13d234453deaae506230f6c3f55ea/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303139303133313137343431333536322e706e67" /></a>
 很显然，func1的运行结果其实就是一个Promise对象。因此我们也可以使用then来处理后续逻辑。</p>
-<div class="highlight"><pre><span></span><code>func1().then(res =&gt; {
+<div class="codehilite"><pre><span></span><code>func1().then(res =&gt; {
     console.log(res);  // 30
 })
 </code></pre></div>
+
 <p>await的含义为等待，也就是 async 函数需要等待await后的函数执行完成并且有了返回结果（Promise对象）之后，才能继续执行下面的代码。await通过返回一个Promise对象来实现同步的效果。</p>
 <p>更多可见<a href="https://github.com/sisterAn/blog/issues/21">setTimeout、Promise、Async/Await</a></p>
 <h2 id="9-asyncawait">第 9 题：（头条、微医）Async/Await 如何通过同步的方式实现异步<a class="headerlink" href="#9-asyncawait" title="Permanent link">&para;</a></h2>
@@ -3653,10 +3643,10 @@ console.log(func1())
 <li>Async/Await</li>
 </ul>
 <p>首先，<strong>js 是单线程的（重复三遍）</strong>，所谓单线程，
-通俗的讲就是，<del>一根筋</del>（比喻有点过分，哈哈）执行代码是一行一行的往下走（即所谓的**同步**），
+通俗的讲就是，~~一根筋~~（比喻有点过分，哈哈）执行代码是一行一行的往下走（即所谓的<strong>同步</strong>），
 如果上面的没执行完，就痴痴的等着（是不是很像恋爱中在路边等她/他的你，假装 new 了个对象，啊哈哈哈，调皮一下很开心），
 还是举个 🌰 吧：</p>
-<div class="highlight"><pre><span></span><code>// chrome 75
+<div class="codehilite"><pre><span></span><code>// chrome 75
 function test() {
   let d = Date.now();
   for (let i = 0; i &lt; 1e8; i++) {}
@@ -3670,26 +3660,29 @@ function test1() {
 test();
 test1();
 </code></pre></div>
-<p>上面仅仅是一个 for 循环，而在实际应用中，会有大量的网络请求，它的响应时间是不确定的，这种情况下也要痴痴的等么？显然是不行的，因而 js 设计了异步，即 发起网络请求（诸如 IO 操作，定时器），由于需要等服务器响应，就先不理会，而是去做其他的事儿，等请求返回了结果的时候再说（即**异步**）。
+
+<p>上面仅仅是一个 for 循环，而在实际应用中，会有大量的网络请求，它的响应时间是不确定的，这种情况下也要痴痴的等么？显然是不行的，因而 js 设计了异步，即 发起网络请求（诸如 IO 操作，定时器），由于需要等服务器响应，就先不理会，而是去做其他的事儿，等请求返回了结果的时候再说（即<strong>异步</strong>）。
 那么如何实现异步呢？其实我们平时已经在大量使用了，那就是 <code>callback</code>，例如：</p>
-<div class="highlight"><pre><span></span><code>$.ajax({
+<div class="codehilite"><pre><span></span><code>$.ajax({
   url: &#39;http://xxx&#39;,
   success: function(res) {
     console.log(res);
   },
 });
 </code></pre></div>
-<p>success 作为函数传递过去并不会立即执行，而是等请求成功了才执行，即**回调函数**（callback）</p>
-<div class="highlight"><pre><span></span><code>const fs = require(&#39;fs&#39;);
+
+<p>success 作为函数传递过去并不会立即执行，而是等请求成功了才执行，即<strong>回调函数</strong>（callback）</p>
+<div class="codehilite"><pre><span></span><code>const fs = require(&#39;fs&#39;);
 fs.rename(&#39;旧文件.txt&#39;, &#39;新文件.txt&#39;, err =&gt; {
   if (err) throw err;
   console.log(&#39;重命名完成&#39;);
 });
 </code></pre></div>
+
 <p>和网络请求类似，等到 IO 操作有了结果（无论成功与否）才会执行第三个参数：<code>(err)=&gt;{}</code></p>
 <p>从上面我们就可以看出，实现异步的核心就是回调钩子，将 cb 作为参数传递给异步执行函数，当有了结果后在触发 cb。想了解更多，去看看 <code>event-loop</code> 机制吧。</p>
 <p>至于 async/await 是如何出现的呢，在 es6 之前，大多 js 数项目中会有类似这样的代码：</p>
-<div class="highlight"><pre><span></span><code>ajax1(url, () =&gt; {
+<div class="codehilite"><pre><span></span><code>ajax1(url, () =&gt; {
   ajax2(url, () =&gt; {
     ajax3(url, () =&gt; {
       // do something
@@ -3697,7 +3690,8 @@ fs.rename(&#39;旧文件.txt&#39;, &#39;新文件.txt&#39;, err =&gt; {
   });
 });
 </code></pre></div>
-<p>这种函数嵌套，大量的回调函数，使代码阅读起来晦涩难懂，不直观，形象的称之为**回调地狱（callback hell）**，所以为了在写法上能更通俗一点，es6+陆续出现了 <code>Promise</code>、<code>Generator</code>、<code>Async/await</code>，力求在写法上简洁明了，可读性强。</p>
+
+<p>这种函数嵌套，大量的回调函数，使代码阅读起来晦涩难懂，不直观，形象的称之为<strong>回调地狱（callback hell）</strong>，所以为了在写法上能更通俗一点，es6+陆续出现了 <code>Promise</code>、<code>Generator</code>、<code>Async/await</code>，力求在写法上简洁明了，可读性强。</p>
 <p>=========================我是分割线==========================</p>
 <p>以上只是铺垫，下面在进入正题 👇，开始说道说道主角：<code>async/await</code></p>
 <p>=========================我是分割线==========================</p>
@@ -3716,13 +3710,13 @@ fs.rename(&#39;旧文件.txt&#39;, &#39;新文件.txt&#39;, err =&gt; {
 <p>总结一下链表优点：</p>
 <ul>
 <li>无需预先分配内存</li>
-<li>插入/删除节点不影响其他节点，效率高（典型的例子：git commit、<del>dom 操作</del>）</li>
+<li>插入/删除节点不影响其他节点，效率高（典型的例子：git commit、~~dom 操作~~）</li>
 </ul>
 <p>单向链表：是链表中最简单的一种，它包含两个域，一个信息域和一个指针域。这个链接指向列表中的下一个节点，而最后一个节点则指向一个空值。
 <a href="https://camo.githubusercontent.com/beac82e401ecd06f6ffb9d202a23da183e9934571b5c3b76ad3ae55e5fb953a3/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f372f31352f313662663564396531336430653462313f773d38333326683d34373026663d706e6726733d3234333938"><img alt="image" src="https://camo.githubusercontent.com/beac82e401ecd06f6ffb9d202a23da183e9934571b5c3b76ad3ae55e5fb953a3/68747470733a2f2f757365722d676f6c642d63646e2e786974752e696f2f323031392f372f31352f313662663564396531336430653462313f773d38333326683d34373026663d706e6726733d3234333938" /></a>
 一个单向链表包含两个值: 当前节点的值和一个指向下一个节点的链接</p>
 <p>单链特点：节点的链接方向是单向的；相对于数组来说，单链表的的随机访问速度较慢，但是单链表删除/添加数据的效率很高。</p>
-<p>理解 js 原型链/作用域链的话，理解这个很容易，他们是相通的。<del>编程语言中，数组的长度时固定的，所以数组中的增加和删除比较麻烦，需要频繁的移动数组中的其他元素，而 js 作为一门动态语言，数组本质是一个类似数组的对象，是动态的，不需要预先分配内存</del></p>
+<p>理解 js 原型链/作用域链的话，理解这个很容易，他们是相通的。~~编程语言中，数组的长度时固定的，所以数组中的增加和删除比较麻烦，需要频繁的移动数组中的其他元素，而 js 作为一门动态语言，数组本质是一个类似数组的对象，是动态的，不需要预先分配内存~~</p>
 <p>那么如何设计一个单向链表呢？这个取决于我们需要哪些操作，通常有：</p>
 <ul>
 <li>append(element)：追加节点</li>
@@ -3738,7 +3732,7 @@ fs.rename(&#39;旧文件.txt&#39;, &#39;新文件.txt&#39;, err =&gt; {
 <li>printf()：打印节点信息</li>
 </ul>
 <p>看到这些方法是不是有些许熟悉，当你用原生 js 或 jq 时常会用上面类似的方法，现在根据上面列出的方法进行实现一个单向链：</p>
-<div class="highlight"><pre><span></span><code>// 节点模型
+<div class="codehilite"><pre><span></span><code>// 节点模型
 class LinkNode {
   constructor(element, next) {
     this.element = element;
@@ -3932,12 +3926,13 @@ obj.clear();
 obj.printf();
 // null
 </code></pre></div>
+
 <p><a href="https://github.com/Mr-jiangzhiguo/book/code/linked.js">查看源码</a></p>
-<p>通过以上，我假装你明白什么是单向链表，并且能够用代码实现一个单向链表了，下一步开始说一说**迭代器** <code>Iterator</code></p>
+<p>通过以上，我假装你明白什么是单向链表，并且能够用代码实现一个单向链表了，下一步开始说一说<strong>迭代器</strong> <code>Iterator</code></p>
 <h4 id="2-iterator">2. Iterator<a class="headerlink" href="#2-iterator" title="Permanent link">&para;</a></h4>
-<p><code>Iterator</code> 翻译过来就是**迭代器（遍历器）**让我们先来看看它的遍历过程(类似于单向链表)：</p>
+<p><code>Iterator</code> 翻译过来就是<strong>迭代器（遍历器）</strong>让我们先来看看它的遍历过程(类似于单向链表)：</p>
 <ul>
-<li>创建一个**指针对象**，指向当前数据结构的起始位置</li>
+<li>创建一个<strong>指针对象</strong>，指向当前数据结构的起始位置</li>
 <li>第一次调用指针对象的 <code>next</code> 方法，将指针指向数据结构的第一个成员</li>
 <li>第二次调用指针对象的 <code>next</code> 方法，将指针指向数据结构的第二个成员</li>
 <li>不断的调用指针对象的 <code>next</code> 方法，直到它指向数据结构的结束位置</li>
@@ -3960,7 +3955,7 @@ obj.printf();
 <p>当一个对象需要被迭代的时候（比如开始用于一个 <code>for..of</code> 循环中），它的 <code>@@iterator</code> 方法被调用并且无参数，然后返回一个用于在迭代中获得值的迭代器</p>
 <p>迭代器协议：产生一个有限或无限序列的值，并且当所有的值都已经被迭代后，就会有一个默认的返回值</p>
 <p>当一个对象只有满足下述条件才会被认为是一个迭代器：</p>
-<p>它实现了一个 <code>next()</code> 的方法，该方法**必须返回一个对象**,对象有两个必要的属性：</p>
+<p>它实现了一个 <code>next()</code> 的方法，该方法<strong>必须返回一个对象</strong>,对象有两个必要的属性：</p>
 <ul>
 <li><code>done</code></li>
 </ul>
@@ -3975,7 +3970,7 @@ obj.printf();
 </li>
 </ul>
 <p>根据上面的规则，咱们来自定义一个简单的迭代器：</p>
-<div class="highlight"><pre><span></span><code>const makeIterator = arr =&gt; {
+<div class="codehilite"><pre><span></span><code>const makeIterator = arr =&gt; {
   let nextIndex = 0;
   return {
     next: () =&gt;
@@ -3989,8 +3984,9 @@ console.log(it.next()); // { value: &quot;人月&quot;, done: false }
 console.log(it.next()); // { value: &quot;神话&quot;, done: false }
 console.log(it.next()); // {value: undefined, done: true }
 </code></pre></div>
+
 <p>我们还可以自定义一个可迭代对象：</p>
-<div class="highlight"><pre><span></span><code>const myIterable = {};
+<div class="codehilite"><pre><span></span><code>const myIterable = {};
 myIterable[Symbol.iterator] = function*() {
   yield 1;
   yield 2;
@@ -4008,9 +4004,10 @@ for (let value of myIterable) {
 
 console.log([...myIterable]); // [1, 2, 3]
 </code></pre></div>
+
 <p>了解了迭代器，下面可以进一步了解生成器了</p>
 <h4 id="3-generator">3. Generator<a class="headerlink" href="#3-generator" title="Permanent link">&para;</a></h4>
-<p><code>Generator</code>：生成器对象是生成器函数（GeneratorFunction）返回的，它符合**可迭代协议**和**迭代器协议**，既是迭代器也是可迭代对象，可以调用 <code>next</code> 方法，但它不是函数，更不是构造函数</p>
+<p><code>Generator</code>：生成器对象是生成器函数（GeneratorFunction）返回的，它符合<strong>可迭代协议</strong>和<strong>迭代器协议</strong>，既是迭代器也是可迭代对象，可以调用 <code>next</code> 方法，但它不是函数，更不是构造函数</p>
 <p>生成器函数（GeneratorFunction）：</p>
 <blockquote>
 <p>function* name([param[, param[, ... param]]]) { statements }</p>
@@ -4020,8 +4017,8 @@ console.log([...myIterable]); // [1, 2, 3]
 <li>statements：js 语句</li>
 </ul>
 </blockquote>
-<p>调用一个生成器函数并不会马上执行它里面的语句，而是返回一个这个生成器的迭代器对象，当这个迭代器的 <code>next()</code> 方法被首次（后续）调用时，其内的语句会执行到第一个（后续）出现 <code>yield</code> 的位置为止（让执行处于**暂停状**），<code>yield</code> 后紧跟迭代器要返回的值。或者如果用的是 <code>yield*</code>（多了个星号），则表示将执行权移交给另一个生成器函数（当前生成器**暂停执行**），调用 <code>next()</code> （再启动）方法时，如果传入了参数，那么这个参数会作为**上一条执行的 <code>yield</code> 语句的返回值**，例如：</p>
-<div class="highlight"><pre><span></span><code>function* another() {
+<p>调用一个生成器函数并不会马上执行它里面的语句，而是返回一个这个生成器的迭代器对象，当这个迭代器的 <code>next()</code> 方法被首次（后续）调用时，其内的语句会执行到第一个（后续）出现 <code>yield</code> 的位置为止（让执行处于<strong>暂停状</strong>），<code>yield</code> 后紧跟迭代器要返回的值。或者如果用的是 <code>yield*</code>（多了个星号），则表示将执行权移交给另一个生成器函数（当前生成器<strong>暂停执行</strong>），调用 <code>next()</code> （再启动）方法时，如果传入了参数，那么这个参数会作为<strong>上一条执行的 <code>yield</code> 语句的返回值</strong>，例如：</p>
+<div class="codehilite"><pre><span></span><code>function* another() {
   yield &#39;人月神话&#39;;
 }
 function* gen() {
@@ -4037,10 +4034,11 @@ g.next(&#39;world&#39;); // {value: &quot;world&quot;, done: false} 将 &#39;wor
 g.next(&#39;!&#39;); // {value: &quot;!&quot;, done: false} 将 &#39;!&#39; 赋给上一条 yield a 的左值，即执行 b=&#39;!&#39;，返回 b
 g.next(); // {value: undefined, done: false}
 </code></pre></div>
+
 <p>看到这里，你可能会问，<code>Generator</code> 和 <code>callback</code> 有啥关系，如何处理异步呢？其实二者没有任何关系，我们只是通过一些方式强行的它们产生了关系，才会有 <code>Generator</code> 处理异步</p>
 <p>我们来总结一下 <code>Generator</code> 的本质，暂停，它会让程序执行到指定位置先暂停（<code>yield</code>），然后再启动（<code>next</code>），再暂停（<code>yield</code>），再启动（<code>next</code>），而这个暂停就很容易让它和异步操作产生联系，因为我们在处理异步时：开始异步处理（网络求情、IO 操作），然后暂停一下，等处理完了，再该干嘛干嘛。不过值得注意的是，<strong>js 是单线程的（又重复了三遍）</strong>，异步还是异步，callback 还是 callback，不会因为 <code>Generator</code> 而有任何改变</p>
 <p>下面来看看，用 <code>Generator</code> 实现异步：</p>
-<div class="highlight"><pre><span></span><code>const promisify = require(&#39;util&#39;).promisify;
+<div class="codehilite"><pre><span></span><code>const promisify = require(&#39;util&#39;).promisify;
 const path = require(&#39;path&#39;);
 const fs = require(&#39;fs&#39;);
 const readFile = promisify(fs.readFile);
@@ -4092,8 +4090,9 @@ g1.value
 //   &quot;b&quot;: 2
 // }
 </code></pre></div>
+
 <p>以上代码是 <code>Generator</code> 和 <code>callback</code> 结合实现的异步，可以看到，仍然需要手动执行 <code>.then</code> 层层添加回调，但由于 <code>next()</code> 方法返回对象 <code>{value: xxx,done: true/false}</code> 所以我们可以简化它，写一个自动执行器：</p>
-<div class="highlight"><pre><span></span><code>const promisify = require(&#39;util&#39;).promisify;
+<div class="codehilite"><pre><span></span><code>const promisify = require(&#39;util&#39;).promisify;
 const path = require(&#39;path&#39;);
 const fs = require(&#39;fs&#39;);
 const readFile = promisify(fs.readFile);
@@ -4123,10 +4122,11 @@ run(function*() {
   // }
 });
 </code></pre></div>
+
 <p>说了这么多，怎么还没有到 <code>async/await</code>，客官别急，马上来了（其实我已经漏了一些内容没说：Promise 和 callback 的关系，thunk 函数，co 库，感兴趣的可以去 google 一下，ruanyifeng 老师讲的<a href="http://es6.ruanyifeng.com/">es6 入门</a>非常棒，我时不时的都会去看一看）</p>
 <h4 id="4-asyncawait">4. Async/Await<a class="headerlink" href="#4-asyncawait" title="Permanent link">&para;</a></h4>
-<p>首先，<code>async/await</code> 是 <code>Generator</code> 的语法糖，上面*我是分割线*下的第一句已经讲过，先来看一下二者的对比：</p>
-<div class="highlight"><pre><span></span><code>// Generator
+<p>首先，<code>async/await</code> 是 <code>Generator</code> 的语法糖，上面<em>我是分割线</em>下的第一句已经讲过，先来看一下二者的对比：</p>
+<div class="codehilite"><pre><span></span><code>// Generator
 run(function*() {
   const res1 = yield readFile(path.resolve(__dirname, &#39;../data/a.json&#39;), { encoding: &#39;utf8&#39; });
   console.log(res1);
@@ -4144,27 +4144,29 @@ const readFile = async ()=&gt;{
 }
 const res = readFile();
 </code></pre></div>
+
 <p>可以看到，<code>async function</code> 代替了 <code>function*</code>，<code>await</code> 代替了 <code>yield</code>，同时也无需自己手写一个自动执行器 <code>run</code> 了</p>
 <p>现在再来看看<code>async/await</code> 的特点：</p>
 <ul>
 <li>当 <code>await</code> 后面跟的是 Promise 对象时，才会异步执行，其它类型的数据会同步执行</li>
 <li>执行 <code>const res = readFile();</code> 返回的仍然是个 Promise 对象，上面代码中的 <code>return 'done';</code> 会直接被下面 <code>then</code> 函数接收到</li>
 </ul>
-<div class="highlight"><pre><span></span><code>res.then(data =&gt; {
+<div class="codehilite"><pre><span></span><code>res.then(data =&gt; {
   console.log(data); // done
 });
 </code></pre></div>
+
 <p>啊，终于完了，一个 <code>async-await</code> 连带出来这么多知识点，以后面试被问到它的原理时，希望能够帮助到你</p>
 <p>【参考】：</p>
 <ol>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols#可迭代协议">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols#%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%8D%8F%E8%AE%AE</a></li>
-<li><a href="http://es6.ruanyifeng.com/#docs/iterator">http://es6.ruanyifeng.com/#docs/iterator</a></li>
-<li><a href="http://es6.ruanyifeng.com/#docs/async">http://es6.ruanyifeng.com/#docs/async</a></li>
+<li>http://es6.ruanyifeng.com/#docs/iterator</li>
+<li>http://es6.ruanyifeng.com/#docs/async</li>
 </ol>
-<p>原文地址：<a href="https://juejin.im/post/5d2c814c6fb9a07ecd3d8e43">https://juejin.im/post/5d2c814c6fb9a07ecd3d8e43</a></p>
+<p>原文地址：https://juejin.im/post/5d2c814c6fb9a07ecd3d8e43</p>
 <h2 id="10">第 10 题：（头条）异步笔试题<a class="headerlink" href="#10" title="Permanent link">&para;</a></h2>
 <p>请写出下面代码的运行结果</p>
-<div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">async1</span><span class="p">()</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">async1</span><span class="p">()</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;async1 start&#39;</span><span class="p">);</span>
   <span class="k">await</span> <span class="nx">async2</span><span class="p">();</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;async1 end&#39;</span><span class="p">);</span>
@@ -4185,11 +4187,12 @@ const res = readFile();
 <span class="p">});</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;script end&#39;</span><span class="p">);</span>
 </code></pre></div>
+
 <p>解析：第 10 题</p>
 <p>从一道题浅说 JavaScript 的事件循环</p>
 <p><strong>注：本篇文章运行环境为当前最新版本的谷歌浏览器（72.0.3626.109）</strong></p>
 <p>最近看到这样一道有关事件循环的前端面试题：</p>
-<div class="highlight"><pre><span></span><code>//请写出输出内容
+<div class="codehilite"><pre><span></span><code>//请写出输出内容
 async function async1() {
     console.log(&#39;async1 start&#39;);
     await async2();
@@ -4227,6 +4230,7 @@ promise2
 setTimeout
 */
 </code></pre></div>
+
 <p>这道题主要考察的是事件循环中函数执行顺序的问题，其中包括<code>async</code> ，<code>await</code>，<code>setTimeout</code>，<code>Promise</code>函数。下面来说一下本题中涉及到的知识点。</p>
 <p>任务队列</p>
 <p>首先我们需要明白以下几件事情：</p>
@@ -4241,8 +4245,9 @@ setTimeout
 <p>宏任务</p>
 <p>(macro)task（又称之为宏任务），可以理解是每次执行栈执行的代码就是一个宏任务（包括每次从事件队列中获取一个事件回调并放到执行栈中执行）。</p>
 <p>浏览器为了能够使得JS内部(macro)task与DOM任务能够有序的执行，<strong>会在一个(macro)task执行结束后，在下一个(macro)task 执行开始前，对页面进行重新渲染</strong>，流程如下：</p>
-<div class="highlight"><pre><span></span><code>(macro)task-&gt;渲染-&gt;(macro)task-&gt;...
+<div class="codehilite"><pre><span></span><code>(macro)task-&gt;渲染-&gt;(macro)task-&gt;...
 </code></pre></div>
+
 <p>(macro)task主要包含：script(整体代码)、setTimeout、setInterval、I/O、UI交互事件、postMessage、MessageChannel、setImmediate(Node.js 环境)</p>
 <p>微任务</p>
 <p>microtask（又称为微任务），<strong>可以理解是在当前 task 执行结束后立即执行的任务</strong>。也就是说，在当前task任务后，下一个task之前，在渲染之前。</p>
@@ -4266,20 +4271,22 @@ setTimeout
 <p>很多人以为await会一直等待之后的表达式执行完之后才会继续执行后面的代码，<strong>实际上await是一个让出线程的标志。await后面的表达式会先执行一遍，将await后面的代码加入到microtask中，然后就会跳出整个async函数来执行后面的代码。</strong></p>
 <p>这里感谢<a href="https://github.com/chenjigeng">@chenjigeng</a>的纠正：</p>
 <p>由于因为async await 本身就是promise+generator的语法糖。所以await后面的代码是microtask。所以对于本题中的</p>
-<div class="highlight"><pre><span></span><code>async function async1() {
+<div class="codehilite"><pre><span></span><code>async function async1() {
     console.log(&#39;async1 start&#39;);
     await async2();
     console.log(&#39;async1 end&#39;);
 }
 </code></pre></div>
+
 <p>等价于</p>
-<div class="highlight"><pre><span></span><code>async function async1() {
+<div class="codehilite"><pre><span></span><code>async function async1() {
     console.log(&#39;async1 start&#39;);
     Promise.resolve(async2()).then(() =&gt; {
                 console.log(&#39;async1 end&#39;);
         })
 }
 </code></pre></div>
+
 <p>回到本题</p>
 <p>以上就本道题涉及到的所有相关知识点了，下面我们再回到这道题来一步一步看看怎么回事儿。</p>
 <ol>
@@ -4306,7 +4313,7 @@ setTimeout
 <p>因而在script任务执行完毕之后，开始查找清空微任务队列。此时，微任务中， <code>Promise</code> 队列有的两个任务<code>async1 end</code>和<code>promise2</code>，因此按先后顺序输出 <code>async1 end，promise2</code>。当所有的 Microtasks 执行完毕之后，表示第一轮的循环就结束了。</p>
 <ol>
 <li>
-<p><del>第二轮循环开始，这个时候就会跳回async1函数中执行后面的代码，然后遇到了同步任务 <code>console</code> 语句，直接输出 <code>async1 end</code>。这样第二轮的循环就结束了。（也可以理解为被加入到script任务队列中，所以会先与setTimeout队列执行）</del></p>
+<p>~~第二轮循环开始，这个时候就会跳回async1函数中执行后面的代码，然后遇到了同步任务 <code>console</code> 语句，直接输出 <code>async1 end</code>。这样第二轮的循环就结束了。（也可以理解为被加入到script任务队列中，所以会先与setTimeout队列执行）~~</p>
 </li>
 <li>
 <p>第二轮循环依旧从宏任务队列开始。此时宏任务中只有一个 <code>setTimeout</code>，取出直接输出即可，至此整个流程结束。</p>
@@ -4315,7 +4322,7 @@ setTimeout
 <p>下面我会改变一下代码来加深印象。</p>
 <p>变式一</p>
 <p>在第一个变式中我将async2中的函数也变成了Promise函数，代码如下：</p>
-<div class="highlight"><pre><span></span><code>async function async1() {
+<div class="codehilite"><pre><span></span><code>async function async1() {
     console.log(&#39;async1 start&#39;);
     await async2();
     console.log(&#39;async1 end&#39;);
@@ -4345,8 +4352,9 @@ new Promise(function(resolve) {
 
 console.log(&#39;script end&#39;);
 </code></pre></div>
+
 <p>可以先自己看看输出顺序会是什么，下面来公布结果：</p>
-<div class="highlight"><pre><span></span><code>script start
+<div class="codehilite"><pre><span></span><code>script start
 async1 start
 promise1
 promise3
@@ -4356,10 +4364,11 @@ async1 end
 promise4
 setTimeout
 </code></pre></div>
+
 <p>在第一次macrotask执行完之后，也就是输出<code>script end</code>之后，会去清理所有microtask。所以会相继输出<code>promise2</code>，<code>async1 end</code> ，<code>promise4</code>，其余不再多说。</p>
 <p>变式二</p>
 <p>在第二个变式中，我将async1中await后面的代码和async2的代码都改为异步的，代码如下：</p>
-<div class="highlight"><pre><span></span><code>async function async1() {
+<div class="codehilite"><pre><span></span><code>async function async1() {
     console.log(&#39;async1 start&#39;);
     await async2();
     //更改如下：
@@ -4388,8 +4397,9 @@ new Promise(function(resolve) {
 });
 console.log(&#39;script end&#39;);
 </code></pre></div>
+
 <p>可以先自己看看输出顺序会是什么，下面来公布结果：</p>
-<div class="highlight"><pre><span></span><code>script start
+<div class="codehilite"><pre><span></span><code>script start
 async1 start
 promise1
 script end
@@ -4398,10 +4408,11 @@ setTimeout3
 setTimeout2
 setTimeout1
 </code></pre></div>
+
 <p>在输出为<code>promise2</code>之后，接下来会按照加入setTimeout队列的顺序来依次输出，通过代码我们可以看到加入顺序为<code>3 2 1</code>，所以会按3，2，1的顺序来输出。</p>
 <p>变式三</p>
 <p>变式三是我在一篇面经中看到的原题，整体来说大同小异，代码如下：</p>
-<div class="highlight"><pre><span></span><code>async function a1 () {
+<div class="codehilite"><pre><span></span><code>async function a1 () {
     console.log(&#39;a1 start&#39;)
     await a2()
     console.log(&#39;a1 end&#39;)
@@ -4435,8 +4446,9 @@ promise2.then((res) =&gt; {
 })
 console.log(&#39;script end&#39;)
 </code></pre></div>
+
 <p>无非是在微任务那块儿做点文章，前面的内容如果你都看懂了的话这道题一定没问题的，结果如下：</p>
-<div class="highlight"><pre><span></span><code>script start
+<div class="codehilite"><pre><span></span><code>script start
 a1 start
 a2
 promise2
@@ -4447,6 +4459,7 @@ promise2.then
 promise3
 setTimeout
 </code></pre></div>
+
 <p>参考文章</p>
 <ul>
 <li><a href="https://github.com/dwqs/blog/issues/61">从一道题浅说 JavaScript 的事件循环</a></li>
@@ -4454,17 +4467,19 @@ setTimeout
 </ul>
 <h2 id="11">第 11 题：（携程）算法手写题<a class="headerlink" href="#11" title="Permanent link">&para;</a></h2>
 <p>已知如下数组：</p>
-<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">2</span><span class="p">],</span> <span class="p">[</span><span class="mf">3</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="mf">5</span><span class="p">],</span> <span class="p">[</span><span class="mf">6</span><span class="p">,</span> <span class="mf">7</span><span class="p">,</span> <span class="mf">8</span><span class="p">,</span> <span class="mf">9</span><span class="p">,</span> <span class="p">[</span><span class="mf">11</span><span class="p">,</span> <span class="mf">12</span><span class="p">,</span> <span class="p">[</span><span class="mf">12</span><span class="p">,</span> <span class="mf">13</span><span class="p">,</span> <span class="p">[</span><span class="mf">14</span><span class="p">]</span> <span class="p">]</span> <span class="p">]</span> <span class="p">],</span> <span class="mf">10</span><span class="p">];</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">2</span><span class="p">],</span> <span class="p">[</span><span class="mf">3</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="mf">5</span><span class="p">],</span> <span class="p">[</span><span class="mf">6</span><span class="p">,</span> <span class="mf">7</span><span class="p">,</span> <span class="mf">8</span><span class="p">,</span> <span class="mf">9</span><span class="p">,</span> <span class="p">[</span><span class="mf">11</span><span class="p">,</span> <span class="mf">12</span><span class="p">,</span> <span class="p">[</span><span class="mf">12</span><span class="p">,</span> <span class="mf">13</span><span class="p">,</span> <span class="p">[</span><span class="mf">14</span><span class="p">]</span> <span class="p">]</span> <span class="p">]</span> <span class="p">],</span> <span class="mf">10</span><span class="p">];</span>
 </code></pre></div>
+
 <p>编写一个程序将数组扁平化去并除其中重复部分数据，最终得到一个升序且不重复的数组</p>
 <p>Array.from(new Set(arr.flat(Infinity))).sort((a,b)=&gt;{ return a-b})</p>
 <h2 id="12-js">第 12 题：（滴滴、挖财、微医、海康）JS 异步解决方案的发展历程以及优缺点。<a class="headerlink" href="#12-js" title="Permanent link">&para;</a></h2>
 <p>解析：第 12 题JS 异步已经告一段落了，这里来一波小总结</p>
 <h4 id="1-callback">1. 回调函数（callback）<a class="headerlink" href="#1-callback" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>setTimeout(() =&gt; {
+<div class="codehilite"><pre><span></span><code>setTimeout(() =&gt; {
     // callback 函数体
 }, 1000)
 </code></pre></div>
+
 <p><strong>缺点：回调地狱，不能用 try catch 捕获错误，不能 return</strong></p>
 <p>回调地狱的根本问题在于：</p>
 <ul>
@@ -4472,7 +4487,7 @@ setTimeout
 <li>嵌套函数存在耦合性，一旦有所改动，就会牵一发而动全身，即（<strong>控制反转</strong>）</li>
 <li>嵌套函数过多的多话，很难处理错误</li>
 </ul>
-<div class="highlight"><pre><span></span><code>ajax(&#39;XXX1&#39;, () =&gt; {
+<div class="codehilite"><pre><span></span><code>ajax(&#39;XXX1&#39;, () =&gt; {
     // callback 函数体
     ajax(&#39;XXX2&#39;, () =&gt; {
         // callback 函数体
@@ -4482,12 +4497,13 @@ setTimeout
     })
 })
 </code></pre></div>
+
 <p><strong>优点：解决了同步的问题</strong>（只要有一个任务耗时很长，后面的任务都必须排队等着，会拖延整个程序的执行。）</p>
 <h4 id="2-promise_1">2. Promise<a class="headerlink" href="#2-promise_1" title="Permanent link">&para;</a></h4>
 <p>Promise就是为了解决callback的问题而产生的。</p>
 <p>Promise 实现了链式调用，也就是说每次 then 后返回的都是一个全新 Promise，如果我们在 then 中 return ，return 的结果会被 Promise.resolve() 包装</p>
 <p><strong>优点：解决了回调地狱的问题</strong></p>
-<div class="highlight"><pre><span></span><code>ajax(&#39;XXX1&#39;)
+<div class="codehilite"><pre><span></span><code>ajax(&#39;XXX1&#39;)
   .then(res =&gt; {
       // 操作逻辑
       return ajax(&#39;XXX2&#39;)
@@ -4498,10 +4514,11 @@ setTimeout
       // 操作逻辑
   })
 </code></pre></div>
+
 <p><strong>缺点：无法取消 Promise ，错误需要通过回调函数来捕获</strong></p>
 <h4 id="3-generator_1">3. Generator<a class="headerlink" href="#3-generator_1" title="Permanent link">&para;</a></h4>
 <p><strong>特点：可以控制函数的执行</strong>，可以配合 co 函数库使用</p>
-<div class="highlight"><pre><span></span><code>function *fetch() {
+<div class="codehilite"><pre><span></span><code>function *fetch() {
     yield ajax(&#39;XXX1&#39;, () =&gt; {})
     yield ajax(&#39;XXX2&#39;, () =&gt; {})
     yield ajax(&#39;XXX3&#39;, () =&gt; {})
@@ -4511,11 +4528,12 @@ let result1 = it.next()
 let result2 = it.next()
 let result3 = it.next()
 </code></pre></div>
+
 <h4 id="4-asyncawait_1">4. Async/await<a class="headerlink" href="#4-asyncawait_1" title="Permanent link">&para;</a></h4>
 <p>async、await 是异步的终极解决方案</p>
 <p><strong>优点是：代码清晰，不用像 Promise 写一大堆 then 链，处理了回调地狱的问题</strong></p>
 <p><strong>缺点：await 将异步代码改造成同步代码，如果多个异步操作没有依赖性而使用 await 会导致性能上的降低。</strong></p>
-<div class="highlight"><pre><span></span><code>async function test() {
+<div class="codehilite"><pre><span></span><code>async function test() {
   // 以下代码没有依赖性的话，完全可以使用 Promise.all 的方式
   // 如果有依赖性的话，其实就是解决回调地狱的例子了
   await fetch(&#39;XXX1&#39;)
@@ -4523,8 +4541,9 @@ let result3 = it.next()
   await fetch(&#39;XXX3&#39;)
 }
 </code></pre></div>
+
 <p>下面来看一个使用 <code>await</code> 的例子：</p>
-<div class="highlight"><pre><span></span><code>let a = 0
+<div class="codehilite"><pre><span></span><code>let a = 0
 let b = async () =&gt; {
   a = a + await 10
   console.log(&#39;2&#39;, a) // -&gt; &#39;2&#39; 10
@@ -4533,6 +4552,7 @@ b()
 a++
 console.log(&#39;1&#39;, a) // -&gt; &#39;1&#39; 1
 </code></pre></div>
+
 <p>对于以上代码你可能会有疑惑，让我来解释下原因</p>
 <ul>
 <li>首先函数 <code>b</code> 先执行，在执行到 <code>await 10</code> 之前变量 <code>a</code> 还是 0，因为 <code>await</code> 内部实现了 <code>generator</code> ，<strong><code>generator</code> 会保留堆栈中东西，所以这时候 <code>a = 0</code> 被保存了下来</strong></li>
@@ -4541,10 +4561,10 @@ console.log(&#39;1&#39;, a) // -&gt; &#39;1&#39; 1
 </ul>
 <p>上述解释中提到了 <code>await</code> 内部实现了 <code>generator</code>，其实 <code>await</code> 就是 <code>generator</code> 加上 <code>Promise</code>的语法糖，且内部实现了自动执行 <code>generator</code>。如果你熟悉 co 的话，其实自己就可以实现这样的语法糖。</p>
 <p>本文首发于我的博客：<a href="https://github.com/LuNaHaiJiao/blog/issues/29">JS异步解决方案的发展历程以及优缺点</a></p>
-<p><a href="http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html">http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html</a></p>
+<p>http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html</p>
 <h2 id="13-promise-then">第 13 题：（微医）Promise 构造函数是同步执行还是异步执行，那么 then 方法呢？<a class="headerlink" href="#13-promise-then" title="Permanent link">&para;</a></h2>
 <p>解析：第 13 题</p>
-<div class="highlight"><pre><span></span><code>const promise = new Promise((resolve, reject) =&gt; {
+<div class="codehilite"><pre><span></span><code>const promise = new Promise((resolve, reject) =&gt; {
   console.log(1)
   resolve()
   console.log(2)
@@ -4556,17 +4576,19 @@ promise.then(() =&gt; {
 
 console.log(4)
 </code></pre></div>
+
 <p>执行结果是：1243
 promise构造函数是同步执行的，then方法是异步执行的</p>
 <h2 id="14-new">第 14 题：（兑吧）情人节福利题，如何实现一个 new<a class="headerlink" href="#14-new" title="Permanent link">&para;</a></h2>
 <p>解析：第 14 题</p>
 <p>这样写是不是简单点啊</p>
-<div class="highlight"><pre><span></span><code>function _new(fn, ...arg) {
+<div class="codehilite"><pre><span></span><code>function _new(fn, ...arg) {
     const obj = Object.create(fn.prototype);
     const ret = fn.apply(obj, arg);
     return ret instanceof Object ? ret : obj;
 }
 </code></pre></div>
+
 <h2 id="15-http2">第 15 题：（网易）简单讲解一下http2的多路复用<a class="headerlink" href="#15-http2" title="Permanent link">&para;</a></h2>
 <p>解析：第 15 题</p>
 <p>HTTP2采用二进制格式传输，取代了HTTP1.x的文本格式，二进制格式解析更高效。
@@ -4588,7 +4610,7 @@ HTTP2中</p>
 <h2 id="16-tcp">第 16 题：谈谈你对TCP三次握手和四次挥手的理解<a class="headerlink" href="#16-tcp" title="Permanent link">&para;</a></h2>
 <p>解析：第 16 题</p>
 <p>TCP的内容</p>
-<p><a href="https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/15">https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/15</a></p>
+<p>https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/15</p>
 <p>第 17 题：A、B 机器正常连接后，B 机器突然重启，问 A 此时处于 TCP 什么状态</p>
 <p>如果A 与 B 建立了正常连接后，从未相互发过数据，这个时候 B 突然机器重启，问 A 此时处于 TCP 什么状态？如何消除服务器程序中的这个状态？（超纲题，了解即可）</p>
 <p>解析：第 17 题</p>
@@ -4602,7 +4624,7 @@ HTTP2中</p>
 <p>这里的异步指的是多个state会合成到一起进行批量更新。</p>
 <p>希望初学者不要被误导</p>
 <h2 id="19-react-setstate">第 19 题：React setState 笔试题，下面的代码输出什么？<a class="headerlink" href="#19-react-setstate" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">Example</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nx">Example</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
   <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">super</span><span class="p">();</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
@@ -4631,6 +4653,7 @@ HTTP2中</p>
   <span class="p">}</span>
 <span class="p">};</span>
 </code></pre></div>
+
 <p>解析：第 19 题</p>
 <p>1、第一次和第二次都是在 react 自身生命周期内，触发时 isBatchingUpdates 为 true，所以并不会直接执行更新 state，而是加入了 dirtyComponents，所以打印时获取的都是更新前的状态 0。</p>
 <p>2、两次 setState 时，获取到 this.state.val 都是 0，所以执行时都是将 0 设置成 1，在 react 内部会被合并掉，只执行一次。设置完成后 state.val 值为 1。</p>
@@ -4676,8 +4699,8 @@ HTTP2中</p>
 </li>
 </ul>
 <p>上一步获取到的是一棵完整的依赖树，其中可能包含大量重复模块。比如 A 模块依赖于 loadsh，B 模块同样依赖于 lodash。在 npm3 以前会严格按照依赖树的结构进行安装，因此会造成模块冗余。</p>
-<p>从 npm3 开始默认加入了一个 dedupe 的过程。它会遍历所有节点，逐个将模块放在根节点下面，也就是 node-modules 的第一层。当发现有**重复模块**时，则将其丢弃。</p>
-<p>这里需要对**重复模块**进行一个定义，它指的是**模块名相同**且 **semver 兼容。**每个 semver 都对应一段版本允许范围，如果两个模块的版本允许范围存在交集，那么就可以得到一个**兼容**版本，而不必版本号完全一致，这可以使更多冗余模块在 dedupe 过程中被去掉。</p>
+<p>从 npm3 开始默认加入了一个 dedupe 的过程。它会遍历所有节点，逐个将模块放在根节点下面，也就是 node-modules 的第一层。当发现有<strong>重复模块</strong>时，则将其丢弃。</p>
+<p>这里需要对<strong>重复模块</strong>进行一个定义，它指的是<strong>模块名相同</strong>且 <strong>semver 兼容。*<em>每个 semver 都对应一段版本允许范围，如果两个模块的版本允许范围存在交集，那么就可以得到一个*</em>兼容</strong>版本，而不必版本号完全一致，这可以使更多冗余模块在 dedupe 过程中被去掉。</p>
 <p>比如 node-modules 下 foo 模块依赖 lodash@^1.0.0，bar 模块依赖 lodash@^1.1.0，则 <strong>^1.1.0</strong> 为兼容版本。</p>
 <p>而当 foo 依赖 lodash@^2.0.0，bar 依赖 lodash@^1.1.0，则依据 semver 的规则，二者不存在兼容版本。会将一个版本放在 node_modules 中，另一个仍保留在依赖树里。</p>
 <p>举个例子，假设一个依赖树原本是这样：</p>
@@ -4711,12 +4734,13 @@ HTTP2中</p>
 <p>Object.prototype.toString.call() 、 instanceof 以及 Array.isArray()</p>
 <h4 id="1-objectprototypetostringcall">1. Object.prototype.toString.call()<a class="headerlink" href="#1-objectprototypetostringcall" title="Permanent link">&para;</a></h4>
 <p>每一个继承 Object 的对象都有 <code>toString</code> 方法，如果 <code>toString</code> 方法没有重写的话，会返回 <code>[Object type]</code>，其中 type 为对象的类型。但当除了 Object 类型的对象外，其他类型直接使用 <code>toString</code> 方法时，会直接返回都是内容的字符串，所以我们需要使用call或者apply方法来改变toString方法的执行上下文。</p>
-<div class="highlight"><pre><span></span><code>const an = [&#39;Hello&#39;,&#39;An&#39;];
+<div class="codehilite"><pre><span></span><code>const an = [&#39;Hello&#39;,&#39;An&#39;];
 an.toString(); // &quot;Hello,An&quot;
 Object.prototype.toString.call(an); // &quot;[object Array]&quot;
 </code></pre></div>
+
 <p>这种方法对于所有基本的数据类型都能进行判断，即使是 null 和 undefined 。</p>
-<div class="highlight"><pre><span></span><code>Object.prototype.toString.call(&#39;An&#39;) // &quot;[object String]&quot;
+<div class="codehilite"><pre><span></span><code>Object.prototype.toString.call(&#39;An&#39;) // &quot;[object String]&quot;
 Object.prototype.toString.call(1) // &quot;[object Number]&quot;
 Object.prototype.toString.call(Symbol(1)) // &quot;[object Symbol]&quot;
 Object.prototype.toString.call(null) // &quot;[object Null]&quot;
@@ -4724,16 +4748,19 @@ Object.prototype.toString.call(undefined) // &quot;[object Undefined]&quot;
 Object.prototype.toString.call(function(){}) // &quot;[object Function]&quot;
 Object.prototype.toString.call({name: &#39;An&#39;}) // &quot;[object Object]&quot;
 </code></pre></div>
+
 <p><code>Object.prototype.toString.call()</code> 常用于判断浏览器内置对象时。</p>
 <p>更多实现可见 <a href="https://juejin.im/post/591647550ce4630069df1c4a">谈谈 Object.prototype.toString</a></p>
 <h4 id="2-instanceof">2. instanceof<a class="headerlink" href="#2-instanceof" title="Permanent link">&para;</a></h4>
 <p><code>instanceof</code> 的内部机制是通过判断对象的原型链中是不是能找到类型的 <code>prototype</code>。</p>
 <p>使用 <code>instanceof</code>判断一个对象是否为数组，<code>instanceof</code> 会判断这个对象的原型链上是否会找到对应的 <code>Array</code> 的原型，找到返回 <code>true</code>，否则返回 <code>false</code>。</p>
-<div class="highlight"><pre><span></span><code>[]  instanceof Array; // true
+<div class="codehilite"><pre><span></span><code>[]  instanceof Array; // true
 </code></pre></div>
+
 <p>但 <code>instanceof</code> 只能用来判断对象类型，原始类型不可以。并且所有对象类型 instanceof Object 都是 true。</p>
-<div class="highlight"><pre><span></span><code>[]  instanceof Object; // true
+<div class="codehilite"><pre><span></span><code>[]  instanceof Object; // true
 </code></pre></div>
+
 <h4 id="3-arrayisarray">3. Array.isArray()<a class="headerlink" href="#3-arrayisarray" title="Permanent link">&para;</a></h4>
 <ul>
 <li>
@@ -4744,27 +4771,26 @@ Object.prototype.toString.call({name: &#39;An&#39;}) // &quot;[object Object]&qu
 </li>
 </ul>
 <p>当检测Array实例时，<code>Array.isArray</code> 优于 <code>instanceof</code> ，因为 <code>Array.isArray</code> 可以检测出 <code>iframes</code></p>
-<div class="highlight"><pre><span></span><code>var iframe = document.createElement(&#39;iframe&#39;);
-document.body.appendChild(iframe);
-xArray = window.frames[window.frames.length-1].Array;
-var arr = new xArray(1,2,3); // [1,2,3]
-
-// Correctly checking for Array
-Array.isArray(arr);  // true
-Object.prototype.toString.call(arr); // true
-// Considered harmful, because doesn&#39;t work though iframes
-arr instanceof Array; // false
-</code></pre></div>
+<p>```
+  var iframe = document.createElement('iframe');
+  document.body.appendChild(iframe);
+  xArray = window.frames[window.frames.length-1].Array;
+  var arr = new xArray(1,2,3); // [1,2,3]</p>
+<p>// Correctly checking for Array
+  Array.isArray(arr);  // true
+  Object.prototype.toString.call(arr); // true
+  // Considered harmful, because doesn't work though iframes
+  arr instanceof Array; // false
+  ```</p>
 <ul>
 <li><code>Array.isArray()</code> 与 <code>Object.prototype.toString.call()</code></li>
 </ul>
 <p><code>Array.isArray()</code>是ES5新增的方法，当不存在 <code>Array.isArray()</code> ，可以用 <code>Object.prototype.toString.call()</code> 实现。</p>
-<div class="highlight"><pre><span></span><code>if (!Array.isArray) {
-  Array.isArray = function(arg) {
-    return Object.prototype.toString.call(arg) === &#39;[object Array]&#39;;
-  };
-}
-</code></pre></div>
+<p><code>if (!Array.isArray) {
+    Array.isArray = function(arg) {
+      return Object.prototype.toString.call(arg) === '[object Array]';
+    };
+  }</code></p>
 <h2 id="22-repaint-reflow">第 22 题：介绍下重绘和回流（Repaint &amp; Reflow），以及如何进行优化<a class="headerlink" href="#22-repaint-reflow" title="Permanent link">&para;</a></h2>
 <p>解析：第 22 题</p>
 <h4 id="1">1. 浏览器渲染机制<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
@@ -4778,7 +4804,7 @@ arr instanceof Array; // false
 <p>由于节点的几何属性发生改变或者由于样式发生改变而不会影响布局的，称为重绘，例如<code>outline</code>, <code>visibility</code>, <code>color</code>、<code>background-color</code>等，重绘的代价是高昂的，因为浏览器必须验证DOM树上其他节点元素的可见性。</p>
 <h4 id="3_1">3. 回流<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h4>
 <p>回流是布局或者几何属性需要改变就称为回流。回流是影响浏览器性能的关键因素，因为其变化涉及到部分页面（或是整个页面）的布局更新。一个元素的回流可能会导致了其所有子元素以及DOM中紧随其后的节点、祖先节点元素的随后的回流。</p>
-<div class="highlight"><pre><span></span><code>&lt;body&gt;
+<div class="codehilite"><pre><span></span><code>&lt;body&gt;
 &lt;div class=&quot;error&quot;&gt;
     &lt;h4&gt;我的组件&lt;/h4&gt;
     &lt;p&gt;&lt;strong&gt;错误：&lt;/strong&gt;错误的描述…&lt;/p&gt;
@@ -4790,10 +4816,11 @@ arr instanceof Array; // false
 &lt;/div&gt;
 &lt;/body&gt;
 </code></pre></div>
+
 <p>在上面的HTML片段中，对该段落(<code>&lt;p&gt;</code>标签)回流将会引发强烈的回流，因为它是一个子节点。这也导致了祖先的回流（<code>div.error</code>和<code>body</code> – 视浏览器而定）。此外，<code>&lt;h5&gt;</code>和<code>&lt;ol&gt;</code>也会有简单的回流，因为其在DOM中在回流元素之后。<strong>大部分的回流将导致页面的重新渲染。</strong></p>
 <p><strong>回流必定会发生重绘，重绘不一定会引发回流。</strong></p>
 <h4 id="4">4. 浏览器优化<a class="headerlink" href="#4" title="Permanent link">&para;</a></h4>
-<p>现代浏览器大多都是通过队列机制来批量更新布局，浏览器会把修改操作放在队列中，至少一个浏览器刷新（即16.6ms）才会清空队列，但当你**获取布局信息的时候，队列中可能有会影响这些属性或方法返回值的操作，即使没有，浏览器也会强制清空队列，触发回流与重绘来确保返回正确的值**。</p>
+<p>现代浏览器大多都是通过队列机制来批量更新布局，浏览器会把修改操作放在队列中，至少一个浏览器刷新（即16.6ms）才会清空队列，但当你<strong>获取布局信息的时候，队列中可能有会影响这些属性或方法返回值的操作，即使没有，浏览器也会强制清空队列，触发回流与重绘来确保返回正确的值</strong>。</p>
 <p>主要包括以下属性或方法：</p>
 <ul>
 <li><code>offsetTop</code>、<code>offsetLeft</code>、<code>offsetWidth</code>、<code>offsetHeight</code></li>
@@ -4822,20 +4849,19 @@ arr instanceof Array; // false
 <p><strong>尽可能在<code>DOM</code>树的最末端改变<code>class</code></strong>，回流是不可避免的，但可以减少其影响。尽可能在DOM树的最末端改变class，可以限制了回流的范围，使其影响尽可能少的节点。</p>
 </li>
 <li>
-<p><strong>避免设置多层内联样式</strong>，CSS 选择符**从右往左**匹配查找，避免节点层级过多。</p>
-<div class="highlight"><pre><span></span><code>&lt;div&gt;
-  &lt;a&gt; &lt;span&gt;&lt;/span&gt; &lt;/a&gt;
-&lt;/div&gt;
-&lt;style&gt;
-  span {
-    color: red;
-  }
-  div &gt; a &gt; span {
-    color: red;
-  }
-&lt;/style&gt;
-</code></pre></div>
-<p>对于第一种设置样式的方式来说，浏览器只需要找到页面中所有的 <code>span</code> 标签然后设置颜色，但是对于第二种设置样式的方式来说，浏览器首先需要找到所有的 <code>span</code> 标签，然后找到 <code>span</code> 标签上的 <code>a</code> 标签，最后再去找到 <code>div</code> 标签，然后给符合这种条件的 <code>span</code> 标签设置颜色，这样的递归过程就很复杂。所以我们应该尽可能的避免写**过于具体**的 CSS 选择器，然后对于 HTML 来说也尽量少的添加无意义标签，保证**层级扁平**。</p>
+<p><strong>避免设置多层内联样式</strong>，CSS 选择符<strong>从右往左</strong>匹配查找，避免节点层级过多。</p>
+<p><code>&lt;div&gt;
+   &lt;a&gt; &lt;span&gt;&lt;/span&gt; &lt;/a&gt;
+ &lt;/div&gt;
+ &lt;style&gt;
+   span {
+     color: red;
+   }
+   div &gt; a &gt; span {
+     color: red;
+   }
+ &lt;/style&gt;</code></p>
+<p>对于第一种设置样式的方式来说，浏览器只需要找到页面中所有的 <code>span</code> 标签然后设置颜色，但是对于第二种设置样式的方式来说，浏览器首先需要找到所有的 <code>span</code> 标签，然后找到 <code>span</code> 标签上的 <code>a</code> 标签，最后再去找到 <code>div</code> 标签，然后给符合这种条件的 <code>span</code> 标签设置颜色，这样的递归过程就很复杂。所以我们应该尽可能的避免写<strong>过于具体</strong>的 CSS 选择器，然后对于 HTML 来说也尽量少的添加无意义标签，保证<strong>层级扁平</strong>。</p>
 </li>
 <li>
 <p><strong>将动画效果应用到<code>position</code>属性为<code>absolute</code>或<code>fixed</code>的元素上</strong>，避免影响其他元素的布局，这样只是一个重绘，而不是回流，同时，控制动画速度可以选择 <code>requestAnimationFrame</code>，详见<a href="https://github.com/LuNaHaiJiao/blog/issues/30">探讨 requestAnimationFrame</a>。</p>
@@ -4868,20 +4894,20 @@ arr instanceof Array; // false
 <li>发布-订阅模式就好像报社， 邮局和个人的关系，报纸的订阅和分发是由邮局来完成的。报社只负责将报纸发送给邮局。</li>
 <li>观察者模式就好像 个体奶农和个人的关系。奶农负责统计有多少人订了产品，所以个人都会有一个相同拿牛奶的方法。奶农有新奶了就负责调用这个方法。</li>
 </ol>
-<p><a href="https://juejin.cn/post/6844903513009422343">https://juejin.cn/post/6844903513009422343</a></p>
+<p>https://juejin.cn/post/6844903513009422343</p>
 <h2 id="24-redux-vuex">第 24 题：聊聊 Redux 和 Vuex 的设计思想<a class="headerlink" href="#24-redux-vuex" title="Permanent link">&para;</a></h2>
 <p>解析：第 24 题</p>
 <blockquote>
-<p>知乎上看到的一篇文章：Vuex、Flux、Redux、Redux-saga、Dva、MobX（<a href="https://zhuanlan.zhihu.com/p/53599723">https://zhuanlan.zhihu.com/p/53599723</a>）</p>
+<p>知乎上看到的一篇文章：Vuex、Flux、Redux、Redux-saga、Dva、MobX（https://zhuanlan.zhihu.com/p/53599723）</p>
 </blockquote>
-<p>新的连接： <a href="https://zhuanlan.zhihu.com/p/53599723">https://zhuanlan.zhihu.com/p/53599723</a></p>
+<p>新的连接： https://zhuanlan.zhihu.com/p/53599723</p>
 <h2 id="25-node">第 25 题：说说浏览器和 Node 事件循环的区别<a class="headerlink" href="#25-node" title="Permanent link">&para;</a></h2>
 <p>解析：第 25 题</p>
 <p>为楼上补充一个例子</p>
 <blockquote>
 <p>原文出自<a href="https://blog.liubasara.info/#/post/分享node与浏览器关于eventLoop的异同的一个小例子">liubasara的个人博客</a></p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>function test () {
+<div class="codehilite"><pre><span></span><code>function test () {
    console.log(&#39;start&#39;)
     setTimeout(() =&gt; {
         console.log(&#39;children2&#39;)
@@ -4915,6 +4941,7 @@ test()
 // children3
 // children3-1
 </code></pre></div>
+
 <p>题目应该是：浏览器和node的事件循环的区别吧，</p>
 <p>先上链接：</p>
 <ul>
@@ -4961,56 +4988,64 @@ test()
 <p>解析：第 26 题</p>
 <p>模块化主要是用来抽离公共代码，隔离作用域，避免变量冲突等。</p>
 <p><strong>IIFE</strong>： 使用自执行函数来编写模块化，特点：<strong>在一个单独的函数作用域中执行代码，避免变量冲突</strong>。</p>
-<div class="highlight"><pre><span></span><code>(function(){
+<div class="codehilite"><pre><span></span><code>(function(){
   return {
     data:[]
   }
 })()
 </code></pre></div>
+
 <p><strong>AMD</strong>： 使用requireJS 来编写模块化，特点：<strong>依赖必须提前声明好</strong>。</p>
-<div class="highlight"><pre><span></span><code>define(&#39;./index.js&#39;,function(code){
+<div class="codehilite"><pre><span></span><code>define(&#39;./index.js&#39;,function(code){
     // code 就是index.js 返回的内容
 })
 </code></pre></div>
+
 <p><strong>CMD</strong>： 使用seaJS 来编写模块化，特点：<strong>支持动态引入依赖文件</strong>。</p>
-<div class="highlight"><pre><span></span><code>define(function(require, exports, module) {  
+<div class="codehilite"><pre><span></span><code>define(function(require, exports, module) {  
   var indexCode = require(&#39;./index.js&#39;);
 });
 </code></pre></div>
+
 <p><strong>CommonJS</strong>： nodejs 中自带的模块化。</p>
-<div class="highlight"><pre><span></span><code>var fs = require(&#39;fs&#39;);
+<div class="codehilite"><pre><span></span><code>var fs = require(&#39;fs&#39;);
 </code></pre></div>
+
 <p><strong>UMD</strong>：兼容AMD，CommonJS 模块化语法。</p>
 <p><strong>webpack(require.ensure)</strong>：webpack 2.x 版本中的代码分割。</p>
 <p><strong>ES Modules</strong>： ES6 引入的模块化，支持import 来引入另一个 js 。</p>
-<div class="highlight"><pre><span></span><code>import a from &#39;a&#39;;
+<div class="codehilite"><pre><span></span><code>import a from &#39;a&#39;;
 </code></pre></div>
+
 <h2 id="27-const-let-window">第 27 题：全局作用域中，用 const 和 let 声明的变量不在 window 上，那到底在哪里？如何去获取？。<a class="headerlink" href="#27-const-let-window" title="Permanent link">&para;</a></h2>
 <p>解析：第 27 题</p>
 <p>在ES5中，顶层对象的属性和全局变量是等价的，var 命令和 function 命令声明的全局变量，自然也是顶层对象。</p>
-<div class="highlight"><pre><span></span><code>var a = 12;
+<div class="codehilite"><pre><span></span><code>var a = 12;
 function f(){};
 
 console.log(window.a); // 12
 console.log(window.f); // f(){}
 </code></pre></div>
+
 <p>但ES6规定，var 命令和 function 命令声明的全局变量，依旧是顶层对象的属性，但 let命令、const命令、class命令声明的全局变量，不属于顶层对象的属性。</p>
-<div class="highlight"><pre><span></span><code>let aa = 1;
+<div class="codehilite"><pre><span></span><code>let aa = 1;
 const bb = 2;
 
 console.log(window.aa); // undefined
 console.log(window.bb); // undefined
 </code></pre></div>
+
 <p>在哪里？怎么获取？通过在设置断点，看看浏览器是怎么处理的：</p>
 <p><a href="https://user-images.githubusercontent.com/20290821/53854366-2ec1a400-4004-11e9-8c62-5a1dd91b8a5b.png"><img alt="letandconst" src="https://user-images.githubusercontent.com/20290821/53854366-2ec1a400-4004-11e9-8c62-5a1dd91b8a5b.png" /></a></p>
 <p>通过上图也可以看到，在全局作用域中，用 let 和 const 声明的全局变量并没有在全局对象中，只是一个块级作用域（Script）中</p>
 <p>怎么获取？在定义变量的块级作用域中就能获取啊，既然不属于顶层对象，那就不加 window（global）呗。</p>
-<div class="highlight"><pre><span></span><code>let aa = 1;
+<div class="codehilite"><pre><span></span><code>let aa = 1;
 const bb = 2;
 
 console.log(aa); // 1
 console.log(bb); // 2
 </code></pre></div>
+
 <h2 id="28-cookie-token-header-token">第 28 题：cookie 和 token 都存放在 header 中，为什么不会劫持 token？<a class="headerlink" href="#28-cookie-token-header-token" title="Permanent link">&para;</a></h2>
 <p>解析：第 28 题</p>
 <p>cookie
@@ -5024,7 +5059,7 @@ console.log(bb); // 2
 <p>token：登陆后后端不返回一个token给客户端，客户端将这个token存储起来，然后每次客户端请求都需要开发者手动将token放在header中带过去，服务端每次只需要对这个token进行验证就能使用token中的信息来进行下一步操作了。</p>
 <p>xss：用户通过各种方式将恶意代码注入到其他用户的页面中。就可以通过脚本获取信息，发起请求，之类的操作。</p>
 <p>csrf：跨站请求攻击，简单地说，是攻击者通过一些技术手段欺骗用户的浏览器去访问一个自己曾经认证过的网站并运行一些操作（如发邮件，发消息，甚至财产操作如转账和购买商品）。由于浏览器曾经认证过，所以被访问的网站会认为是真正的用户操作而去运行。这利用了web中用户身份验证的一个漏洞：<strong>简单的身份验证只能保证请求发自某个用户的浏览器，却不能保证请求本身是用户自愿发出的</strong>。csrf并不能够拿到用户的任何信息，它只是欺骗用户浏览器，让其以用户的名义进行操作。</p>
-<p>csrf例子：假如一家银行用以运行转账操作的URL地址如下： <a href="http://www.examplebank.com/withdraw?account=AccoutName&amp;amount=1000&amp;for=PayeeName">http://www.examplebank.com/withdraw?account=AccoutName&amp;amount=1000&amp;for=PayeeName</a>
+<p>csrf例子：假如一家银行用以运行转账操作的URL地址如下： http://www.examplebank.com/withdraw?account=AccoutName&amp;amount=1000&amp;for=PayeeName
 那么，一个恶意攻击者可以在另一个网站上放置如下代码： <code>&lt;img src="&lt;http://www.examplebank.com/withdraw?account=Alice&amp;amount=1000&amp;for=Badman&gt;"&gt;</code>
 如果有账户名为Alice的用户访问了恶意站点，而她之前刚访问过银行不久，登录信息尚未过期，那么她就会损失1000资金。</p>
 </blockquote>
@@ -5037,7 +5072,7 @@ console.log(bb); // 2
 <p>这是个人理解的为什么只劫持cookie不劫持token的原因。</p>
 <h2 id="29-vue-model-viewview-model">第 29 题：聊聊 Vue 的双向数据绑定，Model 如何改变 View，View 又是如何改变 Model 的<a class="headerlink" href="#29-vue-model-viewview-model" title="Permanent link">&para;</a></h2>
 <p>解析：第 29 题</p>
-<p><a href="https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/34">https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/34</a></p>
+<p>https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/34</p>
                 
               
               

@@ -226,7 +226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../about/readme.md" class="md-nav__link">
+      <a href="../../about/" class="md-nav__link">
         关于我
       </a>
     </li>
@@ -1497,42 +1497,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../project/%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
-        真实项目webpack配置解析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
-        webpack编译原理分析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
-        webpack的高级技巧
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../project/React%20%26%20Webpack/" class="md-nav__link">
         React & Webpack
       </a>
@@ -2186,36 +2150,38 @@
 <h2 id="_1">一，安装<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>windows平台下官网直接下载安装就好了，centos下安装步骤：
 配置MongoDB的yum源</p>
-<div class="highlight"><pre><span></span><code><span class="o">[</span>mongodb-org<span class="o">]</span>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span>mongodb-org<span class="o">]</span>
 <span class="nv">name</span><span class="o">=</span>MongoDB Repository
 <span class="nv">baseurl</span><span class="o">=</span>http://mirrors.aliyun.com/mongodb/yum/redhat/7Server/mongodb-org/4.0/x86_64/
 <span class="nv">gpgcheck</span><span class="o">=</span><span class="m">0</span>
 <span class="nv">enabled</span><span class="o">=</span><span class="m">1</span>
 </code></pre></div>
+
 <p>安装MongoDB</p>
 <p>安装之前先更新所有包 ：yum update</p>
 <p>安装命令：yum -y install mongodb-org</p>
 <p>查看mongo安装位置 whereis mongod</p>
 <p>查看修改配置文件 ：vi /etc/mongod.conf   如数据库路径dbpath,bindIp: 172.0.0.1  改为 bindIp: 0.0.0.0</p>
 <p>启动停止MongoDB</p>
-<div class="highlight"><pre><span></span><code>启动mongodb ：systemctl start mongod.service
+<div class="codehilite"><pre><span></span><code>启动mongodb ：systemctl start mongod.service
 停止mongodb ：systemctl stop mongod.service
 查到mongodb的状态：systemctl status mongod.service
 设置开机启动：systemctl <span class="nb">enable</span> mongod.service
 重启mongodb：systemctl restart mongod.service
 启动Mongo shell：mongo
 </code></pre></div>
+
 <h2 id="nodejs">二，nodejs库选择<a class="headerlink" href="#nodejs" title="Permanent link">&para;</a></h2>
 <p>下面三个都不错，我是选择了mongoose主要是github star多,便于使用，而且有中文文档，也一直有更新。</p>
 <p>mongodb（也叫 node-mongodb-native）mongodb</p>
 <p>官方库，包含了所有且最新的 api，其他大部分的库都是在这个库的基础上改造的。但是呢不支持文档校验，mongodb 是 no schema 的，Mongoose 通过 Schema 支持文档校验，可以防止非正常情况下写入错误的数据到数据库。</p>
 <p>Mongoose</p>
-<p>封装了数据库的操作，给人的感觉是同步的，其实内部是异步的。功能强大，官方文档详细http://<a href="http://www.mongoosejs.net/">www.mongoosejs.net/</a></p>
+<p>封装了数据库的操作，给人的感觉是同步的，其实内部是异步的。功能强大，官方文档详细http://www.mongoosejs.net/</p>
 <p>Mongolass</p>
 <p>保持mongodb 一样的 api，借鉴了 Mongoose 的优点，同时又保持了精简。</p>
 <h2 id="_2">三，数据库链接<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>新建db.js</p>
-<div class="highlight"><pre><span></span><code><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+<div class="codehilite"><pre><span></span><code><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">mongoose</span> <span class="o">=</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongoose&#39;</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">dburl</span><span class="o">=</span><span class="s1">&#39;mongodb://localhost/test&#39;</span><span class="p">;</span>
 <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">dburl</span><span class="p">);</span>
@@ -2239,10 +2205,11 @@
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">db</span><span class="p">;</span>
 </code></pre></div>
+
 <h2 id="_3">四，数据库操作<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>Schema,model的使用</p>
 <p>Schema定义。新建user.js</p>
-<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongoose&#39;</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongoose&#39;</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">Schema</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span><span class="p">;</span>
 
 <span class="c1">// 声明一个数据集 对象</span>
@@ -2261,13 +2228,14 @@
 <span class="c1">// 将数据模型暴露出去</span>
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="nx">userSchema</span><span class="p">);</span>
 </code></pre></div>
+
 <p>timestamps会自动增加创建时间createdAt，更新时间updatedAt</p>
 <p>很多教程是这样的写的</p>
 <p>updatedAt: { type: Date, default: Date.now }</p>
 <p>这个写法每次更新并不能更新updatedAt这个字段，还是要写代码去处理。</p>
 <p>另外注意不能写成default: Date.now()</p>
 <p>model的使用</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// 查找</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 查找</span>
 <span class="nx">User</span><span class="p">.</span><span class="nx">findOne</span><span class="p">({</span>
   <span class="nx">username</span><span class="o">:</span> <span class="s1">&#39;abc&#39;</span><span class="p">,</span>
   <span class="nx">password</span><span class="o">:</span> <span class="s1">&#39;abc&#39;</span>
@@ -2285,7 +2253,8 @@
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
 <span class="p">})</span>
 </code></pre></div>
-<p>更多详细操作见mongoose官方文档http://<a href="http://www.mongoosejs.net/">www.mongoosejs.net/</a></p>
+
+<p>更多详细操作见mongoose官方文档http://www.mongoosejs.net/</p>
                 
               
               

@@ -226,7 +226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../about/readme.md" class="md-nav__link">
+      <a href="../../about/" class="md-nav__link">
         关于我
       </a>
     </li>
@@ -1593,42 +1593,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../project/%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
-        真实项目webpack配置解析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
-        webpack编译原理分析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
-        webpack的高级技巧
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../project/React%20%26%20Webpack/" class="md-nav__link">
         React & Webpack
       </a>
@@ -2253,7 +2217,7 @@
                 <h1 id="react">React 中的事件处理<a class="headerlink" href="#react" title="Permanent link">&para;</a></h1>
 <h2 id="_1">基本使用<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p><code>React</code>框架自身实现了一套事件处理机制，它的基本用法和<code>DOM</code>事件很相似。例如，给某个<code>react</code>元素绑定点击事件：</p>
-<div class="highlight"><pre><span></span><code>import React from &#39;react&#39;;
+<div class="codehilite"><pre><span></span><code>import React from &#39;react&#39;;
 import ReactDOM from &#39;react-dom&#39;;
 
 class App extends React.Component {
@@ -2268,15 +2232,16 @@ class App extends React.Component {
   }
 }
 </code></pre></div>
+
 <ul>
 <li>事件类型采用小驼峰命名法，因此是 <code>onClick</code>，而不是 <code>onclick</code>，其他事件类型相同。</li>
 <li>直接将函数的声明(this.onClick)当成事件句柄传递</li>
 </ul>
-<p>我们将它的这套事件处理机制称之为<code>SyntheticEvent</code>，即**合成事件**</p>
+<p>我们将它的这套事件处理机制称之为<code>SyntheticEvent</code>，即<strong>合成事件</strong></p>
 <h2 id="synthetic-event">合成事件（Synthetic Event）<a class="headerlink" href="#synthetic-event" title="Permanent link">&para;</a></h2>
 <h3 id="_2">事件冒泡<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
-<p><code>React</code>中，默认的事件传播方式为**冒泡**：</p>
-<div class="highlight"><pre><span></span><code>import React, { Component } from &quot;react&quot;
+<p><code>React</code>中，默认的事件传播方式为<strong>冒泡</strong>：</p>
+<div class="codehilite"><pre><span></span><code>import React, { Component } from &quot;react&quot;
 import ReactDOM from &quot;react-dom&quot;
 
 class App extends Component {
@@ -2293,9 +2258,10 @@ class App extends Component {
 
 ReactDOM.render(&lt;App /&gt;, document.querySelector(&quot;#root&quot;));
 </code></pre></div>
+
 <p>在该示例中，<code>3</code>个<code>div</code>嵌套显示，并且每个元素上均绑定<code>onClick</code>事件：</p>
-<p>当用户点击 <code>div</code>元素时，可以看到，控制台先后输出了<code>child -&gt; parent -&gt; ancestor</code>，<mark>这是因为在React的事件处理系统中，默认的事件流就是冒泡</mark>，如果说我们希望以捕获的方式来触发事件的话，可以使用<code>onClickCapture</code>来绑定事件，也就是在事件类型后面加一个后缀<code>Capture</code>：</p>
-<div class="highlight"><pre><span></span><code>import React, { Component } from &quot;react&quot;
+<p>当用户点击 <code>div</code>元素时，可以看到，控制台先后输出了<code>child -&gt; parent -&gt; ancestor</code>，==这是因为在React的事件处理系统中，默认的事件流就是冒泡==，如果说我们希望以捕获的方式来触发事件的话，可以使用<code>onClickCapture</code>来绑定事件，也就是在事件类型后面加一个后缀<code>Capture</code>：</p>
+<div class="codehilite"><pre><span></span><code>import React, { Component } from &quot;react&quot;
 import ReactDOM from &quot;react-dom&quot;
 
 class App extends Component {
@@ -2312,25 +2278,27 @@ class App extends Component {
 
 ReactDOM.render(&lt;App /&gt;, document.querySelector(&quot;#root&quot;));
 </code></pre></div>
+
 <p>这时，还是点击<code>div</code>，就可以看到事件流是从<code>ancestor -&gt; parent -&gt; child</code>传播了。</p>
 <h3 id="_3">事件委托<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>在合成事件系统中，所有的事件都是绑定在<code>document</code>元素上，即，虽然我们在某个<code>react</code>元素上绑定了事件，但是，最后事件都委托给<code>document</code>统一触发。</p>
 <p><img alt="图片描述" src="https://segmentfault.com/img/bVbm5eh?w=879&amp;h=466" /></p>
 <h4 id="_4">在合成事件中只能阻止合成事件中的事件传播<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
 <p>我们在红色区域的<code>div</code>里，也就是最里层的那个元素上，使用<code>e.stopPropagation()</code>方法来阻止事件流的传播：</p>
-<div class="highlight"><pre><span></span><code>&lt;div onClick={() =&gt; {console.log(&quot;ancestor&quot;)}}&gt;
+<div class="codehilite"><pre><span></span><code>&lt;div onClick={() =&gt; {console.log(&quot;ancestor&quot;)}}&gt;
     &lt;div onClick={() =&gt; {console.log(&quot;parent&quot;);}}&gt;
         &lt;div onClick={e =&gt; { console.log(&quot;child&quot;); e.stopPropagation();}}&gt;&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 </code></pre></div>
+
 <p>点击红色区域的，我们可以看到控制台上只输出了<code>child</code>，说明这时已经成功阻止了冒泡。执行流程如下：</p>
 <p><img alt="图片描述" src="https://segmentfault.com/img/bVbm5ej?w=885&amp;h=459" /></p>
 <p>从图中我们可以看到，<code>react</code> 阻止的事件流，并没有阻止真正<code>DOM</code>元素的事件触发，当红色<code>div</code>元素被点击时，真正的元素还是按照冒泡的方式，层层将事件交给上级元素进行处理，最后事件传播到<code>docuement</code>，触发合成事件，在合成事件中，<code>child</code>触发时，<code>e.stopPropagation();</code>被调用，合成事件中的事件被终止。因此，==合成事件中的<code>stopPropagation</code>无法阻止事件在真正元素上的传递，它只阻止合成事件中的事件流。==相反，如果我们在红色的<code>div</code>上，绑定一个真正的事件，那么，合成事件则会被终止。</p>
 <p><img alt="图片描述" src="https://segmentfault.com/img/bVbm5en?w=879&amp;h=480" /></p>
 <h4 id="_5">事件对象<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
 <p>在<code>SyntheticEvent</code>中，我们依然可以获取到事件发生时的<code>event</code>对象：</p>
-<div class="highlight"><pre><span></span><code>import React, { Component } from &quot;react&quot;
+<div class="codehilite"><pre><span></span><code>import React, { Component } from &quot;react&quot;
 import ReactDOM from &quot;react-dom&quot;
 
 class App extends Component {
@@ -2358,9 +2326,10 @@ class App extends Component {
 
 ReactDOM.render(&lt;App /&gt;, document.querySelector(&quot;#root&quot;));
 </code></pre></div>
+
 <p>以上示例中，我们给<code>div</code>元素绑定了一个<code>click</code>事件，在用户点击时，在控制台输出<code>event</code>对象：</p>
 <p>接下来将用户点击时的坐标在<code>div</code>元素中显示出来，可以通过<code>clientX</code>和<code>clientY</code>来访问：</p>
-<div class="highlight"><pre><span></span><code>&lt;div
+<div class="codehilite"><pre><span></span><code>&lt;div
     style={styles[&quot;DEBUG_DISPLAY&quot;]}
     onClick={e =&gt; {
         this.setState({
@@ -2372,8 +2341,9 @@ ReactDOM.render(&lt;App /&gt;, document.querySelector(&quot;#root&quot;));
     x: {this.state.x}，y: {this.state.y}
 &lt;/div&gt;
 </code></pre></div>
+
 <p>合成事件中的<code>event</code>对象，并不是原生的<code>event</code>，只是说，我们可以通过它获取到原生<code>event</code>对象上的某些属性，比如以上示例中的<code>clientX</code>和<code>clientY</code>。而且，对于这个<code>event</code>对象，在整个合成事件中，只有一个，被全局共享，也就是说，当这次事件调用完成之后，这个<code>event</code>对象会被清空，等待下一次的事件触发，因此，我们无法在异步的操作中获取到<code>event</code>：</p>
-<div class="highlight"><pre><span></span><code>&lt;div
+<div class="codehilite"><pre><span></span><code>&lt;div
     style={styles[&quot;DEBUG_DISPLAY&quot;]}
     onClick={e =&gt; {
         setTimeout(() =&gt; {
@@ -2387,10 +2357,11 @@ ReactDOM.render(&lt;App /&gt;, document.querySelector(&quot;#root&quot;));
     x: {this.state.x}，y: {this.state.y}
 &lt;/div&gt;
 </code></pre></div>
+
 <p>当用户点击<code>div</code>，<code>1</code>秒之后获取点击时的坐标，这时，可以看到控制台抛出错误：</p>
 <p><img alt="图片描述" src="https://segmentfault.com/img/bVbm5fD?w=560&amp;h=750" /></p>
 <p>在异步操作中想要获取<code>event</code>对象中的数据，在事件发生时就需要将数据通过变量保存下来：</p>
-<div class="highlight"><pre><span></span><code>&lt;div
+<div class="codehilite"><pre><span></span><code>&lt;div
     style={styles[&quot;DEBUG_DISPLAY&quot;]}
     onClick={e =&gt; {
         const { clientX, clientY } = e;
@@ -2405,9 +2376,10 @@ ReactDOM.render(&lt;App /&gt;, document.querySelector(&quot;#root&quot;));
     x: {this.state.x}，y: {this.state.y}
 &lt;/div&gt;
 </code></pre></div>
+
 <h3 id="_6">混合使用<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p><code>react</code>鼓励我们使用合成事件，但是，在某些需求中，还是需要通过原生事件来进行处理，这时，就涉及到合成事件和原生事件的混合使用，例如以下示例：</p>
-<div class="highlight"><pre><span></span><code>import React, { Component } from &quot;react&quot;
+<div class="codehilite"><pre><span></span><code>import React, { Component } from &quot;react&quot;
 import ReactDOM from &quot;react-dom&quot;
 
 class App extends Component {
@@ -2439,10 +2411,11 @@ class App extends Component {
 
 ReactDOM.render(&lt;App /&gt;, document.querySelector(&quot;#root&quot;));
 </code></pre></div>
+
 <p>在这个示例中，我们提供一个按钮和一个<code>div</code>元素，当用户点击按钮时，显示<code>div</code>，当点击页面其他区域时，则隐藏。以上代码已经实现点击按钮显示<code>div</code>的功能：</p>
 <p><img alt="图片描述" src="https://segmentfault.com/img/bVbm5fJ?w=560&amp;h=750" /></p>
 <p>要实现 <em>点击其他区域隐藏<code>div</code>元素</em> 的功能，需要将事件绑定在<code>document</code>元素上，接下来，在<code>compnentDidMount</code>生命周期函数中，来绑定该事件：</p>
-<div class="highlight"><pre><span></span><code>class App extends Component {
+<div class="codehilite"><pre><span></span><code>class App extends Component {
 
   state = {
     ...
@@ -2461,11 +2434,12 @@ ReactDOM.render(&lt;App /&gt;, document.querySelector(&quot;#root&quot;));
   }
 }
 </code></pre></div>
+
 <p>当点击按钮时，<code>isShow: "block"</code>，当点击其他区域时，<code>isShow: "none"</code>。这时我们发现，点击按钮时，<code>div</code>显示不出来了。</p>
 <p><img alt="图片描述" src="https://segmentfault.com/img/bVbm5fQ?w=359&amp;h=248" /></p>
 <p>这个现象的原因是，实际上，在<code>document</code>元素身上，现在已经存在<code>2</code>个<code>click</code>事件，一个是合成事件绑定的<code>click</code>，另外一个是我们自己添加的监听器。当用户点击按钮时，<code>synthetic</code>中的<code>click</code>首先被触发，这时，<code>isShow</code>状态被设置成<code>block</code>，页面元素被显示出来，紧跟着，<code>native</code>中的<code>click</code>事件被触发，又把<code>isShow</code>的状态改为<code>none</code>，<code>div</code>元素又被隐藏了起来。</p>
 <p>处理方法：</p>
-<div class="highlight"><pre><span></span><code>import React, { Component } from &quot;react&quot;
+<div class="codehilite"><pre><span></span><code>import React, { Component } from &quot;react&quot;
 import ReactDOM from &quot;react-dom&quot;
 
 class App extends Component {

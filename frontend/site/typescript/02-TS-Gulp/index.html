@@ -226,7 +226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../about/readme.md" class="md-nav__link">
+      <a href="../../about/" class="md-nav__link">
         关于我
       </a>
     </li>
@@ -1508,42 +1508,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../project/%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
-        真实项目webpack配置解析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
-        webpack编译原理分析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
-        webpack的高级技巧
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../project/React%20%26%20Webpack/" class="md-nav__link">
         React & Webpack
       </a>
@@ -2101,40 +2065,47 @@
 <p>这里假设你已经在使用<a href="https://nodejs.org/">Node.js</a>和<a href="https://www.npmjs.com/">npm</a>了。</p>
 <h1 id="_1">创建简单工程<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <p>我们首先创建一个新目录。 命名为 <code>proj</code>，也可以使用任何你喜欢的名字。</p>
-<div class="highlight"><pre><span></span><code>mkdir proj
+<div class="codehilite"><pre><span></span><code>mkdir proj
 cd proj
 </code></pre></div>
+
 <p>我们将以下面的结构开始我们的工程：</p>
-<div class="highlight"><pre><span></span><code>proj/
+<div class="codehilite"><pre><span></span><code>proj/
    ├─ src/
    └─ dist/
 </code></pre></div>
+
 <p>TypeScript文件放在<code>src</code>文件夹下，经过TypeScript编译器编译生成的目标文件放在<code>dist</code>目录下。</p>
 <p>下面让我们来创建这些文件夹：</p>
-<div class="highlight"><pre><span></span><code>mkdir src
+<div class="codehilite"><pre><span></span><code>mkdir src
 mkdir dist
 </code></pre></div>
+
 <h2 id="_2">初始化工程<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>现在让我们把这个文件夹转换成npm包：</p>
-<div class="highlight"><pre><span></span><code>npm init
+<div class="codehilite"><pre><span></span><code>npm init
 </code></pre></div>
+
 <p>你将看到有一些提示操作。 除了入口文件外，其余的都可以使用默认项。 入口文件使用 <code>./dist/main.js</code>。 你可以随时在 <code>package.json</code>文件里更改生成的配置。</p>
 <h2 id="_3">安装依赖项<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>现在我们可以使用<code>npm install</code>命令来安装包。 首先全局安装TypeScript和Gulp。 （如果你正在使用Unix系统，你可能需要使用 <code>sudo</code>命令来启动<code>npm install</code>命令行。）</p>
-<div class="highlight"><pre><span></span><code>npm install -g gulp-cli
+<div class="codehilite"><pre><span></span><code>npm install -g gulp-cli
 </code></pre></div>
+
 <p>然后安装<code>typescript</code>，<code>gulp</code>和<code>gulp-typescript</code>到开发依赖项。 <a href="https://www.npmjs.com/package/gulp-typescript">Gulp-typescript</a>是TypeScript的一个Gulp插件。</p>
-<div class="highlight"><pre><span></span><code>npm install --save-dev typescript gulp gulp-typescript
+<div class="codehilite"><pre><span></span><code>npm install --save-dev typescript gulp gulp-typescript
 </code></pre></div>
+
 <h2 id="_4">写一个简单的例子<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>让我们写一个Hello World程序。 在 <code>src</code>目录下创建<code>main.ts</code>文件：</p>
-<div class="highlight"><pre><span></span><code>function hello(compiler: string) {
+<div class="codehilite"><pre><span></span><code>function hello(compiler: string) {
     console.log(`Hello from ${compiler}`);
 }
 hello(&quot;TypeScript&quot;);
 </code></pre></div>
+
 <p>在工程的根目录<code>proj</code>下新建一个<code>tsconfig.json</code>文件：</p>
-<div class="highlight"><pre><span></span><code>{
+<div class="codehilite"><pre><span></span><code>{
     &quot;files&quot;: [
         &quot;src/main.ts&quot;
     ],
@@ -2144,9 +2115,10 @@ hello(&quot;TypeScript&quot;);
     }
 }
 </code></pre></div>
+
 <h2 id="gulpfilejs">新建<code>gulpfile.js</code>文件<a class="headerlink" href="#gulpfilejs" title="Permanent link">&para;</a></h2>
 <p>在工程根目录下，新建一个<code>gulpfile.js</code>文件：</p>
-<div class="highlight"><pre><span></span><code>var gulp = require(&quot;gulp&quot;);
+<div class="codehilite"><pre><span></span><code>var gulp = require(&quot;gulp&quot;);
 var ts = require(&quot;gulp-typescript&quot;);
 var tsProject = ts.createProject(&quot;tsconfig.json&quot;);
 
@@ -2156,25 +2128,29 @@ gulp.task(&quot;default&quot;, function () {
         .js.pipe(gulp.dest(&quot;dist&quot;));
 });
 </code></pre></div>
+
 <h2 id="_5">测试这个应用<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>gulp
+<div class="codehilite"><pre><span></span><code>gulp
 node dist/main.js
 </code></pre></div>
+
 <p>程序应该能够打印出“Hello from TypeScript!”。</p>
 <h1 id="_6">向代码里添加模块<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h1>
 <p>在使用Browserify前，让我们先构建一下代码然后再添加一些混入的模块。 这个结构将是你在真实应用程序中会用到的。</p>
 <p>新建一个<code>src/greet.ts</code>文件：</p>
-<div class="highlight"><pre><span></span><code>export function sayHello(name: string) {
+<div class="codehilite"><pre><span></span><code>export function sayHello(name: string) {
     return `Hello from ${name}`;
 }
 </code></pre></div>
+
 <p>更改<code>src/main.ts</code>代码，从<code>greet.ts</code>导入<code>sayHello</code>：</p>
-<div class="highlight"><pre><span></span><code>import { sayHello } from &quot;./greet&quot;;
+<div class="codehilite"><pre><span></span><code>import { sayHello } from &quot;./greet&quot;;
 
 console.log(sayHello(&quot;TypeScript&quot;));
 </code></pre></div>
+
 <p>最后，将<code>src/greet.ts</code>添加到<code>tsconfig.json</code>：</p>
-<div class="highlight"><pre><span></span><code>{
+<div class="codehilite"><pre><span></span><code>{
     &quot;files&quot;: [
         &quot;src/main.ts&quot;,
         &quot;src/greet.ts&quot;
@@ -2185,19 +2161,22 @@ console.log(sayHello(&quot;TypeScript&quot;));
     }
 }
 </code></pre></div>
+
 <p>确保执行<code>gulp</code>后模块是能工作的，在Node.js下进行测试：</p>
-<div class="highlight"><pre><span></span><code>gulp
+<div class="codehilite"><pre><span></span><code>gulp
 node dist/main.js
 </code></pre></div>
+
 <p>注意，即使我们使用了ES2015的模块语法，TypeScript还是会生成Node.js使用的CommonJS模块。 我们在这个教程里会一直使用CommonJS模块，但是你可以通过修改 <code>module</code>选项来改变这个行为。</p>
 <h1 id="browserify">Browserify<a class="headerlink" href="#browserify" title="Permanent link">&para;</a></h1>
 <p>现在，让我们把这个工程由Node.js环境移到浏览器环境里。 因此，我们将把所有模块捆绑成一个JavaScript文件。 所幸，这正是Browserify要做的事情。 更方便的是，它支持Node.js的CommonJS模块，这也正是TypeScript默认生成的类型。 也就是说TypeScript和Node.js的设置不需要改变就可以移植到浏览器里。</p>
 <p>首先，安装Browserify，<a href="https://www.npmjs.com/package/tsify">tsify</a>和vinyl-source-stream。 tsify是Browserify的一个插件，就像gulp-typescript一样，它能够访问TypeScript编译器。 vinyl-source-stream会将Browserify的输出文件适配成gulp能够解析的格式，它叫做<a href="https://github.com/gulpjs/vinyl">vinyl</a>。</p>
-<div class="highlight"><pre><span></span><code>npm install --save-dev browserify tsify vinyl-source-stream
+<div class="codehilite"><pre><span></span><code>npm install --save-dev browserify tsify vinyl-source-stream
 </code></pre></div>
+
 <h2 id="_7">新建一个页面<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
 <p>在<code>src</code>目录下新建一个<code>index.html</code>文件：</p>
-<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
+<div class="codehilite"><pre><span></span><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
     &lt;head&gt;
         &lt;meta charset=&quot;UTF-8&quot; /&gt;
@@ -2209,8 +2188,9 @@ node dist/main.js
     &lt;/body&gt;
 &lt;/html&gt;
 </code></pre></div>
+
 <p>修改<code>main.ts</code>文件来更新这个页面：</p>
-<div class="highlight"><pre><span></span><code>import { sayHello } from &quot;./greet&quot;;
+<div class="codehilite"><pre><span></span><code>import { sayHello } from &quot;./greet&quot;;
 
 function showHello(divName: string, name: string) {
     const elt = document.getElementById(divName);
@@ -2219,8 +2199,9 @@ function showHello(divName: string, name: string) {
 
 showHello(&quot;greeting&quot;, &quot;TypeScript&quot;);
 </code></pre></div>
+
 <p><code>showHello</code>调用<code>sayHello</code>函数更改页面上段落的文字。 现在修改gulpfile文件如下：</p>
-<div class="highlight"><pre><span></span><code>var gulp = require(&quot;gulp&quot;);
+<div class="codehilite"><pre><span></span><code>var gulp = require(&quot;gulp&quot;);
 var browserify = require(&quot;browserify&quot;);
 var source = require(&#39;vinyl-source-stream&#39;);
 var tsify = require(&quot;tsify&quot;);
@@ -2247,6 +2228,7 @@ gulp.task(&quot;default&quot;, [&quot;copy-html&quot;], function () {
     .pipe(gulp.dest(&quot;dist&quot;));
 });
 </code></pre></div>
+
 <p>这里增加了<code>copy-html</code>任务并且把它加作<code>default</code>的依赖项。 这样，当 <code>default</code>执行时，<code>copy-html</code>会被首先执行。 我们还修改了 <code>default</code>任务，让它使用<code>tsify</code>插件调用Browserify，而不是<code>gulp-typescript</code>。 方便的是，两者传递相同的参数对象到TypeScript编译器。</p>
 <p>调用<code>bundle</code>后，我们使用<code>source</code>（vinyl-source-stream的别名）把输出文件命名为<code>bundle.js</code>。</p>
 <p>测试此页面，运行<code>gulp</code>，然后在浏览器里打开<code>dist/index.html</code>。 你应该能在页面上看到“Hello from TypeScript”。</p>
@@ -2260,10 +2242,11 @@ gulp.task(&quot;default&quot;, [&quot;copy-html&quot;], function () {
 </ul>
 <h2 id="watchify">Watchify<a class="headerlink" href="#watchify" title="Permanent link">&para;</a></h2>
 <p>我们启动Watchify，让它在后台帮我们编译：</p>
-<div class="highlight"><pre><span></span><code>npm install --save-dev watchify gulp-util
+<div class="codehilite"><pre><span></span><code>npm install --save-dev watchify gulp-util
 </code></pre></div>
+
 <p>修改gulpfile文件如下：</p>
-<div class="highlight"><pre><span></span><code>var gulp = require(&quot;gulp&quot;);
+<div class="codehilite"><pre><span></span><code>var gulp = require(&quot;gulp&quot;);
 var browserify = require(&quot;browserify&quot;);
 var source = require(&#39;vinyl-source-stream&#39;);
 var watchify = require(&quot;watchify&quot;);
@@ -2297,6 +2280,7 @@ gulp.task(&quot;default&quot;, [&quot;copy-html&quot;], bundle);
 watchedBrowserify.on(&quot;update&quot;, bundle);
 watchedBrowserify.on(&quot;log&quot;, gutil.log);
 </code></pre></div>
+
 <p>共有三处改变，但是需要你略微重构一下代码。</p>
 <ol>
 <li>将<code>browserify</code>实例包裹在<code>watchify</code>的调用里，控制生成的结果。</li>
@@ -2305,7 +2289,7 @@ watchedBrowserify.on(&quot;log&quot;, gutil.log);
 </ol>
 <p>(1)和(2)在一起意味着我们要将<code>browserify</code>调用移出<code>default</code>任务。 然后给函数起个名字，因为Watchify和Gulp都要调用它。 (3)是可选的，但是对于调试来讲很有用。</p>
 <p>现在当你执行<code>gulp</code>，它会启动并保持运行状态。 试着改变 <code>main.ts</code>文件里<code>showHello</code>的代码并保存。 你会看到这样的输出：</p>
-<div class="highlight"><pre><span></span><code>proj$ gulp
+<div class="codehilite"><pre><span></span><code>proj$ gulp
 [10:34:20] Using gulpfile ~/src/proj/gulpfile.js
 [10:34:20] Starting &#39;copy-html&#39;...
 [10:34:20] Finished &#39;copy-html&#39; after 26 ms
@@ -2315,12 +2299,14 @@ watchedBrowserify.on(&quot;log&quot;, gutil.log);
 [10:35:22] 2261 bytes written (0.02 seconds)
 [10:35:24] 2808 bytes written (0.05 seconds)
 </code></pre></div>
+
 <h2 id="uglify">Uglify<a class="headerlink" href="#uglify" title="Permanent link">&para;</a></h2>
 <p>首先安装Uglify。 因为Uglify是用于混淆你的代码，所以我们还要安装vinyl-buffer和gulp-sourcemaps来支持sourcemaps。</p>
-<div class="highlight"><pre><span></span><code>npm install --save-dev gulp-uglify vinyl-buffer gulp-sourcemaps
+<div class="codehilite"><pre><span></span><code>npm install --save-dev gulp-uglify vinyl-buffer gulp-sourcemaps
 </code></pre></div>
+
 <p>修改gulpfile文件如下：</p>
-<div class="highlight"><pre><span></span><code>var gulp = require(&quot;gulp&quot;);
+<div class="codehilite"><pre><span></span><code>var gulp = require(&quot;gulp&quot;);
 var browserify = require(&quot;browserify&quot;);
 var source = require(&#39;vinyl-source-stream&#39;);
 var tsify = require(&quot;tsify&quot;);
@@ -2354,16 +2340,19 @@ gulp.task(&quot;default&quot;, [&quot;copy-html&quot;], function () {
     .pipe(gulp.dest(&quot;dist&quot;));
 });
 </code></pre></div>
+
 <p>注意<code>uglify</code>只是调用了自己—<code>buffer</code>和<code>sourcemaps</code>的调用是用于确保sourcemaps可以工作。 这些调用让我们可以使用单独的sourcemap文件，而不是之前的内嵌的sourcemaps。 你现在可以执行 <code>gulp</code>来检查<code>bundle.js</code>是否被压缩了：</p>
-<div class="highlight"><pre><span></span><code>gulp
+<div class="codehilite"><pre><span></span><code>gulp
 cat dist/bundle.js
 </code></pre></div>
+
 <h2 id="babel">Babel<a class="headerlink" href="#babel" title="Permanent link">&para;</a></h2>
 <p>首先安装Babelify和ES2015的Babel预置程序。 和Uglify一样，Babelify也会混淆代码，因此我们也需要vinyl-buffer和gulp-sourcemaps。 默认情况下Babelify只会处理扩展名为 <code>.js</code>，<code>.es</code>，<code>.es6</code>和<code>.jsx</code>的文件，因此我们需要添加<code>.ts</code>扩展名到Babelify选项。</p>
-<div class="highlight"><pre><span></span><code>npm install --save-dev babelify babel-core babel-preset-es2015 vinyl-buffer gulp-sourcemaps
+<div class="codehilite"><pre><span></span><code>npm install --save-dev babelify babel-core babel-preset-es2015 vinyl-buffer gulp-sourcemaps
 </code></pre></div>
+
 <p>修改gulpfile文件如下：</p>
-<div class="highlight"><pre><span></span><code>var gulp = require(&#39;gulp&#39;);
+<div class="codehilite"><pre><span></span><code>var gulp = require(&#39;gulp&#39;);
 var browserify = require(&#39;browserify&#39;);
 var source = require(&#39;vinyl-source-stream&#39;);
 var tsify = require(&#39;tsify&#39;);
@@ -2399,8 +2388,9 @@ gulp.task(&#39;default&#39;, [&#39;copyHtml&#39;], function () {
     .pipe(gulp.dest(&#39;dist&#39;));
 });
 </code></pre></div>
+
 <p>我们需要设置TypeScript目标为ES2015。 Babel稍后会从TypeScript生成的ES2015代码中生成ES5。 修改<code>tsconfig.json</code>:</p>
-<div class="highlight"><pre><span></span><code>{
+<div class="codehilite"><pre><span></span><code>{
     &quot;files&quot;: [
         &quot;src/main.ts&quot;
     ],
@@ -2410,6 +2400,7 @@ gulp.task(&#39;default&#39;, [&#39;copyHtml&#39;], function () {
     }
 }
 </code></pre></div>
+
 <p>对于这样一段简单的代码来说，Babel的ES5输出应该和TypeScript的输出相似。</p>
                 
               

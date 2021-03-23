@@ -226,7 +226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../about/readme.md" class="md-nav__link">
+      <a href="../../about/" class="md-nav__link">
         关于我
       </a>
     </li>
@@ -1556,42 +1556,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../project/%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
-        真实项目webpack配置解析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
-        webpack编译原理分析
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../project/webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
-        webpack的高级技巧
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../project/React%20%26%20Webpack/" class="md-nav__link">
         React & Webpack
       </a>
@@ -2183,17 +2147,19 @@
                 <h3 id="_1">事件处理函数的性能<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
 <p>如果在render阶段执行绑定，不管使用 bind(this) 还是箭头函数，都不利于性能（会在渲染时创建一个新函数）</p>
 <p>现在很多代码在render阶段设置箭头函数处理，这样不利于性能，应当避免这种写法。</p>
-<div class="highlight"><pre><span></span><code>&lt;button onClick={this.handleClick.bind(this)}&gt;&lt;/button&gt;
+<div class="codehilite"><pre><span></span><code>&lt;button onClick={this.handleClick.bind(this)}&gt;&lt;/button&gt;
 &lt;button onClick={() =&gt; this.handleClick()}&gt;&lt;/button&gt;
 </code></pre></div>
+
 <p>注意：在绑定事件时，如果使用箭头函数，后面需要加上括号；否则不能加上括号，会直接调用函数。</p>
-<div class="highlight"><pre><span></span><code>&lt;button onClick={this.handleClick()}&gt;&lt;/button&gt;
+<div class="codehilite"><pre><span></span><code>&lt;button onClick={this.handleClick()}&gt;&lt;/button&gt;
 // 这样在渲染过程函数直接执行
 </code></pre></div>
+
 <h3 id="_2">事件处理函数的传参<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>给事件处理的回调函数传递参数的两种方法（通常需要传递数组中的某项参数）</p>
 <p>方法一：通过箭头函数传递参数</p>
-<div class="highlight"><pre><span></span><code>{this.state.array.map((item, index) =&gt; {
+<div class="codehilite"><pre><span></span><code>{this.state.array.map((item, index) =&gt; {
   return (
     &lt;Fragment&gt;
       &lt;button key={index} onClick={this.handleClick.bind(this, item)}&gt;&lt;/button&gt;
@@ -2203,13 +2169,15 @@
 })}
 // 两个方法都可以。如果使用第一种，函数的实参是item，而不是 this and item。
 </code></pre></div>
+
 <p>方法二：通过data属性传递参数；这种情况对于 PureComponent 可能产生性能问题</p>
-<div class="highlight"><pre><span></span><code>&lt;span data-test={item} onClick={this.handleClick}&gt;&lt;/span&gt;
+<div class="codehilite"><pre><span></span><code>&lt;span data-test={item} onClick={this.handleClick}&gt;&lt;/span&gt;
 
 handleClick = (event) =&gt; {
   console.log(event.targte.data-test.item);
 }
 </code></pre></div>
+
 <h3 id="_3">避免函数多次调用<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>例如想要防止<code>onClick</code>或者<code>onScroll</code>这样的事件处理程序的回调被触发的太快，那么可以限制执行回调的速度，可以通过以下几种方式做到这点：</p>
 <ul>
@@ -2221,7 +2189,7 @@ handleClick = (event) =&gt; {
 <h3 id="_4">节流函数和防抖函数<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>lodash库</p>
 <p>节流是阻止函数在给定时间内被多次调用。下面这个例子会阻止“click”事件每秒钟的多次调用。</p>
-<div class="highlight"><pre><span></span><code>import throttle from &#39;lodash.throttle&#39;;
+<div class="codehilite"><pre><span></span><code>import throttle from &#39;lodash.throttle&#39;;
 
 class LoadMoreButton extends React.Component {
   constructor(props) {
@@ -2243,8 +2211,9 @@ class LoadMoreButton extends React.Component {
   }
 }
 </code></pre></div>
+
 <p>防抖确保函数上次执行后的一段时间内，不会再次执行。当必须进行一些昂贵的计算来响应快速派发的事件时（比如鼠标滚动或键盘事件时），防抖是非常有用的。下面这个例子以250ms的延迟来改变文本输入。</p>
-<div class="highlight"><pre><span></span><code>import debounce from &#39;lodash.debounce&#39;;
+<div class="codehilite"><pre><span></span><code>import debounce from &#39;lodash.debounce&#39;;
 
 class Searchbox extends React.Component {
   constructor(props) {
@@ -2280,6 +2249,7 @@ class Searchbox extends React.Component {
   }
 }
 </code></pre></div>
+
 <p>样式</p>
 <p>通常情况下使用css外部文件链接形式增加样式。动画：查看 <a href="https://reactcommunity.org/react-transition-group/">React Transition Group</a> 和 <a href="https://github.com/chenglou/react-motion">React Motion</a>。</p>
                 
