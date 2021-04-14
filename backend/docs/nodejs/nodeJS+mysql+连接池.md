@@ -4,13 +4,15 @@
 
 # 介绍
 
-> 在 软件工程 ， 连接池 是一个 高速缓存 的 数据库连接 维持，使得连接可以当需要将来向数据库请求重复使用。 [ 来源请求 ] 连接池用于提高数据库上执行命令的性能。 打开并保持每个用户的数据库连接，特别请求到动态数据库驱动的制成 网站 应用，是昂贵的和浪费资源。 在连接池中，在创建连接之后，它被放置在池中，并且它被再次使用，使得不必建立新的连接。 如果正在使用所有连接，则会创建一个新连接并将其添加到池中。 连接池也减少了用户必须等待建立到数据库的连接的时间量。
+> 在 软件工程 ， 连接池 是一个 高速缓存 的 数据库连接 维持，使得连接可以当需要将来向数据库请求重复使用。
+>
+>  [ 来源请求 ] 连接池用于提高数据库上执行命令的性能。 打开并保持每个用户的数据库连接，特别请求到动态数据库驱动的制成 网站 应用，是昂贵的和浪费资源。 在连接池中，在创建连接之后，它被放置在池中，并且它被再次使用，使得不必建立新的连接。 如果正在使用所有连接，则会创建一个新连接并将其添加到池中。 连接池也减少了用户必须等待建立到数据库的连接的时间量。
 
-[来源维基百科](https://translate.googleusercontent.com/translate_c?depth=1&hl=zh-CN&ie=UTF8&prev=_t&rurl=translate.google.com.hk&sl=auto&tl=zh-CN&u=https://en.wikipedia.org/wiki/Connection_pool&usg=ALkJrhiVC-B9bhMtjYnRxxPqT7fMsGonSw)
+
 
 # 该组件也提供了创建连接池的方法
 
-## 创建连接池
+创建连接池
 
 > 创建连接池的配置方式和创建连接的方式相同
 > 但是也有几个 独有的配置
@@ -24,43 +26,41 @@ connectionLimit : 一次性建立的最大连接数目  默认为 10
 queueLimit: 连接池的最大排队数目 超出报错 如果为0，则没有限制数目，默认为0 
 ```
 
-### 创建连接池代码
+创建连接池代码
 
 ```JavaScript
 var mysql = require('mysql');
 var pool = mysql = createPool({//创建连接池
-    host : 'localhost',
-    user : 'we',
-    password : 'pass',
-    database : 'db'
+  host : 'localhost',
+  user : 'we',
+  password : 'pass',
+  database : 'db'
 })
 ```
 
-## 获取连接
+获取连接
 
 ```JavaScript
 pool.getConnection(function(err,connection){
-    connection.query(sql,function(err,rows){//执行sql语句
-        connection.release();//将连接返回连接池
+  connection.query(sql,function(err,rows){//执行sql语句
+    connection.release();//将连接返回连接池
 
-        //做些什么
-    })
+    //做些什么
+  })
 })
 ```
 
-## 将连接释放会连接池
+将连接释放会连接池
 
 ```
 connection.release();
 ```
 
-## 彻底从连接池里删除一个连接
+彻底从连接池里删除一个连接
 
 ```
 connection.destroy();
 ```
-
-
 
 
 
@@ -152,7 +152,7 @@ pool.end();
 
 下面我们来做一个使用数据库连接池做一个demo如下所示：
 
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
+
 
 ```
 const mysql = require('mysql');
@@ -181,8 +181,6 @@ pool.getConnection((err, conn) => {
   }
 });
 ```
-
-[![复制代码](https://common.cnblogs.com/images/copycode.gif)](javascript:void(0);)
 
 如下图所示：
 

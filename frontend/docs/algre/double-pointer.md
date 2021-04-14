@@ -185,7 +185,7 @@ Explanation: 1 * 1 + 2 * 2 = 5
 
 题目描述：判断一个数是否为两个数的平方和。
 
-```swift
+```go
 /*设置两个指针，一个从前（0）开始遍历，一个从后（sqrt(n)）开始遍历，直到找到合适的解
 */
 func judgeSquareSum(c int) bool {
@@ -253,7 +253,7 @@ Explanation: You could delete the character 'c'.
 
 题目描述：可以删除一个字符，判断是否能构成回文字符串。
 
-```swift
+```go
 /*两个指针，一个从前一个往后，一致继续往前，不一致则分别看过滤哪一边可以继续*/
 func validPalindrome(s string) bool {
   bs := []byte(s)

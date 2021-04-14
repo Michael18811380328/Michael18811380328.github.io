@@ -15,8 +15,7 @@ source ./VirtualEnv/py3-env/bin/activate
 4、开启本地服务器。测试正常后，编译HTML界面
 
 ~~~bash
-mkdocs serve
-mkdocs build
+./build.sh
 ~~~
 
 5、切换到根目录，使用 http-server 再次测试一下编译后整体界面效果。push 到 github 上面，即可显示编译后的界面。

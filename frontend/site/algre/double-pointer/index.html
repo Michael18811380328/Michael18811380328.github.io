@@ -2596,17 +2596,17 @@ Output: index1=1, index2=2
 <p>题目描述：判断一个数是否为两个数的平方和。</p>
 <div class="codehilite"><pre><span></span><code><span class="cm">/*设置两个指针，一个从前（0）开始遍历，一个从后（sqrt(n)）开始遍历，直到找到合适的解</span>
 <span class="cm">*/</span>
-<span class="kd">func</span> <span class="nf">judgeSquareSum</span><span class="p">(</span><span class="n">c</span> <span class="n">int</span><span class="p">)</span> <span class="n">bool</span> <span class="p">{</span>
-  <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:=</span><span class="mi">0</span><span class="p">,</span><span class="n">int</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="n">Sqrt</span><span class="p">(</span><span class="n">float64</span><span class="p">(</span><span class="n">c</span><span class="p">)));</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">j</span><span class="p">;{</span>
-    <span class="k">if</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="o">*</span><span class="n">j</span>  <span class="p">==</span> <span class="n">c</span> <span class="p">{</span>
+<span class="kd">func</span> <span class="nx">judgeSquareSum</span><span class="p">(</span><span class="nx">c</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="nx">i</span><span class="p">,</span><span class="nx">j</span><span class="o">:=</span><span class="mi">0</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="nx">math</span><span class="p">.</span><span class="nx">Sqrt</span><span class="p">(</span><span class="nb">float64</span><span class="p">(</span><span class="nx">c</span><span class="p">)));</span><span class="nx">i</span><span class="o">&lt;=</span><span class="nx">j</span><span class="p">;{</span>
+    <span class="k">if</span> <span class="nx">i</span><span class="o">*</span><span class="nx">i</span> <span class="o">+</span> <span class="nx">j</span><span class="o">*</span><span class="nx">j</span>  <span class="o">==</span> <span class="nx">c</span> <span class="p">{</span>
       <span class="k">return</span> <span class="kc">true</span>
     <span class="p">}</span>
-    <span class="k">if</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="o">*</span><span class="n">j</span>  <span class="o">&lt;</span> <span class="n">c</span> <span class="p">{</span>
-      <span class="n">i</span><span class="o">++</span>
+    <span class="k">if</span> <span class="nx">i</span><span class="o">*</span><span class="nx">i</span> <span class="o">+</span> <span class="nx">j</span><span class="o">*</span><span class="nx">j</span>  <span class="p">&lt;</span> <span class="nx">c</span> <span class="p">{</span>
+      <span class="nx">i</span><span class="o">++</span>
       <span class="k">continue</span>
     <span class="p">}</span>
-    <span class="k">if</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="o">*</span><span class="n">j</span>  <span class="o">&gt;</span> <span class="n">c</span> <span class="p">{</span>
-      <span class="n">j</span><span class="o">--</span>
+    <span class="k">if</span> <span class="nx">i</span><span class="o">*</span><span class="nx">i</span> <span class="o">+</span> <span class="nx">j</span><span class="o">*</span><span class="nx">j</span>  <span class="p">&gt;</span> <span class="nx">c</span> <span class="p">{</span>
+      <span class="nx">j</span><span class="o">--</span>
       <span class="k">continue</span>
     <span class="p">}</span>
   <span class="p">}</span>
@@ -2654,25 +2654,25 @@ Output: index1=1, index2=2
 
 <p>题目描述：可以删除一个字符，判断是否能构成回文字符串。</p>
 <div class="codehilite"><pre><span></span><code><span class="cm">/*两个指针，一个从前一个往后，一致继续往前，不一致则分别看过滤哪一边可以继续*/</span>
-<span class="kd">func</span> <span class="nf">validPalindrome</span><span class="p">(</span><span class="n">s</span> <span class="n">string</span><span class="p">)</span> <span class="n">bool</span> <span class="p">{</span>
-  <span class="n">bs</span> <span class="p">:=</span> <span class="p">[]</span><span class="n">byte</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-  <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">:=</span><span class="mi">0</span><span class="p">,</span><span class="n">len</span><span class="p">(</span><span class="n">bs</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="p">&lt;</span><span class="n">j</span><span class="p">;{</span>
-    <span class="k">if</span> <span class="n">bs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">bs</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="p">{</span> <span class="c1">//发现不一致，分别看去掉左边还是去掉右边任意一个可以就通过</span>
-      <span class="k">return</span> <span class="n">ispalindrome</span><span class="p">(</span><span class="n">bs</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="o">||</span> <span class="n">ispalindrome</span><span class="p">(</span><span class="n">bs</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="kd">func</span> <span class="nx">validPalindrome</span><span class="p">(</span><span class="nx">s</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+  <span class="nx">bs</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+  <span class="k">for</span> <span class="nx">i</span><span class="p">,</span><span class="nx">j</span><span class="o">:=</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="nx">bs</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="p">&lt;</span><span class="nx">j</span><span class="p">;{</span>
+    <span class="k">if</span> <span class="nx">bs</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">bs</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">{</span> <span class="c1">//发现不一致，分别看去掉左边还是去掉右边任意一个可以就通过</span>
+      <span class="k">return</span> <span class="nx">ispalindrome</span><span class="p">(</span><span class="nx">bs</span><span class="p">,</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="nx">j</span><span class="p">)</span> <span class="o">||</span> <span class="nx">ispalindrome</span><span class="p">(</span><span class="nx">bs</span><span class="p">,</span><span class="nx">i</span><span class="p">,</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
     <span class="p">}</span>
-    <span class="n">i</span><span class="o">++</span>
-    <span class="n">j</span><span class="o">--</span>
+    <span class="nx">i</span><span class="o">++</span>
+    <span class="nx">j</span><span class="o">--</span>
   <span class="p">}</span>
   <span class="k">return</span> <span class="kc">true</span>
 <span class="p">}</span>
 
-<span class="kd">func</span> <span class="nf">ispalindrome</span><span class="p">(</span><span class="n">bs</span> <span class="p">[]</span><span class="n">byte</span><span class="p">,</span> <span class="kr">left</span><span class="p">,</span><span class="kr">right</span> <span class="n">int</span><span class="p">)</span> <span class="n">bool</span> <span class="p">{</span>
-  <span class="k">for</span> <span class="p">;</span><span class="kr">left</span> <span class="o">&lt;</span> <span class="kr">right</span><span class="p">;{</span>
-    <span class="k">if</span> <span class="n">bs</span><span class="p">[</span><span class="kr">left</span><span class="p">]</span> <span class="o">!=</span> <span class="n">bs</span><span class="p">[</span><span class="kr">right</span><span class="p">]{</span>
+<span class="kd">func</span> <span class="nx">ispalindrome</span><span class="p">(</span><span class="nx">bs</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">left</span><span class="p">,</span><span class="nx">right</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">;</span><span class="nx">left</span> <span class="p">&lt;</span> <span class="nx">right</span><span class="p">;{</span>
+    <span class="k">if</span> <span class="nx">bs</span><span class="p">[</span><span class="nx">left</span><span class="p">]</span> <span class="o">!=</span> <span class="nx">bs</span><span class="p">[</span><span class="nx">right</span><span class="p">]{</span>
       <span class="k">return</span> <span class="kc">false</span>
     <span class="p">}</span>
-    <span class="kr">left</span><span class="o">++</span>
-    <span class="kr">right</span><span class="o">--</span>
+    <span class="nx">left</span><span class="o">++</span>
+    <span class="nx">right</span><span class="o">--</span>
   <span class="p">}</span>
   <span class="k">return</span> <span class="kc">true</span>
 <span class="p">}</span>
@@ -3231,6 +3231,8 @@ Output:
           }, typeof search !== "undefined" && search)
         })
       </script>
+      
+        <script src="../../js/baidu-statistics.js"></script>
       
     
   </body>

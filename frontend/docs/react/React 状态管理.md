@@ -1,6 +1,6 @@
+# React 状态管理
+
 **当你遇到需要同时获取多个子组件数据，或者两个组件之间需要相互通讯的情况时，把子组件的 state 数据提升至其共同的父组件当中保存。之后父组件可以通过 props 将状态数据传递到子组件当中。这样应用当中的状态数据就能够更方便地交流共享了。**
-
-
 
 ### 为什么不可变性在React当中非常重要
 
@@ -44,6 +44,8 @@ class menu extends React.Component {
       this.haveInfo();
     }
   }
+  
+  // optimise static getDerivedStateFromProps 代替上面的旧函数
   
   render() {
     return (

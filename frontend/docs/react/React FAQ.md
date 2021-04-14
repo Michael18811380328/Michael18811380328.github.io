@@ -1,22 +1,22 @@
+# React 常见问题
+
 ### 事件处理函数的性能
 
 如果在render阶段执行绑定，不管使用 bind(this) 还是箭头函数，都不利于性能（会在渲染时创建一个新函数）
 
 现在很多代码在render阶段设置箭头函数处理，这样不利于性能，应当避免这种写法。
 
-~~~jsx
+~~~js
 <button onClick={this.handleClick.bind(this)}></button>
 <button onClick={() => this.handleClick()}></button>
 ~~~
 
 注意：在绑定事件时，如果使用箭头函数，后面需要加上括号；否则不能加上括号，会直接调用函数。
 
-~~~jsx
+~~~js
 <button onClick={this.handleClick()}></button>
 // 这样在渲染过程函数直接执行
 ~~~
-
-
 
 ### 事件处理函数的传参
 
@@ -24,7 +24,7 @@
 
 方法一：通过箭头函数传递参数
 
-~~~jsx
+~~~js
 {this.state.array.map((item, index) => {
   return (
     <Fragment>
@@ -33,12 +33,14 @@
     </Fragment>
   );
 })}
-// 两个方法都可以。如果使用第一种，函数的实参是item，而不是 this and item。
+// 两个方法都可以。
+// 如果使用第一种，函数的实参是item，而不是 this and item。
+// 如果使用第二种，函数的函数的 e 一定是点击事件
 ~~~
 
 方法二：通过data属性传递参数；这种情况对于 PureComponent 可能产生性能问题
 
-~~~jsx
+~~~js
 <span data-test={item} onClick={this.handleClick}></span>
 
 handleClick = (event) => {
@@ -129,8 +131,3 @@ class Searchbox extends React.Component {
   }
 }
 ~~~
-
-样式
-
-通常情况下使用css外部文件链接形式增加样式。动画：查看 [React Transition Group](https://reactcommunity.org/react-transition-group/) 和 [React Motion](https://github.com/chenglou/react-motion)。
-

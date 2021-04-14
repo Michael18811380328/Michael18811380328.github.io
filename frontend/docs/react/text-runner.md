@@ -1,15 +1,6 @@
----
-layout: post
-title:  "Text-Runner"
-date:   2019-04-22 17:59:11 +0800
-categories: jekyll update
----
+# Text-Runner 插件说明
 
-### Text-Runner 插件说明
-
-主要功能：是一个文档工具，使得文档内容可以执行，使用 JS 将一段HTML标签中的内容进行提取分析，获取内部的节点和类型。类似功能在python可以实现。Test runner for text
-
-运行前需要执行 npm install.
+主要功能：是一个文档工具，使得文档内容可以执行，使用 JS 将一段HTML标签中的内容进行提取分析，获取内部的节点和类型。类似功能在python可以实现。
 
 TextRunner is an agile documentation tool, in particular a semantic documentation checker. It makes documentation executable. An example is the text you are reading right now, which is verified for correctness by TextRunner.
 
@@ -26,8 +17,7 @@ readme-driven development: documentation is your product prototype and drives it
 ~~~bash
 # 打开项目文件夹
 cd test
-
-# 列出项目的目录(已经执行了npm install --dev text-runner)
+npm install --dev text-runner
 ls
 node_modules      package-lock.json package.json
 
@@ -272,28 +262,5 @@ test.md:1 -- Hello world
 
 Success! 1 activities in 1 files, 27ms
 
-# 显示下面的帮助文档
-node_modules/.bin/text-run help
-
-TextRunner 3.6.0
-
-USAGE: text-run [<options>] <command>
-
-COMMANDS
-  run [<filename>]  tests the entire documentation, or only the given file/folder
-  add <filename>    scaffolds a new block type handler
-  setup             creates an example configuration file
-  version           shows the currently installed version
-  help              shows this help screen
-
-OPTIONS
-  --config          provide a custom configuration filename
-  --offline         don't check external links
-
-node_modules/.bin/text-run version
-TextRunner v3.6.0
-node_modules/.bin/text-run cd test.md
-file or directory does not exist: cd
-node_modules/.bin/text-run 
-
 ~~~
+
