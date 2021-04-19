@@ -1,16 +1,12 @@
-# Node.js 创建第一个应用
+# 03-Node.js 创建第一个应用(OK)
 
-如果我们使用 PHP 来编写后端的代码时，需要 Apache 或者 Nginx 的 HTTP 服务器，并配上 mod_php5 模块和 php-cgi。
-
-从这个角度看，整个"接收 HTTP 请求并提供 Web 页面"的需求就不需要 PHP 来处理。
-
-不过对 Node.js 来说，概念完全不一样了。使用 Node.js 时，我们不仅仅 在实现一个应用，同时还实现了整个 HTTP 服务器。事实上，我们的 Web 应用以及对应的 Web 服务器基本上是一样的。
+使用 Node.js 时，我们不仅仅在实现一个应用，同时还实现了整个 HTTP 服务器。事实上，我们的 Web 应用以及对应的 Web 服务器基本上是一样的。
 
 在我们创建 Node.js 第一个 "Hello, World!" 应用前，让我们先了解下 Node.js 应用是由哪几部分组成的：
 
-1. **引入 required 模块：**我们可以使用 **require** 指令来载入 Node.js 模块。
-2. **创建服务器：**服务器可以监听客户端的请求，类似于 Apache 、Nginx 等 HTTP 服务器。
-3. **接收请求与响应请求** 服务器很容易创建，客户端可以使用浏览器或终端发送 HTTP 请求，服务器接收请求后返回响应数据。
+1. 引入 required 模块：我们可以使用 require 指令来载入 Node.js 模块。
+2. 创建服务器：服务器可以监听客户端的请求，类似于 Apache 、Nginx 等 HTTP 服务器。
+3. 接收请求与响应请求：服务器很容易创建，客户端可以使用浏览器或终端发送 HTTP 请求，服务器接收请求后返回响应数据。
 
 ------
 
@@ -20,7 +16,7 @@
 
 我们使用 **require** 指令来载入 http 模块，并将实例化的 HTTP 赋值给变量 http，实例如下:
 
-```
+```js
 var http = require("http");
 ```
 
@@ -30,7 +26,7 @@ var http = require("http");
 
 实例如下，在你项目的根目录下创建一个叫 server.js 的文件，并写入以下代码：
 
-```
+```js
 var http = require('http');
 
 http.createServer(function (request, response) {
@@ -56,8 +52,6 @@ console.log('Server running at http://127.0.0.1:8888/');
 node server.js
 Server running at http://127.0.0.1:8888/
 ```
-
-![img](https://www.runoob.com/wp-content/uploads/2014/03/cmdrun.jpg)
 
 接下来，打开浏览器访问 http://127.0.0.1:8888/，你会看到一个写着 "Hello World"的网页。
 
