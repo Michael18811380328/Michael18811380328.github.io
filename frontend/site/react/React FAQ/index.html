@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#react" class="md-skip">
           Skip to content
         </a>
       
@@ -240,6 +240,18 @@
     <li class="md-nav__item">
       <a href="../../about/log/" class="md-nav__link">
         学习日志
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        文档结构
       </a>
     </li>
   
@@ -1053,6 +1065,8 @@
       
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           React FAQ
@@ -1066,6 +1080,8 @@
         
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
+  
+    
   
   
     <label class="md-nav__title" for="__toc">
@@ -1177,18 +1193,6 @@
     <li class="md-nav__item">
       <a href="../React%20%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/" class="md-nav__link">
         React 中的事件处理
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../React%20%E5%BC%BA%E5%88%B6%E6%9B%B4%E6%96%B0%E7%BB%84%E4%BB%B6/" class="md-nav__link">
-        React 强制更新组件
       </a>
     </li>
   
@@ -2172,6 +2176,8 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -2224,40 +2230,41 @@
                   </a>
                 
                 
-                  <h1>React FAQ</h1>
-                
-                <h3 id="_1">事件处理函数的性能<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+                <h1 id="react">React 常见问题<a class="headerlink" href="#react" title="Permanent link">&para;</a></h1>
+<h3 id="_1">事件处理函数的性能<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
 <p>如果在render阶段执行绑定，不管使用 bind(this) 还是箭头函数，都不利于性能（会在渲染时创建一个新函数）</p>
 <p>现在很多代码在render阶段设置箭头函数处理，这样不利于性能，应当避免这种写法。</p>
-<div class="codehilite"><pre><span></span><code>&lt;button onClick={this.handleClick.bind(this)}&gt;&lt;/button&gt;
-&lt;button onClick={() =&gt; this.handleClick()}&gt;&lt;/button&gt;
+<div class="codehilite"><pre><span></span><code><span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="o">&gt;&lt;</span><span class="err">/button&gt;</span>
+<span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">()}</span><span class="o">&gt;&lt;</span><span class="err">/button&gt;</span>
 </code></pre></div>
 
 <p>注意：在绑定事件时，如果使用箭头函数，后面需要加上括号；否则不能加上括号，会直接调用函数。</p>
-<div class="codehilite"><pre><span></span><code>&lt;button onClick={this.handleClick()}&gt;&lt;/button&gt;
-// 这样在渲染过程函数直接执行
+<div class="codehilite"><pre><span></span><code><span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">()}</span><span class="o">&gt;&lt;</span><span class="err">/button&gt;</span>
+<span class="c1">// 这样在渲染过程函数直接执行</span>
 </code></pre></div>
 
 <h3 id="_2">事件处理函数的传参<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>给事件处理的回调函数传递参数的两种方法（通常需要传递数组中的某项参数）</p>
 <p>方法一：通过箭头函数传递参数</p>
-<div class="codehilite"><pre><span></span><code>{this.state.array.map((item, index) =&gt; {
-  return (
-    &lt;Fragment&gt;
-      &lt;button key={index} onClick={this.handleClick.bind(this, item)}&gt;&lt;/button&gt;
-      &lt;span key={index} onClick={(e) =&gt; this.handleClick(e, item)}&gt;&lt;/span&gt;
-    &lt;/Fragment&gt;
-  );
-})}
-// 两个方法都可以。如果使用第一种，函数的实参是item，而不是 this and item。
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">array</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Fragment</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">index</span><span class="p">}</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">item</span><span class="p">)}</span><span class="o">&gt;&lt;</span><span class="err">/button&gt;</span>
+      <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">index</span><span class="p">}</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{(</span><span class="nx">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">item</span><span class="p">)}</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;</span>
+    <span class="o">&lt;</span><span class="err">/Fragment&gt;</span>
+  <span class="p">);</span>
+<span class="p">})}</span>
+<span class="c1">// 两个方法都可以。</span>
+<span class="c1">// 如果使用第一种，函数的实参是item，而不是 this and item。</span>
+<span class="c1">// 如果使用第二种，函数的函数的 e 一定是点击事件</span>
 </code></pre></div>
 
 <p>方法二：通过data属性传递参数；这种情况对于 PureComponent 可能产生性能问题</p>
-<div class="codehilite"><pre><span></span><code>&lt;span data-test={item} onClick={this.handleClick}&gt;&lt;/span&gt;
+<div class="codehilite"><pre><span></span><code><span class="o">&lt;</span><span class="nx">span</span> <span class="nx">data</span><span class="o">-</span><span class="nx">test</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">}</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">}</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;</span>
 
-handleClick = (event) =&gt; {
-  console.log(event.targte.data-test.item);
-}
+<span class="nx">handleClick</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">targte</span><span class="p">.</span><span class="nx">data</span><span class="o">-</span><span class="nx">test</span><span class="p">.</span><span class="nx">item</span><span class="p">);</span>
+<span class="p">}</span>
 </code></pre></div>
 
 <h3 id="_3">避免函数多次调用<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
@@ -2331,9 +2338,6 @@ class Searchbox extends React.Component {
   }
 }
 </code></pre></div>
-
-<p>样式</p>
-<p>通常情况下使用css外部文件链接形式增加样式。动画：查看 <a href="https://reactcommunity.org/react-transition-group/">React Transition Group</a> 和 <a href="https://github.com/chenglou/react-motion">React Motion</a>。</p>
                 
               
               

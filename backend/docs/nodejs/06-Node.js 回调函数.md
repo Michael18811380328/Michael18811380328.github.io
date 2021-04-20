@@ -22,7 +22,7 @@ function foo2(value, callback1, callback2) { }
 创建一个文件 input.txt ，内容如下：
 
 ```
-菜鸟教程官网地址：www.runoob.com
+Michael loves nodeJS
 ```
 
 创建 main.js 文件, 代码如下：
@@ -40,7 +40,7 @@ console.log("程序执行结束!");
 
 ```
 $ node main.js
-菜鸟教程官网地址：www.runoob.com
+Michael loves nodeJS
 
 程序执行结束!
 ```
@@ -52,7 +52,7 @@ $ node main.js
 创建一个文件 input.txt ，内容如下：
 
 ```
-菜鸟教程官网地址：www.runoob.com
+Michael loves nodeJS
 ```
 
 创建 main.js 文件, 代码如下：
@@ -73,7 +73,7 @@ console.log("程序执行结束!");
 ```
 $ node main.js
 程序执行结束!
-菜鸟教程官网地址：www.runoob.com
+Michael loves nodeJS
 ```
 
 以上两个实例我们了解了阻塞与非阻塞调用的不同。第一个实例在文件读取完后才执行程序。 第二个实例我们不需要等待文件读取完，这样就可以在读取文件时同时执行接下来的代码，大大提高了程序的性能。

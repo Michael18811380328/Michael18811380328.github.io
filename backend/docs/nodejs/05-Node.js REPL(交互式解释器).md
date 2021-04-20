@@ -11,17 +11,6 @@ Node 自带了交互式解释器，可以执行以下任务：
 
 Node 的交互式解释器可以很好的调试 Javascript 代码。
 
-开始学习 REPL
-
-我们可以输入以下命令来启动 Node 的终端：
-
-```
-$ node
-> 
-```
-
-这时我们就可以在 > 后输入简单的表达式，并按下回车键来计算结果。
-
 ### 简单的表达式运算
 
 接下来让我们在 Node.js REPL 的命令行窗口中执行简单的数学运算：
@@ -60,9 +49,6 @@ undefined
 > console.log("Hello World")
 Hello World
 undefined
-> console.log("www.runoob.com")
-www.runoob.com
-undefined
 ```
 
 ### 多行表达式
@@ -87,8 +73,6 @@ x: 5
 undefined
 >
 ```
-
-
 
 **...** 三个点的符号是系统自动生成的，你回车换行后即可。Node 会自动检测是否为连续的表达式。
 
@@ -128,14 +112,3 @@ undefined
 - **.load \*filename\*** - 载入当前 Node REPL 会话的文件内容。
 
 ------
-
-## 停止 REPL
-
-前面我们已经提到按下两次 **ctrl + c** 键就能退出 REPL:
-
-```
-$ node
->
-(^C again to quit)
->
-```
