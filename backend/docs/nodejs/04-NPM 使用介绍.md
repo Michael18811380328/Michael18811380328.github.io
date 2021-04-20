@@ -54,6 +54,7 @@ $ npm config set proxy null
 $ npm install express -g
 安装过程输出如下内容，第一行输出了模块的版本号及安装位置。
 
+```bash
 express@4.13.3 node_modules/express
 ├── escape-html@1.0.2
 ├── range-parser@1.0.2
@@ -80,9 +81,11 @@ express@4.13.3 node_modules/express
 ├── type-is@1.6.8 (media-typer@0.3.0, mime-types@2.1.6)
 ├── accepts@1.2.12 (negotiator@0.5.3, mime-types@2.1.6)
 └── send@0.13.0 (destroy@1.0.3, statuses@1.2.1, ms@0.7.1, mime@1.3.4, http-errors@1.3.1)
+```
 查看安装信息
 你可以使用以下命令来查看所有全局安装的模块：
 
+```
 $ npm list -g
 
 ├─┬ cnpm@4.3.2
@@ -93,7 +96,8 @@ $ npm list -g
 │ │ └── graceful-readlink@1.0.1
 │ ├─┬ cross-spawn@0.2.9
 │ │ └── lru-cache@2.7.3
-……
+```
+
 如果要查看某个模块的版本号，可以使用命令如下：
 
 $ npm list grunt
@@ -103,6 +107,7 @@ projectName@projectVersion /path/to/project/folder
 使用 package.json
 package.json 位于模块的目录下，用于定义包的属性。接下来让我们来看下 express 包的 package.json 文件，位于 node_modules/express/package.json 内容：
 
+```json
 {
   "name": "express",
   "description": "Fast, unopinionated, minimalist web framework",
@@ -270,6 +275,8 @@ package.json 位于模块的目录下，用于定义包的属性。接下来让�
   "_resolved": "https://registry.npmjs.org/express/-/express-4.13.3.tgz",
   "readme": "ERROR: No README data found!"
 }
+```
+
 Package.json 属性说明
 name - 包名。
 
@@ -309,6 +316,7 @@ $ npm search express
 创建模块
 创建模块，package.json 文件是必不可少的。我们可以使用 NPM 生成 package.json 文件，生成的文件包含了基本的结果。
 
+```bash
 $ npm init
 This utility will walk you through creating a package.json file.
 It only covers the most common items, and tries to guess sensible defaults.
@@ -340,6 +348,8 @@ About to write to ……/node_modules/package.json:      # 生成地址
 
 
 Is this ok? (yes) yes
+```
+
 以上的信息，你需要根据你自己的情况输入。在最后输入 "yes" 后会生成 package.json 文件。
 
 接下来我们可以使用以下命令在 npm 资源库中注册用户（使用邮箱注册）：
