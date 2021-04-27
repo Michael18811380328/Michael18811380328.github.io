@@ -2145,11 +2145,11 @@
                 
                 
                 <h1 id="_1">前端监控理论<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>原文来源： https://www.zhihu.com/column/c_101987637 加入了自己的笔记和整理</p>
+<p>原文来源： <a href="https://www.zhihu.com/column/c_101987637">https://www.zhihu.com/column/c_101987637</a> 加入了自己的笔记和整理</p>
 <h1 id="_2">（一）场景和类型<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
 <p>最近半年一直都在研究前端监控，发现对于前端来说，监控真的很重要，萌发了想写一系列文章全面梳理一下对前端监控的了解和总结。</p>
 <h3 id="1">1、主要场景<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
-<p>产品，首先要建立在使用场景上，所以首先讨论下监控使用的几个主要使用场景。纵观当前市面上各个前端监控产品，无外乎是满足两个方面的需求，监察<strong>用户</strong>的使用情况，监察<strong>系统</strong>的运行状态。所以当前也从 用户 和 系统 两个维度来讨论主要的使用场景。</p>
+<p>产品，首先要建立在使用场景上，所以首先讨论下监控使用的几个主要使用场景。纵观当前市面上各个前端监控产品，无外乎是满足两个方面的需求，监察**用户**的使用情况，监察**系统**的运行状态。所以当前也从 用户 和 系统 两个维度来讨论主要的使用场景。</p>
 <h3 id="11">1.1 用户使用情况<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
 <p>系统前端直面用户，即是和用户交流的窗口，也是产品运营数据第一手数据收集地，所以这是任何完备版的监控系统都绕不过去的话题。</p>
 <h4 id="_3">浏览量访问量<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
@@ -2212,11 +2212,11 @@
 <p>前端黑科技层出不穷，个人眼界有限，尽量把了解到的实现方式都罗列出来，希望对大家有些启发，同时也欢迎流言讨论。</p>
 <p>限于篇幅，按照第一篇的场景来进行拆分，本文只讨论行为监控的技术实现方案：</p>
 <h3 id="0">0、总体思路<a class="headerlink" href="#0" title="Permanent link">&para;</a></h3>
-<p>监控系统设计的总体思路上，最重要的是<strong>“无痛”</strong>或者<strong>“无侵入”</strong>。</p>
+<p>监控系统设计的总体思路上，最重要的是**“无痛”<strong>或者</strong>“无侵入”**。</p>
 <p>任何监控代码，不在业务系统需要自定义的情况下，需要侵入到业务代码里面，都是不可取的设计。同时接入配置应该尽量简单。</p>
-<p>如何做到<strong>无痛</strong>？主要方式是<strong>拦截和重写</strong>。</p>
-<p>比如，很多监控系统都会<strong>重写</strong> <code>xhr（XMLHttpRequest）/ fetch</code>来拦截请求， 例子：xhr 重写上报示例代码</p>
-<div class="codehilite"><pre><span></span><code><span class="nx">proxyAjax</span><span class="p">.</span><span class="nx">send</span> <span class="o">=</span> <span class="nx">XMLHttpRequest</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">send</span><span class="p">;</span>
+<p>如何做到**无痛**？主要方式是**拦截和重写**。</p>
+<p>比如，很多监控系统都会**重写** <code>xhr（XMLHttpRequest）/ fetch</code>来拦截请求， 例子：xhr 重写上报示例代码</p>
+<div class="highlight"><pre><span></span><code><span class="nx">proxyAjax</span><span class="p">.</span><span class="nx">send</span> <span class="o">=</span> <span class="nx">XMLHttpRequest</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">send</span><span class="p">;</span>
 <span class="nx">proxyAjax</span><span class="p">.</span><span class="nx">open</span> <span class="o">=</span> <span class="nx">XMLHttpRequest</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">open</span><span class="p">;</span>
 <span class="c1">// 重写 open</span>
 <span class="nx">XMLHttpRequest</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">open</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
@@ -2238,20 +2238,18 @@
   <span class="k">this</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
-
-<p>比如，在对页面事件的点击记录时，给<code>document</code>对象绑定<code>click</code>事件收集点击就是<strong>拦截</strong>的一种。</p>
+<p>比如，在对页面事件的点击记录时，给<code>document</code>对象绑定<code>click</code>事件收集点击就是**拦截**的一种。</p>
 <p>例子：要注意的是在捕获阶段绑定，防止业务代码中的阻止冒泡捕获不到事件</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">handleClick</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
 <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
 </code></pre></div>
-
 <h3 id="1_1">1、用户使用场景<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
 <p>下面按照统计维度来说明一下统计指标的技术实现：</p>
 <h4 id="11-pvuv">1.1 pv，uv<a class="headerlink" href="#11-pvuv" title="Permanent link">&para;</a></h4>
-<p>通常的方式对访问当前域名的<strong>一个用户</strong>植入<strong>一个cookies</strong>用于标识用户身份，以传统的统计口径来看，对于pv，每次刷新页面都 + 1，对于uv，在今天内访问的用户只会 + 1。这里有几个注意点:</p>
+<p>通常的方式对访问当前域名的**一个用户**植入**一个cookies**用于标识用户身份，以传统的统计口径来看，对于pv，每次刷新页面都 + 1，对于uv，在今天内访问的用户只会 + 1。这里有几个注意点:</p>
 <ul>
-<li>1、统计口径：对于不同的产品，pv的统计口径可能是不一样的，有的要求首页完全加载完才算一个pv，有的要求曝光1/4，有的需要dom加载完。根据需求的不同，绑定上报事件的时机也不同。对于监控系统来说，一般会实现通用口径的pv统计，如果有其他不同需求，可以走后文提到的自定义上报流程。</li>
+<li>1、统计口径：对于不同的产品，pv的统计口径可能是不一样的，有的要求首页完全加载完才算一个pv，有的要求曝光&frac14;，有的需要dom加载完。根据需求的不同，绑定上报事件的时机也不同。对于监控系统来说，一般会实现通用口径的pv统计，如果有其他不同需求，可以走后文提到的自定义上报流程。</li>
 <li>2、防刷：对于pv/uv，有很多刷流量的方式，比如删掉cookies，重新加载一次。对有账号体系的系统，cookies和账号绑定就可以防刷。对没有账号体系的系统，可以使用ip来限制，同ip发起多少次都算一个uv。防刷是个比较有趣的话题，限于篇幅，这儿简略提一下，有兴趣的同学可以一起进一步探讨。</li>
 <li>3、spa网页：由于前端路由的存在，spa结构的网页，传统的pv很难反应网站的真实状况，推荐使用uv或者rpv来观测。</li>
 </ul>
@@ -2269,9 +2267,9 @@
 <p>这个没太多好说的，服务端统计就完事了。</p>
 <h4 id="16-rpv">1.6 路由切换量（rpv）<a class="headerlink" href="#16-rpv" title="Permanent link">&para;</a></h4>
 <p>重点讲下这个，随着前端路由系统的普及，当前 spa 是web系统的主要形态之一，对spa系统来说，统计的实现方式和 mpa 系统有很多的不同，一般来说统计路由切换量（rpv）需要手动开启配置，比如阿里云arms就需要配置<code>enableSPA = true</code>。</p>
-<p>前端路由主要是通过<strong>hash</strong>和<strong>history api</strong>来实现的，使用hash路由时hash值不会上传服务器，需要前端来做捕获上报，而history api的情况url是变化的，可以在后台统计到。</p>
+<p>前端路由主要是通过**hash**和**history api**来实现的，使用hash路由时hash值不会上传服务器，需要前端来做捕获上报，而history api的情况url是变化的，可以在后台统计到。</p>
 <p>hash路由的捕获上报实现：</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">// hash路由绑定onhashchange事件</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// hash路由绑定onhashchange事件</span>
 <span class="k">if</span><span class="p">(</span><span class="s2">&quot;onhashchange&quot;</span> <span class="k">in</span> <span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
   <span class="nb">window</span><span class="p">.</span><span class="nx">onhashchange</span> <span class="o">=</span> <span class="nx">handler</span>
 <span class="p">}</span>
@@ -2282,23 +2280,20 @@
   <span class="nx">handler</span><span class="p">()</span>
 <span class="p">})</span>
 </code></pre></div>
-
 <p>如果前端需要通过 history api来统计，这里也给出一些代码实例</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">// history 只监听 popstate事件可以处理掉大部分的api触发</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// history 只监听 popstate事件可以处理掉大部分的api触发</span>
 <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;popstate&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="c1">// 上报逻辑</span>
 <span class="p">});</span>
 <span class="c1">// pushState 和 replaceState 不会触发 popstate 事件，可以采用类似xhr的方式重写</span>
 </code></pre></div>
-
 <h3 id="2_1">2、埋点，点击流<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
-<p>埋点的实现上面其实已经提到了，本质上就是对<strong>事件的拦截</strong>，这里主要提一下自定义埋点上报的实现。</p>
+<p>埋点的实现上面其实已经提到了，本质上就是对**事件的拦截**，这里主要提一下自定义埋点上报的实现。</p>
 <h4 id="21_1">2.1 自定义埋点<a class="headerlink" href="#21_1" title="Permanent link">&para;</a></h4>
 <p>自定义埋点上报，涉及到各监控系统api设计，一般来说，各监控系统的接入sdk都会给出自定义上报的方法，供业务系统自己控制上报时机和上报内容。 举例：</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">// 自定义埋点实例,指定类型type，服务器解析数据并呈现</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// 自定义埋点实例,指定类型type，服务器解析数据并呈现</span>
 <span class="nx">monitor</span><span class="p">.</span><span class="nx">diysend</span><span class="p">({</span><span class="nx">type</span><span class="o">:</span><span class="s1">&#39;monitor&#39;</span><span class="p">,</span> <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;t1=1&amp;t2=2&#39;</span><span class="p">})</span>
 </code></pre></div>
-
 <h4 id="22_1">2.2 点击流<a class="headerlink" href="#22_1" title="Permanent link">&para;</a></h4>
 <p>点击流其实是通过根据统一的用户标识把一系列的事件上报的用户行为串起来的一种方式，结合以上的数据上报和页面切换，可以构造出一个基于时间轴的用户点击操作流程。 示例页面</p>
 <p><img alt="img" src="https://pic3.zhimg.com/80/v2-66ed89d94a2a84cda3bc7f7c158f498a_1440w.jpg" /></p>
@@ -2315,10 +2310,10 @@
 <h1 id="_11">（三）异常监控的实现<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h1>
 <p>前两篇已经总结了前端监控的主要使用场景和行为监控的实现方式，这一篇，主要来聊一下异常监控的实现方式。</p>
 <h3 id="_12">总体思路<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
-<p>和行为监控的设计的思路一致，<strong>无侵入</strong>也是最值得思考的系统设计重点。和前面一样，由于篇幅，这里只简单的谈一谈设计实现，如果需要了解细节，可以留言一起探讨。在本文最后，会说明一下，当捕获到错误之后的上报的方法。</p>
+<p>和行为监控的设计的思路一致，**无侵入**也是最值得思考的系统设计重点。和前面一样，由于篇幅，这里只简单的谈一谈设计实现，如果需要了解细节，可以留言一起探讨。在本文最后，会说明一下，当捕获到错误之后的上报的方法。</p>
 <h3 id="_13">全局异常<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <p>全局异常是异常漏斗的最下一层，基本上用于捕获抛到<code>window.onerror</code> 事件里面捕获的异常，同时采用这种方式捕获的异常最简单的方式，一般异常捕获系统都会实现一个托底异常捕获。具体实现方式如下：</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">// 覆盖window.onerror函数及注意点</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// 覆盖window.onerror函数及注意点</span>
 <span class="nb">window</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">lineno</span><span class="p">,</span> <span class="nx">colno</span><span class="p">,</span> <span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// Script error 不需要上报，因为同源限制，上报了也没有意义</span>
   <span class="k">if</span><span class="p">(</span><span class="s2">&quot;Script error.&quot;</span><span class="o">===</span> <span class="nx">messaage</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
@@ -2330,7 +2325,6 @@
   <span class="p">});</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>重写window.onerror函数，确实可以使异常监控有一定的托底作用，但是受到同源等安全策略的限制，很多异常不会如我们预期的一样报错，即使上报上来也没有什么意义。如果报上来都是没有意义的数据，那就无端增加了监控系统的消耗。</p>
 <p>这里也提供另一个全局捕获思路，来自于 <a href="https://link.zhihu.com/?target=https%3A//github.com/getsentry/sentry-javascript/blob/master/packages/raven-js/src/raven.js">sentry raven.js</a>，可以参看 _instrumentTryCatch 函数，基本思路是通过包装各类事件，来捕获事件异常，构造自己的异常捕获系统，这里就不再展开了，有兴趣的同学可以自己阅读相关源码。这种方式相比直接重写window.error更加先进，但是也更加复杂，好在有sentry帮忙维护了。</p>
 <p>总的来说，通过全局sdk的方式，我们可以简单直接的获取一层托底异常。但是可能有几个问题：</p>
@@ -2354,7 +2348,7 @@
 <h3 id="_16">实时上报<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
 <p>上节说到，上报方式有两种，这一节介绍下实时上报的方式。实时上报本质上就是系统的一个sendMessage的方式，一般来说，只要构造一个get请求就可以了。</p>
 <p>举个例子：</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">// 使用image的方式send info</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// 使用image的方式send info</span>
 <span class="kd">function</span> <span class="nx">sendInfo</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">_image</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Image</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
   <span class="c1">// 挂载到监控全局上，保证同时只有一个，减少消耗</span>
@@ -2366,7 +2360,6 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>以上，一般的系统上报方式大同小异，本质上原理是提一个发后不理的get请求，但是由于浏览器的并发数量限制，如果上报触发太多的话，有可能会影响宿主系统的性能。为了解决这个问题，离线（空闲）上报方式就诞生了。</p>
 <h3 id="_17">离线上报<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
 <p>离线上报主要是为了解决两个问题：</p>
@@ -2425,7 +2418,7 @@
 <p>最近也比较忙点，文章更新有点慢，后续会继续推进这个系列，写一些更详细的点的深入解决方案。</p>
 <h1 id="-">（五）前端异常监控实际操作-知乎<a class="headerlink" href="#-" title="Permanent link">&para;</a></h1>
 <p>虽然上线前会有自测 QA等 但是还是会有线上异常情况，如何快速发现 或者监控到这些异常的出现？</p>
-<p>原文来源：https://www.zhihu.com/question/29953354</p>
+<p>原文来源：<a href="https://www.zhihu.com/question/29953354">https://www.zhihu.com/question/29953354</a></p>
 <h3 id="1_2">方法1<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h3>
 <p>可以用 Sentry(<a href="https://link.zhihu.com/?target=https%3A//github.com/getsentry/sentry">GitHub - getsentry/sentry: Sentry is cross-platform crash reporting built with love</a>) 来收集错误 。</p>
 <p>每次发布把 sourcemap 文件上传到 Sentry 上还能还原代码压缩后的错误。</p>
@@ -2440,7 +2433,7 @@
 <p><img alt="img" src="https://pic4.zhimg.com/50/4c13f06ece79bbc16d4d867dc1f766fd_hd.jpg?source=1940ef5c" /></p>
 <p>还能发送自定义的数据来帮助定位错误</p>
 <h3 id="2_2">方法2<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h3>
-<p>推荐几个成熟的<strong>异常监控平台</strong> ——</p>
+<p>推荐几个成熟的**异常监控平台** ——</p>
 <ol>
 <li><a href="https://link.zhihu.com/?target=https%3A//fundebug.com/">Fundebug - 不放过每一个BUG</a></li>
 <li><a href="https://link.zhihu.com/?target=https%3A//www.bugsnag.com/">Error reporting, monitoring, and resolution with Bugsnag</a></li>
@@ -2455,9 +2448,9 @@
 <li><a href="https://link.zhihu.com/?target=https%3A//github.com/sap1ens/javascript-error-logging">sap1ens/javascript-error-logging · GitHub</a> </li>
 </ol>
 <p>就目前来看，无论是 <strong>开源项目</strong> 还是 <strong>开放平台</strong>，适合国内程序猿使用的此类成熟系统依然缺乏，是一个值得探索的领域~（我在考虑用 Node.JS 写一个）</p>
-<p>初期若不考虑记录<strong>调用堆栈</strong>这样复杂的信息，可以直接简单粗暴地让前端页面把报错信息作为 <strong>URL 参数</strong>，去 <strong>GET</strong> 一个固定且不存在（404 Not Found）的 URL，然后就可以直接在服务器用命令行过滤 <strong>HTTP 服务程序</strong>（Apache、LightHTTPd、IIS、Nginx 等）的 <strong>Access Log</strong> 来分析 <strong>Web 前端日志</strong> —— 简单、高效、可靠~ </p>
+<p>初期若不考虑记录**调用堆栈**这样复杂的信息，可以直接简单粗暴地让前端页面把报错信息作为 <strong>URL 参数</strong>，去 <strong>GET</strong> 一个固定且不存在（404 Not Found）的 URL，然后就可以直接在服务器用命令行过滤 <strong>HTTP 服务程序</strong>（Apache、LightHTTPd、IIS、Nginx 等）的 <strong>Access Log</strong> 来分析 <strong>Web 前端日志</strong> —— 简单、高效、可靠~ </p>
 <p>分享一段我修改自上文所提【参文 1】的“<strong>Web 前端全局异常监控</strong>”代码（基于 jQuery）——</p>
-<div class="codehilite"><pre><span></span><code><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">BOM</span><span class="p">,</span> <span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">BOM</span><span class="p">,</span> <span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
 
   <span class="kd">var</span> <span class="nx">Console_URL</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;head link[rel=&quot;console&quot;]&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">);</span>
 
@@ -2486,7 +2479,6 @@
 
 <span class="p">})(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">);</span>
 </code></pre></div>
-
 <h3 id="3_1">方法3<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
 <p><a href="https://link.zhihu.com/?target=http%3A//2016.qconshanghai.com/presentation/3068">浏览器端 JavaScript 异常监控 For Dummies</a></p>
 <p>演讲视频预计在12月底发布</p>

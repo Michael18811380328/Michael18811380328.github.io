@@ -2262,7 +2262,7 @@
 <h2 id="_2">入门<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>我们先从渲染hello world开始吧。</p>
 <p>我们看下面的代码：</p>
-<div class="codehilite"><pre><span></span><code><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
   <span class="nx">React</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;hello world&#39;</span><span class="p">,</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;container&quot;</span><span class="p">))</span>
 <span class="o">&lt;</span><span class="err">/script&gt;</span>
 
@@ -2280,10 +2280,9 @@
 
 <span class="cm">*/</span>
 </code></pre></div>
-
 <p>假定这一行代码,就可以把<code>hello world</code>渲染到对应的div里面。</p>
 <p>我们来看看我们需要为此做些什么：</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">//component类，用来表示文本在渲染，更新，删除时应该做些什么事情</span>
+<div class="highlight"><pre><span></span><code><span class="c1">//component类，用来表示文本在渲染，更新，删除时应该做些什么事情</span>
 <span class="kd">function</span> <span class="nx">ReactDOMTextComponent</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">//存下当前的字符串</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">_currentElement</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="o">+</span> <span class="nx">text</span><span class="p">;</span>
@@ -2314,7 +2313,6 @@
     <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;mountReady&#39;</span><span class="p">);</span>    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>代码分为三个部分：</p>
 <ol>
 <li>React.render 作为入口负责调用渲染</li>
@@ -2332,7 +2330,7 @@
 </blockquote>
 <p>这节我们先讨论浏览器的基本元素。</p>
 <p>在reactjs里，当我们希望在hello world外面包一层div,并且带上一些属性，甚至事件时我们可以这么写：</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">//演示事件监听怎么用</span>
+<div class="highlight"><pre><span></span><code><span class="c1">//演示事件监听怎么用</span>
 <span class="kd">function</span> <span class="nx">hello</span><span class="p">(){</span>
   <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
 <span class="p">}</span>
@@ -2349,9 +2347,8 @@
 <span class="cm">//点击文字，会弹出hello的对话框</span>
 <span class="cm">*/</span>
 </code></pre></div>
-
 <p>上面使用<code>React.createElement</code>创建了一个基本元素，我们来看看简易版本<code>React.createElement</code>的实现：</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">//ReactElement就是虚拟dom的概念，具有一个type属性代表当前的节点类型，还有节点的属性props</span>
+<div class="highlight"><pre><span></span><code><span class="c1">//ReactElement就是虚拟dom的概念，具有一个type属性代表当前的节点类型，还有节点的属性props</span>
 <span class="c1">//比如对于div这样的节点type就是div，props就是那些attributes</span>
 <span class="c1">//另外这里的key,可以用来标识这个element，用于优化以后的更新，这里可以先不管，知道有这么个东西就好了</span>
 <span class="kd">function</span> <span class="nx">ReactElement</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span><span class="nx">key</span><span class="p">,</span><span class="nx">props</span><span class="p">){</span>
@@ -2401,13 +2398,12 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>createElement只是做了简单的参数修正，最终返回一个ReactElement实例对象也就是我们说的虚拟元素的实例。</p>
 <blockquote>
 <p>这里注意key的定义，主要是为了以后更新时优化效率，这边可以先不管忽略。</p>
 </blockquote>
 <p>好了有了元素实例，我们得把他渲染出来，此时render接受的是一个ReactElement而不是文本，我们先改造下instantiateReactComponent：</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">instantiateReactComponent</span><span class="p">(</span><span class="nx">node</span><span class="p">){</span>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">instantiateReactComponent</span><span class="p">(</span><span class="nx">node</span><span class="p">){</span>
   <span class="c1">//文本节点的情况</span>
   <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">node</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span> <span class="o">||</span> <span class="k">typeof</span> <span class="nx">node</span> <span class="o">===</span> <span class="s1">&#39;number&#39;</span><span class="p">){</span>
     <span class="k">return</span> <span class="k">new</span> <span class="nx">ReactDOMTextComponent</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
@@ -2420,10 +2416,9 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>我们增加了一个判断，这样当render的不是文本而是浏览器的基本元素时。我们使用另外一种component来处理它渲染时应该返回的内容。这里就体现了工厂方法instantiateReactComponent的好处了，不管来了什么类型的node，都可以负责生产出一个负责渲染的component实例。这样render完全不需要做任何修改，只需要再做一种对应的component类型（这里是ReactDOMComponent）就行了。</p>
 <p>所以重点我们来看看<code>ReactDOMComponent</code>的具体实现：</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">//component类，用来表示文本在渲染，更新，删除时应该做些什么事情</span>
+<div class="highlight"><pre><span></span><code><span class="c1">//component类，用来表示文本在渲染，更新，删除时应该做些什么事情</span>
 <span class="kd">function</span> <span class="nx">ReactDOMComponent</span><span class="p">(</span><span class="nx">element</span><span class="p">){</span>
   <span class="c1">//存下当前的element对象引用</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">_currentElement</span> <span class="o">=</span> <span class="nx">element</span><span class="p">;</span>
@@ -2484,7 +2479,6 @@
   <span class="k">return</span> <span class="nx">tagOpen</span> <span class="o">+</span> <span class="s1">&#39;&gt;&#39;</span> <span class="o">+</span> <span class="nx">content</span> <span class="o">+</span> <span class="nx">tagClose</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>我们增加了虚拟dom reactElement的定义，增加了一个新的componet类ReactDOMComponent。
 这样我们就实现了渲染浏览器基本元素的功能了。</p>
 <p>对于虚拟dom的渲染逻辑，本质上还是个递归渲染的东西，reactElement会递归渲染自己的子节点。可以看到我们通过instantiateReactComponent屏蔽了子节点的差异，只需要使用不同的componet类，这样都能保证通过mountComponent最终拿到渲染后的内容。</p>
@@ -2500,7 +2494,7 @@
 <p>如果对生命周期等概念不是很理解的，可以看看我以前的另一片文章：<a href="http://www.html-js.com/article/2760">javascript组件化</a></p>
 </blockquote>
 <p>我们看下reactjs怎么使用自定义元素：</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="nx">HelloMessage</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">HelloMessage</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">getInitialState</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;say:&#39;</span><span class="p">};</span>
   <span class="p">},</span>
@@ -2534,7 +2528,6 @@
 
 <span class="cm">*/</span>
 </code></pre></div>
-
 <p><code>React.createElement</code>接受的不再是字符串，而是一个class。</p>
 <p><code>React.createClass</code>生成一个自定义标记类，带有基本的生命周期：</p>
 <ul>
@@ -2544,7 +2537,7 @@
 </ul>
 <p>对reactjs稍微有点了解的应该都可以明白上面的用法。</p>
 <p>我们先来看看React.createClass的实现：</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">//定义ReactClass类,所有自定义的超级父类</span>
+<div class="highlight"><pre><span></span><code><span class="c1">//定义ReactClass类,所有自定义的超级父类</span>
 <span class="kd">var</span> <span class="nx">ReactClass</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
 <span class="p">}</span>
 <span class="c1">//留给子类去继承覆盖</span>
@@ -2576,7 +2569,6 @@
     <span class="p">}</span>
     <span class="p">}</span>
 </code></pre></div>
-
 <p>可以看到createClass生成了一个继承ReactClass的子类，在构造函数里调用this.getInitialState获得最初的state。</p>
 <blockquote>
 <p>为了演示方便,我们这边的ReactClass相当简单，实际上原始的代码处理了很多东西，比如类的mixin的组合继承支持,比如componentDidMount等可以定义多次，需要合并调用等等，有兴趣的去翻源码吧，不是本文的主要目的，这里就不详细展开了。</p>
@@ -2584,7 +2576,7 @@
 <p>我们这里只是返回了一个继承类的定义，那么具体的componentWillmount，这些生命周期函数在哪里调用呢。</p>
 <p>看看我们上面的两种类型就知道，我们是时候为自定义元素也提供一个componet类了，在那个类里我们会实例化ReactClass，并且管理生命周期，还有父子组件依赖。</p>
 <p>好，我们老规矩先改造instantiateReactComponent</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">instantiateReactComponent</span><span class="p">(</span><span class="nx">node</span><span class="p">){</span>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">instantiateReactComponent</span><span class="p">(</span><span class="nx">node</span><span class="p">){</span>
   <span class="c1">//文本节点的情况</span>
   <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">node</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span> <span class="o">||</span> <span class="k">typeof</span> <span class="nx">node</span> <span class="o">===</span> <span class="s1">&#39;number&#39;</span><span class="p">){</span>
     <span class="k">return</span> <span class="k">new</span> <span class="nx">ReactDOMTextComponent</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
@@ -2603,10 +2595,9 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>很简单我们增加了一个判断，使用新的component类形来处理自定义的节点。我们看下
 ReactCompositeComponent的具体实现:</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">ReactCompositeComponent</span><span class="p">(</span><span class="nx">element</span><span class="p">){</span>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">ReactCompositeComponent</span><span class="p">(</span><span class="nx">element</span><span class="p">){</span>
   <span class="c1">//存放元素element对象</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">_currentElement</span> <span class="o">=</span> <span class="nx">element</span><span class="p">;</span>
   <span class="c1">//存放唯一标识</span>
@@ -2650,7 +2641,6 @@ ReactCompositeComponent的具体实现:</p>
   <span class="k">return</span> <span class="nx">renderedMarkup</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>实现并不难，ReactClass的render一定是返回一个虚拟节点(包括element和text)，这个时候我们使用instantiateReactComponent去得到实例，再使用mountComponent拿到结果作为当前自定义元素的结果。</p>
 <p>应该说本身自定义元素不负责具体的内容，他更多的是负责生命周期。具体的内容是由它的render方法返回的虚拟节点来负责渲染的。</p>
 <p>本质上也是递归的去渲染内容的过程。同时因为这种递归的特性，父组件的componentWillMount一定在某个子组件的componentWillMount之前调用，而父组件的componentDidMount肯定在子组件之后，因为监听mountReady事件，肯定是子组件先监听的。</p>

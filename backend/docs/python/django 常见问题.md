@@ -1,3 +1,14 @@
+# Django 介绍
+
+需要基本的Python知识。Django是一个python框架。Django采用了MVC的软件设计模式，即模型M，视图V和控制器C。不同的python版本对应的不同的Django，目前电脑上安装的是python2.7.10的版本，所以安装的Django需要匹配。
+
+Django是一个开放源代码的Web应用框架，由Python写成。采用了MVT的框架模式，即模型M，视图V和模版T。
+
+参考网站：http://www.runoob.com/django/django-install.html
+
+https://www.jianshu.com/p/faeee7d5ad3b
+
+
 # ERROR: No matching distribution found for Django 报错解决
 
 今天安装一个 python 依赖时，执行 `pip install -r requirements.txt `后，界面出现`ERROR: No matching distribution found for Django === 3.0.2" `这个报错。我的依赖如下：
@@ -42,11 +53,6 @@ django 3.0.2 需要 python3 的环境，我本地默认是 python2 的虚拟环�
 解决方案是：新建一个python3的虚拟环境（具体参考另一篇博客）
 
 然后可以顺利安装：
-
-下面插入图片：
-
-
-
 
 
 ## 参考网址

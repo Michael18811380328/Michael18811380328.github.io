@@ -249,3 +249,28 @@ How to improve programming ability？
 ### 2020.12
 
 learn leetcode basic methods(sort, search) review basic data structure(array, object, list, tree, graph and so on).
+
+## 2021
+
+### 2021.01
+
+- Leetcode finished 400 issues. Learn basic aglre such as in-place, dichotomous algorithm, greedy Algorithm, dynamic programming algorithm.
+
+- Sort rows animation. Use requestAnimationFrame to generate animations.
+
+
+### 2021.02
+- review all paperworks and try to remember this issues.
+- resist on learning in QQ online stydy room.
+- Linked list: Reverse linked list, find the intermediate node of the linked list;
+- Stack: valid bracket string, array dimension reduction
+- Three kinds of binary tree traversal; maximum and minimum depth; nearest common ancestor; symmetric binary tree; binary tree path; binary search tree (verify binary search tree, sort array is converted into binary search tree; tree is converted into linked list; generate different binary Fork search tree) The binary search tree is not very familiar;
+- Simple understanding of front-end monitoring
+
+### 2021.03
+
+- I learned the paper interview questions once
+
+### 2021.04
+
+- react-redux

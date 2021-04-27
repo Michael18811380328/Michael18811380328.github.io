@@ -2287,12 +2287,12 @@
 <p>在 React 中，Component 和 PureComponent 有一些区别，官方的解释如下：</p>
 <blockquote>
 <p><code>React.Component</code> is the base class for React components when they are defined using <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes">ES6 classes</a>:</p>
-<p><code>js
-class Greeting extends React.Component {
-     render() {
-        return &lt;h1&gt;Hello, {this.props.name}&lt;/h1&gt;;
-     }
-}</code>
+<p><div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">Greeting</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+      <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+         <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h1&gt;;</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 </p>
 <p>See the <a href="https://reactjs.org/docs/react-component.html">React.Component API Reference</a> for a list of methods and properties related to the base <code>React.Component</code> class.</p>
 </blockquote>
@@ -2315,20 +2315,18 @@ class Greeting extends React.Component {
 <p>它们几乎相同，PureComponent 通过prop、state的浅比较来实现 shouldComponentUpdate，某些情况下可以用 PureComponen t提升性能.</p>
 <p>1.浅对比(shallowEqual)，即 react 中的一个函数，然后根据下面的方法进行是不是<code>PureComponent</code>的判断，帮我们做了本来应该我们在<code>shouldComponentUpdate</code>中做的事情。</p>
 <p><strong>小结：Component 中需要手动执行的 ComponentShouldUpdate 函数，在PureComponent中已经自动完成了（自动浅对比）。</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_compositeType</span> <span class="o">===</span> <span class="nx">CompositeTypes</span><span class="p">.</span><span class="nx">PureClass</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_compositeType</span> <span class="o">===</span> <span class="nx">CompositeTypes</span><span class="p">.</span><span class="nx">PureClass</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">shouldUpdate</span> <span class="o">=</span> <span class="o">!</span><span class="nx">shallowEqual</span><span class="p">(</span><span class="nx">prevProps</span><span class="p">,</span> <span class="nx">nextProps</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span> <span class="nx">shallowEqual</span><span class="p">(</span><span class="nx">inst</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="nx">nextState</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>而本来我们做的事情如下，这里判断了<code>state</code>有没有发生变化（prop同理），从而决定要不要重新渲染，这里的函数在一个继承了<code>Component</code>的组件中，而这里<code>this.state.person</code>是一个对象，你会发现，在这个对象的引用没有发生变化的时候是不会重新<code>render</code>的（即下面提到的第三点），所以我们可以用<code>shouldComponentUpdate</code>进行优化，这个方法如果返回<code>false</code>，表示不需要重新进行渲染，返回<code>true</code>则重新渲染，默认返回<code>true</code></p>
-<div class="codehilite"><pre><span></span><code><span class="nx">shouldComponentUpdate</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">nextState</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="nx">shouldComponentUpdate</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">nextState</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">(</span><span class="nx">nextState</span><span class="p">.</span><span class="nx">person</span> <span class="o">!==</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">person</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>2.如下显示的是一个 Test 组件，设置了一个<code>state</code>是<code>isShow</code>，通过一个按钮点击可以改变它的值，结果是：初始化的时候输出的是<code>constructor</code>，<code>render</code>，而第一次点击按钮，会输出一次render，即重新渲染了一次，界面也会从显示<code>false</code>变成显示<code>true</code>，但是当这个组件是继承自<code>PureComponent</code>的时候，再点击的时，不会再输出<code>render</code>，即不会再重新渲染了，而当这个组件是继承自<code>Component</code>时，还是会输出<code>render</code>，还是会重新渲染，这时候就是<code>PureComponent</code>内部做了优化的体现。同理也适用于<code>string</code>，<code>number</code>等基本数据类型，因为基本数据类型，值改变了就算改变了。</p>
 <p><strong>小结：如果传值都是简单对象，可以放心使用；如果传值有复杂对象，需要慎重使用。</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PureComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PureComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
 
 <span class="kd">class</span> <span class="nx">Test</span> <span class="k">extends</span> <span class="nx">PureComponent</span><span class="p">{</span>
   <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
@@ -2352,12 +2350,11 @@ class Greeting extends React.Component {
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>5.当这个<code>this.state.arr</code>是一个数组时，且这个组件是继承自<code>PureComponent</code>时，初始化依旧是输出<code>constructor</code>和<code>render</code>，但是当点击按钮时，界面上没有变化，也没有输出<code>render</code>，证明没有渲染，但是我们可以从下面的注释中看到，每点击一次按钮，我们想要修改的<code>arr</code>的值已经改变，而这个值将去修改<code>this.state.arr</code>,但是因为在<code>PureComponent</code>中<code>浅比较</code>这个数组的引用没有变化所以没有渲染，<code>this.state.arr</code>也没有更新，因为在<code>this.setState()</code>以后，值是在<code>render</code>的时候更新的。</p>
 <p><strong>小结：如果是复杂数据类型，这里会造成错误的显示（setState浅复制更新，但是界面不会重新渲染）</strong></p>
 <p>6.但是当这个组件是继承自<code>Component</code>的时候，初始化依旧是输出<code>constructor</code>和<code>render</code>，但是当点击按钮时，界面上出现了变化，即我们打印处理的<code>arr</code>的值输出，而且每点击一次按钮都会输出一次<code>render</code>，证明已经重新渲染，<code>this.state.arr</code>的值已经更新。</p>
 <p><strong>小结：如果是复杂数据类型，使用Component可以正确显示</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PureComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PureComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
 
 <span class="kd">class</span> <span class="nx">Test</span> <span class="k">extends</span> <span class="nx">PureComponent</span> <span class="p">{</span>
   <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
@@ -2389,10 +2386,9 @@ class Greeting extends React.Component {
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>7.下面的例子用<code>扩展运算符</code>产生新数组，使<code>this.state.arr</code>的引用发生了变化，所以初始化的时候输出<code>constructor</code>和<code>render</code>后，每次点击按钮都会输出<code>render</code>，界面也会变化，不管该组件是继承自<code>Component</code>还是<code>PureComponent</code>的</p>
 <p><strong>小结：如果state或者Props是深复制，那么两种方法都可以实现更新</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PureComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PureComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
 
 <span class="kd">class</span> <span class="nx">Test</span> <span class="k">extends</span> <span class="nx">PureComponent</span><span class="p">{</span>
 
@@ -2425,7 +2421,6 @@ class Greeting extends React.Component {
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <h3 id="22">2.2. 对子组件的影响<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
 <p><strong>PureComponent不仅会影响本身，而且会影响子组件，所以PureComponent最好用在数据展示组件中</strong></p>
 <p>1.我们让<code>IndexPage</code>组件里面包含一个子组件<code>Example</code>来展示<code>PureComponent</code>是如何影响子组件的</p>
@@ -2435,7 +2430,7 @@ class Greeting extends React.Component {
  当父组件把值传给子组件的时候，因为子组件是<code>PureComponent</code>，所以它会对<code>prop</code>进行浅比较，发现这个<code>person</code>对象的引用没有发生变化，所以不会重新渲染，而界面显示是由子组件显示的，所以界面也不会变化</p>
 <p>5.父组件继承<code>Component</code>，子组件继承<code>Component</code>时：初始化是会输出<code>constructor</code>，<code>IndexPage render</code>，<code>example render</code>，当我们第一次点击按钮以后，界面发生变化，后面就不再改变，因为我们一直把它设置为sxt2，但是每点击一次都会输出<code>IndexPage render</code>，<code>example render</code>，因为每次不管父组件还是子组件都会渲染</p>
 <p>6.所以正如下面第四条说的，如果<code>state</code>和<code>prop</code>一直变化的话，还是建议使用<code>Component</code>，并且<code>PureComponent</code>的最好作为展示组件</p>
-<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PureComponent</span><span class="p">,</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">PureComponent</span><span class="p">,</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="nx">Example</span> <span class="nx">from</span> <span class="s2">&quot;../components/Example&quot;</span><span class="p">;</span>
 
 <span class="kd">class</span> <span class="nx">Test</span> <span class="k">extends</span> <span class="nx">PureComponent</span><span class="p">{</span>
@@ -2477,15 +2472,14 @@ class Greeting extends React.Component {
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>小结：如果 state props 是复杂（引用）类型，则要引用内存地址不同，才会正确渲染组件</p>
 <p>如果prop和state每次都会变，那么PureComponent的效率还不如Component，因为你知道的，进行浅比较也是需要时间</p>
 <p>若有shouldComponentUpdate，则执行它，若没有这个方法会判断是不是PureComponent，若是，进行浅比较继承自<code>Component</code>的组件，若是<code>shouldComponentUpdate</code>返回<code>false</code>，就不会渲染了，继承自<code>PureComponent</code>的组件不用我们手动去判断<code>prop</code>和<code>state</code>，所以在<code>PureComponent</code>中使用<code>shouldComponentUpdate</code>会有如下警告:</p>
 <p><strong>Test has a method called shouldComponentUpdate(). shouldComponentUpdate should not be used when extending React.PureComponent. Please extend React.Component if shouldComponentUpdate is used.</strong></p>
 <p>也是比较好理解的，就是不要在<code>PureComponent</code>中使用<code>shouldComponentUpdate</code>，因为根本没有必要.</p>
 <h2 id="3">3、参考资料<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
-<p>官方文档 https://reactjs.org/docs/react-api.html</p>
-<p>https://www.jianshu.com/p/c41bbbc20e65</p>
+<p>官方文档 <a href="https://reactjs.org/docs/react-api.html">https://reactjs.org/docs/react-api.html</a></p>
+<p><a href="https://www.jianshu.com/p/c41bbbc20e65">https://www.jianshu.com/p/c41bbbc20e65</a></p>
                 
               
               

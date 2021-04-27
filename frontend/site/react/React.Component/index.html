@@ -2659,13 +2659,12 @@
 <h2 id="_1">概览<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p><code>React.Component</code>是一个抽象基础类，因此直接引用<code>React.Component</code>几乎没意义。相反，你通常会继承自它，并至少定义一个<a href="https://react.docschina.org/docs/react-component.html#render"><code>render()</code></a>方法。</p>
 <p>通常你定义一个React组件相当于一个纯<a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes">JavaScript类</a>：</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nx">Greeting</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">Greeting</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
   <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h1&gt;;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>若你仍未使用 ES6，你可以使用 <a href="https://react.docschina.org/docs/react-api.html#createclass"><code>create-react-class</code></a>模块。</p>
 <h3 id="_2">组件生命周期<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>每一个组件都有几个你可以重写以让代码在处理环节的特定时期运行的“生命周期方法”。方法中带有前缀 <strong>will</strong> 的在特定环节之前被调用，而带有前缀 <strong>did</strong> 的方法则会在特定环节之后被调用。</p>
@@ -2718,9 +2717,8 @@
 <hr />
 <h2 id="_9">参考<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <h3 id="render"><code>render()</code><a class="headerlink" href="#render" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>render()
+<div class="highlight"><pre><span></span><code>render()
 </code></pre></div>
-
 <p><code>render()</code>方法是必须的。</p>
 <p>当被调用时，其应该检查<code>this.props</code> 和 <code>this.state</code>并返回以下类型中的一个:</p>
 <ul>
@@ -2737,33 +2735,29 @@
 <p>若 <a href="https://react.docschina.org/docs/react-component.html#shouldcomponentupdate"><code>shouldComponentUpdate()</code></a>返回false，<code>render()</code>函数将不会被调用。</p>
 </blockquote>
 <h3 id="constructor"><code>constructor()</code><a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>constructor(props)
+<div class="highlight"><pre><span></span><code>constructor(props)
 </code></pre></div>
-
 <p>React组件的构造函数将会在装配之前被调用。当为一个<code>React.Component</code>子类定义构造函数时，你应该在任何其他的表达式之前调用<code>super(props)</code>。否则，<code>this.props</code>在构造函数中将是未定义，并可能引发异常。</p>
 <p>构造函数是初始化状态的合适位置。若你不初始化状态且不绑定方法，那你也不需要为你的React组件定义一个构造函数。</p>
 <p>可以基于属性来初始化状态。这样有效地“分离（forks）”属性并根据初始属性设置状态。这有一个有效的<code>React.Component</code>子类构造函数的例子：</p>
-<div class="codehilite"><pre><span></span><code><span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">color</span><span class="o">:</span> <span class="nx">props</span><span class="p">.</span><span class="nx">initialColor</span>
   <span class="p">};</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>当心这种模式，因为状态将不会随着属性的更新而更新。保证属性和状态同步，你通常想要<a href="https://react.docschina.org/docs/lifting-state-up.html">状态提升</a>。</p>
 <p>若你通过使用它们为状态“分离”属性，你可能也想要实现<a href="https://react.docschina.org/docs/react-component.html#componentwillreceiveprops"><code>UNSAFE_componentWillReceiveProps(nextProps)</code></a>以保持最新的状态。但状态提升通常来说更容易以及更少的异常。</p>
 <h3 id="static-getderivedstatefromprops"><code>static getDerivedStateFromProps()</code><a class="headerlink" href="#static-getderivedstatefromprops" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">static</span> <span class="nx">getDerivedStateFromProps</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">prevState</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="nx">getDerivedStateFromProps</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">prevState</span><span class="p">)</span>
 </code></pre></div>
-
 <p>组件实例化后和接受新属性时将会调用<code>getDerivedStateFromProps</code>。它应该返回一个对象来更新状态，或者返回null来表明新属性不需要更新任何状态。</p>
 <p>注意，如果父组件导致了组件的重新渲染，即使属性没有更新，这一方法也会被调用。如果你只想处理变化，你可能想去比较新旧值。</p>
 <p>调用<code>this.setState()</code> 通常不会触发 <code>getDerivedStateFromProps()</code>。</p>
 <h3 id="unsafe_componentwillmount"><code>UNSAFE_componentWillMount()</code><a class="headerlink" href="#unsafe_componentwillmount" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>UNSAFE_componentWillMount()
+<div class="highlight"><pre><span></span><code>UNSAFE_componentWillMount()
 </code></pre></div>
-
 <p><code>UNSAFE_componentWillMount()</code>在装配发生前被立刻调用。其在<code>render()</code>之前被调用，因此在这方法里同步地设置状态将不会触发重渲。</p>
 <p>避免在该方法中引入任何的副作用或订阅。对于这些使用场景，我们推荐使用<code>constructor()</code>来替代。</p>
 <p>这是唯一的会在服务端渲染调起的生命周期钩子函数。</p>
@@ -2772,16 +2766,14 @@
 <p>这一生命周期之前叫做<code>componentWillMount</code>。这一名字在17版前都有效。可以使用<a href="https://github.com/reactjs/react-codemod#rename-unsafe-lifecycles"><code>rename-unsafe-lifecycles</code> codemod</a>来自动更新你的组件。</p>
 </blockquote>
 <h3 id="componentdidmount"><code>componentDidMount()</code><a class="headerlink" href="#componentdidmount" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>componentDidMount()
+<div class="highlight"><pre><span></span><code>componentDidMount()
 </code></pre></div>
-
 <p><code>componentDidMount()</code>在组件被装配后立即调用。初始化使得DOM节点应该进行到这里。若你需要从远端加载数据，这是一个适合实现网络请求的地方。在该方法里设置状态将会触发重渲。</p>
 <p>这一方法是一个发起任何订阅的好地方。如果你这么做了，别忘了在<code>componentWillUnmount()</code>退订。</p>
 <p>在这个方法中调用<code>setState()</code>将会触发一次额外的渲染，但是它将在浏览器刷新屏幕之前发生。这保证了即使<code>render()</code>将会调用两次，但用户不会看到中间状态。谨慎使用这一模式，因为它常导致性能问题。然而，它对于像模态框和工具提示框这样的例子是必须的。这时，在渲染依赖DOM节点的尺寸或者位置的视图前，你需要先测量这些节点。</p>
 <h3 id="unsafe_componentwillreceiveprops"><code>UNSAFE_componentWillReceiveProps()</code><a class="headerlink" href="#unsafe_componentwillreceiveprops" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>UNSAFE_componentWillReceiveProps(nextProps)
+<div class="highlight"><pre><span></span><code>UNSAFE_componentWillReceiveProps(nextProps)
 </code></pre></div>
-
 <blockquote>
 <p>注意</p>
 <p>推荐你使用<a href="https://react.docschina.org/docs/react-component.html#static-getderivedstatefromprops"><code>getDerivedStateFromProps</code></a>生命周期而不是<code>UNSAFE_componentWillReceiveProps</code>。</p>
@@ -2795,9 +2787,8 @@
 </blockquote>
 <hr />
 <h3 id="shouldcomponentupdate"><code>shouldComponentUpdate()</code><a class="headerlink" href="#shouldcomponentupdate" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>shouldComponentUpdate(nextProps, nextState)
+<div class="highlight"><pre><span></span><code>shouldComponentUpdate(nextProps, nextState)
 </code></pre></div>
-
 <p>使用<code>shouldComponentUpdate()</code>以让React知道当前状态或属性的改变是否不影响组件的输出。默认行为是在每一次状态的改变重渲，在大部分情况下你应该依赖于默认行为。</p>
 <p>当接收到新属性或状态时，<code>shouldComponentUpdate()</code> 在渲染前被调用。默认为<code>true</code>。该方法并不会在初始化渲染或当使用<code>forceUpdate()</code>时被调用。</p>
 <p>当他们状态改变时，返回<code>false</code> 并不能阻止子组件重渲。</p>
@@ -2805,9 +2796,8 @@
 <p>在观察后，若你判定一个具体的组件很慢，你可能需要调整其从<a href="https://react.docschina.org/docs/react-api.html#react.purecomponent"><code>React.PureComponent</code></a>继承，其实现了带有浅属性和状态比较的<code>shouldComponentUpdate()</code>。若你确信想要手写，你可能需要用<code>this.props</code>和<code>nextProps</code>以及<code>this.state</code> 和 <code>nextState</code>比较，并返回<code>false</code>以告诉React更新可以被忽略。</p>
 <hr />
 <h3 id="unsafe_componentwillupdate"><code>UNSAFE_componentWillUpdate()</code><a class="headerlink" href="#unsafe_componentwillupdate" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>UNSAFE_componentWillUpdate(nextProps, nextState)
+<div class="highlight"><pre><span></span><code>UNSAFE_componentWillUpdate(nextProps, nextState)
 </code></pre></div>
-
 <p>当接收到新属性或状态时，<code>UNSAFE_componentWillUpdate()</code>为在渲染前被立即调用。在更新发生前，使用该方法是一次准备机会。该方法不会在初始化渲染时调用。</p>
 <p>注意你不能在这调用<code>this.setState()</code>，若你需要更新状态响应属性的调整，使用<a href="https://react.docschina.org/docs/react-component.html#static-getderivedstatefromprops"><code>getDerivedStateFromProps()</code></a> 代替。</p>
 <blockquote>
@@ -2820,7 +2810,7 @@
 <h3 id="getsnapshotbeforeupdate"><code>getSnapshotBeforeUpdate()</code><a class="headerlink" href="#getsnapshotbeforeupdate" title="Permanent link">&para;</a></h3>
 <p><code>getSnapshotBeforeUpdate()</code>在最新的渲染输出提交给DOM前将会立即调用。它让你的组件能在当前的值可能要改变前获得它们。这一生命周期返回的任何值将会 作为参数被传递给<code>componentDidUpdate()</code>。</p>
 <p>例如：</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nx">ScrollingList</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">ScrollingList</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
   <span class="nx">listRef</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createRef</span><span class="p">();</span>
 
   <span class="nx">getSnapshotBeforeUpdate</span><span class="p">(</span><span class="nx">prevProps</span><span class="p">,</span> <span class="nx">prevState</span><span class="p">)</span> <span class="p">{</span>
@@ -2847,12 +2837,10 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>在上面的例子中，为了支持异步渲染，在<code>getSnapshotBeforeUpdate</code> 中读取<code>scrollHeight</code>而不是<code>componentWillUpdate</code>，这点很重要。由于异步渲染，在“渲染”时期（如<code>componentWillUpdate</code>和<code>render</code>）和“提交”时期（如<code>getSnapshotBeforeUpdate</code>和<code>componentDidUpdate</code>）间可能会存在延迟。如果一个用户在这期间做了像改变浏览器尺寸的事，从<code>componentWillUpdate</code>中读出的<code>scrollHeight</code>值将是滞后的。</p>
 <h3 id="componentdidupdate"><code>componentDidUpdate()</code><a class="headerlink" href="#componentdidupdate" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>componentDidUpdate(prevProps, prevState)
+<div class="highlight"><pre><span></span><code>componentDidUpdate(prevProps, prevState)
 </code></pre></div>
-
 <p><code>componentDidUpdate()</code>会在更新发生后立即被调用。该方法并不会在初始化渲染时调用。</p>
 <p>当组件被更新时，使用该方法是操作DOM的一次机会。这也是一个适合发送请求的地方，要是你对比了当前属性和之前属性（例如，如果属性没有改变那么请求也就没必要了）。</p>
 <blockquote>
@@ -2861,70 +2849,60 @@
 </blockquote>
 <hr />
 <h3 id="componentwillunmount"><code>componentWillUnmount()</code><a class="headerlink" href="#componentwillunmount" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>componentWillUnmount()
+<div class="highlight"><pre><span></span><code>componentWillUnmount()
 </code></pre></div>
-
 <p><code>componentWillUnmount()</code>在组件被卸载和销毁之前立刻调用。可以在该方法里处理任何必要的清理工作，例如解绑定时器，取消网络请求，清理任何在<code>componentDidMount</code>环节创建的DOM元素。</p>
 <hr />
 <h3 id="componentdidcatch"><code>componentDidCatch()</code><a class="headerlink" href="#componentdidcatch" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>componentDidCatch(error, info)
+<div class="highlight"><pre><span></span><code>componentDidCatch(error, info)
 </code></pre></div>
-
 <p>错误边界是React组件，并不是损坏的组件树。错误边界捕捉发生在子组件树中任意地方的JavaScript错误，打印错误日志，并且显示回退的用户界面。错误边界捕捉渲染期间、在生命周期方法中和在它们之下整棵树的构造函数中的错误。</p>
 <p>如果定义了这一生命周期方法，一个类组件将成为一个错误边界。在错误边界中调用<code>setState()</code>让你捕捉当前树之下未处理的JavaScript错误，并显示回退的用户界面。只使用错误边界来恢复异常，而不要尝试将它们用于控制流。</p>
 <p>详情请见<a href="https://react.docschina.org/blog/2017/07/26/error-handling-in-react-16.html"><em>React 16中的错误处理</em></a>。</p>
 <blockquote>
 <p>注意</p>
-<p>错误边界只捕捉树中发生在它们<strong>之下</strong>组件里的错误。一个错误边界并不能捕捉它自己内部的错误。</p>
+<p>错误边界只捕捉树中发生在它们**之下**组件里的错误。一个错误边界并不能捕捉它自己内部的错误。</p>
 </blockquote>
 <hr />
 <h3 id="setstate"><code>setState()</code><a class="headerlink" href="#setstate" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>setState(updater, [callback])
+<div class="highlight"><pre><span></span><code>setState(updater, [callback])
 </code></pre></div>
-
 <p><code>setState()</code>将需要处理的变化塞入（译者注：setState源码中将一个需要改变的变化存放到组件的state对象中，采用队列处理）组件的state对象中， 并告诉该组件及其子组件需要用更新的状态来重新渲染。这是用于响应事件处理和服务端响应的更新用户界面的主要方式。</p>
-<p>将<code>setState()</code>认为是一次<em>请求</em>而不是一次立即执行更新组件的命令。为了更为可观的性能，React可能会推迟它，稍后会一次性更新这些组件。React不会保证在setState之后，能够立刻拿到改变的结果。</p>
+<p>将<code>setState()</code>认为是一次*请求*而不是一次立即执行更新组件的命令。为了更为可观的性能，React可能会推迟它，稍后会一次性更新这些组件。React不会保证在setState之后，能够立刻拿到改变的结果。</p>
 <p><code>setState()</code>不是立刻更新组件。其可能是批处理或推迟更新。这使得在调用<code>setState()</code>后立刻读取<code>this.state</code>的一个潜在陷阱。代替地，使用<code>componentDidUpdate</code>或一个<code>setState</code>回调（<code>setState(updater, callback)</code>），当中的每个方法都会保证在更新被应用之后触发。若你需要基于之前的状态来设置状态，阅读下面关于<code>updater</code>参数的介绍。</p>
 <p>除非<code>shouldComponentUpdate()</code> 返回<code>false</code>，否则<code>setState()</code>永远都会导致重渲。若使用可变对象同时条件渲染逻辑无法在<code>shouldComponentUpdate()</code>中实现，仅当新状态不同于之前状态时调用<code>setState()</code>，将避免不必要的重渲。</p>
 <p>第一个函数是带签名的<code>updater</code>函数：</p>
-<div class="codehilite"><pre><span></span><code>(prevState, props) =&gt; stateChange
+<div class="highlight"><pre><span></span><code>(prevState, props) =&gt; stateChange
 </code></pre></div>
-
 <p><code>prevState</code>是之前状态的引用。其不应该被直接改变。代替地，改变应该通过构建一个来自于<code>prevState</code> 和 <code>props</code>输入的新对象来表示。例如，假设我们想通过<code>props.step</code>在状态中增加一个值：</p>
-<div class="codehilite"><pre><span></span><code><span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">((</span><span class="nx">prevState</span><span class="p">,</span> <span class="nx">props</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">((</span><span class="nx">prevState</span><span class="p">,</span> <span class="nx">props</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">{</span><span class="nx">counter</span><span class="o">:</span> <span class="nx">prevState</span><span class="p">.</span><span class="nx">counter</span> <span class="o">+</span> <span class="nx">props</span><span class="p">.</span><span class="nx">step</span><span class="p">};</span>
 <span class="p">});</span>
 </code></pre></div>
-
 <p>updater函数接收到的<code>prevState</code> 和 <code>props</code>保证都是最新的。updater的输出是和<code>prevState</code>的浅合并。</p>
 <p><code>setState()</code>的第二个参数是一个可选地回调函数，其将会在<code>setState</code>执行完成同时组件被重渲之后执行。通常，对于这类逻辑，我们推荐使用<code>componentDidUpdate</code>。</p>
 <p>你可以选择性地传递一个对象作为 <code>setState()</code>的第一个参数而不是一个函数：</p>
-<div class="codehilite"><pre><span></span><code>setState(stateChange, [callback])
+<div class="highlight"><pre><span></span><code>setState(stateChange, [callback])
 </code></pre></div>
-
 <p>其仅是将<code>stateChange</code>浅合并到新状态中。例如，调整购物车中物品数量：</p>
-<div class="codehilite"><pre><span></span><code>this.setState({quantity: 2})
+<div class="highlight"><pre><span></span><code>this.setState({quantity: 2})
 </code></pre></div>
-
 <p>这一形式的<code>setState()</code>也是异步的，并在相同的周期中多次调用可能会被合并到一起。例如，若你在相同的周期中尝试多次增加一件物品的数量，其等价于：</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">(</span>
   <span class="nx">previousState</span><span class="p">,</span>
   <span class="p">{</span><span class="nx">quantity</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">quantity</span> <span class="o">+</span> <span class="mf">1</span><span class="p">},</span>
   <span class="p">{</span><span class="nx">quantity</span><span class="o">:</span> <span class="nx">state</span><span class="p">.</span><span class="nx">quantity</span> <span class="o">+</span> <span class="mf">1</span><span class="p">},</span>
   <span class="p">...</span>
 <span class="p">)</span>
 </code></pre></div>
-
 <p>之后的调用在同一周期中将会重写之前调用的值，因此数量仅会被加一。若之后的状态依赖于之前的状态，我们推荐使用updater函数形式：</p>
-<div class="codehilite"><pre><span></span><code>this.setState((prevState) =&gt; {
+<div class="highlight"><pre><span></span><code>this.setState((prevState) =&gt; {
   return {counter: prevState.quantity + 1};
 });
 </code></pre></div>
-
 <h3 id="forceupdate"><code>forceUpdate()</code><a class="headerlink" href="#forceupdate" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>component.forceUpdate(callback)
+<div class="highlight"><pre><span></span><code>component.forceUpdate(callback)
 </code></pre></div>
-
 <p>默认情况，当你的组件或状态发生改变，你的组件将会重渲。若你的<code>render()</code>方法依赖其他数据，你可以通过调用<code>forceUpdate()</code>来告诉React组件需要重渲。</p>
 <p>调用<code>forceUpdate()</code>将会导致组件的 <code>render()</code>方法被调用，并忽略<code>shouldComponentUpdate()</code>。这将会触发每一个子组件的生命周期方法，涵盖，每个子组件的<code>shouldComponentUpdate()</code> 方法。若当标签改变，React仅会更新DOM。</p>
 <p>通常你应该尝试避免所有<code>forceUpdate()</code> 的用法并仅在<code>render()</code>函数里从<code>this.props</code>和<code>this.state</code>读取数据。</p>
@@ -2932,7 +2910,7 @@
 <h2 id="_10">类属性<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <h3 id="defaultprops"><code>defaultProps</code><a class="headerlink" href="#defaultprops" title="Permanent link">&para;</a></h3>
 <p><code>defaultProps</code>可以被定义为组件类的一个属性，用以为类设置默认的属性。这对于未定义（undefined）的属性来说有用，而对于设为空（null）的属性并没用。例如：</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nx">CustomButton</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">CustomButton</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
   <span class="c1">// ...</span>
 <span class="p">}</span>
 
@@ -2940,19 +2918,16 @@
   <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;blue&#39;</span>
 <span class="p">};</span>
 </code></pre></div>
-
 <p>若未设置<code>props.color</code>，其将被设置默认为<code>'blue'</code>:</p>
-<div class="codehilite"><pre><span></span><code>  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code>  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="o">&lt;</span><span class="nx">CustomButton</span> <span class="o">/&gt;</span> <span class="p">;</span> <span class="c1">// props.color will be set to blue</span>
   <span class="p">}</span>
 </code></pre></div>
-
 <p>若<code>props.color</code>设为null，则其值则为null：</p>
-<div class="codehilite"><pre><span></span><code>  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code>  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="o">&lt;</span><span class="nx">CustomButton</span> <span class="nx">color</span><span class="o">=</span><span class="p">{</span><span class="kc">null</span><span class="p">}</span> <span class="o">/&gt;</span> <span class="p">;</span> <span class="c1">// props.color will remain null</span>
   <span class="p">}</span>
 </code></pre></div>
-
 <hr />
 <h3 id="displayname"><code>displayName</code><a class="headerlink" href="#displayname" title="Permanent link">&para;</a></h3>
 <p><code>displayName</code>被用在调试信息中。JSX会自动设置该值</p>

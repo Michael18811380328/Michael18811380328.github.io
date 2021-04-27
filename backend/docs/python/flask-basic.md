@@ -651,7 +651,6 @@ app.wsgi_app = LighttpdCGIRootFix(app.wsgi_app)
 ```
 
 
-
 ## 部署到 Web 服务器
 
 准备好部署你的 Flask 应用了？你可以立即部署到托管平台来圆满完成快速入门，以下厂商均向小项目提供免费的方案:
@@ -666,3 +665,4 @@ app.wsgi_app = LighttpdCGIRootFix(app.wsgi_app)
 - [用 Localtunnel 共享你的本地服务器](http://flask.pocoo.org/snippets/89/)
 
 如果你有自己的主机，并且准备自己托管，参见 [*部署选择*](http://docs.jinkan.org/docs/flask/deploying/index.html#deployment) 章节。
+

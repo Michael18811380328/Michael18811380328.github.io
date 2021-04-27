@@ -2510,7 +2510,7 @@
 <h3 id="1jsx">1、深入JSX语法<a class="headerlink" href="#1jsx" title="Permanent link">&para;</a></h3>
 <p>jsx实际上是一个语法糖，babel 将 jsx 转化为 JS，React.createElement 的过程（创建标签和属性）。</p>
 <p>如果标签中是大写，说明是一个组件，必须在作用域中声明。组件实际上就是一个函数。</p>
-<div class="codehilite"><pre><span></span><code>import React from &#39;react&#39;;
+<div class="highlight"><pre><span></span><code>import React from &#39;react&#39;;
 
 function Hello(props) {
   return &lt;div&gt;Hello {this.props.name}&lt;/div&gt;;
@@ -2521,25 +2521,22 @@ function HelloWorld() {
 }
 // 只要在定义域内定义一个函数，返回值是一个JSX即可作为一个单向的组件
 </code></pre></div>
-
 <h4 id="_1">大括号<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
 <p>JSX中 { } 内部的 JS 语句：if 和 for 不能在大括号内使用（可以使用 &amp;&amp; 进行判断）可以在return之前操作 if 和 for等复杂变量处理过程，将需要显示的变量暂时存储在变量中，这样实现条件渲染和循环。</p>
 <h4 id="_2">扩展属性<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code>const props = {name: &quot;Mike&quot;, age: &#39;16&#39;}; //object
+<div class="highlight"><pre><span></span><code>const props = {name: &quot;Mike&quot;, age: &#39;16&#39;}; //object
 return &lt;Hello {...props}&gt;;
 
 // 将一个对象作为props进行传递。优点：大型应用数据多，统配向下传递属性，可以方便的进行树结构创建。缺点：很多不相关的属性创建到节点内部。
 </code></pre></div>
-
 <p>jsx 中使用 &amp;&amp; 进行条件渲染。需要注意：前面的条件必须返回 false 的情况下才不会渲染后面的对象。</p>
-<div class="codehilite"><pre><span></span><code>{this.props.commentsNumber.length &amp;&amp; &lt;span&gt;&lt;/span&gt;}
+<div class="highlight"><pre><span></span><code>{this.props.commentsNumber.length &amp;&amp; &lt;span&gt;&lt;/span&gt;}
  // 当数组的长度是0(空数组)，长度是0，界面会渲染一个0，而不会渲染后面的span。
 </code></pre></div>
-
 <p>如果想要以jsx的形式在界面上输出 true 或 false null undefined， 那么需要转化成字符串进行输出。否则JSX中进行判断操作。</p>
 <h3 id="2proptypes">2、PropTypes监测数据类型<a class="headerlink" href="#2proptypes" title="Permanent link">&para;</a></h3>
 <p>注意: <code>React.PropTypes</code> 自 React v15.5 起已弃用。请使用 <a href="https://www.npmjs.com/package/prop-types"><code>prop-types</code> </a>库代替。</p>
-<div class="codehilite"><pre><span></span><code>import PropTypes from &#39;prop-types&#39;;
+<div class="highlight"><pre><span></span><code>import PropTypes from &#39;prop-types&#39;;
 
 class Hello extends React.Component {
   render() {
@@ -2551,9 +2548,8 @@ Hello.propTypes = {
   name: PropTypes.string.isRequired
 };
 </code></pre></div>
-
 <p>在开发模式下，react会监测传值的类型；</p>
-<div class="codehilite"><pre><span></span><code>// 你也可以限制你的属性值是某个特定值之一
+<div class="highlight"><pre><span></span><code>// 你也可以限制你的属性值是某个特定值之一
 optionalEnum: PropTypes.oneOf([&#39;News&#39;, &#39;Photos&#39;]),
 
 // 限制它为列举类型之一的对象
@@ -2564,12 +2560,11 @@ optionalUnion: PropTypes.oneOfType([
 ]),
 requiredAny: PropTypes.any.isRequired,
 </code></pre></div>
-
 <h3 id="3">3、静态类型检查<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
 <ol>
 <li>使用 flow-bin 库检查数据类型：这个比propTypes 强大(facebook)</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>npm install flow-bin --save-dev flow-bin
+<div class="highlight"><pre><span></span><code>npm install flow-bin --save-dev flow-bin
 npm run flow init 
 <span class="c1"># 增加 &quot;flow&quot;: &quot;flow&quot; 到 package.json 脚本中</span>
 
@@ -2580,7 +2575,6 @@ npm run flow
 
 <span class="c1"># 详情查阅 flow 的说明文档</span>
 </code></pre></div>
-
 <ol>
 <li>typeScript - 微软</li>
 </ol>
@@ -2593,16 +2587,15 @@ npm run flow
 </ul>
 <p>目前使用ref的情况：获取选中文本的位置，获取滚动元素的位置。</p>
 <p>不能在函数式组件上使用 ref</p>
-<div class="codehilite"><pre><span></span><code>&lt;HelloWorld ref={this.helloworld}&gt; // wrong
+<div class="highlight"><pre><span></span><code>&lt;HelloWorld ref={this.helloworld}&gt; // wrong
 // 因为函数式组件没有实例，无法获取；可以使用点语法获取当前组件的ref。
 
 &lt;Editor ref={(editor) =&gt; this.editor = editor}&gt; //correct
 // 直接使用一个变量接一下 a = 组件 使用组件点语法获取 editor 。
 this.editor.value...
 </code></pre></div>
-
 <p>通常情况下，父组件不会直接获取子组件的属性。这样会保证子组件很好的封装性。</p>
-<div class="codehilite"><pre><span></span><code>// 子组件最好不要直接调用父组件的函数
+<div class="highlight"><pre><span></span><code>// 子组件最好不要直接调用父组件的函数
 this.props.getCommentNumber();
 
 // 可以设置组件的回调函数
@@ -2614,13 +2607,12 @@ onCommentAdded = (response) =&gt; {
 this.props.onCommentAdded(response);
 // 子组件获取评论数量后，调用组件的回调函数，具体做什么事情需要父组件决定；
 </code></pre></div>
-
 <p>父组件获取子组件的ref的情况：父组件需要获取子组件（设置子组件）节点的位置；</p>
 <p>可以获取选中的部分，获取选中文本的坐标，计算后设置属性（buttonTop），将这个参数直接传递给子组件中的菜单，以行内样式设置子组件的位置。</p>
 <p>不推荐直接获取元素的做法！</p>
 <h3 id="5">5、非受控组件<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
 <p>大部分情况，表单使用受控组件处理（react处理）；少数情况使用非受控组件（DOM）处理；</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">// 非受控组件，不建议下面的写法，需要使用ref</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// 非受控组件，不建议下面的写法，需要使用ref</span>
 
 <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span> <span class="nx">ref</span><span class="o">=</span><span class="p">{(</span><span class="nx">input</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">input</span> <span class="o">=</span> <span class="nx">input</span><span class="p">}</span><span class="o">&gt;</span>
 
@@ -2628,26 +2620,24 @@ this.props.onCommentAdded(response);
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>  
 <span class="p">}</span>
 </code></pre></div>
-
 <p>大部分表单可以写成受控组件。文件上传表单是非受控组件。使用上面的ref方法，将已经上传的内容（文件名），设置组件的属性中。</p>
 <h3 id="6">6、性能优化<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
 <p>1、使用 React 生产版本，使用 uglify-js ，使用其他插件优化代码，去掉注释；</p>
 <p>2、避免重复渲染：当一个组件的props和status发生变化后，React会比较前后的差异进行渲染。如果知道某些情况下，即使发生变化也不需要渲染界面，可以手动操作。shouldComponentUpdate 默认是 true。</p>
 <p>如果不设置，那么会通过 diff 算法比较整个节点树是否发生变化，稍后判断进行渲染。如果设置false， 直接跳过整个情况（不进行 diff 比较）。</p>
-<div class="codehilite"><pre><span></span><code>shouldComponentUpdate(nextProps, nextState) {
+<div class="highlight"><pre><span></span><code>shouldComponentUpdate(nextProps, nextState) {
   return true;
 }
 
 // return false;
 </code></pre></div>
-
-<p>大部分情况下，你可以使用<code>React.PureComponent</code>而不必写你自己的<code>shouldComponentUpdate</code>，它只做一个浅比较。但是由于浅比较会忽略属性或状态<strong>突变</strong>的情况，此时你不能使用它。</p>
+<p>大部分情况下，你可以使用<code>React.PureComponent</code>而不必写你自己的<code>shouldComponentUpdate</code>，它只做一个浅比较。但是由于浅比较会忽略属性或状态**突变**的情况，此时你不能使用它。</p>
 <p>使用不可突变的数据结构 [Immutable.js] 可以解决状态突变的情况。原始集合在新集合创建后仍然可以使用。新集合和原始集合结构共享。</p>
 <h3 id="7-reconciliation">7、协调 reconciliation<a class="headerlink" href="#7-reconciliation" title="Permanent link">&para;</a></h3>
 <p>如果完全更新一个DOM树，那么算法的时间复杂度是o(n³)。通过对比不同组件和不同节点是否相同减少计算量。这时的算法复杂度是o(n)。两个重要原理：两个不同类型的元素会产生完全不同的树；根据key的属性，判断稳定的子节点。不同类型的元素直接渲染，相同类型的元素仅仅更新属性。keys是一个索引，在同一个序列中的所有子节点具有不同的keys。使用 map 方法渲染子节点是需要加入唯一的固定的key值。</p>
 <h3 id="8context">8、context<a class="headerlink" href="#8context" title="Permanent link">&para;</a></h3>
 <p>避免了props的逐层传递，直接跨越中间的组件进行数据传递。（例如全局的数据，用户的信息，主题，语言等）。用于多个层级多个组件的情况。目前实际开发中还没有用到。</p>
-<div class="codehilite"><pre><span></span><code>// 常见 context API
+<div class="highlight"><pre><span></span><code>// 常见 context API
 const { Provider, Consumer } = React.createContext(defaultValue);
 // 创建：渲染 consumer 时，可以根据组件树上层中最接近的组件中匹配 Provider 读取当前的 context 值。如果上层组件树中没有一个 Provider 那么需要用到 default Value。
 
@@ -2659,10 +2649,9 @@ const { Provider, Consumer } = React.createContext(defaultValue);
 
 对于每一个provider更新，consumer将会更新(不受到props更新的影响)。
 </code></pre></div>
-
 <h3 id="9fragments">9、fragments<a class="headerlink" href="#9fragments" title="Permanent link">&para;</a></h3>
 <p>一个空的元素。一个组件的根元素必须是一个单独的元素。</p>
-<div class="codehilite"><pre><span></span><code>function Glossary(props) {
+<div class="highlight"><pre><span></span><code>function Glossary(props) {
   return (
     &lt;dl&gt;
         {props.items.map(item =&gt; (
@@ -2675,13 +2664,12 @@ const { Provider, Consumer } = React.createContext(defaultValue);
   );
 }
 </code></pre></div>
-
 <h3 id="react_1">React<a class="headerlink" href="#react_1" title="Permanent link">&para;</a></h3>
 <p>注意：重点是查漏补缺</p>
-<p>http://www.runoob.com/react/react-tutorial.html</p>
+<p><a href="http://www.runoob.com/react/react-tutorial.html">http://www.runoob.com/react/react-tutorial.html</a></p>
 <h4 id="_3">安装<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
-<p>1、webpack 编译流程（http://www.runoob.com/react/react-install.html）</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># 使用淘宝 cnpm 安装速度较快</span>
+<p>1、webpack 编译流程（<a href="http://www.runoob.com/react/react-install.html">http://www.runoob.com/react/react-install.html</a>）</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 使用淘宝 cnpm 安装速度较快</span>
 npm install -g cnpm --registry<span class="o">=</span>http://registry.npm.taobao.org
 npm config <span class="nb">set</span> registry https://registry.npm.taobao.org
 <span class="c1"># 注意：使用淘宝源安装，package-lock.json 的依赖地址就会改变，项目中不能使用这个安装</span>
@@ -2695,11 +2683,10 @@ create-react-app my-app
 npm start
 <span class="c1"># localhost://3000</span>
 </code></pre></div>
-
 <p>开始界面 index.html</p>
 <p>App.js</p>
-<p>https://blog.csdn.net/u012859720/article/details/70597119/</p>
-<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<p><a href="https://blog.csdn.net/u012859720/article/details/70597119/">https://blog.csdn.net/u012859720/article/details/70597119/</a></p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nx">React</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="nx">logo</span> <span class="nx">from</span> <span class="s1">&#39;./logo.svg&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="s1">&#39;./App.css&#39;</span><span class="p">;</span>
 
@@ -2713,10 +2700,9 @@ npm start
 
 <span class="k">export</span> <span class="k">default</span> <span class="nx">App</span><span class="p">;</span>
 </code></pre></div>
-
 <p>2、忽略文件：这部分文件不会上传到github（对于node-module和个人本地配置文件需要忽略处理）；</p>
 <p>.gitignore（隐藏文件）</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># See https://help.github.com/ignore-files/ for more about ignoring files.</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># See https://help.github.com/ignore-files/ for more about ignoring files.</span>
 <span class="c1"># testing</span>
 /coverage
 
@@ -2744,9 +2730,8 @@ src/config.js
 <span class="c1"># backup files</span>
 *~
 </code></pre></div>
-
 <p>ES6 与 传统代码——ES6 需要使用 this.props</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">Clock</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">Clock</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
       <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">toLocaleTimeString</span><span class="p">()}</span>
@@ -2762,12 +2747,11 @@ src/config.js
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>JSX 语法补充：</p>
-<p>注释写在花括号中，{/<em> test </em>/} 在测试的时候写jsx注释很方便</p>
+<p>注释写在花括号中，{/* test */} 在测试的时候写jsx注释很方便</p>
 <h4 id="react_2">React 组件<a class="headerlink" href="#react_2" title="Permanent link">&para;</a></h4>
 <p>为了提高代码的复用性，最好使用复合组件；在一个界面中使用多个独立的组件，这样可以最好的做到组件的复用。组件的主要目的就是组件的复用。</p>
-<div class="codehilite"><pre><span></span><code><span class="cm">/* es5 函数定义组件 */</span>
+<div class="highlight"><pre><span></span><code><span class="cm">/* es5 函数定义组件 */</span>
 <span class="kd">function</span> <span class="nx">Hello</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">(</span><span class="o">&lt;</span><span class="nx">h1</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">h1</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="o">&lt;</span><span class="err">/h1&gt;);</span>
 <span class="p">}</span>
@@ -2786,11 +2770,10 @@ src/config.js
 <span class="p">}</span>
 <span class="c1">// 现在常用ES6的方法，使用ES5的方法自己也要会做。</span>
 </code></pre></div>
-
 <h4 id="react_3">React 受控组件<a class="headerlink" href="#react_3" title="Permanent link">&para;</a></h4>
 <p>1.受控组件：在原生的HTML中，input（type='text'） textarea select 三个元素的内部的属性可以随着用户的输入变化。</p>
 <p>2.react 中使用 state 控制属性的变化，将原生的受控组件和 react 中 state 结合。</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nx">Text</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">Text</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
   <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
@@ -2820,15 +2803,13 @@ src/config.js
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>使用受控组件可以过滤用户输入，在handlechange 函数中，设置正则表达式或者简单的trim函数可以过滤部分输入。</p>
 <p><code>&lt;input type='file' /&gt;</code>是非受控组件。将本地的n个文件上传到服务器中。</p>
 <p>当界面上有多个input时，可以只写一个函数，handleinputChange 处理所有的input输入。通过 event.target.type 或者 event.target.name 进行选择，判断是哪个组件发生输入并进行不同的界面操作。</p>
-<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;textarea&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;comment&quot;</span> <span class="na">onChange</span><span class="o">=</span><span class="s">&quot;handleInputChange&quot;</span><span class="p">/&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;textarea&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;comment&quot;</span> <span class="na">onChange</span><span class="o">=</span><span class="s">&quot;handleInputChange&quot;</span><span class="p">/&gt;</span>
 <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkoutbox&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;comment-number&quot;</span> <span class="na">onChange</span><span class="o">=</span><span class="s">&quot;handleInputChange&quot;</span><span class="p">/&gt;</span>
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>handleInputChange = (e) =&gt; {
+<div class="highlight"><pre><span></span><code>handleInputChange = (e) =&gt; {
   let value = e.target.type === &#39;textarea&#39; ? e.target.value : e.target.checked;
   const name = e.target.name;
   this.setState({
@@ -2836,7 +2817,6 @@ src/config.js
   });
 }
 </code></pre></div>
-
 <p>受控组件使用很多会形成很多的处理函数（2n）根据场合使用受控组件和非受控组件。</p>
 <h4 id="react_4">React组合&amp;继承<a class="headerlink" href="#react_4" title="Permanent link">&para;</a></h4>
 <p>React中使用组件进行数据传递。可以进行组件的嵌套组合，实现功能的复用（函数、属性）；react中不推荐使用继承的方法。</p>
@@ -2858,7 +2838,7 @@ src/config.js
 <p>如果内部多个子组件共同使用相同的数据，并且互相影响。那么可以将这部分共有的数据存放在父组件的属性中，将handleChange作为props传递给子组件。不同子组件会更改福钻进的某个参数，这部分参数会影响其他子组件的行为。确保父组件内部的数据改变会改变子组件的属性。</p>
 <p>案例：公里和英里进行转换，总数是固定的，不同子组件需要根据单位进行转换，将唯一的数据存放在父组件中，这样可以减少组件传值造成的bug。</p>
 <p>tips：在Chrome react 工具可以查看不同组件的传值，不需要每次console.log。</p>
-<div class="codehilite"><pre><span></span><code>class Text extends React.Compontent {
+<div class="highlight"><pre><span></span><code>class Text extends React.Compontent {
 
   constrcutor(props) {
     super(props);
@@ -2894,7 +2874,6 @@ src/config.js
   }
 }
 </code></pre></div>
-
 <p>不管输入的是英语还是汉语的单位，那么长度会转化成为英语和汉语进行处理显示。</p>
 <h3 id="refs">传递Refs<a class="headerlink" href="#refs" title="Permanent link">&para;</a></h3>
 <p>refs 在高阶组件中进行传值。React 如果需要获取界面中的信息（例如元素的实际宽度，那么需要使用Refs进行传值，让子组件获取父组件的高度和滚动的距离）</p>
@@ -2902,13 +2881,12 @@ src/config.js
 <h3 id="_5">协同<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>react可以很好的和其他库进行兼容，例如 jquery 或者 backbone。</p>
 <p>可访问性</p>
-<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">Lable</span> <span class="na">htmlFor</span><span class="o">=</span><span class="s">&quot;test&quot;</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">Lable</span><span class="p">&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">Lable</span> <span class="na">htmlFor</span><span class="o">=</span><span class="s">&quot;test&quot;</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">Lable</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;test&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;name&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">input</span><span class="p">&gt;</span>
 </code></pre></div>
-
 <p>焦点边框：点击输入区域会出现边框</p>
 <p>解决方案：使用css outline: 0;</p>
-<div class="codehilite"><pre><span></span><code>// react bubble
+<div class="highlight"><pre><span></span><code>// react bubble
 import React from &#39;react&#39;;
 import ReactDOM from &#39;react-dom&#39;;
 import jquery from &#39;jquery&#39;;
@@ -2919,8 +2897,7 @@ class Tmp extends React.Component {
   }
 }
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code>class LosinForm extends React.Component {
+<div class="highlight"><pre><span></span><code>class LosinForm extends React.Component {
 
   constructor(...args) {
     super(...args)

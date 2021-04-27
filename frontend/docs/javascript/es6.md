@@ -1,4 +1,4 @@
- ES6 新特性对比
+# ES6 新特性对比
 
 1. 定义变量
    let const ：let 将变量的作用域限制在块级作用域中（for循环，if循环等块级作用域等）const声明一个常量
@@ -82,7 +82,7 @@ var show = (a, b=7) => {
     Object.assign(obj2,obj);
     console.log(obj2);
     //将obj的属性方法加入obj2中，不改变obj。
-    
+
 
 Object.defineProperty 对象的扩展
 
@@ -107,8 +107,7 @@ Object.defineProperty 对象的扩展
     
     data.b = 10;
     console.log(data.b); //5
-    
-    
+
 
 1. class类
 
@@ -118,8 +117,6 @@ constructor构造函数
 
 es6的继承==>静态方法
 
-    
-    
 
 1. 解构赋值
 
@@ -220,8 +217,8 @@ ES6中，导出有三种：命名导出（named exports）、默认导出(defaul
     add = lib.add;
     square = lib.square;
     //编译工具：babel或者browserify
-    
-    
+
+
     //默认导出——指定一个变量作为默认值导出(默认就是文件名)
     /*------hello.js-------*/
     export default function(a,b){
@@ -238,7 +235,5 @@ ES6中，导出有三种：命名导出（named exports）、默认导出(defaul
 在nodeJS中，可以使用babel模块或者构建工具编译代码
 
     npm install --save-dev babel-core
-
+    
     require('babel-core').transform(ES5Code,options);
-
- 

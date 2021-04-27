@@ -2276,7 +2276,7 @@
 <h2 id="_2">实现更新机制<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>下面我们探讨下更新的机制。</p>
 <p>一般在reactjs中我们需要更新时都是调用的setState。看下面的例子：</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="nx">HelloMessage</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">HelloMessage</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">getInitialState</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">{</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;say:&#39;</span><span class="p">};</span>
   <span class="p">},</span>
@@ -2302,9 +2302,8 @@
 
 <span class="cm">*/</span>
 </code></pre></div>
-
 <p>点击文字，调用setState就会更新，所以我们扩展下ReactClass，看下setState的实现：</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">//定义ReactClass类</span>
+<div class="highlight"><pre><span></span><code><span class="c1">//定义ReactClass类</span>
 <span class="kd">var</span> <span class="nx">ReactClass</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
 <span class="p">}</span>
 
@@ -2318,12 +2317,11 @@
   <span class="k">this</span><span class="p">.</span><span class="nx">_reactInternalInstance</span><span class="p">.</span><span class="nx">receiveComponent</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">newState</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>可以看到setState主要调用了对应的component的receiveComponent来实现更新。所有的挂载，更新都应该交给对应的component来管理。</p>
 <p>就像所有的component都实现了mountComponent来处理第一次渲染，所有的componet类都应该实现receiveComponent用来处理自己的更新。</p>
 <h3 id="receivecomponent">自定义元素的receiveComponent<a class="headerlink" href="#receivecomponent" title="Permanent link">&para;</a></h3>
 <p>所以我们照葫芦画瓢来给自定义元素的对应component类（ReactCompositeComponent）实现一个receiveComponent方法：</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">//更新</span>
+<div class="highlight"><pre><span></span><code><span class="c1">//更新</span>
 <span class="nx">ReactCompositeComponent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">receiveComponent</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">nextElement</span><span class="p">,</span> <span class="nx">newState</span><span class="p">)</span> <span class="p">{</span>
 
   <span class="c1">//如果接受了新的，就使用最新的element</span>
@@ -2389,7 +2387,6 @@
   <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>不要被这么多代码吓到，其实流程很简单。
 它主要做了什么事呢？首先会合并改动，生成最新的state,props然后拿以前的render返回的element跟现在最新调用render生成的element进行对比（_shouldUpdateReactComponent），看看需不需要更新，如果要更新就继续调用对应的component类对应的receiveComponent就好啦，其实就是直接当甩手掌柜，事情直接丢给手下去办了。当然还有种情况是，两次生成的element差别太大，就不是一个类型的，那好办直接重新生成一份新的代码重新渲染一次就o了。</p>
 <p>本质上还是递归调用receiveComponent的过程。</p>
@@ -2401,7 +2398,7 @@
 <p>另外可以看到这里还处理了一套更新的生命周期调用机制。</p>
 <h3 id="receivecomponent_1">文本节点的receiveComponent<a class="headerlink" href="#receivecomponent_1" title="Permanent link">&para;</a></h3>
 <p>我们再看看文本节点的，比较简单：</p>
-<div class="codehilite"><pre><span></span><code><span class="nx">ReactDOMTextComponent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">receiveComponent</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">nextText</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="nx">ReactDOMTextComponent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">receiveComponent</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">nextText</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">nextStringText</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="o">+</span> <span class="nx">nextText</span><span class="p">;</span>
   <span class="c1">//跟以前保存的字符串比较</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">nextStringText</span> <span class="o">!==</span> <span class="k">this</span><span class="p">.</span><span class="nx">_currentElement</span><span class="p">)</span> <span class="p">{</span>
@@ -2412,17 +2409,15 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>没什么好说的，如果不同的话，直接找到对应的节点，更新就好了。</p>
 <h3 id="elementreceivecomponent">基本元素element的receiveComponent<a class="headerlink" href="#elementreceivecomponent" title="Permanent link">&para;</a></h3>
 <p>最后我们开始看比较复杂的浏览器基本元素的更新机制。
 比如我们看看下面的html:</p>
-<div class="codehilite"><pre><span></span><code><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;test&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;hello&quot;</span><span class="o">&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;test&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;hello&quot;</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;</span>
     <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;</span>
 <span class="o">&lt;</span><span class="err">/div&gt;</span>
 </code></pre></div>
-
 <p>想一下我们怎么以最小代价去更新这段html呢。不难发现其实主要包括两个部分：</p>
 <ol>
 <li>属性的更新，包括对特殊属性比如事件的处理</li>
@@ -2431,7 +2426,7 @@
 <li>所有差别找出后，再一次性的去更新。我们称之为patch</li>
 </ol>
 <p>所以更新代码结构如下：</p>
-<div class="codehilite"><pre><span></span><code><span class="nx">ReactDOMComponent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">receiveComponent</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">nextElement</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="nx">ReactDOMComponent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">receiveComponent</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">nextElement</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">lastProps</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_currentElement</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">nextProps</span> <span class="o">=</span> <span class="nx">nextElement</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
 
@@ -2442,10 +2437,9 @@
   <span class="k">this</span><span class="p">.</span><span class="nx">_updateDOMChildren</span><span class="p">(</span><span class="nx">nextElement</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>整体上也不复杂，先是处理当前节点属性的变动，后面再去处理子节点的变动</p>
 <p>我们一步步来，先看看，更新属性怎么变更：</p>
-<div class="codehilite"><pre><span></span><code><span class="nx">ReactDOMComponent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_updateDOMProperties</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lastProps</span><span class="p">,</span> <span class="nx">nextProps</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="nx">ReactDOMComponent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_updateDOMProperties</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lastProps</span><span class="p">,</span> <span class="nx">nextProps</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">propKey</span><span class="p">;</span>
   <span class="c1">//遍历，当一个老的属性不在新的属性集合里时，需要删除掉。</span>
 
@@ -2486,10 +2480,9 @@
 
 <span class="p">}</span>
 </code></pre></div>
-
 <p>属性的变更并不是特别复杂，主要就是找到以前老的不用的属性直接去掉，新的属性赋值，并且注意其中特殊的事件属性做出特殊处理就行了。</p>
 <p>下面我们看子节点的更新，也是最复杂的部分。</p>
-<div class="codehilite"><pre><span></span><code><span class="nx">ReactDOMComponent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">receiveComponent</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">nextElement</span><span class="p">){</span>
+<div class="highlight"><pre><span></span><code><span class="nx">ReactDOMComponent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">receiveComponent</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">nextElement</span><span class="p">){</span>
   <span class="kd">var</span> <span class="nx">lastProps</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_currentElement</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">nextProps</span> <span class="o">=</span> <span class="nx">nextElement</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">_currentElement</span> <span class="o">=</span> <span class="nx">nextElement</span><span class="p">;</span>
@@ -2516,13 +2509,12 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>就像我们之前说的一样，更新子节点包含两个部分，一个是递归的分析差异，把差异添加到队列中。然后在合适的时机调用<code>_patch</code>把差异应用到dom上。</p>
 <p>那么什么是合适的时机，updateDepth又是干嘛的？</p>
 <p>这里需要注意的是，<code>_diff</code>内部也会递归调用子节点的receiveComponent于是当某个子节点也是浏览器普通节点，就也会走_updateDOMChildren这一步。所以这里使用了updateDepth来记录递归的过程，只有等递归回来updateDepth为0时，代表整个差异已经分析完毕，可以开始使用patch来处理差异队列了。</p>
 <p>所以我们关键是实现<code>_diff</code>与<code>_patch</code>两个方法。</p>
 <p>我们先看_diff的实现：</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">//差异更新的几种类型</span>
+<div class="highlight"><pre><span></span><code><span class="c1">//差异更新的几种类型</span>
 <span class="kd">var</span> <span class="nx">UPATE_TYPES</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">MOVE_EXISTING</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
   <span class="nx">REMOVE_NODE</span><span class="o">:</span> <span class="mf">2</span><span class="p">,</span>
@@ -2663,7 +2655,6 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>我们分析下上面的代码，咋一看好多，好复杂，不急我们从入口开始看。</p>
 <p>首先我们拿到之前的component的集合，如果是第一次更新的话，这个值是我们在渲染时赋值的。然后我们调用generateComponentChildren生成最新的component集合。我们知道component是用来放element的，一个萝卜一个坑。</p>
 <p>注意flattenChildren我们这里把数组集合转成了对象map,以element的key作为标识，当然对于text文本或者没有传入key的element,直接用index作为标识。通过这些标识，我们可以从类型的角度来判断两个component是否是一样的。</p>
@@ -2707,7 +2698,7 @@
 <p>从上到下，我们的4 2 1里 2 ，1可以复用之前的component,让他们通知自己的子节点更新后，再告诉2和1，他们在新的集合里需要移动的位置（在我们这里就是组装差异对象加到队列）。3需要删除，4需要新增。</p>
 <p>好了，整个的diff就完成了，这个时候当递归完成，我们就需要开始做patch的动作了，把这些差异对象实打实的反映到具体的dom节点上。</p>
 <p>我们看下_patch的实现：</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">//用于将childNode插入到指定位置</span>
+<div class="highlight"><pre><span></span><code><span class="c1">//用于将childNode插入到指定位置</span>
 <span class="kd">function</span> <span class="nx">insertChildAt</span><span class="p">(</span><span class="nx">parentNode</span><span class="p">,</span> <span class="nx">childNode</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">beforeChild</span> <span class="o">=</span> <span class="nx">parentNode</span><span class="p">.</span><span class="nx">children</span><span class="p">().</span><span class="nx">get</span><span class="p">(</span><span class="nx">index</span><span class="p">);</span>
   <span class="nx">beforeChild</span> <span class="o">?</span> <span class="nx">childNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">beforeChild</span><span class="p">)</span> <span class="o">:</span> <span class="nx">childNode</span><span class="p">.</span><span class="nx">appendTo</span><span class="p">(</span><span class="nx">parentNode</span><span class="p">);</span>
@@ -2755,11 +2746,10 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p><code>_patch</code>主要就是挨个遍历差异队列，遍历两次，第一次删除掉所有需要变动的节点，然后第二次插入新的节点还有修改的节点。这里为什么可以直接挨个的插入呢？原因就是我们在diff阶段添加差异节点到差异队列时，本身就是有序的，也就是说对于新增节点（包括move和insert的）在队列里的顺序就是最终dom的顺序，所以我们才可以挨个的直接根据index去塞入节点。</p>
 <p>但是其实你会发现这里有个问题，就是所有的节点都会被删除，包括复用以前的component类型为<code>UPATE_TYPES.MOVE_EXISTING</code>的，所以闪烁会很严重。其实我们再看看上面的例子，其实2是不需要记录到差异队列的。这样后面patch也是ok的。想想是为什么呢？</p>
 <p>我们来改造下代码：</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">//_diff用来递归找出差别,组装差异对象,添加到更新队列diffQueue。</span>
+<div class="highlight"><pre><span></span><code><span class="c1">//_diff用来递归找出差别,组装差异对象,添加到更新队列diffQueue。</span>
 <span class="nx">ReactDOMComponent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_diff</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">diffQueue</span><span class="p">,</span> <span class="nx">nextChildrenElements</span><span class="p">){</span>
   <span class="err">。。。</span>
   <span class="cm">/**注意新增代码**/</span>
@@ -2805,7 +2795,6 @@
   <span class="err">。。。</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>可以看到我们多加了个lastIndex，这个代表最后一次访问的老集合节点的最大的位置。
 而我们加了个判断，只有_mountIndex小于这个lastIndex的才会需要加入差异队列。有了这个判断上面的例子2就不需要move。而程序也可以好好的运行，实际上大部分都是2这种情况。</p>
 <p>这是一种顺序优化，lastIndex一直在更新，代表了当前访问的最右的老的集合的元素。
@@ -2825,7 +2814,7 @@
 <p>整个reactjs的差异算法就是这个样子。最核心的两个_shouldUpdateReactComponent以及diff,patch算法。</p>
 <h2 id="_3">小试牛刀<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>有了上面简易版的reaactjs，我们来实现一个简单的todolist吧。</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="nx">TodoList</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">TodoList</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">getInitialState</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">{</span><span class="nx">items</span><span class="o">:</span> <span class="p">[]};</span>
   <span class="p">},</span>
@@ -2851,7 +2840,6 @@
 
 <span class="nx">React</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">TodoList</span><span class="p">),</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;container&quot;</span><span class="p">));</span>
 </code></pre></div>
-
 <p>效果如下：</p>
 <p><img alt="todolist" src="https://img.alicdn.com/tps/TB1bPcWJpXXXXcwXFXXXXXXXXXX-537-228.gif" /></p>
 <p>整个的流程是这样：</p>
@@ -2868,10 +2856,10 @@
 <p>相关资料：</p>
 <ol>
 <li><a href="http://freestyle21.cn/2015/06/21/react-diff-算法/">http://freestyle21.cn/2015/06/21/react-diff-%E7%AE%97%E6%B3%95/</a></li>
-<li>https://github.com/Matt-Esch/virtual-dom</li>
+<li><a href="https://github.com/Matt-Esch/virtual-dom">https://github.com/Matt-Esch/virtual-dom</a></li>
 <li><a href="http://zjumty.iteye.com/blog/2207030">http://zjumty.iteye.com/blog/2207030</a></li>
 <li><a href="http://hao.jser.com/archive/7871/">http://hao.jser.com/archive/7871/</a></li>
-<li>https://github.com/miniflycn/qvd/issues/1</li>
+<li><a href="https://github.com/miniflycn/qvd/issues/1">https://github.com/miniflycn/qvd/issues/1</a></li>
 <li><a href="http://fluentconf.com/fluent2014/public/schedule/detail/32395">http://fluentconf.com/fluent2014/public/schedule/detail/32395</a></li>
 <li><a href="http://calendar.perfplanet.com/2013/diff/">http://calendar.perfplanet.com/2013/diff/</a></li>
 <li><a href="http://segmentfault.com/a/1190000000606216">http://segmentfault.com/a/1190000000606216</a></li>

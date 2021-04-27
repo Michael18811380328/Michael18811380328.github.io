@@ -2300,52 +2300,45 @@
 <p>这篇文章我们主要讲解如何使用TS与已经使用React以及webpack的项目结合使用。</p>
 <h2 id="_2">正文<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h2 id="_3">初始化项目结构<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p>首先我们新建一个名字为myTsProj的文件夹，命令如下：</p>
-<div class="codehilite"><pre><span></span><code>mkdir myTsProj
+<p>首先我们新建一个名字为myTsProj的文件夹，命令如下：
+<div class="highlight"><pre><span></span><code>mkdir myTsProj
 
 <span class="nb">cd</span> myTsProj
-</code></pre></div>
-
+</code></pre></div></p>
 <p>接下来创建src文件夹，用来放TS文件。然后在src文件夹里面创建components文件夹，用来放我们自己自定义的组件。</p>
-<div class="codehilite"><pre><span></span><code>mkdir src
+<div class="highlight"><pre><span></span><code>mkdir src
 <span class="nb">cd</span> src
 mkdir components
 <span class="nb">cd</span> ..
 </code></pre></div>
-
 <p>Webpack会帮助我们生成dist目录。经webpack处理，会生成bundle.js文件放在dist目录下。
 最后看到的文件如下：</p>
-<div class="codehilite"><pre><span></span><code>proj/
+<div class="highlight"><pre><span></span><code>proj/
 ├─dist/
 └─ src/   
   └─components/
 </code></pre></div>
-
 <h2 id="_4">初始化工程<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>安装,使用默认值就可以了。也可以在生成的 package.json文件里修改。</p>
-<div class="codehilite"><pre><span></span><code>npm init
+<div class="highlight"><pre><span></span><code>npm init
 </code></pre></div>
-
 <h2 id="_5">安装依赖<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>1、要确保我们有安装webpack,如果没有安装，执行下面的命令：</p>
-<div class="codehilite"><pre><span></span><code>npm install -g webpack
+<p><div class="highlight"><pre><span></span><code>npm install -g webpack
 </code></pre></div>
-
-<p>Webpack可以将所有代码和可选择地将依赖捆绑成一个单独的.js文件</p>
+Webpack可以将所有代码和可选择地将依赖捆绑成一个单独的.js文件</p>
 <p>2、接着添加React和React-DOM以及它们的声明文件到package.json文件里做为依赖，执行下面命令：</p>
-<div class="codehilite"><pre><span></span><code>npm install --save react react-dom @types/react @types/react-dom
+<p><div class="highlight"><pre><span></span><code>npm install --save react react-dom @types/react @types/react-dom
 </code></pre></div>
-
-<p>（说明： 这个命令使用@types/前缀表示要额外获取React和React-DOM的声明文件。 通常导入像 "react"这样的路径，它会查看react包； 然而，并不是所有的包都包含了声明文件，所以TS还会查看 @types/react包。 之后将不必在意这些了。）
+（说明： 这个命令使用@types/前缀表示要额外获取React和React-DOM的声明文件。 通常导入像 "react"这样的路径，它会查看react包； 然而，并不是所有的包都包含了声明文件，所以TS还会查看 @types/react包。 之后将不必在意这些了。）
 3、最后，我们要添加开发时依赖awesome-typescript-loader和source-map-loader。</p>
-<div class="codehilite"><pre><span></span><code>npm install --save-dev typescript awesome-typescript-loader source-map-loader
+<p><div class="highlight"><pre><span></span><code>npm install --save-dev typescript awesome-typescript-loader source-map-loader
 </code></pre></div>
-
-<p>（说明：awesome-typescript-loader可以让Webpack使用TypeScript的标准配置文件 tsconfig.json编译TypeScript代码。 source-map-loader使用TypeScript输出的sourcemap文件来告诉webpack何时生成 自己的sourcemaps。 这就允许我们在调试最终生成的文件时就好像在调试TypeScript源码一样。）</p>
+（说明：awesome-typescript-loader可以让Webpack使用TypeScript的标准配置文件 tsconfig.json编译TypeScript代码。 source-map-loader使用TypeScript输出的sourcemap文件来告诉webpack何时生成 自己的sourcemaps。 这就允许我们在调试最终生成的文件时就好像在调试TypeScript源码一样。）</p>
 <h2 id="typescript">添加TypeScript配置文件<a class="headerlink" href="#typescript" title="Permanent link">&para;</a></h2>
 <p>我们想将我们写的源码和必要的TypeScript文件整合到一起，这就需要创建一个tsconfig.json文件。（包含了输入文件列表以及编译选项）
 在myTsProj的根目录下新建 tsconfig.json文件，里面配置如下：</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span> 
+<div class="highlight"><pre><span></span><code><span class="p">{</span> 
   <span class="nt">&quot;compilerOptions&quot;</span><span class="p">:{</span>        
     <span class="nt">&quot;outDir&quot;</span><span class="p">:</span> <span class="s2">&quot;./dist/&quot;</span><span class="p">,</span>        
     <span class="nt">&quot;sourceMap&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
@@ -2359,16 +2352,14 @@ mkdir components
   <span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <h2 id="_6">编写代码<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<p>首先在 src/components目录下创建一个Demo.tsx的文件，代码如下：</p>
-<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">&quot;react&quot;</span><span class="p">;</span>
+<p>首先在 src/components目录下创建一个Demo.tsx的文件，代码如下：
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">&quot;react&quot;</span><span class="p">;</span>
 <span class="k">export</span> <span class="kr">interface</span> <span class="nx">DemoProps</span> <span class="p">{</span> <span class="nx">compiler</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span> <span class="nx">framework</span><span class="o">:</span> <span class="nx">string</span><span class="p">;}</span>
 <span class="k">export</span> <span class="kd">const</span> <span class="nx">Demo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">props</span><span class="o">:</span> <span class="nx">DemoProps</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">from</span> <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">compiler</span><span class="p">}</span> <span class="nx">and</span> <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">framework</span><span class="p">}</span><span class="o">!&lt;</span><span class="err">/h1&gt;;</span>
 </code></pre></div>
-
-<p>这个例子使用了无状态的功能组件，我们可以让它更像一点类。</p>
-<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">&quot;react&quot;</span><span class="p">;</span>
+这个例子使用了无状态的功能组件，我们可以让它更像一点类。
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">&quot;react&quot;</span><span class="p">;</span>
 <span class="k">export</span> <span class="kr">interface</span> <span class="nx">DemoProps</span> <span class="p">{</span> <span class="nx">compiler</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span> <span class="nx">framework</span><span class="o">:</span> <span class="nx">string</span><span class="p">;}</span>
 <span class="c1">// &#39;DemoProps &#39; describes the shape of props.</span>
 <span class="c1">// State is never set so we use the &#39;{}&#39; type.</span>
@@ -2378,20 +2369,18 @@ mkdir components
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
-<p>接下来，在src下创建index.tsx文件，代码如下：</p>
-<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">&quot;react&quot;</span><span class="p">;</span>
+接下来，在src下创建index.tsx文件，代码如下：
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s2">&quot;react&quot;</span><span class="p">;</span>
 <span class="k">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">ReactDOM</span> <span class="nx">from</span> <span class="s2">&quot;react-dom&quot;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Demo</span> <span class="p">}</span> <span class="nx">from</span> <span class="s2">&quot;./components/Demo&quot;</span><span class="p">;</span>
 <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
 <span class="o">&lt;</span><span class="nx">Demo</span> <span class="nx">compiler</span><span class="o">=</span><span class="s2">&quot;TypeScript&quot;</span> <span class="nx">framework</span><span class="o">=</span><span class="s2">&quot;React&quot;</span> <span class="o">/&gt;</span><span class="p">,</span>
 <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;app&quot;</span><span class="p">)</span>
 </code></pre></div>
-
-<p><b>注意:  </b>
+<b>注意:  </b>
 我们仅仅将Demo组件导入index.tsx。 不同于 "react"或"react-dom"，我们使用Demo.tsx的相对路径 - 这很重要。 如果不这样做，TypeScript只会尝试在 node_modules文件夹里查找。
 我们还缺一个页面来显示Demo组件。 在myTsProj根目录创建一个名为index.html的文件，代码如下：</p>
-<div class="codehilite"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<p><div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span> <span class="p">/&gt;</span>
@@ -2407,12 +2396,11 @@ mkdir components
   <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </code></pre></div>
-
-<p>需要注意一点我们是从node_modules引入的文件。 React和React-DOM的npm包里包含了独立的 .js文件，你可以在页面上引入它们，这里我们为了快捷就直接引用了。 可以随意地将它们拷贝到其它目录下，或者从CDN上引用。</p>
+需要注意一点我们是从node_modules引入的文件。 React和React-DOM的npm包里包含了独立的 .js文件，你可以在页面上引入它们，这里我们为了快捷就直接引用了。 可以随意地将它们拷贝到其它目录下，或者从CDN上引用。</p>
 <h2 id="webpack">创建webpack配置文件<a class="headerlink" href="#webpack" title="Permanent link">&para;</a></h2>
 <p>做到这里，我们还差最后一步。
-在myTsProj根目录下创建webpack.config.js文件，代码如下：</p>
-<div class="codehilite"><pre><span></span><code><span class="err">module.expor</span><span class="kc">ts</span> <span class="err">=</span> <span class="p">{</span>
+在myTsProj根目录下创建webpack.config.js文件，代码如下：
+<div class="highlight"><pre><span></span><code><span class="err">module.expor</span><span class="kc">ts</span> <span class="err">=</span> <span class="p">{</span>
     <span class="err">e</span><span class="kc">ntr</span><span class="err">y</span><span class="p">:</span> <span class="s2">&quot;./src/index.tsx&quot;</span><span class="p">,</span>
     <span class="err">ou</span><span class="kc">t</span><span class="err">pu</span><span class="kc">t</span><span class="p">:</span> <span class="p">{</span>
         <span class="kc">f</span><span class="err">ile</span><span class="kc">na</span><span class="err">me</span><span class="p">:</span> <span class="s2">&quot;bundle.js&quot;</span><span class="p">,</span>
@@ -2447,15 +2435,13 @@ mkdir components
     <span class="p">},</span>
 <span class="p">}</span><span class="err">;</span>
 </code></pre></div>
-
-<p>之所以添加externals字段，因为我们想要避免把所有的React都放到一个文件里，那样会增加编译时间并且浏览器还能够缓存没有发生改变的库文件。</p>
+之所以添加externals字段，因为我们想要避免把所有的React都放到一个文件里，那样会增加编译时间并且浏览器还能够缓存没有发生改变的库文件。</p>
 <p>webpack允许我们使用通过这种方式写的代码库。 通过我们的设置 "react": "React"，webpack会神奇地将所有对"react"的导入转换成从React全局变量中加载。</p>
 <h2 id="_7">运行<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
-<p>最后我们只需要执行一个命令：</p>
-<div class="codehilite"><pre><span></span><code>webpack
+<p>最后我们只需要执行一个命令：
+<div class="highlight"><pre><span></span><code>webpack
 </code></pre></div>
-
-<p>在浏览器里打开index.html，应该已经可以用了！ 你可以看到页面上显示着:
+在浏览器里打开index.html，应该已经可以用了！ 你可以看到页面上显示着:
 “Hello from TypeScript and React!”</p>
 <p>相信大家对TS已经有一定了解了，可以到官网深入学习TS了。<a href="https://github.com/Microsoft/TypeScript-React-Starter#typescript-react-starter">官网链接</a></p>
 <p>Reward

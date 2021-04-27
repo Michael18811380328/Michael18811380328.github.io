@@ -2293,35 +2293,33 @@
                   <h1>10-分析源码学架构.md</h1>
                 
                 <h2 id="_1">第十课 分析源码学架构<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>https://study.163.com/course/courselive/1280302025.htm</p>
+<p><a href="https://study.163.com/course/courselive/1280302025.htm">https://study.163.com/course/courselive/1280302025.htm</a></p>
 <p>如何看源码？分析 jquery 框架 express 框架（两个架构不同）</p>
 <h3 id="_2">怎样看源码<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
-<p>==不要一句一句看源码==</p>
+<p><mark>不要一句一句看源码</mark></p>
 <p>先看架构+再找入口+按照流程读下去</p>
 <p>可以先缩放函数内部的细节（把函数内部折叠）</p>
 <p>jquery 把 $ 挂载到window上面，window 入口函数，然后一步一步找（流程）</p>
 <p>看架构关键的部分</p>
 <h3 id="_3">源码的特征<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>程序健壮性：一个函数前面是变量定义，条件判断（开始部分函数健壮性处理，if判断），后面的是函数后面的执行部分。健壮性类似于容错性（方法错误使用下，不至于中断整个操作），有可能出错了，但是找不到问题出在哪里。解决方法：判断参数的类型（typeof），否则抛出错误（异常）或者 try-catch 操作（后端文件操作，服务持久性）</p>
-<div class="codehilite"><pre><span></span><code><span class="k">try</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">try</span> <span class="p">{</span>
   <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">();</span>
 <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>模块化：模块调用模块。模块化规范：amd cmd require import commonJS 的规范；不同的模块规范</p>
 <h3 id="_4">典型架构<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <h4 id="1">1、工厂模式<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
 <p>工厂模式：jquery zepto</p>
 <p>新建一个工厂方法，使用者告诉工厂需要什么，工厂就提供给你要的对象</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">window</span><span class="p">.</span><span class="nx">$</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="nb">window</span><span class="p">.</span><span class="nx">$</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">return</span> <span class="k">new</span> <span class="nx">jquery</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">init</span><span class="p">();</span>
   <span class="c1">// 这里没有直接返回 jquery 避免循环调用死循环</span>
   <span class="c1">// JS 如何查找变量？作用域从内到外查找（如果直接给出window，那么不需要一层一层查找变量，这是性能问题）</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>暴露在window上面的是一个工厂，需要什么产品，那么从工厂中返回对应的实例；jquery</p>
 <p>直接使用 $ 然后 源码中实现 new jquery.fn...</p>
 <p>$ 好处</p>
@@ -2336,7 +2334,7 @@
 <p>express 框架：建造者模式</p>
 <p>node 框架（类似的还有webpack）main.js </p>
 <p>Require 就是入口</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">createApplication</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">createApplication</span><span class="p">()</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">app</span><span class="p">.</span><span class="nx">handle</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">);</span>
   <span class="p">};</span>
@@ -2363,12 +2361,11 @@
   <span class="k">return</span> <span class="nx">app</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>工厂模式和建造者模式对立：工厂模式需要多次获取对象（需要快速获取）；建造者模式需要获取少数复杂的对象（需要传多个参数）；都是创建者模式。$ 频繁使用，那么使用工厂型。VUE 是单页面，那么使用创建者。</p>
 <p>例如：如果大量的相同的简单的弹窗，工厂模式；轮播图，那么需要传参，很少，所以使用建造者模式。</p>
 <p>多人写不同的模块；写好后混合进来（注入 mixin）建造者概念</p>
 <p>如果直接在原型上写，会造成原型注入漏洞；</p>
-<div class="codehilite"><pre><span></span><code><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">global</span><span class="p">,</span> <span class="nx">factory</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">global</span><span class="p">,</span> <span class="nx">factory</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">typeof</span> <span class="nx">exports</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">module</span> <span class="o">!==</span> <span class="s1">&#39;undefined&#39;</span> <span class="o">?</span> <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">()</span> <span class="o">:</span> <span class="k">typeof</span> <span class="nx">define</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">define</span><span class="p">.</span><span class="nx">amd</span> <span class="o">?</span> <span class="nx">define</span><span class="p">(</span><span class="nx">factory</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="nx">global</span> <span class="o">=</span> <span class="nx">global</span> <span class="o">||</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">global</span><span class="p">.</span><span class="nx">Vue</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">());</span>
 <span class="p">}(</span><span class="k">this</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
@@ -2379,7 +2376,6 @@
   <span class="p">...</span>
 <span class="p">}));</span>
 </code></pre></div>
-
 <h4 id="3">3、函数式<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
 <p>函数式：VUE3.0 lodash 很多 function </p>
 <p>函数式优点：</p>

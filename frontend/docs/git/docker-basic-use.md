@@ -1,11 +1,4 @@
----
-layout: post
-title:  "docker"
-date:   2019-04-08 17:59:11 +0800
-categories: jekyll update
----
-
-### docker 常见操作补充
+# docker 常见操作补充
 
 参考官方文档
 
@@ -13,17 +6,18 @@ categories: jekyll update
 
 #### 1. 基本操作
 
-检查当前 docker 版本
-
 ~~~bash
+# 检查当前 docker 版本
 docker --version
 Docker version 18.09, build c97c6d6
 
-docker-compose --version
-docker-compose version 1.24.0, build 8dd22a9
+docker-compose
+# 可以使用 YML 文件来配置应用程序需要的所有服务
 
-docker-machine --version
-docker-machine version 0.16.0, build 9ba6da9
+docker-compose up
+# 可以从 YML 文件配置中创建并启动所有服务
+
+docker-machine
 ~~~
 
 运行一个镜像（如果没有就会联网安装）
@@ -61,13 +55,10 @@ docker image rm nginx
 删除已有容器和镜像操作
 
 ~~~bash
-# 查看当前的镜像的ID(共计五个，三个公司的，helloworld nginx)
+# 查看当前的镜像的ID(公司的，helloworld nginx)
 docker ps -aq
 30b8a8b128f4
 ec328f5a228d
-73b12bea8807
-dfdf5180c891
-3b54b280d6ef
 
 # 列出当前的镜像(详情)，就是把上面的详情列出来
 docker image ls
@@ -128,3 +119,6 @@ memcached                                        1.4-alpine          273374b463b
 3. 高级：设置docker运行的硬件资源：通常情况，docker使用宿主机的一半CPU（如果需要增加或者减少性能，可以改变CPU个数）；内存通常使用宿主机的2G运行内存（可以增加或者减少）swap 虚拟内存，通常设置为1G虚拟内存。现在电脑的CPU吃不消，所以增加内存和虚拟内存，增加CPU个数，这样可以缓解单个CPU的性能。
 4. 用户代理：选择默认的用户代理
 5. 存储位置和容量：可以迁移镜像在计算机中的位置和设置容量
+
+镜像和容器，对应面向对象中的类和实例。
+

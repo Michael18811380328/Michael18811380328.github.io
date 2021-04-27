@@ -7,7 +7,6 @@
 因为其他项目会使用 python2 的开发环境。为了避免项目互相干扰，我使用 virtualenv 搭建 python3 开发环境。
 
 
-
 ## 安装python3
 
 如果电脑上没有 python3 的软件，需要下载安装；如果已经有python3，那么直接跳到下一章：

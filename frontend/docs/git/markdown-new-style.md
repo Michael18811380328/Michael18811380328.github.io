@@ -1,9 +1,6 @@
----
-layout: post
-title:  "Markdown new language"
-date:   2019-04-15 17:59:11 +0800
-categories: jekyll update
----
+# Markdown 新语法
+
+这部分语法在部分软件是正常的，在 github 暂时不支持。
 
 ### 这是引用语法
 
@@ -15,6 +12,8 @@ categories: jekyll update
 
 
 ### 流程图
+
+这个可以用来分析算法和数据流（需要本地分析截图）
 
 ~~~sequence
 Michael->Tom: Hello Tom!
@@ -34,5 +33,6 @@ Tom->Michael: Nice to meet you.
 
 
 
-[^1]: 这里引用的是安冰的名言。
+[^1]: 这里引用的是Anna名言。
 [^2]: 这里引用的是董明珠的诗句。
+

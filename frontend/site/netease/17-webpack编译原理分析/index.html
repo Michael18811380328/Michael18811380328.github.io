@@ -2313,7 +2313,7 @@
 <li>plugin 插件</li>
 <li>output 输出结果</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
   <span class="nx">entry</span><span class="o">:</span> <span class="s1">&#39;./src/index.js&#39;</span><span class="p">,</span>
@@ -2323,9 +2323,8 @@
   <span class="p">}</span>
 <span class="p">};</span>
 </code></pre></div>
-
 <h5 id="_1">执行流程<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><code><span class="nx">开始</span>
+<div class="highlight"><pre><span></span><code><span class="nx">开始</span>
 <span class="nx">加载入口函数</span><span class="err">（</span><span class="nx">index</span><span class="p">.</span><span class="nx">js</span><span class="err">）</span>
 <span class="nx">执行</span> <span class="nx">webpackBootstrap</span>
 <span class="nx">__webpack_require__</span> <span class="nx">require</span> <span class="nx">函数转换</span>
@@ -2333,7 +2332,6 @@
 <span class="err">（</span><span class="nx">如果有其他依赖模块</span><span class="err">，</span><span class="nx">递归执行第34步</span><span class="err">）</span>
 <span class="nx">结束</span>
 </code></pre></div>
-
 <h3 id="webpack_1">webpack 的作用<a class="headerlink" href="#webpack_1" title="Permanent link">&para;</a></h3>
 <p>依赖文件（模块）搜集；分析依赖关系</p>
 <p>内部实现 require 函数重写（浏览器不支持require）</p>
@@ -2342,7 +2340,7 @@
 <p>webpack 是模块打包机：分析项目结构，找到 JS 模块和其他浏览器不能直接运行的扩展语言（Sass TS）并将其打包成合适的合适以供浏览器使用。</p>
 <p>构建：把源代码转换成线上可实行的CSS JS HTML代码</p>
 <h5 id="_3">具体作用<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><code>代码转换：TS SaSS 编译成 JS CSS
+<div class="highlight"><pre><span></span><code>代码转换：TS SaSS 编译成 JS CSS
 文件优化：压缩JS文件，压缩合并图片
 代码分割：提取多个页面的公共代码，提取首屏加载不需要的代码，并将其异步加载实现首屏优化
 模块合并：将多个模块合并成一个文件
@@ -2350,17 +2348,15 @@
 代码校验：检验代码规范，单元测试
 自动发布：自动构建线上发布代码，并传输到发布系统
 </code></pre></div>
-
 <h5 id="bundlemainjs">bundle.main.js 结构分析<a class="headerlink" href="#bundlemainjs" title="Permanent link">&para;</a></h5>
 <p>首先把函数内部折叠，分析整理的结构和关系</p>
-<div class="codehilite"><pre><span></span><code><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// IEFF 自执行函数</span>
 <span class="p">})</span>
 <span class="p">([]);</span>
 </code></pre></div>
-
 <p>下面看传参，传参是一个数组，数组的每一项是一个模块，对应一个ID</p>
-<div class="codehilite"><pre><span></span><code><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">//</span>
 <span class="p">})</span>
 <span class="p">([</span>
@@ -2381,9 +2377,8 @@
   <span class="p">})</span>
 <span class="p">]);</span>
 </code></pre></div>
-
 <p>函数体，实现 require 转换</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">// 内部自执行函数和改写的require方法</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// 内部自执行函数和改写的require方法</span>
 <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">modules</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// cache(缓存，如果已经处理过的模块，直接从缓存中读取)</span>
   <span class="kd">var</span> <span class="nx">installedModules</span> <span class="o">=</span> <span class="p">{};</span>
@@ -2414,7 +2409,6 @@
   <span class="k">return</span> <span class="nx">__webpack_require__</span><span class="p">(</span><span class="nx">__webpack_require__</span><span class="p">.</span><span class="nx">s</span> <span class="o">=</span> <span class="mf">0</span><span class="p">);</span>
 <span class="p">})([</span><span class="nx">module1</span><span class="p">,</span> <span class="nx">module2</span><span class="p">,</span> <span class="nx">module3</span><span class="p">]);</span>
 </code></pre></div>
-
 <h3 id="webpack_2">自定义简易webpack<a class="headerlink" href="#webpack_2" title="Permanent link">&para;</a></h3>
 <p>分析依赖关系前，首先把不同的JS代码读入，然后获取require部分，需要使用AST</p>
 <p>AST（抽象语法树）编译原理  babel 也会用到AST（astexplorer.net 可以在线把字符串转换成AST）高级语言执行，需要编译器，编译成为二进制代码。如果写语言，需要会编译原理。</p>
@@ -2422,11 +2416,10 @@
 <p>如果直接读文件（结果是字符串），然后使用正则表达式处理依赖关系，模块很大就复杂了。所以使用AST构建文件结构。</p>
 <p>读取文件后，转换成AST，然后一步一步处理文件内容。</p>
 <p>新建项目和脚本 package.json</p>
-<div class="codehilite"><pre><span></span><code>npm init
+<div class="highlight"><pre><span></span><code>npm init
 npm install -D @babel/core @babel/genarator @babel/parser @babel/traverse
 </code></pre></div>
-
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
   <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="err">&#39;</span><span class="kc">test</span><span class="err">&#39;</span><span class="p">,</span>
   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="err">&#39;</span><span class="mf">1.0.0</span><span class="err">&#39;</span><span class="p">,</span>
   <span class="nt">&quot;main&quot;</span><span class="p">:</span> <span class="err">&#39;i</span><span class="kc">n</span><span class="err">dex.js&#39;</span><span class="p">,</span>
@@ -2439,9 +2432,8 @@ npm install -D @babel/core @babel/genarator @babel/parser @babel/traverse
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>下面是脚本 wypack.js</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">parser</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@babel/parser&#39;</span><span class="p">);</span>
 <span class="kd">const</span> <span class="nx">babel</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@babel/core&#39;</span><span class="p">);</span>

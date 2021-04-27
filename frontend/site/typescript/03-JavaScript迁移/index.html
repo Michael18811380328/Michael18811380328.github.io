@@ -2151,18 +2151,17 @@
 <p>若如此，那么你写的纯JavaScript文件将做为TypeScript的输入，你将要运行的是TypeScript的输出。 在从JS到TS的转换过程中，我们会分离输入文件以防TypeScript覆盖它们。 你也可以指定输出目录。</p>
 <p>你可能还需要对JavaScript做一些中间处理，比如合并或经过Babel再次编译。 在这种情况下，你应该已经有了如下的目录结构。</p>
 <p>那么现在，我们假设你已经设置了这样的目录结构：</p>
-<div class="codehilite"><pre><span></span><code>projectRoot
+<div class="highlight"><pre><span></span><code>projectRoot
 ├── src
 │   ├── file1.js
 │   └── file2.js
 ├── built
 └── tsconfig.json
 </code></pre></div>
-
 <p>如果你在<code>src</code>目录外还有<code>tests</code>文件夹，那么在<code>src</code>里可以有一个<code>tsconfig.json</code>文件，在<code>tests</code>里还可以有一个。</p>
 <h1 id="_2">书写配置文件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
 <p>TypeScript使用<code>tsconfig.json</code>文件管理工程配置，例如你想包含哪些文件和进行哪些检查。 让我们先创建一个简单的工程配置文件：</p>
-<div class="codehilite"><pre><span></span><code>{
+<div class="highlight"><pre><span></span><code>{
     &quot;compilerOptions&quot;: {
         &quot;outDir&quot;: &quot;./built&quot;,
         &quot;allowJs&quot;: true,
@@ -2173,7 +2172,6 @@
     ]
 }
 </code></pre></div>
-
 <p>这里我们为TypeScript设置了一些东西:</p>
 <ol>
 <li>读取所有可识别的<code>src</code>目录下的文件（通过<code>include</code>）。</li>
@@ -2195,11 +2193,10 @@
 <p>如果你在使用时髦的Gulp，我们已经有一篇关于<a href="https://www.tslang.cn/docs/handbook/gulp.html">使用Gulp</a>结合TypeScript并与常见构建工具Browserify，Babelify和Uglify进行集成的教程。 请阅读这篇教程。</p>
 <h2 id="webpack">Webpack<a class="headerlink" href="#webpack" title="Permanent link">&para;</a></h2>
 <p>Webpack集成非常简单。 你可以使用 <code>ts-loader</code>，它是一个TypeScript的加载器，结合<code>source-map-loader</code>方便调试。 运行：</p>
-<div class="codehilite"><pre><span></span><code>npm install ts-loader source-map-loader
+<div class="highlight"><pre><span></span><code>npm install ts-loader source-map-loader
 </code></pre></div>
-
 <p>并将下面的选项合并到你的<code>webpack.config.js</code>文件里：</p>
-<div class="codehilite"><pre><span></span><code>module.exports = {
+<div class="highlight"><pre><span></span><code>module.exports = {
     entry: &quot;./src/index.ts&quot;,
     output: {
         filename: &quot;./dist/bundle.js&quot;,
@@ -2228,89 +2225,77 @@
     // Other options...
 };
 </code></pre></div>
-
 <p>要注意的是<code>ts-loader</code>必须在其它处理<code>.js</code>文件的加载器之前运行。 你可以在<a href="https://www.tslang.cn/docs/handbook/react-&amp;-webpack.html">React和Webpack教程</a>里找到使用Webpack的例子。</p>
 <h1 id="typescript">转换到TypeScript文件<a class="headerlink" href="#typescript" title="Permanent link">&para;</a></h1>
 <p>到目前为止，你已经做好了使用TypeScript文件的准备。 第一步，将 <code>.js</code>文件重命名为<code>.ts</code>文件。 如果你使用了JSX，则重命名为 <code>.tsx</code>文件。</p>
 <p>第一步达成？ 太棒了! 你已经成功地将一个文件从JavaScript转换成了TypeScript!</p>
 <p>当然了，你可能感觉哪里不对劲儿。 如果你在支持TypeScript的编辑器（或运行 <code>tsc --pretty</code>）里打开了那个文件，你可能会看到有些行上有红色的波浪线。 你可以把它们当做在Microsoft Word里看到的红色波浪线一样。 但是TypeScript仍然会编译你的代码，就好比Word还是允许你打印你的文档一样。</p>
-<p>如果对你来说这种行为太随便了，你可以让它变得严格些。 如果，你 <em>不想</em>在发生错误的时候，TypeScript还会被编译成JavaScript，你可以使用<code>noEmitOnError</code>选项。 从某种意义上来讲，TypeScript具有一个调整它的严格性的刻度盘，你可以将指针拔动到你想要的位置。</p>
+<p>如果对你来说这种行为太随便了，你可以让它变得严格些。 如果，你 *不想*在发生错误的时候，TypeScript还会被编译成JavaScript，你可以使用<code>noEmitOnError</code>选项。 从某种意义上来讲，TypeScript具有一个调整它的严格性的刻度盘，你可以将指针拔动到你想要的位置。</p>
 <p>如果你计划使用可用的高度严格的设置，最好现在就启用它们（查看<a href="https://www.tslang.cn/docs/handbook/migrating-from-javascript.html#getting-stricter-checks">启用严格检查</a>）。 比如，如果你不想让TypeScript将没有明确指定的类型默默地推断为 <code>any</code>类型，可以在修改文件之前启用<code>noImplicitAny</code>。 你可能会觉得这有些过度严格，但是长期收益很快就能显现出来。</p>
 <h2 id="_5">去除错误<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>我们提到过，若不出所料，在转换后将会看到错误信息。 重要的是我们要逐一的查看它们并决定如何处理。 通常这些都是真正的BUG，但有时必须要告诉TypeScript你要做的是什么。</p>
 <h3 id="_6">由模块导入<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>首先你可能会看到一些类似<code>Cannot find name 'require'.</code>和<code>Cannot find name 'define'.</code>的错误。 遇到这种情况说明你在使用模块。 你仅需要告诉TypeScript它们是存在的：</p>
-<div class="codehilite"><pre><span></span><code>// For Node/CommonJS
+<div class="highlight"><pre><span></span><code>// For Node/CommonJS
 declare function require(path: string): any;
 </code></pre></div>
-
 <p>或</p>
-<div class="codehilite"><pre><span></span><code>// For RequireJS/AMD
+<div class="highlight"><pre><span></span><code>// For RequireJS/AMD
 declare function define(...args: any[]): any;
 </code></pre></div>
-
 <p>最好是避免使用这些调用而改用TypeScript的导入语法。</p>
 <p>首先，你要使用TypeScript的<code>module</code>标记来启用一些模块系统。 可用的选项有 <code>commonjs</code>，<code>amd</code>，<code>system</code>，and <code>umd</code>。</p>
 <p>如果代码里存在下面的Node/CommonJS代码：</p>
-<div class="codehilite"><pre><span></span><code>var foo = require(&quot;foo&quot;);
+<div class="highlight"><pre><span></span><code>var foo = require(&quot;foo&quot;);
 
 foo.doStuff();
 </code></pre></div>
-
 <p>或者下面的RequireJS/AMD代码：</p>
-<div class="codehilite"><pre><span></span><code>define([&quot;foo&quot;], function(foo) {
+<div class="highlight"><pre><span></span><code>define([&quot;foo&quot;], function(foo) {
     foo.doStuff();
 })
 </code></pre></div>
-
 <p>那么可以写做下面的TypeScript代码：</p>
-<div class="codehilite"><pre><span></span><code>import foo = require(&quot;foo&quot;);
+<div class="highlight"><pre><span></span><code>import foo = require(&quot;foo&quot;);
 
 foo.doStuff();
 </code></pre></div>
-
 <h3 id="_7">获取声明文件<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
-<p>如果你开始做转换到TypeScript导入，你可能会遇到<code>Cannot find module 'foo'.</code>这样的错误。 问题出在没有<em>声明文件</em>来描述你的代码库。 幸运的是这非常简单。 如果TypeScript报怨像是没有 <code>lodash</code>包，那你只需这样做</p>
-<div class="codehilite"><pre><span></span><code>npm install -s @types/lodash
+<p>如果你开始做转换到TypeScript导入，你可能会遇到<code>Cannot find module 'foo'.</code>这样的错误。 问题出在没有*声明文件*来描述你的代码库。 幸运的是这非常简单。 如果TypeScript报怨像是没有 <code>lodash</code>包，那你只需这样做</p>
+<div class="highlight"><pre><span></span><code>npm install -s @types/lodash
 </code></pre></div>
-
 <p>如果你没有使用<code>commonjs</code>模块模块选项，那么就需要将<code>moduleResolution</code>选项设置为<code>node</code>。</p>
 <p>之后，你应该就可以导入<code>lodash</code>了，并且会获得精确的自动补全功能。</p>
 <h3 id="_8">由模块导出<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <p>通常来讲，由模块导出涉及添加属性到<code>exports</code>或<code>module.exports</code>。 TypeScript允许你使用顶级的导出语句。 比如，你要导出下面的函数：</p>
-<div class="codehilite"><pre><span></span><code>module.exports.feedPets = function(pets) {
+<div class="highlight"><pre><span></span><code>module.exports.feedPets = function(pets) {
     // ...
 }
 </code></pre></div>
-
 <p>那么你可以这样写：</p>
-<div class="codehilite"><pre><span></span><code>export function feedPets(pets) {
+<div class="highlight"><pre><span></span><code>export function feedPets(pets) {
     // ...
 }
 </code></pre></div>
-
 <p>有时你会完全重写导出对象。 这是一个常见模式，这会将模块变为可立即调用的模块：</p>
-<div class="codehilite"><pre><span></span><code>var express = require(&quot;express&quot;);
+<div class="highlight"><pre><span></span><code>var express = require(&quot;express&quot;);
 var app = express();
 </code></pre></div>
-
 <p>之前你可以是这样写的：</p>
-<div class="codehilite"><pre><span></span><code>function foo() {
+<div class="highlight"><pre><span></span><code>function foo() {
     // ...
 }
 module.exports = foo;
 </code></pre></div>
-
 <p>在TypeScript里，你可以使用<code>export =</code>来代替。</p>
-<div class="codehilite"><pre><span></span><code>function foo() {
+<div class="highlight"><pre><span></span><code>function foo() {
     // ...
 }
 export = foo;
 </code></pre></div>
-
 <h3 id="_9">过多或过少的参数<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <p>有时你会发现你在调用一个具有过多或过少参数的函数。 通常，这是一个BUG，但在某些情况下，你可以声明一个使用 <code>arguments</code>对象的函数而不需要写出所有参数:</p>
-<div class="codehilite"><pre><span></span><code>function myCoolFunction() {
+<div class="highlight"><pre><span></span><code>function myCoolFunction() {
     if (arguments.length == 2 &amp;&amp; !Array.isArray(arguments[1])) {
         var f = arguments[0];
         var arr = arguments[1];
@@ -2322,9 +2307,8 @@ export = foo;
 myCoolFunction(function(x) { console.log(x) }, [1, 2, 3, 4]);
 myCoolFunction(function(x) { console.log(x) }, 1, 2, 3, 4);
 </code></pre></div>
-
 <p>这种情况下，我们需要利用TypeScript的函数重载来告诉调用者<code>myCoolFunction</code>函数的调用方式。</p>
-<div class="codehilite"><pre><span></span><code>function myCoolFunction(f: (x: number) =&gt; void, nums: number[]): void;
+<div class="highlight"><pre><span></span><code>function myCoolFunction(f: (x: number) =&gt; void, nums: number[]): void;
 function myCoolFunction(f: (x: number) =&gt; void, ...nums: number[]): void;
 function myCoolFunction() {
     if (arguments.length == 2 &amp;&amp; !Array.isArray(arguments[1])) {
@@ -2335,33 +2319,29 @@ function myCoolFunction() {
     // ...
 }
 </code></pre></div>
-
 <p>我们为<code>myCoolFunction</code>函数添加了两个重载签名。 第一个检查 <code>myCoolFunction</code>函数是否接收一个函数（它又接收一个<code>number</code>参数）和一个<code>number</code>数组。 第二个同样是接收了一个函数，并且使用剩余参数（<code>...nums</code>）来表示之后的其它所有参数必须是<code>number</code>类型。</p>
 <h3 id="_10">连续添加属性<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <p>有些人可能会因为代码美观性而喜欢先创建一个对象然后立即添加属性：</p>
-<div class="codehilite"><pre><span></span><code>var options = {};
+<div class="highlight"><pre><span></span><code>var options = {};
 options.color = &quot;red&quot;;
 options.volume = 11;
 </code></pre></div>
-
 <p>TypeScript会提示你不能给<code>color</code>和<code>volumn</code>赋值，因为先前指定<code>options</code>的类型为<code>{}</code>并不带有任何属性。 如果你将声明变成对象字面量的形式将不会产生错误：</p>
-<div class="codehilite"><pre><span></span><code>let options = {
+<div class="highlight"><pre><span></span><code>let options = {
     color: &quot;red&quot;,
     volume: 11
 };
 </code></pre></div>
-
 <p>你还可以定义<code>options</code>的类型并且添加类型断言到对象字面量上。</p>
-<div class="codehilite"><pre><span></span><code>interface Options { color: string; volume: number }
+<div class="highlight"><pre><span></span><code>interface Options { color: string; volume: number }
 
 let options = {} as Options;
 options.color = &quot;red&quot;;
 options.volume = 11;
 </code></pre></div>
-
 <p>或者，你可以将<code>options</code>指定成<code>any</code>类型，这是最简单的，但也是获益最少的。</p>
 <h3 id="anyobject"><code>any</code>，<code>Object</code>，和<code>{}</code><a class="headerlink" href="#anyobject" title="Permanent link">&para;</a></h3>
-<p>你可能会试图使用<code>Object</code>或<code>{}</code>来表示一个值可以具有任意属性，因为<code>Object</code>是最通用的类型。 然而在这种情况下<strong> <code>any</code>是真正想要使用的类型</strong>，因为它是最<em>灵活</em>的类型。</p>
+<p>你可能会试图使用<code>Object</code>或<code>{}</code>来表示一个值可以具有任意属性，因为<code>Object</code>是最通用的类型。 然而在这种情况下** <code>any</code>是真正想要使用的类型**，因为它是最*灵活*的类型。</p>
 <p>比如，有一个<code>Object</code>类型的东西，你将不能够在其上调用<code>toLowerCase()</code>。</p>
 <p>越普通意味着更少的利用类型，但是<code>any</code>比较特殊，它是最普通的类型但是允许你在上面做任何事情。 也就是说你可以在上面调用，构造它，访问它的属性等等。 记住，当你使用 <code>any</code>时，你会失去大多数TypeScript提供的错误检查和编译器支持。</p>
 <p>如果你还是决定使用<code>Object</code>和<code>{}</code>，你应该选择<code>{}</code>。 虽说它们基本一样，但是从技术角度上来讲 <code>{}</code>在一些深奥的情况里比<code>Object</code>更普通。</p>
@@ -2371,19 +2351,18 @@ options.volume = 11;
 <p>在某些情况下TypeScript没法确定某些值的类型。 那么TypeScript会使用 <code>any</code>类型代替。 这对代码转换来讲是不错，但是使用 <code>any</code>意味着失去了类型安全保障，并且你得不到工具的支持。 你可以使用 <code>noImplicitAny</code>选项，让TypeScript标记出发生这种情况的地方，并给出一个错误。</p>
 <h3 id="nullundefined">严格的<code>null</code>与<code>undefined</code>检查<a class="headerlink" href="#nullundefined" title="Permanent link">&para;</a></h3>
 <p>默认地，TypeScript把<code>null</code>和<code>undefined</code>当做属于任何类型。 这就是说，声明为 <code>number</code>类型的值可以为<code>null</code>和<code>undefined</code>。 因为在JavaScript和TypeScript里， <code>null</code>和<code>undefined</code>经常会导致BUG的产生，所以TypeScript包含了<code>strictNullChecks</code>选项来帮助我们减少对这种情况的担忧。</p>
-<p>当启用了<code>strictNullChecks</code>，<code>null</code>和<code>undefined</code>获得了它们自己各自的类型<code>null</code>和<code>undefined</code>。 当任何值 <em>可能</em>为<code>null</code>，你可以使用联合类型。 比如，某值可能为 <code>number</code>或<code>null</code>，你可以声明它的类型为<code>number | null</code>。</p>
+<p>当启用了<code>strictNullChecks</code>，<code>null</code>和<code>undefined</code>获得了它们自己各自的类型<code>null</code>和<code>undefined</code>。 当任何值 *可能*为<code>null</code>，你可以使用联合类型。 比如，某值可能为 <code>number</code>或<code>null</code>，你可以声明它的类型为<code>number | null</code>。</p>
 <p>假设有一个值TypeScript认为可以为<code>null</code>或<code>undefined</code>，但是你更清楚它的类型，你可以使用<code>!</code>后缀。</p>
-<div class="codehilite"><pre><span></span><code>declare var foo: string[] | null;
+<div class="highlight"><pre><span></span><code>declare var foo: string[] | null;
 
 foo.length;  // error - &#39;foo&#39; is possibly &#39;null&#39;
 
 foo!.length; // okay - &#39;foo!&#39; just has type &#39;string[]&#39;
 </code></pre></div>
-
 <p>要当心，当你使用<code>strictNullChecks</code>，你的依赖也需要相应地启用<code>strictNullChecks</code>。</p>
 <h3 id="thisany"><code>this</code>没有隐式的<code>any</code><a class="headerlink" href="#thisany" title="Permanent link">&para;</a></h3>
 <p>当你在类的外部使用<code>this</code>关键字时，它会默认获得<code>any</code>类型。 比如，假设有一个 <code>Point</code>类，并且我们要添加一个函数做为它的方法：</p>
-<div class="codehilite"><pre><span></span><code>class Point {
+<div class="highlight"><pre><span></span><code>class Point {
     constructor(public x, public y) {}
     getDistance(p: Point) {
         let dx = p.x - this.x;
@@ -2401,9 +2380,8 @@ Point.prototype.distanceFromOrigin = function(point: Point) {
     return this.getDistance({ x: 0, y: 0});
 }
 </code></pre></div>
-
 <p>这就产生了我们上面提到的错误 - 如果我们错误地拼写了<code>getDistance</code>并不会得到一个错误。 正因此，TypeScript有 <code>noImplicitThis</code>选项。 当设置了它，TypeScript会产生一个错误当没有明确指定类型（或通过类型推断）的 <code>this</code>被使用时。 解决的方法是在接口或函数上使用指定了类型的 <code>this</code>参数：</p>
-<div class="codehilite"><pre><span></span><code>Point.prototype.distanceFromOrigin = function(this: Point, point: Point) {
+<div class="highlight"><pre><span></span><code>Point.prototype.distanceFromOrigin = function(this: Point, point: Point) {
     return this.getDistance({ x: 0, y: 0});
 }
 </code></pre></div>

@@ -2335,7 +2335,7 @@
                 <h2 id="_1">组件创建时的生命周期<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <h3 id="static-getderivedstatefrompropsnextprops-prevstate">static getDerivedStateFromProps(nextProps, prevState)<a class="headerlink" href="#static-getderivedstatefrompropsnextprops-prevstate" title="Permanent link">&para;</a></h3>
 <p>该周期函数接收两个参数，新的属性作为第一个参数，先前的状态作为第二个参数。当函数返回 null 时，代表新的属性不需要更新状态；当函数返回了一个对象，对象中的属性则会被更新到 State 中。如下：</p>
-<div class="codehilite"><pre><span></span><code><span class="k">static</span> <span class="nx">getDerivedStateFromProps</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">prevState</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="nx">getDerivedStateFromProps</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">prevState</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">prevState</span><span class="p">.</span><span class="nx">currentId</span> <span class="err">！</span><span class="o">==</span> <span class="nx">nextProps</span><span class="p">.</span><span class="nx">itemId</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">{</span>
       <span class="nx">currentId</span><span class="o">:</span> <span class="nx">nextProps</span><span class="p">.</span><span class="nx">itemId</span>
@@ -2344,7 +2344,6 @@
   <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>上图意思是，当新属性中的 itemId 与当前 State 的 currentId 不一致时，则执行 currentId 状态的更新，否则返回 null，不执行任何的更新。
  简单来说，如果你的组件中，接收新的属性不需要触发状态的更新，可以忽略该函数，或在该函数中直接返回 null。
  值得一提的是，该周期函数<code>getDerivedStateFromProps(){...}</code>是一个静态函数，无法访问组件的实例 this，所以在该函数中没办法访问 this.props 和 this.state。</p>
@@ -2366,7 +2365,7 @@
 </blockquote>
 <p>如果定义了这一生命周期方法，一个类组件将成为一个错误边界组件。我们可以在错误边界组件捕获到 JavaScript 错误的时候，显示回退的用户界面。</p>
 <p>以下是一个错误边界组件</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">class</span> <span class="nx">ErrorBoundary</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">ErrorBoundary</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
   <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">hasError</span><span class="o">:</span> <span class="kc">false</span> <span class="p">};</span>
@@ -2388,13 +2387,11 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <p>然后将它作为常规组件</p>
-<div class="codehilite"><pre><span></span><code>&lt;ErrorBoundary&gt;
+<div class="highlight"><pre><span></span><code>&lt;ErrorBoundary&gt;
   &lt;MyWidget /&gt;
 &lt;/ErrorBoundary&gt;
 </code></pre></div>
-
 <p>该 componentDidCatch 方法的工作方式类似于 JavaScript catch {} 块，但它一个适用于组件的 catch 块。实际上，大多数情况下，我们只需要声明一次错误边界组件，并在整个应用程序中使用它。
  请注意，<strong>错误边界仅捕获组件树中处于它们子层级组件中的错误</strong>，错误边界本身的错误无法捕获。如果错误边界组件自身报错，则错误将传播到其上方最接近的错误边界。</p>
                 

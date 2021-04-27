@@ -2234,19 +2234,17 @@
 <h3 id="_1">事件处理函数的性能<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
 <p>如果在render阶段执行绑定，不管使用 bind(this) 还是箭头函数，都不利于性能（会在渲染时创建一个新函数）</p>
 <p>现在很多代码在render阶段设置箭头函数处理，这样不利于性能，应当避免这种写法。</p>
-<div class="codehilite"><pre><span></span><code><span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="o">&gt;&lt;</span><span class="err">/button&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)}</span><span class="o">&gt;&lt;</span><span class="err">/button&gt;</span>
 <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">()}</span><span class="o">&gt;&lt;</span><span class="err">/button&gt;</span>
 </code></pre></div>
-
 <p>注意：在绑定事件时，如果使用箭头函数，后面需要加上括号；否则不能加上括号，会直接调用函数。</p>
-<div class="codehilite"><pre><span></span><code><span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">()}</span><span class="o">&gt;&lt;</span><span class="err">/button&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">()}</span><span class="o">&gt;&lt;</span><span class="err">/button&gt;</span>
 <span class="c1">// 这样在渲染过程函数直接执行</span>
 </code></pre></div>
-
 <h3 id="_2">事件处理函数的传参<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>给事件处理的回调函数传递参数的两种方法（通常需要传递数组中的某项参数）</p>
 <p>方法一：通过箭头函数传递参数</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">array</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">array</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">Fragment</span><span class="o">&gt;</span>
       <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">index</span><span class="p">}</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">item</span><span class="p">)}</span><span class="o">&gt;&lt;</span><span class="err">/button&gt;</span>
@@ -2258,15 +2256,13 @@
 <span class="c1">// 如果使用第一种，函数的实参是item，而不是 this and item。</span>
 <span class="c1">// 如果使用第二种，函数的函数的 e 一定是点击事件</span>
 </code></pre></div>
-
 <p>方法二：通过data属性传递参数；这种情况对于 PureComponent 可能产生性能问题</p>
-<div class="codehilite"><pre><span></span><code><span class="o">&lt;</span><span class="nx">span</span> <span class="nx">data</span><span class="o">-</span><span class="nx">test</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">}</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">}</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">span</span> <span class="nx">data</span><span class="o">-</span><span class="nx">test</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">}</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleClick</span><span class="p">}</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;</span>
 
 <span class="nx">handleClick</span> <span class="o">=</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">targte</span><span class="p">.</span><span class="nx">data</span><span class="o">-</span><span class="nx">test</span><span class="p">.</span><span class="nx">item</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-
 <h3 id="_3">避免函数多次调用<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>例如想要防止<code>onClick</code>或者<code>onScroll</code>这样的事件处理程序的回调被触发的太快，那么可以限制执行回调的速度，可以通过以下几种方式做到这点：</p>
 <ul>
@@ -2278,7 +2274,7 @@
 <h3 id="_4">节流函数和防抖函数<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>lodash库</p>
 <p>节流是阻止函数在给定时间内被多次调用。下面这个例子会阻止“click”事件每秒钟的多次调用。</p>
-<div class="codehilite"><pre><span></span><code>import throttle from &#39;lodash.throttle&#39;;
+<div class="highlight"><pre><span></span><code>import throttle from &#39;lodash.throttle&#39;;
 
 class LoadMoreButton extends React.Component {
   constructor(props) {
@@ -2300,9 +2296,8 @@ class LoadMoreButton extends React.Component {
   }
 }
 </code></pre></div>
-
 <p>防抖确保函数上次执行后的一段时间内，不会再次执行。当必须进行一些昂贵的计算来响应快速派发的事件时（比如鼠标滚动或键盘事件时），防抖是非常有用的。下面这个例子以250ms的延迟来改变文本输入。</p>
-<div class="codehilite"><pre><span></span><code>import debounce from &#39;lodash.debounce&#39;;
+<div class="highlight"><pre><span></span><code>import debounce from &#39;lodash.debounce&#39;;
 
 class Searchbox extends React.Component {
   constructor(props) {
