@@ -45,9 +45,9 @@ ls ./backend/docs/python | while read line
 do
   echo "- '$line': 'python/$line'"
 done
-ls ./backend/docs/sql | while read line
+ls ./backend/docs/backend-sql | while read line
 do
-  echo "- '$line': 'sql/$line'"
+  echo "- '$line': 'backend-sql/$line'"
 done
 ls ./backend | while read line
 do
