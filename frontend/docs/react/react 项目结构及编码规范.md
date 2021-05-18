@@ -193,7 +193,7 @@ props不能和已有 HTML 属性重复
       displayName: 'ReservationCard',
       // stuff goes here
     });
-
+    
     // good
     export default class ReservationCard extends React.Component {
     }
@@ -207,16 +207,16 @@ props不能和已有 HTML 属性重复
     // bad
     <Foo superLongParam="bar"
          anotherSuperLongParam="baz" />
-
+    
     // good 多行分开显示
     <Foo
       superLongParam="bar"
       anotherSuperLongParam="baz"
     />
-
+    
     // if props fit in one line then keep it on the same line 一行内显示
     <Foo bar="bar" />
-
+    
     // children get indented normally
     <Foo
       superLongParam="bar"
@@ -224,23 +224,23 @@ props不能和已有 HTML 属性重复
     >
       <Quux />
     </Foo>
-
+    
     // bad
     {showButton &&
       <Button />
     }
-
+    
     // bad
     {
       showButton &&
         <Button />
     }
-
+    
     // good 多行显示JSX
     {showButton && (
       <Button />
     )}
-
+    
     // good
     {showButton && <Button />}
     ```
@@ -254,13 +254,13 @@ props不能和已有 HTML 属性重复
     ```js
     // bad
     <Foo bar='bar' />
-
+    
     // good
     <Foo bar="bar" />
-
+    
     // bad
     <Foo style={{ left: "20px" }} />
-
+    
     // good
     <Foo style={{ left: '20px' }} />
     ```
@@ -289,7 +289,7 @@ props不能和已有 HTML 属性重复
     ```js
     // bad
     <Foo bar={ baz } />
-
+    
     // good
     <Foo bar={baz} />
     ```
@@ -467,31 +467,31 @@ We don’t recommend using indexes for keys if the order of items may change.
   - Spreading objects with known, explicit props. This can be particularly useful when testing React components with Mocha’s beforeEach construct.
 
   ```js
-  export default function Foo {
-    const props = {
-      text: '',
-      isPublished: false
-    }
-
-    return (<div {...props} />);
+export default function Foo {
+  const props = {
+    text: '',
+    isPublished: false
   }
+
+  return (<div {...props} />);
+}
   ```
 
   Notes for use:
   Filter out unnecessary props when possible. Also, use [prop-types-exact](https://www.npmjs.com/package/prop-types-exact) to help prevent bugs.
 
   ```js
-  // bad
-  render() {
-    const { irrelevantProp, ...relevantProps  } = this.props;
-    return <WrappedComponent {...this.props} />
-  }
+// bad
+render() {
+  const { irrelevantProp, ...relevantProps  } = this.props;
+  return <WrappedComponent {...this.props} />
+}
 
-  // good
-  render() {
-    const { irrelevantProp, ...relevantProps  } = this.props;
-    return <WrappedComponent {...relevantProps} />
-  }
+// good
+render() {
+  const { irrelevantProp, ...relevantProps  } = this.props;
+  return <WrappedComponent {...relevantProps} />
+}
   ```
 
 ## Refs
@@ -561,7 +561,7 @@ We don’t recommend using indexes for keys if the order of items may change.
     <Foo
       bar="bar"
       baz="baz" />
-
+    
     // good
     <Foo
       bar="bar"
@@ -740,5 +740,4 @@ We don’t recommend using indexes for keys if the order of items may change.
   > Why? [`isMounted` is an anti-pattern][anti-pattern], is not available when using ES6 classes, and is on its way to being officially deprecated.
 
 [anti-pattern]: https://facebook.github.io/react/blog/2015/12/16/ismounted-antipattern.html
-
 

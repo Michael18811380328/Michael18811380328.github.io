@@ -1825,8 +1825,6 @@ TestRenderer.create(
 expect(focused).toBe(true);
 ```
 
-[编辑本页面](https://github.com/discountry/react/tree/master/content/docs/reference-test-renderer.md)
-
 
 
 # JavaScript 环境要求
@@ -1853,6 +1851,10 @@ React 也依赖于 `requestAnimationFrame` （甚至包括测试环境）。你�
 ```
 import 'raf/polyfill';
 ```
+
+
+
+
 
 # React 术语表
 
