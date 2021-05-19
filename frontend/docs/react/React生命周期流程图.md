@@ -75,7 +75,7 @@ class ErrorBoundary extends React.Component {
 
 然后将它作为常规组件
 
-```
+```html
 <ErrorBoundary>
   <MyWidget />
 </ErrorBoundary>
@@ -83,4 +83,6 @@ class ErrorBoundary extends React.Component {
 
 该 componentDidCatch 方法的工作方式类似于 JavaScript catch {} 块，但它一个适用于组件的 catch 块。实际上，大多数情况下，我们只需要声明一次错误边界组件，并在整个应用程序中使用它。
  请注意，**错误边界仅捕获组件树中处于它们子层级组件中的错误**，错误边界本身的错误无法捕获。如果错误边界组件自身报错，则错误将传播到其上方最接近的错误边界。
+
+注意：在实际项目中，尽量避免使用这个生命周期函数，而是直接找到问题的原因。（类似的 try catch 语句也一样）
 
