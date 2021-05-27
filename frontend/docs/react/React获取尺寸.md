@@ -15,14 +15,12 @@ class App extends Component {
   }
 
   handleClick = (e) => {
-    consele.log(this.refDom);
     const {clientWidth, clientHeight} = this.refDom;
-    console.log(clientWidth, clientHeight);
   }
 
   render() {
     return (
-      <div ref={this.saveRef} onClick={this.handleClick} > Loading...</div>
+      <div ref={this.saveRef} onClick={this.handleClick} >Loading...</div>
     );
   }
 }
@@ -46,8 +44,6 @@ const domCom = <button type="button">button</button>;
 const refDom = ReactDOM.render(domCom，container);
 //ConfirmPass的组件内容省略
 const refCom = ReactDOM.render(<ConfirmPass/>,container);
-console.log(refDom);
-console.log(refCom);
 ```
 
 上述代码返回控制台结果如下图所示：。

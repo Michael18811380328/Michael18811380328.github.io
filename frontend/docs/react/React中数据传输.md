@@ -1,4 +1,4 @@
-## React中数据传输
+# React中数据传输
 
 ### 父组件传递给子组件
 
@@ -83,12 +83,13 @@ export default class ItemList extends React.Component{
     )
   }
 }
+~~~
 
 重要提示：当我们调用this.setState的方法时，React会更新组件的数据状态state，并且会重新调用render方法，会对组件进行重新渲染。
 
 constructor是唯一初始化state的地方，this.state来初始化state，this.setState一种方法修改state参数。
 
-总结：state用于组件存储自己的属性和状态，不能通过父组件访问，可以传给子组件，只能通过this.setState来修改。~~修改state属性会导致组件重新渲染。~~
+总结：state用于组件存储自己的属性和状态，不能通过父组件访问，可以传给子组件，只能通过this.setState来修改。==修改state属性会导致组件重新渲染。==
 
   没有state叫做无状态组件，有state叫做有状态组件。
 多用props，少用state，props可以逐层向下传递。
@@ -96,18 +97,21 @@ constructor是唯一初始化state的地方，this.state来初始化state，this
 React中的同一个组件内部标签条件渲染：不需要设置某个标签的show-hide属性，直接使用JSX中的三目计算进行渲染
 {条件（属性==true）？<Form1/>:null} 
 
+~~~js
 //fetch 新的请求方法(兼容性)——附加
 fetch(url, options).then(function(response){
   //handle http response
 },function(error){
   //handle network error
 })
+~~~
 
 options 可选参数(是一个对象)包括对于请求的设置
 {
   method:"POST",
     body:JSON.stringity(data)
 }
+
 包括：
 请求方法：POST-GET
 请求头信息：header对象
@@ -129,7 +133,8 @@ arrayBuffer() 生成一个ArrayBuffer
 formData() 生成格式化的数据 可用于其他的请求
 
 参考文件：JavaScript利用fetch实现异步请求的方法案例
-~~~
+
+
 
 ### 子组件传递给父组件
 

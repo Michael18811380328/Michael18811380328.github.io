@@ -4,6 +4,8 @@
 
 https://study.163.com/course/introduction.htm?courseId=1209306804&share=1&shareId=1135155721#/courseDetail?tab=1
 
+老师：Mr吴，技术可行，课程100元。
+
 ## 目录
 
 1-为什么使用ts和文件转换19:01

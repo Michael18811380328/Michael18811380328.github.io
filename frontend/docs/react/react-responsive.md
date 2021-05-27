@@ -1,11 +1,4 @@
----
-layout: post
-title:  "React responsive"
-date:   2019-04-25 17:59:11 +0800
-categories: jekyll update
----
-
-## react-responsive
+# react-responsive
 
 You can use this jsx tag rather media query in css. 
 
