@@ -15,3 +15,4 @@
 - 整理一下 dev 分支 和 dev2 分支，简单维护
 - 使用 lighthouse 优化界面 （todo）
 - 编译成功后，上线后，在各大搜索引擎上面增加网站收录等（详见：https://blog.csdn.net/yuyuking/article/details/89374794）
+- 首页增加小游戏入口，然后点击进入小游戏列表，分别指向不同的小游戏
