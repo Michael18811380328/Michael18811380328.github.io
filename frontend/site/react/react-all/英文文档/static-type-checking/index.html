@@ -1,0 +1,2074 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/react/react-all/%E8%8B%B1%E6%96%87%E6%96%87%E6%A1%A3/static-type-checking/">
+      
+      <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>静态类型检查 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ef5552">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#flow" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              静态类型检查
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+      
+      <label class="md-nav__link" for="nav-1">
+        About
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="nav-1">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about/" class="md-nav__link">
+        关于我
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about/log/" class="md-nav__link">
+        学习日志
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        文档结构
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+      
+      <label class="md-nav__link" for="nav-2">
+        Javascript
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Javascript" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          Javascript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/ES6%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8/" class="md-nav__link">
+        ES6 迭代器与生成器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/ES6-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        ES6-阮一峰
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/ES6newFeature/" class="md-nav__link">
+        ES6newFeature
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/JS%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        JS 性能优化
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/JS-testing/" class="md-nav__link">
+        JS-testing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/editor-js/" class="md-nav__link">
+        editor-js
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/es6/" class="md-nav__link">
+        es6
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/%E5%B8%B8%E7%94%A8%E5%88%B0%E7%9A%84ES6%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        常用到的ES6语法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/%E5%89%8D%E7%AB%AF%E8%8B%B1%E8%AF%AD%E5%8D%95%E8%AF%8D/" class="md-nav__link">
+        前端英语单词
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
+        typescript
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="typescript" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          typescript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/01-%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        01-简介
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/02-%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        02-基础
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/03-%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        03-进阶
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/04-%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%BC%80%E5%8F%91-%E6%B5%8B%E8%AF%95%E7%BC%96%E8%AF%91/" class="md-nav__link">
+        04-工程化开发-测试编译
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82TS%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        网易云课堂TS入门
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/01-%E4%B8%8A%E6%89%8BTypeScript/" class="md-nav__link">
+        01-上手TypeScript
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/02-TS-Gulp/" class="md-nav__link">
+        02-TS-Gulp
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/03-JavaScript%E8%BF%81%E7%A7%BB/" class="md-nav__link">
+        03-JavaScript迁移
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/04-React%20%26%20Webpack/" class="md-nav__link">
+        04-React & Webpack
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/TS%20%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/" class="md-nav__link">
+        TS 常见问题整理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/TypeScript%E7%BC%96%E8%AF%91%E5%99%A8%20%E2%80%93%20%E4%B8%BA%E4%BB%80%E4%B9%88%E9%BB%98%E8%AE%A4%E6%83%85%E5%86%B5%E4%B8%8B%E4%B8%8D%E5%90%AF%E7%94%A8downlevelIteration%EF%BC%9F/" class="md-nav__link">
+        TypeScript编译器-downlevelIteration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/typescript%20%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        typescript 编译选项和配置文件
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
+        react
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="react" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          react
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Create-React-App/" class="md-nav__link">
+        Create-React-App.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Data%20grade/" class="md-nav__link">
+        React Data grade.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20FAQ/" class="md-nav__link">
+        React FAQ.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Image%20Lightbox/" class="md-nav__link">
+        React Image Lightbox.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20PureComponent%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        React PureComponent 使用指南.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Router%20%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3%EF%BC%88%E4%B8%80%EF%BC%89/" class="md-nav__link">
+        React Router 中文文档（一）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Router%20%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3%EF%BC%88%E4%BA%8C%EF%BC%89/" class="md-nav__link">
+        React Router 中文文档（二）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20data%20grid/" class="md-nav__link">
+        React data grid.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E7%9A%84%20PureComponent%20%E4%B8%8E%20Component/" class="md-nav__link">
+        React 的 PureComponent 与 Component.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E5%90%84%E7%A7%8Dbug%20%E4%BC%9A%E5%AE%9E%E6%97%B6%E6%9B%B4%E6%96%B0/" class="md-nav__link">
+        React 各种bug 会实时更新.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        React 高阶组件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E6%93%8D%E4%BD%9C%E5%85%83%E7%B4%A0%E7%9A%84API/" class="md-nav__link">
+        React 操作元素的API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/" class="md-nav__link">
+        React 中的事件处理.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E5%BC%BA%E5%88%B6%E6%9B%B4%E6%96%B0%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        React 强制更新组件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Design%20Principles/" class="md-nav__link">
+        React-Design Principles.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Hooks/" class="md-nav__link">
+        React-Hooks.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Router/" class="md-nav__link">
+        React-Router.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Select/" class="md-nav__link">
+        React-Select.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Suspense%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%8E%A2%E8%AE%A8-%E6%B2%A1%E7%9C%8B%E6%98%8E%E7%99%BD/" class="md-nav__link">
+        React-Suspense的实现与探讨-没看明白.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Suspense%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%8E%A2%E8%AE%A8/" class="md-nav__link">
+        React-Suspense的实现与探讨.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-advanced-guides/" class="md-nav__link">
+        React-advanced-guides.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-mentions/" class="md-nav__link">
+        React-mentions.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-%E9%AB%98%E9%98%B6API/" class="md-nav__link">
+        React-高阶API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        React-性能优化.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React.Children%E7%9A%84API/" class="md-nav__link">
+        React.Children的API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React.Component/" class="md-nav__link">
+        React.Component.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React.children%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        React.children介绍.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ReactRouter-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        ReactRouter-阮一峰.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+        React事件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E6%95%B0%E6%8D%AE%E6%B5%81/" class="md-nav__link">
+        React数据流.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E5%BF%AB%E6%8D%B7%E8%BE%93%E5%85%A5/" class="md-nav__link">
+        React快捷输入.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E8%8E%B7%E5%8F%96%E5%B0%BA%E5%AF%B8/" class="md-nav__link">
+        React获取尺寸.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E6%96%B0%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F--getDerivedStateFromProps/" class="md-nav__link">
+        React新生命周期--getDerivedStateFromProps.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E4%B8%AD%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/" class="md-nav__link">
+        React中数据传输.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E6%94%B9%E5%8F%98DOM%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        React点击事件改变DOM方法.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%B5%81%E7%A8%8B%E5%9B%BE/" class="md-nav__link">
+        React生命周期流程图.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Refs%20%26%20DOM/" class="md-nav__link">
+        Refs & DOM.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../TS-React-Webpack/" class="md-nav__link">
+        TS-React-Webpack.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../VS%20Code%20%E5%BF%AB%E6%8D%B7%E8%BE%93%E5%85%A5/" class="md-nav__link">
+        VS Code 快捷输入.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getDerivedStateFromProps%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        getDerivedStateFromProps的使用.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gojs-react/" class="md-nav__link">
+        gojs-react.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../jsx%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        jsx语法.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react%20%E4%B8%AD%E9%80%9A%E8%BF%87ref%E8%8E%B7%E5%8F%96%E9%AB%98%E9%98%B6%EF%BC%88HOC%EF%BC%89%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="md-nav__link">
+        react 中通过ref获取高阶（HOC）子组件实例的解决方案.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react%20%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        react 项目结构及编码规范.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react%2Bgraphql%E5%AE%9E%E7%8E%B0github%20dashboard/" class="md-nav__link">
+        react+graphql实现github dashboard.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-lazy-load/" class="md-nav__link">
+        react-lazy-load.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-mentions-en/" class="md-nav__link">
+        react-mentions-en.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-motion/" class="md-nav__link">
+        react-motion.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-redux/" class="md-nav__link">
+        react-redux.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-responsive/" class="md-nav__link">
+        react-responsive.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-transition-group-%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/" class="md-nav__link">
+        react-transition-group-动画效果.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-transition-group/" class="md-nav__link">
+        react-transition-group.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8A%E7%AF%87%EF%BC%88%E9%A6%96%E6%AC%A1%E6%B8%B2%E6%9F%93%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+        reactjs源码分析-上篇（首次渲染实现原理）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8B%E7%AF%87%EF%BC%88%E6%9B%B4%E6%96%B0%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+        reactjs源码分析-下篇（更新机制实现原理）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reactstrap/" class="md-nav__link">
+        reactstrap.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../readme/" class="md-nav__link">
+        readme.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%AF%B9React%20children%E7%90%86%E8%A7%A3/" class="md-nav__link">
+        对React children理解.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+      
+      <label class="md-nav__link" for="nav-5">
+        工程化
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="工程化" data-md-level="1">
+        <label class="md-nav__title" for="nav-5">
+          <span class="md-nav__icon md-icon"></span>
+          工程化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/BUG-Auto%20packing%20the%20repository%20in%20background%20for%20optimum%20performance/" class="md-nav__link">
+        BUG-Auto packing the repository in background for optimum performance.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/Translation/" class="md-nav__link">
+        Translation.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/docker-basic-use/" class="md-nav__link">
+        docker-basic-use.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/markdown-new-style/" class="md-nav__link">
+        markdown-new-style.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../project/React%20%26%20Webpack/" class="md-nav__link">
+        React & Webpack.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../project/TS-React-Webpack/" class="md-nav__link">
+        TS-React-Webpack.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../project/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7%E7%90%86%E8%AE%BA/" class="md-nav__link">
+        前端监控理论.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+      
+      <label class="md-nav__link" for="nav-6">
+        课程笔记
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="课程笔记" data-md-level="1">
+        <label class="md-nav__title" for="nav-6">
+          <span class="md-nav__icon md-icon"></span>
+          课程笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/00-%E7%9B%AE%E5%BD%95/" class="md-nav__link">
+        00-目录.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/02-v8%E5%BC%95%E6%93%8E%E5%9B%9E%E6%94%B6%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        02-v8引擎回收内存简介.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/03-node%E4%B8%8B%E9%9D%A2%E7%9A%84Restful%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        03-node下面的Restful实现.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/04-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%9A%84%E6%8F%90%E5%8D%87%E2%80%94%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E6%88%91%E4%BB%AC%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7/" class="md-nav__link">
+        04-编程思想的提升—如何提高我们代码的可扩展性.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/06-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8Cssr/" class="md-nav__link">
+        06-浏览器渲染原理和ssr.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/07-%E7%BD%91%E6%98%93%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        07-网易真实项目webpack配置解析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/08-%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90API%E5%B1%82/" class="md-nav__link">
+        08-从架构分析API层.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/09-%E5%89%8D%E7%AB%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        09-前端负责人的工作内容.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/10-%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%E5%AD%A6%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        10-分析源码学架构.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/11-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E9%AB%98%E8%B4%A8%E9%87%8F%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        11-设计模式高质量代码.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/12-nodeJS%2BMongoDB%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        12-nodeJS+MongoDB登录系统.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/12-nodejs-mongodb-mongoose/" class="md-nav__link">
+        12-nodejs-mongodb-mongoose.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/13-%E4%BD%BF%E7%94%A8VUE%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        13-使用VUE创建组件（没学完）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/16-%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        16-构建自己的脚手架工具.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/17-webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
+        17-webpack编译原理分析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/20-%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD-VUE%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        20-组件封装的基本技能-VUE（没学完）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/21-ssr/" class="md-nav__link">
+        21-ssr.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/24-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%A6%82%E4%BD%95%E5%81%9A/" class="md-nav__link">
+        24-单元测试如何做.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/25-%E5%9F%BA%E4%BA%8ENodeJS%E6%89%93%E9%80%A0Web%E6%9E%B6%E6%9E%84%E4%B8%AD%E9%97%B4%E5%B1%82/" class="md-nav__link">
+        25-基于NodeJS打造Web架构中间层.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/26-webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        26-webpack的高级技巧.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#flow" class="md-nav__link">
+    Flow
+  </a>
+  
+    <nav class="md-nav" aria-label="Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flow_1" class="md-nav__link">
+    在一个项目中添加 Flow
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flow_2" class="md-nav__link">
+    添加 Flow 类型注释
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typescript" class="md-nav__link">
+    TypeScript
+  </a>
+  
+    <nav class="md-nav" aria-label="TypeScript">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typescript_1" class="md-nav__link">
+    在一个项目中添加 TypeScript
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    类型定义
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-react-app-typescript" class="md-nav__link">
+    和 Create React App 一起使用 TypeScript
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reason" class="md-nav__link">
+    Reason
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kotlin" class="md-nav__link">
+    Kotlin
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    其他语言
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/react/react-all/英文文档/static-type-checking.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>静态类型检查</h1>
+                
+                <p>像 <a href="https://flowtype.org/">Flow</a> 和 <a href="https://www.typescriptlang.org/">TypeScript</a> 这样的静态类型检查器可以在运行代码之前识别某些类型的问题。 他们还可以通过添加自动完成功能来改善开发人员的工作流程。 出于这个原因，对于更大的代码库我们建议使用 Flow 或者 TypeScript 来替代 <code>PropTypes</code>。</p>
+<h2 id="flow">Flow<a class="headerlink" href="#flow" title="Permanent link">&para;</a></h2>
+<p><a href="https://flow.org/">Flow</a> 是一个针对 JavaScript 代码的静态类型检查器。它是在Facebook开发的，经常和React一起使用。 它可以让你使用特殊的类型语法来注释变量，函数和React组件，并尽早地发现错误。 您可以阅读 <a href="https://flow.org/en/docs/getting-started/">Flow 介绍</a> 来了解基本知识。</p>
+<p>为了使用 Flow, 你需要：</p>
+<ul>
+<li>将 Flow 添加到您的项目作为依赖项。</li>
+<li>确保编译后的代码中去除了 Flow 语法。</li>
+<li>添加了类型注释并运行 Flow 来检查它们。</li>
+</ul>
+<p>我们将在下面详细解释这些步骤。</p>
+<h3 id="flow_1">在一个项目中添加 Flow<a class="headerlink" href="#flow_1" title="Permanent link">&para;</a></h3>
+<p>首先，在你的终端里进入到项目目录。你需要执行两条命令。</p>
+<p>如果你使用 <a href="https://yarnpkg.com/">Yarn</a>, 运行：</p>
+<div class="highlight"><pre><span></span><code>yarn add --dev flow-bin
+yarn run flow init
+</code></pre></div>
+<p>如果你使用 <a href="https://www.npmjs.com/">npm</a>, 运行：</p>
+<div class="highlight"><pre><span></span><code>npm install --save-dev flow-bin
+npm run flow init
+</code></pre></div>
+<p>第一个命令在你的项目中安装了最新版的 Flow。第二个命令创建一个您需要提交的 Flow 配置文件。</p>
+<p>最后，将 <code>flow</code> 添加到你的 <code>package.json</code>中的 <code>"scripts"</code> 部分：</p>
+<p>```js{4}
+{
+  // ...
+  "scripts": {
+    "flow": "flow",
+    // ...
+  },
+  // ...
+}
+<div class="highlight"><pre><span></span><code>### 从编译过的代码中剥离 Flow 语法
+
+Flow 通过使用特殊的语法为类型注释扩展了 JavaScript 语言。 然而，浏览器并不知道这个语法，所以我们需要确保它不会在发送到浏览器的已编译的 JavaScript 包中结束。
+
+确切的做法取决于你用来编译 JavaScript 的工具。
+
+#### Create React App
+
+如果你的项目是使用 [Create React App](https://github.com/facebookincubator/create-react-app) 建立的，恭喜！ Flow 此时已经被默认剥离，所以在这一步你不需要做任何事情。
+
+#### Babel
+
+&gt;注意：
+&gt;
+&gt;这些说明*不*适用于使用 Create React App 的用户。即使 Create React App 在底层使用 Babel，它已经被配置为理解 Flow。只有那些*没有*使用 Create React App 的用户才需要跟进下面的步骤。
+
+如果你手动为你的项目配置了 Babel，你将需要为 Flow 安装一个特殊的 preset。
+
+如果你使用 Yarn, 运行：
+
+```bash
+yarn add --dev babel-preset-flow
+</code></pre></div></p>
+<p>如果你使用 npm, 运行：</p>
+<div class="highlight"><pre><span></span><code>npm install --save-dev babel-preset-flow
+</code></pre></div>
+<p>然后将 <code>flow</code> preset 加入你的 <a href="http://babeljs.io/docs/usage/babelrc/">Babel 配置</a>。比如，如果你通过 <code>.babelrc</code> 文件配置 Babel，它可能会如下所示：</p>
+<p>```js{3}
+{
+  "presets": [
+    "flow",
+    "react"
+  ]
+}
+<div class="highlight"><pre><span></span><code>这将会让你可以在你的代码中使用 Flow 语法。
+
+&gt;注意：
+&gt;
+&gt;Flow 不需要 `react` preset，但他们经常在一起使用。 Flow 本身就理解 JSX 语法。
+
+#### 其他生成设置
+
+如果你既不用 Create React App 也不用 Babel，你可以使用 [flow-remove-types](https://github.com/flowtype/flow-remove-types) 来去除类型注释。
+
+### 运行 Flow
+
+如果你遵循了上述的说明，你应该能够在第一次就运行 Flow。
+
+```bash
+yarn flow
+</code></pre></div></p>
+<p>如果你使用 npm, 运行：</p>
+<div class="highlight"><pre><span></span><code>npm run flow
+</code></pre></div>
+<p>你应该会看到一条这样的消息：</p>
+<div class="highlight"><pre><span></span><code>No errors!
+✨  Done in 0.17s.
+</code></pre></div>
+<h3 id="flow_2">添加 Flow 类型注释<a class="headerlink" href="#flow_2" title="Permanent link">&para;</a></h3>
+<p>默认情况下， Flow 仅检查包含此批注的文件：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// @flow</span>
+</code></pre></div>
+<p>通常它被放置在文件的顶部。 尝试将其添加到项目中的某些文件中，然后运行 <code>yarn flow</code> 或 <code>npm run flow</code> 来查看 Flow 是否已经发现了一些问题。</p>
+<p>也有<a href="https://flow.org/en/docs/config/options/#toc-all-boolean">一个选择</a>可以强制 Flow 不考虑注释检查*所有*文件。对于现有的项目它可能太繁琐了，但对于一个新项目如果你想完全用 Flow 来组织，那会是合理的。</p>
+<p>现在你们都准备好了！ 我们建议查看以下资源以了解有关 Flow 的更多信息：</p>
+<ul>
+<li><a href="https://flow.org/en/docs/types/">Flow 文档：类型注释</a></li>
+<li><a href="https://flow.org/en/docs/editors/">Flow 文档：编辑器</a></li>
+<li><a href="https://flow.org/en/docs/react/">Flow 文档： React</a></li>
+<li><a href="https://medium.com/flow-type/linting-in-flow-7709d7a7e969">Linting in Flow</a></li>
+</ul>
+<h2 id="typescript">TypeScript<a class="headerlink" href="#typescript" title="Permanent link">&para;</a></h2>
+<p><a href="https://www.typescriptlang.org/">TypeScript</a> 是一门由微软开发的编程语言。 它是 JavaScript 的一个类型超集，包含它自己的编译器。 作为一种类型化语言，Typescript 可以早在您的应用程序上线之前在构建时发现错误。 你可以在<a href="https://github.com/Microsoft/TypeScript-React-Starter#typescript-react-starter">这里</a>了解更多关于在 React 中使用 TypeScript 的知识。</p>
+<p>要使用 TypeScript，你需要：
+* 将 Typescript 添加为您的项目的依赖项
+* 配置 TypeScript 编译器选项
+* 使用正确的文件扩展名
+* 为你使用的库添加定义</p>
+<p>让我们来详细介绍一下。</p>
+<h3 id="typescript_1">在一个项目中添加 TypeScript<a class="headerlink" href="#typescript_1" title="Permanent link">&para;</a></h3>
+<p>这一切都始于在终端中运行一个命令。</p>
+<p>如果你使用 <a href="https://yarnpkg.com/">Yarn</a>, 运行：</p>
+<div class="highlight"><pre><span></span><code>yarn add --dev typescript
+</code></pre></div>
+<p>如果你使用 <a href="https://www.npmjs.com/">npm</a>, 运行：</p>
+<div class="highlight"><pre><span></span><code>npm install --save-dev typescript
+</code></pre></div>
+<p>恭喜！ 您已经将最新版本的 TypeScript 安装到您的项目中。 安装 TypeScript 让我们可以访问 <code>tsc</code> 命令。 在配置之前，让我们将 <code>tsc</code> 添加到 <code>package.json</code> 中的 "scripts" 部分：</p>
+<p>```js{4}
+{
+  // ...
+  "scripts": {
+    "build": "tsc",
+    // ...
+  },
+  // ...
+}
+<div class="highlight"><pre><span></span><code>### 配置 TypeScript 编译器
+
+除非我们告诉编译器要做什么，否则它对我们将毫无用处。在 TypeScript 中，这些规则定义在一个叫 `tsconfig.json` 的特殊文件中。运行如下命令生成该文件：
+
+```bash
+tsc --init
+</code></pre></div></p>
+<p>看看现在生成的 <code>tsconfig.json</code>，你可以看到有很多选项可以用来配置编译器。 有关所有选项的详细说明，请点击<a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html">这里</a>。</p>
+<p>在许多选项中，我们会看到 <code>rootDir</code> 和 <code>outDir</code>。编译器将以真实的情况接收 typescript 文件然后生成 javascript 文件。然而我们不想混淆源文件和编译后的输出。</p>
+<p>我们将通过两个步骤解决这个问题：
+* 首先，让我们像这样安排我们的项目结构。我们将所有的源代码放在 src 目录中。</p>
+<div class="highlight"><pre><span></span><code>├── package.json
+├── src
+│   └── index.ts
+└── tsconfig.json
+</code></pre></div>
+<ul>
+<li>接下来，我们会告诉编译器源代码在哪以及编译后输出该放哪。</li>
+</ul>
+<p>```js{6,7}
+// tsconfig.json</p>
+<p>{
+  "compilerOptions": {
+    // ...
+    "rootDir": "src",
+    "outDir": "build"
+    // ...
+  },
+}
+<div class="highlight"><pre><span></span><code>非常棒！现在当我们运行构建脚本时编译器将会将生成的 javascript 代码输出到 `build` 文件夹。[TypeScript React Starter](https://github.com/Microsoft/TypeScript-React-Starter/blob/master/tsconfig.json) 提供了一个带有一套配置的 `tsconfig.json` 文件让你上手。
+
+通常，您不希望将生成的JavaScript保留在源代码管理中，因此请确保将生成文件夹添加到 `.gitignore` 中。
+
+### 文件扩展名
+
+在 React 中，你最有可能在 `.js` 文件中编写你的组件。在 TypeScript 中我们有两个文件扩展名：
+
+`.ts` 是默认的文件扩展名， `.tsx` 是一个为包含  `JSX` 代码使用的特殊扩展名。
+
+### 运行 TypeScript
+
+如果你遵循了如上的说明，你应该能够第一次就成功运行 TypeScript。
+
+```bash
+yarn build
+</code></pre></div></p>
+<p>如果你使用 npm, 运行：</p>
+<div class="highlight"><pre><span></span><code>npm run build
+</code></pre></div>
+<p>如果你没有看到输出，这意味着它完全编译成功了。</p>
+<h3 id="_1">类型定义<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>为了能够显示来自其他包的错误和提示，编译器依赖于声明文件。 声明文件提供了关于库的所有类型信息。 这使我们能够在我们的项目中使用像那些在 npm 中的 JavaScript 库。</p>
+<p>对于一个库来说，主要有两种方式获得声明：</p>
+<p><strong>Bundled</strong> - 该库捆绑了自己的声明文件。 这对我们来说很好，因为我们所要做的就是安装这个库，我们便可以马上使用它。 要检查一个库是否有 bundled 类型，请在项目中查找 <code>index.d.ts</code> 文件。 有些库会在 <code>package.json</code> 文件的 <code>typings</code> 或者 <code>types</code> 属性中指定它。</p>
+<p><strong><a href="https://github.com/DefinitelyTyped/DefinitelyTyped">DefinitelyTyped</a></strong> - DefinitelyTyped 是一个不包含声明文件的库的声明库。这些声明是由微软和开源贡献者提供的。 例如 React 并不捆绑它自己的声明文件。 相反，我们可以从 DefinitelyTyped 中获得。 为此，请在终端中输入此命令。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># yarn</span>
+yarn add --dev @types/react
+
+<span class="c1"># npm</span>
+npm i --save-dev @types/react
+</code></pre></div>
+<p><strong>局部声明</strong>
+有时你想使用的包不包含声明，也不能在 DefinitelyTyped 上使用。 在这种情况下，我们可以有一个本地声明文件。 为此，请在源目录的根目录中创建一个 <code>declarations.d.ts</code> 文件。 一个简单的声明可能是这样的：</p>
+<div class="highlight"><pre><span></span><code><span class="kr">declare</span> <span class="nx">module</span> <span class="s1">&#39;querystring&#39;</span> <span class="p">{</span>
+  <span class="k">export</span> <span class="kd">function</span> <span class="nx">stringify</span><span class="p">(</span><span class="nx">val</span>: <span class="kt">object</span><span class="p">)</span><span class="o">:</span> <span class="kt">string</span>
+  <span class="k">export</span> <span class="kd">function</span> <span class="nx">parse</span><span class="p">(</span><span class="nx">val</span>: <span class="kt">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">object</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="create-react-app-typescript">和 Create React App 一起使用 TypeScript<a class="headerlink" href="#create-react-app-typescript" title="Permanent link">&para;</a></h3>
+<p><a href="https://www.npmjs.com/package/react-scripts-ts">react-scripts-ts</a> 自动配置了一个 <code>create-react-app</code> 项目支持 TypeScript。你可以像这样使用：</p>
+<div class="highlight"><pre><span></span><code>create-react-app my-app --scripts-version<span class="o">=</span>react-scripts-ts
+</code></pre></div>
+<p>请注意它是一个**第三方**项目，而且不是 Create React App 的一部分。</p>
+<p>你也可以尝试 <a href="https://github.com/Microsoft/TypeScript-React-Starter#typescript-react-starter">typescript-react-starter</a>。</p>
+<p>你已经准备好写代码了！我们建议查看以下资源来了解有关 TypeScript 的更多信息：</p>
+<ul>
+<li><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html">TypeScript 文档：基本类型</a></li>
+<li><a href="http://www.typescriptlang.org/docs/handbook/migrating-from-javascript.html">TypeScript 文档：从 Javascript 迁徙</a></li>
+<li><a href="http://www.typescriptlang.org/docs/handbook/react-&amp;-webpack.html">TypeScript 文档： React 和 Webpack</a></li>
+</ul>
+<h2 id="reason">Reason<a class="headerlink" href="#reason" title="Permanent link">&para;</a></h2>
+<p><a href="https://reasonml.github.io/">Reason</a> 不是一种新的语言; 这是一个新的语法和工具链，由测试语言 <a href="http://ocaml.org/">OCaml</a> 提供支持。 Reason 使 OCaml 成为了面向 JavaScript 程序员的熟悉语法，而且迎合现有已知的 NPM/Yarn 工作流。</p>
+<p>Reason 是在 Facebook 开发的，并且在其一些产品如 Messenger 中使用。它仍然具有一定的实验性质，但它有由 Facebook 维护的<a href="https://reasonml.github.io/reason-react/">专门的 React 绑定</a> 和一个<a href="https://reasonml.github.io/community/">充满活力的社区</a>。</p>
+<h2 id="kotlin">Kotlin<a class="headerlink" href="#kotlin" title="Permanent link">&para;</a></h2>
+<p><a href="https://kotlinlang.org/">Kotlin</a> 是由 JetBrains 开发的一门静态类型语言。其目标平台包括 JVM， Android， LLVM 和 <a href="https://kotlinlang.org/docs/reference/js-overview.html">JavaScript</a>。</p>
+<p>JetBrains 专门为 React 社区开发和维护了几个工具： <a href="https://github.com/JetBrains/kotlin-wrappers">React bindings</a> 以及 <a href="https://github.com/JetBrains/create-react-kotlin-app">Create React Kotlin App</a>。 后者可以帮助您开始使用Kotlin 构建 React 应用程序，而不需要构建配置。 </p>
+<h2 id="_2">其他语言<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>请注意，还有其他静态类型的语言可以编译成 JavaScript，因此是 React 兼容的。 例如，和 <a href="https://fable-elmish.github.io/react">elmish-react</a> 一起使用的 <a href="http://fable.io">F#/Fable</a>。查看他们各自的网站以获取更多信息，并欢迎添加更多和与 React 一起工作的静态类型的语言到这个页面！</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>

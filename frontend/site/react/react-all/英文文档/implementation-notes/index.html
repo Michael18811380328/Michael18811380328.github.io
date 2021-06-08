@@ -1,0 +1,2643 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/react/react-all/%E8%8B%B1%E6%96%87%E6%96%87%E6%A1%A3/implementation-notes/">
+      
+      <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>Implementation Notes - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ef5552">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#video-building-react-from-scratch" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              Implementation Notes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+      
+      <label class="md-nav__link" for="nav-1">
+        About
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="nav-1">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about/" class="md-nav__link">
+        关于我
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about/log/" class="md-nav__link">
+        学习日志
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        文档结构
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+      
+      <label class="md-nav__link" for="nav-2">
+        Javascript
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Javascript" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          Javascript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/ES6%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8/" class="md-nav__link">
+        ES6 迭代器与生成器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/ES6-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        ES6-阮一峰
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/ES6newFeature/" class="md-nav__link">
+        ES6newFeature
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/JS%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        JS 性能优化
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/JS-testing/" class="md-nav__link">
+        JS-testing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/editor-js/" class="md-nav__link">
+        editor-js
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/es6/" class="md-nav__link">
+        es6
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/%E5%B8%B8%E7%94%A8%E5%88%B0%E7%9A%84ES6%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        常用到的ES6语法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/%E5%89%8D%E7%AB%AF%E8%8B%B1%E8%AF%AD%E5%8D%95%E8%AF%8D/" class="md-nav__link">
+        前端英语单词
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
+        typescript
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="typescript" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          typescript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/01-%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        01-简介
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/02-%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        02-基础
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/03-%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        03-进阶
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/04-%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%BC%80%E5%8F%91-%E6%B5%8B%E8%AF%95%E7%BC%96%E8%AF%91/" class="md-nav__link">
+        04-工程化开发-测试编译
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82TS%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        网易云课堂TS入门
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/01-%E4%B8%8A%E6%89%8BTypeScript/" class="md-nav__link">
+        01-上手TypeScript
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/02-TS-Gulp/" class="md-nav__link">
+        02-TS-Gulp
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/03-JavaScript%E8%BF%81%E7%A7%BB/" class="md-nav__link">
+        03-JavaScript迁移
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/04-React%20%26%20Webpack/" class="md-nav__link">
+        04-React & Webpack
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/TS%20%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/" class="md-nav__link">
+        TS 常见问题整理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/TypeScript%E7%BC%96%E8%AF%91%E5%99%A8%20%E2%80%93%20%E4%B8%BA%E4%BB%80%E4%B9%88%E9%BB%98%E8%AE%A4%E6%83%85%E5%86%B5%E4%B8%8B%E4%B8%8D%E5%90%AF%E7%94%A8downlevelIteration%EF%BC%9F/" class="md-nav__link">
+        TypeScript编译器-downlevelIteration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/typescript%20%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        typescript 编译选项和配置文件
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
+        react
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="react" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          react
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Create-React-App/" class="md-nav__link">
+        Create-React-App.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Data%20grade/" class="md-nav__link">
+        React Data grade.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20FAQ/" class="md-nav__link">
+        React FAQ.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Image%20Lightbox/" class="md-nav__link">
+        React Image Lightbox.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20PureComponent%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        React PureComponent 使用指南.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Router%20%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3%EF%BC%88%E4%B8%80%EF%BC%89/" class="md-nav__link">
+        React Router 中文文档（一）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Router%20%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3%EF%BC%88%E4%BA%8C%EF%BC%89/" class="md-nav__link">
+        React Router 中文文档（二）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20data%20grid/" class="md-nav__link">
+        React data grid.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E7%9A%84%20PureComponent%20%E4%B8%8E%20Component/" class="md-nav__link">
+        React 的 PureComponent 与 Component.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E5%90%84%E7%A7%8Dbug%20%E4%BC%9A%E5%AE%9E%E6%97%B6%E6%9B%B4%E6%96%B0/" class="md-nav__link">
+        React 各种bug 会实时更新.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        React 高阶组件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E6%93%8D%E4%BD%9C%E5%85%83%E7%B4%A0%E7%9A%84API/" class="md-nav__link">
+        React 操作元素的API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/" class="md-nav__link">
+        React 中的事件处理.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E5%BC%BA%E5%88%B6%E6%9B%B4%E6%96%B0%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        React 强制更新组件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Design%20Principles/" class="md-nav__link">
+        React-Design Principles.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Hooks/" class="md-nav__link">
+        React-Hooks.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Router/" class="md-nav__link">
+        React-Router.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Select/" class="md-nav__link">
+        React-Select.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Suspense%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%8E%A2%E8%AE%A8-%E6%B2%A1%E7%9C%8B%E6%98%8E%E7%99%BD/" class="md-nav__link">
+        React-Suspense的实现与探讨-没看明白.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Suspense%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%8E%A2%E8%AE%A8/" class="md-nav__link">
+        React-Suspense的实现与探讨.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-advanced-guides/" class="md-nav__link">
+        React-advanced-guides.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-mentions/" class="md-nav__link">
+        React-mentions.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-%E9%AB%98%E9%98%B6API/" class="md-nav__link">
+        React-高阶API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        React-性能优化.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React.Children%E7%9A%84API/" class="md-nav__link">
+        React.Children的API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React.Component/" class="md-nav__link">
+        React.Component.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React.children%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        React.children介绍.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ReactRouter-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        ReactRouter-阮一峰.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+        React事件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E6%95%B0%E6%8D%AE%E6%B5%81/" class="md-nav__link">
+        React数据流.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E5%BF%AB%E6%8D%B7%E8%BE%93%E5%85%A5/" class="md-nav__link">
+        React快捷输入.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E8%8E%B7%E5%8F%96%E5%B0%BA%E5%AF%B8/" class="md-nav__link">
+        React获取尺寸.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E6%96%B0%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F--getDerivedStateFromProps/" class="md-nav__link">
+        React新生命周期--getDerivedStateFromProps.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E4%B8%AD%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/" class="md-nav__link">
+        React中数据传输.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E6%94%B9%E5%8F%98DOM%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        React点击事件改变DOM方法.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%B5%81%E7%A8%8B%E5%9B%BE/" class="md-nav__link">
+        React生命周期流程图.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Refs%20%26%20DOM/" class="md-nav__link">
+        Refs & DOM.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../TS-React-Webpack/" class="md-nav__link">
+        TS-React-Webpack.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../VS%20Code%20%E5%BF%AB%E6%8D%B7%E8%BE%93%E5%85%A5/" class="md-nav__link">
+        VS Code 快捷输入.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getDerivedStateFromProps%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        getDerivedStateFromProps的使用.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gojs-react/" class="md-nav__link">
+        gojs-react.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../jsx%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        jsx语法.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react%20%E4%B8%AD%E9%80%9A%E8%BF%87ref%E8%8E%B7%E5%8F%96%E9%AB%98%E9%98%B6%EF%BC%88HOC%EF%BC%89%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="md-nav__link">
+        react 中通过ref获取高阶（HOC）子组件实例的解决方案.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react%20%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        react 项目结构及编码规范.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react%2Bgraphql%E5%AE%9E%E7%8E%B0github%20dashboard/" class="md-nav__link">
+        react+graphql实现github dashboard.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-lazy-load/" class="md-nav__link">
+        react-lazy-load.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-mentions-en/" class="md-nav__link">
+        react-mentions-en.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-motion/" class="md-nav__link">
+        react-motion.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-redux/" class="md-nav__link">
+        react-redux.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-responsive/" class="md-nav__link">
+        react-responsive.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-transition-group-%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/" class="md-nav__link">
+        react-transition-group-动画效果.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-transition-group/" class="md-nav__link">
+        react-transition-group.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8A%E7%AF%87%EF%BC%88%E9%A6%96%E6%AC%A1%E6%B8%B2%E6%9F%93%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+        reactjs源码分析-上篇（首次渲染实现原理）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8B%E7%AF%87%EF%BC%88%E6%9B%B4%E6%96%B0%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+        reactjs源码分析-下篇（更新机制实现原理）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reactstrap/" class="md-nav__link">
+        reactstrap.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../readme/" class="md-nav__link">
+        readme.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%AF%B9React%20children%E7%90%86%E8%A7%A3/" class="md-nav__link">
+        对React children理解.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+      
+      <label class="md-nav__link" for="nav-5">
+        工程化
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="工程化" data-md-level="1">
+        <label class="md-nav__title" for="nav-5">
+          <span class="md-nav__icon md-icon"></span>
+          工程化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/BUG-Auto%20packing%20the%20repository%20in%20background%20for%20optimum%20performance/" class="md-nav__link">
+        BUG-Auto packing the repository in background for optimum performance.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/Translation/" class="md-nav__link">
+        Translation.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/docker-basic-use/" class="md-nav__link">
+        docker-basic-use.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/markdown-new-style/" class="md-nav__link">
+        markdown-new-style.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../project/React%20%26%20Webpack/" class="md-nav__link">
+        React & Webpack.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../project/TS-React-Webpack/" class="md-nav__link">
+        TS-React-Webpack.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../project/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7%E7%90%86%E8%AE%BA/" class="md-nav__link">
+        前端监控理论.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+      
+      <label class="md-nav__link" for="nav-6">
+        课程笔记
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="课程笔记" data-md-level="1">
+        <label class="md-nav__title" for="nav-6">
+          <span class="md-nav__icon md-icon"></span>
+          课程笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/00-%E7%9B%AE%E5%BD%95/" class="md-nav__link">
+        00-目录.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/02-v8%E5%BC%95%E6%93%8E%E5%9B%9E%E6%94%B6%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        02-v8引擎回收内存简介.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/03-node%E4%B8%8B%E9%9D%A2%E7%9A%84Restful%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        03-node下面的Restful实现.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/04-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%9A%84%E6%8F%90%E5%8D%87%E2%80%94%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E6%88%91%E4%BB%AC%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7/" class="md-nav__link">
+        04-编程思想的提升—如何提高我们代码的可扩展性.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/06-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8Cssr/" class="md-nav__link">
+        06-浏览器渲染原理和ssr.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/07-%E7%BD%91%E6%98%93%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        07-网易真实项目webpack配置解析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/08-%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90API%E5%B1%82/" class="md-nav__link">
+        08-从架构分析API层.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/09-%E5%89%8D%E7%AB%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        09-前端负责人的工作内容.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/10-%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%E5%AD%A6%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        10-分析源码学架构.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/11-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E9%AB%98%E8%B4%A8%E9%87%8F%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        11-设计模式高质量代码.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/12-nodeJS%2BMongoDB%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        12-nodeJS+MongoDB登录系统.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/12-nodejs-mongodb-mongoose/" class="md-nav__link">
+        12-nodejs-mongodb-mongoose.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/13-%E4%BD%BF%E7%94%A8VUE%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        13-使用VUE创建组件（没学完）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/16-%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        16-构建自己的脚手架工具.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/17-webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
+        17-webpack编译原理分析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/20-%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD-VUE%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        20-组件封装的基本技能-VUE（没学完）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/21-ssr/" class="md-nav__link">
+        21-ssr.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/24-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%A6%82%E4%BD%95%E5%81%9A/" class="md-nav__link">
+        24-单元测试如何做.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/25-%E5%9F%BA%E4%BA%8ENodeJS%E6%89%93%E9%80%A0Web%E6%9E%B6%E6%9E%84%E4%B8%AD%E9%97%B4%E5%B1%82/" class="md-nav__link">
+        25-基于NodeJS打造Web架构中间层.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/26-webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        26-webpack的高级技巧.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#video-building-react-from-scratch" class="md-nav__link">
+    Video: Building React from Scratch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mounting-as-a-recursive-process" class="md-nav__link">
+    Mounting as a Recursive Process
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mounting-host-elements" class="md-nav__link">
+    Mounting Host Elements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introducing-internal-instances" class="md-nav__link">
+    Introducing Internal Instances
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unmounting" class="md-nav__link">
+    Unmounting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating" class="md-nav__link">
+    Updating
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-composite-components" class="md-nav__link">
+    Updating Composite Components
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-host-components" class="md-nav__link">
+    Updating Host Components
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#top-level-updates" class="md-nav__link">
+    Top-Level Updates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-we-left-out" class="md-nav__link">
+    What We Left Out
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#jumping-into-the-code" class="md-nav__link">
+    Jumping into the Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-directions" class="md-nav__link">
+    Future Directions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    Next Steps
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/react/react-all/英文文档/implementation-notes.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>Implementation Notes</h1>
+                
+                <p>This section is a collection of implementation notes for the <a href="/docs/codebase-overview.html#stack-reconciler">stack reconciler</a>.</p>
+<p>It is very technical and assumes a strong understanding of React public API as well as how it's divided into core, renderers, and the reconciler. If you're not very familiar with the React codebase, read <a href="/docs/codebase-overview.html">the codebase overview</a> first.</p>
+<p>It also assumes an understanding of the <a href="/blog/2015/12/18/react-components-elements-and-instances.html">differences between React components, their instances, and elements</a>.</p>
+<p>The stack reconciler is powering all the React production code today. It is located in <a href="https://github.com/facebook/react/tree/master/src/renderers/shared/stack"><code>src/renderers/shared/stack/reconciler</code></a> and is used by both React DOM and React Native.</p>
+<h3 id="video-building-react-from-scratch">Video: Building React from Scratch<a class="headerlink" href="#video-building-react-from-scratch" title="Permanent link">&para;</a></h3>
+<p><a href="https://twitter.com/zpao">Paul O'Shannessy</a> gave a talk about <a href="https://www.youtube.com/watch?v=_MAD4Oly9yg">building React from scratch</a> that largely inspired this document.</p>
+<p>Both this document and his talk are simplifications of the real codebase so you might get a better understanding by getting familiar with both of them.</p>
+<h3 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h3>
+<p>The reconciler itself doesn't have a public API. <a href="/docs/codebase-overview.html#stack-renderers">Renderers</a> like React DOM and React Native use it to efficiently update the user interface according to the React components written by the user.</p>
+<h3 id="mounting-as-a-recursive-process">Mounting as a Recursive Process<a class="headerlink" href="#mounting-as-a-recursive-process" title="Permanent link">&para;</a></h3>
+<p>Let's consider the first time you mount a component:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">,</span> <span class="nx">rootEl</span><span class="p">);</span>
+</code></pre></div>
+<p>React DOM will pass <code>&lt;App /&gt;</code> along to the reconciler. Remember that <code>&lt;App /&gt;</code> is a React element, that is, a description of <em>what</em> to render. You can think about it as a plain object:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">);</span>
+<span class="c1">// { type: App, props: {} }</span>
+</code></pre></div>
+<p>The reconciler will check if <code>App</code> is a class or a function.</p>
+<p>If <code>App</code> is a function, the reconciler will call <code>App(props)</code> to get the rendered element.</p>
+<p>If <code>App</code> is a class, the reconciler will instantiate an <code>App</code> with <code>new App(props)</code>, call the <code>componentWillMount()</code> lifecycle method, and then will call the <code>render()</code> method to get the rendered element.</p>
+<p>Either way, the reconciler will learn the element <code>App</code> "rendered to".</p>
+<p>This process is recursive. <code>App</code> may render to a <code>&lt;Greeting /&gt;</code>, <code>Greeting</code> may render to a <code>&lt;Button /&gt;</code>, and so on. The reconciler will "drill down" through user-defined components recursively as it learns what each component renders to.</p>
+<p>You can imagine this process as a pseudocode:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">isClass</span><span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// React.Component subclasses have this flag</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="nb">Boolean</span><span class="p">(</span><span class="nx">type</span><span class="p">.</span><span class="nx">prototype</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+    <span class="nb">Boolean</span><span class="p">(</span><span class="nx">type</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">isReactComponent</span><span class="p">)</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// This function takes a React element (e.g. &lt;App /&gt;)</span>
+<span class="c1">// and returns a DOM or Native node representing the mounted tree.</span>
+<span class="kd">function</span> <span class="nx">mount</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">type</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">props</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+
+  <span class="c1">// We will determine the rendered element</span>
+  <span class="c1">// by either running the type as function</span>
+  <span class="c1">// or creating an instance and calling render().</span>
+  <span class="kd">var</span> <span class="nx">renderedElement</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">isClass</span><span class="p">(</span><span class="nx">type</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// Component class</span>
+    <span class="kd">var</span> <span class="nx">publicInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">type</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="c1">// Set the props</span>
+    <span class="nx">publicInstance</span><span class="p">.</span><span class="nx">props</span> <span class="o">=</span> <span class="nx">props</span><span class="p">;</span>
+    <span class="c1">// Call the lifecycle if necessary</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">publicInstance</span><span class="p">.</span><span class="nx">componentWillMount</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">publicInstance</span><span class="p">.</span><span class="nx">componentWillMount</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="c1">// Get the rendered element by calling render()</span>
+    <span class="nx">renderedElement</span> <span class="o">=</span> <span class="nx">publicInstance</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// Component function</span>
+    <span class="nx">renderedElement</span> <span class="o">=</span> <span class="nx">type</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// This process is recursive because a component may</span>
+  <span class="c1">// return an element with a type of another component.</span>
+  <span class="k">return</span> <span class="nx">mount</span><span class="p">(</span><span class="nx">renderedElement</span><span class="p">);</span>
+
+  <span class="c1">// Note: this implementation is incomplete and recurses infinitely!</span>
+  <span class="c1">// It only handles elements like &lt;App /&gt; or &lt;Button /&gt;.</span>
+  <span class="c1">// It doesn&#39;t handle elements like &lt;div /&gt; or &lt;p /&gt; yet.</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">rootEl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="nx">mount</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">);</span>
+<span class="nx">rootEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Note:</strong></p>
+<p>This really <em>is</em> a pseudo-code. It isn't similar to the real implementation. It will also cause a stack overflow because we haven't discussed when to stop the recursion.</p>
+</blockquote>
+<p>Let's recap a few key ideas in the example above:</p>
+<ul>
+<li>React elements are plain objects representing the component type (e.g. <code>App</code>) and the props.</li>
+<li>User-defined components (e.g. <code>App</code>) can be classes or functions but they all "render to" elements.</li>
+<li>"Mounting" is a recursive process that creates a DOM or Native tree given the top-level React element (e.g. <code>&lt;App /&gt;</code>).</li>
+</ul>
+<h3 id="mounting-host-elements">Mounting Host Elements<a class="headerlink" href="#mounting-host-elements" title="Permanent link">&para;</a></h3>
+<p>This process would be useless if we didn't render something to the screen as a result.</p>
+<p>In addition to user-defined ("composite") components, React elements may also represent platform-specific ("host") components. For example, <code>Button</code> might return a <code>&lt;div /&gt;</code> from its render method.</p>
+<p>If element's <code>type</code> property is a string, we are dealing with a host element:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">div</span> <span class="o">/&gt;</span><span class="p">);</span>
+<span class="c1">// { type: &#39;div&#39;, props: {} }</span>
+</code></pre></div>
+<p>There is no user-defined code associated with host elements.</p>
+<p>When the reconciler encounters a host element, it lets the renderer take care of mounting it. For example, React DOM would create a DOM node.</p>
+<p>If the host element has children, the reconciler recursively mounts them following the same algorithm as above. It doesn't matter whether children are host (like <code>&lt;div&gt;&lt;hr /&gt;&lt;/div&gt;</code>), composite (like <code>&lt;div&gt;&lt;Button /&gt;&lt;/div&gt;</code>), or both.</p>
+<p>The DOM nodes produced by the child components will be appended to the parent DOM node, and recursively, the complete DOM structure will be assembled.</p>
+<blockquote>
+<p><strong>Note:</strong></p>
+<p>The reconciler itself is not tied to the DOM. The exact result of mounting (sometimes called "mount image" in the source code) depends on the renderer, and can be a DOM node (React DOM), a string (React DOM Server), or a number representing a native view (React Native).</p>
+</blockquote>
+<p>If we were to extend the code to handle host elements, it would look like this:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">isClass</span><span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// React.Component subclasses have this flag</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="nb">Boolean</span><span class="p">(</span><span class="nx">type</span><span class="p">.</span><span class="nx">prototype</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+    <span class="nb">Boolean</span><span class="p">(</span><span class="nx">type</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">isReactComponent</span><span class="p">)</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// This function only handles elements with a composite type.</span>
+<span class="c1">// For example, it handles &lt;App /&gt; and &lt;Button /&gt;, but not a &lt;div /&gt;.</span>
+<span class="kd">function</span> <span class="nx">mountComposite</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">type</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">props</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+
+  <span class="kd">var</span> <span class="nx">renderedElement</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">isClass</span><span class="p">(</span><span class="nx">type</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// Component class</span>
+    <span class="kd">var</span> <span class="nx">publicInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">type</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="c1">// Set the props</span>
+    <span class="nx">publicInstance</span><span class="p">.</span><span class="nx">props</span> <span class="o">=</span> <span class="nx">props</span><span class="p">;</span>
+    <span class="c1">// Call the lifecycle if necessary</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">publicInstance</span><span class="p">.</span><span class="nx">componentWillMount</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">publicInstance</span><span class="p">.</span><span class="nx">componentWillMount</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="nx">renderedElement</span> <span class="o">=</span> <span class="nx">publicInstance</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Component function</span>
+    <span class="nx">renderedElement</span> <span class="o">=</span> <span class="nx">type</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// This is recursive but we&#39;ll eventually reach the bottom of recursion when</span>
+  <span class="c1">// the element is host (e.g. &lt;div /&gt;) rather than composite (e.g. &lt;App /&gt;):</span>
+  <span class="k">return</span> <span class="nx">mount</span><span class="p">(</span><span class="nx">renderedElement</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// This function only handles elements with a host type.</span>
+<span class="c1">// For example, it handles &lt;div /&gt; and &lt;p /&gt; but not an &lt;App /&gt;.</span>
+<span class="kd">function</span> <span class="nx">mountHost</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">type</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">props</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">children</span> <span class="o">=</span> <span class="nx">props</span><span class="p">.</span><span class="nx">children</span> <span class="o">||</span> <span class="p">[];</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">children</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">children</span> <span class="o">=</span> <span class="p">[</span><span class="nx">children</span><span class="p">];</span>
+  <span class="p">}</span>
+  <span class="nx">children</span> <span class="o">=</span> <span class="nx">children</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nb">Boolean</span><span class="p">);</span>
+
+  <span class="c1">// This block of code shouldn&#39;t be in the reconciler.</span>
+  <span class="c1">// Different renderers might initialize nodes differently.</span>
+  <span class="c1">// For example, React Native would create iOS or Android views.</span>
+  <span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">type</span><span class="p">);</span>
+  <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">props</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">propName</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">propName</span> <span class="o">!==</span> <span class="s1">&#39;children&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">node</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="nx">propName</span><span class="p">,</span> <span class="nx">props</span><span class="p">[</span><span class="nx">propName</span><span class="p">]);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="c1">// Mount the children</span>
+  <span class="nx">children</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">childElement</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Children may be host (e.g. &lt;div /&gt;) or composite (e.g. &lt;Button /&gt;).</span>
+    <span class="c1">// We will also mount them recursively:</span>
+    <span class="kd">var</span> <span class="nx">childNode</span> <span class="o">=</span> <span class="nx">mount</span><span class="p">(</span><span class="nx">childElement</span><span class="p">);</span>
+
+    <span class="c1">// This line of code is also renderer-specific.</span>
+    <span class="c1">// It would be different depending on the renderer:</span>
+    <span class="nx">node</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">childNode</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="c1">// Return the DOM node as mount result.</span>
+  <span class="c1">// This is where the recursion ends.</span>
+  <span class="k">return</span> <span class="nx">node</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">mount</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">type</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// User-defined components</span>
+    <span class="k">return</span> <span class="nx">mountComposite</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Platform-specific components</span>
+    <span class="k">return</span> <span class="nx">mountHost</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">rootEl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="nx">mount</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">);</span>
+<span class="nx">rootEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+</code></pre></div>
+<p>This is working but still far from how the reconciler is really implemented. The key missing ingredient is support for updates.</p>
+<h3 id="introducing-internal-instances">Introducing Internal Instances<a class="headerlink" href="#introducing-internal-instances" title="Permanent link">&para;</a></h3>
+<p>The key feature of React is that you can re-render everything, and it won't recreate the DOM or reset the state:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">,</span> <span class="nx">rootEl</span><span class="p">);</span>
+<span class="c1">// Should reuse the existing DOM:</span>
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">,</span> <span class="nx">rootEl</span><span class="p">);</span>
+</code></pre></div>
+<p>However, our implementation above only knows how to mount the initial tree. It can't perform updates on it because it doesn't store all the necessary information, such as all the <code>publicInstance</code>s, or which DOM <code>node</code>s correspond to which components.</p>
+<p>The stack reconciler codebase solves this by making the <code>mount()</code> function a method and putting it on a class. There are drawbacks to this approach, and we are going in the opposite direction in the <a href="/docs/codebase-overview.html#fiber-reconciler">ongoing rewrite of the reconciler</a>. Nevertheless this is how it works now.</p>
+<p>Instead of separate <code>mountHost</code> and <code>mountComposite</code> functions, we will create two classes: <code>DOMComponent</code> and <code>CompositeComponent</code>.</p>
+<p>Both classes have a constructor accepting the <code>element</code>, as well as a <code>mount()</code> method returning the mounted node. We will replace a top-level <code>mount()</code> function with a factory that instantiates the correct class:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">instantiateComponent</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">type</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// User-defined components</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">CompositeComponent</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Platform-specific components</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">DOMComponent</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+  <span class="p">}</span>  
+<span class="p">}</span>
+</code></pre></div>
+<p>First, let's consider the implementation of <code>CompositeComponent</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">CompositeComponent</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">currentElement</span> <span class="o">=</span> <span class="nx">element</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">renderedComponent</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">publicInstance</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">getPublicInstance</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// For composite components, expose the class instance.</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">publicInstance</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">mount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentElement</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">type</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">props</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">publicInstance</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">renderedElement</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">isClass</span><span class="p">(</span><span class="nx">type</span><span class="p">))</span> <span class="p">{</span>
+      <span class="c1">// Component class</span>
+      <span class="nx">publicInstance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">type</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+      <span class="c1">// Set the props</span>
+      <span class="nx">publicInstance</span><span class="p">.</span><span class="nx">props</span> <span class="o">=</span> <span class="nx">props</span><span class="p">;</span>
+      <span class="c1">// Call the lifecycle if necessary</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">publicInstance</span><span class="p">.</span><span class="nx">componentWillMount</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">publicInstance</span><span class="p">.</span><span class="nx">componentWillMount</span><span class="p">();</span>
+      <span class="p">}</span>
+      <span class="nx">renderedElement</span> <span class="o">=</span> <span class="nx">publicInstance</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Component function</span>
+      <span class="nx">publicInstance</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+      <span class="nx">renderedElement</span> <span class="o">=</span> <span class="nx">type</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Save the public instance</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">publicInstance</span> <span class="o">=</span> <span class="nx">publicInstance</span><span class="p">;</span>
+
+    <span class="c1">// Instantiate the child internal instance according to the element.</span>
+    <span class="c1">// It would be a DOMComponent for &lt;div /&gt; or &lt;p /&gt;,</span>
+    <span class="c1">// and a CompositeComponent for &lt;App /&gt; or &lt;Button /&gt;:</span>
+    <span class="kd">var</span> <span class="nx">renderedComponent</span> <span class="o">=</span> <span class="nx">instantiateComponent</span><span class="p">(</span><span class="nx">renderedElement</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">renderedComponent</span> <span class="o">=</span> <span class="nx">renderedComponent</span><span class="p">;</span>
+
+    <span class="c1">// Mount the rendered output</span>
+    <span class="k">return</span> <span class="nx">renderedComponent</span><span class="p">.</span><span class="nx">mount</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This is not much different from our previous <code>mountComposite()</code> implementation, but now we can save some information, such as <code>this.currentElement</code>, <code>this.renderedComponent</code>, and <code>this.publicInstance</code>, for use during updates.</p>
+<p>Note that an instance of <code>CompositeComponent</code> is not the same thing as an instance of the user-supplied <code>element.type</code>. <code>CompositeComponent</code> is an implementation detail of our reconciler, and is never exposed to the user. The user-defined class is the one we read from <code>element.type</code>, and <code>CompositeComponent</code> creates an instance of it.</p>
+<p>To avoid the confusion, we will call instances of <code>CompositeComponent</code> and <code>DOMComponent</code> "internal instances". They exist so we can associate some long-lived data with them. Only the renderer and the reconciler are aware that they exist.</p>
+<p>In contrast, we call an instance of the user-defined class a "public instance". The public instance is what you see as <code>this</code> in the <code>render()</code> and other methods of your custom components.</p>
+<p>The <code>mountHost()</code> function, refactored to be a <code>mount()</code> method on <code>DOMComponent</code> class, also looks familiar:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">DOMComponent</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">currentElement</span> <span class="o">=</span> <span class="nx">element</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">renderedChildren</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">node</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">getPublicInstance</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// For DOM components, only expose the DOM node.</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">node</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">mount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentElement</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">type</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">props</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">children</span> <span class="o">=</span> <span class="nx">props</span><span class="p">.</span><span class="nx">children</span> <span class="o">||</span> <span class="p">[];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">children</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">children</span> <span class="o">=</span> <span class="p">[</span><span class="nx">children</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Create and save the node</span>
+    <span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">type</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">node</span> <span class="o">=</span> <span class="nx">node</span><span class="p">;</span>
+
+    <span class="c1">// Set the attributes</span>
+    <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">props</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">propName</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">propName</span> <span class="o">!==</span> <span class="s1">&#39;children&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">node</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="nx">propName</span><span class="p">,</span> <span class="nx">props</span><span class="p">[</span><span class="nx">propName</span><span class="p">]);</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="c1">// Create and save the contained children.</span>
+    <span class="c1">// Each of them can be a DOMComponent or a CompositeComponent,</span>
+    <span class="c1">// depending on whether the element type is a string or a function.</span>
+    <span class="kd">var</span> <span class="nx">renderedChildren</span> <span class="o">=</span> <span class="nx">children</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">instantiateComponent</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">renderedChildren</span> <span class="o">=</span> <span class="nx">renderedChildren</span><span class="p">;</span>
+
+    <span class="c1">// Collect DOM nodes they return on mount</span>
+    <span class="kd">var</span> <span class="nx">childNodes</span> <span class="o">=</span> <span class="nx">renderedChildren</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">child</span> <span class="p">=&gt;</span> <span class="nx">child</span><span class="p">.</span><span class="nx">mount</span><span class="p">());</span>
+    <span class="nx">childNodes</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">childNode</span> <span class="p">=&gt;</span> <span class="nx">node</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">childNode</span><span class="p">));</span>
+
+    <span class="c1">// Return the DOM node as mount result</span>
+    <span class="k">return</span> <span class="nx">node</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The main difference after refactoring from <code>mountHost()</code> is that we now keep <code>this.node</code> and <code>this.renderedChildren</code> associated with the internal DOM component instance. We will also use them for applying non-destructive updates in the future.</p>
+<p>As a result, each internal instance, composite or host, now points to its child internal instances. To help visualize this, if a functional <code>&lt;App&gt;</code> component renders a <code>&lt;Button&gt;</code> class component, and <code>Button</code> class renders a <code>&lt;div&gt;</code>, the internal instance tree would look like this:</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="nx">object</span> <span class="nx">CompositeComponent</span><span class="p">]</span> <span class="p">{</span>
+  <span class="nx">currentElement</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">,</span>
+  <span class="nx">publicInstance</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nx">renderedComponent</span><span class="o">:</span> <span class="p">[</span><span class="nx">object</span> <span class="nx">CompositeComponent</span><span class="p">]</span> <span class="p">{</span>
+    <span class="nx">currentElement</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">Button</span> <span class="o">/&gt;</span><span class="p">,</span>
+    <span class="nx">publicInstance</span><span class="o">:</span> <span class="p">[</span><span class="nx">object</span> <span class="nx">Button</span><span class="p">],</span>
+    <span class="nx">renderedComponent</span><span class="o">:</span> <span class="p">[</span><span class="nx">object</span> <span class="nx">DOMComponent</span><span class="p">]</span> <span class="p">{</span>
+      <span class="nx">currentElement</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">div</span> <span class="o">/&gt;</span><span class="p">,</span>
+      <span class="nx">node</span><span class="o">:</span> <span class="p">[</span><span class="nx">object</span> <span class="nx">HTMLDivElement</span><span class="p">],</span>
+      <span class="nx">renderedChildren</span><span class="o">:</span> <span class="p">[]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>In the DOM you would only see the <code>&lt;div&gt;</code>. However the internal instance tree contains both composite and host internal instances.</p>
+<p>The composite internal instances need to store:</p>
+<ul>
+<li>The current element.</li>
+<li>The public instance if element type is a class.</li>
+<li>The single rendered internal instance. It can be either a <code>DOMComponent</code> or a <code>CompositeComponent</code>.</li>
+</ul>
+<p>The host internal instances need to store:</p>
+<ul>
+<li>The current element.</li>
+<li>The DOM node.</li>
+<li>All the child internal instances. Each of them can be either a <code>DOMComponent</code> or a <code>CompositeComponent</code>.</li>
+</ul>
+<p>If you're struggling to imagine how an internal instance tree is structured in more complex applications, <a href="https://github.com/facebook/react-devtools">React DevTools</a> can give you a close approximation, as it highlights host instances with grey, and composite instances with purple:</p>
+<p><img src="../images/docs/implementation-notes-tree.png" width="500" style="max-width: 100%" alt="React DevTools tree" /></p>
+<p>To complete this refactoring, we will introduce a function that mounts a complete tree into a container node, just like <code>ReactDOM.render()</code>. It returns a public instance, also like <code>ReactDOM.render()</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">mountTree</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">containerNode</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Create the top-level internal instance</span>
+  <span class="kd">var</span> <span class="nx">rootComponent</span> <span class="o">=</span> <span class="nx">instantiateComponent</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+
+  <span class="c1">// Mount the top-level component into the container</span>
+  <span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="nx">rootComponent</span><span class="p">.</span><span class="nx">mount</span><span class="p">();</span>
+  <span class="nx">containerNode</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+
+  <span class="c1">// Return the public instance it provides</span>
+  <span class="kd">var</span> <span class="nx">publicInstance</span> <span class="o">=</span> <span class="nx">rootComponent</span><span class="p">.</span><span class="nx">getPublicInstance</span><span class="p">();</span>
+  <span class="k">return</span> <span class="nx">publicInstance</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">rootEl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">);</span>
+<span class="nx">mountTree</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">,</span> <span class="nx">rootEl</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="unmounting">Unmounting<a class="headerlink" href="#unmounting" title="Permanent link">&para;</a></h3>
+<p>Now that we have internal instances that hold onto their children and the DOM nodes, we can implement unmounting. For a composite component, unmounting calls a lifecycle hook and recurses.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">CompositeComponent</span> <span class="p">{</span>
+
+  <span class="c1">// ...</span>
+
+  <span class="nx">unmount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Call the lifecycle hook if necessary</span>
+    <span class="kd">var</span> <span class="nx">publicInstance</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">publicInstance</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">publicInstance</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">publicInstance</span><span class="p">.</span><span class="nx">componentWillUnmount</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">publicInstance</span><span class="p">.</span><span class="nx">componentWillUnmount</span><span class="p">();</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Unmount the single rendered component</span>
+    <span class="kd">var</span> <span class="nx">renderedComponent</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">renderedComponent</span><span class="p">;</span>
+    <span class="nx">renderedComponent</span><span class="p">.</span><span class="nx">unmount</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>For <code>DOMComponent</code>, unmounting tells each child to unmount:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">DOMComponent</span> <span class="p">{</span>
+
+  <span class="c1">// ...</span>
+
+  <span class="nx">unmount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Unmount all the children</span>
+    <span class="kd">var</span> <span class="nx">renderedChildren</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">renderedChildren</span><span class="p">;</span>
+    <span class="nx">renderedChildren</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">child</span> <span class="p">=&gt;</span> <span class="nx">child</span><span class="p">.</span><span class="nx">unmount</span><span class="p">());</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>In practice, unmounting DOM components also removes the event listeners and clears some caches, but we will skip those details.</p>
+<p>We can now add a new top-level function called <code>unmountTree(containerNode)</code> that is similar to <code>ReactDOM.unmountComponentAtNode()</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">unmountTree</span><span class="p">(</span><span class="nx">containerNode</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Read the internal instance from a DOM node:</span>
+  <span class="c1">// (This doesn&#39;t work yet, we will need to change mountTree() to store it.)</span>
+  <span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="nx">containerNode</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">rootComponent</span> <span class="o">=</span> <span class="nx">node</span><span class="p">.</span><span class="nx">_internalInstance</span><span class="p">;</span>
+
+  <span class="c1">// Unmount the tree and clear the container</span>
+  <span class="nx">rootComponent</span><span class="p">.</span><span class="nx">unmount</span><span class="p">();</span>
+  <span class="nx">containerNode</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>In order for this to work, we need to read an internal root instance from a DOM node. We will modify <code>mountTree()</code> to add the <code>_internalInstance</code> property to the root DOM node. We will also teach <code>mountTree()</code> to destroy any existing tree so it can be called multiple times:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">mountTree</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">containerNode</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Destroy any existing tree</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">containerNode</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">unmountTree</span><span class="p">(</span><span class="nx">containerNode</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Create the top-level internal instance</span>
+  <span class="kd">var</span> <span class="nx">rootComponent</span> <span class="o">=</span> <span class="nx">instantiateComponent</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+
+  <span class="c1">// Mount the top-level component into the container</span>
+  <span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="nx">rootComponent</span><span class="p">.</span><span class="nx">mount</span><span class="p">();</span>
+  <span class="nx">containerNode</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+
+  <span class="c1">// Save a reference to the internal instance</span>
+  <span class="nx">node</span><span class="p">.</span><span class="nx">_internalInstance</span> <span class="o">=</span> <span class="nx">rootComponent</span><span class="p">;</span>
+
+  <span class="c1">// Return the public instance it provides</span>
+  <span class="kd">var</span> <span class="nx">publicInstance</span> <span class="o">=</span> <span class="nx">rootComponent</span><span class="p">.</span><span class="nx">getPublicInstance</span><span class="p">();</span>
+  <span class="k">return</span> <span class="nx">publicInstance</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Now, running <code>unmountTree()</code>, or running <code>mountTree()</code> repeatedly, removes the old tree and runs the <code>componentWillUnmount()</code> lifecycle hook on components.</p>
+<h3 id="updating">Updating<a class="headerlink" href="#updating" title="Permanent link">&para;</a></h3>
+<p>In the previous section, we implemented unmounting. However React wouldn't be very useful if each prop change unmounted and mounted the whole tree. The goal of the reconciler is to reuse existing instances where possible to preserve the DOM and the state:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">rootEl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">);</span>
+
+<span class="nx">mountTree</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">,</span> <span class="nx">rootEl</span><span class="p">);</span>
+<span class="c1">// Should reuse the existing DOM:</span>
+<span class="nx">mountTree</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">,</span> <span class="nx">rootEl</span><span class="p">);</span>
+</code></pre></div>
+<p>We will extend our internal instance contract with one more method. In addition to <code>mount()</code> and <code>unmount()</code>, both <code>DOMComponent</code> and <code>CompositeComponent</code> will implement a new method called <code>receive(nextElement)</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">CompositeComponent</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+
+  <span class="nx">receive</span><span class="p">(</span><span class="nx">nextElement</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">DOMComponent</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+
+  <span class="nx">receive</span><span class="p">(</span><span class="nx">nextElement</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Its job is to do whatever is necessary to bring the component (and any of its children) up to date with the description provided by the <code>nextElement</code>.</p>
+<p>This is the part that is often described as "virtual DOM diffing" although what really happens is that we walk the internal tree recursively and let each internal instance receive an update.</p>
+<h3 id="updating-composite-components">Updating Composite Components<a class="headerlink" href="#updating-composite-components" title="Permanent link">&para;</a></h3>
+<p>When a composite component receives a new element, we run the <code>componentWillUpdate()</code> lifecycle hook.</p>
+<p>Then we re-render the component with the new props, and get the next rendered element:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">CompositeComponent</span> <span class="p">{</span>
+
+  <span class="c1">// ...</span>
+
+  <span class="nx">receive</span><span class="p">(</span><span class="nx">nextElement</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">prevProps</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentElement</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">publicInstance</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">publicInstance</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">prevRenderedComponent</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">renderedComponent</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">prevRenderedElement</span> <span class="o">=</span> <span class="nx">prevRenderedComponent</span><span class="p">.</span><span class="nx">currentElement</span><span class="p">;</span>
+
+    <span class="c1">// Update *own* element</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">currentElement</span> <span class="o">=</span> <span class="nx">nextElement</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">nextElement</span><span class="p">.</span><span class="nx">type</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">nextProps</span> <span class="o">=</span> <span class="nx">nextElement</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+
+    <span class="c1">// Figure out what the next render() output is</span>
+    <span class="kd">var</span> <span class="nx">nextRenderedElement</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">isClass</span><span class="p">(</span><span class="nx">type</span><span class="p">))</span> <span class="p">{</span>
+      <span class="c1">// Component class</span>
+      <span class="c1">// Call the lifecycle if necessary</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">publicInstance</span><span class="p">.</span><span class="nx">componentWillUpdate</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">publicInstance</span><span class="p">.</span><span class="nx">componentWillUpdate</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="c1">// Update the props</span>
+      <span class="nx">publicInstance</span><span class="p">.</span><span class="nx">props</span> <span class="o">=</span> <span class="nx">nextProps</span><span class="p">;</span>
+      <span class="c1">// Re-render</span>
+      <span class="nx">nextRenderedElement</span> <span class="o">=</span> <span class="nx">publicInstance</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Component function</span>
+      <span class="nx">nextRenderedElement</span> <span class="o">=</span> <span class="nx">type</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// ...</span>
+</code></pre></div>
+<p>Next, we can look at the rendered element's <code>type</code>. If the <code>type</code> has not changed since the last render, the component below can also be updated in place.</p>
+<p>For example, if it returned <code>&lt;Button color="red" /&gt;</code> the first time, and <code>&lt;Button color="blue" /&gt;</code> the second time, we can just tell the corresponding internal instance to <code>receive()</code> the next element:</p>
+<div class="highlight"><pre><span></span><code>    <span class="c1">// ...</span>
+
+    <span class="c1">// If the rendered element type has not changed,</span>
+    <span class="c1">// reuse the existing component instance and exit.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">prevRenderedElement</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="nx">nextRenderedElement</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">prevRenderedComponent</span><span class="p">.</span><span class="nx">receive</span><span class="p">(</span><span class="nx">nextRenderedElement</span><span class="p">);</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// ...</span>
+</code></pre></div>
+<p>However, if the next rendered element has a different <code>type</code> than the previously rendered element, we can't update the internal instance. A <code>&lt;button&gt;</code> can't "become" an <code>&lt;input&gt;</code>.</p>
+<p>Instead, we have to unmount the existing internal instance and mount the new one corresponding to the rendered element type. For example, this is what happens when a component that previously rendered a <code>&lt;button /&gt;</code> renders an <code>&lt;input /&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code>    <span class="c1">// ...</span>
+
+    <span class="c1">// If we reached this point, we need to unmount the previously</span>
+    <span class="c1">// mounted component, mount the new one, and swap their nodes.</span>
+
+    <span class="c1">// Find the old node because it will need to be replaced</span>
+    <span class="kd">var</span> <span class="nx">prevNode</span> <span class="o">=</span> <span class="nx">prevRenderedComponent</span><span class="p">.</span><span class="nx">getHostNode</span><span class="p">();</span>
+
+    <span class="c1">// Unmount the old child and mount a new child</span>
+    <span class="nx">prevRenderedComponent</span><span class="p">.</span><span class="nx">unmount</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">nextRenderedComponent</span> <span class="o">=</span> <span class="nx">instantiateComponent</span><span class="p">(</span><span class="nx">nextRenderedElement</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">nextNode</span> <span class="o">=</span> <span class="nx">nextRenderedComponent</span><span class="p">.</span><span class="nx">mount</span><span class="p">();</span>
+
+    <span class="c1">// Replace the reference to the child</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">renderedComponent</span> <span class="o">=</span> <span class="nx">nextRenderedComponent</span><span class="p">;</span>
+
+    <span class="c1">// Replace the old node with the new one</span>
+    <span class="c1">// Note: this is renderer-specific code and</span>
+    <span class="c1">// ideally should live outside of CompositeComponent:</span>
+    <span class="nx">prevNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">replaceChild</span><span class="p">(</span><span class="nx">nextNode</span><span class="p">,</span> <span class="nx">prevNode</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>To sum this up, when a composite component receives a new element, it may either delegate the update to its rendered internal instance, or unmount it and mount a new one in its place.</p>
+<p>There is another condition under which a component will re-mount rather than receive an element, and that is when the element's <code>key</code> has changed. We don't discuss <code>key</code> handling in this document because it adds more complexity to an already complex tutorial.</p>
+<p>Note that we needed to add a method called <code>getHostNode()</code> to the internal instance contract so that it's possible to locate the platform-specific node and replace it during the update. Its implementation is straightforward for both classes:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">CompositeComponent</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+
+  <span class="nx">getHostNode</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Ask the rendered component to provide it.</span>
+    <span class="c1">// This will recursively drill down any composites.</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">renderedComponent</span><span class="p">.</span><span class="nx">getHostNode</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">DOMComponent</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+
+  <span class="nx">getHostNode</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">node</span><span class="p">;</span>
+  <span class="p">}</span>  
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="updating-host-components">Updating Host Components<a class="headerlink" href="#updating-host-components" title="Permanent link">&para;</a></h3>
+<p>Host component implementations, such as <code>DOMComponent</code>, update differently. When they receive an element, they need to update the underlying platform-specific view. In case of React DOM, this means updating the DOM attributes:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">DOMComponent</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+
+  <span class="nx">receive</span><span class="p">(</span><span class="nx">nextElement</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">node</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">prevElement</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentElement</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">prevProps</span> <span class="o">=</span> <span class="nx">prevElement</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">nextProps</span> <span class="o">=</span> <span class="nx">nextElement</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>    
+    <span class="k">this</span><span class="p">.</span><span class="nx">currentElement</span> <span class="o">=</span> <span class="nx">nextElement</span><span class="p">;</span>
+
+    <span class="c1">// Remove old attributes.</span>
+    <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">prevProps</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">propName</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">propName</span> <span class="o">!==</span> <span class="s1">&#39;children&#39;</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">nextProps</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">propName</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">node</span><span class="p">.</span><span class="nx">removeAttribute</span><span class="p">(</span><span class="nx">propName</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="c1">// Set next attributes.</span>
+    <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">propName</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">propName</span> <span class="o">!==</span> <span class="s1">&#39;children&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">node</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="nx">propName</span><span class="p">,</span> <span class="nx">nextProps</span><span class="p">[</span><span class="nx">propName</span><span class="p">]);</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="c1">// ...</span>
+</code></pre></div>
+<p>Then, host components need to update their children. Unlike composite components, they might contain more than a single child.</p>
+<p>In this simplified example, we use an array of internal instances and iterate over it, either updating or replacing the internal instances depending on whether the received <code>type</code> matches their previous <code>type</code>. The real reconciler also takes element's <code>key</code> in the account and track moves in addition to insertions and deletions, but we will omit this logic.</p>
+<p>We collect DOM operations on children in a list so we can execute them in batch:</p>
+<div class="highlight"><pre><span></span><code>    <span class="c1">// ...</span>
+
+    <span class="c1">// These are arrays of React elements:</span>
+    <span class="kd">var</span> <span class="nx">prevChildren</span> <span class="o">=</span> <span class="nx">prevProps</span><span class="p">.</span><span class="nx">children</span> <span class="o">||</span> <span class="p">[];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">prevChildren</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">prevChildren</span> <span class="o">=</span> <span class="p">[</span><span class="nx">prevChildren</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">nextChildren</span> <span class="o">=</span> <span class="nx">nextProps</span><span class="p">.</span><span class="nx">children</span> <span class="o">||</span> <span class="p">[];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">nextChildren</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">nextChildren</span> <span class="o">=</span> <span class="p">[</span><span class="nx">nextChildren</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="c1">// These are arrays of internal instances:</span>
+    <span class="kd">var</span> <span class="nx">prevRenderedChildren</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">renderedChildren</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">nextRenderedChildren</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="c1">// As we iterate over children, we will add operations to the array.</span>
+    <span class="kd">var</span> <span class="nx">operationQueue</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="c1">// Note: the section below is extremely simplified!</span>
+    <span class="c1">// It doesn&#39;t handle reorders, children with holes, or keys.</span>
+    <span class="c1">// It only exists to illustrate the overall flow, not the specifics.</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">nextChildren</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// Try to get an existing internal instance for this child</span>
+      <span class="kd">var</span> <span class="nx">prevChild</span> <span class="o">=</span> <span class="nx">prevRenderedChildren</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+
+      <span class="c1">// If there is no internal instance under this index,</span>
+      <span class="c1">// a child has been appended to the end. Create a new</span>
+      <span class="c1">// internal instance, mount it, and use its node.</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">prevChild</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">nextChild</span> <span class="o">=</span> <span class="nx">instantiateComponent</span><span class="p">(</span><span class="nx">nextChildren</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+        <span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="nx">nextChild</span><span class="p">.</span><span class="nx">mount</span><span class="p">();</span>
+
+        <span class="c1">// Record that we need to append a node</span>
+        <span class="nx">operationQueue</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;ADD&#39;</span><span class="p">,</span> <span class="nx">node</span><span class="p">});</span>
+        <span class="nx">nextRenderedChildren</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">nextChild</span><span class="p">);</span>
+        <span class="k">continue</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="c1">// We can only update the instance if its element&#39;s type matches.</span>
+      <span class="c1">// For example, &lt;Button size=&quot;small&quot; /&gt; can be updated to</span>
+      <span class="c1">// &lt;Button size=&quot;large&quot; /&gt; but not to an &lt;App /&gt;.</span>
+      <span class="kd">var</span> <span class="nx">canUpdate</span> <span class="o">=</span> <span class="nx">prevChildren</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">type</span> <span class="o">===</span> <span class="nx">nextChildren</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">type</span><span class="p">;</span>
+
+      <span class="c1">// If we can&#39;t update an existing instance, we have to unmount it</span>
+      <span class="c1">// and mount a new one instead of it.</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">canUpdate</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">prevNode</span> <span class="o">=</span> <span class="nx">prevChild</span><span class="p">.</span><span class="nx">node</span><span class="p">;</span>
+        <span class="nx">prevChild</span><span class="p">.</span><span class="nx">unmount</span><span class="p">();</span>
+
+        <span class="kd">var</span> <span class="nx">nextChild</span> <span class="o">=</span> <span class="nx">instantiateComponent</span><span class="p">(</span><span class="nx">nextChildren</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+        <span class="kd">var</span> <span class="nx">nextNode</span> <span class="o">=</span> <span class="nx">nextChild</span><span class="p">.</span><span class="nx">mount</span><span class="p">();</span>
+
+        <span class="c1">// Record that we need to swap the nodes</span>
+        <span class="nx">operationQueue</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;REPLACE&#39;</span><span class="p">,</span> <span class="nx">prevNode</span><span class="p">,</span> <span class="nx">nextNode</span><span class="p">});</span>
+        <span class="nx">nextRenderedChildren</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">nextChild</span><span class="p">);</span>
+        <span class="k">continue</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="c1">// If we can update an existing internal instance,</span>
+      <span class="c1">// just let it receive the next element and handle its own update.</span>
+      <span class="nx">prevChild</span><span class="p">.</span><span class="nx">receive</span><span class="p">(</span><span class="nx">nextChildren</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+      <span class="nx">nextRenderedChildren</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">prevChild</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Finally, unmount any children that don&#39;t exist:</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">nextChildren</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">prevChildren</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+     <span class="kd">var</span> <span class="nx">prevChild</span> <span class="o">=</span> <span class="nx">prevRenderedChildren</span><span class="p">[</span><span class="nx">j</span><span class="p">];</span>
+     <span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="nx">prevChild</span><span class="p">.</span><span class="nx">node</span><span class="p">;</span>
+     <span class="nx">prevChild</span><span class="p">.</span><span class="nx">unmount</span><span class="p">();</span>
+
+     <span class="c1">// Record that we need to remove the node</span>
+     <span class="nx">operationQueue</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span><span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;REMOVE&#39;</span><span class="p">,</span> <span class="nx">node</span><span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Point the list of rendered children to the updated version.</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">renderedChildren</span> <span class="o">=</span> <span class="nx">nextRenderedChildren</span><span class="p">;</span>
+
+    <span class="c1">// ...</span>
+</code></pre></div>
+<p>As the last step, we execute the DOM operations. Again, the real reconciler code is more complex because it also handles moves:</p>
+<div class="highlight"><pre><span></span><code>    <span class="c1">// ...</span>
+
+    <span class="c1">// Process the operation queue.</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">operationQueue</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">operation</span> <span class="o">=</span> <span class="nx">operationQueue</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+      <span class="k">switch</span> <span class="p">(</span><span class="nx">operation</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="s1">&#39;ADD&#39;</span><span class="o">:</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">node</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">operation</span><span class="p">.</span><span class="nx">node</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="s1">&#39;REPLACE&#39;</span><span class="o">:</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">node</span><span class="p">.</span><span class="nx">replaceChild</span><span class="p">(</span><span class="nx">operation</span><span class="p">.</span><span class="nx">nextNode</span><span class="p">,</span> <span class="nx">operation</span><span class="p">.</span><span class="nx">prevNode</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="s1">&#39;REMOVE&#39;</span><span class="o">:</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">node</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">operation</span><span class="p">.</span><span class="nx">node</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>And that is it for updating host components.</p>
+<h3 id="top-level-updates">Top-Level Updates<a class="headerlink" href="#top-level-updates" title="Permanent link">&para;</a></h3>
+<p>Now that both <code>CompositeComponent</code> and <code>DOMComponent</code> implement the <code>receive(nextElement)</code> method, we can change the top-level <code>mountTree()</code> function to use it when the element <code>type</code> is the same as it was the last time:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">mountTree</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">containerNode</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Check for an existing tree</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">containerNode</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">prevNode</span> <span class="o">=</span> <span class="nx">containerNode</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">prevRootComponent</span> <span class="o">=</span> <span class="nx">prevNode</span><span class="p">.</span><span class="nx">_internalInstance</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">prevElement</span> <span class="o">=</span> <span class="nx">prevRootComponent</span><span class="p">.</span><span class="nx">currentElement</span><span class="p">;</span>
+
+    <span class="c1">// If we can, reuse the existing root component</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">prevElement</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="nx">element</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">prevRootComponent</span><span class="p">.</span><span class="nx">receive</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+      <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Otherwise, unmount the existing tree</span>
+    <span class="nx">unmountTree</span><span class="p">(</span><span class="nx">containerNode</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// ...</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p>Now calling <code>mountTree()</code> two times with the same type isn't destructive:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">rootEl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">);</span>
+
+<span class="nx">mountTree</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">,</span> <span class="nx">rootEl</span><span class="p">);</span>
+<span class="c1">// Reuses the existing DOM:</span>
+<span class="nx">mountTree</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">,</span> <span class="nx">rootEl</span><span class="p">);</span>
+</code></pre></div>
+<p>These are the basics of how React works internally.</p>
+<h3 id="what-we-left-out">What We Left Out<a class="headerlink" href="#what-we-left-out" title="Permanent link">&para;</a></h3>
+<p>This document is simplified compared to the real codebase. There are a few important aspects we didn't address:</p>
+<ul>
+<li>
+<p>Components can render <code>null</code>, and the reconciler can handle "empty slots" in arrays and rendered output.</p>
+</li>
+<li>
+<p>The reconciler also reads <code>key</code> from the elements, and uses it to establish which internal instance corresponds to which element in an array. A bulk of complexity in the actual React implementation is related to that.</p>
+</li>
+<li>
+<p>In addition to composite and host internal instance classes, there are also classes for "text" and "empty" components. They represent text nodes and the "empty slots" you get by rendering <code>null</code>.</p>
+</li>
+<li>
+<p>Renderers use <a href="/docs/codebase-overview.html#dynamic-injection">injection</a> to pass the host internal class to the reconciler. For example, React DOM tells the reconciler to use <code>ReactDOMComponent</code> as the host internal instance implementation.</p>
+</li>
+<li>
+<p>The logic for updating the list of children is extracted into a mixin called <code>ReactMultiChild</code> which is used by the host internal instance class implementations both in React DOM and React Native.</p>
+</li>
+<li>
+<p>The reconciler also implements support for <code>setState()</code> in composite components. Multiple updates inside event handlers get batched into a single update.</p>
+</li>
+<li>
+<p>The reconciler also takes care of attaching and detaching refs to composite components and host nodes.</p>
+</li>
+<li>
+<p>Lifecycle hooks that are called after the DOM is ready, such as <code>componentDidMount()</code> and <code>componentDidUpdate()</code>, get collected into "callback queues" and are executed in a single batch.</p>
+</li>
+<li>
+<p>React puts information about the current update into an internal object called "transaction". Transactions are useful for keeping track of the queue of pending lifecycle hooks, the current DOM nesting for the warnings, and anything else that is "global" to a specific update. Transactions also ensure React "cleans everything up" after updates. For example, the transaction class provided by React DOM restores the input selection after any update.</p>
+</li>
+</ul>
+<h3 id="jumping-into-the-code">Jumping into the Code<a class="headerlink" href="#jumping-into-the-code" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/dom/client/ReactMount.js"><code>ReactMount</code></a> is where the code like <code>mountTree()</code> and <code>unmountTree()</code> from this tutorial lives. It takes care of mounting and unmounting top-level components. <a href="https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/native/ReactNativeMount.js"><code>ReactNativeMount</code></a> is its React Native analog.</li>
+<li><a href="https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/dom/shared/ReactDOMComponent.js"><code>ReactDOMComponent</code></a> is the equivalent of <code>DOMComponent</code> in this tutorial. It implements the host component class for React DOM renderer. <a href="https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/native/ReactNativeBaseComponent.js"><code>ReactNativeBaseComponent</code></a> is its React Native analog.</li>
+<li><a href="https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/shared/stack/reconciler/ReactCompositeComponent.js"><code>ReactCompositeComponent</code></a> is the equivalent of <code>CompositeComponent</code> in this tutorial. It handles calling user-defined components and maintaining their state.</li>
+<li>
+<p><a href="https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/shared/stack/reconciler/instantiateReactComponent.js"><code>instantiateReactComponent</code></a> contains the switch that picks the right internal instance class to construct for an element. It is equivalent to <code>instantiateComponent()</code> in this tutorial.</p>
+</li>
+<li>
+<p><a href="https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/shared/stack/reconciler/ReactReconciler.js"><code>ReactReconciler</code></a> is a wrapper with <code>mountComponent()</code>, <code>receiveComponent()</code>, and <code>unmountComponent()</code> methods. It calls the underlying implementations on the internal instances, but also includes some code around them that is shared by all internal instance implementations.</p>
+</li>
+<li>
+<p><a href="https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/shared/stack/reconciler/ReactChildReconciler.js"><code>ReactChildReconciler</code></a> implements the logic for mounting, updating, and unmounting children according to the <code>key</code> of their elements.</p>
+</li>
+<li>
+<p><a href="https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/shared/stack/reconciler/ReactMultiChild.js"><code>ReactMultiChild</code></a> implements processing the operation queue for child insertions, deletions, and moves independently of the renderer.</p>
+</li>
+<li>
+<p><code>mount()</code>, <code>receive()</code>, and <code>unmount()</code> are really called <code>mountComponent()</code>, <code>receiveComponent()</code>, and <code>unmountComponent()</code> in React codebase for legacy reasons, but they receive elements.</p>
+</li>
+<li>
+<p>Properties on the internal instances start with an underscore, e.g. <code>_currentElement</code>. They are considered to be read-only public fields throughout the codebase.</p>
+</li>
+</ul>
+<h3 id="future-directions">Future Directions<a class="headerlink" href="#future-directions" title="Permanent link">&para;</a></h3>
+<p>Stack reconciler has inherent limitations such as being synchronous and unable to interrupt the work or split it in chunks. There is a work in progress on the <a href="/docs/codebase-overview.html#fiber-reconciler">new Fiber reconciler</a> with a <a href="https://github.com/acdlite/react-fiber-architecture">completely different architecture</a>. In the future, we intend to replace stack reconciler with it, but at the moment it is far from feature parity.</p>
+<h3 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h3>
+<p>Read the <a href="/docs/design-principles.html">next section</a> to learn about the guiding principles we use for React development.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2155 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/react/react-all/%E8%8B%B1%E6%96%87%E6%96%87%E6%A1%A3/higher-order-components/">
+      
+      <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>高阶组件 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ef5552">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hoc" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              高阶组件
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+      
+      <label class="md-nav__link" for="nav-1">
+        About
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="nav-1">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about/" class="md-nav__link">
+        关于我
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about/log/" class="md-nav__link">
+        学习日志
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        文档结构
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+      
+      <label class="md-nav__link" for="nav-2">
+        Javascript
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Javascript" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          Javascript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/ES6%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8/" class="md-nav__link">
+        ES6 迭代器与生成器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/ES6-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        ES6-阮一峰
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/ES6newFeature/" class="md-nav__link">
+        ES6newFeature
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/JS%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        JS 性能优化
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/JS-testing/" class="md-nav__link">
+        JS-testing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/editor-js/" class="md-nav__link">
+        editor-js
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/es6/" class="md-nav__link">
+        es6
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/%E5%B8%B8%E7%94%A8%E5%88%B0%E7%9A%84ES6%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        常用到的ES6语法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/%E5%89%8D%E7%AB%AF%E8%8B%B1%E8%AF%AD%E5%8D%95%E8%AF%8D/" class="md-nav__link">
+        前端英语单词
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
+        typescript
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="typescript" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          typescript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/01-%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        01-简介
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/02-%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        02-基础
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/03-%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        03-进阶
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/04-%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%BC%80%E5%8F%91-%E6%B5%8B%E8%AF%95%E7%BC%96%E8%AF%91/" class="md-nav__link">
+        04-工程化开发-测试编译
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82TS%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        网易云课堂TS入门
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/01-%E4%B8%8A%E6%89%8BTypeScript/" class="md-nav__link">
+        01-上手TypeScript
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/02-TS-Gulp/" class="md-nav__link">
+        02-TS-Gulp
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/03-JavaScript%E8%BF%81%E7%A7%BB/" class="md-nav__link">
+        03-JavaScript迁移
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/04-React%20%26%20Webpack/" class="md-nav__link">
+        04-React & Webpack
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/TS%20%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/" class="md-nav__link">
+        TS 常见问题整理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/TypeScript%E7%BC%96%E8%AF%91%E5%99%A8%20%E2%80%93%20%E4%B8%BA%E4%BB%80%E4%B9%88%E9%BB%98%E8%AE%A4%E6%83%85%E5%86%B5%E4%B8%8B%E4%B8%8D%E5%90%AF%E7%94%A8downlevelIteration%EF%BC%9F/" class="md-nav__link">
+        TypeScript编译器-downlevelIteration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/typescript%20%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        typescript 编译选项和配置文件
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
+        react
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="react" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          react
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Create-React-App/" class="md-nav__link">
+        Create-React-App.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Data%20grade/" class="md-nav__link">
+        React Data grade.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20FAQ/" class="md-nav__link">
+        React FAQ.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Image%20Lightbox/" class="md-nav__link">
+        React Image Lightbox.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20PureComponent%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        React PureComponent 使用指南.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Router%20%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3%EF%BC%88%E4%B8%80%EF%BC%89/" class="md-nav__link">
+        React Router 中文文档（一）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Router%20%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3%EF%BC%88%E4%BA%8C%EF%BC%89/" class="md-nav__link">
+        React Router 中文文档（二）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20data%20grid/" class="md-nav__link">
+        React data grid.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E7%9A%84%20PureComponent%20%E4%B8%8E%20Component/" class="md-nav__link">
+        React 的 PureComponent 与 Component.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E5%90%84%E7%A7%8Dbug%20%E4%BC%9A%E5%AE%9E%E6%97%B6%E6%9B%B4%E6%96%B0/" class="md-nav__link">
+        React 各种bug 会实时更新.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        React 高阶组件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E6%93%8D%E4%BD%9C%E5%85%83%E7%B4%A0%E7%9A%84API/" class="md-nav__link">
+        React 操作元素的API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/" class="md-nav__link">
+        React 中的事件处理.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E5%BC%BA%E5%88%B6%E6%9B%B4%E6%96%B0%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        React 强制更新组件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Design%20Principles/" class="md-nav__link">
+        React-Design Principles.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Hooks/" class="md-nav__link">
+        React-Hooks.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Router/" class="md-nav__link">
+        React-Router.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Select/" class="md-nav__link">
+        React-Select.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Suspense%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%8E%A2%E8%AE%A8-%E6%B2%A1%E7%9C%8B%E6%98%8E%E7%99%BD/" class="md-nav__link">
+        React-Suspense的实现与探讨-没看明白.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Suspense%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%8E%A2%E8%AE%A8/" class="md-nav__link">
+        React-Suspense的实现与探讨.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-advanced-guides/" class="md-nav__link">
+        React-advanced-guides.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-mentions/" class="md-nav__link">
+        React-mentions.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-%E9%AB%98%E9%98%B6API/" class="md-nav__link">
+        React-高阶API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        React-性能优化.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React.Children%E7%9A%84API/" class="md-nav__link">
+        React.Children的API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React.Component/" class="md-nav__link">
+        React.Component.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React.children%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        React.children介绍.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ReactRouter-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        ReactRouter-阮一峰.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+        React事件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E6%95%B0%E6%8D%AE%E6%B5%81/" class="md-nav__link">
+        React数据流.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E5%BF%AB%E6%8D%B7%E8%BE%93%E5%85%A5/" class="md-nav__link">
+        React快捷输入.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E8%8E%B7%E5%8F%96%E5%B0%BA%E5%AF%B8/" class="md-nav__link">
+        React获取尺寸.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E6%96%B0%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F--getDerivedStateFromProps/" class="md-nav__link">
+        React新生命周期--getDerivedStateFromProps.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E4%B8%AD%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/" class="md-nav__link">
+        React中数据传输.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E6%94%B9%E5%8F%98DOM%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        React点击事件改变DOM方法.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%B5%81%E7%A8%8B%E5%9B%BE/" class="md-nav__link">
+        React生命周期流程图.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Refs%20%26%20DOM/" class="md-nav__link">
+        Refs & DOM.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../TS-React-Webpack/" class="md-nav__link">
+        TS-React-Webpack.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../VS%20Code%20%E5%BF%AB%E6%8D%B7%E8%BE%93%E5%85%A5/" class="md-nav__link">
+        VS Code 快捷输入.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getDerivedStateFromProps%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        getDerivedStateFromProps的使用.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gojs-react/" class="md-nav__link">
+        gojs-react.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../jsx%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        jsx语法.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react%20%E4%B8%AD%E9%80%9A%E8%BF%87ref%E8%8E%B7%E5%8F%96%E9%AB%98%E9%98%B6%EF%BC%88HOC%EF%BC%89%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="md-nav__link">
+        react 中通过ref获取高阶（HOC）子组件实例的解决方案.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react%20%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        react 项目结构及编码规范.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react%2Bgraphql%E5%AE%9E%E7%8E%B0github%20dashboard/" class="md-nav__link">
+        react+graphql实现github dashboard.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-lazy-load/" class="md-nav__link">
+        react-lazy-load.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-mentions-en/" class="md-nav__link">
+        react-mentions-en.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-motion/" class="md-nav__link">
+        react-motion.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-redux/" class="md-nav__link">
+        react-redux.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-responsive/" class="md-nav__link">
+        react-responsive.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-transition-group-%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/" class="md-nav__link">
+        react-transition-group-动画效果.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-transition-group/" class="md-nav__link">
+        react-transition-group.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8A%E7%AF%87%EF%BC%88%E9%A6%96%E6%AC%A1%E6%B8%B2%E6%9F%93%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+        reactjs源码分析-上篇（首次渲染实现原理）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8B%E7%AF%87%EF%BC%88%E6%9B%B4%E6%96%B0%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+        reactjs源码分析-下篇（更新机制实现原理）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reactstrap/" class="md-nav__link">
+        reactstrap.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../readme/" class="md-nav__link">
+        readme.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%AF%B9React%20children%E7%90%86%E8%A7%A3/" class="md-nav__link">
+        对React children理解.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+      
+      <label class="md-nav__link" for="nav-5">
+        工程化
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="工程化" data-md-level="1">
+        <label class="md-nav__title" for="nav-5">
+          <span class="md-nav__icon md-icon"></span>
+          工程化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/BUG-Auto%20packing%20the%20repository%20in%20background%20for%20optimum%20performance/" class="md-nav__link">
+        BUG-Auto packing the repository in background for optimum performance.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/Translation/" class="md-nav__link">
+        Translation.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/docker-basic-use/" class="md-nav__link">
+        docker-basic-use.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/markdown-new-style/" class="md-nav__link">
+        markdown-new-style.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../project/React%20%26%20Webpack/" class="md-nav__link">
+        React & Webpack.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../project/TS-React-Webpack/" class="md-nav__link">
+        TS-React-Webpack.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../project/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7%E7%90%86%E8%AE%BA/" class="md-nav__link">
+        前端监控理论.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+      
+      <label class="md-nav__link" for="nav-6">
+        课程笔记
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="课程笔记" data-md-level="1">
+        <label class="md-nav__title" for="nav-6">
+          <span class="md-nav__icon md-icon"></span>
+          课程笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/00-%E7%9B%AE%E5%BD%95/" class="md-nav__link">
+        00-目录.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/02-v8%E5%BC%95%E6%93%8E%E5%9B%9E%E6%94%B6%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        02-v8引擎回收内存简介.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/03-node%E4%B8%8B%E9%9D%A2%E7%9A%84Restful%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        03-node下面的Restful实现.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/04-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%9A%84%E6%8F%90%E5%8D%87%E2%80%94%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E6%88%91%E4%BB%AC%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7/" class="md-nav__link">
+        04-编程思想的提升—如何提高我们代码的可扩展性.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/06-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8Cssr/" class="md-nav__link">
+        06-浏览器渲染原理和ssr.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/07-%E7%BD%91%E6%98%93%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        07-网易真实项目webpack配置解析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/08-%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90API%E5%B1%82/" class="md-nav__link">
+        08-从架构分析API层.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/09-%E5%89%8D%E7%AB%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        09-前端负责人的工作内容.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/10-%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%E5%AD%A6%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        10-分析源码学架构.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/11-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E9%AB%98%E8%B4%A8%E9%87%8F%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        11-设计模式高质量代码.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/12-nodeJS%2BMongoDB%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        12-nodeJS+MongoDB登录系统.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/12-nodejs-mongodb-mongoose/" class="md-nav__link">
+        12-nodejs-mongodb-mongoose.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/13-%E4%BD%BF%E7%94%A8VUE%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        13-使用VUE创建组件（没学完）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/16-%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        16-构建自己的脚手架工具.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/17-webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
+        17-webpack编译原理分析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/20-%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD-VUE%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        20-组件封装的基本技能-VUE（没学完）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/21-ssr/" class="md-nav__link">
+        21-ssr.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/24-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%A6%82%E4%BD%95%E5%81%9A/" class="md-nav__link">
+        24-单元测试如何做.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/25-%E5%9F%BA%E4%BA%8ENodeJS%E6%89%93%E9%80%A0Web%E6%9E%B6%E6%9E%84%E4%B8%AD%E9%97%B4%E5%B1%82/" class="md-nav__link">
+        25-基于NodeJS打造Web架构中间层.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/26-webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        26-webpack的高级技巧.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hoc" class="md-nav__link">
+    使用高阶组件（HOC）解决交叉问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    不要改变原始组件，使用组合
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#props" class="md-nav__link">
+    约定：将不相关的props属性传递给包裹组件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    约定：最大化使用组合
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    约定：包装显示名字以便于调试
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    注意事项
+  </a>
+  
+    <nav class="md-nav" aria-label="注意事项">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#render" class="md-nav__link">
+    不要在render函数中使用高阶组件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    必须将静态方法做拷贝
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refs" class="md-nav__link">
+    Refs属性不能传递
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/react/react-all/英文文档/higher-order-components.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>高阶组件</h1>
+                
+                <p>高阶组件（HOC）是react中对组件逻辑进行重用的高级技术。但高阶组件本身并不是React API。它只是一种模式，这种模式是由react自身的组合性质必然产生的。</p>
+<p>具体而言，<strong>高阶组件就是一个函数，且该函数接受一个组件作为参数，并返回一个新的组件</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">EnhancedComponent</span> <span class="o">=</span> <span class="nx">higherOrderComponent</span><span class="p">(</span><span class="nx">WrappedComponent</span><span class="p">);</span>
+</code></pre></div>
+<p>对比组件将props属性转变成UI，高阶组件则是将一个组件转换成另一个新组件。</p>
+<p>高阶组件在React第三方库中很常见，比如Redux的<a href="https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options"><code>connect</code></a>方法和Relay的<a href="https://facebook.github.io/relay/docs/api-reference-relay.html#createcontainer-static-method"><code>createContainer</code></a>.</p>
+<p>在本文档中，我们将会讨论为什么高阶组件很有作用，以及该如何实现一个高阶组件。</p>
+<h2 id="hoc">使用高阶组件（HOC）解决交叉问题<a class="headerlink" href="#hoc" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>注意</strong></p>
+<p>我们曾经介绍了混入（mixins）技术来解决交叉问题。现在我们意识到混入（mixins）技术产生的问题要比带来的价值大。<a href="/blog/2016/07/13/mixins-considered-harmful.html">更多资料</a>介绍了为什么我们要移除混入（mixins）技术以及如何转换你已经使用了混入（mixins）技术的组件。</p>
+</blockquote>
+<p>在React中，组件是代码复用的主要单元。然而你会发现，一些模式并不适用传统的组件。</p>
+<p>例如，假设你有一个<code>CommentList</code>组件，该组件从外部数据源订阅数据并渲染评论列表：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">CommentList</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="c1">// &quot;DataSource&quot; 就是全局的数据源</span>
+      <span class="nx">comments</span><span class="o">:</span> <span class="nx">DataSource</span><span class="p">.</span><span class="nx">getComments</span><span class="p">()</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 添加事件处理函数订阅数据</span>
+    <span class="nx">DataSource</span><span class="p">.</span><span class="nx">addChangeListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">componentWillUnmount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 清除事件处理函数</span>
+    <span class="nx">DataSource</span><span class="p">.</span><span class="nx">removeChangeListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleChange</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 任何时候数据发生改变就更新组件</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+      <span class="nx">comments</span><span class="o">:</span> <span class="nx">DataSource</span><span class="p">.</span><span class="nx">getComments</span><span class="p">()</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">comments</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">comment</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">(</span>
+          <span class="o">&lt;</span><span class="nx">Comment</span> <span class="nx">comment</span><span class="o">=</span><span class="p">{</span><span class="nx">comment</span><span class="p">}</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">comment</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span> <span class="o">/&gt;</span>
+        <span class="p">))}</span>
+      <span class="o">&lt;</span><span class="err">/div&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>然后，你又写了一个订阅单个博客文章的组件，该组件遵循类似的模式：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">BlogPost</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">blogPost</span><span class="o">:</span> <span class="nx">DataSource</span><span class="p">.</span><span class="nx">getBlogPost</span><span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="nx">componentDidMount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">DataSource</span><span class="p">.</span><span class="nx">addChangeListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">componentWillUnmount</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">DataSource</span><span class="p">.</span><span class="nx">removeChangeListener</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">handleChange</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+      <span class="nx">blogPost</span><span class="o">:</span> <span class="nx">DataSource</span><span class="p">.</span><span class="nx">getBlogPost</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">TextBlock</span> <span class="nx">text</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">blogPost</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>CommentList</code> 和 <code>BlogPost</code> 组件并不相同 —— 他们调用了 <code>DataSource</code> 的不同方法获取数据，并且他们渲染的输出结果也不相同。但是，他们的大部分实现逻辑是一样的：</p>
+<ul>
+<li>挂载组件时， 向 <code>DataSource</code> 添加一个监听函数。</li>
+<li>在监听函数内， 每当数据源发生变化，都是调用 <code>setState</code>函数设置新数据。</li>
+<li>卸载组件时， 移除监听函数。</li>
+</ul>
+<p>设想一下，在一个大型的应用中，这种从 <code>DataSource</code> 订阅数据并调用 <code>setState</code> 的模式将会一次又一次的发生。我们就可以抽象出一个模式，该模式允许我们在一个地方定义逻辑并且能对所有的组件使用，这就是高阶组件的精华所在。</p>
+<p>我们写一个函数，该函数能够创建类似 <code>CommonList</code> 和 <code>BlogPost</code> 从 <code>DataSource</code> 数据源订阅数据的组件 。该函数接受一个子组件作为其中的一个参数，并从数据源订阅数据作为props属性传入子组件。我们把这个函数取个名字 <code>withSubscription</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">CommentListWithSubscription</span> <span class="o">=</span> <span class="nx">withSubscription</span><span class="p">(</span>
+  <span class="nx">CommentList</span><span class="p">,</span>
+  <span class="p">(</span><span class="nx">DataSource</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">DataSource</span><span class="p">.</span><span class="nx">getComments</span><span class="p">()</span>
+<span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">BlogPostWithSubscription</span> <span class="o">=</span> <span class="nx">withSubscription</span><span class="p">(</span>
+  <span class="nx">BlogPost</span><span class="p">,</span>
+  <span class="p">(</span><span class="nx">DataSource</span><span class="p">,</span> <span class="nx">props</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">DataSource</span><span class="p">.</span><span class="nx">getBlogPost</span><span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>第一个参数是包裹组件（wrapped component），第二个参数会从 <code>DataSource</code>和当前props（译者注：根据代码示例，这里应该是高阶组件的props属性）属性中检索应用需要的数据。</p>
+<p>当 <code>CommentListWithSubscription</code> 和 <code>BlogPostWithSubscription</code> 渲染时, 会向<code>CommentList</code> 和 <code>BlogPost</code> 传递一个 <code>data</code> props属性，该 <code>data</code>属性的数据包含了从 <code>DataSource</code> 检索的最新数据：</p>
+<p>```js{31}
+// 函数接受一个组件参数……
+function withSubscription(WrappedComponent, selectData) {
+  // ……返回另一个新组件……
+  return class extends React.Component {
+    constructor(props) {
+      super(props);
+      this.handleChange = this.handleChange.bind(this);
+      this.state = {
+        data: selectData(DataSource, props)
+      };
+    }</p>
+<div class="codehilite"><pre><span></span><code>componentDidMount() {
+  // ……注意订阅数据……
+  DataSource.addChangeListener(this.handleChange);
+}
+
+componentWillUnmount() {
+  DataSource.removeChangeListener(this.handleChange);
+}
+
+handleChange() {
+  this.setState({
+    data: selectData(DataSource, this.props)
+  });
+}
+
+render() {
+  // ……使用最新的数据渲染组件
+  // 注意此处将已有的props属性传递给原组件
+  return &lt;WrappedComponent data={this.state.data} {...this.props} /&gt;;
+}
+</code></pre></div>
+
+<p>};
+}
+<code>``
+
+注意，高阶组件既不会修改input原组件，也不会使用继承复制input原组件的行为。相反，高阶组件是通过将原组件 *包裹（wrapping）* 在容器组件（container component）里面的方式来 *组合（composes）* 使用原组件。高阶组件就是一个没有副作用的纯函数。
+
+就是这样！包裹组件接收容器组件的所有props属性以及一个新的</code>data<code>属性，并用</code>data<code>属性渲染输出内容。高阶组件并不关心数据是如何以及为什么被使用，而包裹组件也不关心数据来自何处。
+
+因为</code>withSubscription<code>就是一个普通函数，你可以添加任意数量的参数。例如，你或许会想使</code>data<code>属性可配置化，使高阶组件和包裹组件进一步隔离开。或者你想要接收一个参数用于配置</code>shouldComponentUpdate<code>函数，或配置数据源的参数。这些都可以实现，因为高阶组件可以完全控制新组件的定义。
+
+和普通组件一样，</code>withSubscription` 和包裹组件之间的关联是完全基于 props 属性的。这就使为组件切换一个 HOC 变得非常轻松，只要保证备选的几种高阶组件向包裹组件提供是相同类型的 props 属性即可。就像上述这个例子中，在为组件切换数据源时，就会显得非常有用。
+</p>
+<h2 id="_1">不要改变原始组件，使用组合<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>不要在高阶组件内部修改（或以其它方式修改）原组件的原型属性。
+
+<code>js
+function logProps(InputComponent) {
+  InputComponent.prototype.componentWillReceiveProps(nextProps) {
+    console.log('Current props: ', this.props);
+    console.log('Next props: ', nextProps);
+  }
+  // 我们返回的原始组件实际上已经
+  // 被修改了。
+  return InputComponent;
+}
+
+// EnhancedComponent会记录下所有的props属性
+const EnhancedComponent = logProps(InputComponent);</code></p>
+<p>上面的示例有一些问题。首先就是，input组件不能够脱离增强型组件（enhanced component）被重用。更关键的一点是，如果你用另一个高阶组件来转变 <code>EnhancedComponent</code> ，同样的也去改变 <code>componentWillReceiveProps</code> 函数时，第一个高阶组件（即EnhancedComponent）转换的功能就会被覆盖。这样的高阶组件（修改原型的高阶组件）对没有生命周期函数的无状态函数式组件也是无效的。</p>
+<p>更改型高阶组件（mutating HOCs）泄露了组件的抽象性 —— 使用者必须知道他们的具体实现，才能避免与其它高阶组件的冲突。</p>
+<p>不应该修改原组件，高阶组件应该使用组合技术，将input组件包含到容器组件中：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">logProps</span><span class="p">(</span><span class="nx">WrappedComponent</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kd">class</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+    <span class="nx">componentWillReceiveProps</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Current props: &#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">);</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Next props: &#39;</span><span class="p">,</span> <span class="nx">nextProps</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+      <span class="c1">// 用容器组件组合包裹组件且不修改包裹组件，这才是正确的打开方式。</span>
+      <span class="k">return</span> <span class="o">&lt;</span><span class="nx">WrappedComponent</span> <span class="p">{...</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">}</span> <span class="o">/&gt;</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这个组合型高阶组件（译者注：即上面示例高阶组件）和那个更改型高阶组件实现了同样的功能，但组合型高阶组件却避免了发生冲突的可能。组合型高阶组件对类组件和无状态函数式组件适用性同样好。而且，因为它是一个纯函数，它和其它高阶组件，甚至它自身也是可组合的。</p>
+<p>你可能发现了高阶组件和 **容器组件**的相似之处。容器组件是专注于在高层次和低层次关注点之间进行责任划分的策略的一部分。容器组件会处理诸如数据订阅和状态管理等事情，并传递props属性给展示组件。而展示组件则负责处理渲染UI等事情。高阶组件使用容器组件作为实现的一部分。你也可以认为高阶组件就是参数化的容器组件定义。</p>
+<h2 id="props">约定：将不相关的props属性传递给包裹组件<a class="headerlink" href="#props" title="Permanent link">&para;</a></h2>
+<p>高阶组件给组件添加新特性。他们不应该大幅修改原组件的接口（译者注：应该就是props属性）。预期，从高阶组件返回的组件应该与原包裹的组件具有类似的接口。</p>
+<p>高阶组件应该传递与它要实现的功能点无关的props属性。大多数高阶组件都包含一个如下的render函数：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// 过滤掉与高阶函数功能相关的props属性，</span>
+  <span class="c1">// 不再传递</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">extraProp</span><span class="p">,</span> <span class="p">...</span><span class="nx">passThroughProps</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+
+  <span class="c1">// 向包裹组件注入props属性，一般都是高阶组件的state状态</span>
+  <span class="c1">// 或实例方法</span>
+  <span class="kd">const</span> <span class="nx">injectedProp</span> <span class="o">=</span> <span class="nx">someStateOrInstanceMethod</span><span class="p">;</span>
+
+  <span class="c1">// 向包裹组件传递props属性</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">WrappedComponent</span>
+      <span class="nx">injectedProp</span><span class="o">=</span><span class="p">{</span><span class="nx">injectedProp</span><span class="p">}</span>
+      <span class="p">{...</span><span class="nx">passThroughProps</span><span class="p">}</span>
+    <span class="o">/&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这种约定能够确保高阶组件最大程度的灵活性和可重用性。</p>
+<h2 id="_2">约定：最大化使用组合<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>并不是所有的高阶组件看起来都是一样的。有时，它们仅仅接收一个参数，即包裹组件：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">NavbarWithRouter</span> <span class="o">=</span> <span class="nx">withRouter</span><span class="p">(</span><span class="nx">Navbar</span><span class="p">);</span>
+</code></pre></div>
+<p>一般而言，高阶组件会接收额外的参数。在下面这个来自Relay的示例中，可配置对象用于指定组件的数据依赖关系：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">CommentWithRelay</span> <span class="o">=</span> <span class="nx">Relay</span><span class="p">.</span><span class="nx">createContainer</span><span class="p">(</span><span class="nx">Comment</span><span class="p">,</span> <span class="nx">config</span><span class="p">);</span>
+</code></pre></div>
+<p>大部分常见高阶组件的函数签名如下所示：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// React Redux&#39;s `connect`</span>
+<span class="kd">const</span> <span class="nx">ConnectedComment</span> <span class="o">=</span> <span class="nx">connect</span><span class="p">(</span><span class="nx">commentSelector</span><span class="p">,</span> <span class="nx">commentActions</span><span class="p">)(</span><span class="nx">Comment</span><span class="p">);</span>
+</code></pre></div>
+<p><em>这是什么？！</em> 如果你把它剥开，你就很容易看明白到底是怎么回事了。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// connect是一个返回函数的函数（译者注：就是个高阶函数）</span>
+<span class="kd">const</span> <span class="nx">enhance</span> <span class="o">=</span> <span class="nx">connect</span><span class="p">(</span><span class="nx">commentListSelector</span><span class="p">,</span> <span class="nx">commentListActions</span><span class="p">);</span>
+<span class="c1">// 返回的函数就是一个高阶组件，该高阶组件返回一个与Redux store</span>
+<span class="c1">// 关联起来的新组件</span>
+<span class="kd">const</span> <span class="nx">ConnectedComment</span> <span class="o">=</span> <span class="nx">enhance</span><span class="p">(</span><span class="nx">CommentList</span><span class="p">);</span>
+</code></pre></div>
+<p>换句话说，<code>connect</code> 是一个返回高阶组件的高阶函数！</p>
+<p>这种形式有点让人迷惑，有点多余，但是它有一个有用的属性。那就是，类似 <code>connect</code> 函数返回的单参数的高阶组件有着这样的签名格式， <code>Component =&gt; Component</code>.输入和输出类型相同的函数是很容易组合在一起。</p>
+<!-- 对以下代码的个人理解：第一段代码对初始组件进行了两次包装；第二段代码就是函数的柯里化 -->
+
+<div class="highlight"><pre><span></span><code><span class="c1">// 不要这样做……</span>
+<span class="kd">const</span> <span class="nx">EnhancedComponent</span> <span class="o">=</span> <span class="nx">withRouter</span><span class="p">(</span><span class="nx">connect</span><span class="p">(</span><span class="nx">commentSelector</span><span class="p">)(</span><span class="nx">WrappedComponent</span><span class="p">))</span>
+
+<span class="c1">// ……你可以使用一个功能组合工具</span>
+<span class="c1">// compose(f, g, h) 和 (...args) =&gt; f(g(h(...args)))是一样的</span>
+<span class="kd">const</span> <span class="nx">enhance</span> <span class="o">=</span> <span class="nx">compose</span><span class="p">(</span>
+  <span class="c1">// 这些都是单参数的高阶组件</span>
+  <span class="nx">withRouter</span><span class="p">,</span>
+  <span class="nx">connect</span><span class="p">(</span><span class="nx">commentSelector</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="kd">const</span> <span class="nx">EnhancedComponent</span> <span class="o">=</span> <span class="nx">enhance</span><span class="p">(</span><span class="nx">WrappedComponent</span><span class="p">)</span>
+</code></pre></div>
+<p>（<code>connect</code>函数产生的高阶组件和其它增强型高阶组件具有同样的被用作装饰器的能力。）</p>
+<p>包括lodash（比如说<a href="https://lodash.com/docs/#flowRight"><code>lodash.flowRight</code></a>）, <a href="http://redux.js.org/docs/api/compose.html"><code>Redux</code></a> 和 <a href="http://ramdajs.com/docs/#compose"><code>Ramda</code></a>在内的许多第三方库都提供了类似<code>compose</code>功能的函数。</p>
+<h2 id="_3">约定：包装显示名字以便于调试<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>高阶组件创建的容器组件在<a href="https://github.com/facebook/react-devtools"><code>React Developer Tools</code></a>中的表现和其它的普通组件是一样的。为了便于调试，可以选择一个好的名字，确保能够识别出它是由高阶组件创建的新组件还是普通的组件。</p>
+<p>最常用的技术就是将包裹组件的名字包装在显示名字中。所以，如果你的高阶组件名字是 <code>withSubscription</code>，且包裹组件的显示名字是 <code>CommentList</code>，那么就是用 <code>WithSubscription(CommentList)</code>这样的显示名字：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">withSubscription</span><span class="p">(</span><span class="nx">WrappedComponent</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">class</span> <span class="nx">WithSubscription</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span><span class="cm">/* ... */</span><span class="p">}</span>
+  <span class="nx">WithSubscription</span><span class="p">.</span><span class="nx">displayName</span> <span class="o">=</span> <span class="sb">`WithSubscription(</span><span class="si">${</span><span class="nx">getDisplayName</span><span class="p">(</span><span class="nx">WrappedComponent</span><span class="p">)</span><span class="si">}</span><span class="sb">)`</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">WithSubscription</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">getDisplayName</span><span class="p">(</span><span class="nx">WrappedComponent</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">WrappedComponent</span><span class="p">.</span><span class="nx">displayName</span> <span class="o">||</span> <span class="nx">WrappedComponent</span><span class="p">.</span><span class="nx">name</span> <span class="o">||</span> <span class="s1">&#39;Component&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_4">注意事项<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>如果你是React新手，你要知道高阶组件自身也有一些不是太明显的使用注意事项。</p>
+<h3 id="render">不要在render函数中使用高阶组件<a class="headerlink" href="#render" title="Permanent link">&para;</a></h3>
+<p>React使用的差异算法（称为协调）使用组件标识确定是否更新现有的子对象树或丢掉现有的子树并重新挂载。如果render函数返回的组件和之前render函数返回的组件是相同的，React就递归地比较新子对象树和旧的子对象树的差异，并更新旧的子对象树。如果它们不相等，就会完全卸载掉旧的子对象树。</p>
+<p>一般而言，你不需要考虑这些细节东西。但是它对高阶函数的使用有影响，那就是你不能在组件的render函数中调用高阶函数：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// 每一次render函数调用都会创建一个新的EnhancedComponent实例</span>
+  <span class="c1">// EnhancedComponent1 !== EnhancedComponent2</span>
+  <span class="kd">const</span> <span class="nx">EnhancedComponent</span> <span class="o">=</span> <span class="nx">enhance</span><span class="p">(</span><span class="nx">MyComponent</span><span class="p">);</span>
+  <span class="c1">// 每一次都会使子对象树完全被卸载或移除</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">EnhancedComponent</span> <span class="o">/&gt;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这里产生的问题不仅仅是性能问题 —— 还有，重新加载一个组件会引起原有组件的所有状态和子组件丢失。</p>
+<p>相反，在组件定义外使用高阶组件，可以使新组件只出现一次定义。在渲染的整个过程中，保证都是同一个组件。无论在任何情况下，这都是最好的使用方式。</p>
+<p>在很少的情况下，你可能需要动态的调用高阶组件。那么你就可以在组件的构造函数或生命周期函数中调用。</p>
+<h3 id="_5">必须将静态方法做拷贝<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>有时，给组件定义静态方法是十分有用的。例如，Relay的容器就开放了一个静态方法 <code>getFragment</code>便于组合GraphQL的代码片段。</p>
+<p>当使用高阶组件包装组件，原始组件被容器组件包裹，也就意味着新组件会丢失原始组件的所有静态方法。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 定义静态方法</span>
+<span class="nx">WrappedComponent</span><span class="p">.</span><span class="nx">staticMethod</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="cm">/*...*/</span><span class="p">}</span>
+<span class="c1">// 使用高阶组件</span>
+<span class="kd">const</span> <span class="nx">EnhancedComponent</span> <span class="o">=</span> <span class="nx">enhance</span><span class="p">(</span><span class="nx">WrappedComponent</span><span class="p">);</span>
+
+<span class="c1">// 增强型组件没有静态方法</span>
+<span class="k">typeof</span> <span class="nx">EnhancedComponent</span><span class="p">.</span><span class="nx">staticMethod</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span> <span class="c1">// true</span>
+</code></pre></div>
+<p>解决这个问题的方法就是，将原始组件的所有静态方法全部拷贝给新组件：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">enhance</span><span class="p">(</span><span class="nx">WrappedComponent</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">class</span> <span class="nx">Enhance</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span><span class="cm">/*...*/</span><span class="p">}</span>
+  <span class="c1">// 必须得知道要拷贝的方法 :(</span>
+  <span class="nx">Enhance</span><span class="p">.</span><span class="nx">staticMethod</span> <span class="o">=</span> <span class="nx">WrappedComponent</span><span class="p">.</span><span class="nx">staticMethod</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">Enhance</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这样做，就需要你清楚的知道都有哪些静态方法需要拷贝。你可以使用<a href="https://github.com/mridgway/hoist-non-react-statics">hoist-non-react-statics</a>来帮你自动处理，它会自动拷贝所有非React的静态方法：</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nx">hoistNonReactStatic</span> <span class="nx">from</span> <span class="s1">&#39;hoist-non-react-statics&#39;</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">enhance</span><span class="p">(</span><span class="nx">WrappedComponent</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">class</span> <span class="nx">Enhance</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span><span class="cm">/*...*/</span><span class="p">}</span>
+  <span class="nx">hoistNonReactStatic</span><span class="p">(</span><span class="nx">Enhance</span><span class="p">,</span> <span class="nx">WrappedComponent</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">Enhance</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>另外一个可能的解决方案就是分别导出组件自身的静态方法。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 替代……</span>
+<span class="nx">MyComponent</span><span class="p">.</span><span class="nx">someFunction</span> <span class="o">=</span> <span class="nx">someFunction</span><span class="p">;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">MyComponent</span><span class="p">;</span>
+
+<span class="c1">// ……分别导出……</span>
+<span class="k">export</span> <span class="p">{</span> <span class="nx">someFunction</span> <span class="p">};</span>
+
+<span class="c1">// ……在要使用的组件中导入</span>
+<span class="k">import</span> <span class="nx">MyComponent</span><span class="p">,</span> <span class="p">{</span> <span class="nx">someFunction</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./MyComponent.js&#39;</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="refs">Refs属性不能传递<a class="headerlink" href="#refs" title="Permanent link">&para;</a></h3>
+<p>一般来说，高阶组件可以传递所有的props属性给包裹的组件，但是不能传递refs引用。因为并不是像<code>key</code>一样，refs是一个伪属性，React对它进行了特殊处理。如果你向一个由高阶组件创建的组件的元素添加ref应用，那么ref指向的是最外层容器组件实例的，而不是包裹组件。</p>
+<p>如果你碰到了这样的问题，最理想的处理方案就是搞清楚如何避免使用 <code>ref</code>。有时候，没有看过React示例的新用户在某种场景下使用prop属性要好过使用ref。</p>
+<p>现在我们提供一个名为 <code>React.forwardRef</code> 的 API 来解决这一问题（在 React 16.3 版本中）。<a href="/docs/forwarding-refs.html">在 refs 传递章节中了解详情</a>。</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>

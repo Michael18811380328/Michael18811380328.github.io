@@ -1,0 +1,978 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/ebook-JSES6-RYF/17-%E9%81%8D%E5%8E%86%E5%99%A8%E7%9A%84%E5%BE%AA%E7%8E%AF/">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>17 遍历器的循环 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#17" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              17 遍历器的循环
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+      
+      <label class="md-nav__link" for="nav-1">
+        人生思考
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="人生思考" data-md-level="1">
+        <label class="md-nav__title" for="nav-1">
+          <span class="md-nav__icon md-icon"></span>
+          人生思考
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../40%E9%80%80%E4%BC%91/" class="md-nav__link">
+        40退休.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Poor-and-busy/" class="md-nav__link">
+        Poor-and-busy.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reflections%20on%20Pre-Tirement/" class="md-nav__link">
+        Reflections on Pre-Tirement.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../The%20art%20of%20Execution%20%E6%89%A7%E8%A1%8C%E5%8A%9B%E7%9A%84%E8%89%BA%E6%9C%AF/" class="md-nav__link">
+        The art of Execution 执行力的艺术.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../b%E8%AE%A1%E5%88%92/" class="md-nav__link">
+        b计划.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%86%B5%E5%A2%9E/" class="md-nav__link">
+        熵增.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%AA%E4%BA%BA%E9%80%89%E6%8B%A9/" class="md-nav__link">
+        个人选择.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E7%94%9F%E7%9C%9F%E7%9B%B8/" class="md-nav__link">
+        人生真相.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%B9%E5%B0%BC%E6%96%AF%E4%B8%8EUnix/" class="md-nav__link">
+        丹尼斯与Unix.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%A9%B9%E5%AE%8F%E5%BF%97%E8%AF%BB%E4%B9%A6/" class="md-nav__link">
+        詹宏志读书.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%AA%A1%E5%AD%90%E5%92%8C%E4%BA%BA%E7%94%9F/" class="md-nav__link">
+        骡子和人生.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A6%82%E4%BD%95%E5%8F%98%E5%BE%97%E5%BC%BA%E5%A4%A7/" class="md-nav__link">
+        如何变得强大.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%93%E4%B8%9A%E6%95%99%E8%82%B2%E7%9A%84%E5%85%B4%E8%B5%B7/" class="md-nav__link">
+        专业教育的兴起.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%AD%E5%9B%BD%E7%BB%8F%E6%B5%8E%E7%9A%84%E8%BD%AC%E5%8F%98/" class="md-nav__link">
+        中国经济的转变.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%95%E5%A3%AB%E5%AD%A6%E4%BD%8D%E7%9A%84%E8%B4%AC%E5%80%BC/" class="md-nav__link">
+        硕士学位的贬值.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BB%BB%E6%AD%A3%E9%9D%9E%E7%9A%84%E7%AE%A1%E7%90%86%E6%80%9D%E6%83%B3/" class="md-nav__link">
+        任正非的管理思想.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%8A%80%E6%9C%AF%E5%92%8C%E7%A8%B3%E5%AE%9A%E7%9A%84%E5%B7%A5%E4%BD%9C/" class="md-nav__link">
+        技术和稳定的工作.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E5%AD%A6%E6%95%99%E8%82%B2%E5%92%8C%E7%BD%91%E7%BB%9C%E6%96%87%E5%87%AD/" class="md-nav__link">
+        大学教育和网络文凭.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E5%88%B0%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        思维导图到深度学习.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E4%B8%9A%E6%96%87%E6%98%8E%E5%AF%B9%E4%BA%8E%E7%A4%BE%E4%BC%9A%E7%9A%84%E5%86%B2%E5%87%BB/" class="md-nav__link">
+        工业文明对于社会的冲击.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E5%92%8C%E5%AF%B9%E6%95%B0%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83/" class="md-nav__link">
+        正态分布和对数正态分布.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    遍历器
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    使用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generator" class="md-nav__link">
+    Generator 函数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forof" class="md-nav__link">
+    for...of
+  </a>
+  
+    <nav class="md-nav" aria-label="for...of">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    数组
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-map" class="md-nav__link">
+    Set 和 Map
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    参数方法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    伪数组和字符串
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    对象
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    与其他遍历比较
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/ebook-JSES6-RYF/17-遍历器的循环.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="17">17 遍历器的循环<a class="headerlink" href="#17" title="Permanent link">&para;</a></h1>
+<h2 id="_1">遍历器<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Iterator 遍历器，表示“集合”的数据结构，主要是 array map set。Iterator 是这四个集合数据结构的公共接口。可以使用 for-of 循环遍历这四个类型。</p>
+<p>for-of 遍历原理：Iterator会创建一个指针对象，这个对象具有next的方法和done的属性。遍历过程中不断调用next，指向后面一个项，none表示后面是否有多余的项。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">makeIterator</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">nextIndex</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">next</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">nextIndex</span> <span class="o">&lt;</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">?</span> <span class="p">{</span><span class="nx">value</span><span class="o">:</span><span class="nx">array</span><span class="p">[</span><span class="nx">nextIndex</span><span class="o">++</span><span class="p">]}</span> <span class="o">:</span> <span class="p">{</span><span class="nx">done</span><span class="o">:</span> <span class="kc">true</span><span class="p">};</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>如果一个变量可遍历（itarable）具有 Symbol.iterator 属性。具有遍历属性的是：Array, Map, Set, String, TypedArray, arguments,nodeList。可以直接使用 for-of 循环遍历，遍历结果的顺序是确定的。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">iterable</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="mf">0</span><span class="o">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span>
+  <span class="mf">1</span><span class="o">:</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span>
+  <span class="nx">length</span><span class="o">:</span> <span class="mf">2</span><span class="p">,</span>
+  <span class="p">[</span><span class="nb">Symbol</span><span class="p">.</span><span class="nx">iterator</span><span class="p">]</span><span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">[</span><span class="nb">Symbol</span><span class="p">.</span><span class="nx">iterator</span><span class="p">]</span>
+<span class="p">};</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">item</span> <span class="k">of</span> <span class="nx">iterable</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="_2">使用<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>for...of... 循环</p>
+</li>
+<li>
+<p>解构赋值和扩展运算符</p>
+</li>
+</ol>
+<p>只要部署了遍历器的对象，就可以使用解构赋值和扩展运算符</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">set</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">();</span>
+<span class="nx">set</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">);</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="nx">set</span><span class="p">;</span>
+<span class="c1">// x =&gt; a y =&gt; b</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">first</span><span class="p">,</span> <span class="p">...</span><span class="nx">rest</span><span class="p">]</span> <span class="o">=</span> <span class="nx">set</span><span class="p">;</span>
+<span class="c1">// first =&gt; a, rest =&gt; [b, c]</span>
+
+<span class="kd">let</span> <span class="nx">atr</span> <span class="o">=</span> <span class="s1">&#39;hi&#39;</span><span class="p">;</span>
+<span class="p">[...</span><span class="nx">str</span><span class="p">]</span> <span class="c1">// [&#39;h&#39;, &#39;i&#39;]</span>
+
+<span class="kd">let</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">];</span>
+<span class="kd">let</span> <span class="nx">arr3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">...</span><span class="nx">arr2</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">];</span>
+</code></pre></div>
+
+<ol>
+<li>构造器函数</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">generator</span> <span class="o">=</span> <span class="kd">function</span><span class="o">*</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">yield</span> <span class="mf">1</span><span class="p">;</span>
+  <span class="k">yield</span><span class="o">*</span> <span class="p">[</span><span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">,</span> <span class="mf">4</span><span class="p">];</span>
+  <span class="k">yield</span> <span class="mf">5</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kd">let</span> <span class="nx">iterator</span> <span class="o">=</span> <span class="nx">generator</span><span class="p">();</span>
+<span class="nx">iterator</span><span class="p">.</span><span class="nx">next</span><span class="p">()</span> <span class="c1">// { value: 1, done: false }</span>
+</code></pre></div>
+
+<ol>
+<li>其他使用
+   Array.from()
+   Map(), Set(), WeakMap(), WeakSet()（比如new Map([['a',1],['b',2]])）
+   Promise.all()
+   Promise.race()</li>
+</ol>
+<h2 id="generator">Generator 函数<a class="headerlink" href="#generator" title="Permanent link">&para;</a></h2>
+<p><code>Symbol.iterator</code>方法的最简单实现</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">myIterable</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="p">[</span><span class="nb">Symbol</span><span class="p">.</span><span class="nx">iterator</span><span class="p">]</span><span class="o">:</span> <span class="kd">function</span><span class="o">*</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">yield</span> <span class="mf">1</span><span class="p">;</span>
+    <span class="k">yield</span> <span class="mf">2</span><span class="p">;</span>
+    <span class="k">yield</span> <span class="mf">3</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="p">[...</span><span class="nx">myIterable</span><span class="p">]</span> <span class="c1">// [1, 2, 3]</span>
+
+<span class="c1">// 或者下面的简洁写法</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="o">*</span> <span class="p">[</span><span class="nb">Symbol</span><span class="p">.</span><span class="nx">iterator</span><span class="p">]()</span> <span class="p">{</span>
+    <span class="k">yield</span><span class="o">:</span> <span class="s1">&#39;hello&#39;</span><span class="p">;</span>
+    <span class="k">yield</span><span class="o">:</span> <span class="s1">&#39;world&#39;</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>上面代码中，<code>Symbol.iterator</code>方法几乎不用部署任何代码，只要用 yield 命令给出每一步的返回值即可。</p>
+<h2 id="forof">for...of<a class="headerlink" href="#forof" title="Permanent link">&para;</a></h2>
+<p>ES6 引入了<code>for...of</code>循环，作为遍历所有数据结构的统一的方法。一个数据结构只要部署了<code>Symbol.iterator</code>属性，就被视为具有 iterator 接口，就可以用<code>for...of</code>循环遍历它的成员。也就是说，<code>for...of</code>循环内部调用的是数据结构的<code>Symbol.iterator</code>方法。</p>
+<p><code>for...of</code>循环可以使用的范围包括数组、Set 和 Map 结构、某些类似数组的对象（比如<code>arguments</code>对象、DOM NodeList 对象）、后文的 Generator 对象，以及字符串。</p>
+<h3 id="_3">数组<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>可以遍历获取数组的每一项</p>
+<p>数组原生具备<code>iterator</code>接口（即默认部署了<code>Symbol.iterator</code>属性），<code>for...of</code>循环本质上就是调用这个接口产生的遍历器。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">];</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">v</span> <span class="k">of</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">v</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><code>for...of</code>循环可以代替数组实例的<code>forEach</code>方法。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">];</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span> <span class="c1">// red green blue</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">index</span><span class="p">);</span>   <span class="c1">// 0 1 2</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>JavaScript 原有的<code>for...in</code>循环，只能获得对象的键名，不能直接获取键值。ES6 提供<code>for...of</code>循环，允许遍历获得键值。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">];</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">a</span> <span class="k">of</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span> <span class="c1">// a b c d</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>上面代码表明，<code>for...in</code>循环读取键名，<code>for...of</code>循环读取键值。如果要通过<code>for...of</code>循环，获取数组的索引，可以借助数组实例的<code>entries</code>方法和<code>keys</code>方法。</p>
+<p><code>for...of</code>循环调用遍历器接口，数组的遍历器接口只返回具有数字索引的属性。这一点跟<code>for...in</code>循环也不一样。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="mf">7</span><span class="p">];</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">foo</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span> <span class="c1">// &quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;foo&quot;</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="k">of</span> <span class="nx">arr</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span> <span class="c1">//  &quot;3&quot;, &quot;5&quot;, &quot;7&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>上面代码中，<code>for...of</code>循环不会返回数组<code>arr</code>的<code>foo</code>属性。</p>
+<h3 id="set-map">Set 和 Map<a class="headerlink" href="#set-map" title="Permanent link">&para;</a></h3>
+<p>Set 和 Map 结构也原生具有 Iterator 接口，可以直接使用<code>for...of</code>循环。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="nx">engines</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">([</span><span class="s2">&quot;Gecko&quot;</span><span class="p">,</span> <span class="s2">&quot;Trident&quot;</span><span class="p">,</span> <span class="s2">&quot;Webkit&quot;</span><span class="p">,</span> <span class="s2">&quot;Webkit&quot;</span><span class="p">]);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">e</span> <span class="k">of</span> <span class="nx">engines</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">es6</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">();</span>
+<span class="nx">es6</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;edition&quot;</span><span class="p">,</span> <span class="mf">6</span><span class="p">);</span>
+<span class="nx">es6</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;committee&quot;</span><span class="p">,</span> <span class="s2">&quot;TC39&quot;</span><span class="p">);</span>
+<span class="nx">es6</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;standard&quot;</span><span class="p">,</span> <span class="s2">&quot;ECMA-262&quot;</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="p">[</span><span class="nx">name</span><span class="p">,</span> <span class="nx">value</span><span class="p">]</span> <span class="k">of</span> <span class="nx">es6</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nx">value</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>首先，遍历的顺序是按照各个成员被添加进数据结构的顺序。其次，Set 结构遍历时，返回的是一个值，而 Map 结构遍历时，返回的是一个数组，该数组的两个成员分别为当前 Map 成员的键名和键值。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">().</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mf">1</span><span class="p">).</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="mf">2</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">pair</span> <span class="k">of</span> <span class="nx">map</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">pair</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// [&#39;a&#39;, 1]</span>
+<span class="c1">// [&#39;b&#39;, 2]</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">]</span> <span class="k">of</span> <span class="nx">map</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span> <span class="o">+</span> <span class="s1">&#39; : &#39;</span> <span class="o">+</span> <span class="nx">value</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// a : 1</span>
+<span class="c1">// b : 2</span>
+</code></pre></div>
+
+<h3 id="_4">参数方法<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>有些数据结构是在现有数据结构的基础上，计算生成的。比如，ES6 的数组、Set、Map 都部署了以下三个方法，调用后都返回遍历器对象。</p>
+<ul>
+<li><code>entries()</code> 返回一个遍历器对象，用来遍历<code>[键名, 键值]</code>组成的数组。对于数组，键名就是索引值；对于 Set，键名与键值相同。Map 结构的 Iterator 接口，默认就是调用<code>entries</code>方法。</li>
+<li><code>keys()</code> 返回一个遍历器对象，用来遍历所有的键名。</li>
+<li><code>values()</code> 返回一个遍历器对象，用来遍历所有的键值。</li>
+</ul>
+<p>这三个方法调用后生成的遍历器对象，所遍历的都是计算生成的数据结构。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">];</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">pair</span> <span class="k">of</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">entries</span><span class="p">())</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">pair</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// [0, &#39;a&#39;]</span>
+<span class="c1">// [1, &#39;b&#39;]</span>
+<span class="c1">// [2, &#39;c&#39;]</span>
+</code></pre></div>
+
+<h3 id="_5">伪数组和字符串<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>类似数组的对象包括好几类。下面是<code>for...of</code>循环用于字符串、DOM NodeList 对象、<code>arguments</code>对象的例子。</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 字符串</span>
+<span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">s</span> <span class="k">of</span> <span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span> <span class="c1">// h e l l o</span>
+<span class="p">}</span>
+
+<span class="c1">// DOM NodeList对象</span>
+<span class="kd">let</span> <span class="nx">paras</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">p</span> <span class="k">of</span> <span class="nx">paras</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">p</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// arguments对象</span>
+<span class="kd">function</span> <span class="nx">printArgs</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">x</span> <span class="k">of</span> <span class="nx">arguments</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">printArgs</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">);</span>
+<span class="c1">// &#39;a&#39;</span>
+<span class="c1">// &#39;b&#39;</span>
+</code></pre></div>
+
+<p>对于字符串来说，<code>for...of</code>循环还有一个特点，就是会正确识别 32 位 UTF-16 字符。</p>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">x</span> <span class="k">of</span> <span class="s1">&#39;a\uD83D\uDC0A&#39;</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// &#39;a&#39;</span>
+<span class="c1">// &#39;\uD83D\uDC0A&#39;</span>
+</code></pre></div>
+
+<p>并不是所有类似数组的对象都具有 Iterator 接口，解决方法，就是使用<code>Array.from</code>方法将其转为数组。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">arrayLike</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">length</span><span class="o">:</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">0</span><span class="o">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mf">1</span><span class="o">:</span> <span class="s1">&#39;b&#39;</span> <span class="p">};</span>
+
+<span class="c1">// 报错</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">x</span> <span class="k">of</span> <span class="nx">arrayLike</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 正确</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">x</span> <span class="k">of</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nx">arrayLike</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="_6">对象<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>对于普通的对象，<code>for...of</code>结构不能直接使用，会报错，必须部署了 Iterator 接口后才能使用。但是，这样情况下，<code>for...in</code>循环依然可以用来遍历键名。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">es6</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">edition</span><span class="o">:</span> <span class="mf">6</span><span class="p">,</span>
+  <span class="nx">committee</span><span class="o">:</span> <span class="s2">&quot;TC39&quot;</span><span class="p">,</span>
+  <span class="nx">standard</span><span class="o">:</span> <span class="s2">&quot;ECMA-262&quot;</span>
+<span class="p">};</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">es6</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// edition</span>
+<span class="c1">// committee</span>
+<span class="c1">// standard</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">e</span> <span class="k">of</span> <span class="nx">es6</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// TypeError: es6[Symbol.iterator] is not a function</span>
+</code></pre></div>
+
+<p>上面代码表示，对于==普通的对象==，<code>for...in</code>循环可以遍历键名，<code>for...of</code>循环会报错。</p>
+<p>一种解决方法是，使用<code>Object.keys</code>方法将对象的键名生成一个数组，然后遍历这个数组。</p>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">key</span> <span class="k">of</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">obj</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">key</span><span class="p">])</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">key</span> <span class="k">of</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">obj</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>另一个方法是使用 Generator 函数将对象重新包装一下。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="o">*</span> <span class="nx">entries</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">key</span> <span class="k">of</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">obj</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">yield</span> <span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">key</span><span class="p">]];</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">]</span> <span class="k">of</span> <span class="nx">entries</span><span class="p">(</span><span class="nx">obj</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span><span class="o">*</span> <span class="nx">entries</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">key</span> <span class="k">of</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">obj</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">yield</span> <span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">key</span><span class="p">]];</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">]</span> <span class="k">of</span> <span class="nx">entries</span><span class="p">(</span><span class="nx">obj</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="_7">与其他遍历比较<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>以数组为例，JavaScript 提供多种遍历语法。</p>
+<p>1、for</p>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">index</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">index</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">index</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">index</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>2、简单方法：<code>forEach</code>方法。问题，无法中途跳出<code>forEach</code>循环，<code>break</code>命令或<code>return</code>命令都不能奏效。</p>
+<div class="codehilite"><pre><span></span><code><span class="nx">myArray</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>3、<code>for...in</code>循环可以遍历数组的键名。</p>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">index</span> <span class="k">in</span> <span class="nx">myArray</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">myArray</span><span class="p">[</span><span class="nx">index</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><code>for...in</code>循环有几个缺点。</p>
+<ul>
+<li>数组的键名是数字，但是<code>for...in</code>循环是以字符串作为键名“0”、“1”、“2”等等。</li>
+<li><code>for...in</code>循环不仅遍历数字键名，还会遍历手动添加的其他键，甚至包括原型链上的键。</li>
+<li>某些情况下，<code>for...in</code>循环会以任意顺序遍历键名。</li>
+</ul>
+<p>总之==，<code>for...in</code>循环主要是为遍历对象而设计的，不适用于遍历数组==。</p>
+<p>4、<code>for...of</code>循环相比上面几种做法，有一些显著的优点。</p>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">myArray</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ul>
+<li>有着同<code>for...in</code>一样的简洁语法，但是没有<code>for...in</code>那些缺点。</li>
+<li>不同于<code>forEach</code>方法，它可以与<code>break</code>、<code>continue</code>和<code>return</code>配合使用。</li>
+<li>提供了遍历所有数据结构的统一操作接口。</li>
+</ul>
+<p>下面是一个使用 break 语句，跳出<code>for...of</code>循环的例子。</p>
+<div class="codehilite"><pre><span></span><code><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">n</span> <span class="k">of</span> <span class="nx">fibonacci</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&gt;</span> <span class="mf">1000</span><span class="p">)</span>
+    <span class="k">break</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>

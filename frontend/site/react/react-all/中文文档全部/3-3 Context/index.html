@@ -1,0 +1,2317 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/react/react-all/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3%E5%85%A8%E9%83%A8/3-3%20Context/">
+      
+      <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>Context - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ef5552">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#context" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              Context
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+      
+      <label class="md-nav__link" for="nav-1">
+        About
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="nav-1">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about/" class="md-nav__link">
+        关于我
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about/log/" class="md-nav__link">
+        学习日志
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        文档结构
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+      
+      <label class="md-nav__link" for="nav-2">
+        Javascript
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Javascript" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          Javascript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/ES6%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8/" class="md-nav__link">
+        ES6 迭代器与生成器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/ES6-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        ES6-阮一峰
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/ES6newFeature/" class="md-nav__link">
+        ES6newFeature
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/JS%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        JS 性能优化
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/JS-testing/" class="md-nav__link">
+        JS-testing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/editor-js/" class="md-nav__link">
+        editor-js
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/es6/" class="md-nav__link">
+        es6
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/%E5%B8%B8%E7%94%A8%E5%88%B0%E7%9A%84ES6%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        常用到的ES6语法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/%E5%89%8D%E7%AB%AF%E8%8B%B1%E8%AF%AD%E5%8D%95%E8%AF%8D/" class="md-nav__link">
+        前端英语单词
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
+        typescript
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="typescript" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          typescript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/01-%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        01-简介
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/02-%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        02-基础
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/03-%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        03-进阶
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/04-%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%BC%80%E5%8F%91-%E6%B5%8B%E8%AF%95%E7%BC%96%E8%AF%91/" class="md-nav__link">
+        04-工程化开发-测试编译
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82TS%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        网易云课堂TS入门
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/01-%E4%B8%8A%E6%89%8BTypeScript/" class="md-nav__link">
+        01-上手TypeScript
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/02-TS-Gulp/" class="md-nav__link">
+        02-TS-Gulp
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/03-JavaScript%E8%BF%81%E7%A7%BB/" class="md-nav__link">
+        03-JavaScript迁移
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/04-React%20%26%20Webpack/" class="md-nav__link">
+        04-React & Webpack
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/TS%20%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/" class="md-nav__link">
+        TS 常见问题整理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/TypeScript%E7%BC%96%E8%AF%91%E5%99%A8%20%E2%80%93%20%E4%B8%BA%E4%BB%80%E4%B9%88%E9%BB%98%E8%AE%A4%E6%83%85%E5%86%B5%E4%B8%8B%E4%B8%8D%E5%90%AF%E7%94%A8downlevelIteration%EF%BC%9F/" class="md-nav__link">
+        TypeScript编译器-downlevelIteration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/typescript%20%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        typescript 编译选项和配置文件
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
+        react
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="react" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          react
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Create-React-App/" class="md-nav__link">
+        Create-React-App.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Data%20grade/" class="md-nav__link">
+        React Data grade.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20FAQ/" class="md-nav__link">
+        React FAQ.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Image%20Lightbox/" class="md-nav__link">
+        React Image Lightbox.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20PureComponent%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        React PureComponent 使用指南.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Router%20%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3%EF%BC%88%E4%B8%80%EF%BC%89/" class="md-nav__link">
+        React Router 中文文档（一）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Router%20%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3%EF%BC%88%E4%BA%8C%EF%BC%89/" class="md-nav__link">
+        React Router 中文文档（二）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20data%20grid/" class="md-nav__link">
+        React data grid.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E7%9A%84%20PureComponent%20%E4%B8%8E%20Component/" class="md-nav__link">
+        React 的 PureComponent 与 Component.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E5%90%84%E7%A7%8Dbug%20%E4%BC%9A%E5%AE%9E%E6%97%B6%E6%9B%B4%E6%96%B0/" class="md-nav__link">
+        React 各种bug 会实时更新.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        React 高阶组件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E6%93%8D%E4%BD%9C%E5%85%83%E7%B4%A0%E7%9A%84API/" class="md-nav__link">
+        React 操作元素的API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/" class="md-nav__link">
+        React 中的事件处理.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E5%BC%BA%E5%88%B6%E6%9B%B4%E6%96%B0%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        React 强制更新组件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Design%20Principles/" class="md-nav__link">
+        React-Design Principles.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Hooks/" class="md-nav__link">
+        React-Hooks.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Router/" class="md-nav__link">
+        React-Router.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Select/" class="md-nav__link">
+        React-Select.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Suspense%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%8E%A2%E8%AE%A8-%E6%B2%A1%E7%9C%8B%E6%98%8E%E7%99%BD/" class="md-nav__link">
+        React-Suspense的实现与探讨-没看明白.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Suspense%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%8E%A2%E8%AE%A8/" class="md-nav__link">
+        React-Suspense的实现与探讨.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-advanced-guides/" class="md-nav__link">
+        React-advanced-guides.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-mentions/" class="md-nav__link">
+        React-mentions.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-%E9%AB%98%E9%98%B6API/" class="md-nav__link">
+        React-高阶API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        React-性能优化.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React.Children%E7%9A%84API/" class="md-nav__link">
+        React.Children的API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React.Component/" class="md-nav__link">
+        React.Component.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React.children%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        React.children介绍.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ReactRouter-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        ReactRouter-阮一峰.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+        React事件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E6%95%B0%E6%8D%AE%E6%B5%81/" class="md-nav__link">
+        React数据流.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E5%BF%AB%E6%8D%B7%E8%BE%93%E5%85%A5/" class="md-nav__link">
+        React快捷输入.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E8%8E%B7%E5%8F%96%E5%B0%BA%E5%AF%B8/" class="md-nav__link">
+        React获取尺寸.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E6%96%B0%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F--getDerivedStateFromProps/" class="md-nav__link">
+        React新生命周期--getDerivedStateFromProps.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E4%B8%AD%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/" class="md-nav__link">
+        React中数据传输.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E6%94%B9%E5%8F%98DOM%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        React点击事件改变DOM方法.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%B5%81%E7%A8%8B%E5%9B%BE/" class="md-nav__link">
+        React生命周期流程图.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Refs%20%26%20DOM/" class="md-nav__link">
+        Refs & DOM.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../TS-React-Webpack/" class="md-nav__link">
+        TS-React-Webpack.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../VS%20Code%20%E5%BF%AB%E6%8D%B7%E8%BE%93%E5%85%A5/" class="md-nav__link">
+        VS Code 快捷输入.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getDerivedStateFromProps%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        getDerivedStateFromProps的使用.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gojs-react/" class="md-nav__link">
+        gojs-react.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../jsx%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        jsx语法.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react%20%E4%B8%AD%E9%80%9A%E8%BF%87ref%E8%8E%B7%E5%8F%96%E9%AB%98%E9%98%B6%EF%BC%88HOC%EF%BC%89%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="md-nav__link">
+        react 中通过ref获取高阶（HOC）子组件实例的解决方案.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react%20%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        react 项目结构及编码规范.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react%2Bgraphql%E5%AE%9E%E7%8E%B0github%20dashboard/" class="md-nav__link">
+        react+graphql实现github dashboard.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-lazy-load/" class="md-nav__link">
+        react-lazy-load.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-mentions-en/" class="md-nav__link">
+        react-mentions-en.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-motion/" class="md-nav__link">
+        react-motion.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-redux/" class="md-nav__link">
+        react-redux.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-responsive/" class="md-nav__link">
+        react-responsive.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-transition-group-%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/" class="md-nav__link">
+        react-transition-group-动画效果.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-transition-group/" class="md-nav__link">
+        react-transition-group.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8A%E7%AF%87%EF%BC%88%E9%A6%96%E6%AC%A1%E6%B8%B2%E6%9F%93%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+        reactjs源码分析-上篇（首次渲染实现原理）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8B%E7%AF%87%EF%BC%88%E6%9B%B4%E6%96%B0%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+        reactjs源码分析-下篇（更新机制实现原理）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reactstrap/" class="md-nav__link">
+        reactstrap.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../readme/" class="md-nav__link">
+        readme.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%AF%B9React%20children%E7%90%86%E8%A7%A3/" class="md-nav__link">
+        对React children理解.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+      
+      <label class="md-nav__link" for="nav-5">
+        工程化
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="工程化" data-md-level="1">
+        <label class="md-nav__title" for="nav-5">
+          <span class="md-nav__icon md-icon"></span>
+          工程化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/BUG-Auto%20packing%20the%20repository%20in%20background%20for%20optimum%20performance/" class="md-nav__link">
+        BUG-Auto packing the repository in background for optimum performance.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/Translation/" class="md-nav__link">
+        Translation.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/docker-basic-use/" class="md-nav__link">
+        docker-basic-use.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/markdown-new-style/" class="md-nav__link">
+        markdown-new-style.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../project/React%20%26%20Webpack/" class="md-nav__link">
+        React & Webpack.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../project/TS-React-Webpack/" class="md-nav__link">
+        TS-React-Webpack.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../project/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7%E7%90%86%E8%AE%BA/" class="md-nav__link">
+        前端监控理论.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+      
+      <label class="md-nav__link" for="nav-6">
+        课程笔记
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="课程笔记" data-md-level="1">
+        <label class="md-nav__title" for="nav-6">
+          <span class="md-nav__icon md-icon"></span>
+          课程笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/00-%E7%9B%AE%E5%BD%95/" class="md-nav__link">
+        00-目录.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/02-v8%E5%BC%95%E6%93%8E%E5%9B%9E%E6%94%B6%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        02-v8引擎回收内存简介.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/03-node%E4%B8%8B%E9%9D%A2%E7%9A%84Restful%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        03-node下面的Restful实现.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/04-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%9A%84%E6%8F%90%E5%8D%87%E2%80%94%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E6%88%91%E4%BB%AC%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7/" class="md-nav__link">
+        04-编程思想的提升—如何提高我们代码的可扩展性.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/06-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8Cssr/" class="md-nav__link">
+        06-浏览器渲染原理和ssr.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/07-%E7%BD%91%E6%98%93%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        07-网易真实项目webpack配置解析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/08-%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90API%E5%B1%82/" class="md-nav__link">
+        08-从架构分析API层.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/09-%E5%89%8D%E7%AB%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        09-前端负责人的工作内容.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/10-%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%E5%AD%A6%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        10-分析源码学架构.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/11-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E9%AB%98%E8%B4%A8%E9%87%8F%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        11-设计模式高质量代码.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/12-nodeJS%2BMongoDB%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        12-nodeJS+MongoDB登录系统.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/12-nodejs-mongodb-mongoose/" class="md-nav__link">
+        12-nodejs-mongodb-mongoose.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/13-%E4%BD%BF%E7%94%A8VUE%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        13-使用VUE创建组件（没学完）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/16-%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        16-构建自己的脚手架工具.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/17-webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
+        17-webpack编译原理分析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/20-%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD-VUE%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        20-组件封装的基本技能-VUE（没学完）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/21-ssr/" class="md-nav__link">
+        21-ssr.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/24-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%A6%82%E4%BD%95%E5%81%9A/" class="md-nav__link">
+        24-单元测试如何做.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/25-%E5%9F%BA%E4%BA%8ENodeJS%E6%89%93%E9%80%A0Web%E6%9E%B6%E6%9E%84%E4%B8%AD%E9%97%B4%E5%B1%82/" class="md-nav__link">
+        25-基于NodeJS打造Web架构中间层.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/26-webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        26-webpack的高级技巧.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#context_1" class="md-nav__link">
+    何时使用 Context
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#context_2" class="md-nav__link">
+    使用 Context 之前的考虑
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    API
+  </a>
+  
+    <nav class="md-nav" aria-label="API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reactcreatecontext" class="md-nav__link">
+    React.createContext
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contextprovider" class="md-nav__link">
+    Context.Provider
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classcontexttype" class="md-nav__link">
+    Class.contextType
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contextconsumer" class="md-nav__link">
+    Context.Consumer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contextdisplayname" class="md-nav__link">
+    Context.displayName
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    示例
+  </a>
+  
+    <nav class="md-nav" aria-label="示例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#context_3" class="md-nav__link">
+    动态 Context
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context_4" class="md-nav__link">
+    在嵌套组件中更新 Context
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context_5" class="md-nav__link">
+    消费多个 Context
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    注意事项
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api_1" class="md-nav__link">
+    过时的 API
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/react/react-all/中文文档全部/3-3 Context.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h1>
+<p>Context 提供了一个无需为每层组件手动添加 props，就能在组件树间进行数据传递的方法。</p>
+<p>在一个典型的 React 应用中，数据是通过 props 属性自上而下（由父及子）进行传递的，但这种做法对于某些类型的属性而言是极其繁琐的（例如：地区偏好，UI 主题），这些属性是应用程序中许多组件都需要的。Context 提供了一种在组件之间共享此类值的方式，而不必显式地通过组件树的逐层传递 props。</p>
+<ul>
+<li><a href="https://zh-hans.reactjs.org/docs/context.html#when-to-use-context">何时使用 Context</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/context.html#before-you-use-context">使用 Context 之前的考虑</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/context.html#api">API</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/context.html#reactcreatecontext">React.createContext</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/context.html#contextprovider">Context.Provider</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/context.html#classcontexttype">Class.contextType</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/context.html#contextconsumer">Context.Consumer</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/context.html#contextdisplayname">Context.displayName</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/context.html#examples">示例</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/context.html#dynamic-context">动态 Context</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/context.html#updating-context-from-a-nested-component">在嵌套组件中更新 Context</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/context.html#consuming-multiple-contexts">使用多个 Context</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/context.html#caveats">注意事项</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/context.html#legacy-api">废弃的 API</a></li>
+</ul>
+<h2 id="context_1">何时使用 Context<a class="headerlink" href="#context_1" title="Permanent link">&para;</a></h2>
+<p>Context 设计目的是为了共享那些对于一个组件树而言是“全局”的数据，例如当前认证的用户、主题或首选语言。举个例子，在下面的代码中，我们通过一个 “theme” 属性手动调整一个按钮组件的样式：</p>
+<div class="highlight"><pre><span></span><code>class App extends React.Component {
+  render() {
+    return &lt;Toolbar theme=&quot;dark&quot; /&gt;;
+  }
+}
+
+function Toolbar(props) {
+  // Toolbar 组件接受一个额外的“theme”属性，然后传递给 ThemedButton 组件。  
+  // 如果应用中每一个单独的按钮都需要知道 theme 的值，这会是件很麻烦的事，  
+  // 因为必须将这个值层层传递所有组件。  
+  return (    
+    &lt;div&gt;
+      &lt;ThemedButton theme={props.theme} /&gt;
+    &lt;/div&gt;  
+  );
+}
+
+class ThemedButton extends React.Component {
+  render() {
+    return &lt;Button theme={this.props.theme} /&gt;;
+  }
+}
+</code></pre></div>
+<p>使用 context, 我们可以避免通过中间元素传递 props：</p>
+<div class="highlight"><pre><span></span><code>// Context 可以让我们无须明确地传遍每一个组件，就能将值深入传递进组件树。
+// 为当前的 theme 创建一个 context（“light”为默认值）。
+
+const ThemeContext = React.createContext(&#39;light&#39;);
+
+class App extends React.Component {
+  render() {
+    // 使用一个 Provider 来将当前的 theme 传递给以下的组件树。    
+    // 无论多深，任何组件都能读取这个值。    
+    // 在这个例子中，我们将 “dark” 作为当前的值传递下去。    
+    return (
+      &lt;ThemeContext.Provider value=&quot;dark&quot;&gt;        
+        &lt;Toolbar /&gt;
+      &lt;/ThemeContext.Provider&gt;
+    );
+  }
+}
+
+// 中间的组件再也不必指明往下传递 theme 了。
+function Toolbar() {  return (
+    &lt;div&gt;
+      &lt;ThemedButton /&gt;
+    &lt;/div&gt;
+  );
+}
+
+class ThemedButton extends React.Component {
+  // 指定 contextType 读取当前的 theme context。  
+  // React 会往上找到最近的 theme Provider，然后使用它的值。  
+  // 在这个例子中，当前的 theme 值为 “dark”。  
+  static contextType = ThemeContext;
+  render() {
+    return &lt;Button theme={this.context} /&gt;;  
+  }
+}
+</code></pre></div>
+<p>注：现在的移动端判断时，每次都会执行正则表达式判断，这个会消耗性能。如果全局设置到APP上面，这样获取一次即可判断是否是移动端，这个可以全局传递。</p>
+<h2 id="context_2">使用 Context 之前的考虑<a class="headerlink" href="#context_2" title="Permanent link">&para;</a></h2>
+<p>Context 主要应用场景在于*很多*不同层级的组件需要访问同样一些的数据。请谨慎使用，因为这会使得组件的复用性变差。</p>
+<p><strong>如果你只是想避免层层传递一些属性，<a href="https://zh-hans.reactjs.org/docs/composition-vs-inheritance.html">组件组合（component composition）</a>有时候是一个比 context 更好的解决方案。</strong></p>
+<p>比如，考虑这样一个 <code>Page</code> 组件，它层层向下传递 <code>user</code> 和 <code>avatarSize</code> 属性，从而深度嵌套的 <code>Link</code> 和 <code>Avatar</code> 组件可以读取到这些属性：</p>
+<div class="highlight"><pre><span></span><code>&lt;Page user={user} avatarSize={avatarSize} /&gt;
+// ... 渲染出 ...
+&lt;PageLayout user={user} avatarSize={avatarSize} /&gt;
+// ... 渲染出 ...
+&lt;NavigationBar user={user} avatarSize={avatarSize} /&gt;
+// ... 渲染出 ...
+&lt;Link href={user.permalink}&gt;
+  &lt;Avatar user={user} size={avatarSize} /&gt;
+&lt;/Link&gt;
+</code></pre></div>
+<p>如果在最后只有 <code>Avatar</code> 组件真的需要 <code>user</code> 和 <code>avatarSize</code>，那么层层传递这两个 props 就显得非常冗余。而且一旦 <code>Avatar</code> 组件需要更多从来自顶层组件的 props，你还得在中间层级一个一个加上去，这将会变得非常麻烦。</p>
+<p>一种**无需 context** 的解决方案是<a href="https://zh-hans.reactjs.org/docs/composition-vs-inheritance.html#containment">将 <code>Avatar</code> 组件自身传递下去</a>，因而中间组件无需知道 <code>user</code> 或者 <code>avatarSize</code> 等 props：</p>
+<div class="highlight"><pre><span></span><code>function Page(props) {
+  const user = props.user;
+  const userLink = (
+    &lt;Link href={user.permalink}&gt;
+      &lt;Avatar user={user} size={props.avatarSize} /&gt;
+    &lt;/Link&gt;
+  );
+  return &lt;PageLayout userLink={userLink} /&gt;;
+}
+
+// 现在，我们有这样的组件：
+&lt;Page user={user} avatarSize={avatarSize} /&gt;
+// ... 渲染出 ...
+&lt;PageLayout userLink={...} /&gt;
+// ... 渲染出 ...
+&lt;NavigationBar userLink={...} /&gt;
+// ... 渲染出 ...
+{props.userLink}
+</code></pre></div>
+<p>注：现在seafile-editor使用这种方法，多个属性可以放在一个对象中传递，减少了props的个数</p>
+<p>这种变化下，只有最顶部的 Page 组件需要知道 <code>Link</code> 和 <code>Avatar</code> 组件是如何使用 <code>user</code> 和 <code>avatarSize</code> 的。</p>
+<p>这种对组件的*控制反转*减少了在你的应用中要传递的 props 数量，这在很多场景下会使得你的代码更加干净，使你对根组件有更多的把控。但是，这并不适用于每一个场景：这种将逻辑提升到组件树的更高层次来处理，会使得这些高层组件变得更复杂，并且会强行将低层组件适应这样的形式，这可能不会是你想要的。</p>
+<p>而且你的组件并不限制于接收单个子组件。你可能会传递多个子组件，甚至会为这些子组件（children）封装多个单独的“接口（slots）”，<a href="https://zh-hans.reactjs.org/docs/composition-vs-inheritance.html#containment">正如这里的文档所列举的</a></p>
+<div class="highlight"><pre><span></span><code>function Page(props) {
+  const user = props.user;
+  const content = &lt;Feed user={user} /&gt;;
+  const topBar = (
+    &lt;NavigationBar&gt;
+      &lt;Link href={user.permalink}&gt;
+        &lt;Avatar user={user} size={props.avatarSize} /&gt;
+      &lt;/Link&gt;
+    &lt;/NavigationBar&gt;
+  );
+  return (
+    &lt;PageLayout
+      topBar={topBar}
+      content={content}
+    /&gt;
+  );
+}
+</code></pre></div>
+<p>这种模式足够覆盖很多场景了，在这些场景下你需要将子组件和直接关联的父组件解耦。如果子组件需要在渲染前和父组件进行一些交流，你可以进一步使用 <a href="https://zh-hans.reactjs.org/docs/render-props.html">render props</a>。</p>
+<p>但是，有的时候在组件树中很多不同层级的组件需要访问同样的一批数据。Context 能让你将这些数据向组件树下所有的组件进行“广播”，所有的组件都能访问到这些数据，也能访问到后续的数据更新。使用 context 的通用的场景包括管理当前的 locale，theme，或者一些缓存数据，这比替代方案要简单的多。</p>
+<h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
+<h3 id="reactcreatecontext"><code>React.createContext</code><a class="headerlink" href="#reactcreatecontext" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">MyContext</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createContext</span><span class="p">(</span><span class="nx">defaultValue</span><span class="p">);</span>
+</code></pre></div>
+<p>创建一个 Context 对象。当 React 渲染一个订阅了这个 Context 对象的组件，这个组件会从组件树中离自身最近的那个匹配的 <code>Provider</code> 中读取到当前的 context 值。</p>
+<p>**只有**当组件所处的树中没有匹配到 Provider 时，其 <code>defaultValue</code> 参数才会生效。这有助于在不使用 Provider 包装组件的情况下对组件进行测试。注意：将 <code>undefined</code> 传递给 Provider 的 value 时，消费组件的 <code>defaultValue</code> 不会生效。</p>
+<h3 id="contextprovider"><code>Context.Provider</code><a class="headerlink" href="#contextprovider" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>&lt;MyContext.Provider value={/* 某个值 */}&gt;
+</code></pre></div>
+<p>每个 Context 对象都会返回一个 Provider React 组件，它允许消费组件订阅 context 的变化。</p>
+<p>Provider 接收一个 <code>value</code> 属性，传递给消费组件。一个 Provider 可以和多个消费组件有对应关系。多个 Provider 也可以嵌套使用，里层的会覆盖外层的数据。</p>
+<p>当 Provider 的 <code>value</code> 值发生变化时，它内部的所有消费组件都会重新渲染。Provider 及其内部 consumer 组件都不受制于 <code>shouldComponentUpdate</code> 函数，因此当 consumer 组件在其祖先组件退出更新的情况下也能更新。</p>
+<p>通过新旧值检测来确定变化，使用了与 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Description"><code>Object.is</code></a> 相同的算法。</p>
+<blockquote>
+<p>注意</p>
+<p>当传递对象给 <code>value</code> 时，检测变化的方式会导致一些问题：详见<a href="https://zh-hans.reactjs.org/docs/context.html#caveats">注意事项</a>。</p>
+</blockquote>
+<h3 id="classcontexttype"><code>Class.contextType</code><a class="headerlink" href="#classcontexttype" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>class MyClass extends React.Component {
+  componentDidMount() {
+    let value = this.context;
+    /* 在组件挂载完成后，使用 MyContext 组件的值来执行一些有副作用的操作 */
+  }
+  componentDidUpdate() {
+    let value = this.context;
+    /* ... */
+  }
+  componentWillUnmount() {
+    let value = this.context;
+    /* ... */
+  }
+  render() {
+    let value = this.context;
+    /* 基于 MyContext 组件的值进行渲染 */
+  }
+}
+MyClass.contextType = MyContext;
+</code></pre></div>
+<p>挂载在 class 上的 <code>contextType</code> 属性会被重赋值为一个由 <a href="https://zh-hans.reactjs.org/docs/context.html#reactcreatecontext"><code>React.createContext()</code></a> 创建的 Context 对象。这能让你使用 <code>this.context</code> 来消费最近 Context 上的那个值。你可以在任何生命周期中访问到它，包括 render 函数中。</p>
+<blockquote>
+<p>注意：</p>
+<p>你只通过该 API 订阅单一 context。如果你想订阅多个，阅读<a href="https://zh-hans.reactjs.org/docs/context.html#consuming-multiple-contexts">使用多个 Context</a> 章节</p>
+<p>如果你正在使用实验性的 <a href="https://babeljs.io/docs/plugins/transform-class-properties/">public class fields 语法</a>，你可以使用 <code>static</code> 这个类属性来初始化你的 <code>contextType</code>。</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">MyClass</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="k">static</span> <span class="nx">contextType</span> <span class="o">=</span> <span class="nx">MyContext</span><span class="p">;</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">;</span>
+    <span class="cm">/* 基于这个值进行渲染工作 */</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="contextconsumer"><code>Context.Consumer</code><a class="headerlink" href="#contextconsumer" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>&lt;MyContext.Consumer&gt;
+  {value =&gt; /* 基于 context 值进行渲染*/}
+&lt;/MyContext.Consumer&gt;
+</code></pre></div>
+<p>这里，React 组件也可以订阅到 context 变更。这能让你在<a href="https://zh-hans.reactjs.org/docs/components-and-props.html#function-and-class-components">函数式组件</a>中完成订阅 context。</p>
+<p>这需要<a href="https://zh-hans.reactjs.org/docs/render-props.html#using-props-other-than-render">函数作为子元素（function as a child）</a>这种做法。这个函数接收当前的 context 值，返回一个 React 节点。传递给函数的 <code>value</code> 值等同于往上组件树离这个 context 最近的 Provider 提供的 <code>value</code> 值。如果没有对应的 Provider，<code>value</code> 参数等同于传递给 <code>createContext()</code> 的 <code>defaultValue</code>。</p>
+<blockquote>
+<p>注意</p>
+<p>想要了解更多关于 “函数作为子元素（function as a child）” 模式，详见 <a href="https://zh-hans.reactjs.org/docs/render-props.html">render props</a>。</p>
+</blockquote>
+<h3 id="contextdisplayname"><code>Context.displayName</code><a class="headerlink" href="#contextdisplayname" title="Permanent link">&para;</a></h3>
+<p>context 对象接受一个名为 <code>displayName</code> 的 property，类型为字符串。React DevTools 使用该字符串来确定 context 要显示的内容。</p>
+<p>示例，下述组件在 DevTools 中将显示为 MyDisplayName：</p>
+<div class="highlight"><pre><span></span><code>const MyContext = React.createContext(/* some value */);
+MyContext.displayName = &#39;MyDisplayName&#39;;
+&lt;MyContext.Provider&gt; // &quot;MyDisplayName.Provider&quot; 在 DevTools 中
+&lt;MyContext.Consumer&gt; // &quot;MyDisplayName.Consumer&quot; 在 DevTools 中
+</code></pre></div>
+<h2 id="_1">示例<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="context_3">动态 Context<a class="headerlink" href="#context_3" title="Permanent link">&para;</a></h3>
+<p>对于上面的 theme 例子，使用动态值（dynamic values）后更复杂的用法：</p>
+<p><strong>theme-context.js</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">export</span> <span class="kd">const</span> <span class="nx">themes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">light</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">foreground</span><span class="o">:</span> <span class="s1">&#39;#000000&#39;</span><span class="p">,</span>
+    <span class="nx">background</span><span class="o">:</span> <span class="s1">&#39;#eeeeee&#39;</span><span class="p">,</span>
+  <span class="p">},</span>
+  <span class="nx">dark</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">foreground</span><span class="o">:</span> <span class="s1">&#39;#ffffff&#39;</span><span class="p">,</span>
+    <span class="nx">background</span><span class="o">:</span> <span class="s1">&#39;#222222&#39;</span><span class="p">,</span>
+  <span class="p">},</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">ThemeContext</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createContext</span><span class="p">(</span>  <span class="nx">themes</span><span class="p">.</span><span class="nx">dark</span> <span class="c1">// 默认值);</span>
+</code></pre></div>
+<p><strong>themed-button.js</strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span><span class="nx">ThemeContext</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./theme-context&#39;</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nx">ThemedButton</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">props</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">theme</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">;</span>    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">button</span>
+        <span class="p">{...</span><span class="nx">props</span><span class="p">}</span>
+        <span class="nx">style</span><span class="o">=</span><span class="p">{{</span><span class="nx">backgroundColor</span><span class="o">:</span> <span class="nx">theme</span><span class="p">.</span><span class="nx">background</span><span class="p">}}</span>
+      <span class="o">/&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">ThemedButton</span><span class="p">.</span><span class="nx">contextType</span> <span class="o">=</span> <span class="nx">ThemeContext</span><span class="p">;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">ThemedButton</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>app.js</strong></p>
+<div class="highlight"><pre><span></span><code>import {ThemeContext, themes} from &#39;./theme-context&#39;;
+import ThemedButton from &#39;./themed-button&#39;;
+
+// 一个使用 ThemedButton 的中间组件
+function Toolbar(props) {
+  return (
+    &lt;ThemedButton onClick={props.changeTheme}&gt;
+      Change Theme
+    &lt;/ThemedButton&gt;
+  );
+}
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      theme: themes.light,
+    };
+
+    this.toggleTheme = () =&gt; {
+      this.setState(state =&gt; ({
+        theme:
+          state.theme === themes.dark
+            ? themes.light
+            : themes.dark,
+      }));
+    };
+  }
+
+  render() {
+    // 在 ThemeProvider 内部的 ThemedButton 按钮组件使用 state 中的 theme 值，    
+    // 而外部的组件使用默认的 theme 值    
+    return (
+      &lt;Page&gt;
+        &lt;ThemeContext.Provider value={this.state.theme}&gt;
+          &lt;Toolbar changeTheme={this.toggleTheme} /&gt;
+        &lt;/ThemeContext.Provider&gt;
+        &lt;Section&gt;
+          &lt;ThemedButton /&gt;
+        &lt;/Section&gt;
+      &lt;/Page&gt;
+    );
+  }
+}
+
+ReactDOM.render(&lt;App /&gt;, document.root);
+</code></pre></div>
+<h3 id="context_4">在嵌套组件中更新 Context<a class="headerlink" href="#context_4" title="Permanent link">&para;</a></h3>
+<p>从一个在组件树中嵌套很深的组件中更新 context 是很有必要的。在这种场景下，你可以通过 context 传递一个函数，使得 consumers 组件更新 context：</p>
+<p><strong>theme-context.js</strong></p>
+<div class="highlight"><pre><span></span><code>// 确保传递给 createContext 的默认值数据结构是调用的组件（consumers）所能匹配的！
+export const ThemeContext = React.createContext({
+  theme: themes.dark,  
+  toggleTheme: () =&gt; {},
+});
+</code></pre></div>
+<p><strong>theme-toggler-button.js</strong></p>
+<div class="highlight"><pre><span></span><code>import {ThemeContext} from &#39;./theme-context&#39;;
+
+function ThemeTogglerButton() {
+  // Theme Toggler 按钮不仅仅只获取 theme 值，它也从 context 中获取到一个 toggleTheme 函数  return (    &lt;ThemeContext.Consumer&gt;
+      {({theme, toggleTheme}) =&gt; (
+        &lt;button          onClick={toggleTheme}
+          style={{backgroundColor: theme.background}}&gt;
+          Toggle Theme
+        &lt;/button&gt;
+      )}
+    &lt;/ThemeContext.Consumer&gt;
+  );
+}
+
+export default ThemeTogglerButton;
+</code></pre></div>
+<p><strong>app.js</strong></p>
+<div class="highlight"><pre><span></span><code>import {ThemeContext, themes} from &#39;./theme-context&#39;;
+import ThemeTogglerButton from &#39;./theme-toggler-button&#39;;
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.toggleTheme = () =&gt; {
+      this.setState(state =&gt; ({
+        theme:
+          state.theme === themes.dark
+            ? themes.light
+            : themes.dark,
+      }));
+    };
+
+    // State 也包含了更新函数，因此它会被传递进 context provider。    
+    this.state = {      
+      theme: themes.light,
+      toggleTheme: this.toggleTheme,
+    };  }
+
+  render() {
+    // 整个 state 都被传递进 provider    
+    return (
+      &lt;ThemeContext.Provider value={this.state}&gt;        
+        &lt;Content /&gt;
+      &lt;/ThemeContext.Provider&gt;
+    );
+  }
+}
+
+function Content() {
+  return (
+    &lt;div&gt;
+      &lt;ThemeTogglerButton /&gt;
+    &lt;/div&gt;
+  );
+}
+
+ReactDOM.render(&lt;App /&gt;, document.root);
+</code></pre></div>
+<h3 id="context_5">消费多个 Context<a class="headerlink" href="#context_5" title="Permanent link">&para;</a></h3>
+<p>为了确保 context 快速进行重渲染，React 需要使每一个 consumers 组件的 context 在组件树中成为一个单独的节点。</p>
+<div class="highlight"><pre><span></span><code>// Theme context，默认的 theme 是 “light” 值
+const ThemeContext = React.createContext(&#39;light&#39;);
+
+// 用户登录 context
+const UserContext = React.createContext({
+  name: &#39;Guest&#39;,
+});
+
+class App extends React.Component {
+  render() {
+    const {signedInUser, theme} = this.props;
+
+    // 提供初始 context 值的 App 组件
+    return (
+      &lt;ThemeContext.Provider value={theme}&gt;        &lt;UserContext.Provider value={signedInUser}&gt;          &lt;Layout /&gt;
+        &lt;/UserContext.Provider&gt;      &lt;/ThemeContext.Provider&gt;    );
+  }
+}
+
+function Layout() {
+  return (
+    &lt;div&gt;
+      &lt;Sidebar /&gt;
+      &lt;Content /&gt;
+    &lt;/div&gt;
+  );
+}
+
+// 一个组件可能会消费多个 context
+function Content() {
+  return (
+    &lt;ThemeContext.Consumer&gt;      {theme =&gt; (        &lt;UserContext.Consumer&gt;          {user =&gt; (            &lt;ProfilePage user={user} theme={theme} /&gt;          )}        &lt;/UserContext.Consumer&gt;      )}    &lt;/ThemeContext.Consumer&gt;  );
+}
+</code></pre></div>
+<p>如果两个或者更多的 context 值经常被一起使用，那你可能要考虑一下另外创建你自己的渲染组件，以提供这些值。</p>
+<h2 id="_2">注意事项<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>因为 context 会使用参考标识（reference identity）来决定何时进行渲染，这里可能会有一些陷阱，当 provider 的父组件进行重渲染时，可能会在 consumers 组件中触发意外的渲染。举个例子，当每一次 Provider 重渲染时，以下的代码会重渲染所有下面的 consumers 组件，因为 <code>value</code> 属性总是被赋值为新的对象：</p>
+<div class="highlight"><pre><span></span><code>class App extends React.Component {
+  render() {
+    return (
+      &lt;MyContext.Provider value={{something: &#39;something&#39;}}&gt;        &lt;Toolbar /&gt;
+      &lt;/MyContext.Provider&gt;
+    );
+  }
+}
+</code></pre></div>
+<p>为了防止这种情况，将 value 状态提升到父节点的 state 里：</p>
+<div class="highlight"><pre><span></span><code>class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: {something: &#39;something&#39;},    };
+  }
+
+  render() {
+    return (
+      &lt;Provider value={this.state.value}&gt;        
+        &lt;Toolbar /&gt;
+      &lt;/Provider&gt;
+    );
+  }
+}
+</code></pre></div>
+<h2 id="api_1">过时的 API<a class="headerlink" href="#api_1" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>注意</p>
+<p>先前 React 使用实验性的 context API 运行，旧的 API 将会在所有 16.x 版本中得到支持，但用到它的应用应该迁移到新版本。过时的 API 将在未来的 React 版本中被移除。阅读<a href="https://zh-hans.reactjs.org/docs/legacy-context.html">过时的 context 文档</a>了解更多。</p>
+</blockquote>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>

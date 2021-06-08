@@ -1,0 +1,806 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/ebook-JS-basic/07-%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C/">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>07 异步操作 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              07 异步操作
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+      
+      <label class="md-nav__link" for="nav-1">
+        人生思考
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="人生思考" data-md-level="1">
+        <label class="md-nav__title" for="nav-1">
+          <span class="md-nav__icon md-icon"></span>
+          人生思考
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../40%E9%80%80%E4%BC%91/" class="md-nav__link">
+        40退休.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Poor-and-busy/" class="md-nav__link">
+        Poor-and-busy.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reflections%20on%20Pre-Tirement/" class="md-nav__link">
+        Reflections on Pre-Tirement.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../The%20art%20of%20Execution%20%E6%89%A7%E8%A1%8C%E5%8A%9B%E7%9A%84%E8%89%BA%E6%9C%AF/" class="md-nav__link">
+        The art of Execution 执行力的艺术.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../b%E8%AE%A1%E5%88%92/" class="md-nav__link">
+        b计划.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%86%B5%E5%A2%9E/" class="md-nav__link">
+        熵增.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%AA%E4%BA%BA%E9%80%89%E6%8B%A9/" class="md-nav__link">
+        个人选择.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E7%94%9F%E7%9C%9F%E7%9B%B8/" class="md-nav__link">
+        人生真相.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%B9%E5%B0%BC%E6%96%AF%E4%B8%8EUnix/" class="md-nav__link">
+        丹尼斯与Unix.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%A9%B9%E5%AE%8F%E5%BF%97%E8%AF%BB%E4%B9%A6/" class="md-nav__link">
+        詹宏志读书.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%AA%A1%E5%AD%90%E5%92%8C%E4%BA%BA%E7%94%9F/" class="md-nav__link">
+        骡子和人生.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A6%82%E4%BD%95%E5%8F%98%E5%BE%97%E5%BC%BA%E5%A4%A7/" class="md-nav__link">
+        如何变得强大.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%93%E4%B8%9A%E6%95%99%E8%82%B2%E7%9A%84%E5%85%B4%E8%B5%B7/" class="md-nav__link">
+        专业教育的兴起.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%AD%E5%9B%BD%E7%BB%8F%E6%B5%8E%E7%9A%84%E8%BD%AC%E5%8F%98/" class="md-nav__link">
+        中国经济的转变.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%95%E5%A3%AB%E5%AD%A6%E4%BD%8D%E7%9A%84%E8%B4%AC%E5%80%BC/" class="md-nav__link">
+        硕士学位的贬值.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BB%BB%E6%AD%A3%E9%9D%9E%E7%9A%84%E7%AE%A1%E7%90%86%E6%80%9D%E6%83%B3/" class="md-nav__link">
+        任正非的管理思想.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%8A%80%E6%9C%AF%E5%92%8C%E7%A8%B3%E5%AE%9A%E7%9A%84%E5%B7%A5%E4%BD%9C/" class="md-nav__link">
+        技术和稳定的工作.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E5%AD%A6%E6%95%99%E8%82%B2%E5%92%8C%E7%BD%91%E7%BB%9C%E6%96%87%E5%87%AD/" class="md-nav__link">
+        大学教育和网络文凭.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E5%88%B0%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        思维导图到深度学习.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E4%B8%9A%E6%96%87%E6%98%8E%E5%AF%B9%E4%BA%8E%E7%A4%BE%E4%BC%9A%E7%9A%84%E5%86%B2%E5%87%BB/" class="md-nav__link">
+        工业文明对于社会的冲击.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E5%92%8C%E5%AF%B9%E6%95%B0%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83/" class="md-nav__link">
+        正态分布和对数正态分布.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    异步操作
+  </a>
+  
+    <nav class="md-nav" aria-label="异步操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    概念
+  </a>
+  
+    <nav class="md-nav" aria-label="概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1、单线程模式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2、同步任务和异步任务
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3、任务队列和事件循环
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4、异步操作的模式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5、多个异步任务的流程控制
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    定时器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#promisebug" class="md-nav__link">
+    Promise对象:bug:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/ebook-JS-basic/07-异步操作.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>07 异步操作</h1>
+                
+                <h2 id="_1">异步操作<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">概念<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h4 id="1">1、单线程模式<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<p>JS 语言只在一个线程上运行，JS在某时刻只能执行一个任务，其他任务必须在后面排队等待。实际上 JS 引擎（V8）具有多线程，单个 JS 脚本文件只能在一个线程（主线程）上运行，其他线程在后台配合。设计成单线程的原因：多线程消耗性能，浏览器DOM设计更复杂。好处：设计简单，执行环境单纯不会冲突；缺点：读写外部数据或者发送请求可能脚本长时间停滞（浏览器假死），此时CPU还在闲置。H5规定：一个JS脚本可以创建多个线程，子线程完全被主线程控制，子线程不能控制DOM（本质单线程没变）。</p>
+<h4 id="2">2、同步任务和异步任务<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<p>程序中的任务分成<strong>同步任务和异步任务</strong>；同步任务是主线程中的任务，必须等上一个任务完成后再执行下一个任务。异步任务不在主线程中，进入<strong>任务队列</strong>。当主线程的一个状态变化后（例如ajax接到数据），任务队列中的任务会以回调函数的形式进入主线程执行，不会产生堵塞。Ajax可以实现同步任务和异步任务。如果是同步任务，需要等请求返回后执行后面的代码；如果是异步任务，在请求的同时，会执行后面的代码；请求响应后，主线程再调用回调函数。</p>
+<h4 id="3">3、任务队列和事件循环<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
+<p>JS 程序中具有一个主线程，还有若干任务队列。主线程首先执行同步任务，执行完同步任务后，就会查看任务队列中的异步任务，如果满足条件，异步任务进入主线程变成同步任务执行。</p>
+<p>事件循环：JS 引擎不断检查异步事件；当同步事件进行完，JS引擎会检查任务队列中的异步任务并执行，直到全部任务执行结束，对应程序执行结束。</p>
+<h4 id="4">4、异步操作的模式<a class="headerlink" href="#4" title="Permanent link">&para;</a></h4>
+<p><strong>回调函数</strong>：简单，但是不同程序高度耦合，多个回调函数嵌套很复杂，每个任务对应一个回调函数。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">f1</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">//</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">f2</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">//</span>
+  <span class="nx">callback</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="nx">f2</span><span class="p">(</span><span class="nx">f1</span><span class="p">);</span>
+<span class="c1">// 把回调函数以参数的形式传入同步任务函数中</span>
+</code></pre></div>
+
+<p><strong>事件驱动</strong>：可以绑定多个事件，每个事件可以执行多个回调函数，去耦合，模块化。整个程序如果是事件驱动，那么主线程不明确。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">f1</span><span class="p">(){</span>
+  <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">f1</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;onclick&#39;</span><span class="p">);</span>
+  <span class="p">},</span> <span class="mf">1000</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">f1</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">f2</span><span class="p">);</span>
+</code></pre></div>
+
+<p><strong>发布订阅</strong>（观察者模式，publish-subscribe pattern, observer pattern）</p>
+<div class="codehilite"><pre><span></span><code><span class="nx">$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">,</span> <span class="nx">f2</span><span class="p">);</span> <span class="c1">// f2 函数向信号中心$订阅 done 信号</span>
+
+<span class="kd">function</span> <span class="nx">f1</span> <span class="p">(){</span>
+  <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">publish</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">);</span>
+    <span class="c1">// f1 执行完毕后，向信号中心 $ 发布done信号(从而引发f2函数执行)</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">f2</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// do something</span>
+  <span class="nx">$</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">);</span>
+  <span class="c1">// 函数执行完毕后，取消订阅</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>发布订阅模式比事件驱动模式好，可以查看消息中心获取信号数量，信号订阅者，从整体上监控程序的运行</p>
+<h4 id="5">5、多个异步任务的流程控制<a class="headerlink" href="#5" title="Permanent link">&para;</a></h4>
+<p>如果多个回调函数嵌套，结构复杂难以维护。可以采用串行和并行执行。</p>
+<p>串行执行：使用一个串行函数，多个任务依次执行。缺点耗时。</p>
+<p>并行执行：同时发布异步任务，优点省时间，缺点耗性能。</p>
+<p>串行和并行结合：设置一个变量存放异步任务的结果和当前的数量，设置一个当前运行的最大值，通过性能控制任务运行的数量。</p>
+<h3 id="_3">定时器<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>主要是 setTimeout setInterval clearTimeout, clearInterval，可以向任务队列添加定时任务。</p>
+<p>setTimeout 函数返回一个变量（递增的整数），用于清除定时器。函数默认传入两个参数，分别是异步执行的函数和间隔时间，可选参数是回调函数的变量（ab）;函数内部的作用于是 window，this 的指向发生变化，注意。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// that.fucntion...</span>
+<span class="p">},</span> <span class="mf">1000</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+</code></pre></div>
+
+<p>setInterval 函数的参数、返回值相同，可以定时执行某个函数，不会主动停止。缺点：间隔不包括函数运行的时间，如果函数执行时间较长，那么后一次函数也会准时执行。</p>
+<p>在滚动函数或者渐变函数中，最好的办法是设置 setTimeout 并在函数内部设置下一次时间间隔函数。</p>
+<p>清除所有定时器</p>
+<div class="codehilite"><pre><span></span><code><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// 每轮事件循环检查一次</span>
+  <span class="kd">var</span> <span class="nx">gid</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="nx">clearAllTimeouts</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span>
+
+  <span class="kd">function</span> <span class="nx">clearAllTimeouts</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{},</span> <span class="mf">0</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">id</span> <span class="o">&gt;</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">id</span> <span class="o">!==</span> <span class="nx">gid</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="nx">id</span><span class="o">--</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})();</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="kd">var</span> <span class="nx">gid</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="nx">clearAllTimeouts</span><span class="p">,</span> <span class="mf">0</span><span class="p">);</span> <span class="c1">// 事件循环时检查一次</span>
+  <span class="kd">function</span> <span class="nx">clearAllTimeouts</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{},</span> <span class="mf">0</span><span class="p">);</span> <span class="c1">// 首先创建一个定时器，获取定时器最大值</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">id</span> <span class="o">&gt;</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 清除全部的定时器</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">id</span> <span class="o">!==</span> <span class="nx">gid</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="nx">id</span><span class="o">--</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})();</span>
+</code></pre></div>
+
+<p>防止抖动</p>
+<div class="codehilite"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;textarea&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span> <span class="nx">debounce</span><span class="p">(</span><span class="nx">ajaxAction</span><span class="p">));</span>
+
+<span class="kd">function</span> <span class="nx">debounce</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">timer</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">;</span> <span class="c1">// 传入的参数</span>
+  <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span> <span class="c1">// 首先清除一下上次的定时器</span>
+  <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+  <span class="p">},</span> <span class="mf">2000</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>定时器原理</p>
+<p>把当前事件移出事件队列，等固定的时间后执行这个事件。不足：如果当前主线程执行的时间比较长，超过了定期器的时间间隔，那么主线程任务执行完后会立即执行定时器内容（可能多个interval同时触发）。</p>
+<p>setTimeout(fn , 0) 的特殊用法：表示当前主线程任务执行完毕后，执行现在的程序（优化性能），不同浏览器执行的时间不同。例如，在事件冒泡中，首先触发子元素的回调函数，然后触发父元素的回调函数。在子元素上使用setTimeout(0)即可改变执行的顺序。例如2，DOM渲染的速度比JS执行的慢，可以在JS中使用这个函数，让DOM渲染结束后再执行JS代码。</p>
+<h3 id="promisebug">Promise对象:bug:<a class="headerlink" href="#promisebug" title="Permanent link">&para;</a></h3>
+<p>https://wangdoc.com/javascript/async/promise.html</p>
+<p>Promise 是异步操作和回调函数的很好的解决方案，这里简单介绍（主要在ES6）</p>
+<p>异步任务返回一个 Promise 实例，这个实例具有 then 的方法，可以处理下一步的回调函数。Promise 简化了回调函数的写法。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">f1</span> <span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// deal with async event</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">f1</span><span class="p">);</span>
+<span class="nx">a</span><span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+  <span class="c1">// deal with response</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>传统写法和 Promise 写法，回调函数变成链式函数</p>
+<div class="codehilite"><pre><span></span><code><span class="nx">f1</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">value1</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">f2</span><span class="p">(</span><span class="nx">value1</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="p">(</span><span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">f1</span><span class="p">)).</span><span class="nx">then</span><span class="p">(</span><span class="nx">f2</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">f3</span><span class="p">)...</span>
+</code></pre></div>
+
+<p>Promise 实例对象的状态（对应ajax请求对象的状态），结果可能是两个，成功或者失败（成功返回 result， 失败返回 error，如果发出异步那么结果一定会发生，所以称为承诺）</p>
+<p>Promise.prototype.then 可以为异步事件添加回调函数，例如下面的图片加载</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="nx">preloadImage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">image</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Image</span><span class="p">();</span>
+    <span class="nx">image</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="nx">resolve</span><span class="p">;</span>
+    <span class="nx">image</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="nx">reject</span><span class="p">;</span>
+    <span class="nx">image</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">path</span><span class="p">;</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+
+<span class="nx">preloadImage</span><span class="p">(</span><span class="s1">&#39;https://example.com/my.jpg&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">)</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;加载成功&#39;</span><span class="p">)</span>
+<span class="p">});</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>

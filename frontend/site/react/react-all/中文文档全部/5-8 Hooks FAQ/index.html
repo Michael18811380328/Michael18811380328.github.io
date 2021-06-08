@@ -1,0 +1,2756 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/react/react-all/%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3%E5%85%A8%E9%83%A8/5-8%20Hooks%20FAQ/">
+      
+      <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>Hooks FAQ - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ef5552">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hooks-faq" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              Hooks FAQ
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+      
+      <label class="md-nav__link" for="nav-1">
+        About
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="nav-1">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about/" class="md-nav__link">
+        关于我
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about/log/" class="md-nav__link">
+        学习日志
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        文档结构
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
+      
+      <label class="md-nav__link" for="nav-2">
+        Javascript
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Javascript" data-md-level="1">
+        <label class="md-nav__title" for="nav-2">
+          <span class="md-nav__icon md-icon"></span>
+          Javascript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/ES6%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8/" class="md-nav__link">
+        ES6 迭代器与生成器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/ES6-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        ES6-阮一峰
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/ES6newFeature/" class="md-nav__link">
+        ES6newFeature
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/JS%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        JS 性能优化
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/JS-testing/" class="md-nav__link">
+        JS-testing
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/editor-js/" class="md-nav__link">
+        editor-js
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/es6/" class="md-nav__link">
+        es6
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/%E5%B8%B8%E7%94%A8%E5%88%B0%E7%9A%84ES6%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        常用到的ES6语法
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../javascript/%E5%89%8D%E7%AB%AF%E8%8B%B1%E8%AF%AD%E5%8D%95%E8%AF%8D/" class="md-nav__link">
+        前端英语单词
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
+      
+      <label class="md-nav__link" for="nav-3">
+        typescript
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="typescript" data-md-level="1">
+        <label class="md-nav__title" for="nav-3">
+          <span class="md-nav__icon md-icon"></span>
+          typescript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/01-%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        01-简介
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/02-%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        02-基础
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/03-%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        03-进阶
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/04-%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%BC%80%E5%8F%91-%E6%B5%8B%E8%AF%95%E7%BC%96%E8%AF%91/" class="md-nav__link">
+        04-工程化开发-测试编译
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82TS%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        网易云课堂TS入门
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/01-%E4%B8%8A%E6%89%8BTypeScript/" class="md-nav__link">
+        01-上手TypeScript
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/02-TS-Gulp/" class="md-nav__link">
+        02-TS-Gulp
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/03-JavaScript%E8%BF%81%E7%A7%BB/" class="md-nav__link">
+        03-JavaScript迁移
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/04-React%20%26%20Webpack/" class="md-nav__link">
+        04-React & Webpack
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/TS%20%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/" class="md-nav__link">
+        TS 常见问题整理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/TypeScript%E7%BC%96%E8%AF%91%E5%99%A8%20%E2%80%93%20%E4%B8%BA%E4%BB%80%E4%B9%88%E9%BB%98%E8%AE%A4%E6%83%85%E5%86%B5%E4%B8%8B%E4%B8%8D%E5%90%AF%E7%94%A8downlevelIteration%EF%BC%9F/" class="md-nav__link">
+        TypeScript编译器-downlevelIteration
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../typescript/typescript%20%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        typescript 编译选项和配置文件
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
+      
+      <label class="md-nav__link" for="nav-4">
+        react
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="react" data-md-level="1">
+        <label class="md-nav__title" for="nav-4">
+          <span class="md-nav__icon md-icon"></span>
+          react
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Create-React-App/" class="md-nav__link">
+        Create-React-App.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Data%20grade/" class="md-nav__link">
+        React Data grade.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20FAQ/" class="md-nav__link">
+        React FAQ.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Image%20Lightbox/" class="md-nav__link">
+        React Image Lightbox.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20PureComponent%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        React PureComponent 使用指南.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Router%20%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3%EF%BC%88%E4%B8%80%EF%BC%89/" class="md-nav__link">
+        React Router 中文文档（一）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20Router%20%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3%EF%BC%88%E4%BA%8C%EF%BC%89/" class="md-nav__link">
+        React Router 中文文档（二）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20data%20grid/" class="md-nav__link">
+        React data grid.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E7%9A%84%20PureComponent%20%E4%B8%8E%20Component/" class="md-nav__link">
+        React 的 PureComponent 与 Component.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E5%90%84%E7%A7%8Dbug%20%E4%BC%9A%E5%AE%9E%E6%97%B6%E6%9B%B4%E6%96%B0/" class="md-nav__link">
+        React 各种bug 会实时更新.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        React 高阶组件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E6%93%8D%E4%BD%9C%E5%85%83%E7%B4%A0%E7%9A%84API/" class="md-nav__link">
+        React 操作元素的API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/" class="md-nav__link">
+        React 中的事件处理.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%20%E5%BC%BA%E5%88%B6%E6%9B%B4%E6%96%B0%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        React 强制更新组件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Design%20Principles/" class="md-nav__link">
+        React-Design Principles.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Hooks/" class="md-nav__link">
+        React-Hooks.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Router/" class="md-nav__link">
+        React-Router.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Select/" class="md-nav__link">
+        React-Select.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Suspense%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%8E%A2%E8%AE%A8-%E6%B2%A1%E7%9C%8B%E6%98%8E%E7%99%BD/" class="md-nav__link">
+        React-Suspense的实现与探讨-没看明白.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-Suspense%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%8E%A2%E8%AE%A8/" class="md-nav__link">
+        React-Suspense的实现与探讨.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-advanced-guides/" class="md-nav__link">
+        React-advanced-guides.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-mentions/" class="md-nav__link">
+        React-mentions.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-%E9%AB%98%E9%98%B6API/" class="md-nav__link">
+        React-高阶API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        React-性能优化.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React.Children%E7%9A%84API/" class="md-nav__link">
+        React.Children的API.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React.Component/" class="md-nav__link">
+        React.Component.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React.children%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        React.children介绍.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ReactRouter-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        ReactRouter-阮一峰.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+        React事件.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E6%95%B0%E6%8D%AE%E6%B5%81/" class="md-nav__link">
+        React数据流.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E5%BF%AB%E6%8D%B7%E8%BE%93%E5%85%A5/" class="md-nav__link">
+        React快捷输入.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E8%8E%B7%E5%8F%96%E5%B0%BA%E5%AF%B8/" class="md-nav__link">
+        React获取尺寸.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E6%96%B0%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F--getDerivedStateFromProps/" class="md-nav__link">
+        React新生命周期--getDerivedStateFromProps.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E4%B8%AD%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/" class="md-nav__link">
+        React中数据传输.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E6%94%B9%E5%8F%98DOM%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        React点击事件改变DOM方法.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../React%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%B5%81%E7%A8%8B%E5%9B%BE/" class="md-nav__link">
+        React生命周期流程图.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Refs%20%26%20DOM/" class="md-nav__link">
+        Refs & DOM.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../TS-React-Webpack/" class="md-nav__link">
+        TS-React-Webpack.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../VS%20Code%20%E5%BF%AB%E6%8D%B7%E8%BE%93%E5%85%A5/" class="md-nav__link">
+        VS Code 快捷输入.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getDerivedStateFromProps%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        getDerivedStateFromProps的使用.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../gojs-react/" class="md-nav__link">
+        gojs-react.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../jsx%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        jsx语法.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react%20%E4%B8%AD%E9%80%9A%E8%BF%87ref%E8%8E%B7%E5%8F%96%E9%AB%98%E9%98%B6%EF%BC%88HOC%EF%BC%89%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="md-nav__link">
+        react 中通过ref获取高阶（HOC）子组件实例的解决方案.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react%20%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        react 项目结构及编码规范.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react%2Bgraphql%E5%AE%9E%E7%8E%B0github%20dashboard/" class="md-nav__link">
+        react+graphql实现github dashboard.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-lazy-load/" class="md-nav__link">
+        react-lazy-load.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-mentions-en/" class="md-nav__link">
+        react-mentions-en.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-motion/" class="md-nav__link">
+        react-motion.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-redux/" class="md-nav__link">
+        react-redux.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-responsive/" class="md-nav__link">
+        react-responsive.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-transition-group-%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/" class="md-nav__link">
+        react-transition-group-动画效果.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../react-transition-group/" class="md-nav__link">
+        react-transition-group.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8A%E7%AF%87%EF%BC%88%E9%A6%96%E6%AC%A1%E6%B8%B2%E6%9F%93%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+        reactjs源码分析-上篇（首次渲染实现原理）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8B%E7%AF%87%EF%BC%88%E6%9B%B4%E6%96%B0%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+        reactjs源码分析-下篇（更新机制实现原理）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reactstrap/" class="md-nav__link">
+        reactstrap.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../readme/" class="md-nav__link">
+        readme.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%AF%B9React%20children%E7%90%86%E8%A7%A3/" class="md-nav__link">
+        对React children理解.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
+      
+      <label class="md-nav__link" for="nav-5">
+        工程化
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="工程化" data-md-level="1">
+        <label class="md-nav__title" for="nav-5">
+          <span class="md-nav__icon md-icon"></span>
+          工程化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/BUG-Auto%20packing%20the%20repository%20in%20background%20for%20optimum%20performance/" class="md-nav__link">
+        BUG-Auto packing the repository in background for optimum performance.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/Translation/" class="md-nav__link">
+        Translation.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/docker-basic-use/" class="md-nav__link">
+        docker-basic-use.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../git/markdown-new-style/" class="md-nav__link">
+        markdown-new-style.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../project/React%20%26%20Webpack/" class="md-nav__link">
+        React & Webpack.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../project/TS-React-Webpack/" class="md-nav__link">
+        TS-React-Webpack.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../project/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7%E7%90%86%E8%AE%BA/" class="md-nav__link">
+        前端监控理论.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
+      
+      <label class="md-nav__link" for="nav-6">
+        课程笔记
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="课程笔记" data-md-level="1">
+        <label class="md-nav__title" for="nav-6">
+          <span class="md-nav__icon md-icon"></span>
+          课程笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/00-%E7%9B%AE%E5%BD%95/" class="md-nav__link">
+        00-目录.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/02-v8%E5%BC%95%E6%93%8E%E5%9B%9E%E6%94%B6%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        02-v8引擎回收内存简介.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/03-node%E4%B8%8B%E9%9D%A2%E7%9A%84Restful%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        03-node下面的Restful实现.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/04-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%9A%84%E6%8F%90%E5%8D%87%E2%80%94%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E6%88%91%E4%BB%AC%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7/" class="md-nav__link">
+        04-编程思想的提升—如何提高我们代码的可扩展性.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/06-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8Cssr/" class="md-nav__link">
+        06-浏览器渲染原理和ssr.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/07-%E7%BD%91%E6%98%93%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        07-网易真实项目webpack配置解析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/08-%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90API%E5%B1%82/" class="md-nav__link">
+        08-从架构分析API层.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/09-%E5%89%8D%E7%AB%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        09-前端负责人的工作内容.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/10-%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%E5%AD%A6%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        10-分析源码学架构.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/11-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E9%AB%98%E8%B4%A8%E9%87%8F%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        11-设计模式高质量代码.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/12-nodeJS%2BMongoDB%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        12-nodeJS+MongoDB登录系统.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/12-nodejs-mongodb-mongoose/" class="md-nav__link">
+        12-nodejs-mongodb-mongoose.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/13-%E4%BD%BF%E7%94%A8VUE%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        13-使用VUE创建组件（没学完）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/16-%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        16-构建自己的脚手架工具.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/17-webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
+        17-webpack编译原理分析.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/20-%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD-VUE%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        20-组件封装的基本技能-VUE（没学完）.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/21-ssr/" class="md-nav__link">
+        21-ssr.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/24-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%A6%82%E4%BD%95%E5%81%9A/" class="md-nav__link">
+        24-单元测试如何做.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/25-%E5%9F%BA%E4%BA%8ENodeJS%E6%89%93%E9%80%A0Web%E6%9E%B6%E6%9E%84%E4%B8%AD%E9%97%B4%E5%B1%82/" class="md-nav__link">
+        25-基于NodeJS打造Web架构中间层.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../netease/26-webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        26-webpack的高级技巧.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    采纳策略
+  </a>
+  
+    <nav class="md-nav" aria-label="采纳策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#react-hook" class="md-nav__link">
+    哪个版本的 React 包含了 Hook？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class" class="md-nav__link">
+    我需要重写所有的 class 组件吗？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hook-class" class="md-nav__link">
+    有什么是 Hook 能做而 class 做不到的？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#react" class="md-nav__link">
+    我的 React 知识还有多少是仍然有用的？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hookclass" class="md-nav__link">
+    我应该使用 Hook，class，还是两者混用？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hook-class_1" class="md-nav__link">
+    Hook 能否覆盖 class 的所有使用场景？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hook-render-props" class="md-nav__link">
+    Hook 会替代 render props 和高阶组件吗？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hook-redux-connect-react-router-api" class="md-nav__link">
+    Hook 对于 Redux connect() 和 React Router 等流行的 API 来说，意味着什么？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hook" class="md-nav__link">
+    Hook 能和静态类型一起用吗？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hook_1" class="md-nav__link">
+    如何测试使用了 Hook 的组件？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lint" class="md-nav__link">
+    lint 规则具体强制了哪些内容？
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-hook" class="md-nav__link">
+    从 Class 迁移到 Hook
+  </a>
+  
+    <nav class="md-nav" aria-label="从 Class 迁移到 Hook">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hook_2" class="md-nav__link">
+    生命周期方法要如何对应到 Hook？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hook_3" class="md-nav__link">
+    我该如何使用 Hook 进行数据获取？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    有类似实例变量的东西吗？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    我应该使用单个还是多个 state 变量？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#effect" class="md-nav__link">
+    我可以只在更新时运行 effect 吗？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#props-state" class="md-nav__link">
+    如何获取上一轮的 props 或 state？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#props-state_1" class="md-nav__link">
+    为什么我会在我的函数中看到陈旧的 props 和 state ？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getderivedstatefromprops" class="md-nav__link">
+    我该如何实现 getDerivedStateFromProps？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forceupdate" class="md-nav__link">
+    有类似 forceUpdate 的东西吗？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    我可以引用一个函数组件吗？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dom" class="md-nav__link">
+    我该如何测量 DOM 节点？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#const-thing-setthing-usestate" class="md-nav__link">
+    const [thing, setThing] = useState() 是什么意思？
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    性能优化
+  </a>
+  
+    <nav class="md-nav" aria-label="性能优化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#effect_1" class="md-nav__link">
+    我可以在更新时跳过 effect 吗？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    在依赖列表中省略函数是否安全？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#effect_2" class="md-nav__link">
+    如果我的 effect 的依赖频繁变化，我该怎么办？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shouldcomponentupdate" class="md-nav__link">
+    我该如何实现 shouldComponentUpdate?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    如何记忆计算结果？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    如何惰性创建昂贵的对象？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hook_4" class="md-nav__link">
+    Hook 会因为在渲染时创建函数而变慢吗？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    如何避免向下传递回调？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usecallback" class="md-nav__link">
+    如何从 useCallback 读取一个经常变化的值？
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    底层原理
+  </a>
+  
+    <nav class="md-nav" aria-label="底层原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#react-hook_1" class="md-nav__link">
+    React 是如何把对 Hook 的调用和组件联系起来的？
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hook_5" class="md-nav__link">
+    Hook 使用了哪些现有技术？
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/react/react-all/中文文档全部/5-8 Hooks FAQ.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="hooks-faq">Hooks FAQ<a class="headerlink" href="#hooks-faq" title="Permanent link">&para;</a></h1>
+<p><em>Hook</em> 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。</p>
+<p>此章节回答了关于 <a href="https://zh-hans.reactjs.org/docs/hooks-overview.html">Hook</a> 的常见问题。</p>
+<ul>
+<li><strong><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#adoption-strategy">采纳策略</a></strong></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#which-versions-of-react-include-hooks">哪个版本的 React 包含了 Hook？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#do-i-need-to-rewrite-all-my-class-components">我需要重写所有的 class 组件吗？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#what-can-i-do-with-hooks-that-i-couldnt-with-classes">有什么是 Hook 能做而 class 做不到的？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-much-of-my-react-knowledge-stays-relevant">我的 React 知识还有多少是仍然有用的？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both">我应该使用 Hook，class，还是两者混用？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#do-hooks-cover-all-use-cases-for-classes">Hook 能否覆盖 class 的所有使用场景？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#do-hooks-replace-render-props-and-higher-order-components">Hook 会替代 render props 和高阶组件吗？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#what-do-hooks-mean-for-popular-apis-like-redux-connect-and-react-router">Hook 对于 Redux connect() 和 React Router 等流行的 API 来说，意味着什么？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#do-hooks-work-with-static-typing">Hook 能和静态类型一起用吗？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-to-test-components-that-use-hooks">如何测试使用了 Hook 的组件？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#what-exactly-do-the-lint-rules-enforce">lint 规则具体强制了哪些内容？</a></li>
+<li><strong><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#from-classes-to-hooks">从 Class 迁移到 Hook</a></strong></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-do-lifecycle-methods-correspond-to-hooks">生命周期方法要如何对应到 Hook？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-can-i-do-data-fetching-with-hooks">我该如何使用 Hook 进行数据获取？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables">有类似实例变量的东西吗？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#should-i-use-one-or-many-state-variables">我应该使用单个还是多个 state 变量？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#can-i-run-an-effect-only-on-updates">我可以只在更新时运行 effect 吗？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-to-get-the-previous-props-or-state">如何获取上一轮的 props 或 state？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#why-am-i-seeing-stale-props-or-state-inside-my-function">为什么我会在我的函数中看到陈旧的 props 和 state ？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-do-i-implement-getderivedstatefromprops">我该如何实现 getDerivedStateFromProps？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#is-there-something-like-forceupdate">有类似 forceUpdate 的东西吗？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#can-i-make-a-ref-to-a-function-component">我可以引用一个函数组件吗？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node">我该如何测量 DOM 节点？</a></li>
+<li>[const <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#what-does-const-thing-setthing--usestate-mean">thing, setThing] = useState() 是什么意思？</a></li>
+<li><strong><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#performance-optimizations">性能优化</a></strong></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#can-i-skip-an-effect-on-updates">我可以在更新时跳过 effect 吗？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies">在依赖列表中省略函数是否安全？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#what-can-i-do-if-my-effect-dependencies-change-too-often">如果我的 effect 的依赖频繁变化，我该怎么办？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-do-i-implement-shouldcomponentupdate">我该如何实现 shouldComponentUpdate？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-to-memoize-calculations">如何记忆计算结果？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-to-create-expensive-objects-lazily">如何惰性创建昂贵的对象？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#are-hooks-slow-because-of-creating-functions-in-render">Hook 会因为在渲染时创建函数而变慢吗？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down">如何避免向下传递回调？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-to-read-an-often-changing-value-from-usecallback">如何从 useCallback 读取一个经常变化的值？</a></li>
+<li><strong><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#under-the-hood">底层原理</a></strong></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-does-react-associate-hook-calls-with-components">React 是如何把对 Hook 的调用和组件联系起来的？</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#what-is-the-prior-art-for-hooks">Hook 使用了哪些现有技术？</a></li>
+</ul>
+<h2 id="_1">采纳策略<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="react-hook">哪个版本的 React 包含了 Hook？<a class="headerlink" href="#react-hook" title="Permanent link">&para;</a></h3>
+<p>从 16.8.0 开始，React 在以下模块中包含了 React Hook 的稳定实现：</p>
+<ul>
+<li>React DOM</li>
+<li>React Native</li>
+<li>React DOM Server</li>
+<li>React Test Renderer</li>
+<li>React Shallow Renderer</li>
+</ul>
+<p>请注意，<strong>要启用 Hook，所有 React 相关的 package 都必须升级到 16.8.0 或更高版本</strong>。如果你忘记更新诸如 React DOM 之类的 package，Hook 将无法运行。</p>
+<p><a href="https://reactnative.dev/blog/2019/03/12/releasing-react-native-059">React Native 0.59</a> 及以上版本支持 Hook。</p>
+<h3 id="class">我需要重写所有的 class 组件吗？<a class="headerlink" href="#class" title="Permanent link">&para;</a></h3>
+<p>不。我们并 <a href="https://zh-hans.reactjs.org/docs/hooks-intro.html#gradual-adoption-strategy">没有计划</a> 从 React 中移除 class —— 我们也需要不断地发布产品，重写成本较高。我们推荐在新代码中尝试 Hook。</p>
+<h3 id="hook-class">有什么是 Hook 能做而 class 做不到的？<a class="headerlink" href="#hook-class" title="Permanent link">&para;</a></h3>
+<p>Hook 提供了强大而富有表现力的方式来在组件间复用功能。通过 <a href="https://zh-hans.reactjs.org/docs/hooks-custom.html">「自定义 Hook」</a> 这一节可以了解能用它做些什么。这篇来自一位 React 核心团队的成员的 <a href="https://medium.com/@dan_abramov/making-sense-of-react-hooks-fdbde8803889">文章</a> 则更加深入地剖析了 Hook 解锁了哪些新的能力。</p>
+<h3 id="react">我的 React 知识还有多少是仍然有用的？<a class="headerlink" href="#react" title="Permanent link">&para;</a></h3>
+<p>Hook 是使用你已经知道的 React 特性的一种更直接的方式 —— 比如 state，生命周期，context，以及 refs。它们并没有从根本上改变 React 的工作方式，你对组件，props, 以及自顶向下的数据流的知识并没有改变。</p>
+<p>Hook 确实有它们自己的学习曲线。如果这份文档中遗失了一些什么，<a href="https://github.com/reactjs/reactjs.org/issues/new">提一个 issue</a>，我们会尽可能地帮你。</p>
+<h3 id="hookclass">我应该使用 Hook，class，还是两者混用？<a class="headerlink" href="#hookclass" title="Permanent link">&para;</a></h3>
+<p>当你准备好了，我们鼓励你在写新组件的时候开始尝试 Hook。请确保你团队中的每个人都愿意使用它们并且熟知这份文档中的内容。我们不推荐用 Hook 重写你已有的 class，除非你本就打算重写它们。（例如：为了修复bug）。</p>
+<p>你不能在 class 组件*内部*使用 Hook，但毫无疑问你可以在组件树里混合使用 class 组件和使用了 Hook 的函数组件。不论一个组件是 class 还是一个使用了 Hook 的函数，都只是这个组件的实现细节而已。长远来看，我们期望 Hook 能够成为人们编写 React 组件的主要方式。</p>
+<h3 id="hook-class_1">Hook 能否覆盖 class 的所有使用场景？<a class="headerlink" href="#hook-class_1" title="Permanent link">&para;</a></h3>
+<p>我们给 Hook 设定的目标是尽早覆盖 class 的所有使用场景。目前暂时还没有对应不常用的 <code>getSnapshotBeforeUpdate</code>，<code>getDerivedStateFromError</code> 和 <code>componentDidCatch</code> 生命周期的 Hook 等价写法，但我们计划尽早把它们加进来。</p>
+<p>目前 Hook 还处于早期阶段，一些第三方的库可能还暂时无法兼容 Hook。</p>
+<h3 id="hook-render-props">Hook 会替代 render props 和高阶组件吗？<a class="headerlink" href="#hook-render-props" title="Permanent link">&para;</a></h3>
+<p>通常，render props 和高阶组件只渲染一个子节点。我们认为让 Hook 来服务这个使用场景更加简单。这两种模式仍有用武之地，（例如，一个虚拟滚动条组件或许会有一个 <code>renderItem</code> 属性，或是一个可见的容器组件或许会有它自己的 DOM 结构）。但在大部分场景下，Hook 足够了，并且能够帮助减少嵌套。</p>
+<h3 id="hook-redux-connect-react-router-api">Hook 对于 Redux <code>connect()</code> 和 React Router 等流行的 API 来说，意味着什么？<a class="headerlink" href="#hook-redux-connect-react-router-api" title="Permanent link">&para;</a></h3>
+<p>你可以继续使用之前使用的 API；它们仍会继续有效。</p>
+<p>React Redux 从 v7.1.0 开始<a href="https://react-redux.js.org/api/hooks">支持 Hook API</a> 并暴露了 <code>useDispatch</code> 和 <code>useSelector</code> 等 hook。</p>
+<p>React Router 从 v5.1 开始<a href="https://reacttraining.com/react-router/web/api/Hooks">支持 hook</a>。</p>
+<p>其它第三库也将即将支持 hook。</p>
+<h3 id="hook">Hook 能和静态类型一起用吗？<a class="headerlink" href="#hook" title="Permanent link">&para;</a></h3>
+<p>Hook 在设计阶段就考虑了静态类型的问题。因为它们是函数，所以它们比像高阶组件这样的模式更易于设定正确的类型。最新版的 Flow 和 TypeScript React 定义已经包含了对 React Hook 的支持。</p>
+<p>重要的是，在你需要严格限制类型的时候，自定义 Hook 能够帮你限制 React 的 API。React 只是给你提供了基础功能，具体怎么用就是你自己的事了。</p>
+<h3 id="hook_1">如何测试使用了 Hook 的组件？<a class="headerlink" href="#hook_1" title="Permanent link">&para;</a></h3>
+<p>在 React 看来，一个使用了 Hook 的组件只不过是一个常规组件。如果你的测试方案不依赖于 React 的内部实现，测试带 Hook 的组件应该和你通常测试组件的方式没什么差别。</p>
+<blockquote>
+<p>注意</p>
+<p><a href="https://zh-hans.reactjs.org/docs/testing-recipes.html">测试技巧</a> 中包含了许多可以拷贝粘贴的示例。</p>
+</blockquote>
+<p>举个例子，比如我们有这么个计数器组件：</p>
+<div class="highlight"><pre><span></span><code>function Example() {
+  const [count, setCount] = useState(0);
+  useEffect(() =&gt; {
+    document.title = `You clicked ${count} times`;
+  });
+  return (
+    &lt;div&gt;
+      &lt;p&gt;You clicked {count} times&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+        Click me
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre></div>
+<p>我们会使用 React DOM 来测试它。为了确保它表现得和在浏览器中一样，我们会把代码渲染的部分包裹起来，并更新为 <a href="https://zh-hans.reactjs.org/docs/test-utils.html#act"><code>ReactTestUtils.act()</code></a> 调用:</p>
+<div class="highlight"><pre><span></span><code>import React from &#39;react&#39;;
+import ReactDOM from &#39;react-dom&#39;;
+import { act } from &#39;react-dom/test-utils&#39;;
+import Counter from &#39;./Counter&#39;;
+
+let container;
+
+beforeEach(() =&gt; {
+  container = document.createElement(&#39;div&#39;);
+  document.body.appendChild(container);
+});
+
+afterEach(() =&gt; {
+  document.body.removeChild(container);
+  container = null;
+});
+
+it(&#39;can render and update a counter&#39;, () =&gt; {
+  // 测试首次渲染和 effect
+  act(() =&gt; {    
+    ReactDOM.render(&lt;Counter /&gt;, container);  
+  });  
+  const button = container.querySelector(&#39;button&#39;);
+  const label = container.querySelector(&#39;p&#39;);
+  expect(label.textContent).toBe(&#39;You clicked 0 times&#39;);
+  expect(document.title).toBe(&#39;You clicked 0 times&#39;);
+
+  // 测试第二次渲染和 effect
+  act(() =&gt; {    button.dispatchEvent(new MouseEvent(&#39;click&#39;, {bubbles: true}));  });  expect(label.textContent).toBe(&#39;You clicked 1 times&#39;);
+  expect(document.title).toBe(&#39;You clicked 1 times&#39;);
+});
+</code></pre></div>
+<p>对 <code>act()</code> 的调用也会清空它们内部的 effect。</p>
+<p>如果你需要测试一个自定义 Hook，你可以在你的测试代码中创建一个组件并在其中使用你的 Hook。然后你就可以测试你刚写的组件了。</p>
+<p>为了减少不必要的模板项目，我们推荐使用 <a href="https://testing-library.com/react">React Testing Library</a>，该项目旨在鼓励你按照终端用户使用组件的方式来编写测试。</p>
+<p>欲了解更多，请参阅<a href="https://zh-hans.reactjs.org/docs/testing-recipes.html">测试技巧</a>一节。</p>
+<h3 id="lint"><a href="https://www.npmjs.com/package/eslint-plugin-react-hooks">lint 规则</a>具体强制了哪些内容？<a class="headerlink" href="#lint" title="Permanent link">&para;</a></h3>
+<p>我们提供了一个 <a href="https://www.npmjs.com/package/eslint-plugin-react-hooks">ESLint 插件</a> 来强制 <a href="https://zh-hans.reactjs.org/docs/hooks-rules.html">Hook 规范</a> 以避免 Bug。它假设任何以 「<code>use</code>」 开头并紧跟着一个大写字母的函数就是一个 Hook。我们知道这种启发方式并不完美，甚至存在一些伪真理，但如果没有一个全生态范围的约定就没法让 Hook 很好的工作 —— 而名字太长会让人要么不愿意采用 Hook，要么不愿意遵守约定。</p>
+<p>规范尤其强制了以下内容：</p>
+<ul>
+<li>对 Hook 的调用要么在一个<code>大驼峰法</code>命名的函数（视作一个组件）内部，要么在另一个 <code>useSomething</code> 函数（视作一个自定义 Hook）中。</li>
+<li>Hook 在每次渲染时都按照相同的顺序被调用。</li>
+</ul>
+<p>还有一些其他的启发方式，但随着我们不断地调优以在发现 Bug 和避免伪真理之前取得平衡，这些方式随时会改变。</p>
+<h2 id="class-hook">从 Class 迁移到 Hook<a class="headerlink" href="#class-hook" title="Permanent link">&para;</a></h2>
+<h3 id="hook_2">生命周期方法要如何对应到 Hook？<a class="headerlink" href="#hook_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>constructor</code>：函数组件不需要构造函数。你可以通过调用 <a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#usestate"><code>useState</code></a> 来初始化 state。如果计算的代价比较昂贵，你可以传一个函数给 <code>useState</code>。</li>
+<li><code>getDerivedStateFromProps</code>：改为 <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-do-i-implement-getderivedstatefromprops">在渲染时</a> 安排一次更新。</li>
+<li><code>shouldComponentUpdate</code>：详见 <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-do-i-implement-shouldcomponentupdate">下方</a> <code>React.memo</code>.</li>
+<li><code>render</code>：这是函数组件体本身。</li>
+<li><code>componentDidMount</code>, <code>componentDidUpdate</code>, <code>componentWillUnmount</code>：<a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#useeffect"><code>useEffect</code> Hook</a> 可以表达所有这些(包括 <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#can-i-skip-an-effect-on-updates">不那么</a> <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#can-i-run-an-effect-only-on-updates">常见</a> 的场景)的组合。</li>
+<li><code>getSnapshotBeforeUpdate</code>，<code>componentDidCatch</code> 以及 <code>getDerivedStateFromError</code>：目前还没有这些方法的 Hook 等价写法，但很快会被添加。</li>
+</ul>
+<h3 id="hook_3">我该如何使用 Hook 进行数据获取？<a class="headerlink" href="#hook_3" title="Permanent link">&para;</a></h3>
+<p>该 <a href="https://codesandbox.io/s/jvvkoo8pq3">demo</a> 会帮助你开始理解。欲了解更多，请查阅 <a href="https://www.robinwieruch.de/react-hooks-fetch-data/">此文章</a> 来了解如何使用 Hook 进行数据获取。</p>
+<h3 id="_2">有类似实例变量的东西吗？<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>有！<a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#useref"><code>useRef()</code></a> Hook 不仅可以用于 DOM refs。「ref」 对象是一个 <code>current</code> 属性可变且可以容纳任意值的通用容器，类似于一个 class 的实例属性。</p>
+<p>你可以在 <code>useEffect</code> 内部对其进行写入:</p>
+<div class="highlight"><pre><span></span><code>function Timer() {
+  const intervalRef = useRef();
+  useEffect(() =&gt; {
+    const id = setInterval(() =&gt; {
+      // ...
+    });
+    intervalRef.current = id;    
+    return () =&gt; {
+      clearInterval(intervalRef.current);
+    };
+  });
+
+  // ...
+}
+</code></pre></div>
+<p>如果我们只是想设定一个循环定时器，我们不会需要这个 ref（<code>id</code> 可以是在 effect 本地的），但如果我们想要在一个事件处理器中清除这个循环定时器的话这就很有用了：</p>
+<div class="highlight"><pre><span></span><code>  // ...
+  function handleCancelClick() {
+    clearInterval(intervalRef.current);  }
+  // ...
+</code></pre></div>
+<p>从概念上讲，你可以认为 refs 就像是一个 class 的实例变量。除非你正在做 <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-to-create-expensive-objects-lazily">懒加载</a>，否则避免在渲染期间设置 refs —— 这可能会导致意外的行为。相反的，通常你应该在事件处理器和 effects 中修改 refs。</p>
+<h3 id="state">我应该使用单个还是多个 state 变量？<a class="headerlink" href="#state" title="Permanent link">&para;</a></h3>
+<p>如果你之前用过 class，你或许会试图总是在一次 <code>useState()</code> 调用中传入一个包含了所有 state 的对象。如果你愿意的话你可以这么做。这里有一个跟踪鼠标移动的组件的例子。我们在本地 state 中记录它的位置和尺寸：</p>
+<div class="highlight"><pre><span></span><code>function Box() {
+  const [state, setState] = useState({ left: 0, top: 0, width: 100, height: 100 });
+  // ...
+}
+</code></pre></div>
+<p>现在假设我们想要编写一些逻辑以便在用户移动鼠标时改变 <code>left</code> 和 <code>top</code>。注意到我们是如何必须手动把这些字段合并到之前的 state 对象的：</p>
+<div class="highlight"><pre><span></span><code>// ...
+  useEffect(() =&gt; {
+    function handleWindowMouseMove(e) {
+      // 展开 「...state」 以确保我们没有 「丢失」 width 和 height      setState(state =&gt; ({ ...state, left: e.pageX, top: e.pageY }));    }
+    // 注意：这是个简化版的实现
+    window.addEventListener(&#39;mousemove&#39;, handleWindowMouseMove);
+    return () =&gt; window.removeEventListener(&#39;mousemove&#39;, handleWindowMouseMove);
+  }, []);
+  // ...
+</code></pre></div>
+<p>这是因为当我们更新一个 state 变量，我们会 <em>替换</em> 它的值。这和 class 中的 <code>this.setState</code> 不一样，后者会把更新后的字段 <em>合并</em> 入对象中。</p>
+<p>如果你错过自动合并，你可以写一个自定义的 <code>useLegacyState</code> Hook 来合并对象 state 的更新。然而，<strong>我们推荐把 state 切分成多个 state 变量，每个变量包含的不同值会在同时发生变化。</strong></p>
+<p>举个例子，我们可以把组件的 state 拆分为 <code>position</code> 和 <code>size</code> 两个对象，并永远以非合并的方式去替换 <code>position</code>：</p>
+<div class="highlight"><pre><span></span><code>function Box() {
+  const [position, setPosition] = useState({ left: 0, top: 0 });  const [size, setSize] = useState({ width: 100, height: 100 });
+
+  useEffect(() =&gt; {
+    function handleWindowMouseMove(e) {
+      setPosition({ left: e.pageX, top: e.pageY });    }
+    // ...
+</code></pre></div>
+<p>把独立的 state 变量拆分开还有另外的好处。这使得后期把一些相关的逻辑抽取到一个自定义 Hook 变得容易，比如说:</p>
+<div class="highlight"><pre><span></span><code>function Box() {
+  const position = useWindowPosition();  const [size, setSize] = useState({ width: 100, height: 100 });
+  // ...
+}
+
+function useWindowPosition() {  const [position, setPosition] = useState({ left: 0, top: 0 });
+  useEffect(() =&gt; {
+    // ...
+  }, []);
+  return position;
+}
+</code></pre></div>
+<p>注意看我们是如何做到不改动代码就把对 <code>position</code> 这个 state 变量的 <code>useState</code> 调用和相关的 effect 移动到一个自定义 Hook 的。如果所有的 state 都存在同一个对象中，想要抽取出来就比较难了。</p>
+<p>把所有 state 都放在同一个 <code>useState</code> 调用中，或是每一个字段都对应一个 <code>useState</code> 调用，这两方式都能跑通。当你在这两个极端之间找到平衡，然后把相关 state 组合到几个独立的 state 变量时，组件就会更加的可读。如果 state 的逻辑开始变得复杂，我们推荐 <a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#usereducer">用 reducer 来管理它</a>，或使用自定义 Hook。</p>
+<h3 id="effect">我可以只在更新时运行 effect 吗？<a class="headerlink" href="#effect" title="Permanent link">&para;</a></h3>
+<p>这是个比较罕见的使用场景。如果你需要的话，你可以 <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables">使用一个可变的 ref</a> 手动存储一个布尔值来表示是首次渲染还是后续渲染，然后在你的 effect 中检查这个标识。（如果你发现自己经常在这么做，你可以为之创建一个自定义 Hook。）</p>
+<h3 id="props-state">如何获取上一轮的 props 或 state？<a class="headerlink" href="#props-state" title="Permanent link">&para;</a></h3>
+<p>目前，你可以 <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables">通过 ref</a> 来手动实现：</p>
+<div class="highlight"><pre><span></span><code>function Counter() {
+  const [count, setCount] = useState(0);
+
+  const prevCountRef = useRef();
+  useEffect(() =&gt; {
+    prevCountRef.current = count;  });
+  const prevCount = prevCountRef.current;
+  return &lt;h1&gt;Now: {count}, before: {prevCount}&lt;/h1&gt;;
+}
+</code></pre></div>
+<p>这或许有一点错综复杂，但你可以把它抽取成一个自定义 Hook：</p>
+<div class="highlight"><pre><span></span><code>function Counter() {
+  const [count, setCount] = useState(0);
+  const prevCount = usePrevious(count);  return &lt;h1&gt;Now: {count}, before: {prevCount}&lt;/h1&gt;;
+}
+
+function usePrevious(value) {  const ref = useRef();
+  useEffect(() =&gt; {
+    ref.current = value;
+  });
+  return ref.current;
+}
+</code></pre></div>
+<p>注意看这是如何作用于 props， state，或任何其他计算出来的值的。</p>
+<div class="highlight"><pre><span></span><code>function Counter() {
+  const [count, setCount] = useState(0);
+
+  const calculation = count + 100;
+  const prevCalculation = usePrevious(calculation);  // ...
+</code></pre></div>
+<p>考虑到这是一个相对常见的使用场景，很可能在未来 React 会自带一个 <code>usePrevious</code> Hook。</p>
+<p>参见 <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-do-i-implement-getderivedstatefromprops">derived state 推荐模式</a>.</p>
+<h3 id="props-state_1">为什么我会在我的函数中看到陈旧的 props 和 state ？<a class="headerlink" href="#props-state_1" title="Permanent link">&para;</a></h3>
+<p>组件内部的任何函数，包括事件处理函数和 effect，都是从它被创建的那次渲染中被「看到」的。例如，考虑这样的代码：</p>
+<div class="highlight"><pre><span></span><code>function Example() {
+  const [count, setCount] = useState(0);
+
+  function handleAlertClick() {
+    setTimeout(() =&gt; {
+      alert(&#39;You clicked on: &#39; + count);
+    }, 3000);
+  }
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;You clicked {count} times&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+        Click me
+      &lt;/button&gt;
+      &lt;button onClick={handleAlertClick}&gt;
+        Show alert
+      &lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+</code></pre></div>
+<p>如果你先点击「Show alert」然后增加计数器的计数，那这个 alert 会显示**在你点击『Show alert』按钮时**的 <code>count</code> 变量。这避免了那些因为假设 props 和 state 没有改变的代码引起问题。</p>
+<p>如果你刻意地想要从某些异步回调中读取 <em>最新的</em> state，你可以用 <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables">一个 ref</a> 来保存它，修改它，并从中读取。</p>
+<p>最后，你看到陈旧的 props 和 state 的另一个可能的原因，是你使用了「依赖数组」优化但没有正确地指定所有的依赖。举个例子，如果一个 effect 指定了 <code>[]</code> 作为第二个参数，但在内部读取了 <code>someProp</code>，它会一直「看到」 <code>someProp</code> 的初始值。解决办法是要么移除依赖数组，要么修正它。 这里介绍了 <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies">你该如何处理函数</a>，而这里介绍了关于如何减少 effect 的运行而不必错误的跳过依赖的 <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#what-can-i-do-if-my-effect-dependencies-change-too-often">一些常见策略</a>。</p>
+<blockquote>
+<p>注意</p>
+<p>我们提供了一个 <a href="https://github.com/facebook/react/issues/14920"><code>exhaustive-deps</code></a> ESLint 规则作为 <a href="https://www.npmjs.com/package/eslint-plugin-react-hooks#installation"><code>eslint-plugin-react-hooks</code></a> 包的一部分。它会在依赖被错误指定时发出警告，并给出修复建议。</p>
+</blockquote>
+<h3 id="getderivedstatefromprops">我该如何实现 <code>getDerivedStateFromProps</code>？<a class="headerlink" href="#getderivedstatefromprops" title="Permanent link">&para;</a></h3>
+<p>尽管你可能 <a href="https://zh-hans.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html">不需要它</a>，但在一些罕见的你需要用到的场景下（比如实现一个 <code>&lt;Transition&gt;</code> 组件），你可以在渲染过程中更新 state 。React 会立即退出第一次渲染并用更新后的 state 重新运行组件以避免耗费太多性能。</p>
+<p>这里我们把 <code>row</code> prop 上一轮的值存在一个 state 变量中以便比较：</p>
+<div class="highlight"><pre><span></span><code>function ScrollView({row}) {
+  const [isScrollingDown, setIsScrollingDown] = useState(false);
+  const [prevRow, setPrevRow] = useState(null);
+
+  if (row !== prevRow) {
+    // Row 自上次渲染以来发生过改变。更新 isScrollingDown。
+    setIsScrollingDown(prevRow !== null &amp;&amp; row &gt; prevRow);
+    setPrevRow(row);
+  }
+
+  return `Scrolling down: ${isScrollingDown}`;
+}
+</code></pre></div>
+<p>初看这或许有点奇怪，但渲染期间的一次更新恰恰就是 <code>getDerivedStateFromProps</code> 一直以来的概念。</p>
+<h3 id="forceupdate">有类似 forceUpdate 的东西吗？<a class="headerlink" href="#forceupdate" title="Permanent link">&para;</a></h3>
+<p>如果前后两次的值相同，<code>useState</code> 和 <code>useReducer</code> Hook <a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#bailing-out-of-a-state-update">都会放弃更新</a>。原地修改 state 并调用 <code>setState</code> 不会引起重新渲染。</p>
+<p>通常，你不应该在 React 中修改本地 state。然而，作为一条出路，你可以用一个增长的计数器来在 state 没变的时候依然强制一次重新渲染：</p>
+<div class="highlight"><pre><span></span><code>  const [ignored, forceUpdate] = useReducer(x =&gt; x + 1, 0);
+
+  function handleClick() {
+    forceUpdate();
+  }
+</code></pre></div>
+<p>可能的话尽量避免这种模式。</p>
+<h3 id="_3">我可以引用一个函数组件吗？<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>尽管你不应该经常需要这么做，但你可以通过 <a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#useimperativehandle"><code>useImperativeHandle</code></a> Hook 暴露一些命令式的方法给父组件。</p>
+<h3 id="dom">我该如何测量 DOM 节点？<a class="headerlink" href="#dom" title="Permanent link">&para;</a></h3>
+<p>获取 DOM 节点的位置或是大小的基本方式是使用 <a href="https://zh-hans.reactjs.org/docs/refs-and-the-dom.html#callback-refs">callback ref</a>。每当 ref 被附加到一个另一个节点，React 就会调用 callback。这里有一个 <a href="https://codesandbox.io/s/l7m0v5x4v9">小 demo</a>:</p>
+<div class="highlight"><pre><span></span><code>function MeasureExample() {
+  const [height, setHeight] = useState(0);
+
+  const measuredRef = useCallback(node =&gt; {    if (node !== null) {      setHeight(node.getBoundingClientRect().height);    }  }, []);
+  return (
+    &lt;&gt;
+      &lt;h1 ref={measuredRef}&gt;Hello, world&lt;/h1&gt;      &lt;h2&gt;The above header is {Math.round(height)}px tall&lt;/h2&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre></div>
+<p>在这个案例中，我们没有选择使用 <code>useRef</code>，因为当 ref 是一个对象时它并不会把当前 ref 的值的 <em>变化</em> 通知到我们。使用 callback ref 可以确保 <a href="https://codesandbox.io/s/818zzk8m78">即便子组件延迟显示被测量的节点</a> (比如为了响应一次点击)，我们依然能够在父组件接收到相关的信息，以便更新测量结果。</p>
+<p>注意到我们传递了 <code>[]</code> 作为 <code>useCallback</code> 的依赖列表。这确保了 ref callback 不会在再次渲染时改变，因此 React 不会在非必要的时候调用它。</p>
+<p>In this example, the callback ref will be called only when the component mounts and unmounts, since the rendered <code>&lt;h1&gt;</code> component stays present throughout any rerenders. If you want to be notified any time a component resizes, you may want to use <a href="https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver"><code>ResizeObserver</code></a> or a third-party Hook built on it.</p>
+<p>如果你愿意，你可以 <a href="https://codesandbox.io/s/m5o42082xy">把这个逻辑抽取出来作为</a> 一个可复用的 Hook:</p>
+<div class="highlight"><pre><span></span><code>function MeasureExample() {
+  const [rect, ref] = useClientRect();  return (
+    &lt;&gt;
+      &lt;h1 ref={ref}&gt;Hello, world&lt;/h1&gt;
+      {rect !== null &amp;&amp;
+        &lt;h2&gt;The above header is {Math.round(rect.height)}px tall&lt;/h2&gt;
+      }
+    &lt;/&gt;
+  );
+}
+
+function useClientRect() {
+  const [rect, setRect] = useState(null);
+  const ref = useCallback(node =&gt; {
+    if (node !== null) {
+      setRect(node.getBoundingClientRect());
+    }
+  }, []);
+  return [rect, ref];
+}
+</code></pre></div>
+<h3 id="const-thing-setthing-usestate"><code>const [thing, setThing] = useState()</code> 是什么意思？<a class="headerlink" href="#const-thing-setthing-usestate" title="Permanent link">&para;</a></h3>
+<p>如果你不熟悉这个语法，可以查看 State Hook 文档中的 <a href="https://zh-hans.reactjs.org/docs/hooks-state.html#tip-what-do-square-brackets-mean">解释</a> 一节。</p>
+<h2 id="_4">性能优化<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="effect_1">我可以在更新时跳过 effect 吗？<a class="headerlink" href="#effect_1" title="Permanent link">&para;</a></h3>
+<p>可以的。参见 <a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#conditionally-firing-an-effect">条件式的发起 effect</a>。注意，忘记处理更新常会 <a href="https://zh-hans.reactjs.org/docs/hooks-effect.html#explanation-why-effects-run-on-each-update">导致 bug</a>，这也正是我们没有默认使用条件式 effect 的原因。</p>
+<h3 id="_5">在依赖列表中省略函数是否安全？<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>一般来说，不安全。</p>
+<div class="highlight"><pre><span></span><code>function Example({ someProp }) {
+  function doSomething() {
+    console.log(someProp);  }
+
+  useEffect(() =&gt; {
+    doSomething();
+  }, []); // 🔴 这样不安全（它调用的 `doSomething` 函数使用了 `someProp`）}
+</code></pre></div>
+<p>要记住 effect 外部的函数使用了哪些 props 和 state 很难。这也是为什么 <strong>通常你会想要在 effect *内部* 去声明它所需要的函数。</strong> 这样就能容易的看出那个 effect 依赖了组件作用域中的哪些值：</p>
+<div class="highlight"><pre><span></span><code>function Example({ someProp }) {
+  useEffect(() =&gt; {
+    function doSomething() {
+      console.log(someProp);    }
+
+    doSomething();
+  }, [someProp]); // ✅ 安全（我们的 effect 仅用到了 `someProp`）}
+</code></pre></div>
+<p>如果这样之后我们依然没用到组件作用域中的任何值，就可以安全地把它指定为 <code>[]</code>：</p>
+<div class="highlight"><pre><span></span><code>useEffect(() =&gt; {
+  function doSomething() {
+    console.log(&#39;hello&#39;);
+  }
+
+  doSomething();
+}, []); // ✅ 在这个例子中是安全的，因为我们没有用到组件作用域中的 *任何* 值
+</code></pre></div>
+<p>根据你的用例，下面列举了一些其他的办法。</p>
+<blockquote>
+<p>注意</p>
+<p>我们提供了一个 <a href="https://github.com/facebook/react/issues/14920"><code>exhaustive-deps</code></a> ESLint 规则作为 <a href="https://www.npmjs.com/package/eslint-plugin-react-hooks#installation"><code>eslint-plugin-react-hooks</code></a> 包的一部分。它会帮助你找出无法一致地处理更新的组件。</p>
+</blockquote>
+<p>让我们来看看这有什么关系。</p>
+<p>如果你指定了一个 <a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#conditionally-firing-an-effect">依赖列表</a> 作为 <code>useEffect</code>、<code>useMemo</code>、<code>useCallback</code> 或 <code>useImperativeHandle</code> 的最后一个参数，它必须包含回调中的所有值，并参与 React 数据流。这就包括 props、state，以及任何由它们衍生而来的东西。</p>
+<p><strong>只有</strong> 当函数（以及它所调用的函数）不引用 props、state 以及由它们衍生而来的值时，你才能放心地把它们从依赖列表中省略。下面这个案例有一个 Bug：</p>
+<div class="highlight"><pre><span></span><code>function ProductPage({ productId }) {
+  const [product, setProduct] = useState(null);
+
+  async function fetchProduct() {
+    const response = await fetch(&#39;http://myapi/product/&#39; + productId); // 使用了 productId prop    const json = await response.json();
+    setProduct(json);
+  }
+
+  useEffect(() =&gt; {
+    fetchProduct();
+  }, []); // 🔴 这样是无效的，因为 `fetchProduct` 使用了 `productId`  // ...
+}
+</code></pre></div>
+<p><strong>推荐的修复方案是把那个函数移动到你的 effect *内部*</strong>。这样就能很容易的看出来你的 effect 使用了哪些 props 和 state，并确保它们都被声明了：</p>
+<div class="highlight"><pre><span></span><code>function ProductPage({ productId }) {
+  const [product, setProduct] = useState(null);
+
+  useEffect(() =&gt; {
+    // 把这个函数移动到 effect 内部后，我们可以清楚地看到它用到的值。    async function fetchProduct() {      const response = await fetch(&#39;http://myapi/product/&#39; + productId);      const json = await response.json();      setProduct(json);    }
+    fetchProduct();
+  }, [productId]); // ✅ 有效，因为我们的 effect 只用到了 productId  // ...
+}
+</code></pre></div>
+<p>这同时也允许你通过 effect 内部的局部变量来处理无序的响应：</p>
+<div class="highlight"><pre><span></span><code>  useEffect(() =&gt; {
+    let ignore = false;    async function fetchProduct() {
+      const response = await fetch(&#39;http://myapi/product/&#39; + productId);
+      const json = await response.json();
+      if (!ignore) setProduct(json);    }
+
+    fetchProduct();
+    return () =&gt; { ignore = true };  }, [productId]);
+</code></pre></div>
+<p>我们把这个函数移动到 effect 内部，这样它就不用出现在它的依赖列表中了。</p>
+<blockquote>
+<p>提示</p>
+<p>看看 <a href="https://codesandbox.io/s/jvvkoo8pq3">这个小 demo</a> 和 <a href="https://www.robinwieruch.de/react-hooks-fetch-data/">这篇文章</a> 来了解更多关于如何用 Hook 进行数据获取。</p>
+</blockquote>
+<p><strong>如果处于某些原因你 *无法* 把一个函数移动到 effect 内部，还有一些其他办法：</strong></p>
+<ul>
+<li><strong>你可以尝试把那个函数移动到你的组件之外</strong>。那样一来，这个函数就肯定不会依赖任何 props 或 state，并且也不用出现在依赖列表中了。</li>
+<li>如果你所调用的方法是一个纯计算，并且可以在渲染时调用，你可以 <strong>转而在 effect 之外调用它，</strong> 并让 effect 依赖于它的返回值。</li>
+<li>万不得已的情况下，你可以 <strong>把函数加入 effect 的依赖但 *把它的定义包裹*</strong> 进 <a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#usecallback"><code>useCallback</code></a> Hook。这就确保了它不随渲染而改变，除非 <em>它自身</em> 的依赖发生了改变：</li>
+</ul>
+<div class="highlight"><pre><span></span><code>function ProductPage({ productId }) {
+  // ✅ 用 useCallback 包裹以避免随渲染发生改变  const fetchProduct = useCallback(() =&gt; {    // ... Does something with productId ...  }, [productId]); // ✅ useCallback 的所有依赖都被指定了
+  return &lt;ProductDetails fetchProduct={fetchProduct} /&gt;;
+}
+
+function ProductDetails({ fetchProduct }) {
+  useEffect(() =&gt; {
+    fetchProduct();
+  }, [fetchProduct]); // ✅ useEffect 的所有依赖都被指定了
+  // ...
+}
+</code></pre></div>
+<p>注意在上面的案例中，我们 <strong>需要</strong> 让函数出现在依赖列表中。这确保了 <code>ProductPage</code> 的 <code>productId</code> prop 的变化会自动触发 <code>ProductDetails</code> 的重新获取。</p>
+<h3 id="effect_2">如果我的 effect 的依赖频繁变化，我该怎么办？<a class="headerlink" href="#effect_2" title="Permanent link">&para;</a></h3>
+<p>有时候，你的 effect 可能会使用一些频繁变化的值。你可能会忽略依赖列表中 state，但这通常会引起 Bug：</p>
+<div class="highlight"><pre><span></span><code>function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() =&gt; {
+    const id = setInterval(() =&gt; {
+      setCount(count + 1); // 这个 effect 依赖于 `count` state    }, 1000);
+    return () =&gt; clearInterval(id);
+  }, []); // 🔴 Bug: `count` 没有被指定为依赖
+  return &lt;h1&gt;{count}&lt;/h1&gt;;
+}
+</code></pre></div>
+<p>传入空的依赖数组 <code>[]</code>，意味着该 hook 只在组件挂载时运行一次，并非重新渲染时。但如此会有问题，在 <code>setInterval</code> 的回调中，<code>count</code> 的值不会发生变化。因为当 effect 执行时，我们会创建一个闭包，并将 <code>count</code> 的值被保存在该闭包当中，且初值为 <code>0</code>。每隔一秒，回调就会执行 <code>setCount(0 + 1)</code>，因此，<code>count</code> 永远不会超过 1。</p>
+<p>指定 <code>[count]</code> 作为依赖列表就能修复这个 Bug，但会导致每次改变发生时定时器都被重置。事实上，每个 <code>setInterval</code> 在被清除前（类似于 <code>setTimeout</code>）都会调用一次。但这并不是我们想要的。要解决这个问题，我们可以使用 <a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#functional-updates"><code>setState</code> 的函数式更新形式</a>。它允许我们指定 state 该 <em>如何</em> 改变而不用引用 <em>当前</em> state：</p>
+<div class="highlight"><pre><span></span><code>function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() =&gt; {
+    const id = setInterval(() =&gt; {
+      setCount(c =&gt; c + 1); // ✅ 在这不依赖于外部的 `count` 变量    }, 1000);
+    return () =&gt; clearInterval(id);
+  }, []); // ✅ 我们的 effect 不适用组件作用域中的任何变量
+  return &lt;h1&gt;{count}&lt;/h1&gt;;
+}
+</code></pre></div>
+<p>（<code>setCount</code> 函数的身份是被确保稳定的，所以可以放心的省略掉）</p>
+<p>此时，<code>setInterval</code> 的回调依旧每秒调用一次，但每次 <code>setCount</code> 内部的回调取到的 <code>count</code> 是最新值（在回调中变量命名为 <code>c</code>）。</p>
+<p>在一些更加复杂的场景中（比如一个 state 依赖于另一个 state），尝试用 <a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#usereducer"><code>useReducer</code> Hook</a> 把 state 更新逻辑移到 effect 之外。<a href="https://adamrackis.dev/state-and-use-reducer/">这篇文章</a> 提供了一个你该如何做到这一点的案例。 <strong><code>useReducer</code> 的 <code>dispatch</code> 的身份永远是稳定的</strong> —— 即使 reducer 函数是定义在组件内部并且依赖 props。</p>
+<p>万不得已的情况下，如果你想要类似 class 中的 <code>this</code> 的功能，你可以 <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables">使用一个 ref</a> 来保存一个可变的变量。然后你就可以对它进行读写了。举个例子：</p>
+<div class="highlight"><pre><span></span><code>function Example(props) {
+  // 把最新的 props 保存在一个 ref 中  const latestProps = useRef(props);  useEffect(() =&gt; {    latestProps.current = props;  });
+  useEffect(() =&gt; {
+    function tick() {
+      // 在任何时候读取最新的 props      console.log(latestProps.current);    }
+
+    const id = setInterval(tick, 1000);
+    return () =&gt; clearInterval(id);
+  }, []); // 这个 effect 从不会重新执行}
+</code></pre></div>
+<p>仅当你实在找不到更好办法的时候才这么做，因为依赖于变更会使得组件更难以预测。如果有某些特定的模式无法很好地转化成这样，<a href="https://github.com/facebook/react/issues/new">发起一个 issue</a> 并配上可运行的实例代码以便，我们会尽可能帮助你。</p>
+<h3 id="shouldcomponentupdate">我该如何实现 <code>shouldComponentUpdate</code>?<a class="headerlink" href="#shouldcomponentupdate" title="Permanent link">&para;</a></h3>
+<p>你可以用 <code>React.memo</code> 包裹一个组件来对它的 props 进行浅比较：</p>
+<div class="highlight"><pre><span></span><code>const Button = React.memo((props) =&gt; {
+  // 你的组件
+});
+</code></pre></div>
+<p>这不是一个 Hook 因为它的写法和 Hook 不同。<code>React.memo</code> 等效于 <code>PureComponent</code>，但它只比较 props。（你也可以通过第二个参数指定一个自定义的比较函数来比较新旧 props。如果函数返回 true，就会跳过更新。）</p>
+<p><code>React.memo</code> 不比较 state，因为没有单一的 state 对象可供比较。但你也可以让子节点变为纯组件，或者 <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-to-memoize-calculations">用 <code>useMemo</code> 优化每一个具体的子节点</a>。</p>
+<h3 id="_6">如何记忆计算结果？<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p><a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#usememo"><code>useMemo</code></a> Hook 允许你通过「记住」上一次计算结果的方式在多次渲染的之间缓存计算结果：</p>
+<div class="highlight"><pre><span></span><code>const memoizedValue = useMemo(() =&gt; computeExpensiveValue(a, b), [a, b]);
+</code></pre></div>
+<p>这行代码会调用 <code>computeExpensiveValue(a, b)</code>。但如果依赖数组 <code>[a, b]</code> 自上次赋值以来没有改变过，<code>useMemo</code> 会跳过二次调用，只是简单复用它上一次返回的值。</p>
+<p>记住，传给 <code>useMemo</code> 的函数是在渲染期间运行的。不要在其中做任何你通常不会在渲染期间做的事。举个例子，副作用属于 <code>useEffect</code>，而不是 <code>useMemo</code>。</p>
+<p>**你可以把 <code>useMemo</code> 作为一种性能优化的手段，但不要把它当做一种语义上的保证。**未来，React 可能会选择「忘掉」一些之前记住的值并在下一次渲染时重新计算它们，比如为离屏组件释放内存。建议自己编写相关代码以便没有 <code>useMemo</code> 也能正常工作 —— 然后把它加入性能优化。（在某些取值必须 <em>从不</em> 被重新计算的罕见场景，你可以 <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-to-create-expensive-objects-lazily">惰性初始化</a> 一个 ref。）</p>
+<p>方便起见，<code>useMemo</code> 也允许你跳过一次子节点的昂贵的重新渲染：</p>
+<div class="highlight"><pre><span></span><code>function Parent({ a, b }) {
+  // Only re-rendered if `a` changes:
+  const child1 = useMemo(() =&gt; &lt;Child1 a={a} /&gt;, [a]);
+  // Only re-rendered if `b` changes:
+  const child2 = useMemo(() =&gt; &lt;Child2 b={b} /&gt;, [b]);
+  return (
+    &lt;&gt;
+      {child1}
+      {child2}
+    &lt;/&gt;
+  )
+}
+</code></pre></div>
+<p>注意这种方式在循环中是无效的，因为 Hook 调用 <a href="https://zh-hans.reactjs.org/docs/hooks-rules.html">不能</a> 被放在循环中。但你可以为列表项抽取一个单独的组件，并在其中调用 <code>useMemo</code>。</p>
+<h3 id="_7">如何惰性创建昂贵的对象？<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>如果依赖数组的值相同，<code>useMemo</code> 允许你 <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-to-memoize-calculations">记住一次昂贵的计算</a>。但是，这仅作为一种提示，并不 <em>保证</em> 计算不会重新运行。但有时候需要确保一个对象仅被创建一次。</p>
+<p><strong>第一个常见的使用场景是当创建初始 state 很昂贵时：</strong></p>
+<div class="highlight"><pre><span></span><code>function Table(props) {
+  // ⚠️ createRows() 每次渲染都会被调用
+  const [rows, setRows] = useState(createRows(props.count));
+  // ...
+}
+</code></pre></div>
+<p>为避免重新创建被忽略的初始 state，我们可以传一个 <strong>函数</strong> 给 <code>useState</code>：</p>
+<div class="highlight"><pre><span></span><code>function Table(props) {
+  // ✅ createRows() 只会被调用一次
+  const [rows, setRows] = useState(() =&gt; createRows(props.count));
+  // ...
+}
+</code></pre></div>
+<p>React 只会在首次渲染时调用这个函数。参见 <a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#usestate"><code>useState</code> API 参考</a>。</p>
+<p>**你或许也会偶尔想要避免重新创建 <code>useRef()</code> 的初始值。**举个例子，或许你想确保某些命令式的 class 实例只被创建一次：</p>
+<div class="highlight"><pre><span></span><code>function Image(props) {
+  // ⚠️ IntersectionObserver 在每次渲染都会被创建
+  const ref = useRef(new IntersectionObserver(onIntersect));
+  // ...
+}
+</code></pre></div>
+<p><code>useRef</code> <strong>不会</strong> 像 <code>useState</code> 那样接受一个特殊的函数重载。相反，你可以编写你自己的函数来创建并将其设为惰性的：</p>
+<div class="highlight"><pre><span></span><code>function Image(props) {
+  const ref = useRef(null);
+
+  // ✅ IntersectionObserver 只会被惰性创建一次
+  function getObserver() {
+    if (ref.current === null) {
+      ref.current = new IntersectionObserver(onIntersect);
+    }
+    return ref.current;
+  }
+
+  // 当你需要时，调用 getObserver()
+  // ...
+}
+</code></pre></div>
+<p>这避免了我们在一个对象被首次真正需要之前就创建它。如果你使用 Flow 或 TypeScript，你还可以为了方便给 <code>getObserver()</code> 一个不可为 null 的类型。</p>
+<h3 id="hook_4">Hook 会因为在渲染时创建函数而变慢吗？<a class="headerlink" href="#hook_4" title="Permanent link">&para;</a></h3>
+<p>不会。在现代浏览器中，闭包和类的原始性能只有在极端场景下才会有明显的差别。</p>
+<p>除此之外，可以认为 Hook 的设计在某些方面更加高效：</p>
+<ul>
+<li>Hook 避免了 class 需要的额外开支，像是创建类实例和在构造函数中绑定事件处理器的成本。</li>
+<li><strong>符合语言习惯的代码在使用 Hook 时不需要很深的组件树嵌套</strong>。这个现象在使用高阶组件、render props、和 context 的代码库中非常普遍。组件树小了，React 的工作量也随之减少。</li>
+</ul>
+<p>传统上认为，在 React 中使用内联函数对性能的影响，与每次渲染都传递新的回调会如何破坏子组件的 <code>shouldComponentUpdate</code> 优化有关。Hook 从三个方面解决了这个问题。</p>
+<ul>
+<li><a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#usecallback"><code>useCallback</code></a> Hook 允许你在重新渲染之间保持对相同的回调引用以使得 <code>shouldComponentUpdate</code> 继续工作：</li>
+</ul>
+<div class="highlight"><pre><span></span><code>// 除非 `a` 或 `b` 改变，否则不会变
+const memoizedCallback = useCallback(() =&gt; {  doSomething(a, b);
+}, [a, b]);
+</code></pre></div>
+<ul>
+<li>
+<p><a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-to-memoize-calculations"><code>useMemo</code></a> Hook 使得控制具体子节点何时更新变得更容易，减少了对纯组件的需要。</p>
+</li>
+<li>
+<p>最后，<a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#usereducer"><code>useReducer</code></a> Hook 减少了对深层传递回调的依赖，正如下面解释的那样。</p>
+</li>
+</ul>
+<h3 id="_8">如何避免向下传递回调？<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>我们已经发现大部分人并不喜欢在组件树的每一层手动传递回调。尽管这种写法更明确，但这给人感觉像错综复杂的管道工程一样麻烦。</p>
+<p>在大型的组件树中，我们推荐的替代方案是通过 context 用 <a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#usereducer"><code>useReducer</code></a> 往下传一个 <code>dispatch</code> 函数：</p>
+<div class="highlight"><pre><span></span><code>const TodosDispatch = React.createContext(null);
+
+function TodosApp() {
+  // 提示：`dispatch` 不会在重新渲染之间变化  const [todos, dispatch] = useReducer(todosReducer);
+  return (
+    &lt;TodosDispatch.Provider value={dispatch}&gt;
+      &lt;DeepTree todos={todos} /&gt;
+    &lt;/TodosDispatch.Provider&gt;
+  );
+}
+</code></pre></div>
+<p><code>TodosApp</code> 内部组件树里的任何子节点都可以使用 <code>dispatch</code> 函数来向上传递 actions 到 <code>TodosApp</code>：</p>
+<div class="highlight"><pre><span></span><code>function DeepChild(props) {
+  // 如果我们想要执行一个 action，我们可以从 context 中获取 dispatch。  const dispatch = useContext(TodosDispatch);
+  function handleClick() {
+    dispatch({ type: &#39;add&#39;, text: &#39;hello&#39; });
+  }
+
+  return (
+    &lt;button onClick={handleClick}&gt;Add todo&lt;/button&gt;
+  );
+}
+</code></pre></div>
+<p>总而言之，从维护的角度来这样看更加方便（不用不断转发回调），同时也避免了回调的问题。像这样向下传递 <code>dispatch</code> 是处理深度更新的推荐模式。</p>
+<p>注意，你依然可以选择是要把应用的 <em>state</em> 作为 props 向下传递（更显明确）还是作为作为 context（对很深的更新而言更加方便）。如果你也使用 context 来向下传递 state，请使用两种不同的 context 类型 —— <code>dispatch</code> context 永远不会变，因此组件通过读取它就不需要重新渲染了，除非它们还需要应用的 state。</p>
+<h3 id="usecallback">如何从 <code>useCallback</code> 读取一个经常变化的值？<a class="headerlink" href="#usecallback" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>注意</p>
+<p>我们推荐 <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down">在 context 中向下传递 <code>dispatch</code></a> 而非在 props 中使用独立的回调。下面的方法仅仅出于文档完整性考虑，以及作为一条出路在此提及。</p>
+<p>同时也请注意这种模式在 <a href="https://zh-hans.reactjs.org/blog/2018/03/27/update-on-async-rendering.html">并行模式</a> 下可能会导致一些问题。我们计划在未来提供一个更加合理的替代方案，但当下最安全的解决方案是，如果回调所依赖的值变化了，总是让回调失效。</p>
+</blockquote>
+<p>在某些罕见场景中，你可能会需要用 <a href="https://zh-hans.reactjs.org/docs/hooks-reference.html#usecallback"><code>useCallback</code></a> 记住一个回调，但由于内部函数必须经常重新创建，记忆效果不是很好。如果你想要记住的函数是一个事件处理器并且在渲染期间没有被用到，你可以 <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables">把 ref 当做实例变量</a> 来用，并手动把最后提交的值保存在它当中：</p>
+<div class="highlight"><pre><span></span><code>function Form() {
+  const [text, updateText] = useState(&#39;&#39;);
+  const textRef = useRef();
+
+  useEffect(() =&gt; {
+    textRef.current = text; // 把它写入 ref  });
+
+  const handleSubmit = useCallback(() =&gt; {
+    const currentText = textRef.current; // 从 ref 读取它    alert(currentText);
+  }, [textRef]); // 不要像 [text] 那样重新创建 handleSubmit
+
+  return (
+    &lt;&gt;
+      &lt;input value={text} onChange={e =&gt; updateText(e.target.value)} /&gt;
+      &lt;ExpensiveTree onSubmit={handleSubmit} /&gt;
+    &lt;/&gt;
+  );
+}
+</code></pre></div>
+<p>这是一个比较麻烦的模式，但这表示如果你需要的话你可以用这条出路进行优化。如果你把它抽取成一个自定义 Hook 的话会更加好受些：</p>
+<div class="highlight"><pre><span></span><code>function Form() {
+  const [text, updateText] = useState(&#39;&#39;);
+  // 即便 `text` 变了也会被记住:
+  const handleSubmit = useEventCallback(() =&gt; {    alert(text);
+  }, [text]);
+
+  return (
+    &lt;&gt;
+      &lt;input value={text} onChange={e =&gt; updateText(e.target.value)} /&gt;
+      &lt;ExpensiveTree onSubmit={handleSubmit} /&gt;
+    &lt;/&gt;
+  );
+}
+
+function useEventCallback(fn, dependencies) {  const ref = useRef(() =&gt; {
+    throw new Error(&#39;Cannot call an event handler while rendering.&#39;);
+  });
+
+  useEffect(() =&gt; {
+    ref.current = fn;
+  }, [fn, ...dependencies]);
+
+  return useCallback(() =&gt; {
+    const fn = ref.current;
+    return fn();
+  }, [ref]);
+}
+</code></pre></div>
+<p>无论如何，我们都 <strong>不推荐使用这种模式</strong> ，只是为了文档的完整性而把它展示在这里。相反的，我们更倾向于 <a href="https://zh-hans.reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down">避免向下深入传递回调</a>。</p>
+<h2 id="_9">底层原理<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h3 id="react-hook_1">React 是如何把对 Hook 的调用和组件联系起来的？<a class="headerlink" href="#react-hook_1" title="Permanent link">&para;</a></h3>
+<p>React 保持对当先渲染中的组件的追踪。多亏了 <a href="https://zh-hans.reactjs.org/docs/hooks-rules.html">Hook 规范</a>，我们得知 Hook 只会在 React 组件中被调用（或自定义 Hook —— 同样只会在 React 组件中被调用）。</p>
+<p>每个组件内部都有一个「记忆单元格」列表。它们只不过是我们用来存储一些数据的 JavaScript 对象。当你用 <code>useState()</code> 调用一个 Hook 的时候，它会读取当前的单元格（或在首次渲染时将其初始化），然后把指针移动到下一个。这就是多个 <code>useState()</code> 调用会得到各自独立的本地 state 的原因。</p>
+<h3 id="hook_5">Hook 使用了哪些现有技术？<a class="headerlink" href="#hook_5" title="Permanent link">&para;</a></h3>
+<p>Hook 由不同的来源的多个想法构成：</p>
+<ul>
+<li><a href="https://github.com/reactjs/react-future/tree/master/07 - Returning State">react-future</a> 这个仓库中包含我们对函数式 API 的老旧实验。</li>
+<li>React 社区对 render prop API 的实验，其中包括 <a href="https://github.com/ryanflorence">Ryan Florence</a> 的 <a href="https://github.com/reactions/component">Reactions Component</a> 。</li>
+<li><a href="https://github.com/trueadm">Dominic Gannaway</a> 的用 <a href="https://gist.github.com/trueadm/17beb64288e30192f3aa29cad0218067"><code>adopt</code> 关键字</a> 作为 render props 的语法糖的提案。</li>
+<li><a href="http://displayscript.org/introduction.html">DisplayScript</a> 中的 state 变量和 state 单元格。</li>
+<li>ReasonReact 中的 <a href="https://reasonml.github.io/reason-react/docs/en/state-actions-reducer.html">Reducer components</a>。</li>
+<li>Rx 中的 <a href="http://reactivex.io/rxjs/class/es6/Subscription.js~Subscription.html">Subscriptions</a>。</li>
+<li>Multicore OCaml 提到的 <a href="https://github.com/ocamllabs/ocaml-effects-tutorial#2-effectful-computations-in-a-pure-setting">Algebraic effects</a>。</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>

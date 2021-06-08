@@ -1,0 +1,974 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/ebook-netease-senior-frontend/21/21-ssr/">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>21-SSR 做么做 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#21-ssr" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              21-SSR 做么做
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+      
+      <label class="md-nav__link" for="nav-1">
+        人生思考
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="人生思考" data-md-level="1">
+        <label class="md-nav__title" for="nav-1">
+          <span class="md-nav__icon md-icon"></span>
+          人生思考
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../40%E9%80%80%E4%BC%91/" class="md-nav__link">
+        40退休.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Poor-and-busy/" class="md-nav__link">
+        Poor-and-busy.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Reflections%20on%20Pre-Tirement/" class="md-nav__link">
+        Reflections on Pre-Tirement.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../The%20art%20of%20Execution%20%E6%89%A7%E8%A1%8C%E5%8A%9B%E7%9A%84%E8%89%BA%E6%9C%AF/" class="md-nav__link">
+        The art of Execution 执行力的艺术.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../b%E8%AE%A1%E5%88%92/" class="md-nav__link">
+        b计划.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%86%B5%E5%A2%9E/" class="md-nav__link">
+        熵增.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%B8%AA%E4%BA%BA%E9%80%89%E6%8B%A9/" class="md-nav__link">
+        个人选择.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%BA%E7%94%9F%E7%9C%9F%E7%9B%B8/" class="md-nav__link">
+        人生真相.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%B8%B9%E5%B0%BC%E6%96%AF%E4%B8%8EUnix/" class="md-nav__link">
+        丹尼斯与Unix.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%A9%B9%E5%AE%8F%E5%BF%97%E8%AF%BB%E4%B9%A6/" class="md-nav__link">
+        詹宏志读书.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%AA%A1%E5%AD%90%E5%92%8C%E4%BA%BA%E7%94%9F/" class="md-nav__link">
+        骡子和人生.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%A6%82%E4%BD%95%E5%8F%98%E5%BE%97%E5%BC%BA%E5%A4%A7/" class="md-nav__link">
+        如何变得强大.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%B8%93%E4%B8%9A%E6%95%99%E8%82%B2%E7%9A%84%E5%85%B4%E8%B5%B7/" class="md-nav__link">
+        专业教育的兴起.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%B8%AD%E5%9B%BD%E7%BB%8F%E6%B5%8E%E7%9A%84%E8%BD%AC%E5%8F%98/" class="md-nav__link">
+        中国经济的转变.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A1%95%E5%A3%AB%E5%AD%A6%E4%BD%8D%E7%9A%84%E8%B4%AC%E5%80%BC/" class="md-nav__link">
+        硕士学位的贬值.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BB%BB%E6%AD%A3%E9%9D%9E%E7%9A%84%E7%AE%A1%E7%90%86%E6%80%9D%E6%83%B3/" class="md-nav__link">
+        任正非的管理思想.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%8A%80%E6%9C%AF%E5%92%8C%E7%A8%B3%E5%AE%9A%E7%9A%84%E5%B7%A5%E4%BD%9C/" class="md-nav__link">
+        技术和稳定的工作.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%A4%A7%E5%AD%A6%E6%95%99%E8%82%B2%E5%92%8C%E7%BD%91%E7%BB%9C%E6%96%87%E5%87%AD/" class="md-nav__link">
+        大学教育和网络文凭.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E5%88%B0%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        思维导图到深度学习.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%B7%A5%E4%B8%9A%E6%96%87%E6%98%8E%E5%AF%B9%E4%BA%8E%E7%A4%BE%E4%BC%9A%E7%9A%84%E5%86%B2%E5%87%BB/" class="md-nav__link">
+        工业文明对于社会的冲击.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E5%92%8C%E5%AF%B9%E6%95%B0%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83/" class="md-nav__link">
+        正态分布和对数正态分布.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ssr" class="md-nav__link">
+    SSR 是什么
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssr_1" class="md-nav__link">
+    SSR组成部分
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    核心库
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssr_2" class="md-nav__link">
+    自己动手搭建SSR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vue-nuxt-ssr" class="md-nav__link">
+    VUE 中使用 Nuxt 框架实现SSR
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/ebook-netease-senior-frontend/21/21-ssr.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="21-ssr">21-SSR 做么做<a class="headerlink" href="#21-ssr" title="Permanent link">&para;</a></h1>
+<h3 id="ssr">SSR 是什么<a class="headerlink" href="#ssr" title="Permanent link">&para;</a></h3>
+<p>SSR：首屏服务端渲染-server side render</p>
+<p>SEO原理：使用爬虫爬取HTML中的关键字和主要标题</p>
+<p>面试：你的某个项目中有什么亮点？为了SEO优化和加快首屏优化速度，进行了SSR渲染；</p>
+<p>SSR：服务器端解析执行JS（开启一个Node服务，执行请求，生产HTML，把处理好的页面发送给浏览器）；减少浏览器的卡顿（服务器压力增加了）；客户看到的效果很舒服；</p>
+<p>好处：减轻浏览器工作压力（只实现UI层，内存少）；实现首屏优化（首页全部的渲染在浏览器）（原来请求很多文件3MB，现在只请求300KB）；利于SEO（SEO爬虫主要获取HTML，传统的界面是JS生成的，所以很多信息无法获取）</p>
+<p>坏处：传统界面类似于原生的界面跳转，SSR后每次进入一个新页面需要重新请求刷新。</p>
+<p>VUE根据生命周期函数拆分服务器端的JS和浏览器的JS部分（不需要自己写）</p>
+<p>传统架构：完全浏览器渲染（服务器端存放静态资源，index.html, app.bundle.js，app.bundle.css 浏览器请求后渲染界面）类似于原生APP的使用体验。</p>
+<p>把CLI改造成SSR</p>
+<h3 id="ssr_1">SSR组成部分<a class="headerlink" href="#ssr_1" title="Permanent link">&para;</a></h3>
+<p>app.js 分成两部分：code(store + router + component) =&gt; server entey + client entry  =&gt; webpack build =&gt; server bundle.js + client.bundle.js =&gt; server render + client render</p>
+<p>每一次访问需要新建一个VUE实例（对于界面频繁跳转的情况不适合）</p>
+<p>服务器端会执行 beforeCreate create 两个生命周期函数（钩子）</p>
+<h3 id="_1">核心库<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>vue + vue-server-renderer</p>
+<h3 id="ssr_2">自己动手搭建SSR<a class="headerlink" href="#ssr_2" title="Permanent link">&para;</a></h3>
+<p>不管是服务器端的JS代码，还是浏览器端的JS代码，都按照生产环境进行打包。只不多打包的入口是不同。</p>
+<p>需要把 webpack.prod.conf.js 复制过来，然后修改一下。</p>
+<p>可以把压缩部分的代码注释掉</p>
+<p>Webpack 打包时，会把注释删除，但是服务端NodeJS运行是需要一段注释作为插入点（类似Django中的插入点），所以需要把webpack配置中的minify删除。</p>
+<p>webpack支持模板引擎，所以可以在HTML中写模板引擎字符串。</p>
+<p>server.js</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">Vue</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;vue&#39;</span><span class="p">);</span>
+
+<span class="c1">// 开启express服务</span>
+<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+
+<span class="c1">// 这是关键：后端使用renderer把VUE渲染成HTML</span>
+<span class="kd">const</span> <span class="nx">renderer</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;vue-server-renderer&#39;</span><span class="p">).</span><span class="nx">createRenderer</span><span class="p">();</span>
+
+<span class="kd">function</span> <span class="nx">createApp</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">url</span> <span class="o">===</span> <span class="s1">&#39;/&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/index&#39;</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+    <span class="c1">// 从文件中读取模板</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="s1">&#39;template&#39;</span> <span class="o">+</span> <span class="nx">url</span> <span class="o">+</span> <span class="s1">&#39;.html&#39;</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="nx">server</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;*&#39;</span> <span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">createApp</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+  <span class="c1">// 把VUE项目转换成HTML</span>
+  <span class="nx">renderer</span><span class="p">.</span><span class="nx">renderToString</span><span class="p">(</span><span class="nx">app</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">html</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// 把转换后的结果放在浏览器界面上</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">html</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mf">7000</span><span class="p">);</span>
+</code></pre></div>
+
+<p>test.js</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">Vue</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;vue&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="sb">`&lt;div&gt;Hello World &lt;span&gt;{{num}}&lt;/span&gt;&lt;/div&gt;`</span><span class="p">,</span>
+  <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">num</span><span class="o">:</span> <span class="mf">123</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>index.html</p>
+<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;app&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="c">&lt;!-- build files will be auto injected --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>index.ssr.html</p>
+<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="c">&lt;!-- 这是模板插入的入口，下面的注释不能删除 --&gt;</span>
+    <span class="c">&lt;!--vue-ssr-outlet--&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>/src/router/index.js</p>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Router</span> <span class="nx">from</span> <span class="s1">&#39;vue-router&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">HelloWorld</span> <span class="nx">from</span> <span class="s1">&#39;@/components/HelloWorld&#39;</span><span class="p">;</span>
+
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">Router</span><span class="p">);</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">createRouter</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">Router</span><span class="p">({</span>
+    <span class="nx">mode</span><span class="o">:</span> <span class="s1">&#39;history&#39;</span><span class="p">,</span>
+    <span class="nx">routes</span><span class="o">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;HelloWorld&#39;</span><span class="p">,</span>
+        <span class="nx">component</span><span class="o">:</span> <span class="nx">HelloWorld</span><span class="p">,</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>/src/main.js</p>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="nx">Vue</span> <span class="nx">from</span> <span class="s1">&#39;vue&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">App</span> <span class="nx">from</span> <span class="s1">&#39;./App&#39;</span><span class="p">;</span>
+<span class="c1">// import router from &#39;./router&#39;;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">createRouter</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./router&#39;</span><span class="p">;</span>
+
+<span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">productionTip</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+<span class="c1">// 对外暴露一个函数</span>
+<span class="k">export</span> <span class="nx">fucntion</span> <span class="nx">createApp</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+    <span class="nx">router</span><span class="p">,</span>
+    <span class="nx">render</span><span class="o">:</span> <span class="nx">h</span> <span class="p">=&gt;</span> <span class="nx">h</span><span class="p">(</span><span class="nx">App</span><span class="p">)</span>
+  <span class="p">})</span>
+  <span class="k">return</span> <span class="p">{</span> <span class="nx">app</span><span class="p">,</span> <span class="nx">router</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 下面的注释掉</span>
+<span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+  <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;#app&#39;</span><span class="p">,</span>
+  <span class="nx">router</span><span class="p">,</span>
+  <span class="nx">components</span><span class="o">:</span> <span class="p">{</span> <span class="nx">App</span> <span class="p">},</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;App/&gt;&#39;</span>
+<span class="p">})</span>
+</code></pre></div>
+
+<p>App.vue</p>
+<div class="codehilite"><pre><span></span><code>&lt;template&gt;
+    &lt;div id=&quot;app&quot;&gt;
+    &lt;img src=&#39;./logo.png&#39;/&gt;
+    &lt;router-view/&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  name: &#39;App&#39;
+}
+&lt;/script&gt;
+
+&lt;style&gt;&lt;/style&gt;
+</code></pre></div>
+
+<p>Client.js</p>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createApp</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./main&#39;</span><span class="p">;</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">app</span><span class="p">,</span> <span class="nx">router</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">createApp</span><span class="p">();</span>
+<span class="nx">router</span><span class="p">.</span><span class="nx">onReady</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">app</span><span class="p">.</span><span class="nx">$mount</span><span class="p">(</span><span class="s1">&#39;#app&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>Server.js</p>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createApp</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./main&#39;</span><span class="p">;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">context</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">app</span><span class="p">,</span> <span class="nx">router</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">createApp</span><span class="p">();</span>
+    <span class="c1">// 先设置路由router的位置</span>
+    <span class="nx">router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+    <span class="nx">router</span><span class="p">.</span><span class="nx">onReady</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">matchedComponents</span> <span class="o">=</span> <span class="nx">router</span><span class="p">.</span><span class="nx">getMatchedComponents</span><span class="p">();</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">matchedComponents</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">reject</span><span class="p">({</span> <span class="nx">code</span><span class="o">:</span> <span class="mf">404</span> <span class="p">});</span>
+      <span class="p">}</span>
+      <span class="nx">resolve</span><span class="p">(</span><span class="nx">app</span><span class="p">);</span>
+    <span class="p">},</span> <span class="nx">reject</span><span class="p">);</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>webpack.bundleserver.js</p>
+<p>webpack.bundleclient.js</p>
+<p>这两个文件和生产环境下面的webpack配置基本相同，需要做一些修改</p>
+<p>下面是client配置部分</p>
+<p>webpack.buldle-client.js</p>
+<div class="codehilite"><pre><span></span><code><span class="s1">&#39;use strict&#39;</span>
+<span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">utils</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./utils&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./config.js&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">merge</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-merge&#39;</span><span class="p">);</span>
+<span class="c1">// plugins: copy-webpack-plugin html-webpack-plugin </span>
+<span class="c1">// extract-text-webpack-plugin optimize-css-assets-webpack-plugin</span>
+<span class="c1">// uglifyjs-webpack-plugin</span>
+<span class="kd">const</span> <span class="nx">VueSSRClientPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">env</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../config/prod.env&#39;</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">webpackConfig</span> <span class="o">=</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">baseWebpackConfiging</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">rules</span><span class="o">:</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">styleLoaders</span><span class="p">({</span>
+      <span class="nx">sourceMap</span><span class="o">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">build</span><span class="p">.</span><span class="nx">productionSourceMap</span><span class="p">,</span>
+      <span class="nx">extract</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">usePostCSS</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">})</span>
+  <span class="p">},</span>
+  <span class="c1">// add entry</span>
+  <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">app</span><span class="o">:</span> <span class="s1">&#39;./src/client.js&#39;</span>
+  <span class="p">},</span>
+  <span class="nx">devtool</span><span class="o">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">build</span><span class="p">.</span><span class="nx">productionSourceMap</span> <span class="o">?</span> <span class="nx">config</span><span class="p">.</span><span class="nx">build</span><span class="p">.</span><span class="nx">devtool</span> <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">path</span><span class="o">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">buildassetsRoot</span><span class="p">,</span>
+    <span class="nx">filename</span><span class="o">:</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">assetsPath</span><span class="p">(</span><span class="s1">&#39;js/[name].[chunkhash].js&#39;</span><span class="p">),</span>
+    <span class="nx">chunkFilename</span><span class="o">:</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">assetsPath</span><span class="p">(</span><span class="s1">&#39;js/[id].[chunkhash].js&#39;</span><span class="p">)</span>
+  <span class="p">},</span>
+  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">VueSSRClientPlugin</span><span class="p">(),</span>
+    <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">DefinePlugin</span><span class="p">({</span>
+      <span class="s1">&#39;process.env&#39;</span><span class="o">:</span> <span class="nx">env</span>
+    <span class="p">}),</span>
+    <span class="k">new</span> <span class="nx">UglifyJsPlugin</span><span class="p">({</span>
+      <span class="nx">uglifyOptions</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">compress</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">warnings</span><span class="o">:</span> <span class="kc">false</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="nx">sourceMap</span><span class="o">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">build</span><span class="p">.</span><span class="nx">productionSourceMap</span><span class="p">,</span>
+      <span class="nx">parallel</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="p">}),</span>
+    <span class="c1">// extract css into its own file</span>
+    <span class="k">new</span> <span class="nx">ExtractTextPlugin</span><span class="p">({</span>
+      <span class="nx">filename</span><span class="o">:</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">assetsPath</span><span class="p">(</span><span class="s1">&#39;css/[name].[contenthash].css&#39;</span><span class="p">),</span>
+    <span class="p">}),</span>
+    <span class="c1">// 很多的插件为了压缩打包，测试时可以注释这些插件</span>
+  <span class="p">],</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>webpack.bundleserver.js</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">VueSSRServerPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;vue-server-renderer/server-plugin&#39;</span><span class="p">);</span>
+
+<span class="c1">// 其他配置相同，需要设置不同的入口函数</span>
+<span class="k">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">app</span><span class="o">:</span> <span class="s1">&#39;./src/serve.js&#39;</span>
+  <span class="p">},</span>
+  <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;node&#39;</span><span class="p">,</span>
+  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">libraryTarget</span><span class="o">:</span> <span class="s1">&#39;commonjs2&#39;</span>
+  <span class="p">},</span>
+  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">VueSSRServerPlugin</span><span class="p">(),</span>
+    <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">DefinePlugin</span><span class="p">({</span>
+      <span class="s1">&#39;process.env&#39;</span><span class="o">:</span> <span class="nx">env</span>
+    <span class="p">}),</span>
+    <span class="c1">// 中间的其他插件省略</span>
+    <span class="c1">// compress extracted CSS we are using this plugin so that possible duplicated CSS from different components can be deputed. </span>
+    <span class="c1">//  压缩提取的CSS，确保来源于不同组件的CSS文件被压缩</span>
+    <span class="k">new</span> <span class="nx">OptimizeCSSPlugin</span><span class="p">({</span>
+      <span class="nx">cssProcessorOptions</span><span class="o">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">build</span><span class="p">.</span><span class="nx">productionSourceMap</span> <span class="o">?</span> <span class="p">{</span> <span class="nx">date</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">map</span><span class="o">:</span> <span class="p">{</span><span class="nx">inline</span><span class="o">:</span> <span class="kc">false</span><span class="p">}}</span> <span class="o">:</span> <span class="p">{</span><span class="nx">safe</span><span class="o">:</span> <span class="kc">true</span><span class="p">}</span>
+    <span class="p">}),</span>
+    <span class="c1">// generate dist index.html with correct asset hash for caching</span>
+    <span class="k">new</span> <span class="nx">HtmlWebpackPlugin</span><span class="p">({</span>
+      <span class="c1">// filename: config.build.index,</span>
+      <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;index.ssr.html&#39;</span><span class="p">,</span>
+      <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;index.ssr.html&#39;</span><span class="p">,</span>
+      <span class="nx">inject</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">files</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">js</span><span class="o">:</span> <span class="s1">&#39;app.js&#39;</span>
+      <span class="p">},</span>
+      <span class="c1">// 下面的压缩（在测试时可以删除）</span>
+      <span class="c1">//minify: {</span>
+      <span class="c1">//  removeComments: true,</span>
+      <span class="c1">//  collapseWhitespace: true,</span>
+      <span class="c1">//  removeAttributeQuotes: true,</span>
+      <span class="c1">//},</span>
+      <span class="nx">chunksSortMode</span><span class="o">:</span> <span class="s1">&#39;dependency&#39;</span>
+    <span class="p">}),</span>
+    <span class="c1">// keep module.id stable when vendor modules does not change</span>
+    <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">HashedModuleIdsPlugin</span><span class="p">(),</span>
+    <span class="c1">// enable scope histing</span>
+    <span class="k">new</span> <span class="nx">webpack</span><span class="p">.</span><span class="nx">optimize</span><span class="p">.</span><span class="nx">ModuleConcatenationPlugin</span><span class="p">(),</span>
+  <span class="p">],</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>webpackbase.config.js</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">resolve</span><span class="p">(</span><span class="nx">dir</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="nx">dir</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">context</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../&#39;</span><span class="p">),</span>
+  <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">app</span><span class="o">:</span> <span class="s1">&#39;./src/main.js&#39;</span>
+  <span class="p">},</span>
+  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">path</span><span class="o">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">build</span><span class="p">.</span><span class="nx">assetsRoot</span><span class="p">,</span>
+    <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;[name].js&#39;</span><span class="p">,</span>
+    <span class="nx">publicPath</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">===</span> <span class="s1">&#39;production&#39;</span> <span class="o">?</span> <span class="nx">config</span><span class="p">.</span><span class="nx">build</span><span class="p">.</span><span class="nx">assetsPublicPath</span> <span class="o">:</span> <span class="nx">config</span><span class="p">.</span><span class="nx">dev</span><span class="p">.</span><span class="nx">assetsPublicPath</span>
+  <span class="p">},</span>
+  <span class="nx">resolve</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">extensions</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;.js&#39;</span><span class="p">,</span> <span class="s1">&#39;.vue&#39;</span><span class="p">,</span> <span class="s1">&#39;.json&#39;</span><span class="p">],</span>
+    <span class="nx">alias</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s1">&#39;vue$&#39;</span><span class="o">:</span> <span class="s1">&#39;vue/dist/vue.esm.js&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;@&#39;</span><span class="o">:</span> <span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">),</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>package.json</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;scripts&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;npm run dev&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="s2">&quot;node build/build.js&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;build:client&quot;</span><span class="p">:</span> <span class="s2">&quot;webpack --config build/webpack.buildclient.js&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;build:server&quot;</span><span class="p">:</span> <span class="s2">&quot;webpack --config build/webpack.buildserver.js&quot;</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>server.js</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">createBundleRenderer</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;vue-server-renderer&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">serverBundle</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../dist/vue-ssrs-servers-bundle.json&#39;</span><span class="p">));</span>
+<span class="kd">const</span> <span class="nx">sclientManifest</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../dist/vue-ssr-client-manifest.json&#39;</span><span class="p">));</span>
+<span class="kd">const</span> <span class="nx">template</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../dist/index.ssr.html&#39;</span><span class="p">),</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">renderer</span> <span class="o">=</span> <span class="nx">createBundleRenderer</span><span class="p">(</span><span class="nx">serverBundle</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">renInNewContext</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="nx">template</span><span class="p">,</span>
+  <span class="nx">clientManifest</span><span class="o">:</span> <span class="nx">clientManifest</span>
+<span class="p">});</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">uses</span><span class="p">(</span><span class="nx">expresss</span><span class="p">.</span><span class="nx">statics</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;../dists&#39;</span><span class="p">)));</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">contexts</span> <span class="o">=</span> <span class="p">{</span><span class="nx">url</span><span class="o">:</span> <span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">};</span>
+  <span class="kd">const</span> <span class="nx">ssrStream</span> <span class="o">=</span> <span class="nx">renderer</span><span class="p">.</span><span class="nx">renderToStream</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
+  <span class="kd">let</span> <span class="nx">buffers</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="nx">ssrStream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);});</span>
+  <span class="nx">ssrStream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span><span class="nx">bufffer</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">data</span><span class="p">);});</span>
+  <span class="nx">ssrStream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">Buffer</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">buffers</span><span class="p">));</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mf">3000</span><span class="p">);</span>
+</code></pre></div>
+
+<p>serve.js</p>
+<div class="codehilite"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">createApp</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./main&#39;</span><span class="p">;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">context</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="p">{</span> <span class="nx">app</span><span class="p">,</span> <span class="nx">router</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">createApp</span><span class="p">();</span>
+    <span class="nx">router</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+    <span class="nx">router</span><span class="p">.</span><span class="nx">onReady</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">matchedComponents</span> <span class="o">=</span> <span class="nx">router</span><span class="p">.</span><span class="nx">getMatchedComponents</span><span class="p">();</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">matchedComponents</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">reject</span><span class="p">({</span> <span class="nx">code</span><span class="o">:</span> <span class="mf">404</span> <span class="p">});</span>
+      <span class="p">}</span>
+      <span class="nx">resolve</span><span class="p">(</span><span class="nx">app</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">},</span> <span class="nx">reject</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>node ./server/server.js
+</code></pre></div>
+
+<h3 id="vue-nuxt-ssr">VUE 中使用 Nuxt 框架实现SSR<a class="headerlink" href="#vue-nuxt-ssr" title="Permanent link">&para;</a></h3>
+<p>其他参考文献：https://www.jianshu.com/p/10b6074d772</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>

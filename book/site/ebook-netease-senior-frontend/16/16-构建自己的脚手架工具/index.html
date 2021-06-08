@@ -1,0 +1,779 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/ebook-netease-senior-frontend/16/16-%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7/">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>16-利用node构建自己的脚手架工具 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#16-node" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              16-利用node构建自己的脚手架工具
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+      
+      <label class="md-nav__link" for="nav-1">
+        人生思考
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="人生思考" data-md-level="1">
+        <label class="md-nav__title" for="nav-1">
+          <span class="md-nav__icon md-icon"></span>
+          人生思考
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../40%E9%80%80%E4%BC%91/" class="md-nav__link">
+        40退休.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Poor-and-busy/" class="md-nav__link">
+        Poor-and-busy.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Reflections%20on%20Pre-Tirement/" class="md-nav__link">
+        Reflections on Pre-Tirement.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../The%20art%20of%20Execution%20%E6%89%A7%E8%A1%8C%E5%8A%9B%E7%9A%84%E8%89%BA%E6%9C%AF/" class="md-nav__link">
+        The art of Execution 执行力的艺术.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../b%E8%AE%A1%E5%88%92/" class="md-nav__link">
+        b计划.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%86%B5%E5%A2%9E/" class="md-nav__link">
+        熵增.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%B8%AA%E4%BA%BA%E9%80%89%E6%8B%A9/" class="md-nav__link">
+        个人选择.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%BA%E7%94%9F%E7%9C%9F%E7%9B%B8/" class="md-nav__link">
+        人生真相.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%B8%B9%E5%B0%BC%E6%96%AF%E4%B8%8EUnix/" class="md-nav__link">
+        丹尼斯与Unix.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%A9%B9%E5%AE%8F%E5%BF%97%E8%AF%BB%E4%B9%A6/" class="md-nav__link">
+        詹宏志读书.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%AA%A1%E5%AD%90%E5%92%8C%E4%BA%BA%E7%94%9F/" class="md-nav__link">
+        骡子和人生.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%A6%82%E4%BD%95%E5%8F%98%E5%BE%97%E5%BC%BA%E5%A4%A7/" class="md-nav__link">
+        如何变得强大.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%B8%93%E4%B8%9A%E6%95%99%E8%82%B2%E7%9A%84%E5%85%B4%E8%B5%B7/" class="md-nav__link">
+        专业教育的兴起.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%B8%AD%E5%9B%BD%E7%BB%8F%E6%B5%8E%E7%9A%84%E8%BD%AC%E5%8F%98/" class="md-nav__link">
+        中国经济的转变.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E7%A1%95%E5%A3%AB%E5%AD%A6%E4%BD%8D%E7%9A%84%E8%B4%AC%E5%80%BC/" class="md-nav__link">
+        硕士学位的贬值.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BB%BB%E6%AD%A3%E9%9D%9E%E7%9A%84%E7%AE%A1%E7%90%86%E6%80%9D%E6%83%B3/" class="md-nav__link">
+        任正非的管理思想.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%8A%80%E6%9C%AF%E5%92%8C%E7%A8%B3%E5%AE%9A%E7%9A%84%E5%B7%A5%E4%BD%9C/" class="md-nav__link">
+        技术和稳定的工作.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%A4%A7%E5%AD%A6%E6%95%99%E8%82%B2%E5%92%8C%E7%BD%91%E7%BB%9C%E6%96%87%E5%87%AD/" class="md-nav__link">
+        大学教育和网络文凭.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E5%88%B0%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        思维导图到深度学习.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%B7%A5%E4%B8%9A%E6%96%87%E6%98%8E%E5%AF%B9%E4%BA%8E%E7%A4%BE%E4%BC%9A%E7%9A%84%E5%86%B2%E5%87%BB/" class="md-nav__link">
+        工业文明对于社会的冲击.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E5%92%8C%E5%AF%B9%E6%95%B0%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83/" class="md-nav__link">
+        正态分布和对数正态分布.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    课程大纲
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    如何操作命令行
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nodejs" class="md-nav__link">
+    常见的 nodeJS 包
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    如何构建CLI
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/ebook-netease-senior-frontend/16/16-构建自己的脚手架工具.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="16-node">16-利用node构建自己的脚手架工具<a class="headerlink" href="#16-node" title="Permanent link">&para;</a></h1>
+<h3 id="_1">课程大纲<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>1、如何利用node编写命令行脚本（操作命令行）
+2、脚手架工具常用的包有哪些
+3、带你手撸一个自己的 vue-cli</p>
+<p>可以自己做项目专属的脚手架工具</p>
+<h3 id="_2">如何操作命令行<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p><code>npm run build</code> 执行的是 build.js 脚本</p>
+<h3 id="nodejs">常见的 nodeJS 包<a class="headerlink" href="#nodejs" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nx">chalk</span> <span class="nx">输出不同颜色的文字</span><span class="err">（</span><span class="nx">开发脚本的效果的包</span><span class="err">）</span>
+<span class="nx">ora</span> <span class="nx">loading</span> <span class="nx">的效果</span>
+<span class="nx">commander</span> <span class="nx">解析命令</span><span class="err">（</span><span class="o">-</span><span class="nx">v</span><span class="err">）</span>
+<span class="nx">inquirer</span> <span class="nx">提问查询的包</span><span class="err">（</span><span class="nx">npm</span> <span class="nx">init</span> <span class="nx">然后会提问</span><span class="err">，</span><span class="nx">名称是什么</span><span class="err">）</span>
+</code></pre></div>
+
+<p>练习 build.js</p>
+<div class="codehilite"><pre><span></span><code><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">=</span> <span class="s1">&#39;production&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">ora</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;ora&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">rm</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;rimraf&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">chalk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;chalk&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">config</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../config&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">webpackConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./webpack.prod.conf&#39;</span><span class="p">);</span>
+
+<span class="c1">// 开始loading状态</span>
+<span class="kd">const</span> <span class="nx">spinner</span> <span class="o">=</span> <span class="nx">ora</span><span class="p">(</span><span class="s1">&#39;building for production...loading...&#39;</span><span class="p">);</span>
+<span class="nx">spinner</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">assetsRoot</span><span class="p">,</span> <span class="nx">assetsSubDirectory</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">build</span><span class="p">;</span>
+<span class="nx">rm</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">assetsRoot</span><span class="p">,</span> <span class="nx">assetsSubDirectory</span><span class="p">),</span> <span class="nx">err</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">webpack</span><span class="p">(</span><span class="nx">webpackConfig</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">stats</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// webpack 编译结束后，停止loading状态</span>
+    <span class="nx">spinner</span><span class="p">.</span><span class="nx">stop</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">stats</span><span class="p">.</span><span class="nx">toString</span><span class="p">({</span>
+      <span class="nx">colors</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">modules</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nx">children</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">// if use ts-loader, set this true</span>
+      <span class="nx">chunks</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nx">chunkModules</span><span class="o">:</span> <span class="kc">false</span>
+    <span class="p">})</span> <span class="o">+</span> <span class="s1">&#39;\n\n&#39;</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">stats</span><span class="p">.</span><span class="nx">hasError</span><span class="p">())</span> <span class="p">{</span>
+      <span class="c1">// handle error</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">(</span><span class="s1">&#39;Build failed with errors.\n&#39;</span><span class="p">));</span>
+      <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">cyan</span><span class="p">(</span><span class="s1">&#39;Build complete.\n&#39;</span><span class="p">));</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>下面是一步一步的教程</p>
+<div class="codehilite"><pre><span></span><code>npm install chalk ora commander inquirer --save
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">chalk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;chalk&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">.</span><span class="nx">bgBlue</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">rgb</span><span class="p">(</span><span class="mf">126</span><span class="p">,</span><span class="mf">126</span><span class="p">,</span><span class="mf">126</span><span class="p">).</span><span class="nx">bgRgb</span><span class="p">(</span><span class="mf">22</span><span class="p">,</span><span class="mf">33</span><span class="p">,</span><span class="mf">89</span><span class="p">)(</span><span class="s1">&#39;hello&#39;</span><span class="p">));</span>
+
+<span class="kd">const</span> <span class="nx">spinner</span> <span class="o">=</span> <span class="nx">ora</span><span class="p">(</span><span class="s1">&#39;this is a loading&#39;</span><span class="p">).</span><span class="nx">start</span><span class="p">();</span>
+<span class="nx">spinner</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;yellow&#39;</span><span class="p">;</span>
+<span class="nx">spinner</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="s1">&#39;hello nodeJS&#39;</span><span class="p">;</span>
+<span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">spinner</span><span class="p">.</span><span class="nx">stop</span><span class="p">();</span>
+<span class="p">},</span> <span class="mf">3000</span><span class="p">);</span>
+</code></pre></div>
+
+<p>自定义命令 package.json</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;bin&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;mytool&quot;</span><span class="p">:</span> <span class="err">&#39;i</span><span class="kc">n</span><span class="err">dex.js&#39;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>如果已经发布这个库，直接运行执行脚本即可。如果没有发布，本地首先运行 npm link 链接（可能报错，链接多次），然后才能正常使用命令。</p>
+<p>Index.js 脚本</p>
+<div class="codehilite"><pre><span></span><code><span class="ch">#!/usr/bin/env node</span>
+<span class="kd">const</span> <span class="nx">cm</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;commander&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">iq</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;inquirer&#39;</span><span class="p">);</span>
+<span class="nx">cm</span><span class="p">.</span><span class="nx">version</span><span class="p">(</span><span class="s1">&#39;1.0.0&#39;</span><span class="p">,</span> <span class="s1">&#39;-v, --version&#39;</span><span class="p">);</span>
+<span class="nx">cm</span><span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s1">&#39;-a -atest&#39;</span><span class="p">,</span> <span class="s1">&#39;this is test&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+<span class="nx">cm</span><span class="p">.</span><span class="nx">command</span><span class="p">(</span><span class="s1">&#39;init &lt;name&gt;&#39;</span><span class="p">).</span><span class="nx">action</span><span class="p">((</span><span class="nx">name</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+  <span class="nx">iq</span><span class="p">.</span><span class="nx">prompt</span><span class="p">([</span>
+    <span class="p">{</span>
+      <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;input&#39;</span><span class="p">,</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;author&#39;</span><span class="p">,</span>
+      <span class="nx">message</span><span class="o">:</span> <span class="s1">&#39;what is your name&#39;</span>
+    <span class="p">}</span>
+  <span class="p">]).</span><span class="nx">then</span><span class="p">((</span><span class="nx">answers</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./bin/dowuload.js&#39;</span><span class="p">)(</span><span class="nx">answers</span><span class="p">.</span><span class="nx">author</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+<span class="nx">cm</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">);</span>
+</code></pre></div>
+
+<p>download.js</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">chalk</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;chalk&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">ora</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;ora&#39;</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">answer</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 数据驱动</span>
+  <span class="c1">// fs.readFile fs.read fs.createWriteStream</span>
+  <span class="c1">//[</span>
+  <span class="c1">//  {type: &#39;file&#39;, path: &#39;./app.js&#39;},</span>
+  <span class="c1">//  {type: &#39;dir&#39;, path: &#39;./src&#39;},</span>
+  <span class="c1">//  {type: &#39;dir&#39;, path: &#39;./src/route&#39;},</span>
+  <span class="c1">//]</span>
+    <span class="kd">const</span> <span class="nx">demoPath</span> <span class="o">=</span> <span class="s1">&#39;./project&#39;</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">targetPath</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span> <span class="o">+</span> <span class="nx">answer</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">ob</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="kd">function</span> <span class="nx">downdemo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// fs.mkdir(targetPath, () =&gt; { pushArr(demoPath); });</span>
+    <span class="nx">pushArr</span><span class="p">(</span><span class="nx">demoPath</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ob</span><span class="p">);</span>
+    <span class="nx">ob</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">ob</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mf">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;file&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">ob</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mf">1</span><span class="p">],</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+          <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span><span class="p">(</span><span class="nx">targetPath</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nx">ob</span><span class="p">);</span>
+        <span class="p">});</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdir</span><span class="p">(</span><span class="nx">targetPath</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nx">item</span><span class="p">[</span><span class="mf">1</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;./project&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{})</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+  <span class="kd">function</span> <span class="nx">pushArr</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">readdir</span><span class="p">(</span><span class="nx">path</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">files</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span><span class="p">(</span><span class="nx">path</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nx">item</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">stat</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">stat</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">())</span> <span class="p">{</span>
+            <span class="nx">ob</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="s1">&#39;dir&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">]);</span>
+            <span class="nx">pushArr</span><span class="p">(</span><span class="nx">path</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nx">item</span><span class="p">);</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">ob</span><span class="p">.</span><span class="nx">push</span><span class="p">([</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">]);</span>
+          <span class="p">}</span>
+        <span class="p">});</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="cli">如何构建CLI<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h3>
+<p>项目脚手架 Vue-cli</p>
+<ul>
+<li>下载项目初始化模板</li>
+<li>定义项目规则</li>
+<li>定义项目操作命令</li>
+</ul>
+<p>CLI 工具工作流程：用户输出初始化命令-打开脚本与用户交互-根据命令下载模板-模板下载成功-提示用户</p>
+<p>递归，每次递归将文件路径拿出来，变成数组；然后遍历数组，创建文件</p>
+<p>具体的文件不好操作时，先把树结构抽象出来；创建文件和创建文件夹；读写和遍历，耦合比较高</p>
+<p>读写文件是异步操作；循环中如果有异步操作，node，最好是forEach，避免异步</p>
+<p>for循环会造成异步错误</p>
+<p>前端为什么趋向于软件工程？前端现在变成独立的种类。前端项目的复杂化，带来难度增加，所以软件工程内容开始在前端出现。</p>
+<p>工程化：标准</p>
+<ul>
+<li>命令行工具：vue-cli react-create-app</li>
+<li>规范 ESLint</li>
+<li>测试：单元测试，e2e</li>
+<li>构建：webpack</li>
+<li>集成和部署：CI CD docker</li>
+<li>代码管理：git</li>
+</ul>
+<p>自己尝试把SDK打包压缩了，现在只是babel处理了，没有压缩（现在只是编译成ES5，没有打包和压缩，实际上可以使用webpack压缩，因为内部三个模块是互相依存的，对外输出一个模块）；自己的JS基础要很扎实，否则后期工程化会遇到很多问题；</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>

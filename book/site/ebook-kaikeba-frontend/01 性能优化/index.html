@@ -1,0 +1,842 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/ebook-kaikeba-frontend/01%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>12-2 前端性能优化 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#12-2" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              12-2 前端性能优化
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+      
+      <label class="md-nav__link" for="nav-1">
+        人生思考
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="人生思考" data-md-level="1">
+        <label class="md-nav__title" for="nav-1">
+          <span class="md-nav__icon md-icon"></span>
+          人生思考
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../40%E9%80%80%E4%BC%91/" class="md-nav__link">
+        40退休.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Poor-and-busy/" class="md-nav__link">
+        Poor-and-busy.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reflections%20on%20Pre-Tirement/" class="md-nav__link">
+        Reflections on Pre-Tirement.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../The%20art%20of%20Execution%20%E6%89%A7%E8%A1%8C%E5%8A%9B%E7%9A%84%E8%89%BA%E6%9C%AF/" class="md-nav__link">
+        The art of Execution 执行力的艺术.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../b%E8%AE%A1%E5%88%92/" class="md-nav__link">
+        b计划.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%86%B5%E5%A2%9E/" class="md-nav__link">
+        熵增.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%AA%E4%BA%BA%E9%80%89%E6%8B%A9/" class="md-nav__link">
+        个人选择.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E7%94%9F%E7%9C%9F%E7%9B%B8/" class="md-nav__link">
+        人生真相.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%B9%E5%B0%BC%E6%96%AF%E4%B8%8EUnix/" class="md-nav__link">
+        丹尼斯与Unix.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%A9%B9%E5%AE%8F%E5%BF%97%E8%AF%BB%E4%B9%A6/" class="md-nav__link">
+        詹宏志读书.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%AA%A1%E5%AD%90%E5%92%8C%E4%BA%BA%E7%94%9F/" class="md-nav__link">
+        骡子和人生.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A6%82%E4%BD%95%E5%8F%98%E5%BE%97%E5%BC%BA%E5%A4%A7/" class="md-nav__link">
+        如何变得强大.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%93%E4%B8%9A%E6%95%99%E8%82%B2%E7%9A%84%E5%85%B4%E8%B5%B7/" class="md-nav__link">
+        专业教育的兴起.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%AD%E5%9B%BD%E7%BB%8F%E6%B5%8E%E7%9A%84%E8%BD%AC%E5%8F%98/" class="md-nav__link">
+        中国经济的转变.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%95%E5%A3%AB%E5%AD%A6%E4%BD%8D%E7%9A%84%E8%B4%AC%E5%80%BC/" class="md-nav__link">
+        硕士学位的贬值.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BB%BB%E6%AD%A3%E9%9D%9E%E7%9A%84%E7%AE%A1%E7%90%86%E6%80%9D%E6%83%B3/" class="md-nav__link">
+        任正非的管理思想.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%8A%80%E6%9C%AF%E5%92%8C%E7%A8%B3%E5%AE%9A%E7%9A%84%E5%B7%A5%E4%BD%9C/" class="md-nav__link">
+        技术和稳定的工作.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E5%AD%A6%E6%95%99%E8%82%B2%E5%92%8C%E7%BD%91%E7%BB%9C%E6%96%87%E5%87%AD/" class="md-nav__link">
+        大学教育和网络文凭.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E5%88%B0%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        思维导图到深度学习.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E4%B8%9A%E6%96%87%E6%98%8E%E5%AF%B9%E4%BA%8E%E7%A4%BE%E4%BC%9A%E7%9A%84%E5%86%B2%E5%87%BB/" class="md-nav__link">
+        工业文明对于社会的冲击.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E5%92%8C%E5%AF%B9%E6%95%B0%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83/" class="md-nav__link">
+        正态分布和对数正态分布.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    分析角度：从面试题入手
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    性能指标
+  </a>
+  
+    <nav class="md-nav" aria-label="性能指标">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    缓存
+  </a>
+  
+    <nav class="md-nav" aria-label="缓存">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    强制缓存
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    协商缓存
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    缓存流程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    浏览器渲染原理
+  </a>
+  
+    <nav class="md-nav" aria-label="浏览器渲染原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    首页白屏优化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    防抖节流
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    图片懒加载
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    服务端性能优化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    移动端性能优化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    框架优化
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/ebook-kaikeba-frontend/01 性能优化.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="12-2">12-2 前端性能优化<a class="headerlink" href="#12-2" title="Permanent link">&para;</a></h1>
+<p>这节课讲的比较粗，没有具体将优化非内容，具体情况看网易的笔记。</p>
+<h3 id="_1">分析角度：从面试题入手<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>浏览器输入 URL 到界面显示的过程是什么？具体怎么优化？</p>
+<p>浏览器输入 URL，通过DNS域名解析，转换成IP地址。访问这个IP地址，服务器准备HTML返回浏览器。浏览器解析HTML，同时请求HTML内部的CSS和媒体文件等，解析HTML生成 DOM 树，CSS 返回后，生成渲染树，浏览器显示网页。</p>
+<p>在这个过程中实现优化：</p>
+<p>前端：少加载文件，减少请求数量（webpack压缩JS和CSS文件），压缩图片大小（加快传输速度，使用小格式jpg或者webp文件）；使用SSR中间层；首屏优化；CSS图标使用雪碧图；优化cookie；懒加载图片；移动端列表部分渲染；webpack 打包；回流重绘；防抖节流。</p>
+<p>网络优化：DNS、CDN（全球不同位置部署服务器，用户选择最近的位置接收文件）、图片优化、Gzip压缩组件（压缩请求头等，减少HTTP的响应头的大小，减少响应时间）。</p>
+<p>减少DOM数量：DOM数量越少，那么需要下载的内容和需要处理的事件 就越少。</p>
+<h2 id="_2">性能指标<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>Performance API</p>
+<p>window.performance.timing 获取时间对象，然后判断不同阶段耗时</p>
+<p>TCP 链接耗时：connectEnd - connectStart</p>
+<p>DNS 查询耗时：domainLookupEnd - domainLookupStart</p>
+<p>TTFB（获取首字节耗时）：responseStart - navigationStart</p>
+<p>Dom Ready 耗时: domContentLoadedEventStart - navigationStart</p>
+<p>DOM 资源下载：responseEnd - responseStart</p>
+<p>主要是后两项耗时。</p>
+<p>或者直接打开浏览器Performance可视化显示界面加载过程，可以分析具体某短时间耗时的原因。</p>
+<p>FPS：衡量动画流畅度（帧率），越大越好</p>
+<p>CPU：展现CPU的使用情况（空闲性能、脚本加载时间等）</p>
+<p>NET：请求花费具体时间</p>
+<p>HEAP：请求过程中堆内存使用情况</p>
+<p>FP(first paint)：某一元素首次渲染时间</p>
+<p>FCP（first contentful paint）:白屏时间（界面首次渲染文本图像等非白色画布）</p>
+<p>TTI（time to interactive）可交互时间（DOM树构建后，用户就可以正常交互，这个是重要的用户体验指标）。</p>
+<p>可以本地安装 Lighthouse 工具，查看某个网站的性能渲染情况，会输出一个可视化报告来分析性能。——现在浏览器下面已经安装这个插件，可以查看某个网页的性能等。</p>
+<p>DNS prefetch</p>
+<p>IP协议负责找到对应的地址</p>
+<p>TCP协议负责数据完整性和有序性，三次握手</p>
+<p>HTTP负责应用层数据</p>
+<h3 id="_3">缓存<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>缓存的目的：客户端发出请求，请求到资源。如果第二次发出请求，直接使用本地的资源，可以减少请求的时间和消耗。第三方的库（vue）或者不变的JS代码，可以使用缓存资源，这样可以减少开销。</p>
+<p>缓存分类：强缓存（expires、cachecontrol ）、协商缓存</p>
+<h4 id="_4">强制缓存<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>expires：强缓存的关键字段，指定一个具体的绝对之间作为缓存资源的过期时间。再次发起请求前，看当前的时间下，已经缓存的文件是否过期。如果没有过期，直接使用缓存文件。如果过期，重新请求资源。存在的问题：如果本地时间和服务端时间存在误差，那么缓存可能失效。</p>
+<p>cache-control：强缓存的关键字段：设置一个相对时间，精确控制资源的缓存（设置 public private no-cache no-store max-age s-maxage 等具体参数控制缓存的使用对象和使用时间）。cache-control 优先于 expires。</p>
+<h4 id="_5">协商缓存<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>客户端发起请求时，把本地缓存的 last-modify 发送到服务端。服务端协商判断是否使用缓存。如果这个资源更改了，服务端返回200，并返回新的资源；如果服务端资源没有更改，服务端返回304。</p>
+<p>如果客户端发送了一个带条件的GET 请求且该请求已被允许，而文档的内容（自上次访问以来或者根据请求的条件）并没有改变，则服务器应当返回这个304状态码。简单的表达就是：服务端已经执行了GET，但文件未变化。</p>
+<p>缺陷：这个时间精确到秒，如果文件在1S内已经修改，就不能使用这个技术。可以设置 last-modified/If-modified-since 加上 etag/if-none-match 匹配缓存系统，相对稳定。</p>
+<p>可以使用 webpack 结合 nginx Apache 设置缓存字段（服务端运维）。</p>
+<h4 id="_6">缓存流程<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<ol>
+<li>获取文件</li>
+<li>文件返回 expires or cache-control，设置过期时间，带上 etag or last-modified 字段</li>
+<li>再次请求。浏览器先查询 express or cache-control 是否过期。如果没有过期，强缓存生效，不发出网络请求，直接使用缓存文件。如果强缓存失效，带上 etag or last-modified，使用 if-none-match or if-modified-since 字段，询问服务器是否过期</li>
+<li>如果没有过期，直接使用304，使用缓存文件；如果过期，直接使用200，返回新文件。</li>
+</ol>
+<p>webpack 打包缓存问题
+1. hash 整个项目的hash
+2. chunkhash 入口文件依赖 hash
+3. contenthash 文件内容的 hash</p>
+<h2 id="_7">浏览器渲染原理<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="_8">首页白屏优化<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>page-skeleton-webpack-plugin 插件，或者 ant-design 插件</p>
+<p>界面初始加载时，具体的数据和图片还没有加载，可以先加载一个骨架屏（loading），然后数据请求结束后，使用真实的数据替换原来的loading状态。</p>
+<p>蚂蚁 ant-design 使用了这个组件 https://ant.design/components/skeleton-cn/</p>
+<div class="codehilite"><pre><span></span><code>网络较慢，需要长时间等待加载处理的情况下。
+图文信息内容较多的列表/卡片中。
+只在第一次加载数据的时候使用。
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>import { Skeleton } from &#39;antd&#39;;
+ReactDOM.render(&lt;Skeleton /&gt;, mountNode);
+</code></pre></div>
+
+<p>微任务：microTask</p>
+<p>不同的JS执行的事件队列不同，执行顺序不同。微任务优先执行。</p>
+<h3 id="_9">防抖节流<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>防抖：界面滚动时，隔100ms触发一次回调函数，共执行N次函数。</p>
+<p>节流：频繁滚动界面，直到最后一次滚动完，间隔100ms后，执行一次函数。</p>
+<p>这两个很关键，最好实现手写函数（locash中实现了这个函数）</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">throttle</span> <span class="o">=</span> <span class="p">(</span><span class="nx">func</span><span class="p">,</span> <span class="nx">wait</span> <span class="o">=</span> <span class="mf">50</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">lastTime</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">now</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Data</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">now</span> <span class="o">-</span> <span class="nx">lastTime</span> <span class="o">&gt;</span> <span class="nx">wait</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">lastTime</span> <span class="o">=</span> <span class="nx">now</span><span class="p">;</span>
+      <span class="nx">func</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kd">const</span> <span class="nx">throttle</span> <span class="o">=</span> <span class="p">(</span><span class="nx">func</span><span class="p">,</span> <span class="nx">wait</span> <span class="o">=</span> <span class="mf">100</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">lastTime</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="c1">// 这里不能用const</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">now</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">now</span> <span class="o">-</span> <span class="nx">lastTime</span> <span class="o">&gt;</span> <span class="nx">wait</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">lastTime</span> <span class="o">=</span> <span class="nx">now</span><span class="p">;</span>
+      <span class="nx">func</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">setInterval</span><span class="p">(</span>
+    <span class="nx">throttle</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+  <span class="p">},</span> <span class="mf">1000</span><span class="p">),</span>
+  <span class="mf">20</span>
+<span class="p">);</span>
+</code></pre></div>
+
+<p>注意，apply 和 call 的 区别：apply 第二个参数是数组，call 的第二-N个参数是独立的元素。所以 apply 使用范围更多。A.fn.apply(B, args) 这样B就可以使用A上面的方法。上面的例子中，this 函数使用了 func 的方法，参数是 args，并执行</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">A</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">add</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="nx">B</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">&#39;age&#39;</span><span class="o">:</span> <span class="mf">20</span><span class="p">,</span>
+  <span class="s1">&#39;age2&#39;</span><span class="o">:</span> <span class="mf">30</span>
+<span class="p">};</span>
+
+<span class="nx">A</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="p">[</span><span class="mf">10</span><span class="p">,</span> <span class="mf">20</span><span class="p">]);</span>
+<span class="nx">A</span><span class="p">.</span><span class="nx">add</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="mf">20</span><span class="p">,</span> <span class="mf">30</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="_10">图片懒加载<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>技术流程：如果界面很长，需要到滚动到图片位置时，才显示具体的图片。</p>
+<p>默认的图片中，设置一个 SRC 属性，暂时存放一个虚拟的路径，这个路径不会发出请求。然后在 data-src 中，放置一个真实的路径。当界面滚动时，计算图片的位置和界面滚动的距离，如果图片即将显示或者已经显示，那么使用JS更改图片的SRC属性，发出请求，显示图片。否则不显示真实的图片。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">imgs</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">viewHeight</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerHeight</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">clientHeight</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">num</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">lazyload</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">num</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">imgs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">distance</span> <span class="o">=</span> <span class="nx">viewHeight</span> <span class="o">-</span> <span class="nx">imgs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">getBoundingClientRect</span><span class="p">().</span><span class="nx">top</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">distance</span> <span class="o">&gt;=</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">imgs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">imgs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s1">&#39;data-src&#39;</span><span class="p">);</span>
+      <span class="nx">num</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="mf">1</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="o">&lt;</span><span class="nx">img</span> <span class="nx">src</span><span class="o">=</span><span class="s1">&#39;loading.png&#39;</span> <span class="nx">data</span><span class="o">-</span><span class="nx">src</span><span class="o">=</span><span class="s1">&#39;http://123.jpg&#39;</span><span class="o">/&gt;</span>
+</code></pre></div>
+
+<h3 id="_11">服务端性能优化<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>SSR 实现</p>
+<p>如果是单页面，很少的用户交互，在客户端渲染；如果是首页，在服务端直接渲染成HTML，用户端直接显示，不需要浏览器再次渲染JS代码。具体内容详见网易课程。</p>
+<h3 id="_12">移动端性能优化<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p>移动端的特点：界面很小，内容很多，通常使用列表显示部分内容。此时可以使用列表中部分显示实现性能优化（获取界面的显示的列表，和未显示的列表Index，未显示的部分使用DIV占位实现）。</p>
+<h3 id="_13">框架优化<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>pureComponent async-component</p>
+<p>代码可视化，webpack 插件</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">BundleAnalyzerPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-bundle-analyzer&#39;</span><span class="p">).</span><span class="nx">BundleAnalyzerPlugin</span><span class="p">;</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">BundleAnalyzerPlugin</span><span class="p">()</span>
+  <span class="p">]</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>企业中如何实现性能优化？从上面的角度回答（Performance进行测试，性能监控，然后根据问题，有针对性的进行优化）。</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>

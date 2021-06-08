@@ -1,0 +1,1164 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/ebook-JSES6-RYF/03-%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>变量的解构赋值 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              变量的解构赋值
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+      
+      <label class="md-nav__link" for="nav-1">
+        人生思考
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="人生思考" data-md-level="1">
+        <label class="md-nav__title" for="nav-1">
+          <span class="md-nav__icon md-icon"></span>
+          人生思考
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../40%E9%80%80%E4%BC%91/" class="md-nav__link">
+        40退休.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Poor-and-busy/" class="md-nav__link">
+        Poor-and-busy.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reflections%20on%20Pre-Tirement/" class="md-nav__link">
+        Reflections on Pre-Tirement.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../The%20art%20of%20Execution%20%E6%89%A7%E8%A1%8C%E5%8A%9B%E7%9A%84%E8%89%BA%E6%9C%AF/" class="md-nav__link">
+        The art of Execution 执行力的艺术.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../b%E8%AE%A1%E5%88%92/" class="md-nav__link">
+        b计划.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%86%B5%E5%A2%9E/" class="md-nav__link">
+        熵增.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%AA%E4%BA%BA%E9%80%89%E6%8B%A9/" class="md-nav__link">
+        个人选择.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E7%94%9F%E7%9C%9F%E7%9B%B8/" class="md-nav__link">
+        人生真相.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%B9%E5%B0%BC%E6%96%AF%E4%B8%8EUnix/" class="md-nav__link">
+        丹尼斯与Unix.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%A9%B9%E5%AE%8F%E5%BF%97%E8%AF%BB%E4%B9%A6/" class="md-nav__link">
+        詹宏志读书.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%AA%A1%E5%AD%90%E5%92%8C%E4%BA%BA%E7%94%9F/" class="md-nav__link">
+        骡子和人生.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A6%82%E4%BD%95%E5%8F%98%E5%BE%97%E5%BC%BA%E5%A4%A7/" class="md-nav__link">
+        如何变得强大.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%93%E4%B8%9A%E6%95%99%E8%82%B2%E7%9A%84%E5%85%B4%E8%B5%B7/" class="md-nav__link">
+        专业教育的兴起.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%AD%E5%9B%BD%E7%BB%8F%E6%B5%8E%E7%9A%84%E8%BD%AC%E5%8F%98/" class="md-nav__link">
+        中国经济的转变.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%95%E5%A3%AB%E5%AD%A6%E4%BD%8D%E7%9A%84%E8%B4%AC%E5%80%BC/" class="md-nav__link">
+        硕士学位的贬值.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BB%BB%E6%AD%A3%E9%9D%9E%E7%9A%84%E7%AE%A1%E7%90%86%E6%80%9D%E6%83%B3/" class="md-nav__link">
+        任正非的管理思想.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%8A%80%E6%9C%AF%E5%92%8C%E7%A8%B3%E5%AE%9A%E7%9A%84%E5%B7%A5%E4%BD%9C/" class="md-nav__link">
+        技术和稳定的工作.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E5%AD%A6%E6%95%99%E8%82%B2%E5%92%8C%E7%BD%91%E7%BB%9C%E6%96%87%E5%87%AD/" class="md-nav__link">
+        大学教育和网络文凭.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E5%88%B0%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        思维导图到深度学习.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E4%B8%9A%E6%96%87%E6%98%8E%E5%AF%B9%E4%BA%8E%E7%A4%BE%E4%BC%9A%E7%9A%84%E5%86%B2%E5%87%BB/" class="md-nav__link">
+        工业文明对于社会的冲击.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E5%92%8C%E5%AF%B9%E6%95%B0%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83/" class="md-nav__link">
+        正态分布和对数正态分布.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    数组
+  </a>
+  
+    <nav class="md-nav" aria-label="数组">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    用法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    默认值
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    对象
+  </a>
+  
+    <nav class="md-nav" aria-label="对象">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    默认值
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    注意点
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    字符串的解构赋值
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    数值和布尔值的解构赋值
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    函数参数的解构赋值
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    圆括号问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    用途
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/ebook-JSES6-RYF/03-解构赋值.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="_1">变量的解构赋值<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">数组<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">用法<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">];</span>
+</code></pre></div>
+
+<p>上面代码表示，可以从数组中提取值，按照对应位置，对变量赋值。</p>
+<p>本质上，这种写法属于“模式匹配”，只要等号两边的模式相同，左边的变量就会被赋予对应的值。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="p">[</span><span class="nx">foo</span><span class="p">,</span> <span class="p">[[</span><span class="nx">bar</span><span class="p">],</span> <span class="nx">baz</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1</span><span class="p">,</span> <span class="p">[[</span><span class="mf">2</span><span class="p">],</span> <span class="mf">3</span><span class="p">]];</span>
+<span class="nx">foo</span> <span class="c1">// 1</span>
+<span class="nx">bar</span> <span class="c1">// 2</span>
+<span class="nx">baz</span> <span class="c1">// 3</span>
+
+<span class="kd">let</span> <span class="p">[</span> <span class="p">,</span> <span class="p">,</span> <span class="nx">third</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="p">];</span>
+<span class="nx">third</span> <span class="c1">// &quot;baz&quot;</span>
+
+<span class="kd">let</span> <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="p">,</span> <span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">];</span>
+<span class="nx">x</span> <span class="c1">// 1</span>
+<span class="nx">y</span> <span class="c1">// 3</span>
+
+<span class="kd">let</span> <span class="p">[</span><span class="nx">head</span><span class="p">,</span> <span class="p">...</span><span class="nx">tail</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">,</span> <span class="mf">4</span><span class="p">];</span>
+<span class="nx">head</span> <span class="c1">// 1</span>
+<span class="nx">tail</span> <span class="c1">// [2, 3, 4]</span>
+
+<span class="kd">let</span> <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="p">...</span><span class="nx">z</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">];</span>
+<span class="nx">x</span> <span class="c1">// &quot;a&quot;</span>
+<span class="nx">y</span> <span class="c1">// undefined</span>
+<span class="nx">z</span> <span class="c1">// []</span>
+</code></pre></div>
+
+<p>如果解构不成功，变量的值就等于<code>undefined</code>。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="p">[</span><span class="nx">foo</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">bar</span><span class="p">,</span> <span class="nx">foo</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1</span><span class="p">];</span>
+</code></pre></div>
+
+<p>以上两种情况都属于解构不成功，<code>foo</code>的值都会等于<code>undefined</code>。</p>
+<p>另一种情况是不完全解构，即等号左边的模式，只匹配一部分的等号右边的数组。这种情况下，解构依然可以成功。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">];</span>
+<span class="nx">x</span> <span class="c1">// 1</span>
+<span class="nx">y</span> <span class="c1">// 2</span>
+
+<span class="kd">let</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="p">[</span><span class="nx">b</span><span class="p">],</span> <span class="nx">d</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1</span><span class="p">,</span> <span class="p">[</span><span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">],</span> <span class="mf">4</span><span class="p">];</span>
+<span class="nx">a</span> <span class="c1">// 1</span>
+<span class="nx">b</span> <span class="c1">// 2</span>
+<span class="nx">d</span> <span class="c1">// 4</span>
+</code></pre></div>
+
+<p>上面两个例子，都属于不完全解构，但是可以成功。</p>
+<p>如果等号的右边不是数组（或者严格地说，不是可遍历的结构，参见《Iterator》一章），那么将会报错。</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 报错</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">foo</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">foo</span><span class="p">]</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">foo</span><span class="p">]</span> <span class="o">=</span> <span class="kc">NaN</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">foo</span><span class="p">]</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">foo</span><span class="p">]</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">foo</span><span class="p">]</span> <span class="o">=</span> <span class="p">{};</span>
+</code></pre></div>
+
+<p>上面的语句都会报错，因为等号右边的值，要么转为对象以后不具备 Iterator 接口（前五个表达式），要么本身就不具备 Iterator 接口（最后一个表达式）。</p>
+<p>对于 Set 结构，也可以使用数组的解构赋值。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Set</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]);</span>
+<span class="nx">x</span> <span class="c1">// &quot;a&quot;</span>
+</code></pre></div>
+
+<p>事实上，只要某种数据结构具有 Iterator 接口，都可以采用数组形式的解构赋值。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="o">*</span> <span class="nx">fibs</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="mf">1</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">yield</span> <span class="nx">a</span><span class="p">;</span>
+    <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">b</span><span class="p">,</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">];</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="p">[</span><span class="nx">first</span><span class="p">,</span> <span class="nx">second</span><span class="p">,</span> <span class="nx">third</span><span class="p">,</span> <span class="nx">fourth</span><span class="p">,</span> <span class="nx">fifth</span><span class="p">,</span> <span class="nx">sixth</span><span class="p">]</span> <span class="o">=</span> <span class="nx">fibs</span><span class="p">();</span>
+<span class="nx">sixth</span> <span class="c1">// 5</span>
+</code></pre></div>
+
+<p>上面代码中，<code>fibs</code>是一个 Generator 函数（参见《Generator 函数》一章），原生具有 Iterator 接口。解构赋值会依次从这个接口获取值。</p>
+<h3 id="_4">默认值<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>解构赋值允许指定默认值。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="p">[</span><span class="nx">foo</span> <span class="o">=</span> <span class="kc">true</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="nx">foo</span> <span class="c1">// true</span>
+
+<span class="kd">let</span> <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">];</span> <span class="c1">// x=&#39;a&#39;, y=&#39;b&#39;</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">];</span> <span class="c1">// x=&#39;a&#39;, y=&#39;b&#39;</span>
+</code></pre></div>
+
+<p>注意，ES6 内部使用严格相等运算符（<code>===</code>），判断一个位置是否有值。所以，只有当一个数组成员严格等于<code>undefined</code>，默认值才会生效。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="p">[</span><span class="nx">x</span> <span class="o">=</span> <span class="mf">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">undefined</span><span class="p">];</span>
+<span class="nx">x</span> <span class="c1">// 1</span>
+
+<span class="kd">let</span> <span class="p">[</span><span class="nx">x</span> <span class="o">=</span> <span class="mf">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">null</span><span class="p">];</span>
+<span class="nx">x</span> <span class="c1">// null</span>
+</code></pre></div>
+
+<p>上面代码中，如果一个数组成员是<code>null</code>，默认值就不会生效，因为<code>null</code>不严格等于<code>undefined</code>。</p>
+<p>如果默认值是一个表达式，那么这个表达式是惰性求值的，即只有在用到的时候，才会求值。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">f</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;aaa&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="p">[</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">f</span><span class="p">()]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1</span><span class="p">];</span>
+</code></pre></div>
+
+<p>上面代码中，因为<code>x</code>能取到值，所以函数<code>f</code>根本不会执行。上面的代码其实等价于下面的代码。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">x</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">([</span><span class="mf">1</span><span class="p">][</span><span class="mf">0</span><span class="p">]</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">x</span> <span class="o">=</span> <span class="nx">f</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">x</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1</span><span class="p">][</span><span class="mf">0</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>默认值可以引用解构赋值的其他变量，但该变量必须已经声明。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="p">[</span><span class="nx">x</span> <span class="o">=</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">x</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>     <span class="c1">// x=1; y=1</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">x</span> <span class="o">=</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">x</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2</span><span class="p">];</span>    <span class="c1">// x=2; y=2</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">x</span> <span class="o">=</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="nx">x</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">];</span> <span class="c1">// x=1; y=2</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="mf">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>     <span class="c1">// ReferenceError: y is not defined</span>
+</code></pre></div>
+
+<p>上面最后一个表达式之所以会报错，是因为<code>x</code>用<code>y</code>做默认值时，<code>y</code>还没有声明。</p>
+<h2 id="_5">对象<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="_6">简介<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>解构不仅可以用于数组，还可以用于对象（对象使用更多）。对象的解构与数组有一个重要的不同。数组的元素是按次序排列的，变量的取值由它的位置决定；而对象的属性没有次序，变量必须与属性同名，才能取到正确的值。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="p">{</span> <span class="nx">bar</span><span class="p">,</span> <span class="nx">foo</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="s1">&#39;aaa&#39;</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="s1">&#39;bbb&#39;</span> <span class="p">};</span>
+<span class="nx">foo</span> <span class="c1">// &quot;aaa&quot;</span>
+<span class="nx">bar</span> <span class="c1">// &quot;bbb&quot;</span>
+
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">baz</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="s1">&#39;aaa&#39;</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="s1">&#39;bbb&#39;</span> <span class="p">};</span>
+<span class="nx">baz</span> <span class="c1">// undefined</span>
+</code></pre></div>
+
+<p>上面代码的第一个例子，等号左边的两个变量的次序，与等号右边两个同名属性的次序不一致，但是对取值完全没有影响。第二个例子的变量没有对应的同名属性，导致取不到值，最后等于<code>undefined</code>。</p>
+<p>如果解构失败，变量的值等于<code>undefined</code>。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="p">{</span><span class="nx">foo</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="nx">bar</span><span class="o">:</span> <span class="s1">&#39;baz&#39;</span><span class="p">};</span>
+<span class="nx">foo</span> <span class="c1">// undefined</span>
+</code></pre></div>
+
+<p>上面代码中，等号右边的对象没有<code>foo</code>属性，所以变量<code>foo</code>取不到值，所以等于<code>undefined</code>。</p>
+<p>对象的解构赋值，可以很方便地将现有对象的方法，赋值到某个变量。</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 例一</span>
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">log</span><span class="p">,</span> <span class="nx">sin</span><span class="p">,</span> <span class="nx">cos</span> <span class="p">}</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">;</span>
+
+<span class="c1">// 例二</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">log</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">console</span><span class="p">;</span>
+<span class="nx">log</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span> <span class="c1">// hello</span>
+</code></pre></div>
+
+<p>上面代码的例一将<code>Math</code>对象的对数、正弦、余弦三个方法，赋值到对应的变量上，使用起来就会方便很多。例二将<code>console.log</code>赋值到<code>log</code>变量。</p>
+<p>如果变量名与属性名不一致，必须写成下面这样。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">baz</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="s1">&#39;aaa&#39;</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="s1">&#39;bbb&#39;</span> <span class="p">};</span>
+<span class="nx">baz</span> <span class="c1">// &quot;aaa&quot;</span>
+
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">first</span><span class="o">:</span> <span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="nx">last</span><span class="o">:</span> <span class="s1">&#39;world&#39;</span> <span class="p">};</span>
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">first</span><span class="o">:</span> <span class="nx">f</span><span class="p">,</span> <span class="nx">last</span><span class="o">:</span> <span class="nx">l</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="nx">f</span> <span class="c1">// &#39;hello&#39;</span>
+<span class="nx">l</span> <span class="c1">// &#39;world&#39;</span>
+</code></pre></div>
+
+<p>这实际上说明，对象的解构赋值是下面形式的简写（参见《对象的扩展》一章）。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">foo</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="nx">bar</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="s1">&#39;aaa&#39;</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="s1">&#39;bbb&#39;</span> <span class="p">};</span>
+</code></pre></div>
+
+<p>也就是说，对象的解构赋值的内部机制，是先找到同名属性，然后再赋给对应的变量。真正被赋值的是后者，而不是前者。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">baz</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="s1">&#39;aaa&#39;</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="s1">&#39;bbb&#39;</span> <span class="p">};</span>
+<span class="nx">baz</span> <span class="c1">// &quot;aaa&quot;</span>
+<span class="nx">foo</span> <span class="c1">// error: foo is not defined</span>
+</code></pre></div>
+
+<p>上面代码中，<code>foo</code>是匹配的模式，<code>baz</code>才是变量。真正被赋值的是变量<code>baz</code>，而不是模式<code>foo</code>。</p>
+<p>与数组一样，解构也可以用于嵌套结构的对象。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">p</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s1">&#39;Hello&#39;</span><span class="p">,</span>
+    <span class="p">{</span> <span class="nx">y</span><span class="o">:</span> <span class="s1">&#39;World&#39;</span> <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">p</span><span class="o">:</span> <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="p">{</span> <span class="nx">y</span> <span class="p">}]</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="nx">x</span> <span class="c1">// &quot;Hello&quot;</span>
+<span class="nx">y</span> <span class="c1">// &quot;World&quot;</span>
+</code></pre></div>
+
+<p>注意，这时<code>p</code>是模式，不是变量，因此不会被赋值。如果<code>p</code>也要作为变量赋值，可以写成下面这样。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">p</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s1">&#39;Hello&#39;</span><span class="p">,</span>
+    <span class="p">{</span> <span class="nx">y</span><span class="o">:</span> <span class="s1">&#39;World&#39;</span> <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">p</span><span class="o">:</span> <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="p">{</span> <span class="nx">y</span> <span class="p">}]</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+<span class="nx">x</span> <span class="c1">// &quot;Hello&quot;</span>
+<span class="nx">y</span> <span class="c1">// &quot;World&quot;</span>
+<span class="nx">p</span> <span class="c1">// [&quot;Hello&quot;, {y: &quot;World&quot;}]</span>
+</code></pre></div>
+
+<p>下面是另一个例子。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">node</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">loc</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">start</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">line</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span>
+      <span class="nx">column</span><span class="o">:</span> <span class="mf">5</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">loc</span><span class="p">,</span> <span class="nx">loc</span><span class="o">:</span> <span class="p">{</span> <span class="nx">start</span> <span class="p">},</span> <span class="nx">loc</span><span class="o">:</span> <span class="p">{</span> <span class="nx">start</span><span class="o">:</span> <span class="p">{</span> <span class="nx">line</span> <span class="p">}}</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">node</span><span class="p">;</span>
+<span class="nx">line</span> <span class="c1">// 1</span>
+<span class="nx">loc</span>  <span class="c1">// Object {start: Object}</span>
+<span class="nx">start</span> <span class="c1">// Object {line: 1, column: 5}</span>
+</code></pre></div>
+
+<p>上面代码有三次解构赋值，分别是对<code>loc</code>、<code>start</code>、<code>line</code>三个属性的解构赋值。注意，最后一次对<code>line</code>属性的解构赋值之中，只有<code>line</code>是变量，<code>loc</code>和<code>start</code>都是模式，不是变量。</p>
+<p>下面是嵌套赋值的例子。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[];</span>
+
+<span class="p">({</span> <span class="nx">foo</span><span class="o">:</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">prop</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="nx">arr</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="mf">123</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+
+<span class="nx">obj</span> <span class="c1">// {prop:123}</span>
+<span class="nx">arr</span> <span class="c1">// [true]</span>
+</code></pre></div>
+
+<p>如果解构模式是嵌套的对象，而且子对象所在的父属性不存在，那么将会报错。</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 报错</span>
+<span class="kd">let</span> <span class="p">{</span><span class="nx">foo</span><span class="o">:</span> <span class="p">{</span><span class="nx">bar</span><span class="p">}}</span> <span class="o">=</span> <span class="p">{</span><span class="nx">baz</span><span class="o">:</span> <span class="s1">&#39;baz&#39;</span><span class="p">};</span>
+</code></pre></div>
+
+<p>上面代码中，等号左边对象的<code>foo</code>属性，对应一个子对象。该子对象的<code>bar</code>属性，解构时会报错。原因很简单，因为<code>foo</code>这时等于<code>undefined</code>，再取子属性就会报错。</p>
+<p>注意，对象的解构赋值可以取到继承的属性。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">obj1</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">const</span> <span class="nx">obj2</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="s1">&#39;bar&#39;</span> <span class="p">};</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">setPrototypeOf</span><span class="p">(</span><span class="nx">obj1</span><span class="p">,</span> <span class="nx">obj2</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">foo</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">obj1</span><span class="p">;</span>
+<span class="nx">foo</span> <span class="c1">// &quot;bar&quot;</span>
+</code></pre></div>
+
+<p>上面代码中，对象<code>obj1</code>的原型对象是<code>obj2</code>。<code>foo</code>属性不是<code>obj1</code>自身的属性，而是继承自<code>obj2</code>的属性，解构赋值可以取到这个属性。</p>
+<h3 id="_7">默认值<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>对象的解构也可以指定默认值。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="p">{</span><span class="nx">x</span> <span class="o">=</span> <span class="mf">3</span><span class="p">}</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="nx">x</span> <span class="c1">// 3</span>
+
+<span class="kd">var</span> <span class="p">{</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="mf">5</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="mf">1</span><span class="p">};</span>
+<span class="nx">x</span> <span class="c1">// 1</span>
+<span class="nx">y</span> <span class="c1">// 5</span>
+</code></pre></div>
+
+<p>默认值生效的条件是，对象的属性值严格等于<code>undefined</code>。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="p">{</span><span class="nx">x</span> <span class="o">=</span> <span class="mf">3</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">};</span>
+<span class="nx">x</span> <span class="c1">// 3</span>
+
+<span class="kd">var</span> <span class="p">{</span><span class="nx">x</span> <span class="o">=</span> <span class="mf">3</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="kc">null</span><span class="p">};</span>
+<span class="nx">x</span> <span class="c1">// null</span>
+</code></pre></div>
+
+<p>上面代码中，属性<code>x</code>等于<code>null</code>，因为<code>null</code>与<code>undefined</code>不严格相等，所以是个有效的赋值，导致默认值<code>3</code>不会生效。</p>
+<h3 id="_8">注意点<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>（1）如果要将一个已经声明的变量用于解构赋值，必须非常小心。</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 错误的写法</span>
+<span class="kd">let</span> <span class="nx">x</span><span class="p">;</span>
+<span class="p">{</span><span class="nx">x</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="mf">1</span><span class="p">};</span>
+<span class="c1">// SyntaxError: syntax error</span>
+</code></pre></div>
+
+<p>上面代码的写法会报错，因为 JavaScript 引擎会将<code>{x}</code>理解成一个代码块，从而发生语法错误。只有不将大括号写在行首，避免 JavaScript 将其解释为代码块，才能解决这个问题。</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 正确的写法</span>
+<span class="kd">let</span> <span class="nx">x</span><span class="p">;</span>
+<span class="p">({</span><span class="nx">x</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="mf">1</span><span class="p">});</span>
+</code></pre></div>
+
+<p>上面代码将整个解构赋值语句，放在一个圆括号里面，就可以正确执行。关于圆括号与解构赋值的关系，参见下文。</p>
+<p>（3）由于数组本质是特殊的对象，因此可以对数组进行对象属性的解构。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">];</span>
+<span class="kd">let</span> <span class="p">{</span><span class="mf">0</span> <span class="o">:</span> <span class="nx">first</span><span class="p">,</span> <span class="p">[</span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mf">1</span><span class="p">]</span> <span class="o">:</span> <span class="nx">last</span><span class="p">}</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">;</span>
+<span class="nx">first</span> <span class="c1">// 1</span>
+<span class="nx">last</span> <span class="c1">// 3</span>
+</code></pre></div>
+
+<p>上面代码对数组进行对象解构。数组<code>arr</code>的<code>0</code>键对应的值是<code>1</code>，<code>[arr.length - 1]</code>就是<code>2</code>键，对应的值是<code>3</code>。方括号这种写法，属于“属性名表达式”（参见《对象的扩展》一章）。</p>
+<h2 id="_9">字符串的解构赋值<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>字符串也可以解构赋值。这是因为此时，字符串被转换成了一个类似数组的对象。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">,</span> <span class="nx">e</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span><span class="p">;</span>
+<span class="nx">a</span> <span class="c1">// &quot;h&quot;</span>
+<span class="nx">b</span> <span class="c1">// &quot;e&quot;</span>
+<span class="nx">c</span> <span class="c1">// &quot;l&quot;</span>
+<span class="nx">d</span> <span class="c1">// &quot;l&quot;</span>
+<span class="nx">e</span> <span class="c1">// &quot;o&quot;</span>
+</code></pre></div>
+
+<p>类似数组的对象都有一个<code>length</code>属性，因此还可以对这个属性解构赋值。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="p">{</span><span class="nx">length</span> <span class="o">:</span> <span class="nx">len</span><span class="p">}</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span><span class="p">;</span>
+<span class="nx">len</span> <span class="c1">// 5</span>
+</code></pre></div>
+
+<h2 id="_10">数值和布尔值的解构赋值<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<p>解构赋值时，如果等号右边是数值和布尔值，则会先转为对象。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="p">{</span><span class="nx">toString</span><span class="o">:</span> <span class="nx">s</span><span class="p">}</span> <span class="o">=</span> <span class="mf">123</span><span class="p">;</span>
+<span class="nx">s</span> <span class="o">===</span> <span class="nb">Number</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span> <span class="c1">// true</span>
+
+<span class="kd">let</span> <span class="p">{</span><span class="nx">toString</span><span class="o">:</span> <span class="nx">s</span><span class="p">}</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="nx">s</span> <span class="o">===</span> <span class="nb">Boolean</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<p>上面代码中，数值和布尔值的包装对象都有<code>toString</code>属性，因此变量<code>s</code>都能取到值。</p>
+<p>==解构赋值的规则是，只要等号右边的值不是对象或数组，就先将其转为对象==。由于<code>undefined</code>和<code>null</code>无法转为对象，所以对它们进行解构赋值，都会报错。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="p">{</span> <span class="nx">prop</span><span class="o">:</span> <span class="nx">x</span> <span class="p">}</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span> <span class="c1">// TypeError</span>
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">prop</span><span class="o">:</span> <span class="nx">y</span> <span class="p">}</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="c1">// TypeError</span>
+</code></pre></div>
+
+<h2 id="_11">函数参数的解构赋值<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>函数的参数也可以使用解构赋值。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">add</span><span class="p">([</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">]){</span>
+  <span class="k">return</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">add</span><span class="p">([</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">]);</span> <span class="c1">// 3</span>
+</code></pre></div>
+
+<p>上面代码中，函数<code>add</code>的参数表面上是一个数组，但在传入参数的那一刻，数组参数就被解构成变量<code>x</code>和<code>y</code>。对于函数内部的代码来说，它们能感受到的参数就是<code>x</code>和<code>y</code>。</p>
+<p>下面是另一个例子。</p>
+<div class="codehilite"><pre><span></span><code><span class="p">[[</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">],</span> <span class="p">[</span><span class="mf">3</span><span class="p">,</span> <span class="mf">4</span><span class="p">]].</span><span class="nx">map</span><span class="p">(([</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">])</span> <span class="p">=&gt;</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">);</span>
+<span class="c1">// [ 3, 7 ]</span>
+</code></pre></div>
+
+<p>函数参数的解构也可以使用默认值。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">move</span><span class="p">({</span><span class="nx">x</span> <span class="o">=</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="mf">0</span><span class="p">}</span> <span class="o">=</span> <span class="p">{})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="nx">move</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span> <span class="mf">3</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mf">8</span><span class="p">});</span> <span class="c1">// [3, 8]</span>
+<span class="nx">move</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span> <span class="mf">3</span><span class="p">});</span> <span class="c1">// [3, 0]</span>
+<span class="nx">move</span><span class="p">({});</span> <span class="c1">// [0, 0]</span>
+<span class="nx">move</span><span class="p">();</span> <span class="c1">// [0, 0]</span>
+</code></pre></div>
+
+<p>上面代码中，函数<code>move</code>的参数是一个对象，通过对这个对象进行解构，得到变量<code>x</code>和<code>y</code>的值。如果解构失败，<code>x</code>和<code>y</code>等于默认值。</p>
+<p>注意，下面的写法会得到不一样的结果。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">move</span><span class="p">({</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mf">0</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="nx">move</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span> <span class="mf">3</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mf">8</span><span class="p">});</span> <span class="c1">// [3, 8]</span>
+<span class="nx">move</span><span class="p">({</span><span class="nx">x</span><span class="o">:</span> <span class="mf">3</span><span class="p">});</span> <span class="c1">// [3, undefined]</span>
+<span class="nx">move</span><span class="p">({});</span> <span class="c1">// [undefined, undefined]</span>
+<span class="nx">move</span><span class="p">();</span> <span class="c1">// [0, 0]</span>
+</code></pre></div>
+
+<p>上面代码是为函数<code>move</code>的参数指定默认值，而不是为变量<code>x</code>和<code>y</code>指定默认值，所以会得到与前一种写法不同的结果。</p>
+<p><code>undefined</code>就会触发函数参数的默认值。</p>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="mf">1</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="mf">3</span><span class="p">].</span><span class="nx">map</span><span class="p">((</span><span class="nx">x</span> <span class="o">=</span> <span class="s1">&#39;yes&#39;</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">x</span><span class="p">);</span>
+<span class="c1">// [ 1, &#39;yes&#39;, 3 ]</span>
+</code></pre></div>
+
+<h2 id="_12">圆括号问题<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p>解构赋值虽然很方便，但是解析起来并不容易。对于编译器来说，一个式子到底是模式，还是表达式，没有办法从一开始就知道，必须解析到（或解析不到）等号才能知道。</p>
+<p>由此带来的问题是，如果模式中出现圆括号怎么处理。ES6 的规则是，只要有可能导致解构的歧义，就不得使用圆括号。但是，这条规则实际上不那么容易辨别，处理起来相当麻烦。因此，==建议只要有可能，就不要在模式中放置圆括号==。</p>
+<ul>
+<li>不能使用圆括号的情况</li>
+</ul>
+<p>以下三种解构赋值不得使用圆括号。</p>
+<p>（1）变量声明语句</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 全部报错</span>
+<span class="kd">let</span> <span class="p">[(</span><span class="nx">a</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1</span><span class="p">];</span>
+
+<span class="kd">let</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="p">(</span><span class="nx">c</span><span class="p">)}</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">let</span> <span class="p">({</span><span class="nx">x</span><span class="o">:</span> <span class="nx">c</span><span class="p">})</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">let</span> <span class="p">{(</span><span class="nx">x</span><span class="o">:</span> <span class="nx">c</span><span class="p">)}</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">let</span> <span class="p">{(</span><span class="nx">x</span><span class="p">)</span><span class="o">:</span> <span class="nx">c</span><span class="p">}</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">o</span><span class="o">:</span> <span class="p">({</span> <span class="nx">p</span><span class="o">:</span> <span class="nx">p</span> <span class="p">})</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">o</span><span class="o">:</span> <span class="p">{</span> <span class="nx">p</span><span class="o">:</span> <span class="mf">2</span> <span class="p">}</span> <span class="p">};</span>
+</code></pre></div>
+
+<p>上面 6 个语句都会报错，因为它们都是变量声明语句，模式不能使用圆括号。</p>
+<p>（2）函数参数</p>
+<p>函数参数也属于变量声明，因此不能带有圆括号。</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 报错</span>
+<span class="kd">function</span> <span class="nx">f</span><span class="p">([(</span><span class="nx">z</span><span class="p">)])</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">z</span><span class="p">;</span> <span class="p">}</span>
+<span class="c1">// 报错</span>
+<span class="kd">function</span> <span class="nx">f</span><span class="p">([</span><span class="nx">z</span><span class="p">,(</span><span class="nx">x</span><span class="p">)])</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
+
+<p>（3）赋值语句的模式</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 全部报错</span>
+<span class="p">({</span> <span class="nx">p</span><span class="o">:</span> <span class="nx">a</span> <span class="p">})</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">p</span><span class="o">:</span> <span class="mf">42</span> <span class="p">};</span>
+<span class="p">([</span><span class="nx">a</span><span class="p">])</span> <span class="o">=</span> <span class="p">[</span><span class="mf">5</span><span class="p">];</span>
+</code></pre></div>
+
+<p>上面代码将整个模式放在圆括号之中，导致报错。</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 报错</span>
+<span class="p">[({</span> <span class="nx">p</span><span class="o">:</span> <span class="nx">a</span> <span class="p">}),</span> <span class="p">{</span> <span class="nx">x</span><span class="o">:</span> <span class="nx">c</span> <span class="p">}]</span> <span class="o">=</span> <span class="p">[{},</span> <span class="p">{}];</span>
+</code></pre></div>
+
+<p>上面代码将一部分模式放在圆括号之中，导致报错。</p>
+<ul>
+<li>可以使用圆括号的情况</li>
+</ul>
+<p>可以使用圆括号的情况只有一种：赋值语句的非模式部分，可以使用圆括号。</p>
+<div class="codehilite"><pre><span></span><code><span class="p">[(</span><span class="nx">b</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3</span><span class="p">];</span> <span class="c1">// 正确</span>
+<span class="p">({</span> <span class="nx">p</span><span class="o">:</span> <span class="p">(</span><span class="nx">d</span><span class="p">)</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{});</span> <span class="c1">// 正确</span>
+<span class="p">[(</span><span class="nb">parseInt</span><span class="p">.</span><span class="nx">prop</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3</span><span class="p">];</span> <span class="c1">// 正确</span>
+</code></pre></div>
+
+<p>上面三行语句都可以正确执行，因为首先它们都是赋值语句，而不是声明语句；其次它们的圆括号都不属于模式的一部分。第一行语句中，模式是取数组的第一个成员，跟圆括号无关；第二行语句中，模式是<code>p</code>，而不是<code>d</code>；第三行语句与第一行语句的性质一致。</p>
+<h2 id="_13">用途<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<p>变量的解构赋值用途很多。</p>
+<p><strong>（1）交换变量的值</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">y</span> <span class="o">=</span> <span class="mf">2</span><span class="p">;</span>
+<span class="p">[</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">y</span><span class="p">,</span> <span class="nx">x</span><span class="p">];</span>
+</code></pre></div>
+
+<p><strong>（2）从函数返回多个值</strong></p>
+<p>函数只能返回一个值，如果要返回多个值，只能将它们放在数组或对象里返回。有了解构赋值，取出这些值就非常方便。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">example</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">[</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="kd">let</span> <span class="p">[</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">]</span> <span class="o">=</span> <span class="nx">example</span><span class="p">();</span>
+
+<span class="kd">function</span> <span class="nx">example</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span> <span class="nx">foo</span><span class="o">:</span> <span class="mf">1</span><span class="p">,</span> <span class="nx">bar</span><span class="o">:</span> <span class="mf">2</span> <span class="p">};</span>
+<span class="p">}</span>
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">foo</span><span class="p">,</span> <span class="nx">bar</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">example</span><span class="p">();</span>
+</code></pre></div>
+
+<p><strong>（3）函数参数的定义</strong></p>
+<p>解构赋值可以方便地将一组参数与变量名对应起来。</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 参数是一组有次序的值</span>
+<span class="kd">function</span> <span class="nx">f</span><span class="p">([</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span><span class="p">])</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+<span class="nx">f</span><span class="p">([</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">]);</span>
+
+<span class="c1">// 参数是一组无次序的值</span>
+<span class="kd">function</span> <span class="nx">f</span><span class="p">({</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span><span class="p">})</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+<span class="nx">f</span><span class="p">({</span><span class="nx">z</span><span class="o">:</span> <span class="mf">3</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mf">2</span><span class="p">,</span> <span class="nx">x</span><span class="o">:</span> <span class="mf">1</span><span class="p">});</span>
+</code></pre></div>
+
+<p><strong>（4）提取 JSON 数据</strong></p>
+<p>解构赋值对提取 JSON 对象中的数据，尤其有用。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">jsonData</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">id</span><span class="o">:</span> <span class="mf">42</span><span class="p">,</span>
+  <span class="nx">status</span><span class="o">:</span> <span class="s2">&quot;OK&quot;</span><span class="p">,</span>
+  <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="mf">867</span><span class="p">,</span> <span class="mf">5309</span><span class="p">]</span>
+<span class="p">};</span>
+
+<span class="kd">let</span> <span class="p">{</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">number</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">jsonData</span><span class="p">;</span>
+</code></pre></div>
+
+<p><strong>（5）函数参数的默认值</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nx">jQuery</span><span class="p">.</span><span class="nx">ajax</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span>
+  <span class="k">async</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nx">beforeSend</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span>
+  <span class="nx">cache</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nx">complete</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span>
+  <span class="nx">crossDomain</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nx">global</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="c1">// ... more config</span>
+<span class="p">}</span> <span class="o">=</span> <span class="p">{})</span> <span class="p">{</span>
+  <span class="c1">// ... do stuff</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>指定参数的默认值，就避免了在函数体内部再写<code>var foo = config.foo || 'default foo';</code>这样的语句。</p>
+<p><strong>（6）遍历 Map 结构</strong></p>
+<p>任何部署了 Iterator 接口的对象，都可以用<code>for...of</code>循环遍历。Map 结构原生支持 Iterator 接口，配合变量的解构赋值，获取键名和键值就非常方便。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Map</span><span class="p">();</span>
+<span class="nx">map</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;hello&#39;</span><span class="p">);</span>
+<span class="nx">map</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;second&#39;</span><span class="p">,</span> <span class="s1">&#39;world&#39;</span><span class="p">);</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">[</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">]</span> <span class="k">of</span> <span class="nx">map</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">key</span> <span class="o">+</span> <span class="s2">&quot; is &quot;</span> <span class="o">+</span> <span class="nx">value</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// first is hello</span>
+<span class="c1">// second is world</span>
+</code></pre></div>
+
+<p>如果只想获取键名，或者只想获取键值，可以写成下面这样。</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 获取键名</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="k">of</span> <span class="nx">map</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+<span class="p">}</span>
+<span class="c1">// 获取键值</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="p">[,</span><span class="nx">value</span><span class="p">]</span> <span class="k">of</span> <span class="nx">map</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><strong>（7）输入模块的指定方法</strong></p>
+<p>加载模块时，往往需要指定输入哪些方法。解构赋值使得输入语句非常清晰。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">SourceMapConsumer</span><span class="p">,</span> <span class="nx">SourceNode</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;source-map&quot;</span><span class="p">);</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>

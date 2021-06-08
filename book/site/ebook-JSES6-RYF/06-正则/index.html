@@ -1,0 +1,1154 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/ebook-JSES6-RYF/06-%E6%AD%A3%E5%88%99/">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.8">
+    
+    
+      
+        <title>正则的扩展 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-header-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              正则的扩展
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://michael18811380328.github.io/" title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+      
+      <label class="md-nav__link" for="nav-1">
+        人生思考
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="人生思考" data-md-level="1">
+        <label class="md-nav__title" for="nav-1">
+          <span class="md-nav__icon md-icon"></span>
+          人生思考
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../40%E9%80%80%E4%BC%91/" class="md-nav__link">
+        40退休.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Poor-and-busy/" class="md-nav__link">
+        Poor-and-busy.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Reflections%20on%20Pre-Tirement/" class="md-nav__link">
+        Reflections on Pre-Tirement.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../The%20art%20of%20Execution%20%E6%89%A7%E8%A1%8C%E5%8A%9B%E7%9A%84%E8%89%BA%E6%9C%AF/" class="md-nav__link">
+        The art of Execution 执行力的艺术.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../b%E8%AE%A1%E5%88%92/" class="md-nav__link">
+        b计划.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%86%B5%E5%A2%9E/" class="md-nav__link">
+        熵增.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%AA%E4%BA%BA%E9%80%89%E6%8B%A9/" class="md-nav__link">
+        个人选择.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E7%94%9F%E7%9C%9F%E7%9B%B8/" class="md-nav__link">
+        人生真相.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%B9%E5%B0%BC%E6%96%AF%E4%B8%8EUnix/" class="md-nav__link">
+        丹尼斯与Unix.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%A9%B9%E5%AE%8F%E5%BF%97%E8%AF%BB%E4%B9%A6/" class="md-nav__link">
+        詹宏志读书.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%AA%A1%E5%AD%90%E5%92%8C%E4%BA%BA%E7%94%9F/" class="md-nav__link">
+        骡子和人生.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A6%82%E4%BD%95%E5%8F%98%E5%BE%97%E5%BC%BA%E5%A4%A7/" class="md-nav__link">
+        如何变得强大.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%93%E4%B8%9A%E6%95%99%E8%82%B2%E7%9A%84%E5%85%B4%E8%B5%B7/" class="md-nav__link">
+        专业教育的兴起.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%B8%AD%E5%9B%BD%E7%BB%8F%E6%B5%8E%E7%9A%84%E8%BD%AC%E5%8F%98/" class="md-nav__link">
+        中国经济的转变.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%95%E5%A3%AB%E5%AD%A6%E4%BD%8D%E7%9A%84%E8%B4%AC%E5%80%BC/" class="md-nav__link">
+        硕士学位的贬值.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BB%BB%E6%AD%A3%E9%9D%9E%E7%9A%84%E7%AE%A1%E7%90%86%E6%80%9D%E6%83%B3/" class="md-nav__link">
+        任正非的管理思想.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%8A%80%E6%9C%AF%E5%92%8C%E7%A8%B3%E5%AE%9A%E7%9A%84%E5%B7%A5%E4%BD%9C/" class="md-nav__link">
+        技术和稳定的工作.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%A4%A7%E5%AD%A6%E6%95%99%E8%82%B2%E5%92%8C%E7%BD%91%E7%BB%9C%E6%96%87%E5%87%AD/" class="md-nav__link">
+        大学教育和网络文凭.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%E5%88%B0%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        思维导图到深度学习.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B7%A5%E4%B8%9A%E6%96%87%E6%98%8E%E5%AF%B9%E4%BA%8E%E7%A4%BE%E4%BC%9A%E7%9A%84%E5%86%B2%E5%87%BB/" class="md-nav__link">
+        工业文明对于社会的冲击.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E5%92%8C%E5%AF%B9%E6%95%B0%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83/" class="md-nav__link">
+        正态分布和对数正态分布.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    构造函数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    字符串的正则方法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    修饰符
+  </a>
+  
+    <nav class="md-nav" aria-label="修饰符">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#u" class="md-nav__link">
+    u 修饰符
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#y" class="md-nav__link">
+    y 修饰符
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s" class="md-nav__link">
+    s 修饰符
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    后行断言
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unicode" class="md-nav__link">
+    Unicode 属性类
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    具名组匹配
+  </a>
+  
+    <nav class="md-nav" aria-label="具名组匹配">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    解构赋值和替换
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    引用
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#matchall" class="md-nav__link">
+    matchAll
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flags" class="md-nav__link">
+    flags 属性
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/ebook-JSES6-RYF/06-正则.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="_1">正则的扩展<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>较难，日常工程很少用到这部分，用的时候再具体学。</p>
+<h2 id="_2">构造函数<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>在 ES5 中，<code>RegExp</code>构造函数的参数有两种情况。</p>
+<p>第一种情况是，参数是字符串，这时第二个参数表示正则表达式的修饰符（flag）。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="nx">regex</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">regex</span> <span class="o">=</span> <span class="sr">/xyz/i</span><span class="p">;</span>
+</code></pre></div>
+
+<p>第二种情况是，参数是一个正则表示式，这时会返回一个原有正则表达式的拷贝。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="nx">regex</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="sr">/xyz/i</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">regex</span> <span class="o">=</span> <span class="sr">/xyz/i</span><span class="p">;</span>
+</code></pre></div>
+
+<p>但是，ES5 不允许此时使用第二个参数添加修饰符，否则会报错。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="nx">regex</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="sr">/xyz/</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">);</span>
+<span class="c1">// Uncaught TypeError: Cannot supply flags when constructing one RegExp from another</span>
+</code></pre></div>
+
+<p>ES6 改变了这种行为。如果<code>RegExp</code>构造函数第一个参数是一个正则对象，那么可以使用第二个参数指定修饰符。而且，返回的正则表达式会忽略原有的正则表达式的修饰符，只使用新指定的修饰符。</p>
+<div class="codehilite"><pre><span></span><code><span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="sr">/abc/ig</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">).</span><span class="nx">flags</span>
+<span class="c1">// &quot;i&quot;</span>
+</code></pre></div>
+
+<p>上面代码中，原有正则对象的修饰符是<code>ig</code>，它会被第二个参数<code>i</code>覆盖。</p>
+<h2 id="_3">字符串的正则方法<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>字符串对象共有 4 个方法，可以使用正则表达式：<code>match()</code>、<code>replace()</code>、<code>search()</code>和<code>split()</code>。</p>
+<p>ES6 将这 4 个方法，在语言内部全部调用<code>RegExp</code>的实例方法，从而做到所有与正则相关的方法，全都定义在<code>RegExp</code>对象上。<code>String.prototype.match</code> 调用 <code>RegExp.prototype[Symbol.match]</code></p>
+<h2 id="_4">修饰符<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="u">u 修饰符<a class="headerlink" href="#u" title="Permanent link">&para;</a></h3>
+<p>ES6 对正则表达式添加了<code>u</code>修饰符，含义为“Unicode 模式”，用来正确处理大于<code>\uFFFF</code>的 Unicode 字符。也就是说，会正确处理四个字节的 UTF-16 编码。</p>
+<div class="codehilite"><pre><span></span><code><span class="sr">/^\uD83D/u</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;\uD83D\uDC2A&#39;</span><span class="p">)</span> <span class="c1">// false</span>
+<span class="sr">/^\uD83D/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;\uD83D\uDC2A&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<p>上面代码中，<code>\uD83D\uDC2A</code>是一个四个字节的 UTF-16 编码，代表一个字符。但是，ES5 不支持四个字节的 UTF-16 编码，会将其识别为两个字符，导致第二行代码结果为<code>true</code>。加了<code>u</code>修饰符以后，ES6 就会识别其为一个字符，所以第一行代码结果为<code>false</code>。</p>
+<p>一旦加上<code>u</code>修饰符号，就会修改下面这些正则表达式的行为。</p>
+<p><strong>（1）点字符</strong></p>
+<p>点（<code>.</code>）字符在正则表达式中，含义是除了换行符以外的任意单个字符。对于码点大于<code>0xFFFF</code>的 Unicode 字符，点字符不能识别，必须加上<code>u</code>修饰符。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s1">&#39;𠮷&#39;</span><span class="p">;</span>
+
+<span class="sr">/^.$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="c1">// false</span>
+<span class="sr">/^.$/u</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<p>上面代码表示，如果不添加<code>u</code>修饰符，正则表达式就会认为字符串为两个字符，从而匹配失败。</p>
+<p><strong>（2）Unicode 字符表示法</strong></p>
+<p>ES6 新增了使用大括号表示 Unicode 字符，这种表示法在正则表达式中必须加上<code>u</code>修饰符，才能识别当中的大括号，否则会被解读为量词。</p>
+<div class="codehilite"><pre><span></span><code><span class="sr">/\u{61}/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="c1">// false</span>
+<span class="sr">/\u{61}/u</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="sr">/\u{20BB7}/u</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;𠮷&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<p>上面代码表示，如果不加<code>u</code>修饰符，正则表达式无法识别<code>\u{61}</code>这种表示法，只会认为这匹配 61 个连续的<code>u</code>。</p>
+<p><strong>（3）量词</strong></p>
+<p>使用<code>u</code>修饰符后，所有量词都会正确识别码点大于<code>0xFFFF</code>的 Unicode 字符。</p>
+<div class="codehilite"><pre><span></span><code><span class="sr">/a{2}/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;aa&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="sr">/a{2}/u</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;aa&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="sr">/𠮷{2}/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;𠮷𠮷&#39;</span><span class="p">)</span> <span class="c1">// false</span>
+<span class="sr">/𠮷{2}/u</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;𠮷𠮷&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<p><strong>（4）预定义模式</strong></p>
+<p><code>u</code>修饰符也影响到预定义模式，能否正确识别码点大于<code>0xFFFF</code>的 Unicode 字符。</p>
+<div class="codehilite"><pre><span></span><code><span class="sr">/^\S$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;𠮷&#39;</span><span class="p">)</span> <span class="c1">// false</span>
+<span class="sr">/^\S$/u</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;𠮷&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<p>上面代码的<code>\S</code>是预定义模式，匹配所有非空白字符。只有加了<code>u</code>修饰符，它才能正确匹配码点大于<code>0xFFFF</code>的 Unicode 字符。</p>
+<p>利用这一点，可以写出一个正确返回字符串长度的函数。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span> <span class="nx">codePointLength</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">text</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/[\s\S]/gu</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">result</span> <span class="o">?</span> <span class="nx">result</span><span class="p">.</span><span class="nx">length</span> <span class="o">:</span> <span class="mf">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s1">&#39;𠮷𠮷&#39;</span><span class="p">;</span>
+
+<span class="nx">s</span><span class="p">.</span><span class="nx">length</span> <span class="c1">// 4</span>
+<span class="nx">codePointLength</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="c1">// 2</span>
+</code></pre></div>
+
+<p><strong>（5）i 修饰符</strong></p>
+<p>有些 Unicode 字符的编码不同，但是字型很相近，比如，<code>\u004B</code>与<code>\u212A</code>都是大写的<code>K</code>。</p>
+<div class="codehilite"><pre><span></span><code><span class="sr">/[a-z]/i</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;\u212A&#39;</span><span class="p">)</span> <span class="c1">// false</span>
+<span class="sr">/[a-z]/iu</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;\u212A&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<p>上面代码中，不加<code>u</code>修饰符，就无法识别非规范的<code>K</code>字符。</p>
+<p><strong>（6）检测 u 修饰符 unicode 属性</strong></p>
+<p>正则实例对象新增<code>unicode</code>属性，表示是否设置了<code>u</code>修饰符。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">r1</span> <span class="o">=</span> <span class="sr">/hello/</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">r2</span> <span class="o">=</span> <span class="sr">/hello/u</span><span class="p">;</span>
+
+<span class="nx">r1</span><span class="p">.</span><span class="nx">unicode</span> <span class="c1">// false</span>
+<span class="nx">r2</span><span class="p">.</span><span class="nx">unicode</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<h3 id="y">y 修饰符<a class="headerlink" href="#y" title="Permanent link">&para;</a></h3>
+<p>除了<code>u</code>修饰符，ES6 还为正则表达式添加了<code>y</code>修饰符，叫做“粘连”（sticky）修饰符。</p>
+<p><code>y</code>修饰符的作用与<code>g</code>修饰符类似，也是全局匹配，后一次匹配都从上一次匹配成功的下一个位置开始。不同之处在于，<code>g</code>修饰符只要剩余位置中存在匹配就可，而<code>y</code>修饰符确保匹配必须从剩余的第一个位置开始，这也就是“粘连”的涵义。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s1">&#39;aaa_aa_a&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">r1</span> <span class="o">=</span> <span class="sr">/a+/g</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">r2</span> <span class="o">=</span> <span class="sr">/a+/y</span><span class="p">;</span>
+
+<span class="nx">r1</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="c1">// [&quot;aaa&quot;]</span>
+<span class="nx">r2</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="c1">// [&quot;aaa&quot;]</span>
+
+<span class="nx">r1</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="c1">// [&quot;aa&quot;]</span>
+<span class="nx">r2</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="c1">// null</span>
+</code></pre></div>
+
+<p>上面代码有两个正则表达式，一个使用<code>g</code>修饰符，另一个使用<code>y</code>修饰符。这两个正则表达式各执行了两次，第一次执行的时候，两者行为相同，剩余字符串都是<code>_aa_a</code>。由于<code>g</code>修饰没有位置要求，所以第二次执行会返回结果，而<code>y</code>修饰符要求匹配必须从头部开始，所以返回<code>null</code>。</p>
+<p>如果改一下正则表达式，保证每次都能头部匹配，<code>y</code>修饰符就会返回结果了。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="s1">&#39;aaa_aa_a&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="sr">/a+_/y</span><span class="p">;</span>
+
+<span class="nx">r</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="c1">// [&quot;aaa_&quot;]</span>
+<span class="nx">r</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="c1">// [&quot;aa_&quot;]</span>
+</code></pre></div>
+
+<p>上面代码每次匹配，都是从剩余字符串的头部开始。</p>
+<p>使用<code>lastIndex</code>属性，可以更好地说明<code>y</code>修饰符。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">REGEX</span> <span class="o">=</span> <span class="sr">/a/g</span><span class="p">;</span>
+
+<span class="c1">// 指定从2号位置（y）开始匹配</span>
+<span class="nx">REGEX</span><span class="p">.</span><span class="nx">lastIndex</span> <span class="o">=</span> <span class="mf">2</span><span class="p">;</span>
+
+<span class="c1">// 匹配成功</span>
+<span class="kd">const</span> <span class="nx">match</span> <span class="o">=</span> <span class="nx">REGEX</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;xaya&#39;</span><span class="p">);</span>
+
+<span class="c1">// 在3号位置匹配成功</span>
+<span class="nx">match</span><span class="p">.</span><span class="nx">index</span> <span class="c1">// 3</span>
+
+<span class="c1">// 下一次匹配从4号位开始</span>
+<span class="nx">REGEX</span><span class="p">.</span><span class="nx">lastIndex</span> <span class="c1">// 4</span>
+
+<span class="c1">// 4号位开始匹配失败</span>
+<span class="nx">REGEX</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;xaya&#39;</span><span class="p">)</span> <span class="c1">// null</span>
+</code></pre></div>
+
+<p>上面代码中，<code>lastIndex</code>属性指定每次搜索的开始位置，<code>g</code>修饰符从这个位置开始向后搜索，直到发现匹配为止。</p>
+<p><code>y</code>修饰符同样遵守<code>lastIndex</code>属性，但是要求必须在<code>lastIndex</code>指定的位置发现匹配。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">REGEX</span> <span class="o">=</span> <span class="sr">/a/y</span><span class="p">;</span>
+
+<span class="c1">// 指定从2号位置开始匹配</span>
+<span class="nx">REGEX</span><span class="p">.</span><span class="nx">lastIndex</span> <span class="o">=</span> <span class="mf">2</span><span class="p">;</span>
+
+<span class="c1">// 不是粘连，匹配失败</span>
+<span class="nx">REGEX</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;xaya&#39;</span><span class="p">)</span> <span class="c1">// null</span>
+
+<span class="c1">// 指定从3号位置开始匹配</span>
+<span class="nx">REGEX</span><span class="p">.</span><span class="nx">lastIndex</span> <span class="o">=</span> <span class="mf">3</span><span class="p">;</span>
+
+<span class="c1">// 3号位置是粘连，匹配成功</span>
+<span class="kd">const</span> <span class="nx">match</span> <span class="o">=</span> <span class="nx">REGEX</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;xaya&#39;</span><span class="p">);</span>
+<span class="nx">match</span><span class="p">.</span><span class="nx">index</span> <span class="c1">// 3</span>
+<span class="nx">REGEX</span><span class="p">.</span><span class="nx">lastIndex</span> <span class="c1">// 4</span>
+</code></pre></div>
+
+<p>实际上，<code>y</code>修饰符号隐含了头部匹配的标志<code>^</code>。</p>
+<div class="codehilite"><pre><span></span><code><span class="sr">/b/y</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;aba&#39;</span><span class="p">)</span>
+<span class="c1">// null</span>
+</code></pre></div>
+
+<p>上面代码由于不能保证头部匹配，所以返回<code>null</code>。<code>y</code>修饰符的设计本意，就是让头部匹配的标志<code>^</code>在全局匹配中都有效。</p>
+<p>下面是字符串对象的<code>replace</code>方法的例子。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">REGEX</span> <span class="o">=</span> <span class="sr">/a/gy</span><span class="p">;</span>
+<span class="s1">&#39;aaxa&#39;</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">REGEX</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span> <span class="c1">// &#39;--xa&#39;</span>
+</code></pre></div>
+
+<p>上面代码中，最后一个<code>a</code>因为不是出现在下一次匹配的头部，所以不会被替换。</p>
+<p>单单一个<code>y</code>修饰符对<code>match</code>方法，只能返回第一个匹配，必须与<code>g</code>修饰符联用，才能返回所有匹配。</p>
+<div class="codehilite"><pre><span></span><code><span class="s1">&#39;a1a2a3&#39;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/a\d/y</span><span class="p">)</span> <span class="c1">// [&quot;a1&quot;]</span>
+<span class="s1">&#39;a1a2a3&#39;</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/a\d/gy</span><span class="p">)</span> <span class="c1">// [&quot;a1&quot;, &quot;a2&quot;, &quot;a3&quot;]</span>
+</code></pre></div>
+
+<p><code>y</code>修饰符的一个应用，是从字符串提取 token（词元），<code>y</code>修饰符确保了匹配之间不会有漏掉的字符。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">TOKEN_Y</span> <span class="o">=</span> <span class="sr">/\s*(\+|[0-9]+)\s*/y</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">TOKEN_G</span>  <span class="o">=</span> <span class="sr">/\s*(\+|[0-9]+)\s*/g</span><span class="p">;</span>
+
+<span class="nx">tokenize</span><span class="p">(</span><span class="nx">TOKEN_Y</span><span class="p">,</span> <span class="s1">&#39;3 + 4&#39;</span><span class="p">)</span>
+<span class="c1">// [ &#39;3&#39;, &#39;+&#39;, &#39;4&#39; ]</span>
+<span class="nx">tokenize</span><span class="p">(</span><span class="nx">TOKEN_G</span><span class="p">,</span> <span class="s1">&#39;3 + 4&#39;</span><span class="p">)</span>
+<span class="c1">// [ &#39;3&#39;, &#39;+&#39;, &#39;4&#39; ]</span>
+
+<span class="kd">function</span> <span class="nx">tokenize</span><span class="p">(</span><span class="nx">TOKEN_REGEX</span><span class="p">,</span> <span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="kd">let</span> <span class="nx">match</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="nx">match</span> <span class="o">=</span> <span class="nx">TOKEN_REGEX</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">match</span><span class="p">[</span><span class="mf">1</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>上面代码中，如果字符串里面没有非法字符，<code>y</code>修饰符与<code>g</code>修饰符的提取结果是一样的。但是，一旦出现非法字符，两者的行为就不一样了。</p>
+<div class="codehilite"><pre><span></span><code><span class="nx">tokenize</span><span class="p">(</span><span class="nx">TOKEN_Y</span><span class="p">,</span> <span class="s1">&#39;3x + 4&#39;</span><span class="p">)</span>
+<span class="c1">// [ &#39;3&#39; ]</span>
+<span class="nx">tokenize</span><span class="p">(</span><span class="nx">TOKEN_G</span><span class="p">,</span> <span class="s1">&#39;3x + 4&#39;</span><span class="p">)</span>
+<span class="c1">// [ &#39;3&#39;, &#39;+&#39;, &#39;4&#39; ]</span>
+</code></pre></div>
+
+<p>上面代码中，<code>g</code>修饰符会忽略非法字符，而<code>y</code>修饰符不会，这样就很容易发现错误。</p>
+<p><strong>sticky 属性</strong></p>
+<p>与<code>y</code>修饰符相匹配，ES6 的正则实例对象多了<code>sticky</code>属性，表示是否设置了<code>y</code>修饰符。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="sr">/hello\d/y</span><span class="p">;</span>
+<span class="nx">r</span><span class="p">.</span><span class="nx">sticky</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<h3 id="s">s 修饰符<a class="headerlink" href="#s" title="Permanent link">&para;</a></h3>
+<p><strong>dotAll 模式</strong></p>
+<p>正则表达式中，点（<code>.</code>）是一个特殊字符，代表任意的单个字符，但是有两个例外。一个是四个字节的 UTF-16 字符，这个可以用<code>u</code>修饰符解决；另一个是行终止符（line terminator character）。</p>
+<p>所谓行终止符，就是该字符表示一行的终结。以下四个字符属于“行终止符”。</p>
+<ul>
+<li>U+000A 换行符（<code>\n</code>）</li>
+<li>U+000D 回车符（<code>\r</code>）</li>
+<li>U+2028 行分隔符（line separator）</li>
+<li>U+2029 段分隔符（paragraph separator）</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="sr">/foo.bar/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;foo\nbar&#39;</span><span class="p">)</span>
+<span class="c1">// false</span>
+</code></pre></div>
+
+<p>上面代码中，因为<code>.</code>不匹配<code>\n</code>，所以正则表达式返回<code>false</code>。</p>
+<p>但是，很多时候我们希望匹配的是任意单个字符，这时有一种变通的写法。</p>
+<div class="codehilite"><pre><span></span><code><span class="sr">/foo[^]bar/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;foo\nbar&#39;</span><span class="p">)</span>
+<span class="c1">// true</span>
+</code></pre></div>
+
+<p>这种解决方案毕竟不太符合直觉，ES2018 <a href="https://github.com/tc39/proposal-regexp-dotall-flag">引入</a><code>s</code>修饰符，使得<code>.</code>可以匹配任意单个字符。</p>
+<div class="codehilite"><pre><span></span><code><span class="sr">/foo.bar/s</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;foo\nbar&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<p>这被称为<code>dotAll</code>模式，即点（dot）代表一切字符。所以，正则表达式还引入了一个<code>dotAll</code>属性，返回一个布尔值，表示该正则表达式是否处在<code>dotAll</code>模式。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">re</span> <span class="o">=</span> <span class="sr">/foo.bar/s</span><span class="p">;</span>
+<span class="c1">// 另一种写法</span>
+<span class="c1">// const re = new RegExp(&#39;foo.bar&#39;, &#39;s&#39;);</span>
+
+<span class="nx">re</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;foo\nbar&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="nx">re</span><span class="p">.</span><span class="nx">dotAll</span> <span class="c1">// true</span>
+<span class="nx">re</span><span class="p">.</span><span class="nx">flags</span> <span class="c1">// &#39;s&#39;</span>
+</code></pre></div>
+
+<p><code>/s</code>修饰符和多行修饰符<code>/m</code>不冲突，两者一起使用的情况下，<code>.</code>匹配所有字符，而<code>^</code>和<code>$</code>匹配每一行的行首和行尾。</p>
+<h2 id="_5">后行断言<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>JavaScript 语言的正则表达式，只支持先行断言（lookahead）和先行否定断言（negative lookahead），不支持后行断言（lookbehind）和后行否定断言（negative lookbehind）。ES2018 引入<a href="https://github.com/tc39/proposal-regexp-lookbehind">后行断言</a>，V8 引擎 4.9 版（Chrome 62）已经支持。</p>
+<p>“先行断言”指的是，<code>x</code>只有在<code>y</code>前面才匹配，必须写成<code>/x(?=y)/</code>。比如，只匹配百分号之前的数字，要写成<code>/\d+(?=%)/</code>。“先行否定断言”指的是，<code>x</code>只有不在<code>y</code>前面才匹配，必须写成<code>/x(?!y)/</code>。比如，只匹配不在百分号之前的数字，要写成<code>/\d+(?!%)/</code>。</p>
+<div class="codehilite"><pre><span></span><code><span class="sr">/\d+(?=%)/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;100% of US presidents have been male&#39;</span><span class="p">)</span>  <span class="c1">// [&quot;100&quot;]</span>
+<span class="sr">/\d+(?!%)/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;that’s all 44 of them&#39;</span><span class="p">)</span>                 <span class="c1">// [&quot;44&quot;]</span>
+</code></pre></div>
+
+<p>上面两个字符串，如果互换正则表达式，就不会得到相同结果。另外，还可以看到，“先行断言”括号之中的部分（<code>(?=%)</code>），是不计入返回结果的。</p>
+<p>“后行断言”正好与“先行断言”相反，<code>x</code>只有在<code>y</code>后面才匹配，必须写成<code>/(?&lt;=y)x/</code>。比如，只匹配美元符号之后的数字，要写成<code>/(?&lt;=\$)\d+/</code>。“后行否定断言”则与“先行否定断言”相反，<code>x</code>只有不在<code>y</code>后面才匹配，必须写成<code>/(?&lt;!--y)x/</code>。比如，只匹配不在美元符号后面的数字，要写成<code>/(?&lt;!\$)\d+/</code>。</p>
+<div class="codehilite"><pre><span></span><code><span class="sr">/(?&lt;=\$)\d+/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;Benjamin Franklin is on the $100 bill&#39;</span><span class="p">)</span>  <span class="c1">// [&quot;100&quot;]</span>
+<span class="sr">/(?&lt;!\$)\d+/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;it’s is worth about €90&#39;</span><span class="p">)</span>                <span class="c1">// [&quot;90&quot;]</span>
+</code></pre></div>
+
+<p>上面的例子中，“后行断言”的括号之中的部分（<code>(?&lt;=\$)</code>），也是不计入返回结果。</p>
+<p>下面的例子是使用后行断言进行字符串替换。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">RE_DOLLAR_PREFIX</span> <span class="o">=</span> <span class="sr">/(?&lt;=\$)foo/g</span><span class="p">;</span>
+<span class="s1">&#39;$foo %foo foo&#39;</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">RE_DOLLAR_PREFIX</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">);</span>
+<span class="c1">// &#39;$bar %foo foo&#39;</span>
+</code></pre></div>
+
+<p>上面代码中，只有在美元符号后面的<code>foo</code>才会被替换。</p>
+<p>“后行断言”的实现，需要先匹配<code>/(?&lt;=y)x/</code>的<code>x</code>，然后再回到左边，匹配<code>y</code>的部分。这种“先右后左”的执行顺序，与所有其他正则操作相反，导致了一些不符合预期的行为。</p>
+<p>首先，后行断言的组匹配，与正常情况下结果是不一样的。</p>
+<div class="codehilite"><pre><span></span><code><span class="sr">/(?&lt;=(\d+)(\d+))$/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;1053&#39;</span><span class="p">)</span> <span class="c1">// [&quot;&quot;, &quot;1&quot;, &quot;053&quot;]</span>
+<span class="sr">/^(\d+)(\d+)$/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;1053&#39;</span><span class="p">)</span> <span class="c1">// [&quot;1053&quot;, &quot;105&quot;, &quot;3&quot;]</span>
+</code></pre></div>
+
+<p>上面代码中，需要捕捉两个组匹配。没有“后行断言”时，第一个括号是贪婪模式，第二个括号只能捕获一个字符，所以结果是<code>105</code>和<code>3</code>。而“后行断言”时，由于执行顺序是从右到左，第二个括号是贪婪模式，第一个括号只能捕获一个字符，所以结果是<code>1</code>和<code>053</code>。</p>
+<p>其次，“后行断言”的反斜杠引用，也与通常的顺序相反，必须放在对应的那个括号之前。</p>
+<div class="codehilite"><pre><span></span><code><span class="sr">/(?&lt;=(o)d\1)r/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;hodor&#39;</span><span class="p">)</span>  <span class="c1">// null</span>
+<span class="sr">/(?&lt;=\1d(o))r/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;hodor&#39;</span><span class="p">)</span>  <span class="c1">// [&quot;r&quot;, &quot;o&quot;]</span>
+</code></pre></div>
+
+<p>上面代码中，如果后行断言的反斜杠引用（<code>\1</code>）放在括号的后面，就不会得到匹配结果，必须放在前面才可以。因为后行断言是先从左到右扫描，发现匹配以后再回过头，从右到左完成反斜杠引用。</p>
+<h2 id="unicode">Unicode 属性类<a class="headerlink" href="#unicode" title="Permanent link">&para;</a></h2>
+<p>ES2018 <a href="https://github.com/tc39/proposal-regexp-unicode-property-escapes">引入</a>了一种新的类的写法<code>\p{...}</code>和<code>\P{...}</code>，允许正则表达式匹配符合 Unicode 某种属性的所有字符。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">regexGreekSymbol</span> <span class="o">=</span> <span class="sr">/\p{Script=Greek}/u</span><span class="p">;</span>
+<span class="nx">regexGreekSymbol</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;π&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<p>上面代码中，<code>\p{Script=Greek}</code>指定匹配一个希腊文字母，所以匹配<code>π</code>成功。</p>
+<p>Unicode 属性类要指定属性名和属性值。</p>
+<div class="codehilite"><pre><span></span><code><span class="err">\</span><span class="nx">p</span><span class="p">{</span><span class="nx">UnicodePropertyName</span><span class="o">=</span><span class="nx">UnicodePropertyValue</span><span class="p">}</span>
+</code></pre></div>
+
+<p>对于某些属性，可以只写属性名，或者只写属性值。</p>
+<div class="codehilite"><pre><span></span><code><span class="err">\</span><span class="nx">p</span><span class="p">{</span><span class="nx">UnicodePropertyName</span><span class="p">}</span>
+<span class="err">\</span><span class="nx">p</span><span class="p">{</span><span class="nx">UnicodePropertyValue</span><span class="p">}</span>
+</code></pre></div>
+
+<p><code>\P{…}</code>是<code>\p{…}</code>的反向匹配，即匹配不满足条件的字符。</p>
+<p>注意，这两种类只对 Unicode 有效，所以使用的时候一定要加上<code>u</code>修饰符。如果不加<code>u</code>修饰符，正则表达式使用<code>\p</code>和<code>\P</code>会报错，ECMAScript 预留了这两个类。</p>
+<p>由于 Unicode 的各种属性非常多，所以这种新的类的表达能力非常强。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">regex</span> <span class="o">=</span> <span class="sr">/^\p{Decimal_Number}+$/u</span><span class="p">;</span>
+<span class="nx">regex</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;𝟏𝟐𝟑𝟜𝟝𝟞𝟩𝟪𝟫𝟬𝟭𝟮𝟯𝟺𝟻𝟼&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<p>上面代码中，属性类指定匹配所有十进制字符，可以看到各种字型的十进制字符都会匹配成功。</p>
+<p><code>\p{Number}</code>甚至能匹配罗马数字。</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 匹配所有数字</span>
+<span class="kd">const</span> <span class="nx">regex</span> <span class="o">=</span> <span class="sr">/^\p{Number}+$/u</span><span class="p">;</span>
+<span class="nx">regex</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;²³¹¼½¾&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="nx">regex</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;㉛㉜㉝&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="nx">regex</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫ&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<p>下面是其他一些例子。</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 匹配所有空格</span>
+<span class="err">\</span><span class="nx">p</span><span class="p">{</span><span class="nx">White_Space</span><span class="p">}</span>
+
+<span class="c1">// 匹配各种文字的所有字母，等同于 Unicode 版的 \w</span>
+<span class="p">[</span><span class="err">\</span><span class="nx">p</span><span class="p">{</span><span class="nx">Alphabetic</span><span class="p">}</span><span class="err">\</span><span class="nx">p</span><span class="p">{</span><span class="nx">Mark</span><span class="p">}</span><span class="err">\</span><span class="nx">p</span><span class="p">{</span><span class="nx">Decimal_Number</span><span class="p">}</span><span class="err">\</span><span class="nx">p</span><span class="p">{</span><span class="nx">Connector_Punctuation</span><span class="p">}</span><span class="err">\</span><span class="nx">p</span><span class="p">{</span><span class="nx">Join_Control</span><span class="p">}]</span>
+
+<span class="c1">// 匹配各种文字的所有非字母的字符，等同于 Unicode 版的 \W</span>
+<span class="p">[</span><span class="o">^</span><span class="err">\</span><span class="nx">p</span><span class="p">{</span><span class="nx">Alphabetic</span><span class="p">}</span><span class="err">\</span><span class="nx">p</span><span class="p">{</span><span class="nx">Mark</span><span class="p">}</span><span class="err">\</span><span class="nx">p</span><span class="p">{</span><span class="nx">Decimal_Number</span><span class="p">}</span><span class="err">\</span><span class="nx">p</span><span class="p">{</span><span class="nx">Connector_Punctuation</span><span class="p">}</span><span class="err">\</span><span class="nx">p</span><span class="p">{</span><span class="nx">Join_Control</span><span class="p">}]</span>
+
+<span class="c1">// 匹配 Emoji</span>
+<span class="sr">/\p{Emoji_Modifier_Base}\p{Emoji_Modifier}?|\p{Emoji_Presentation}|\p{Emoji}\uFE0F/gu</span>
+
+<span class="c1">// 匹配所有的箭头字符</span>
+<span class="kd">const</span> <span class="nx">regexArrows</span> <span class="o">=</span> <span class="sr">/^\p{Block=Arrows}+$/u</span><span class="p">;</span>
+<span class="nx">regexArrows</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;←↑→↓↔↕↖↗↘↙⇏⇐⇑⇒⇓⇔⇕⇖⇗⇘⇙⇧⇩&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<h2 id="_6">具名组匹配<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="_7">简介<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>正则表达式使用圆括号进行组匹配。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">RE_DATE</span> <span class="o">=</span> <span class="sr">/(\d{4})-(\d{2})-(\d{2})/</span><span class="p">;</span>
+</code></pre></div>
+
+<p>上面代码中，正则表达式里面有三组圆括号。使用<code>exec</code>方法，就可以将这三组匹配结果提取出来。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">RE_DATE</span> <span class="o">=</span> <span class="sr">/(\d{4})-(\d{2})-(\d{2})/</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">matchObj</span> <span class="o">=</span> <span class="nx">RE_DATE</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;1999-12-31&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">year</span> <span class="o">=</span> <span class="nx">matchObj</span><span class="p">[</span><span class="mf">1</span><span class="p">];</span> <span class="c1">// 1999</span>
+<span class="kd">const</span> <span class="nx">month</span> <span class="o">=</span> <span class="nx">matchObj</span><span class="p">[</span><span class="mf">2</span><span class="p">];</span> <span class="c1">// 12</span>
+<span class="kd">const</span> <span class="nx">day</span> <span class="o">=</span> <span class="nx">matchObj</span><span class="p">[</span><span class="mf">3</span><span class="p">];</span> <span class="c1">// 31</span>
+</code></pre></div>
+
+<p>组匹配的一个问题是，每一组的匹配含义不容易看出来，而且只能用数字序号（比如<code>matchObj[1]</code>）引用，要是组的顺序变了，引用的时候就必须修改序号。</p>
+<p>ES2018 引入了<a href="https://github.com/tc39/proposal-regexp-named-groups">具名组匹配</a>（Named Capture Groups），允许为每一个组匹配指定一个名字，既便于阅读代码，又便于引用。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">RE_DATE</span> <span class="o">=</span> <span class="sr">/(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})/</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">matchObj</span> <span class="o">=</span> <span class="nx">RE_DATE</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;1999-12-31&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">year</span> <span class="o">=</span> <span class="nx">matchObj</span><span class="p">.</span><span class="nx">groups</span><span class="p">.</span><span class="nx">year</span><span class="p">;</span> <span class="c1">// 1999</span>
+<span class="kd">const</span> <span class="nx">month</span> <span class="o">=</span> <span class="nx">matchObj</span><span class="p">.</span><span class="nx">groups</span><span class="p">.</span><span class="nx">month</span><span class="p">;</span> <span class="c1">// 12</span>
+<span class="kd">const</span> <span class="nx">day</span> <span class="o">=</span> <span class="nx">matchObj</span><span class="p">.</span><span class="nx">groups</span><span class="p">.</span><span class="nx">day</span><span class="p">;</span> <span class="c1">// 31</span>
+</code></pre></div>
+
+<p>上面代码中，“具名组匹配”在圆括号内部，模式的头部添加“问号 + 尖括号 + 组名”（<code>?&lt;year--&gt;</code>），然后就可以在<code>exec</code>方法返回结果的<code>groups</code>属性上引用该组名。同时，数字序号（<code>matchObj[1]</code>）依然有效。</p>
+<p>具名组匹配等于为每一组匹配加上了 ID，便于描述匹配的目的。如果组的顺序变了，也不用改变匹配后的处理代码。</p>
+<p>如果具名组没有匹配，那么对应的<code>groups</code>对象属性会是<code>undefined</code>。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">RE_OPT_A</span> <span class="o">=</span> <span class="sr">/^(?&lt;as&gt;a+)?$/</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">matchObj</span> <span class="o">=</span> <span class="nx">RE_OPT_A</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+
+<span class="nx">matchObj</span><span class="p">.</span><span class="nx">groups</span><span class="p">.</span><span class="nx">as</span> <span class="c1">// undefined</span>
+<span class="s1">&#39;as&#39;</span> <span class="k">in</span> <span class="nx">matchObj</span><span class="p">.</span><span class="nx">groups</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<p>上面代码中，具名组<code>as</code>没有找到匹配，那么<code>matchObj.groups.as</code>属性值就是<code>undefined</code>，并且<code>as</code>这个键名在<code>groups</code>是始终存在的。</p>
+<h3 id="_8">解构赋值和替换<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>有了具名组匹配以后，可以使用解构赋值直接从匹配结果上为变量赋值。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="p">{</span><span class="nx">groups</span><span class="o">:</span> <span class="p">{</span><span class="nx">one</span><span class="p">,</span> <span class="nx">two</span><span class="p">}}</span> <span class="o">=</span> <span class="sr">/^(?&lt;one&gt;.*):(?&lt;two&gt;.*)$/u</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;foo:bar&#39;</span><span class="p">);</span>
+<span class="nx">one</span>  <span class="c1">// foo</span>
+<span class="nx">two</span>  <span class="c1">// bar</span>
+</code></pre></div>
+
+<p>字符串替换时，使用<code>$&lt;组名&gt;</code>引用具名组。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">let</span> <span class="nx">re</span> <span class="o">=</span> <span class="sr">/(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})/u</span><span class="p">;</span>
+
+<span class="s1">&#39;2015-01-02&#39;</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">re</span><span class="p">,</span> <span class="s1">&#39;$&lt;day&gt;/$&lt;month&gt;/$&lt;year&gt;&#39;</span><span class="p">)</span>
+<span class="c1">// &#39;02/01/2015&#39;</span>
+</code></pre></div>
+
+<p>上面代码中，<code>replace</code>方法的第二个参数是一个字符串，而不是正则表达式。</p>
+<p><code>replace</code>方法的第二个参数也可以是函数，该函数的参数序列如下。</p>
+<div class="codehilite"><pre><span></span><code><span class="s1">&#39;2015-01-02&#39;</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">re</span><span class="p">,</span> <span class="p">(</span>
+   <span class="nx">matched</span><span class="p">,</span> <span class="c1">// 整个匹配结果 2015-01-02</span>
+   <span class="nx">capture1</span><span class="p">,</span> <span class="c1">// 第一个组匹配 2015</span>
+   <span class="nx">capture2</span><span class="p">,</span> <span class="c1">// 第二个组匹配 01</span>
+   <span class="nx">capture3</span><span class="p">,</span> <span class="c1">// 第三个组匹配 02</span>
+   <span class="nx">position</span><span class="p">,</span> <span class="c1">// 匹配开始的位置 0</span>
+   <span class="nx">S</span><span class="p">,</span> <span class="c1">// 原字符串 2015-01-02</span>
+   <span class="nx">groups</span> <span class="c1">// 具名组构成的一个对象 {year, month, day}</span>
+ <span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+ <span class="kd">let</span> <span class="p">{</span><span class="nx">day</span><span class="p">,</span> <span class="nx">month</span><span class="p">,</span> <span class="nx">year</span><span class="p">}</span> <span class="o">=</span> <span class="nx">groups</span><span class="p">;</span>
+ <span class="k">return</span> <span class="sb">`</span><span class="si">${</span><span class="nx">day</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">month</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">year</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>具名组匹配在原来的基础上，新增了最后一个函数参数：具名组构成的一个对象。函数内部可以直接对这个对象进行解构赋值。</p>
+<h3 id="_9">引用<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>如果要在正则表达式内部引用某个“具名组匹配”，可以使用<code>\k&lt;组名&gt;</code>的写法。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">RE_TWICE</span> <span class="o">=</span> <span class="sr">/^(?&lt;word&gt;[a-z]+)!\k&lt;word&gt;$/</span><span class="p">;</span>
+<span class="nx">RE_TWICE</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;abc!abc&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="nx">RE_TWICE</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;abc!ab&#39;</span><span class="p">)</span> <span class="c1">// false</span>
+</code></pre></div>
+
+<p>数字引用（<code>\1</code>）依然有效。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">RE_TWICE</span> <span class="o">=</span> <span class="sr">/^(?&lt;word&gt;[a-z]+)!\1$/</span><span class="p">;</span>
+<span class="nx">RE_TWICE</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;abc!abc&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="nx">RE_TWICE</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;abc!ab&#39;</span><span class="p">)</span> <span class="c1">// false</span>
+</code></pre></div>
+
+<p>这两种引用语法还可以同时使用。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">RE_TWICE</span> <span class="o">=</span> <span class="sr">/^(?&lt;word&gt;[a-z]+)!\k&lt;word&gt;!\1$/</span><span class="p">;</span>
+<span class="nx">RE_TWICE</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;abc!abc!abc&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+<span class="nx">RE_TWICE</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="s1">&#39;abc!abc!ab&#39;</span><span class="p">)</span> <span class="c1">// false</span>
+</code></pre></div>
+
+<h2 id="matchall">matchAll<a class="headerlink" href="#matchall" title="Permanent link">&para;</a></h2>
+<p>如果一个正则表达式在字符串里面有多个匹配，现在一般使用<code>g</code>修饰符或<code>y</code>修饰符，在循环里面逐一取出。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="nx">regex</span> <span class="o">=</span> <span class="sr">/t(e)(st(\d?))/g</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">string</span> <span class="o">=</span> <span class="s1">&#39;test1test2test3&#39;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">matches</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">var</span> <span class="nx">match</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">match</span> <span class="o">=</span> <span class="nx">regex</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">string</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">matches</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">match</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">matches</span>
+<span class="c1">// [</span>
+<span class="c1">//   [&quot;test1&quot;, &quot;e&quot;, &quot;st1&quot;, &quot;1&quot;, index: 0, input: &quot;test1test2test3&quot;],</span>
+<span class="c1">//   [&quot;test2&quot;, &quot;e&quot;, &quot;st2&quot;, &quot;2&quot;, index: 5, input: &quot;test1test2test3&quot;],</span>
+<span class="c1">//   [&quot;test3&quot;, &quot;e&quot;, &quot;st3&quot;, &quot;3&quot;, index: 10, input: &quot;test1test2test3&quot;]</span>
+<span class="c1">// ]</span>
+</code></pre></div>
+
+<p>上面代码中，<code>while</code>循环取出每一轮的正则匹配，一共三轮。</p>
+<p>目前有一个<a href="https://github.com/tc39/proposal-string-matchall">提案</a>，增加了<code>String.prototype.matchAll</code>方法，可以一次性取出所有匹配。不过，它返回的是一个遍历器（Iterator），而不是数组。</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span> <span class="nx">string</span> <span class="o">=</span> <span class="s1">&#39;test1test2test3&#39;</span><span class="p">;</span>
+
+<span class="c1">// g 修饰符加不加都可以</span>
+<span class="kd">const</span> <span class="nx">regex</span> <span class="o">=</span> <span class="sr">/t(e)(st(\d?))/g</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">const</span> <span class="nx">match</span> <span class="k">of</span> <span class="nx">string</span><span class="p">.</span><span class="nx">matchAll</span><span class="p">(</span><span class="nx">regex</span><span class="p">))</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">match</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// [&quot;test1&quot;, &quot;e&quot;, &quot;st1&quot;, &quot;1&quot;, index: 0, input: &quot;test1test2test3&quot;]</span>
+<span class="c1">// [&quot;test2&quot;, &quot;e&quot;, &quot;st2&quot;, &quot;2&quot;, index: 5, input: &quot;test1test2test3&quot;]</span>
+<span class="c1">// [&quot;test3&quot;, &quot;e&quot;, &quot;st3&quot;, &quot;3&quot;, index: 10, input: &quot;test1test2test3&quot;]</span>
+</code></pre></div>
+
+<p>上面代码中，由于<code>string.matchAll(regex)</code>返回的是遍历器，所以可以用<code>for...of</code>循环取出。相对于返回数组，返回遍历器的好处在于，如果匹配结果是一个很大的数组，那么遍历器比较节省资源。</p>
+<p>遍历器转为数组是非常简单的，使用<code>...</code>运算符和<code>Array.from</code>方法就可以了。</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// 转为数组方法一</span>
+<span class="p">[...</span><span class="nx">string</span><span class="p">.</span><span class="nx">matchAll</span><span class="p">(</span><span class="nx">regex</span><span class="p">)]</span>
+
+<span class="c1">// 转为数组方法二</span>
+<span class="nb">Array</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nx">string</span><span class="p">.</span><span class="nx">matchAll</span><span class="p">(</span><span class="nx">regex</span><span class="p">));</span>
+</code></pre></div>
+
+<h2 id="flags">flags 属性<a class="headerlink" href="#flags" title="Permanent link">&para;</a></h2>
+<p>ES6 为正则表达式新增了<code>flags</code>属性，会返回正则表达式的修饰符。</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// ES5 的 source 属性</span>
+<span class="c1">// 返回正则表达式的正文</span>
+<span class="sr">/abc/ig</span><span class="p">.</span><span class="nx">source</span>
+<span class="c1">// &quot;abc&quot;</span>
+
+<span class="c1">// ES6 的 flags 属性</span>
+<span class="c1">// 返回正则表达式的修饰符</span>
+<span class="sr">/abc/ig</span><span class="p">.</span><span class="nx">flags</span>
+<span class="c1">// &#39;gi&#39;</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.18f0862e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>
