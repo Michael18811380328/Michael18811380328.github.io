@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#nodejs-eventemitter" class="md-skip">
+        <a href="#08-nodejs-eventemitter-20210711" class="md-skip">
           Skip to content
         </a>
       
@@ -1179,48 +1179,56 @@
                   </a>
                 
                 
-                <h1 id="nodejs-eventemitter">Node.js EventEmitter<a class="headerlink" href="#nodejs-eventemitter" title="Permanent link">&para;</a></h1>
+                <h1 id="08-nodejs-eventemitter-20210711">08-Node.js EventEmitter-20210711<a class="headerlink" href="#08-nodejs-eventemitter-20210711" title="Permanent link">&para;</a></h1>
 <p>Node.js 所有的异步 I/O 操作在完成时都会发送一个事件到事件队列。</p>
 <p>Node.js 里面的许多对象都会分发事件：一个 net.Server 对象会在每次有新连接时触发一个事件， 一个 fs.readStream 对象会在文件被打开的时候触发一个事件。 所有这些产生事件的对象都是 events.EventEmitter 的实例。</p>
-<hr />
 <h2 id="eventemitter">EventEmitter 类<a class="headerlink" href="#eventemitter" title="Permanent link">&para;</a></h2>
-<p>events 模块只提供了一个对象： events.EventEmitter。EventEmitter 的核心就是事件触发与事件监听器功能的封装。</p>
+<p>events 模块只提供了一个对象： events.EventEmitter。EventEmitter 的核心就是==事件触发与事件监听器功能==的封装。</p>
 <p>你可以通过require("events");来访问该模块。</p>
-<div class="highlight"><pre><span></span><code>// 引入 events 模块
-var events = require(&#39;events&#39;);
-// 创建 eventEmitter 对象
-var eventEmitter = new events.EventEmitter();
+<div class="highlight"><pre><span></span><code><span class="c1">// 引入 events 模块</span>
+<span class="kd">var</span> <span class="nx">events</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;events&#39;</span><span class="p">);</span>
+<span class="c1">// 创建 eventEmitter 对象</span>
+<span class="kd">var</span> <span class="nx">eventEmitter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">events</span><span class="p">.</span><span class="nx">EventEmitter</span><span class="p">();</span>
 </code></pre></div>
-<p>EventEmitter 对象如果在实例化时发生错误，会触发 error 事件。当添加新的监听器时，newListener 事件会触发，当监听器被移除时，removeListener 事件被触发。</p>
+<p>EventEmitter 对象如果在实例化时发生错误，会触发 error 事件。</p>
+<p>当添加新的监听器时，newListener 事件会触发。</p>
+<p>当监听器被移除时，removeListener 事件被触发。</p>
 <p>下面我们用一个简单的例子说明 EventEmitter 的用法：</p>
-<div class="highlight"><pre><span></span><code>//event.js 文件
-var EventEmitter = require(&#39;events&#39;).EventEmitter; 
-var event = new EventEmitter(); 
-event.on(&#39;some_event&#39;, function() { 
-    console.log(&#39;some_event 事件触发&#39;); 
-}); 
-setTimeout(function() { 
-    event.emit(&#39;some_event&#39;); 
-}, 1000); 
+<div class="highlight"><pre><span></span><code><span class="c1">//event.js 文件</span>
+<span class="kd">var</span> <span class="nx">EventEmitter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;events&#39;</span><span class="p">).</span><span class="nx">EventEmitter</span><span class="p">;</span> 
+<span class="kd">var</span> <span class="nx">event</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventEmitter</span><span class="p">();</span> 
+
+<span class="nx">event</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;some_event&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;some_event 事件触发&#39;</span><span class="p">);</span> 
+<span class="p">});</span> 
+
+<span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="nx">event</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;some_event&#39;</span><span class="p">);</span> 
+<span class="p">},</span> <span class="mf">1000</span><span class="p">);</span> 
 </code></pre></div>
 <p>执行结果如下：</p>
 <p>运行这段代码，1 秒后控制台输出了 <strong>'some_event 事件触发'</strong>。其原理是 event 对象注册了事件 some_event 的一个监听器，然后我们通过 setTimeout 在 1000 毫秒以后向 event 对象发送事件 some_event，此时会调用some_event 的监听器。</p>
 <div class="highlight"><pre><span></span><code>$ node event.js 
 some_event 事件触发
 </code></pre></div>
-<p>EventEmitter 的每个事件由一个事件名和若干个参数组成，事件名是一个字符串，通常表达一定的语义。对于每个事件，EventEmitter 支持 若干个事件监听器。</p>
+<p>EventEmitter 的每个事件由一个事件名和若干个参数组成，事件名是一个字符串，通常表达一定的语义。</p>
+<p>对于每个事件，EventEmitter 支持 <mark>若干个事件监听器</mark>。</p>
 <p>当事件触发时，注册到这个事件的事件监听器被依次调用，事件参数作为回调函数参数传递。</p>
 <p>让我们以下面的例子解释这个过程：</p>
-<div class="highlight"><pre><span></span><code>//event.js 文件
-var events = require(&#39;events&#39;); 
-var emitter = new events.EventEmitter(); 
-emitter.on(&#39;someEvent&#39;, function(arg1, arg2) { 
-    console.log(&#39;listener1&#39;, arg1, arg2); 
-}); 
-emitter.on(&#39;someEvent&#39;, function(arg1, arg2) { 
-    console.log(&#39;listener2&#39;, arg1, arg2); 
-}); 
-emitter.emit(&#39;someEvent&#39;, &#39;arg1 参数&#39;, &#39;arg2 参数&#39;); 
+<div class="highlight"><pre><span></span><code><span class="c1">//event.js 文件</span>
+<span class="kd">var</span> <span class="nx">events</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;events&#39;</span><span class="p">);</span> 
+
+<span class="kd">var</span> <span class="nx">emitter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">events</span><span class="p">.</span><span class="nx">EventEmitter</span><span class="p">();</span> 
+
+<span class="nx">emitter</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;someEvent&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;listener1&#39;</span><span class="p">,</span> <span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">);</span> 
+<span class="p">});</span> 
+
+<span class="nx">emitter</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;someEvent&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;listener2&#39;</span><span class="p">,</span> <span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">);</span> 
+<span class="p">});</span> 
+
+<span class="nx">emitter</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;someEvent&#39;</span><span class="p">,</span> <span class="s1">&#39;arg1 参数&#39;</span><span class="p">,</span> <span class="s1">&#39;arg2 参数&#39;</span><span class="p">);</span> 
 </code></pre></div>
 <p>执行以上代码，运行的结果如下：</p>
 <div class="highlight"><pre><span></span><code>$ node event.js 
@@ -1230,6 +1238,7 @@ listener2 arg1 参数 arg2 参数
 <p>以上例子中，emitter 为事件 someEvent 注册了两个事件监听器，然后触发了 someEvent 事件。</p>
 <p>运行结果中可以看到两个事件监听器回调函数被先后调用。 这就是EventEmitter最简单的用法。</p>
 <p>EventEmitter 提供了多个属性，如 <strong>on</strong> 和 <strong>emit</strong>。<strong>on</strong> 函数用于绑定事件函数，<strong>emit</strong> 属性用于触发一个事件。接下来我们来具体看下 EventEmitter 的属性介绍。</p>
+<p>(emit，发出发射，类似 fire)</p>
 <h3 id="_1">方法<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
@@ -1288,8 +1297,7 @@ listener2 arg1 参数 arg2 参数
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code>events.EventEmitter.listenerCount(emitter, eventName) //已废弃，不推荐
-events.emitter.listenerCount(eventName) //推荐
+<div class="highlight"><pre><span></span><code><span class="nx">events</span><span class="p">.</span><span class="nx">emitter</span><span class="p">.</span><span class="nx">listenerCount</span><span class="p">(</span><span class="nx">eventName</span><span class="p">)</span> <span class="c1">//推荐</span>
 </code></pre></div>
 <h3 id="_3">事件<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <table>
@@ -1313,42 +1321,42 @@ events.emitter.listenerCount(eventName) //推荐
 <h3 id="_4">实例<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>以下实例通过 connection（连接）事件演示了 EventEmitter 类的应用。</p>
 <p>创建 main.js 文件，代码如下：</p>
-<div class="highlight"><pre><span></span><code>var events = require(&#39;events&#39;);
-var eventEmitter = new events.EventEmitter();
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">events</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;events&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">eventEmitter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">events</span><span class="p">.</span><span class="nx">EventEmitter</span><span class="p">();</span>
 
-// 监听器 #1
-var listener1 = function listener1() {
-   console.log(&#39;监听器 listener1 执行。&#39;);
-}
+<span class="c1">// 监听器 #1</span>
+<span class="kd">var</span> <span class="nx">listener1</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">listener1</span><span class="p">()</span> <span class="p">{</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;监听器 listener1 执行。&#39;</span><span class="p">);</span>
+<span class="p">}</span>
 
-// 监听器 #2
-var listener2 = function listener2() {
-  console.log(&#39;监听器 listener2 执行。&#39;);
-}
+<span class="c1">// 监听器 #2</span>
+<span class="kd">var</span> <span class="nx">listener2</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">listener2</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;监听器 listener2 执行。&#39;</span><span class="p">);</span>
+<span class="p">}</span>
 
-// 绑定 connection 事件，处理函数为 listener1 
-eventEmitter.addListener(&#39;connection&#39;, listener1);
+<span class="c1">// 绑定 connection 事件，处理函数为 listener1 </span>
+<span class="nx">eventEmitter</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="nx">listener1</span><span class="p">);</span>
 
-// 绑定 connection 事件，处理函数为 listener2
-eventEmitter.on(&#39;connection&#39;, listener2);
+<span class="c1">// 绑定 connection 事件，处理函数为 listener2</span>
+<span class="nx">eventEmitter</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="nx">listener2</span><span class="p">);</span>
 
-var eventListeners = eventEmitter.listenerCount(&#39;connection&#39;);
-console.log(eventListeners + &quot; 个监听器监听连接事件。&quot;);
+<span class="kd">var</span> <span class="nx">eventListeners</span> <span class="o">=</span> <span class="nx">eventEmitter</span><span class="p">.</span><span class="nx">listenerCount</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">eventListeners</span> <span class="o">+</span> <span class="s2">&quot; 个监听器监听连接事件。&quot;</span><span class="p">);</span>
 
-// 处理 connection 事件 
-eventEmitter.emit(&#39;connection&#39;);
+<span class="c1">// 处理 connection 事件 </span>
+<span class="nx">eventEmitter</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">);</span>
 
-// 移除监绑定的 listener1 函数
-eventEmitter.removeListener(&#39;connection&#39;, listener1);
-console.log(&quot;listener1 不再受监听。&quot;);
+<span class="c1">// 移除监绑定的 listener1 函数</span>
+<span class="nx">eventEmitter</span><span class="p">.</span><span class="nx">removeListener</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="nx">listener1</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;listener1 不再受监听。&quot;</span><span class="p">);</span>
 
-// 触发连接事件
-eventEmitter.emit(&#39;connection&#39;);
+<span class="c1">// 触发连接事件</span>
+<span class="nx">eventEmitter</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">);</span>
 
-eventListeners = eventEmitter.listenerCount(&#39;connection&#39;);
-console.log(eventListeners + &quot; 个监听器监听连接事件。&quot;);
+<span class="nx">eventListeners</span> <span class="o">=</span> <span class="nx">eventEmitter</span><span class="p">.</span><span class="nx">listenerCount</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">eventListeners</span> <span class="o">+</span> <span class="s2">&quot; 个监听器监听连接事件。&quot;</span><span class="p">);</span>
 
-console.log(&quot;程序执行完毕。&quot;);
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;程序执行完毕。&quot;</span><span class="p">);</span>
 </code></pre></div>
 <p>以上代码，执行结果如下所示：</p>
 <div class="highlight"><pre><span></span><code>$ node main.js
@@ -1360,30 +1368,28 @@ listener1 不再受监听。
 1 个监听器监听连接事件。
 程序执行完毕。
 </code></pre></div>
-<hr />
 <h2 id="error">error 事件<a class="headerlink" href="#error" title="Permanent link">&para;</a></h2>
 <p>EventEmitter 定义了一个特殊的事件 error，它包含了错误的语义，我们在遇到 异常的时候通常会触发 error 事件。</p>
 <p>当 error 被触发时，EventEmitter 规定如果没有响 应的监听器，Node.js 会把它当作异常，退出程序并输出错误信息。</p>
 <p>我们一般要为会触发 error 事件的对象设置监听器，避免遇到错误后整个程序崩溃。例如：</p>
-<div class="highlight"><pre><span></span><code>var events = require(&#39;events&#39;); 
-var emitter = new events.EventEmitter(); 
-emitter.emit(&#39;error&#39;); 
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">events</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;events&#39;</span><span class="p">);</span> 
+<span class="kd">var</span> <span class="nx">emitter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">events</span><span class="p">.</span><span class="nx">EventEmitter</span><span class="p">();</span> 
+<span class="nx">emitter</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">);</span> 
 </code></pre></div>
 <p>运行时会显示以下错误：</p>
 <div class="highlight"><pre><span></span><code>node.js:201 
-throw e; // process.nextTick error, or &#39;error&#39; event on first tick 
+throw e<span class="p">;</span> // process.nextTick error, or <span class="s1">&#39;error&#39;</span> event on first tick 
 ^ 
-Error: Uncaught, unspecified &#39;error&#39; event. 
-at EventEmitter.emit (events.js:50:15) 
-at Object.&lt;anonymous&gt; (/home/byvoid/error.js:5:9) 
-at Module._compile (module.js:441:26) 
-at Object..js (module.js:459:10) 
-at Module.load (module.js:348:31) 
-at Function._load (module.js:308:12) 
-at Array.0 (module.js:479:10) 
-at EventEmitter._tickCallback (node.js:192:40) 
+Error: Uncaught, unspecified <span class="s1">&#39;error&#39;</span> event. 
+at EventEmitter.emit <span class="o">(</span>events.js:50:15<span class="o">)</span> 
+at Object.&lt;anonymous&gt; <span class="o">(</span>/home/byvoid/error.js:5:9<span class="o">)</span> 
+at Module._compile <span class="o">(</span>module.js:441:26<span class="o">)</span> 
+at Object..js <span class="o">(</span>module.js:459:10<span class="o">)</span> 
+at Module.load <span class="o">(</span>module.js:348:31<span class="o">)</span> 
+at Function._load <span class="o">(</span>module.js:308:12<span class="o">)</span> 
+at Array.0 <span class="o">(</span>module.js:479:10<span class="o">)</span> 
+at EventEmitter._tickCallback <span class="o">(</span>node.js:192:40<span class="o">)</span> 
 </code></pre></div>
-<hr />
 <h2 id="eventemitter_1">继承 EventEmitter<a class="headerlink" href="#eventemitter_1" title="Permanent link">&para;</a></h2>
 <p>大多数时候我们不会直接使用 EventEmitter，而是在对象中继承它。包括 fs、net、 http 在内的，只要是支持事件响应的核心模块都是 EventEmitter 的子类。</p>
 <p>为什么要这样做呢？原因有两点：</p>

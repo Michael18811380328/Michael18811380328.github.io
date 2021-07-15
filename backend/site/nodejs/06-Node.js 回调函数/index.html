@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#nodejs" class="md-skip">
+        <a href="#06-nodejs-20210711" class="md-skip">
           Skip to content
         </a>
       
@@ -1097,27 +1097,26 @@
                   </a>
                 
                 
-                <h1 id="nodejs">Node.js 回调函数<a class="headerlink" href="#nodejs" title="Permanent link">&para;</a></h1>
+                <h1 id="06-nodejs-20210711">06-Node.js 回调函数-20210711<a class="headerlink" href="#06-nodejs-20210711" title="Permanent link">&para;</a></h1>
 <p>Node.js 异步编程的直接体现就是回调。</p>
 <p>异步编程依托于回调来实现，但不能说使用了回调后程序就异步化了。</p>
 <p>回调函数在完成任务后就会被调用，Node 使用了大量的回调函数，Node 所有 API 都支持回调函数。</p>
 <p>例如，我们可以一边读取文件，一边执行其他命令，在文件读取完成后，我们将文件内容作为回调函数的参数返回。这样在执行代码时就没有阻塞或等待文件 I/O 操作。这就大大提高了 Node.js 的性能，可以处理大量的并发请求。</p>
 <p>回调函数一般作为函数的最后一个参数出现：</p>
-<div class="highlight"><pre><span></span><code>function foo1(name, age, callback) { }
-function foo2(value, callback1, callback2) { }
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">foo1</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">age</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+<span class="kd">function</span> <span class="nx">foo2</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">callback1</span><span class="p">,</span> <span class="nx">callback2</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
 </code></pre></div>
-<hr />
 <h2 id="_1">阻塞代码实例<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>创建一个文件 input.txt ，内容如下：</p>
 <div class="highlight"><pre><span></span><code>Michael loves nodeJS
 </code></pre></div>
 <p>创建 main.js 文件, 代码如下：</p>
-<div class="highlight"><pre><span></span><code>var fs = require(&quot;fs&quot;);
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
 
-var data = fs.readFileSync(&#39;input.txt&#39;);
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="s1">&#39;input.txt&#39;</span><span class="p">);</span>
 
-console.log(data.toString());
-console.log(&quot;程序执行结束!&quot;);
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;程序执行结束!&quot;</span><span class="p">);</span>
 </code></pre></div>
 <p>以上代码执行结果如下：</p>
 <div class="highlight"><pre><span></span><code>$ node main.js
@@ -1125,20 +1124,19 @@ Michael loves nodeJS
 
 程序执行结束!
 </code></pre></div>
-<hr />
 <h2 id="_2">非阻塞代码实例<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>创建一个文件 input.txt ，内容如下：</p>
 <div class="highlight"><pre><span></span><code>Michael loves nodeJS
 </code></pre></div>
 <p>创建 main.js 文件, 代码如下：</p>
-<div class="highlight"><pre><span></span><code>var fs = require(&quot;fs&quot;);
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
 
-fs.readFile(&#39;input.txt&#39;, function (err, data) {
-    if (err) return console.error(err);
-    console.log(data.toString());
-});
+<span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="s1">&#39;input.txt&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+<span class="p">});</span>
 
-console.log(&quot;程序执行结束!&quot;);
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;程序执行结束!&quot;</span><span class="p">);</span>
 </code></pre></div>
 <p>以上代码执行结果如下：</p>
 <div class="highlight"><pre><span></span><code>$ node main.js

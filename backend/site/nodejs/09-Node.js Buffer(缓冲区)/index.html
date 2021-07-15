@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#nodejs-buffer" class="md-skip">
+        <a href="#09-nodejs-buffer-20210712" class="md-skip">
           Skip to content
         </a>
       
@@ -698,9 +698,29 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    2 篇笔记 写笔记
+  <a href="#_38" class="md-nav__link">
+    笔记
   </a>
+  
+    <nav class="md-nav" aria-label="笔记">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1716,9 +1736,29 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    2 篇笔记 写笔记
+  <a href="#_38" class="md-nav__link">
+    笔记
   </a>
+  
+    <nav class="md-nav" aria-label="笔记">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1739,23 +1779,22 @@
                   </a>
                 
                 
-                <h1 id="nodejs-buffer">Node.js Buffer(缓冲区)<a class="headerlink" href="#nodejs-buffer" title="Permanent link">&para;</a></h1>
+                <h1 id="09-nodejs-buffer-20210712">09-Node.js Buffer(缓冲区)-20210712<a class="headerlink" href="#09-nodejs-buffer-20210712" title="Permanent link">&para;</a></h1>
 <p>JavaScript 语言自身只有字符串数据类型，没有二进制数据类型。</p>
 <p>但在处理像TCP流或文件流时，必须使用到二进制数据。因此在 Node.js中，定义了一个 Buffer 类，该类用来创建一个专门存放二进制数据的缓存区。</p>
 <p>在 Node.js 中，Buffer 类是随 Node 内核一起发布的核心库。Buffer 库为 Node.js 带来了一种存储原始数据的方法，可以让 Node.js 处理二进制数据，每当需要在 Node.js 中处理I/O操作中移动的数据时，就有可能使用 Buffer 库。原始数据存储在 Buffer 类的实例中。一个 Buffer 类似于一个整数数组，但它对应于 V8 堆内存之外的一块原始内存。</p>
 <blockquote>
 <p>在v6.0之前创建Buffer对象直接使用new Buffer()构造函数来创建对象实例，但是Buffer对内存的权限操作相比很大，可以直接捕获一些敏感信息，所以在v6.0以后，官方文档里面建议使用 <strong>Buffer.from()</strong> 接口去创建Buffer对象。</p>
 </blockquote>
-<hr />
 <h2 id="buffer">Buffer 与字符编码<a class="headerlink" href="#buffer" title="Permanent link">&para;</a></h2>
 <p>Buffer 实例一般用于表示编码字符的序列，比如 UTF-8 、 UCS2 、 Base64 、或十六进制编码的数据。 通过使用显式的字符编码，就可以在 Buffer 实例与普通的 JavaScript 字符串之间进行相互转换。</p>
-<div class="highlight"><pre><span></span><code>const buf = Buffer.from(&#39;runoob&#39;, &#39;ascii&#39;);
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">buf</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="s1">&#39;runoob&#39;</span><span class="p">,</span> <span class="s1">&#39;ascii&#39;</span><span class="p">);</span>
 
-// 输出 72756e6f6f62
-console.log(buf.toString(&#39;hex&#39;));
+<span class="c1">// 输出 72756e6f6f62</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">buf</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="s1">&#39;hex&#39;</span><span class="p">));</span>
 
-// 输出 cnVub29i
-console.log(buf.toString(&#39;base64&#39;));
+<span class="c1">// 输出 cnVub29i</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">buf</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="s1">&#39;base64&#39;</span><span class="p">));</span>
 </code></pre></div>
 <p><strong>Node.js 目前支持的字符编码包括：</strong></p>
 <ul>
@@ -1768,40 +1807,38 @@ console.log(buf.toString(&#39;base64&#39;));
 <li><strong>binary</strong> - <strong>latin1</strong> 的别名。</li>
 <li><strong>hex</strong> - 将每个字节编码为两个十六进制字符。</li>
 </ul>
-<hr />
 <h2 id="buffer_1">创建 Buffer 类<a class="headerlink" href="#buffer_1" title="Permanent link">&para;</a></h2>
 <p>Buffer 提供了以下 API 来创建 Buffer 类：</p>
 <ul>
 <li><strong>Buffer.alloc(size[, fill[, encoding]])：</strong> 返回一个指定大小的 Buffer 实例，如果没有设置 fill，则默认填满 0</li>
 <li><strong>Buffer.allocUnsafe(size)：</strong> 返回一个指定大小的 Buffer 实例，但是它不会被初始化，所以它可能包含敏感的数据</li>
 <li><strong>Buffer.allocUnsafeSlow(size)</strong></li>
-<li><strong>Buffer.from(array)：</strong> 返回一个被 array 的值初始化的新的 Buffer 实例（传入的 array 的元素只能是数字，不然就会自动被 0 覆盖）</li>
+<li><strong>Buffer.from(array)：</strong> 返回一个被 array 的值初始化的新的 Buffer 实例（array只能是数字，不然就会自动被 0 覆盖）</li>
 <li><strong>Buffer.from(arrayBuffer[, byteOffset[, length]])：</strong> 返回一个新建的与给定的 ArrayBuffer 共享同一内存的 Buffer。</li>
 <li><strong>Buffer.from(buffer)：</strong> 复制传入的 Buffer 实例的数据，并返回一个新的 Buffer 实例</li>
 <li><strong>Buffer.from(string[, encoding])：</strong> 返回一个被 string 的值初始化的新的 Buffer 实例</li>
 </ul>
-<div class="highlight"><pre><span></span><code>// 创建一个长度为 10、且用 0 填充的 Buffer。
-const buf1 = Buffer.alloc(10);
+<div class="highlight"><pre><span></span><code><span class="c1">// 创建一个长度为 10、且用 0 填充的 Buffer。</span>
+<span class="kd">const</span> <span class="nx">buf1</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">alloc</span><span class="p">(</span><span class="mf">10</span><span class="p">);</span>
 
-// 创建一个长度为 10、且用 0x1 填充的 Buffer。 
-const buf2 = Buffer.alloc(10, 1);
+<span class="c1">// 创建一个长度为 10、且用 0x1 填充的 Buffer。 </span>
+<span class="kd">const</span> <span class="nx">buf2</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">alloc</span><span class="p">(</span><span class="mf">10</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
 
-// 创建一个长度为 10、且未初始化的 Buffer。
-// 这个方法比调用 Buffer.alloc() 更快，
-// 但返回的 Buffer 实例可能包含旧数据，
-// 因此需要使用 fill() 或 write() 重写。
-const buf3 = Buffer.allocUnsafe(10);
+<span class="c1">// 创建一个长度为 10、且未初始化的 Buffer。</span>
+<span class="c1">// 这个方法比调用 Buffer.alloc() 更快，</span>
+<span class="c1">// 但返回的 Buffer 实例可能包含旧数据，</span>
+<span class="c1">// 因此需要使用 fill() 或 write() 重写。</span>
+<span class="kd">const</span> <span class="nx">buf3</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">allocUnsafe</span><span class="p">(</span><span class="mf">10</span><span class="p">);</span>
 
-// 创建一个包含 [0x1, 0x2, 0x3] 的 Buffer。
-const buf4 = Buffer.from([1, 2, 3]);
+<span class="c1">// 创建一个包含 [0x1, 0x2, 0x3] 的 Buffer。</span>
+<span class="kd">const</span> <span class="nx">buf4</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">([</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">]);</span>
 
-// 创建一个包含 UTF-8 字节 [0x74, 0xc3, 0xa9, 0x73, 0x74] 的 Buffer。
-const buf5 = Buffer.from(&#39;tést&#39;);
+<span class="c1">// 创建一个包含 UTF-8 字节 [0x74, 0xc3, 0xa9, 0x73, 0x74] 的 Buffer。</span>
+<span class="kd">const</span> <span class="nx">buf5</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="s1">&#39;tést&#39;</span><span class="p">);</span>
 
-// 创建一个包含 Latin-1 字节 [0x74, 0xe9, 0x73, 0x74] 的 Buffer。
-const buf6 = Buffer.from(&#39;tést&#39;, &#39;latin1&#39;);
+<span class="c1">// 创建一个包含 Latin-1 字节 [0x74, 0xe9, 0x73, 0x74] 的 Buffer。</span>
+<span class="kd">const</span> <span class="nx">buf6</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="s1">&#39;tést&#39;</span><span class="p">,</span> <span class="s1">&#39;latin1&#39;</span><span class="p">);</span>
 </code></pre></div>
-<hr />
 <h2 id="_1">写入缓冲区<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <h3 id="_2">语法<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>写入 Node 缓冲区的语法如下所示：</p>
@@ -1819,16 +1856,15 @@ const buf6 = Buffer.from(&#39;tést&#39;, &#39;latin1&#39;);
 <h3 id="_4">返回值<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>返回实际写入的大小。如果 buffer 空间不足， 则只会写入部分字符串。</p>
 <h3 id="_5">实例<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>buf = Buffer.alloc(256);
-len = buf.write(&quot;www.runoob.com&quot;);
+<div class="highlight"><pre><span></span><code><span class="nx">buf</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">alloc</span><span class="p">(</span><span class="mf">256</span><span class="p">);</span>
+<span class="nx">len</span> <span class="o">=</span> <span class="nx">buf</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;www.runoob.com&quot;</span><span class="p">);</span>
 
-console.log(&quot;写入字节数 : &quot;+  len);
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;写入字节数 : &quot;</span><span class="o">+</span>  <span class="nx">len</span><span class="p">);</span>
 </code></pre></div>
 <p>执行以上代码，输出结果为：</p>
 <div class="highlight"><pre><span></span><code>$node main.js
 写入字节数 : 14
 </code></pre></div>
-<hr />
 <h2 id="_6">从缓冲区读取数据<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <h3 id="_7">语法<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>读取 Node 缓冲区数据的语法如下所示：</p>
@@ -1844,15 +1880,15 @@ console.log(&quot;写入字节数 : &quot;+  len);
 <h3 id="_9">返回值<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <p>解码缓冲区数据并使用指定的编码返回字符串。</p>
 <h3 id="_10">实例<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>buf = Buffer.alloc(26);
-for (var i = 0 ; i &lt; 26 ; i++) {
-  buf[i] = i + 97;
-}
+<div class="highlight"><pre><span></span><code><span class="nx">buf</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">alloc</span><span class="p">(</span><span class="mf">26</span><span class="p">);</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span> <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mf">26</span> <span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">buf</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="mf">97</span><span class="p">;</span>
+<span class="p">}</span>
 
-console.log( buf.toString(&#39;ascii&#39;));       // 输出: abcdefghijklmnopqrstuvwxyz
-console.log( buf.toString(&#39;ascii&#39;,0,5));   //使用 &#39;ascii&#39; 编码, 并输出: abcde
-console.log( buf.toString(&#39;utf8&#39;,0,5));    // 使用 &#39;utf8&#39; 编码, 并输出: abcde
-console.log( buf.toString(undefined,0,5)); // 使用默认的 &#39;utf8&#39; 编码, 并输出: abcde
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">buf</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">));</span>       <span class="c1">// 输出: abcdefghijklmnopqrstuvwxyz</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">buf</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span><span class="mf">0</span><span class="p">,</span><span class="mf">5</span><span class="p">));</span>   <span class="c1">//使用 &#39;ascii&#39; 编码, 并输出: abcde</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">buf</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">,</span><span class="mf">0</span><span class="p">,</span><span class="mf">5</span><span class="p">));</span>    <span class="c1">// 使用 &#39;utf8&#39; 编码, 并输出: abcde</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">buf</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="kc">undefined</span><span class="p">,</span><span class="mf">0</span><span class="p">,</span><span class="mf">5</span><span class="p">));</span> <span class="c1">// 使用默认的 &#39;utf8&#39; 编码, 并输出: abcde</span>
 </code></pre></div>
 <p>执行以上代码，输出结果为：</p>
 <div class="highlight"><pre><span></span><code>$ node main.js
@@ -1861,7 +1897,6 @@ abcde
 abcde
 abcde
 </code></pre></div>
-<hr />
 <h2 id="buffer-json">将 Buffer 转换为 JSON 对象<a class="headerlink" href="#buffer-json" title="Permanent link">&para;</a></h2>
 <h3 id="_11">语法<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
 <p>将 Node Buffer 转换为 JSON 对象的函数语法格式如下：</p>
@@ -1871,26 +1906,25 @@ abcde
 <h3 id="_12">返回值<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <p>返回 JSON 对象。</p>
 <h3 id="_13">实例<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>const buf = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5]);
-const json = JSON.stringify(buf);
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">buf</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">([</span><span class="mh">0x1</span><span class="p">,</span> <span class="mh">0x2</span><span class="p">,</span> <span class="mh">0x3</span><span class="p">,</span> <span class="mh">0x4</span><span class="p">,</span> <span class="mh">0x5</span><span class="p">]);</span>
+<span class="kd">const</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">buf</span><span class="p">);</span>
 
-// 输出: {&quot;type&quot;:&quot;Buffer&quot;,&quot;data&quot;:[1,2,3,4,5]}
-console.log(json);
+<span class="c1">// 输出: {&quot;type&quot;:&quot;Buffer&quot;,&quot;data&quot;:[1,2,3,4,5]}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span>
 
-const copy = JSON.parse(json, (key, value) =&gt; {
-  return value &amp;&amp; value.type === &#39;Buffer&#39; ?
-    Buffer.from(value.data) :
-    value;
-});
+<span class="kd">const</span> <span class="nx">copy</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">json</span><span class="p">,</span> <span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">value</span> <span class="o">&amp;&amp;</span> <span class="nx">value</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;Buffer&#39;</span> <span class="o">?</span>
+    <span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span> <span class="o">:</span>
+    <span class="nx">value</span><span class="p">;</span>
+<span class="p">});</span>
 
-// 输出: &lt;Buffer 01 02 03 04 05&gt;
-console.log(copy);
+<span class="c1">// 输出: &lt;Buffer 01 02 03 04 05&gt;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">copy</span><span class="p">);</span>
 </code></pre></div>
 <p>执行以上代码，输出结果为：</p>
 <div class="highlight"><pre><span></span><code>{&quot;type&quot;:&quot;Buffer&quot;,&quot;data&quot;:[1,2,3,4,5]}
 &lt;Buffer 01 02 03 04 05&gt;
 </code></pre></div>
-<hr />
 <h2 id="_14">缓冲区合并<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
 <h3 id="_15">语法<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
 <p>Node 缓冲区合并的语法如下所示：</p>
@@ -1905,15 +1939,14 @@ console.log(copy);
 <h3 id="_17">返回值<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
 <p>返回一个多个成员合并的新 Buffer 对象。</p>
 <h3 id="_18">实例<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>var buffer1 = Buffer.from((&#39;菜鸟教程&#39;));
-var buffer2 = Buffer.from((&#39;www.runoob.com&#39;));
-var buffer3 = Buffer.concat([buffer1,buffer2]);
-console.log(&quot;buffer3 内容: &quot; + buffer3.toString());
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">buffer1</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">((</span><span class="s1">&#39;菜鸟教程&#39;</span><span class="p">));</span>
+<span class="kd">var</span> <span class="nx">buffer2</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">((</span><span class="s1">&#39;www.runoob.com&#39;</span><span class="p">));</span>
+<span class="kd">var</span> <span class="nx">buffer3</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">concat</span><span class="p">([</span><span class="nx">buffer1</span><span class="p">,</span><span class="nx">buffer2</span><span class="p">]);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;buffer3 内容: &quot;</span> <span class="o">+</span> <span class="nx">buffer3</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
 </code></pre></div>
 <p>执行以上代码，输出结果为：</p>
 <div class="highlight"><pre><span></span><code>buffer3 内容: 菜鸟教程www.runoob.com
 </code></pre></div>
-<hr />
 <h2 id="_19">缓冲区比较<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
 <h3 id="_20">语法<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
 <p>Node Buffer 比较的函数语法如下所示, 该方法在 Node.js v0.12.2 版本引入：</p>
@@ -1927,22 +1960,21 @@ console.log(&quot;buffer3 内容: &quot; + buffer3.toString());
 <h3 id="_22">返回值<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
 <p>返回一个数字，表示 <strong>buf</strong> 在 <strong>otherBuffer</strong> 之前，之后或相同。</p>
 <h3 id="_23">实例<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>var buffer1 = Buffer.from(&#39;ABC&#39;);
-var buffer2 = Buffer.from(&#39;ABCD&#39;);
-var result = buffer1.compare(buffer2);
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">buffer1</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="s1">&#39;ABC&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">buffer2</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="s1">&#39;ABCD&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">buffer1</span><span class="p">.</span><span class="nx">compare</span><span class="p">(</span><span class="nx">buffer2</span><span class="p">);</span>
 
-if(result &lt; 0) {
-   console.log(buffer1 + &quot; 在 &quot; + buffer2 + &quot;之前&quot;);
-}else if(result == 0){
-   console.log(buffer1 + &quot; 与 &quot; + buffer2 + &quot;相同&quot;);
-}else {
-   console.log(buffer1 + &quot; 在 &quot; + buffer2 + &quot;之后&quot;);
-}
+<span class="k">if</span><span class="p">(</span><span class="nx">result</span> <span class="o">&lt;</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">buffer1</span> <span class="o">+</span> <span class="s2">&quot; 在 &quot;</span> <span class="o">+</span> <span class="nx">buffer2</span> <span class="o">+</span> <span class="s2">&quot;之前&quot;</span><span class="p">);</span>
+<span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">result</span> <span class="o">==</span> <span class="mf">0</span><span class="p">){</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">buffer1</span> <span class="o">+</span> <span class="s2">&quot; 与 &quot;</span> <span class="o">+</span> <span class="nx">buffer2</span> <span class="o">+</span> <span class="s2">&quot;相同&quot;</span><span class="p">);</span>
+<span class="p">}</span><span class="k">else</span> <span class="p">{</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">buffer1</span> <span class="o">+</span> <span class="s2">&quot; 在 &quot;</span> <span class="o">+</span> <span class="nx">buffer2</span> <span class="o">+</span> <span class="s2">&quot;之后&quot;</span><span class="p">);</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>执行以上代码，输出结果为：</p>
 <div class="highlight"><pre><span></span><code>ABC在ABCD之前
 </code></pre></div>
-<hr />
 <h2 id="_24">拷贝缓冲区<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h2>
 <h3 id="_25">语法<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
 <p>Node 缓冲区拷贝语法如下所示：</p>
@@ -1959,21 +1991,20 @@ if(result &lt; 0) {
 <h3 id="_27">返回值<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h3>
 <p>没有返回值。</p>
 <h3 id="_28">实例<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>var buf1 = Buffer.from(&#39;abcdefghijkl&#39;);
-var buf2 = Buffer.from(&#39;RUNOOB&#39;);
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">buf1</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="s1">&#39;abcdefghijkl&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">buf2</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="s1">&#39;RUNOOB&#39;</span><span class="p">);</span>
 
-//将 buf2 插入到 buf1 指定位置上
-buf2.copy(buf1, 2);
+<span class="c1">//将 buf2 插入到 buf1 指定位置上</span>
+<span class="nx">buf2</span><span class="p">.</span><span class="nx">copy</span><span class="p">(</span><span class="nx">buf1</span><span class="p">,</span> <span class="mf">2</span><span class="p">);</span>
 
-console.log(buf1.toString());
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">buf1</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
 </code></pre></div>
 <p>执行以上代码，输出结果为：</p>
 <div class="highlight"><pre><span></span><code>abRUNOOBijkl
 </code></pre></div>
-<hr />
 <h2 id="_29">缓冲区裁剪<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h2>
 <p>Node 缓冲区裁剪语法如下所示：</p>
-<div class="highlight"><pre><span></span><code>buf.slice([start[, end]])
+<div class="highlight"><pre><span></span><code><span class="nx">buf</span><span class="p">.</span><span class="nx">slice</span><span class="p">([</span><span class="nx">start</span><span class="p">[,</span> <span class="nx">end</span><span class="p">]])</span>
 </code></pre></div>
 <h3 id="_30">参数<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h3>
 <p>参数描述如下：</p>
@@ -1983,16 +2014,16 @@ console.log(buf1.toString());
 </ul>
 <h3 id="_31">返回值<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h3>
 <p>返回一个新的缓冲区，它和旧缓冲区指向同一块内存，但是从索引 start 到 end 的位置剪切。</p>
+<p>注意：它和旧缓冲区指向同一块内存，并不是直接复制新的内存，这里支持存储引用。</p>
 <h3 id="_32">实例<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>var buffer1 = Buffer.from(&#39;runoob&#39;);
-// 剪切缓冲区
-var buffer2 = buffer1.slice(0,2);
-console.log(&quot;buffer2 content: &quot; + buffer2.toString());
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">buffer1</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="s1">&#39;runoob&#39;</span><span class="p">);</span>
+<span class="c1">// 剪切缓冲区</span>
+<span class="kd">var</span> <span class="nx">buffer2</span> <span class="o">=</span> <span class="nx">buffer1</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="mf">2</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;buffer2 content: &quot;</span> <span class="o">+</span> <span class="nx">buffer2</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
 </code></pre></div>
 <p>执行以上代码，输出结果为：</p>
 <div class="highlight"><pre><span></span><code>buffer2 content: ru
 </code></pre></div>
-<hr />
 <h2 id="_33">缓冲区长度<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h2>
 <h3 id="_34">语法<a class="headerlink" href="#_34" title="Permanent link">&para;</a></h3>
 <p>Node 缓冲区长度计算语法如下所示：</p>
@@ -2001,14 +2032,13 @@ console.log(&quot;buffer2 content: &quot; + buffer2.toString());
 <h3 id="_35">返回值<a class="headerlink" href="#_35" title="Permanent link">&para;</a></h3>
 <p>返回 Buffer 对象所占据的内存长度。</p>
 <h3 id="_36">实例<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>var buffer = Buffer.from(&#39;www.runoob.com&#39;);
-//  缓冲区长度
-console.log(&quot;buffer length: &quot; + buffer.length);
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">buffer</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="s1">&#39;www.runoob.com&#39;</span><span class="p">);</span>
+<span class="c1">//  缓冲区长度</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;buffer length: &quot;</span> <span class="o">+</span> <span class="nx">buffer</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
 </code></pre></div>
 <p>执行以上代码，输出结果为：</p>
 <div class="highlight"><pre><span></span><code>buffer length: 14
 </code></pre></div>
-<hr />
 <h2 id="_37">方法参考手册<a class="headerlink" href="#_37" title="Permanent link">&para;</a></h2>
 <p>以下列出了 Node.js Buffer 模块常用的方法（注意有些方法在旧版本是没有的）：</p>
 <table>
@@ -2040,38 +2070,6 @@ console.log(&quot;buffer length: &quot; + buffer.length);
 <td align="left"><strong>buf.write(string[, offset[, length]][, encoding])</strong> 根据参数 offset 偏移量和指定的 encoding 编码方式，将参数 string 数据写入buffer。 offset 偏移量默认值是 0, encoding 编码方式默认是 utf8。 length 长度是将要写入的字符串的 bytes 大小。 返回 number 类型，表示写入了多少 8 位字节流。如果 buffer 没有足够的空间来放整个 string，它将只会只写入部分字符串。 length 默认是 buffer.length - offset。 这个方法不会出现写入部分字符。</td>
 </tr>
 <tr>
-<td align="left">6</td>
-<td align="left"><strong>buf.writeUIntLE(value, offset, byteLength[, noAssert])</strong> 将 value 写入到 buffer 里， 它由 offset 和 byteLength 决定，最高支持 48 位无符号整数，小端对齐，例如： <code>const buf = Buffer.allocUnsafe(6); buf.writeUIntLE(0x1234567890ab, 0, 6); // 输出:  console.log(buf);</code>noAssert 值为 true 时，不再验证 value 和 offset 的有效性。 默认是 false。</td>
-</tr>
-<tr>
-<td align="left">7</td>
-<td align="left"><strong>buf.writeUIntBE(value, offset, byteLength[, noAssert])</strong> 将 value 写入到 buffer 里， 它由 offset 和 byteLength 决定，最高支持 48 位无符号整数，大端对齐。noAssert 值为 true 时，不再验证 value 和 offset 的有效性。 默认是 false。<code>const buf = Buffer.allocUnsafe(6); buf.writeUIntBE(0x1234567890ab, 0, 6); // 输出:  console.log(buf);</code></td>
-</tr>
-<tr>
-<td align="left">8</td>
-<td align="left"><strong>buf.writeIntLE(value, offset, byteLength[, noAssert])</strong> 将value 写入到 buffer 里， 它由offset 和 byteLength 决定，最高支持48位有符号整数，小端对齐。noAssert 值为 true 时，不再验证 value 和 offset 的有效性。 默认是 false。</td>
-</tr>
-<tr>
-<td align="left">9</td>
-<td align="left"><strong>buf.writeIntBE(value, offset, byteLength[, noAssert])</strong> 将value 写入到 buffer 里， 它由offset 和 byteLength 决定，最高支持48位有符号整数，大端对齐。noAssert 值为 true 时，不再验证 value 和 offset 的有效性。 默认是 false。</td>
-</tr>
-<tr>
-<td align="left">10</td>
-<td align="left"><strong>buf.readUIntLE(offset, byteLength[, noAssert])</strong> 支持读取 48 位以下的无符号数字，小端对齐。noAssert 值为 true 时， offset 不再验证是否超过 buffer 的长度，默认为 false。</td>
-</tr>
-<tr>
-<td align="left">11</td>
-<td align="left"><strong>buf.readUIntBE(offset, byteLength[, noAssert])</strong> 支持读取 48 位以下的无符号数字，大端对齐。noAssert 值为 true 时， offset 不再验证是否超过 buffer 的长度，默认为 false。</td>
-</tr>
-<tr>
-<td align="left">12</td>
-<td align="left"><strong>buf.readIntLE(offset, byteLength[, noAssert])</strong> 支持读取 48 位以下的有符号数字，小端对齐。noAssert 值为 true 时， offset 不再验证是否超过 buffer 的长度，默认为 false。</td>
-</tr>
-<tr>
-<td align="left">13</td>
-<td align="left"><strong>buf.readIntBE(offset, byteLength[, noAssert])</strong> 支持读取 48 位以下的有符号数字，大端对齐。noAssert 值为 true 时， offset 不再验证是否超过 buffer 的长度，默认为 false。</td>
-</tr>
-<tr>
 <td align="left">14</td>
 <td align="left"><strong>buf.toString([encoding[, start[, end]]])</strong> 根据 encoding 参数（默认是 'utf8'）返回一个解码过的 string 类型。还会根据传入的参数 start (默认是 0) 和 end (默认是 buffer.length)作为取值范围。</td>
 </tr>
@@ -2100,171 +2098,44 @@ console.log(&quot;buffer length: &quot; + buffer.length);
 <td align="left"><strong>buf.slice([start[, end]])</strong> 剪切 Buffer 对象，根据 start(默认是 0 ) 和 end (默认是 buffer.length ) 偏移和裁剪了索引。 负的索引是从 buffer 尾部开始计算的。</td>
 </tr>
 <tr>
-<td align="left">21</td>
-<td align="left"><strong>buf.readUInt8(offset[, noAssert])</strong> 根据指定的偏移量，读取一个无符号 8 位整数。若参数 noAssert 为 true 将不会验证 offset 偏移量参数。 如果这样 offset 可能会超出buffer 的末尾。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">22</td>
-<td align="left"><strong>buf.readUInt16LE(offset[, noAssert])</strong> 根据指定的偏移量，使用特殊的 endian 字节序格式读取一个无符号 16 位整数。若参数 noAssert 为 true 将不会验证 offset 偏移量参数。 这意味着 offset 可能会超出 buffer 的末尾。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">23</td>
-<td align="left"><strong>buf.readUInt16BE(offset[, noAssert])</strong> 根据指定的偏移量，使用特殊的 endian 字节序格式读取一个无符号 16 位整数，大端对齐。若参数 noAssert 为 true 将不会验证 offset 偏移量参数。 这意味着 offset 可能会超出 buffer 的末尾。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">24</td>
-<td align="left"><strong>buf.readUInt32LE(offset[, noAssert])</strong> 根据指定的偏移量，使用指定的 endian 字节序格式读取一个无符号 32 位整数，小端对齐。 若参数 noAssert 为 true 将不会验证 offset 偏移量参数。 这意味着 offset 可能会超出buffer 的末尾。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">25</td>
-<td align="left"><strong>buf.readUInt32BE(offset[, noAssert])</strong> 根据指定的偏移量，使用指定的 endian 字节序格式读取一个无符号 32 位整数，大端对齐。 若参数 noAssert 为 true 将不会验证 offset 偏移量参数。 这意味着 offset 可能会超出buffer 的末尾。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">26</td>
-<td align="left"><strong>buf.readInt8(offset[, noAssert])</strong> 根据指定的偏移量，读取一个有符号 8 位整数。 若参数 noAssert 为 true 将不会验证 offset 偏移量参数。 这意味着 offset 可能会超出 buffer 的末尾。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">27</td>
-<td align="left"><strong>buf.readInt16LE(offset[, noAssert])</strong> 根据指定的偏移量，使用特殊的 endian 格式读取一个 有符号 16 位整数，小端对齐。 若参数 noAssert 为 true 将不会验证 offset 偏移量参数。 这意味着 offset 可能会超出 buffer 的末尾。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">28</td>
-<td align="left"><strong>buf.readInt16BE(offset[, noAssert])</strong> 根据指定的偏移量，使用特殊的 endian 格式读取一个 有符号 16 位整数，大端对齐。 若参数 noAssert 为 true 将不会验证 offset 偏移量参数。 这意味着 offset 可能会超出 buffer 的末尾。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">29</td>
-<td align="left"><strong>buf.readInt32LE(offset[, noAssert])</strong> 根据指定的偏移量，使用指定的 endian 字节序格式读取一个有符号 32 位整数，小端对齐。 若参数 noAssert 为 true 将不会验证 offset 偏移量参数。 这意味着 offset 可能会超出buffer 的末尾。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">30</td>
-<td align="left"><strong>buf.readInt32BE(offset[, noAssert])</strong> 根据指定的偏移量，使用指定的 endian 字节序格式读取一个有符号 32 位整数，大端对齐。 若参数 noAssert 为 true 将不会验证 offset 偏移量参数。 这意味着 offset 可能会超出buffer 的末尾。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">31</td>
-<td align="left"><strong>buf.readFloatLE(offset[, noAssert])</strong> 根据指定的偏移量，使用指定的 endian 字节序格式读取一个 32 位双浮点数，小端对齐。 若参数 noAssert 为 true 将不会验证 offset 偏移量参数。 这意味着 offset 可能会超出buffer的末尾。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">32</td>
-<td align="left"><strong>buf.readFloatBE(offset[, noAssert])</strong> 根据指定的偏移量，使用指定的 endian 字节序格式读取一个 32 位双浮点数，大端对齐。 若参数 noAssert 为 true 将不会验证 offset 偏移量参数。 这意味着 offset 可能会超出buffer的末尾。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">33</td>
-<td align="left"><strong>buf.readDoubleLE(offset[, noAssert])</strong> 根据指定的偏移量，使用指定的 endian字节序格式读取一个 64 位双精度数，小端对齐。 若参数 noAssert 为 true 将不会验证 offset 偏移量参数。 这意味着 offset 可能会超出buffer 的末尾。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">34</td>
-<td align="left"><strong>buf.readDoubleBE(offset[, noAssert])</strong> 根据指定的偏移量，使用指定的 endian字节序格式读取一个 64 位双精度数，大端对齐。 若参数 noAssert 为 true 将不会验证 offset 偏移量参数。 这意味着 offset 可能会超出buffer 的末尾。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">35</td>
-<td align="left"><strong>buf.writeUInt8(value, offset[, noAssert])</strong> 根据传入的 offset 偏移量将 value 写入 buffer。注意：value 必须是一个合法的无符号 8 位整数。 若参数 noAssert 为 true 将不会验证 offset 偏移量参数。 这意味着 value 可能过大，或者 offset 可能会超出 buffer 的末尾从而造成 value 被丢弃。 除非你对这个参数非常有把握，否则不要使用。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">36</td>
-<td align="left"><strong>buf.writeUInt16LE(value, offset[, noAssert])</strong> 根据传入的 offset 偏移量和指定的 endian 格式将 value 写入 buffer。注意：value 必须是一个合法的无符号 16 位整数，小端对齐。 若参数 noAssert 为 true 将不会验证 value 和 offset 偏移量参数。 这意味着 value 可能过大，或者 offset 可能会超出buffer的末尾从而造成 value 被丢弃。 除非你对这个参数非常有把握，否则尽量不要使用。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">37</td>
-<td align="left"><strong>buf.writeUInt16BE(value, offset[, noAssert])</strong> 根据传入的 offset 偏移量和指定的 endian 格式将 value 写入 buffer。注意：value 必须是一个合法的无符号 16 位整数，大端对齐。 若参数 noAssert 为 true 将不会验证 value 和 offset 偏移量参数。 这意味着 value 可能过大，或者 offset 可能会超出buffer的末尾从而造成 value 被丢弃。 除非你对这个参数非常有把握，否则尽量不要使用。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">38</td>
-<td align="left"><strong>buf.writeUInt32LE(value, offset[, noAssert])</strong> 根据传入的 offset 偏移量和指定的 endian 格式(LITTLE-ENDIAN:小字节序)将 value 写入buffer。注意：value 必须是一个合法的无符号 32 位整数，小端对齐。 若参数 noAssert 为 true 将不会验证 value 和 offset 偏移量参数。 这意味着value 可能过大，或者offset可能会超出buffer的末尾从而造成 value 被丢弃。 除非你对这个参数非常有把握，否则尽量不要使用。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">39</td>
-<td align="left"><strong>buf.writeUInt32BE(value, offset[, noAssert])</strong> 根据传入的 offset 偏移量和指定的 endian 格式(Big-Endian:大字节序)将 value 写入buffer。注意：value 必须是一个合法的有符号 32 位整数。 若参数 noAssert 为 true 将不会验证 value 和 offset 偏移量参数。 这意味着 value 可能过大，或者offset可能会超出buffer的末尾从而造成 value 被丢弃。 除非你对这个参数非常有把握，否则尽量不要使用。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">40</td>
-<td align="left"><strong>buf.writeInt8(value, offset[, noAssert])</strong></td>
-</tr>
-<tr>
-<td align="left">41</td>
-<td align="left"><strong>buf.writeInt16LE(value, offset[, noAssert])</strong> 根据传入的 offset 偏移量和指定的 endian 格式将 value 写入 buffer。注意：value 必须是一个合法的 signed 16 位整数。 若参数 noAssert 为 true 将不会验证 value 和 offset 偏移量参数。 这意味着 value 可能过大，或者 offset 可能会超出 buffer 的末尾从而造成 value 被丢弃。 除非你对这个参数非常有把握，否则尽量不要使用。默认是 false 。</td>
-</tr>
-<tr>
-<td align="left">42</td>
-<td align="left"><strong>buf.writeInt16BE(value, offset[, noAssert])</strong> 根据传入的 offset 偏移量和指定的 endian 格式将 value 写入 buffer。注意：value 必须是一个合法的 signed 16 位整数。 若参数 noAssert 为 true 将不会验证 value 和 offset 偏移量参数。 这意味着 value 可能过大，或者 offset 可能会超出 buffer 的末尾从而造成 value 被丢弃。 除非你对这个参数非常有把握，否则尽量不要使用。默认是 false 。</td>
-</tr>
-<tr>
-<td align="left">43</td>
-<td align="left"><strong>buf.writeInt32LE(value, offset[, noAssert])</strong> 根据传入的 offset 偏移量和指定的 endian 格式将 value 写入 buffer。注意：value 必须是一个合法的 signed 32 位整数。 若参数 noAssert 为 true 将不会验证 value 和 offset 偏移量参数。 这意味着 value 可能过大，或者 offset 可能会超出 buffer 的末尾从而造成 value 被丢弃。 除非你对这个参数非常有把握，否则尽量不要使用。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">44</td>
-<td align="left"><strong>buf.writeInt32BE(value, offset[, noAssert])</strong> 根据传入的 offset 偏移量和指定的 endian 格式将 value 写入 buffer。注意：value 必须是一个合法的 signed 32 位整数。 若参数 noAssert 为 true 将不会验证 value 和 offset 偏移量参数。 这意味着 value 可能过大，或者 offset 可能会超出 buffer 的末尾从而造成 value 被丢弃。 除非你对这个参数非常有把握，否则尽量不要使用。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">45</td>
-<td align="left"><strong>buf.writeFloatLE(value, offset[, noAssert])</strong> 根据传入的 offset 偏移量和指定的 endian 格式将 value 写入 buffer 。注意：当 value 不是一个 32 位浮点数类型的值时，结果将是不确定的。 若参数 noAssert 为 true 将不会验证 value 和 offset 偏移量参数。 这意味着 value可能过大，或者 offset 可能会超出 buffer 的末尾从而造成 value 被丢弃。 除非你对这个参数非常有把握，否则尽量不要使用。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">46</td>
-<td align="left"><strong>buf.writeFloatBE(value, offset[, noAssert])</strong> 根据传入的 offset 偏移量和指定的 endian 格式将 value 写入 buffer 。注意：当 value 不是一个 32 位浮点数类型的值时，结果将是不确定的。 若参数 noAssert 为 true 将不会验证 value 和 offset 偏移量参数。 这意味着 value可能过大，或者 offset 可能会超出 buffer 的末尾从而造成 value 被丢弃。 除非你对这个参数非常有把握，否则尽量不要使用。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">47</td>
-<td align="left"><strong>buf.writeDoubleLE(value, offset[, noAssert])</strong> 根据传入的 offset 偏移量和指定的 endian 格式将 value 写入 buffer。注意：value 必须是一个有效的 64 位double 类型的值。 若参数 noAssert 为 true 将不会验证 value 和 offset 偏移量参数。 这意味着 value 可能过大，或者 offset 可能会超出 buffer 的末尾从而造成value被丢弃。 除非你对这个参数非常有把握，否则尽量不要使用。默认是 false。</td>
-</tr>
-<tr>
-<td align="left">48</td>
-<td align="left"><strong>buf.writeDoubleBE(value, offset[, noAssert])</strong> 根据传入的 offset 偏移量和指定的 endian 格式将 value 写入 buffer。注意：value 必须是一个有效的 64 位double 类型的值。 若参数 noAssert 为 true 将不会验证 value 和 offset 偏移量参数。 这意味着 value 可能过大，或者 offset 可能会超出 buffer 的末尾从而造成value被丢弃。 除非你对这个参数非常有把握，否则尽量不要使用。默认是 false。</td>
-</tr>
-<tr>
 <td align="left">49</td>
 <td align="left"><strong>buf.fill(value[, offset][, end])</strong> 使用指定的 value 来填充这个 buffer。如果没有指定 offset (默认是 0) 并且 end (默认是 buffer.length) ，将会填充整个buffer。</td>
 </tr>
 </tbody>
 </table>
-<p><a href="https://www.runoob.com/nodejs/nodejs-event.html">Node.js EventEmitter</a></p>
-<p><a href="https://www.runoob.com/nodejs/nodejs-stream.html">Node.js Stream</a> </p>
-<h2 id="2">2 篇笔记 写笔记<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<p>曾经被狼咬</p>
-<p>xuj***<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#49;&#48;&#50;&#52;&#54;&#49;&#50;&#64;&#49;&#54;&#51;&#46;&#99;&#111;&#109;">&#49;&#48;&#50;&#52;&#54;&#49;&#50;&#64;&#49;&#54;&#51;&#46;&#99;&#111;&#109;</a></p>
-</li>
-</ol>
-<p>27</p>
+<h2 id="_38">笔记<a class="headerlink" href="#_38" title="Permanent link">&para;</a></h2>
+<h3 id="1">1<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>buf.compare(otherBuffer);
 </code></pre></div>
 <p>这个方法是按位比较的。<strong>buffer1.compare(buffer2)</strong>，这个方法是按位比较的。<strong>buffer1</strong> 的第一位比较 <strong>buffer2</strong> 的第一位，相等的话比较第二位以此类推直到得出结果。</p>
-<p>举例：</p>
 <div class="highlight"><pre><span></span><code>var buffer1 = Buffer.from(&#39;ABCDEF99&#39;);
 var buffer2 = Buffer.from(&#39;ABCDEF98765&#39;);
 </code></pre></div>
 <p>上面那个 <strong>buffer1</strong> 和 <strong>buffer2</strong> 比较的话，<strong>result</strong> 的结果是 <strong>1</strong>，前面的结果都是相等，直到比较 <strong>9&gt;8</strong> 的时候出结果。按位逐一比较直到出结果。</p>
 <p>那么说如果把 <strong>buffer1</strong> 设为 <strong>12313213121</strong> 这种纯数字呢，数字和字母比较的结果就是 <strong>-1</strong>。</p>
-<p><a href="https://www.runoob.com/note/29900">曾经被狼咬</a>  曾经被狼咬 xuj***1024612@163.com2年前 (2018-07-20)</p>
-<ol>
-<li>
-<p>martin</p>
-<p>546***<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#57;&#50;&#54;&#64;&#113;&#113;&#46;&#99;&#111;&#109;">&#57;&#50;&#54;&#64;&#113;&#113;&#46;&#99;&#111;&#109;</a></p>
-</li>
-</ol>
-<p>43</p>
+<h3 id="2">2<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>buffer.slice();
 </code></pre></div>
 <p>裁剪功能返回的实际是原始缓存区 buffer 或者一部分，操作的是与原始 buffer 同一块内存区域。</p>
-<div class="highlight"><pre><span></span><code>// 裁剪
-var buffer_origin = Buffer.from(&#39;runoob&#39;);
-var buffer_slice = buffer_origin.slice(0,2);
-console.log(&quot;buffer slice content: &quot;+buffer_slice.toString());
-console.log(&quot;buffer origin content: &quot;+buffer_origin.toString());
-buffer_slice.write(&quot;wirte&quot;); // Write buffer slice
+<div class="highlight"><pre><span></span><code><span class="c1">// 裁剪</span>
+<span class="kd">var</span> <span class="nx">buffer_origin</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">from</span><span class="p">(</span><span class="s1">&#39;runoob&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">buffer_slice</span> <span class="o">=</span> <span class="nx">buffer_origin</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="mf">2</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;buffer slice content: &quot;</span><span class="o">+</span><span class="nx">buffer_slice</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;buffer origin content: &quot;</span><span class="o">+</span><span class="nx">buffer_origin</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+<span class="nx">buffer_slice</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&quot;wirte&quot;</span><span class="p">);</span> <span class="c1">// Write buffer slice</span>
 
-// 裁剪前与原始字符串的改变
-console.log(&quot;buffer slice content: &quot;+buffer_slice.toString());
-console.log(&quot;buffer origin content: &quot;+buffer_origin.toString());
+<span class="c1">// 裁剪前与原始字符串的改变</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;buffer slice content: &quot;</span><span class="o">+</span><span class="nx">buffer_slice</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;buffer origin content: &quot;</span><span class="o">+</span><span class="nx">buffer_origin</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
 </code></pre></div>
 <p>输出：</p>
 <div class="highlight"><pre><span></span><code>buffer slice content: ru
 buffer origin content: runoob
 buffer slice content: wi
 buffer origin content: winoob
-可以看到对裁剪返回的 buffer 进行写操作同时，也对原始 buffer 进行了写操作。
 </code></pre></div>
+<p>可以看到对裁剪返回的 buffer 进行写操作同时，也对原始 buffer 进行了写操作。</p>
+<p>所以使用 slice 后，最好复制一份，避免更改原始的 buffer。</p>
                 
               
               

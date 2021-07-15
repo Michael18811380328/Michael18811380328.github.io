@@ -396,6 +396,30 @@
   
 
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/JSzip/" class="md-nav__link">
+        JSzip
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/text-runner/" class="md-nav__link">
+        text-runner
+      </a>
+    </li>
+  
+
+          
         </ul>
       </nav>
     </li>
@@ -825,7 +849,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../React-Suspense%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%8E%A2%E8%AE%A8-%E6%B2%A1%E7%9C%8B%E6%98%8E%E7%99%BD/" class="md-nav__link">
+      <a href="../React-Suspense的实现与探讨-没看明白.md" class="md-nav__link">
         React-Suspense的实现与探讨-没看明白.md
       </a>
     </li>
@@ -987,7 +1011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../React.children%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+      <a href="../React.children介绍.md" class="md-nav__link">
         React.children介绍.md
       </a>
     </li>
@@ -1287,7 +1311,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../react-transition-group/" class="md-nav__link">
+      <a href="../react-transition-group.md" class="md-nav__link">
         react-transition-group.md
       </a>
     </li>
@@ -3694,6 +3718,43 @@ export {Steps, Step};
     <span class="k">background</span><span class="p">:</span> <span class="kc">orange</span><span class="p">;</span>
   <span class="p">}</span>
 </code></pre></div>
+<h1 id="reactchildren_1">React.children简介<a class="headerlink" href="#reactchildren_1" title="Permanent link">&para;</a></h1>
+<p>React.Children 是 React 的内置对象，具有很多方法。</p>
+<p>this.props.children 或者 props.children 表示某个组件的子组件。注意数据类型：如果没有子组件，null；如果只有一个子组件，object；如果有多个子组件，就是 array。所以直接处理 this.props.children 比较麻烦。</p>
+<p>使用 React.Children 处理 this.props.children 可以解决数据类型的问题。下面是主要方法</p>
+<h2 id="map">map<a class="headerlink" href="#map" title="Permanent link">&para;</a></h2>
+<p>类似于数组的 map，可以获取每一个子组件并处理</p>
+<div class="highlight"><pre><span></span><code>function handleChildren() {
+  React.Children.map(this.props.children, function(child) {
+    return &lt;li&gt;{child}&lt;/li&gt;
+  });
+}
+</code></pre></div>
+<p>这样可以批量处理子组件</p>
+<div class="highlight"><pre><span></span><code>let NodeList = React.createClass({
+  render: function() {
+    return (
+      &lt;ul&gt;{this.handleChildren()}&lt;/ul&gt;
+    );
+  }
+});
+
+React.render(
+  &lt;NotesList&gt;
+    &lt;span&gt;hello&lt;/span&gt;
+    &lt;span&gt;Michael&lt;/span&gt;
+  &lt;/NotesList&gt;,
+document.body);
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">span</span><span class="p">&gt;</span>hello<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">span</span><span class="p">&gt;</span>Michael<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div>
+<h2 id="foreach">forEach<a class="headerlink" href="#foreach" title="Permanent link">&para;</a></h2>
+<p>不返回对象，只实现 this.props.children 数据处理；通常使用 map 方法；</p>
+<h2 id="count">count<a class="headerlink" href="#count" title="Permanent link">&para;</a></h2>
+<p>React.Children.count(this.props.children) 返回子组件的数量（012）</p>
                 
               
               

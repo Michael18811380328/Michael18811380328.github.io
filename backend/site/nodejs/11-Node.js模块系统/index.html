@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#nodejs" class="md-skip">
+        <a href="#11-nodejs-20210714" class="md-skip">
           Skip to content
         </a>
       
@@ -435,8 +435,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    1 篇笔记 写笔记
+  <a href="#_6" class="md-nav__link">
+    笔记
   </a>
   
 </li>
@@ -1142,8 +1142,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    1 篇笔记 写笔记
+  <a href="#_6" class="md-nav__link">
+    笔记
   </a>
   
 </li>
@@ -1165,56 +1165,55 @@
                   </a>
                 
                 
-                <h1 id="nodejs">Node.js模块系统<a class="headerlink" href="#nodejs" title="Permanent link">&para;</a></h1>
+                <h1 id="11-nodejs-20210714">11-Node.js模块系统-20210714<a class="headerlink" href="#11-nodejs-20210714" title="Permanent link">&para;</a></h1>
 <p>为了让Node.js的文件可以相互调用，Node.js提供了一个简单的模块系统。</p>
 <p>模块是Node.js 应用程序的基本组成部分，文件和模块是一一对应的。换言之，一个 Node.js 文件就是一个模块，这个文件可能是JavaScript 代码、JSON 或者编译过的C/C++ 扩展。</p>
 <h2 id="_1">创建模块<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>在 Node.js 中，创建一个模块非常简单，如下我们创建一个 <strong>main.js</strong> 文件，代码如下:</p>
-<div class="highlight"><pre><span></span><code>var hello = require(&#39;./hello&#39;);
-hello.world();
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">hello</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./hello&#39;</span><span class="p">);</span>
+<span class="nx">hello</span><span class="p">.</span><span class="nx">world</span><span class="p">();</span>
 </code></pre></div>
 <p>以上实例中，代码 require('./hello') 引入了当前目录下的 hello.js 文件（./ 为当前目录，node.js 默认后缀为 js）。</p>
 <p>Node.js 提供了 exports 和 require 两个对象，其中 exports 是模块公开的接口，require 用于从外部获取一个模块的接口，即所获取模块的 exports 对象。</p>
 <p>接下来我们就来创建 hello.js 文件，代码如下：</p>
-<div class="highlight"><pre><span></span><code>exports.world = function() {
-  console.log(&#39;Hello World&#39;);
-}
+<div class="highlight"><pre><span></span><code><span class="nx">exports</span><span class="p">.</span><span class="nx">world</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">);</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>在以上示例中，hello.js 通过 exports 对象把 world 作为模块的访问接口，在 main.js 中通过 require('./hello') 加载这个模块，然后就可以直接访 问 hello.js 中 exports 对象的成员函数了。</p>
 <p>有时候我们只是想把一个对象封装到模块中，格式如下：</p>
-<div class="highlight"><pre><span></span><code>module.exports = function() {
-  // ...
-}
+<div class="highlight"><pre><span></span><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// ...</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>例如:</p>
-<div class="highlight"><pre><span></span><code>//hello.js 
-function Hello() { 
-    var name; 
-    this.setName = function(thyName) { 
-        name = thyName; 
-    }; 
-    this.sayHello = function() { 
-        console.log(&#39;Hello &#39; + name); 
-    }; 
-}; 
-module.exports = Hello;
+<div class="highlight"><pre><span></span><code><span class="c1">//hello.js </span>
+<span class="kd">function</span> <span class="nx">Hello</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="kd">var</span> <span class="nx">name</span><span class="p">;</span> 
+    <span class="k">this</span><span class="p">.</span><span class="nx">setName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">thyName</span><span class="p">)</span> <span class="p">{</span> 
+        <span class="nx">name</span> <span class="o">=</span> <span class="nx">thyName</span><span class="p">;</span> 
+    <span class="p">};</span> 
+    <span class="k">this</span><span class="p">.</span><span class="nx">sayHello</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> 
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Hello &#39;</span> <span class="o">+</span> <span class="nx">name</span><span class="p">);</span> 
+    <span class="p">};</span> 
+<span class="p">};</span> 
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Hello</span><span class="p">;</span>
 </code></pre></div>
 <p>这样就可以直接获得这个对象了：</p>
-<div class="highlight"><pre><span></span><code>//main.js 
-var Hello = require(&#39;./hello&#39;); 
-hello = new Hello(); 
-hello.setName(&#39;BYVoid&#39;); 
-hello.sayHello(); 
+<div class="highlight"><pre><span></span><code><span class="c1">//main.js </span>
+<span class="kd">var</span> <span class="nx">Hello</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./hello&#39;</span><span class="p">);</span> 
+<span class="nx">hello</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Hello</span><span class="p">();</span> 
+<span class="nx">hello</span><span class="p">.</span><span class="nx">setName</span><span class="p">(</span><span class="s1">&#39;BYVoid&#39;</span><span class="p">);</span> 
+<span class="nx">hello</span><span class="p">.</span><span class="nx">sayHello</span><span class="p">();</span> 
 </code></pre></div>
 <p>模块接口的唯一变化是使用 module.exports = Hello 代替了exports.world = function(){}。 在外部引用该模块时，其接口对象就是要输出的 Hello 对象本身，而不是原先的 exports。</p>
-<hr />
 <h2 id="_2">服务端的模块放在哪里<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>也许你已经注意到，我们已经在代码中使用了模块了。像这样：</p>
-<div class="highlight"><pre><span></span><code>var http = require(&quot;http&quot;);
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
 
-...
+<span class="p">...</span>
 
-http.createServer(...);
+<span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(...);</span>
 </code></pre></div>
 <p>Node.js 中自带了一个叫做 <strong>http</strong> 的模块，我们在我们的代码中请求它并把返回值赋给一个本地变量。</p>
 <p>这把我们的本地变量变成了一个拥有所有 http 模块所提供的公共方法的对象。</p>
@@ -1236,83 +1235,73 @@ http.createServer(...);
 <li>mod，非原生模块的文件模块。</li>
 </ul>
 <p>在路径 Y 下执行 require(X) 语句执行顺序：</p>
-<div class="highlight"><pre><span></span><code>1. 如果 X 是内置模块
-   a. 返回内置模块
-   b. 停止执行
-2. 如果 X 以 &#39;/&#39; 开头
-   a. 设置 Y 为文件根路径
-3. 如果 X 以 &#39;./&#39; 或 &#39;/&#39; or &#39;../&#39; 开头
-   a. LOAD_AS_FILE(Y + X)
-   b. LOAD_AS_DIRECTORY(Y + X)
-4. LOAD_NODE_MODULES(X, dirname(Y))
-5. 抛出异常 &quot;not found&quot;
+<div class="highlight"><pre><span></span><code><span class="mf">1.</span> <span class="nx">如果</span> <span class="nx">X</span> <span class="nx">是内置模块</span>
+   <span class="nx">a</span><span class="p">.</span> <span class="nx">返回内置模块</span>
+   <span class="nx">b</span><span class="p">.</span> <span class="nx">停止执行</span>
+<span class="mf">2.</span> <span class="nx">如果</span> <span class="nx">X</span> <span class="nx">以</span> <span class="s1">&#39;/&#39;</span> <span class="nx">开头</span>
+   <span class="nx">a</span><span class="p">.</span> <span class="nx">设置</span> <span class="nx">Y</span> <span class="nx">为文件根路径</span>
+<span class="mf">3.</span> <span class="nx">如果</span> <span class="nx">X</span> <span class="nx">以</span> <span class="s1">&#39;./&#39;</span> <span class="nx">或</span> <span class="s1">&#39;/&#39;</span> <span class="nx">or</span> <span class="s1">&#39;../&#39;</span> <span class="nx">开头</span>
+   <span class="nx">a</span><span class="p">.</span> <span class="nx">LOAD_AS_FILE</span><span class="p">(</span><span class="nx">Y</span> <span class="o">+</span> <span class="nx">X</span><span class="p">)</span>
+   <span class="nx">b</span><span class="p">.</span> <span class="nx">LOAD_AS_DIRECTORY</span><span class="p">(</span><span class="nx">Y</span> <span class="o">+</span> <span class="nx">X</span><span class="p">)</span>
+<span class="mf">4.</span> <span class="nx">LOAD_NODE_MODULES</span><span class="p">(</span><span class="nx">X</span><span class="p">,</span> <span class="nx">dirname</span><span class="p">(</span><span class="nx">Y</span><span class="p">))</span>
+<span class="mf">5.</span> <span class="nx">抛出异常</span> <span class="s2">&quot;not found&quot;</span>
 
-LOAD_AS_FILE(X)
-1. 如果 X 是一个文件, 将 X 作为 JavaScript 文本载入并停止执行。
-2. 如果 X.js 是一个文件, 将 X.js 作为 JavaScript 文本载入并停止执行。
-3. 如果 X.json 是一个文件, 解析 X.json 为 JavaScript 对象并停止执行。
-4. 如果 X.node 是一个文件, 将 X.node 作为二进制插件载入并停止执行。
+<span class="nx">LOAD_AS_FILE</span><span class="p">(</span><span class="nx">X</span><span class="p">)</span>
+<span class="mf">1.</span> <span class="nx">如果</span> <span class="nx">X</span> <span class="nx">是一个文件</span><span class="p">,</span> <span class="nx">将</span> <span class="nx">X</span> <span class="nx">作为</span> <span class="nx">JavaScript</span> <span class="nx">文本载入并停止执行</span><span class="err">。</span>
+<span class="mf">2.</span> <span class="nx">如果</span> <span class="nx">X</span><span class="p">.</span><span class="nx">js</span> <span class="nx">是一个文件</span><span class="p">,</span> <span class="nx">将</span> <span class="nx">X</span><span class="p">.</span><span class="nx">js</span> <span class="nx">作为</span> <span class="nx">JavaScript</span> <span class="nx">文本载入并停止执行</span><span class="err">。</span>
+<span class="mf">3.</span> <span class="nx">如果</span> <span class="nx">X</span><span class="p">.</span><span class="nx">json</span> <span class="nx">是一个文件</span><span class="p">,</span> <span class="nx">解析</span> <span class="nx">X</span><span class="p">.</span><span class="nx">json</span> <span class="nx">为</span> <span class="nx">JavaScript</span> <span class="nx">对象并停止执行</span><span class="err">。</span>
+<span class="mf">4.</span> <span class="nx">如果</span> <span class="nx">X</span><span class="p">.</span><span class="nx">node</span> <span class="nx">是一个文件</span><span class="p">,</span> <span class="nx">将</span> <span class="nx">X</span><span class="p">.</span><span class="nx">node</span> <span class="nx">作为二进制插件载入并停止执行</span><span class="err">。</span>
 
-LOAD_INDEX(X)
-1. 如果 X/index.js 是一个文件,  将 X/index.js 作为 JavaScript 文本载入并停止执行。
-2. 如果 X/index.json 是一个文件, 解析 X/index.json 为 JavaScript 对象并停止执行。
-3. 如果 X/index.node 是一个文件,  将 X/index.node 作为二进制插件载入并停止执行。
+<span class="nx">LOAD_INDEX</span><span class="p">(</span><span class="nx">X</span><span class="p">)</span>
+<span class="mf">1.</span> <span class="nx">如果</span> <span class="nx">X</span><span class="o">/</span><span class="nx">index</span><span class="p">.</span><span class="nx">js</span> <span class="nx">是一个文件</span><span class="p">,</span>  <span class="nx">将</span> <span class="nx">X</span><span class="o">/</span><span class="nx">index</span><span class="p">.</span><span class="nx">js</span> <span class="nx">作为</span> <span class="nx">JavaScript</span> <span class="nx">文本载入并停止执行</span><span class="err">。</span>
+<span class="mf">2.</span> <span class="nx">如果</span> <span class="nx">X</span><span class="o">/</span><span class="nx">index</span><span class="p">.</span><span class="nx">json</span> <span class="nx">是一个文件</span><span class="p">,</span> <span class="nx">解析</span> <span class="nx">X</span><span class="o">/</span><span class="nx">index</span><span class="p">.</span><span class="nx">json</span> <span class="nx">为</span> <span class="nx">JavaScript</span> <span class="nx">对象并停止执行</span><span class="err">。</span>
+<span class="mf">3.</span> <span class="nx">如果</span> <span class="nx">X</span><span class="o">/</span><span class="nx">index</span><span class="p">.</span><span class="nx">node</span> <span class="nx">是一个文件</span><span class="p">,</span>  <span class="nx">将</span> <span class="nx">X</span><span class="o">/</span><span class="nx">index</span><span class="p">.</span><span class="nx">node</span> <span class="nx">作为二进制插件载入并停止执行</span><span class="err">。</span>
 
-LOAD_AS_DIRECTORY(X)
-1. 如果 X/package.json 是一个文件,
-   a. 解析 X/package.json, 并查找 &quot;main&quot; 字段。
-   b. let M = X + (json main 字段)
-   c. LOAD_AS_FILE(M)
-   d. LOAD_INDEX(M)
-2. LOAD_INDEX(X)
+<span class="nx">LOAD_AS_DIRECTORY</span><span class="p">(</span><span class="nx">X</span><span class="p">)</span>
+<span class="mf">1.</span> <span class="nx">如果</span> <span class="nx">X</span><span class="o">/</span><span class="kr">package</span><span class="p">.</span><span class="nx">json</span> <span class="nx">是一个文件</span><span class="p">,</span>
+   <span class="nx">a</span><span class="p">.</span> <span class="nx">解析</span> <span class="nx">X</span><span class="o">/</span><span class="kr">package</span><span class="p">.</span><span class="nx">json</span><span class="p">,</span> <span class="nx">并查找</span> <span class="s2">&quot;main&quot;</span> <span class="nx">字段</span><span class="err">。</span>
+   <span class="nx">b</span><span class="p">.</span> <span class="kd">let</span> <span class="nx">M</span> <span class="o">=</span> <span class="nx">X</span> <span class="o">+</span> <span class="p">(</span><span class="nx">json</span> <span class="nx">main</span> <span class="nx">字段</span><span class="p">)</span>
+   <span class="nx">c</span><span class="p">.</span> <span class="nx">LOAD_AS_FILE</span><span class="p">(</span><span class="nx">M</span><span class="p">)</span>
+   <span class="nx">d</span><span class="p">.</span> <span class="nx">LOAD_INDEX</span><span class="p">(</span><span class="nx">M</span><span class="p">)</span>
+<span class="mf">2.</span> <span class="nx">LOAD_INDEX</span><span class="p">(</span><span class="nx">X</span><span class="p">)</span>
 
-LOAD_NODE_MODULES(X, START)
-1. let DIRS=NODE_MODULES_PATHS(START)
-2. for each DIR in DIRS:
-   a. LOAD_AS_FILE(DIR/X)
-   b. LOAD_AS_DIRECTORY(DIR/X)
+<span class="nx">LOAD_NODE_MODULES</span><span class="p">(</span><span class="nx">X</span><span class="p">,</span> <span class="nx">START</span><span class="p">)</span>
+<span class="mf">1.</span> <span class="kd">let</span> <span class="nx">DIRS</span><span class="o">=</span><span class="nx">NODE_MODULES_PATHS</span><span class="p">(</span><span class="nx">START</span><span class="p">)</span>
+<span class="mf">2.</span> <span class="k">for</span> <span class="nx">each</span> <span class="nx">DIR</span> <span class="k">in</span> <span class="nx">DIRS</span><span class="o">:</span>
+   <span class="nx">a</span><span class="p">.</span> <span class="nx">LOAD_AS_FILE</span><span class="p">(</span><span class="nx">DIR</span><span class="o">/</span><span class="nx">X</span><span class="p">)</span>
+   <span class="nx">b</span><span class="p">.</span> <span class="nx">LOAD_AS_DIRECTORY</span><span class="p">(</span><span class="nx">DIR</span><span class="o">/</span><span class="nx">X</span><span class="p">)</span>
 
-NODE_MODULES_PATHS(START)
-1. let PARTS = path split(START)
-2. let I = count of PARTS - 1
-3. let DIRS = []
-4. while I &gt;= 0,
-   a. if PARTS[I] = &quot;node_modules&quot; CONTINUE
-   b. DIR = path join(PARTS[0 .. I] + &quot;node_modules&quot;)
-   c. DIRS = DIRS + DIR
-   d. let I = I - 1
-5. return DIRS
+<span class="nx">NODE_MODULES_PATHS</span><span class="p">(</span><span class="nx">START</span><span class="p">)</span>
+<span class="mf">1.</span> <span class="kd">let</span> <span class="nx">PARTS</span> <span class="o">=</span> <span class="nx">path</span> <span class="nx">split</span><span class="p">(</span><span class="nx">START</span><span class="p">)</span>
+<span class="mf">2.</span> <span class="kd">let</span> <span class="nx">I</span> <span class="o">=</span> <span class="nx">count</span> <span class="k">of</span> <span class="nx">PARTS</span> <span class="o">-</span> <span class="mf">1</span>
+<span class="mf">3.</span> <span class="kd">let</span> <span class="nx">DIRS</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="mf">4.</span> <span class="k">while</span> <span class="nx">I</span> <span class="o">&gt;=</span> <span class="mf">0</span><span class="p">,</span>
+   <span class="nx">a</span><span class="p">.</span> <span class="k">if</span> <span class="nx">PARTS</span><span class="p">[</span><span class="nx">I</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;node_modules&quot;</span> <span class="nx">CONTINUE</span>
+   <span class="nx">b</span><span class="p">.</span> <span class="nx">DIR</span> <span class="o">=</span> <span class="nx">path</span> <span class="nx">join</span><span class="p">(</span><span class="nx">PARTS</span><span class="p">[</span><span class="mf">0</span> <span class="p">..</span> <span class="nx">I</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;node_modules&quot;</span><span class="p">)</span>
+   <span class="nx">c</span><span class="p">.</span> <span class="nx">DIRS</span> <span class="o">=</span> <span class="nx">DIRS</span> <span class="o">+</span> <span class="nx">DIR</span>
+   <span class="nx">d</span><span class="p">.</span> <span class="kd">let</span> <span class="nx">I</span> <span class="o">=</span> <span class="nx">I</span> <span class="o">-</span> <span class="mf">1</span>
+<span class="mf">5.</span> <span class="k">return</span> <span class="nx">DIRS</span>
 </code></pre></div>
 <blockquote>
 <p><strong>exports 和 module.exports 的使用</strong></p>
 <p>如果要对外暴露属性或方法，就用 <strong>exports</strong> 就行，要暴露对象(类似class，包含了很多属性和方法)，就用 <strong>module.exports</strong>。</p>
 </blockquote>
-<p><a href="https://www.runoob.com/nodejs/nodejs-stream.html">Node.js Stream</a></p>
-<p><a href="https://www.runoob.com/nodejs/nodejs-function.html">Node.js 函数</a> </p>
-<h2 id="1">1 篇笔记 写笔记<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
-<ol>
-<li>
-<p>mapbar_front</p>
-<p>619***<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#54;&#51;&#50;&#64;&#113;&#113;&#46;&#99;&#111;&#109;">&#54;&#51;&#50;&#64;&#113;&#113;&#46;&#99;&#111;&#109;</a></p>
-</li>
-</ol>
-<p>30</p>
+<h2 id="_6">笔记<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>不建议同时使用 exports 和 module.exports。</p>
 <p>如果先使用 exports 对外暴露属性或方法，再使用 module.exports 暴露对象，会使得 exports 上暴露的属性或者方法失效。</p>
 <p>原因在于，exports 仅仅是 module.exports 的一个引用。在 nodejs 中，是这么设计 require 函数的：</p>
-<div class="highlight"><pre><span></span><code>function require(...){
-  var module = {exports: {}};
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">require</span><span class="p">(...){</span>
+  <span class="kd">var</span> <span class="nx">module</span> <span class="o">=</span> <span class="p">{</span><span class="nx">exports</span><span class="o">:</span> <span class="p">{}};</span>
 
-  ((module, exports) =&gt; {
-    function myfn () {}
-    // 这个myfn就是我们自己的代码
-    exports.myfn = myfn; // 这里是在原本的对象上添加了一个myfn方法。
-    module.exports = myfn;// 这个直接把当初的对象进行覆盖。
-  })(module,module.exports)
-  return module.exports;
-}
+  <span class="p">((</span><span class="nx">module</span><span class="p">,</span> <span class="nx">exports</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">myfn</span> <span class="p">()</span> <span class="p">{}</span>
+    <span class="c1">// 这个myfn就是我们自己的代码</span>
+    <span class="nx">exports</span><span class="p">.</span><span class="nx">myfn</span> <span class="o">=</span> <span class="nx">myfn</span><span class="p">;</span> <span class="c1">// 这里是在原本的对象上添加了一个myfn方法。</span>
+    <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">myfn</span><span class="p">;</span><span class="c1">// 这个直接把当初的对象进行覆盖。</span>
+  <span class="p">})(</span><span class="nx">module</span><span class="p">,</span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
-<p><a href="javascript:;">mapbar_front</a>  mapbar_front 619***632@qq.com2个月前 (02-09)</p>
                 
               
               
