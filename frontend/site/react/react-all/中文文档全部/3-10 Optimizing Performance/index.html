@@ -1370,7 +1370,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../git/docker-basic-use/" class="md-nav__link">
+      <a href="../../../../git/docker-basic-use.md" class="md-nav__link">
         docker-basic-use.md
       </a>
     </li>
@@ -1866,7 +1866,7 @@
       
         <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
-    避免调停
+    减少渲染次数
   </a>
   
 </li>
@@ -3688,7 +3688,7 @@
       
         <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
-    避免调停
+    减少渲染次数
   </a>
   
 </li>
@@ -3756,11 +3756,7 @@
 <p>注意只有以 <code>.production.min.js</code> 为结尾的 React 文件适用于生产。</p>
 <h3 id="brunch">Brunch<a class="headerlink" href="#brunch" title="Permanent link">&para;</a></h3>
 <p>通过安装 <a href="https://github.com/brunch/terser-brunch"><code>terser-brunch</code></a> 插件，来获得最高效的 Brunch 生产构建：</p>
-<div class="highlight"><pre><span></span><code># 如果你使用 npm
-npm install --save-dev terser-brunch
-
-# 如果你使用 Yarn
-yarn add --dev terser-brunch
+<div class="highlight"><pre><span></span><code>npm install --save-dev terser-brunch
 </code></pre></div>
 <p>接着，在 <code>build</code> 命令后添加 <code>-p</code> 参数，以创建生产构建：</p>
 <div class="highlight"><pre><span></span><code>brunch build -p
@@ -3768,11 +3764,7 @@ yarn add --dev terser-brunch
 <p>请注意，你只需要在生产构建时这么做。你不需要在开发环境中使用 <code>-p</code> 参数或者应用这个插件，因为这会隐藏有用的 React 警告信息并使得构建速度变慢。</p>
 <h3 id="browserify">Browserify<a class="headerlink" href="#browserify" title="Permanent link">&para;</a></h3>
 <p>为了最高效的生产构建，需要安装一些插件：</p>
-<div class="highlight"><pre><span></span><code># 如果你使用 npm
-npm install --save-dev envify terser uglifyify
-
-# 如果你使用 Yarn
-yarn add --dev envify terser uglifyify
+<div class="highlight"><pre><span></span><code>npm install --save-dev envify terser uglifyify
 </code></pre></div>
 <p>为了创建生产构建，确保你添加了以下转换器 <strong>（顺序很重要）</strong>：</p>
 <ul>
@@ -3781,19 +3773,15 @@ yarn add --dev envify terser uglifyify
 <li>最后，将产物传给 <a href="https://github.com/terser-js/terser"><code>terser</code></a> 并进行压缩（<a href="https://github.com/hughsk/uglifyify#motivationusage">为什么要这么做？</a>）。</li>
 </ul>
 <p>举个例子：</p>
-<div class="highlight"><pre><span></span><code>browserify ./index.js \
-  -g [ envify --NODE_ENV production ] \
-  -g uglifyify \
-  | terser --compress --mangle &gt; ./bundle.js
+<div class="highlight"><pre><span></span><code>browserify ./index.js <span class="se">\</span>
+  -g <span class="o">[</span> envify --NODE_ENV production <span class="o">]</span> <span class="se">\</span>
+  -g uglifyify <span class="se">\</span>
+  <span class="p">|</span> terser --compress --mangle &gt; ./bundle.js
 </code></pre></div>
 <p>请注意，你只需要在生产构建时用到它。你不需要在开发环境应用这些插件，因为这会隐藏有用的 React 警告信息并使得构建速度变慢。</p>
 <h3 id="rollup">Rollup<a class="headerlink" href="#rollup" title="Permanent link">&para;</a></h3>
 <p>为了最高效的 Rollup 生产构建，需要安装一些插件：</p>
-<div class="highlight"><pre><span></span><code># 如果你使用 npm
-npm install --save-dev rollup-plugin-commonjs rollup-plugin-replace rollup-plugin-terser
-
-# 如果你使用 Yarn
-yarn add --dev rollup-plugin-commonjs rollup-plugin-replace rollup-plugin-terser
+<div class="highlight"><pre><span></span><code>npm install --save-dev rollup-plugin-commonjs rollup-plugin-replace rollup-plugin-terser
 </code></pre></div>
 <p>为了创建生产构建，确保你添加了以下插件 <strong>（顺序很重要）</strong>：</p>
 <ul>
@@ -3801,15 +3789,15 @@ yarn add --dev rollup-plugin-commonjs rollup-plugin-replace rollup-plugin-terser
 <li><a href="https://github.com/rollup/rollup-plugin-commonjs"><code>commonjs</code></a> 插件用于支持 CommonJS。</li>
 <li><a href="https://github.com/TrySound/rollup-plugin-terser"><code>terser</code></a> 插件用于压缩并生成最终的产物。</li>
 </ul>
-<div class="highlight"><pre><span></span><code>plugins: [
-  // ...
-  require(&#39;rollup-plugin-replace&#39;)({
-    &#39;process.env.NODE_ENV&#39;: JSON.stringify(&#39;production&#39;)
-  }),
-  require(&#39;rollup-plugin-commonjs&#39;)(),
-  require(&#39;rollup-plugin-terser&#39;)(),
-  // ...
-]
+<div class="highlight"><pre><span></span><code><span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
+  <span class="c1">// ...</span>
+  <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;rollup-plugin-replace&#39;</span><span class="p">)({</span>
+    <span class="s1">&#39;process.env.NODE_ENV&#39;</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="s1">&#39;production&#39;</span><span class="p">)</span>
+  <span class="p">}),</span>
+  <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;rollup-plugin-commonjs&#39;</span><span class="p">)(),</span>
+  <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;rollup-plugin-terser&#39;</span><span class="p">)(),</span>
+  <span class="c1">// ...</span>
+<span class="p">]</span>
 </code></pre></div>
 <p><a href="https://gist.github.com/Rich-Harris/cb14f4bc0670c47d00d191565be36bf0">点击</a>查看完整的安装示例。</p>
 <p>请注意，你只需要在生产构建时用到它。你不需要在开发中使用 <code>terser</code> 插件或者 <code>replace</code> 插件替换 <code>'production'</code> 变量，因为这会隐藏有用的 React 警告信息并使得构建速度变慢。</p>
@@ -3861,7 +3849,7 @@ yarn add --dev rollup-plugin-commonjs rollup-plugin-replace rollup-plugin-terser
 <h2 id="_4">虚拟化长列表<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>如果你的应用渲染了长列表（上百甚至上千的数据），我们推荐使用“虚拟滚动”技术。这项技术会在有限的时间内仅渲染有限的内容，并奇迹般地降低重新渲染组件消耗的时间，以及创建 DOM 节点的数量。</p>
 <p><a href="https://react-window.now.sh/">react-window</a> 和 <a href="https://bvaughn.github.io/react-virtualized/">react-virtualized</a> 是热门的虚拟滚动库。 它们提供了多种可复用的组件，用于展示列表、网格和表格数据。 如果你想要一些针对你的应用做定制优化，你也可以创建你自己的虚拟滚动组件，就像 <a href="https://medium.com/@paularmstrong/twitter-lite-and-high-performance-react-progressive-web-apps-at-scale-d28a00e780a3">Twitter 所做的</a>。</p>
-<h2 id="_5">避免调停<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_5">减少渲染次数<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>React 构建并维护了一套内部的 UI 渲染描述。它包含了来自你的组件返回的 React 元素。该描述使得 React 避免创建 DOM 节点以及没有必要的节点访问，因为 DOM 操作相对于 JavaScript 对象操作更慢。虽然有时候它被称为“虚拟 DOM”，但是它在 React Native 中拥有相同的工作原理。</p>
 <p>当一个组件的 props 或 state 变更，React 会将最新返回的元素与之前渲染的元素进行对比，以此决定是否有必要更新真实的 DOM。当它们不相同时，React 会更新该 DOM。</p>
 <p>即使 React 只更新改变了的 DOM 节点，重新渲染仍然花费了一些时间。在大部分情况下它并不是问题，不过如果它已经慢到让人注意了，你可以通过覆盖生命周期方法 <code>shouldComponentUpdate</code> 来进行提速。该方法会在重新渲染前被触发。其默认实现总是返回 <code>true</code>，让 React 执行更新：</p>
