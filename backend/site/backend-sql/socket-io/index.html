@@ -1,0 +1,1775 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/backend-sql/socket-io/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
+    
+    
+      
+        <title>socket-io - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f7f47774.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ff6e42">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="deep-orange" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#socketio" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              socket-io
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        介绍
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        网络
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="网络" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          网络
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          socket-io
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        socket-io
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    主要用途
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    案例：聊天室
+  </a>
+  
+    <nav class="md-nav" aria-label="案例：聊天室">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-web-framework" class="md-nav__link">
+    The web framework
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serving-html" class="md-nav__link">
+    Serving HTML
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integrating-socketio" class="md-nav__link">
+    Integrating Socket.IO
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emitting-events" class="md-nav__link">
+    Emitting events
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadcasting" class="md-nav__link">
+    Broadcasting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#homework" class="md-nav__link">
+    Homework
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-this-example" class="md-nav__link">
+    Getting this example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redis/" class="md-nav__link">
+        redis
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../websocket/" class="md-nav__link">
+        web-socket
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        数据库
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="数据库" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          数据库
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mac%E5%AE%89%E8%A3%85MySQLdb%EF%BC%88python-mysql%EF%BC%89%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        Mac安装MySQLdb（python-mysql）模块.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%E6%93%8D%E4%BD%9C%20MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        Python操作 MySQL数据库.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQLite-API-Python/" class="md-nav__link">
+        SQLite-API-Python.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%B7%B1%E5%85%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        深入MySQL数据库.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%98%BF%E9%87%8C%E4%BA%91MySQL%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        阿里云MySQL入门.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        数据库概念.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mac%20pip%20install%20mysql-python%20unsuccessful/" class="md-nav__link">
+        mysql-python
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        NodeJS
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="NodeJS" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          NodeJS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/01-Node.js%20%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        01-Node.js 教程
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/02-Node.js%20%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" class="md-nav__link">
+        02-Node.js 安装配置
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/03-Node.js%20%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        03-Node.js 创建第一个应用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/04-NPM%20%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        04-NPM 使用
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/05-Node.js%20REPL%28%E4%BA%A4%E4%BA%92%E5%BC%8F%E8%A7%A3%E9%87%8A%E5%99%A8%29/" class="md-nav__link">
+        05-Node.js REPL(交互式解释器)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/06-Node.js%20%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        06-Node.js 回调函数
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/07-Node.js%20%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/" class="md-nav__link">
+        07-Node.js 事件循环
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/08-Node.js%20EventEmitter/" class="md-nav__link">
+        08-Node.js EventEmitter
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/09-Node.js%20Buffer%28%E7%BC%93%E5%86%B2%E5%8C%BA%29/" class="md-nav__link">
+        09-Node.js Buffer(缓冲区)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/10-Node.js%20Stream%28%E6%B5%81%29/" class="md-nav__link">
+        10-Node.js Stream(流)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/11-Node.js%E6%A8%A1%E5%9D%97%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        11-Node.js模块系统
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/12-Node.js%20%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        12-Node.js 函数
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/13-Node.js%20%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        13-Node.js 路由
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/14-Node.js%20%E5%85%A8%E5%B1%80%E5%AF%B9%E8%B1%A1/" class="md-nav__link">
+        14-Node.js 全局对象
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/15-Node.js%20%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        15-Node.js 常用工具
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/16-Node.js%20%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        16-Node.js 文件系统
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/17-Node.js%20GETPOST%E8%AF%B7%E6%B1%82/" class="md-nav__link">
+        17-Node.js GETPOST请求
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/18-Node.js%20%E5%B7%A5%E5%85%B7%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        18-Node.js 工具模块
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/19-Node.js%20Web%20%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        19-Node.js Web 模块
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/20-Node.js%20Express%20%E6%A1%86%E6%9E%B6/" class="md-nav__link">
+        20-Node.js Express 框架
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/21-Node.js%20RESTful%20API/" class="md-nav__link">
+        21-Node.js RESTful API
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/22-Node.js%20%E5%A4%9A%E8%BF%9B%E7%A8%8B/" class="md-nav__link">
+        22-Node.js 多进程
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/23-Node.js%20JXcore%20%E6%89%93%E5%8C%85/" class="md-nav__link">
+        23-Node.js JXcore 打包
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/24-Node.js%20%E8%BF%9E%E6%8E%A5%20MySQL/" class="md-nav__link">
+        24-Node.js 连接 MySQL
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/25-Node.js%20%E8%BF%9E%E6%8E%A5%20MongoDB/" class="md-nav__link">
+        25-Node.js 连接 MongoDB
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node%20%E4%B8%8B%20LDAP%20%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        Node 下 LDAP 实现
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js-fs%E6%96%87%E6%A1%A3/" class="md-nav__link">
+        Node.js-fs文档
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js-path/" class="md-nav__link">
+        Node.js-path
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F/" class="md-nav__link">
+        Node.js-全局变量
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js%E4%BD%BF%E7%94%A8Nodemailer%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" class="md-nav__link">
+        Node.js使用Nodemailer发送邮件
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/NodeJS/" class="md-nav__link">
+        NodeJS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/node-debug/" class="md-nav__link">
+        node-debug
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/nodeJS%20%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        nodeJS 基础教程
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/nodeJS%2Bmysql%2B%E8%BF%9E%E6%8E%A5%E6%B1%A0/" class="md-nav__link">
+        nodeJS+mysql+连接池
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/nodejs%20api%E5%AD%A6%E4%B9%A0%EF%BC%9Afs.createReadStreame%28%29/" class="md-nav__link">
+        nodejs api学习：fs.createReadStreame()
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/node%E5%AE%9A%E6%97%B6%E5%99%A8/" class="md-nav__link">
+        node定时器
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E4%BD%BF%E7%94%A8nodejs%E8%BF%9E%E6%8E%A5mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" class="md-nav__link">
+        使用nodejs连接mysql数据库实现增删改查
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E5%BB%96%E9%9B%AA%E5%B3%B0%20NodeJS/" class="md-nav__link">
+        廖雪峰 NodeJS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84nodeJS/" class="md-nav__link">
+        命令行的nodeJS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E8%B0%88%E8%B0%88Node%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        谈谈Node中的常见概念
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        python
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="python" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/Detect%20mobile%20devices%20with%20Django%20and%20Python%203/" class="md-nav__link">
+        Detect mobile devices with Django and Python 3.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/Django%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        Django入门.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/ERROR%20No%20matching%20distribution%20found%20for%20Django/" class="md-nav__link">
+        ERROR No matching distribution found for Django.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/Python3%20%E5%BA%8F%E5%88%97%E8%A7%A3%E5%8C%85/" class="md-nav__link">
+        Python3 序列解包.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/UnicodeDecodeError%20utf8%20codec%20cant%20decode%20invalid%20start%20byte/" class="md-nav__link">
+        UnicodeDecodeError utf8 codec cant decode invalid start byte.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/ValueError%20Length%20mismatch%20Expected%20axis%20has%200%20elements%2C%20new%20values%20have%202%20elements/" class="md-nav__link">
+        ValueError Length mismatch Expected axis has 0 elements, new values have 2 elements.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/django%20%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        django 常见问题.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/django-basic/" class="md-nav__link">
+        django-basic.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/docker-basic-use/" class="md-nav__link">
+        docker-basic-use.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/flask-basic/" class="md-nav__link">
+        flask-basic.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/flask%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        flask网易云课堂笔记.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/matplotlib/" class="md-nav__link">
+        matplotlib.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/numpy/" class="md-nav__link">
+        numpy.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/pandas/" class="md-nav__link">
+        pandas.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/seaborn/" class="md-nav__link">
+        seaborn.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/%E9%BB%91%E9%A9%AC-python-basic/" class="md-nav__link">
+        黑马-python-basic.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/%E5%AE%89%E8%A3%85pandas%E6%97%B6%E5%87%BA%E7%8E%B0%E7%8E%AF%E5%A2%83%E9%94%99%E8%AF%AF/" class="md-nav__link">
+        安装pandas时出现环境错误.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/%E6%90%AD%E5%BB%BApython3%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="md-nav__link">
+        搭建python3开发环境.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        ruby
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="ruby" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          ruby
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ruby/install-ruby/" class="md-nav__link">
+        install-ruby.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ruby/jekyll-basic/" class="md-nav__link">
+        jekyll-basic.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ruby/jekyll-install/" class="md-nav__link">
+        jekyll-install.md
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ruby/ruby-readme/" class="md-nav__link">
+        ruby-readme.md
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    主要用途
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    案例：聊天室
+  </a>
+  
+    <nav class="md-nav" aria-label="案例：聊天室">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-web-framework" class="md-nav__link">
+    The web framework
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serving-html" class="md-nav__link">
+    Serving HTML
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integrating-socketio" class="md-nav__link">
+    Integrating Socket.IO
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emitting-events" class="md-nav__link">
+    Emitting events
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#broadcasting" class="md-nav__link">
+    Broadcasting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#homework" class="md-nav__link">
+    Homework
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getting-this-example" class="md-nav__link">
+    Getting this example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/backend-sql/socket-io.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="socketio">Socket.IO<a class="headerlink" href="#socketio" title="Permanent link">&para;</a></h1>
+<p>Socket.IO 是一个基于 web-socket 通信的库，可以在浏览器和服务器之间实现实时、双向和基于事件的通信。 </p>
+<p>包括：Node.js 服务器和浏览器的 Javascript 客户端库。</p>
+<p>可以将 Socket.IO 客户端视为 WebSocket API 的“小型”包装器。</p>
+<h2 id="_1">主要用途<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>实时分析：将数据推送到客户端，以实时计数器、图表或日志的形式表示。</li>
+<li>即时消息和聊天：Socket.IO 的“Hello world”是一个只需几行代码的聊天应用程序。</li>
+<li>二进制流：从 1.0 开始，可以来回发送任何 blob：图像、音频、视频。</li>
+<li>文档协作：允许用户同时编辑文档并查看彼此的更改。</li>
+</ul>
+<p>Microsoft Office 使用，性能没问题</p>
+<h2 id="_2">案例：聊天室<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>链接：<a href="https://socket.io/get-started/chat">https://socket.io/get-started/chat</a></p>
+<p>In this guide we’ll create a basic chat application. It requires almost no basic prior knowledge of Node.JS or Socket.IO, so it’s ideal for users of all knowledge levels.</p>
+<h3 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h3>
+<p>使用其他框架（LAMP php）写一个聊天应用比较难，sockets 天然可以解决这种实时的聊天系统，双向的通信系统问题（即服务端可以给客户端发送消息）。</p>
+<p>Writing a chat application with popular web applications stacks like LAMP (PHP) has normally been very hard. It involves polling the server for changes, keeping track of timestamps, and it’s a lot slower than it should be.</p>
+<p>Sockets have traditionally been the solution around which most real-time chat systems are architected, providing a bi-directional communication channel between a client and a server.</p>
+<p>This means that the server can <em>push</em> messages to clients. Whenever you write a chat message, the idea is that the server will get it and push it to all other connected clients.</p>
+<h3 id="the-web-framework">The web framework<a class="headerlink" href="#the-web-framework" title="Permanent link">&para;</a></h3>
+<p>使用 express 作为后端</p>
+<p>The first goal is to set up a simple HTML webpage that serves out a form and a list of messages. We’re going to use the Node.JS web framework <code>express</code> to this end. Make sure <a href="https://nodejs.org/">Node.JS</a> is installed.</p>
+<p>First let’s create a <code>package.json</code> manifest file that describes our project. I recommend you place it in a dedicated empty directory (I’ll call mine <code>chat-example</code>).</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;socket-chat-example&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.0.1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;my first socket.io app&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span> <span class="p">{}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Now, in order to easily populate the <code>dependencies</code> property with the things we need, we’ll use <code>npm install</code>:</p>
+<div class="highlight"><pre><span></span><code>npm install express@4
+</code></pre></div>
+<p>Once it’s installed we can create an <code>index.js</code> file that will set up our application.</p>
+<p>这是服务端代码（使用 express 搭建应用，使用路由 / 打开默认的 index.html 页面，在 3000 端口开启 HTTP 服务）</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="nx">app</span><span class="p">);</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;&lt;h1&gt;Hello world&lt;/h1&gt;&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mf">3000</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;listening on *:3000&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>This means that it:</p>
+<ul>
+<li>Express initializes <code>app</code> to be a function handler that you can supply to an HTTP server (as seen in line 4).</li>
+<li>We define a route handler <code>/</code> that gets called when we hit our website home.</li>
+<li>We make the http server listen on port 3000.</li>
+</ul>
+<p>可以在终端运行 node.js 并打开浏览器访问  localhost: 3000</p>
+<p>If you run <code>node index.js</code> you should see the following. And if you point your browser to <code>http://localhost:3000</code>.</p>
+<h3 id="serving-html">Serving HTML<a class="headerlink" href="#serving-html" title="Permanent link">&para;</a></h3>
+<p>So far in <code>index.js</code> we’re calling <code>res.send</code> and passing it a string of HTML. Our code would look very confusing if we just placed our entire application’s HTML there, so instead we’re going to create a <code>index.html</code> file and serve that instead.</p>
+<p>如果直接从后端返回 html 文件就太复杂了，所以使用路由取代</p>
+<p>Let’s refactor our route handler to use <code>sendFile</code> instead.</p>
+<div class="highlight"><pre><span></span><code><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">sendFile</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/index.html&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Put the following in your <code>index.html</code> file:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Socket.IO chat<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+      <span class="nt">body</span> <span class="p">{</span> <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span> <span class="k">padding-bottom</span><span class="p">:</span> <span class="mi">3</span><span class="kt">rem</span><span class="p">;</span> <span class="k">font-family</span><span class="p">:</span> <span class="o">-</span><span class="n">apple-system</span><span class="p">,</span> <span class="n">BlinkMacSystemFont</span><span class="p">,</span> <span class="s2">&quot;Segoe UI&quot;</span><span class="p">,</span> <span class="n">Roboto</span><span class="p">,</span> <span class="n">Helvetica</span><span class="p">,</span> <span class="n">Arial</span><span class="p">,</span> <span class="kc">sans-serif</span><span class="p">;</span> <span class="p">}</span>
+
+      <span class="p">#</span><span class="nn">form</span> <span class="p">{</span> <span class="k">background</span><span class="p">:</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">);</span> <span class="k">padding</span><span class="p">:</span> <span class="mf">0.25</span><span class="kt">rem</span><span class="p">;</span> <span class="k">position</span><span class="p">:</span> <span class="kc">fixed</span><span class="p">;</span> <span class="k">bottom</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span> <span class="k">left</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span> <span class="k">right</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span> <span class="k">display</span><span class="p">:</span> <span class="kc">flex</span><span class="p">;</span> <span class="k">height</span><span class="p">:</span> <span class="mi">3</span><span class="kt">rem</span><span class="p">;</span> <span class="k">box-sizing</span><span class="p">:</span> <span class="kc">border-box</span><span class="p">;</span> <span class="n">backdrop-filter</span><span class="p">:</span> <span class="nb">blur</span><span class="p">(</span><span class="mi">10</span><span class="kt">px</span><span class="p">);</span> <span class="p">}</span>
+      <span class="p">#</span><span class="nn">input</span> <span class="p">{</span> <span class="k">border</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span> <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span> <span class="k">flex-grow</span><span class="p">:</span> <span class="mi">1</span><span class="p">;</span> <span class="k">border-radius</span><span class="p">:</span> <span class="mi">2</span><span class="kt">rem</span><span class="p">;</span> <span class="k">margin</span><span class="p">:</span> <span class="mf">0.25</span><span class="kt">rem</span><span class="p">;</span> <span class="p">}</span>
+      <span class="p">#</span><span class="nn">input</span><span class="p">:</span><span class="nd">focus</span> <span class="p">{</span> <span class="k">outline</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span> <span class="p">}</span>
+      <span class="p">#</span><span class="nn">form</span> <span class="o">&gt;</span> <span class="nt">button</span> <span class="p">{</span> <span class="k">background</span><span class="p">:</span> <span class="mh">#333</span><span class="p">;</span> <span class="k">border</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span> <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span> <span class="k">margin</span><span class="p">:</span> <span class="mf">0.25</span><span class="kt">rem</span><span class="p">;</span> <span class="k">border-radius</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span><span class="p">;</span> <span class="k">outline</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span> <span class="k">color</span><span class="p">:</span> <span class="mh">#fff</span><span class="p">;</span> <span class="p">}</span>
+
+      <span class="p">#</span><span class="nn">messages</span> <span class="p">{</span> <span class="k">list-style-type</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span> <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span> <span class="k">padding</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
+      <span class="p">#</span><span class="nn">messages</span> <span class="o">&gt;</span> <span class="nt">li</span> <span class="p">{</span> <span class="k">padding</span><span class="p">:</span> <span class="mf">0.5</span><span class="kt">rem</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span> <span class="p">}</span>
+      <span class="p">#</span><span class="nn">messages</span> <span class="o">&gt;</span> <span class="nt">li</span><span class="p">:</span><span class="nd">nth-child</span><span class="o">(</span><span class="nt">odd</span><span class="o">)</span> <span class="p">{</span> <span class="k">background</span><span class="p">:</span> <span class="mh">#efefef</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;messages&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;form&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;input&quot;</span> <span class="na">autocomplete</span><span class="o">=</span><span class="s">&quot;off&quot;</span> <span class="p">/&gt;&lt;</span><span class="nt">button</span><span class="p">&gt;</span>Send<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>If you restart the process (by hitting Control+C and running <code>node index.js</code> again) and refresh the page it should look like this:</p>
+<h3 id="integrating-socketio">Integrating Socket.IO<a class="headerlink" href="#integrating-socketio" title="Permanent link">&para;</a></h3>
+<p>Socket.IO is composed of two parts(分成客户端和服务端两部分):</p>
+<ul>
+<li>A server that integrates with (or mounts on) the Node.JS HTTP Server <a href="https://github.com/socketio/socket.io">socket.io</a></li>
+<li>A client library that loads on the browser side <a href="https://github.com/socketio/socket.io-client">socket.io-client</a></li>
+</ul>
+<p>During development, <code>socket.io</code> serves the client automatically for us, as we’ll see, so for now we only have to install one module:</p>
+<div class="highlight"><pre><span></span><code>npm install socket.io
+</code></pre></div>
+<p>That will install the module and add the dependency to <code>package.json</code>. Now let’s edit <code>index.js</code> to add it:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="nx">app</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">Server</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;socket.io&quot;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">io</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Server</span><span class="p">(</span><span class="nx">server</span><span class="p">);</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">sendFile</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/index.html&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">io</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;a user connected&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mf">3000</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;listening on *:3000&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Notice that I initialize a new instance of <code>socket.io</code> by passing the <code>server</code> (the HTTP server) object. Then I listen on the <code>connection</code> event for incoming sockets and log it to the console.</p>
+<p>Now in index.html add the following snippet before the <code>&lt;/body&gt;</code> (end body tag):</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/socket.io/socket.io.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">var</span> <span class="nx">socket</span> <span class="o">=</span> <span class="nx">io</span><span class="p">();</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>That’s all it takes to load the <code>socket.io-client</code>, which exposes an <code>io</code> global (and the endpoint <code>GET /socket.io/socket.io.js</code>), and then connect.</p>
+<p>本地的JS路径（node_modules/socket.io/client-dist/socket.io.js）</p>
+<p>If you would like to use the local version of the client-side JS file, you can find it at <code>node_modules/socket.io/client-dist/socket.io.js</code>.</p>
+<p>Notice that I’m not specifying any URL when I call <code>io()</code>, since it defaults to trying to connect to the host that serves the page.</p>
+<p>If you now restart the process (by hitting Control+C and running <code>node index.js</code> again) and then refresh the webpage you should see the console print “a user connected”.</p>
+<p>Try opening several tabs, and you’ll see several messages.</p>
+<p>Each socket also fires a special <code>disconnect</code> event:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">io</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;a user connected&#39;</span><span class="p">);</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;disconnect&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;user disconnected&#39;</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>Then if you refresh a tab several times you can see it in action.</p>
+<h3 id="emitting-events">Emitting events<a class="headerlink" href="#emitting-events" title="Permanent link">&para;</a></h3>
+<p>The main idea behind Socket.IO is that you can send and receive any events you want, with any data you want. Any objects that can be encoded as JSON will do, and <a href="https://socket.io/blog/introducing-socket-io-1-0/#binary">binary data</a> is supported too.</p>
+<p>Let’s make it so that when the user types in a message, the server gets it as a <code>chat message</code> event. The <code>script</code> section in <code>index.html</code> should now look as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/socket.io/socket.io.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">var</span> <span class="nx">socket</span> <span class="o">=</span> <span class="nx">io</span><span class="p">();</span>
+
+  <span class="kd">var</span> <span class="nx">form</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">input</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">);</span>
+
+  <span class="nx">form</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;chat message&#39;</span><span class="p">,</span> <span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+      <span class="nx">input</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>And in <code>index.js</code> we print out the <code>chat message</code> event:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">io</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;chat message&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;message: &#39;</span> <span class="o">+</span> <span class="nx">msg</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>The result should be like the following video:</p>
+<h3 id="broadcasting">Broadcasting<a class="headerlink" href="#broadcasting" title="Permanent link">&para;</a></h3>
+<p>The next goal is for us to emit the event from the server to the rest of the users.</p>
+<p>In order to send an event to everyone, Socket.IO gives us the <code>io.emit()</code> method.</p>
+<div class="highlight"><pre><span></span><code><span class="nx">io</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;some event&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">someProperty</span><span class="o">:</span> <span class="s1">&#39;some value&#39;</span><span class="p">,</span> <span class="nx">otherProperty</span><span class="o">:</span> <span class="s1">&#39;other value&#39;</span> <span class="p">});</span>
+
+<span class="c1">// This will emit the event to all connected sockets</span>
+</code></pre></div>
+<p>If you want to send a message to everyone except for a certain emitting socket, we have the <code>broadcast</code> flag for emitting from that socket:</p>
+<div class="highlight"><pre><span></span><code><span class="nx">io</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">broadcast</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;hi&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>In this case, for the sake of simplicity we’ll send the message to everyone, including the sender.</p>
+<div class="highlight"><pre><span></span><code><span class="nx">io</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;chat message&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">io</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;chat message&#39;</span><span class="p">,</span> <span class="nx">msg</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>And on the client side when we capture a <code>chat message</code> event we’ll include it in the page. The <em>total</em> client-side JavaScript code now amounts to:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="kd">var</span> <span class="nx">socket</span> <span class="o">=</span> <span class="nx">io</span><span class="p">();</span>
+
+  <span class="kd">var</span> <span class="nx">messages</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;messages&#39;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">form</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">input</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">);</span>
+
+  <span class="nx">form</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;chat message&#39;</span><span class="p">,</span> <span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+      <span class="nx">input</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;chat message&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">item</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">);</span>
+    <span class="nx">item</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">;</span>
+    <span class="nx">messages</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollHeight</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>And that completes our chat application, in about 20 lines of code! This is what it looks like:</p>
+<h3 id="homework">Homework<a class="headerlink" href="#homework" title="Permanent link">&para;</a></h3>
+<p>Here are some ideas to improve the application:</p>
+<ul>
+<li>Broadcast a message to connected users when someone connects or disconnects（当某人连接或者退出时，需要向全体广播）.</li>
+<li>Add support for nicknames（支持昵称，传参）.</li>
+<li>Don’t send the same message to the user that sent it. Instead, append the message directly as soon as he/she presses enter.（本人自己的消息，直接发到本地，socket 不向自己发送消息）</li>
+<li>Add “{user} is typing” functionality.（用户输入的时候，显示）</li>
+<li>Show who’s online.（用户登录后，存储在数组中，并实时向全体广播）</li>
+<li>Add private messaging.（增加私信，token？还是直接传参的时候设置）</li>
+<li>Share your improvements!</li>
+</ul>
+<h3 id="getting-this-example">Getting this example<a class="headerlink" href="#getting-this-example" title="Permanent link">&para;</a></h3>
+<p>You can find it on GitHub <a href="https://github.com/socketio/chat-example">here</a>.</p>
+<div class="highlight"><pre><span></span><code>git clone https://github.com/socketio/chat-example.git
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: 介绍" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              介绍
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../redis/" class="md-footer__link md-footer__link--next" aria-label="Next: redis" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              redis
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.febc23d1.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.js"></script>
+      
+    
+  </body>
+</html>
