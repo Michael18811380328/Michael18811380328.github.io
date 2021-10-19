@@ -5371,7 +5371,7 @@
 <p><mark>学习要把不会的学会，学懂，而不是把会的重复100遍</mark></p>
 <ul class="task-list">
 <li class="task-list-item">
-<p><input type="checkbox" disabled checked/> HTMLtoCanvas 第三方库学习；canvas.toDataUrl('image/png', 1.0)  配置：allowTaint taintTest allowCORS 等</p>
+<p><input type="checkbox" disabled checked/> HTMLtoCanvas 第三方库学习；canvas.toDataUrl('image/png', 1.0)  配置：allowTaint taintTest allowCORS 等。主要使用场景：统计中 canvas 导出生成 PNG，主页看板娘的 canvas 拍照显示成 png 的功能。</p>
 </li>
 <li class="task-list-item">
 <p><input type="checkbox" disabled checked/> react 中强制更新组件，this.forceUpdate() 尽量避免使用，最好使用 state 或者 props 数据驱动更新</p>
@@ -5385,8 +5385,11 @@
 <span class="kd">var</span> <span class="nx">readFile</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">fileName</span><span class="p">){</span>
   <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">){</span>
     <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">fileName</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">){</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
-      <span class="nx">resolve</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">resolve</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+      <span class="p">}</span>
     <span class="p">});</span>
   <span class="p">});</span>
 <span class="p">};</span>
@@ -5397,8 +5400,8 @@
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">f1</span><span class="p">.</span><span class="nx">toString</span><span class="p">(),</span> <span class="nx">f2</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span>
 <span class="p">};</span>
 </code></pre></div>
-<p>循环中使用异步韩式，有两种方法</p>
-<p>第一个：改成 for 循环，内部使用 async await 实现。</p>
+<p>循环中使用异步方式，有两种方法</p>
+<p>第一个：改成 for 循环，内部使用 async await 实现——这个方式更好</p>
 <div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">dbFuc</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">let</span> <span class="nx">docs</span> <span class="o">=</span> <span class="p">[{},</span> <span class="p">{},</span> <span class="p">{}];</span>
   <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">doc</span> <span class="k">of</span> <span class="nx">docs</span><span class="p">)</span> <span class="p">{</span>
@@ -5431,29 +5434,50 @@
 <p><a href="https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html</a></p>
 <p><a href="https://www.ruanyifeng.com/blog/2015/07/flex-examples.html">https://www.ruanyifeng.com/blog/2015/07/flex-examples.html</a></p>
 <h4 id="3-filereader">3 FileReader<a class="headerlink" href="#3-filereader" title="Permanent link">&para;</a></h4>
+<p>普通文件上传</p>
 <div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">fn</span><span class="p">(</span><span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">files</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">files</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
-    <span class="kd">let</span> <span class="nx">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileReader</span><span class="p">();</span>
-    <span class="k">if</span> <span class="p">(</span><span class="sr">/.txt/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">type</span><span class="p">))</span> <span class="p">{</span>
-      <span class="c1">// txt file</span>
-      <span class="nx">reader</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">result</span><span class="p">);</span>
+    <span class="c1">// 优化：如果上传多文件，可以使用循环上传（上传多文件 input multiple 有一部分浏览器不支持，移动端和打开的APP有关）</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">file</span> <span class="k">of</span> <span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileReader</span><span class="p">();</span>
+      <span class="c1">// 不同类型的文件，使用不同的编码上传（readAsText, readAsDataURL）</span>
+      <span class="c1">// 通常根据文件名后缀判断文件类型，更严格的方法是根据文件开头的编码判断（文件后缀和真实文件类型可能不一样）</span>
+      <span class="k">if</span> <span class="p">(</span><span class="sr">/.txt/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">type</span><span class="p">))</span> <span class="p">{</span>
+        <span class="c1">// txt file</span>
+        <span class="nx">reader</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">result</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">reader</span><span class="p">.</span><span class="nx">readAsText</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
       <span class="p">}</span>
-      <span class="nx">reader</span><span class="p">.</span><span class="nx">readAsText</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="sr">/.png/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">type</span><span class="p">))</span> <span class="p">{</span>
-      <span class="c1">// image file</span>
-      <span class="nx">reader</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">);</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="sr">/.png/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">type</span><span class="p">))</span> <span class="p">{</span>
+        <span class="c1">// image file</span>
+        <span class="nx">reader</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">reader</span><span class="p">.</span><span class="nx">readAsDataURL</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
       <span class="p">}</span>
-      <span class="nx">reader</span><span class="p">.</span><span class="nx">readAsDataURL</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
-    <span class="p">}</span>
+    <span class="p">}</span>    
   <span class="p">}</span>
 <span class="p">}</span>
-
-<span class="c1">// 大文件分片上传的三种方法，详见开课吧项目笔记</span>
 </code></pre></div>
+<p>大文件分片上传（详见开课吧项目笔记）思路</p>
+<ul>
+<li>
+<p>先把 file 异步读取到(fs.readAs)</p>
+</li>
+<li>
+<p>然后切片成 chunks (files.slice(current, current + chunkLength))</p>
+</li>
+<li>然后前端生成一个 hash (三种方法，idle，布隆过滤器) 不熟悉，再看一下文档</li>
+<li>然后 chunks.map() 给每一个分片name加上hash，调用APU并上传。根据上传的chunks数量，设置进度条。</li>
+<li>上传后，需要后端协同处理（根据文件的 hash 确定文件唯一性，然后根据 chunk 的 index，把多个文件片段合并并存储）</li>
+</ul>
+<p>其他情况思路：</p>
+<ul>
+<li>很多小文件上传（目前没有好办法，尝试压缩，本地用JSZip 或者gzip等格式）；</li>
+<li>网络很差（经常中断）前端后端需要查询是否某个片段已经上传，来确定是否重新上传等</li>
+<li>拖拽文件上传，复制粘贴上传（需要调用前端的事件获取文件）</li>
+</ul>
 <h4 id="5-exec">5 exec<a class="headerlink" href="#5-exec" title="Permanent link">&para;</a></h4>
 <p>获取一个字符串中满足条件的全部子字符串（exec） reg.exec(str) 这里的 reg 需要先设置好，不能每次新建</p>
 <p>如果有满足的结果，那么继续循环查看下一个；否则返回 null</p>
