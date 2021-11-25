@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=GBK">
+  <style>
+  *{
+    margin:0;padding:0;
+  }
+  #box{padding:3px;position:absolute;background:skyblue;}
+  </style>
+  </head>
+  <body>
+  <div id="box"></div>
+  </body>
+    
+<script>
+  (function() {
+    var screenWidth = window.screen.availWidth - 20; //设定天空宽度
+    var screenHeight = 550; //设定天空高度
+    var speed = 20;
+    function Snow(size, downSize) {
+      this.box = document.getElementById("box");
+      this.size = size;
+      this.downSize = downSize || 10;
+      this.item = [];
+      this.init();
+      this.start();
+    }
+    // 获取相关随机数据的方法
+    Snow.prototype.getRandomThings = function(type) {
+      var res;
+      if (type == 'left') { //初始的left
+        res = Math.round(Math.random() * (screenWidth - 30 - 10)) + 10;
+        Math.random() > 0.8 ? (res = -res) : null; //这句是为了让左边有雪，因为雪是往右飘的，把left设置为负值，就会有的出现在左侧
+      } else if (type == 'top') { //初始的top
+        res = -(Math.round(Math.random() * (50 - 40)) + 40);
+      } else if (type == 'incre') { //向下的速度
+        res = Math.random() * (3 - 1) + 1;
+      } else if (type == 'increLeft') { //向右的速度
+        res = Math.random() * (0.8 - 0.5) + 0.5;
+      } else { //雪花的大小
+        res = Math.round(Math.random() * (30 - 10)) + 10;
+      }
+      return res;
+    }
+
+    Snow.prototype.init = function() {
+      this.box.style.width = screenWidth + 'px';
+      this.box.style.height = screenHeight + 'px';
+      var fragment = document.createDocumentFragment();
+      for (var i = 0; i < this.size; i++) {
+        //创建好雪花
+        var left = this.getRandomThings('left');
+        var top = this.getRandomThings('top');
+        var snowSize = this.getRandomThings('size');
+        var snow = document.createElement("div");
+        snow.style.cssText = 'position:absolute;color:#FFFFFF;';
+        snow.style['font-size'] = snowSize + 'px';
+        snow.style.left = left + 'px';
+        snow.style.top = top + 'px';
+        snow.innerHTML = '&#10052';
+        this.item.push(snow);
+        fragment.appendChild(snow);
+      }
+      box.appendChild(fragment);
+    }
+
+    Snow.prototype.start = function() {
+      var that = this;
+      var num = 0;
+      for (var i = 0; i < this.size; i++) {
+        var snow = this.item[i];
+        if ((i + 1) % this.downSize == 0) {
+          //这样处理的话，就可以指定每次落下多少雪花，不然刚开始是一股脑的下来
+          num++;
+        } (function(s, n) {
+          //用闭包的方式
+          setTimeout(function() {
+            that.doStart(s);
+          },
+          1000 * n)
+        })(snow, num)
+
+      }
+    }
+    //针对每个雪花的定时处理
+    Snow.prototype.doStart = function(snow) {
+      var that = this; (function(s) {
+        var increTop = that.getRandomThings('incre');
+        var increLeft = that.getRandomThings('increLeft');
+        var x = parseInt(getStyle(s, 'left')),
+        y = parseInt(getStyle(s, 'top'));
+
+        if (s.timmer) return;
+        s.timmer = setInterval(function() {
+          //超过右边或者底部重新开始
+          if (y > (screenHeight - 5) || x > (screenWidth - 30)) {
+            //重新回到天上开始往下
+            increTop = that.getRandomThings('incre');
+            increLeft = that.getRandomThings('increLeft');
+            //重新随机属性
+            var left = that.getRandomThings('left');
+            var top = that.getRandomThings('top');
+            var snowSize = that.getRandomThings('size');
+            s.style.left = left + 'px';
+            s.style.top = top + 'px';
+            s.style['font-size'] = snowSize + 'px';
+            y = top;
+            x = left;
+            n = 0;
+            return;
+          }
+
+          //加上系数，当随大于0.5 速度加快，小于0.5 速度减慢，看起来飘的感觉
+          x += Math.random() > 0.5 ? increLeft * 1.1 : increLeft * 0.9;
+          y += Math.random() > 0.5 ? increTop * 1.1 : increTop * 0.9;
+
+          //设定left top让雪动起来
+          s.style.left = x + 'px';
+          s.style.top = y + 'px';
+        },
+        speed);
+      })(snow)
+    }
+
+    //获取属性值
+    function getStyle(obj, prop) {
+      var prevComputedStyle = document.defaultView ? document.defaultView.getComputedStyle(obj, null) : obj.currentStyle;
+      return prevComputedStyle[prop];
+    }
+
+    new Snow(300, 30);
+  })()
+ 
+</script>
+</html>
