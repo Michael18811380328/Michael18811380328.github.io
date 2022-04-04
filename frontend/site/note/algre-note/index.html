@@ -395,6 +395,48 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6 拼图算法和思路
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    获取字符串数组中，不重复字符串长度的最大值
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    滑动窗口双端队列（求滑动窗口的最大值-最小值）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    原地算法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    二分算法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    贪心算法
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -715,7 +757,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../javascript/js%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E6%9F%90%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="md-nav__link">
+      <a href="../../javascript/js判断字符串中是否包含某个字符串.md" class="md-nav__link">
         js判断字符串中是否包含某个字符串
       </a>
     </li>
@@ -729,7 +771,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../javascript/js%E5%8F%8C%E6%8C%87%E9%92%88/" class="md-nav__link">
+      <a href="../../javascript/js双指针.md" class="md-nav__link">
         js双指针
       </a>
     </li>
@@ -4595,6 +4637,48 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6 拼图算法和思路
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    获取字符串数组中，不重复字符串长度的最大值
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    滑动窗口双端队列（求滑动窗口的最大值-最小值）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    原地算法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    二分算法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    贪心算法
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4755,6 +4839,87 @@ Math.max(...maxList)</p>
 <p>可以是 N 个集合的笛卡尔积</p>
 <p>运算规则：不符合交换律和结合律，求并集和交集满足分配率</p>
 <p>详情参考：<a href="https://baike.baidu.com/item/%E7%AC%9B%E5%8D%A1%E5%B0%94%E4%B9%98%E7%A7%AF">https://baike.baidu.com/item/%E7%AC%9B%E5%8D%A1%E5%B0%94%E4%B9%98%E7%A7%AF</a></p>
+<h3 id="6">6 拼图算法和思路<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
+<p>如何用算法完成一个10000块的拼图？</p>
+<p>1、复杂问题简单化：100块拼图，规范的拼图，没有重复的拼图，存储不限制，时间不限制</p>
+<p>2、解决简单的问题</p>
+<p>思路1：BFS 或者 DFS 算法</p>
+<p>给出全部的拼图数组 arr，每一项是一个对象。对象的 ID 是某一块的唯一标识。四个边是某个属性值，全部拼图只有另一个和某一个完全一样</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="nx">left</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="nx">right</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="nx">top</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="nx">bottom</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div>
+<p>关键是从某一个节点开始，然后获取相邻的节点（单项指针，或者对象的唯一键值对）。</p>
+<p>把全部的节点遍历一次，存放在对象中。对象的键是属性，值是 ID。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span> <span class="nx">dict</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="p">{</span> <span class="nx">left</span><span class="p">,</span> <span class="nx">right</span><span class="p">,</span> <span class="nx">top</span><span class="p">,</span> <span class="nx">bottom</span><span class="p">,</span> <span class="nx">id</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+  <span class="c1">// 把这些属性全部存放到字典中(先假设属性都不同)</span>
+  <span class="nx">dict</span><span class="p">[</span><span class="nx">left</span><span class="p">]</span> <span class="o">=</span> <span class="nx">id</span><span class="p">;</span>
+  <span class="nx">dict</span><span class="p">[</span><span class="nx">right</span><span class="p">]</span> <span class="o">=</span> <span class="nx">id</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>然后任意选择一个节点，DFS 获取邻接节点</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span> <span class="nx">init</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
+<span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="nx">res</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">init</span><span class="p">);</span>
+<span class="k">while</span><span class="p">(</span><span class="nx">res</span><span class="p">[</span><span class="nx">res</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mf">1</span><span class="p">].</span><span class="nx">right</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">next</span> <span class="o">=</span> <span class="nx">dict</span><span class="p">[</span><span class="nx">res</span><span class="p">[</span><span class="nx">res</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mf">1</span><span class="p">].</span><span class="nx">right</span><span class="p">];</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">next</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+<span class="c1">// 先把一行拼出来</span>
+<span class="c1">// 然后继续遍历其他几个方向</span>
+</code></pre></div>
+<p>这个方法可以解决问题。因为已经在字典中存放了属性值，那么查找的速度比较快，时间复杂度可以接受。</p>
+<p>实际我们拼图时，人脑不会采用这样的思路</p>
+<p>因为遍历全部的节点需要时间，短时间内不能记住全部的节点属性，从一个点，找到四个相邻节点比较困难。</p>
+<p>那么可以采用下面的算法改进</p>
+<p>思路2：聚类算法</p>
+<p>实际拼图时，往往先根据拼图上的一些特点（颜色相同，某些曲线相同，都含有某个图案，是否是边界点等特点），进行人脑聚类处理。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;red&#39;</span> <span class="o">|</span> <span class="s1">&#39;blue&#39;</span> <span class="o">|</span> <span class="s1">&#39;green&#39;</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nx">graph</span><span class="o">:</span> <span class="s1">&#39;line&#39;</span> <span class="o">||</span> <span class="s1">&#39;circle&#39;</span> <span class="o">|</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nx">is_icon</span><span class="o">:</span> <span class="kr">boolean</span><span class="p">,</span>
+    <span class="nx">is_boundary</span><span class="o">:</span> <span class="kr">boolean</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div>
+<p>我们假设相邻的图片相似度很高，然后可以用聚类的算法，把全部图案分成若干群，每一个群组内部根据取值直接拼接，最后组合成较大的部分。可能有一些边缘的极端值，最后处理，这个符合人脑的思路</p>
+<p>归纳：解决问题的思路</p>
+<p>1、把复杂的问题简单化（10000的拼图，简化成100个，数量级的简化；四边凹凸不平的拼图，简化成规范的拼图，难度的简化；可能重复的拼图，简化成完全无重复的拼图，极端值边界值的简化；拼图是2维的，可以简化成1维的链表排序或者节点排序）</p>
+<p>2、解决这个简单的问题（核心拼图算法）；或者拆成多个步骤解决；或者递推解决</p>
+<p>3、把简答的解法复杂化（考虑数量级，考虑内存，考虑多维数据，考虑特殊值极端值影响）</p>
+<h3 id="_4">获取字符串数组中，不重复字符串长度的最大值<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>基本算法是字符串算法，进阶算法是位运算，关键是判断两个字符串是否有相同的字母</p>
+<p>1、先把字符串数组转换成对象数组，对象包括字符串的长度，字符串本身</p>
+<p>2、双层循环这个对象数组，把每一个组合拿出来，作为新的数组（每一项是对象，包括长度的乘积，两个子字符串）</p>
+<p>3、这个数组根据长度的乘积排序</p>
+<p>4、循环数组，如果两个字符串没有公共字母，那么直接返回。如果有，继续下一个</p>
+<p>判断两个字符串是否有公共的字母？</p>
+<p>先把字符串遍历一次，获取字典。然后遍历这两个字典的 key 如果有重复，就是有公共的字母。</p>
+<p>可以做一个临时变量 dict: {} key 是字符串，value 是字典，这样可以减少计算字符串的字符的数量。</p>
+<h3 id="-">滑动窗口双端队列（求滑动窗口的最大值-最小值）<a class="headerlink" href="#-" title="Permanent link">&para;</a></h3>
+<p>数据结构：一个滑动窗口数组存放数组下标，一个结果数组</p>
+<p>算法：循环数组，将窗口外部的下标去掉，将窗口中小于当前数字的项去掉，然后把当前的数组的项放进去，这样始终保证窗口第一项对应的数组的值是最大的。当滑动到窗口区间时，把窗口的数字放入结果数组中。</p>
+<h3 id="_5">原地算法<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>不使用额外的堆内存空间（可以使用临时变量）使用：倒转数组；判断回文</p>
+<h3 id="_6">二分算法<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>二分，判断，然后递归或者while循环；</p>
+<p>二分前提是排序的数组；确定二分的边界和最终值，避免死循环；</p>
+<p>二分算法可以用来快速查找数组中是否有指定元素；或者快速排序法（选择数组中第一个元素作为根元素，然后定义两个空数组，分别存放比根元素大的元素和小的元素，然后遍历数组剩下的项和根元素对比，当道两个空数组中，然后把大数组，根元素，小数组合并起来即可）大数组和小数组继续执行二分法排序。</p>
+<h3 id="_7">贪心算法<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>主要用于可以把问题逐步分解的情况，贪心算法可能不是最好的办法，所以需要考虑是否适合使用贪心算法。主要可以解决的问题是背包问题（重量有限，尽量装价值最多的商品）那么可以计算不同产品的价格重量比值，然后存放不同的商品。或者硬币找零问题等等。</p>
                 
               
               
