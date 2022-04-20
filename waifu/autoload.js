@@ -1,7 +1,7 @@
 // Note: the LIVE_2D_PATH parameter should use absolute path
 // const LIVE_2D_PATH = "https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/";
 // change this path to Michael's path
-const LIVE_2D_PATH =  "https://github.com/Michael18811380328/Michael18811380328.github.io/blob/master/waifu/";
+const LIVE_2D_PATH =  "https://michael18811380328.github.io/waifu/";
 const API_PAH = "https://live2d.fghrsh.net/api/";
 const CDN_PATH = "https://cdn.jsdelivr.net/gh/fghrsh/live2d_api/";
 
