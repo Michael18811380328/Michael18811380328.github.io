@@ -9,9 +9,13 @@ function loadWidget(config) {
 	let useCDN = false, modelList;
 	if (typeof cdnPath === "string") {
 		useCDN = true;
-		if (!cdnPath.endsWith("/")) cdnPath += "/";
+		if (!cdnPath.endsWith("/")) {
+			cdnPath += "/";
+		}
 	} else if (typeof apiPath === "string") {
-		if (!apiPath.endsWith("/")) apiPath += "/";
+		if (!apiPath.endsWith("/")) {
+			apiPath += "/";
+		}
 	} else {
 		console.error("Invalid initWidget argument!");
 		return;
@@ -65,7 +69,9 @@ function loadWidget(config) {
 	}, 1000);
 
 	(function registerEventListener() {
+
 		document.querySelector("#waifu-tool .fa-comment").addEventListener("click", showHitokoto);
+
 		document.querySelector("#waifu-tool .fa-paper-plane").addEventListener("click", () => {
 			if (window.Asteroids) {
 				if (!window.ASTEROIDSPLAYERS) window.ASTEROIDSPLAYERS = [];
@@ -76,16 +82,23 @@ function loadWidget(config) {
 				document.head.appendChild(script);
 			}
 		});
+
 		document.querySelector("#waifu-tool .fa-user-circle").addEventListener("click", loadOtherModel);
+
 		document.querySelector("#waifu-tool .fa-street-view").addEventListener("click", loadRandModel);
+
 		document.querySelector("#waifu-tool .fa-camera-retro").addEventListener("click", () => {
 			showMessage("照好了嘛，是不是很可爱呢？", 6000, 9);
 			Live2D.captureName = "photo.png";
 			Live2D.captureFrame = true;
 		});
+
 		document.querySelector("#waifu-tool .fa-info-circle").addEventListener("click", () => {
-			open("https://github.com/stevenjoezhang/live2d-widget");
+			// original link
+			// open("https://github.com/stevenjoezhang/live2d-widget");
+			open("https://github.com/Michael18811380328/");
 		});
+
 		document.querySelector("#waifu-tool .fa-times").addEventListener("click", () => {
 			localStorage.setItem("waifu-display", Date.now());
 			showMessage("愿你有一天能与重要的人重逢。", 2000, 11);
@@ -108,7 +121,9 @@ function loadWidget(config) {
 		});
 
 		window.addEventListener("visibilitychange", () => {
-			if (!document.hidden) showMessage("哇，你终于回来了～", 6000, 9);
+			if (!document.hidden) {
+				showMessage("哇，你终于回来了，好想你", 6000, 9);
+			}
 		});
 
 	})();
@@ -118,10 +133,10 @@ function loadWidget(config) {
 		if (location.pathname === "/") { // 如果是主页
 			const now = new Date().getHours();
 			if (now > 5 && now <= 7) {
-				text = "早上好！一日之计在于晨，美好的一天就要开始了。";
+				text = "早上好！欢迎来到冰冰的博客！一日之计在于晨，美好的一天就要开始了。";
 			}
 			else if (now > 7 && now <= 11) {
-				text = "上午好！工作顺利嘛，不要久坐，多起来走动走动哦！";
+				text = "上午好！欢迎来到冰冰的博客！工作顺利嘛，不要久坐，多起来走动走动哦！";
 			}
 			else if (now > 11 && now <= 13) {
 				text = "中午了，工作了一个上午，现在是午餐时间！";
@@ -130,16 +145,16 @@ function loadWidget(config) {
 				text = "午后很容易犯困呢，今天的运动目标完成了吗？";
 			}
 			else if (now > 17 && now <= 19) {
-				text = "傍晚了！窗外夕阳的景色很美丽呢，最美不过夕阳红～";
+				text = "傍晚了！欢迎来到冰冰的博客！窗外夕阳的景色很美丽呢，最美不过夕阳红～";
 			}
 			else if (now > 19 && now <= 21) {
-				text = "晚上好，今天过得怎么样？";
+				text = "晚上好！欢迎来到冰冰的博客！今天过得怎么样？";
 			}
 			else if (now > 21 && now <= 23) {
 				text = ["已经这么晚了呀，早点休息吧，晚安～", "深夜时要爱护眼睛呀！"];
 			}
 			else {
-				text = "你是夜猫子呀？这么晚还不睡觉，明天起的来嘛？";
+				text = "欢迎来到冰冰的博客！你是夜猫子呀？这么晚还不睡觉，明天起的来嘛？";
 			}
 		} else if (document.referrer !== "") {
 			const referrer = new URL(document.referrer),
@@ -149,9 +164,6 @@ function loadWidget(config) {
 			}
 			else if (domain === "baidu") {
 				text = `Hello！来自 百度搜索 的朋友<br>你是搜索 <span>${referrer.search.split("&wd=")[1].split("&")[0]}</span> 找到的我吗？`;
-			}
-			else if (domain === "so") {
-				text = `Hello！来自 360搜索 的朋友<br>你是搜索 <span>${referrer.search.split("&q=")[1].split("&")[0]}</span> 找到的我吗？`;
 			}
 			else if (domain === "google") {
 				text = `Hello！来自 谷歌搜索 的朋友<br>欢迎阅读<span>「${document.title.split(" - ")[0]}」</span>`;
@@ -170,7 +182,7 @@ function loadWidget(config) {
 		fetch("https://v1.hitokoto.cn")
 			.then(response => response.json())
 			.then(result => {
-				const text = `这句一言来自 <span>「${result.from}」</span>，是 <span>${result.creator}</span> 在 hitokoto.cn 投稿的。`;
+				const text = `这句评论是 <span>${result.creator}</span> 投稿的，来自 <span>${result.from}</span>`;
 				showMessage(result.hitokoto, 6000, 9);
 				setTimeout(() => {
 					showMessage(text, 4000, 9);
@@ -308,8 +320,6 @@ function loadWidget(config) {
  * @param {string} apiPath 
  */
 function initWidget(config, apiPath) {
-	console.log(303, config, apiPath);
-
 	if (typeof config === "string") {
 		config = {
 			waifuPath: config,
