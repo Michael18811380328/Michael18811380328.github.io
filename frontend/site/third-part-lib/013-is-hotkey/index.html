@@ -1134,7 +1134,21 @@
       
         <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
+    性能优化
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
     其他
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    源码分析
   </a>
   
 </li>
@@ -4703,7 +4717,21 @@
       
         <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
+    性能优化
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
     其他
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    源码分析
   </a>
   
 </li>
@@ -4727,7 +4755,7 @@
                 
                 <h1 id="is-hotkey">is-hotkey<a class="headerlink" href="#is-hotkey" title="Permanent link">&para;</a></h1>
 <h2 id="_1">用途<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>处理键盘输入（不同操作系统和键盘下的输入)</p>
+<p>处理键盘输入（处理不同操作系统和键盘下的输入)</p>
 <h2 id="_2">可靠性<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>200颗星星，下载量20万</p>
 <h2 id="_3">官网链接<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
@@ -4742,10 +4770,18 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>支持一次渲染</p>
+<h2 id="_5">性能优化<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>推荐这种写法，节省性能（这样一个快捷键执行一次）</p>
 <div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nx">isHotkey</span> <span class="kr">from</span> <span class="s1">&#39;is-hotkey&#39;</span>
 
 <span class="kd">const</span> <span class="nx">isSaveHotkey</span> <span class="o">=</span> <span class="nx">isHotkey</span><span class="p">(</span><span class="s1">&#39;mod+s&#39;</span><span class="p">)</span>
+
+<span class="c1">// others</span>
+<span class="nx">isHotkey</span><span class="p">(</span><span class="s1">&#39;mod+a&#39;</span><span class="p">)</span>
+<span class="nx">isHotkey</span><span class="p">(</span><span class="s1">&#39;Control+S&#39;</span><span class="p">)</span>
+<span class="nx">isHotkey</span><span class="p">(</span><span class="s1">&#39;cmd+opt+d&#39;</span><span class="p">)</span>
+<span class="nx">itHotkey</span><span class="p">(</span><span class="s1">&#39;Meta+DownArrow&#39;</span><span class="p">)</span>
+<span class="nx">itHotkey</span><span class="p">(</span><span class="s1">&#39;cmd+down&#39;</span><span class="p">)</span>
 
 <span class="kd">function</span> <span class="nx">onKeyDown</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">isSaveHotkey</span><span class="p">(</span><span class="nx">e</span><span class="p">))</span> <span class="p">{</span>
@@ -4753,9 +4789,232 @@
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="_5">其他<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_6">其他<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p>单个输入或者普通输入，最好使用原生的 keyCode 判断</p>
 <p>多个键输入，或者设计 command 这样的输入，再使用这个库（相对耗时）</p>
+<h2 id="_7">源码分析<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * Constants. 常量</span>
+<span class="cm"> */</span>
+
+<span class="c1">// 判断是否是 MAC</span>
+<span class="kd">const</span> <span class="nx">IS_MAC</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="ow">typeof</span> <span class="nb">window</span> <span class="o">!=</span> <span class="s1">&#39;undefined&#39;</span> <span class="o">&amp;&amp;</span> <span class="sr">/Mac|iPod|iPhone|iPad/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">platform</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="kd">const</span> <span class="nx">MODIFIERS</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">alt</span><span class="o">:</span> <span class="s1">&#39;altKey&#39;</span><span class="p">,</span>
+  <span class="nx">control</span><span class="o">:</span> <span class="s1">&#39;ctrlKey&#39;</span><span class="p">,</span>
+  <span class="nx">meta</span><span class="o">:</span> <span class="s1">&#39;metaKey&#39;</span><span class="p">,</span>
+  <span class="nx">shift</span><span class="o">:</span> <span class="s1">&#39;shiftKey&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">ALIASES</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">add</span><span class="o">:</span> <span class="s1">&#39;+&#39;</span><span class="p">,</span>
+  <span class="k">break</span><span class="o">:</span> <span class="s1">&#39;pause&#39;</span><span class="p">,</span>
+  <span class="nx">cmd</span><span class="o">:</span> <span class="s1">&#39;meta&#39;</span><span class="p">,</span>
+  <span class="nx">command</span><span class="o">:</span> <span class="s1">&#39;meta&#39;</span><span class="p">,</span>
+  <span class="nx">ctl</span><span class="o">:</span> <span class="s1">&#39;control&#39;</span><span class="p">,</span>
+  <span class="nx">ctrl</span><span class="o">:</span> <span class="s1">&#39;control&#39;</span><span class="p">,</span>
+  <span class="nx">del</span><span class="o">:</span> <span class="s1">&#39;delete&#39;</span><span class="p">,</span>
+  <span class="nx">down</span><span class="o">:</span> <span class="s1">&#39;arrowdown&#39;</span><span class="p">,</span>
+  <span class="nx">esc</span><span class="o">:</span> <span class="s1">&#39;escape&#39;</span><span class="p">,</span>
+  <span class="nx">ins</span><span class="o">:</span> <span class="s1">&#39;insert&#39;</span><span class="p">,</span>
+  <span class="nx">left</span><span class="o">:</span> <span class="s1">&#39;arrowleft&#39;</span><span class="p">,</span>
+  <span class="nx">mod</span><span class="o">:</span> <span class="nx">IS_MAC</span> <span class="o">?</span> <span class="s1">&#39;meta&#39;</span> <span class="o">:</span> <span class="s1">&#39;control&#39;</span><span class="p">,</span>
+  <span class="nx">opt</span><span class="o">:</span> <span class="s1">&#39;alt&#39;</span><span class="p">,</span>
+  <span class="nx">option</span><span class="o">:</span> <span class="s1">&#39;alt&#39;</span><span class="p">,</span>
+  <span class="k">return</span><span class="o">:</span> <span class="s1">&#39;enter&#39;</span><span class="p">,</span>
+  <span class="nx">right</span><span class="o">:</span> <span class="s1">&#39;arrowright&#39;</span><span class="p">,</span>
+  <span class="nx">space</span><span class="o">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+  <span class="nx">spacebar</span><span class="o">:</span> <span class="s1">&#39; &#39;</span><span class="p">,</span>
+  <span class="nx">up</span><span class="o">:</span> <span class="s1">&#39;arrowup&#39;</span><span class="p">,</span>
+  <span class="nx">win</span><span class="o">:</span> <span class="s1">&#39;meta&#39;</span><span class="p">,</span>
+  <span class="nx">windows</span><span class="o">:</span> <span class="s1">&#39;meta&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">CODES</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">backspace</span><span class="o">:</span> <span class="mf">8</span><span class="p">,</span>
+  <span class="nx">tab</span><span class="o">:</span> <span class="mf">9</span><span class="p">,</span>
+  <span class="nx">enter</span><span class="o">:</span> <span class="mf">13</span><span class="p">,</span>
+  <span class="nx">shift</span><span class="o">:</span> <span class="mf">16</span><span class="p">,</span>
+  <span class="nx">control</span><span class="o">:</span> <span class="mf">17</span><span class="p">,</span>
+  <span class="nx">alt</span><span class="o">:</span> <span class="mf">18</span><span class="p">,</span>
+  <span class="nx">pause</span><span class="o">:</span> <span class="mf">19</span><span class="p">,</span>
+  <span class="nx">capslock</span><span class="o">:</span> <span class="mf">20</span><span class="p">,</span>
+  <span class="nx">escape</span><span class="o">:</span> <span class="mf">27</span><span class="p">,</span>
+  <span class="s1">&#39; &#39;</span><span class="o">:</span> <span class="mf">32</span><span class="p">,</span>
+  <span class="nx">pageup</span><span class="o">:</span> <span class="mf">33</span><span class="p">,</span>
+  <span class="nx">pagedown</span><span class="o">:</span> <span class="mf">34</span><span class="p">,</span>
+  <span class="nx">end</span><span class="o">:</span> <span class="mf">35</span><span class="p">,</span>
+  <span class="nx">home</span><span class="o">:</span> <span class="mf">36</span><span class="p">,</span>
+  <span class="nx">arrowleft</span><span class="o">:</span> <span class="mf">37</span><span class="p">,</span>
+  <span class="nx">arrowup</span><span class="o">:</span> <span class="mf">38</span><span class="p">,</span>
+  <span class="nx">arrowright</span><span class="o">:</span> <span class="mf">39</span><span class="p">,</span>
+  <span class="nx">arrowdown</span><span class="o">:</span> <span class="mf">40</span><span class="p">,</span>
+  <span class="nx">insert</span><span class="o">:</span> <span class="mf">45</span><span class="p">,</span>
+  <span class="ow">delete</span><span class="o">:</span> <span class="mf">46</span><span class="p">,</span>
+  <span class="nx">meta</span><span class="o">:</span> <span class="mf">91</span><span class="p">,</span>
+  <span class="nx">numlock</span><span class="o">:</span> <span class="mf">144</span><span class="p">,</span>
+  <span class="nx">scrolllock</span><span class="o">:</span> <span class="mf">145</span><span class="p">,</span>
+  <span class="s1">&#39;;&#39;</span><span class="o">:</span> <span class="mf">186</span><span class="p">,</span>
+  <span class="s1">&#39;=&#39;</span><span class="o">:</span> <span class="mf">187</span><span class="p">,</span>
+  <span class="s1">&#39;,&#39;</span><span class="o">:</span> <span class="mf">188</span><span class="p">,</span>
+  <span class="s1">&#39;-&#39;</span><span class="o">:</span> <span class="mf">189</span><span class="p">,</span>
+  <span class="s1">&#39;.&#39;</span><span class="o">:</span> <span class="mf">190</span><span class="p">,</span>
+  <span class="s1">&#39;/&#39;</span><span class="o">:</span> <span class="mf">191</span><span class="p">,</span>
+  <span class="s1">&#39;`&#39;</span><span class="o">:</span> <span class="mf">192</span><span class="p">,</span>
+  <span class="s1">&#39;[&#39;</span><span class="o">:</span> <span class="mf">219</span><span class="p">,</span>
+  <span class="s1">&#39;\\&#39;</span><span class="o">:</span> <span class="mf">220</span><span class="p">,</span>
+  <span class="s1">&#39;]&#39;</span><span class="o">:</span> <span class="mf">221</span><span class="p">,</span>
+  <span class="s1">&#39;\&#39;&#39;</span><span class="o">:</span> <span class="mf">222</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="mf">1</span><span class="p">;</span> <span class="nx">f</span> <span class="o">&lt;</span> <span class="mf">20</span><span class="p">;</span> <span class="nx">f</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">CODES</span><span class="p">[</span><span class="s1">&#39;f&#39;</span> <span class="o">+</span> <span class="nx">f</span><span class="p">]</span> <span class="o">=</span> <span class="mf">111</span> <span class="o">+</span> <span class="nx">f</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Is hotkey?</span>
+<span class="cm"> */</span>
+
+<span class="kd">function</span> <span class="nx">isHotkey</span><span class="p">(</span><span class="nx">hotkey</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">options</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="p">(</span><span class="s1">&#39;byKey&#39;</span> <span class="ow">in</span> <span class="nx">options</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">event</span> <span class="o">=</span> <span class="nx">options</span>
+    <span class="nx">options</span> <span class="o">=</span> <span class="kc">null</span>
+  <span class="p">}</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">hotkey</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">hotkey</span> <span class="o">=</span> <span class="p">[</span><span class="nx">hotkey</span><span class="p">]</span>
+  <span class="p">}</span>
+
+  <span class="kd">const</span> <span class="nx">array</span> <span class="o">=</span> <span class="nx">hotkey</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">string</span> <span class="p">=&gt;</span> <span class="nx">parseHotkey</span><span class="p">(</span><span class="nx">string</span><span class="p">,</span> <span class="nx">options</span><span class="p">))</span>
+  <span class="kd">const</span> <span class="nx">check</span> <span class="o">=</span> <span class="nx">e</span> <span class="p">=&gt;</span> <span class="nx">array</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">object</span> <span class="p">=&gt;</span> <span class="nx">compareHotkey</span><span class="p">(</span><span class="nx">object</span><span class="p">,</span> <span class="nx">e</span><span class="p">))</span>
+  <span class="kd">const</span> <span class="nx">ret</span> <span class="o">=</span> <span class="nx">event</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="nx">check</span> <span class="o">:</span> <span class="nx">check</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">ret</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">isCodeHotkey</span><span class="p">(</span><span class="nx">hotkey</span><span class="p">,</span> <span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">isHotkey</span><span class="p">(</span><span class="nx">hotkey</span><span class="p">,</span> <span class="nx">event</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">isKeyHotkey</span><span class="p">(</span><span class="nx">hotkey</span><span class="p">,</span> <span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">isHotkey</span><span class="p">(</span><span class="nx">hotkey</span><span class="p">,</span> <span class="p">{</span> <span class="nx">byKey</span><span class="o">:</span> <span class="kc">true</span> <span class="p">},</span> <span class="nx">event</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Parse.</span>
+<span class="cm"> */</span>
+
+<span class="kd">function</span> <span class="nx">parseHotkey</span><span class="p">(</span><span class="nx">hotkey</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">byKey</span> <span class="o">=</span> <span class="nx">options</span> <span class="o">&amp;&amp;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">byKey</span>
+  <span class="kd">const</span> <span class="nx">ret</span> <span class="o">=</span> <span class="p">{}</span>
+
+  <span class="c1">// Special case to handle the `+` key since we use it as a separator.</span>
+  <span class="nx">hotkey</span> <span class="o">=</span> <span class="nx">hotkey</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;++&#39;</span><span class="p">,</span> <span class="s1">&#39;+add&#39;</span><span class="p">)</span>
+  <span class="kd">const</span> <span class="nx">values</span> <span class="o">=</span> <span class="nx">hotkey</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">)</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">length</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">values</span>
+
+  <span class="c1">// Ensure that all the modifiers are set to false unless the hotkey has them.</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">const</span> <span class="nx">k</span> <span class="ow">in</span> <span class="nx">MODIFIERS</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">ret</span><span class="p">[</span><span class="nx">MODIFIERS</span><span class="p">[</span><span class="nx">k</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">false</span>
+  <span class="p">}</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">values</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">optional</span> <span class="o">=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">endsWith</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">value</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mf">1</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">optional</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">const</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">toKeyName</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>
+    <span class="kd">const</span> <span class="nx">modifier</span> <span class="o">=</span> <span class="nx">MODIFIERS</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mf">1</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">modifier</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">ALIASES</span><span class="p">[</span><span class="nx">value</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">CODES</span><span class="p">[</span><span class="nx">name</span><span class="p">])</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="ow">new</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sb">`Unknown modifier: &quot;</span><span class="si">${</span><span class="nx">value</span><span class="si">}</span><span class="sb">&quot;`</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">length</span> <span class="o">===</span> <span class="mf">1</span> <span class="o">||</span> <span class="o">!</span><span class="nx">modifier</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">byKey</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">ret</span><span class="p">.</span><span class="nx">key</span> <span class="o">=</span> <span class="nx">name</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">ret</span><span class="p">.</span><span class="nx">which</span> <span class="o">=</span> <span class="nx">toKeyCode</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">modifier</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">ret</span><span class="p">[</span><span class="nx">modifier</span><span class="p">]</span> <span class="o">=</span> <span class="nx">optional</span> <span class="o">?</span> <span class="kc">null</span> <span class="o">:</span> <span class="kc">true</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">ret</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Compare.</span>
+<span class="cm"> */</span>
+
+<span class="kd">function</span> <span class="nx">compareHotkey</span><span class="p">(</span><span class="nx">object</span><span class="p">,</span> <span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">const</span> <span class="nx">key</span> <span class="ow">in</span> <span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">expected</span> <span class="o">=</span> <span class="nx">object</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span>
+    <span class="kd">let</span> <span class="nx">actual</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">expected</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">continue</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">key</span> <span class="o">===</span> <span class="s1">&#39;key&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">event</span><span class="p">.</span><span class="nx">key</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">actual</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">key</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">key</span> <span class="o">===</span> <span class="s1">&#39;which&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">actual</span> <span class="o">=</span> <span class="nx">expected</span> <span class="o">===</span> <span class="mf">91</span> <span class="o">&amp;&amp;</span> <span class="nx">event</span><span class="p">.</span><span class="nx">which</span> <span class="o">===</span> <span class="mf">93</span> <span class="o">?</span> <span class="mf">91</span> <span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">which</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">actual</span> <span class="o">=</span> <span class="nx">event</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">actual</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">expected</span> <span class="o">===</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">continue</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">actual</span> <span class="o">!==</span> <span class="nx">expected</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">false</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Utils.</span>
+<span class="cm"> */</span>
+
+<span class="kd">function</span> <span class="nx">toKeyCode</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">name</span> <span class="o">=</span> <span class="nx">toKeyName</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
+  <span class="kd">const</span> <span class="nx">code</span> <span class="o">=</span> <span class="nx">CODES</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">||</span> <span class="nx">name</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">().</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mf">0</span><span class="p">)</span>
+  <span class="k">return</span> <span class="nx">code</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">toKeyName</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span>
+  <span class="nx">name</span> <span class="o">=</span> <span class="nx">ALIASES</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">||</span> <span class="nx">name</span>
+  <span class="k">return</span> <span class="nx">name</span>
+<span class="p">}</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Export.</span>
+<span class="cm"> */</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">isHotkey</span>
+
+<span class="k">export</span> <span class="p">{</span>
+  <span class="nx">isHotkey</span><span class="p">,</span>
+  <span class="nx">isCodeHotkey</span><span class="p">,</span>
+  <span class="nx">isKeyHotkey</span><span class="p">,</span>
+  <span class="nx">parseHotkey</span><span class="p">,</span>
+  <span class="nx">compareHotkey</span><span class="p">,</span>
+  <span class="nx">toKeyCode</span><span class="p">,</span>
+  <span class="nx">toKeyName</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
                 
               
               

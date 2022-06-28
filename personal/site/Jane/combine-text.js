@@ -18,7 +18,7 @@ function combineText(en_path, zh_path) {
           // data is array buffer, so use toString to transfer to string
           var str1 = data1.toString();
           var str2 = data2.toString();
-          var res = combine(str1, str2);
+          var res = combine(str1, str2) + '\n\n';
           // write into file
           writeFile(res);
         }
