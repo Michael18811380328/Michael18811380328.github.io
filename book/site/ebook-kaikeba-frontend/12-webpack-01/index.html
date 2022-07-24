@@ -2432,20 +2432,20 @@
 <li>plugin 是什么用途，常用的两个是什么？</li>
 </ul>
 <h2 id="1webpack">1.webpack简介<a class="headerlink" href="#1webpack" title="Permanent link">&para;</a></h2>
-<p>webpack is a module bundler (模块打包⼯工具)</p>
+<p>webpack is a module bundler (模块打包工具)</p>
 <p>Webpack是一个打包模块化 JavaScript 的工具，它会从入口模块出发，识别出源码中的模块化导入语句，递归地找出入口文件的所有依赖，将⼊口和其所有的依赖，打包到一个单独的文件中，是工程化、自动化思想在前端开发中的体现。</p>
-<p>一切以官⽅网站为准：<a href="https://webpack.js.org/">https://webpack.js.org/</a></p>
+<p>官⽅网站：<a href="https://webpack.js.org/">https://webpack.js.org/</a> 当前版本为 5.73.x。</p>
 <h2 id="2webpack">2.安装webpack<a class="headerlink" href="#2webpack" title="Permanent link">&para;</a></h2>
-<p>环境准备：需要安装 nodeJs <a href="https://nodejs.org/en/">https://nodejs.org/en/</a>，版本参考官⽹发布的最新版本，新版本可以提升webpack的打包速度</p>
-<p>全局安装 不推荐 </p>
+<p>环境准备：需要 nodeJS，版本参考官⽹发布的最新版本，新版本可以提升 webpack 的打包速度</p>
+<p>全局安装 不推荐</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 安装webpack V4+版本时，需要额外安装webpack-cli</span>
 npm install webpack webpack-cli -g
 webpack -v
 npm uninstall webpack webpack-cli -g
 </code></pre></div>
-<p>全局安装webpack，这会将你项⽬中的webpack锁定到指定版本，造成不同的项⽬中因为webpack依赖不同版本⽽而导致冲突，构建失败。</p>
+<p>全局安装 webpack，会将你项⽬中的 webpack 锁定到指定版本，造成不同的项⽬中因为 webpack 依赖不同版本⽽而导致冲突，构建失败。</p>
 <p>项⽬安装 推荐</p>
-<div class="highlight"><pre><span></span><code>npm install webpack webpack -D
+<div class="highlight"><pre><span></span><code>npm install webpack webpack-cli -D
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="c1"># 安装最新的稳定版本</span>
 npm i -D webpack
@@ -2453,14 +2453,14 @@ npm i -D webpack
 <span class="c1"># 安装指定版本</span>
 npm i -D webpack@&lt;version&gt;
 
-<span class="c1"># 安装最新的体验版本 可能包含bug,不要用于⽣生产环境</span>
+<span class="c1"># 安装最新的体验版本 可能包含bug, 不要用于⽣生产环境</span>
 npm i -D webpack@beta
 
 <span class="c1"># 安装webpack V4+版本时，需要额外安装webpack-cli</span>
 npm i -D webpack-cli
 </code></pre></div>
 <p>检查安装</p>
-<div class="highlight"><pre><span></span><code>webpack -v 
+<div class="highlight"><pre><span></span><code>webpack -v
 <span class="c1"># 可能出现报错：command not found 默认在全局环境中查找，全局环境下面没有安装 webpack</span>
 
 npx webpack -v
@@ -2470,9 +2470,9 @@ npx webpack -v
 <span class="c1"># //到当前的node_modules模块里里指定webpack</span>
 </code></pre></div>
 <h2 id="3webpack">3.启动webpack执⾏构建<a class="headerlink" href="#3webpack" title="Permanent link">&para;</a></h2>
-<p>1Chunk = 1bundle</p>
+<p>1 Chunk = 1 bundle</p>
 <p>chunk 是虚拟的代码块</p>
-<p>bundle 是生成的资源⽂件 </p>
+<p>bundle 是生成的资源⽂件</p>
 <p>1个chunk可以是多个模块组成的</p>
 <p>模块：nodeJS⾥ 万物皆模块</p>
 <p>entry 的数据类型：字符串、数组、对象。</p>
@@ -2507,25 +2507,26 @@ npx webpack -v
 npx webpack
 
 <span class="c1"># 写入 npm script</span>
-npm run build 
+npm run build
 
 <span class="s2">&quot;scripts&quot;</span>: <span class="o">{</span>
   <span class="s2">&quot;build&quot;</span>: <span class="s2">&quot;webpack&quot;</span>
 <span class="o">}</span>,
 </code></pre></div>
-<p>修改package.json⽂件:</p>
-<p>原理就是通过shell脚本在 node_modules/.bin⽬录下创建⼀个软链接。</p>
+<p>修改 package.json ⽂件:</p>
+<p>原理就是通过 shell 脚本在 node_modules/.bin ⽬录下创建⼀个软链接。</p>
 <h3 id="34-">3.4-构建成功<a class="headerlink" href="#34-" title="Permanent link">&para;</a></h3>
 <p>我们会发现⽬录下多出⼀个 dist ⽬录，⾥⾯有个 main.js ，这个⽂件是⼀个可执⾏的JavaScript⽂件，⾥⾯包含 webpackBootstrap 启动函数。</p>
 <h3 id="35-">3.5-默认配置<a class="headerlink" href="#35-" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">);</span>
+
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="c1">// 必填 webpack执⾏构建入⼝ </span>
-  <span class="nx">entry</span><span class="o">:</span> <span class="s2">&quot;./src/index.js&quot;</span><span class="p">,</span> 
+  <span class="c1">// 必填 webpack执⾏构建入⼝</span>
+  <span class="nx">entry</span><span class="o">:</span> <span class="s2">&quot;./src/index.js&quot;</span><span class="p">,</span>
   <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
-    <span class="c1">// 将所有依赖的模块合并输出到main.js </span>
+    <span class="c1">// 将所有依赖的模块，合并输出到 main.js</span>
     <span class="nx">filename</span><span class="o">:</span> <span class="s2">&quot;[name].[hash6].js&quot;</span><span class="p">,</span>
-    <span class="c1">// 输出⽂件的存放路路径，必须是绝对路路径</span>
+    <span class="c1">// 输出⽂件的存放路径，必须是绝对路径</span>
         <span class="nx">path</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s2">&quot;./dist&quot;</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">};</span>
@@ -2533,8 +2534,8 @@ npm run build
 <h2 id="4webpack">4.webpack配置核⼼概念<a class="headerlink" href="#4webpack" title="Permanent link">&para;</a></h2>
 <p>零配置是很弱的，特定的需求，总是需要⾃⼰己进⾏配置</p>
 <p>webpack有默认的配置⽂件，叫 webpack.config.js ，我们可以对这个⽂件进⾏修改，进⾏个性化配置</p>
-<p>使⽤默认的配置⽂件:webpack.config.js</p>
-<p>不使⽤⾃定义配置⽂件: ⽐如webpackconfig.js，可以通过-- config webpackconfig.js来指定webpack使⽤哪个配置⽂件来 执⾏构建</p>
+<p>使⽤默认的配置⽂件: webpack.config.js</p>
+<p>不使⽤⾃定义配置⽂件: ⽐如 webpackconfig.js，可以通过 -- config webpackconfig.js 来指定 webpack 使⽤哪个配置⽂件来 执⾏构建</p>
 <p>webpack.config.js配置基础结构</p>
 <div class="highlight"><pre><span></span><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">entry</span><span class="o">:</span> <span class="s2">&quot;./src/index.js&quot;</span><span class="p">,</span> <span class="c1">//打包入⼝⽂件</span>
@@ -2548,7 +2549,7 @@ npm run build
       <span class="p">}</span>
     <span class="p">]</span>
   <span class="p">},</span>
-  <span class="c1">//插件配置 </span>
+  <span class="c1">//插件配置</span>
   <span class="nx">plugins</span><span class="o">:</span> <span class="p">[</span>
     <span class="ow">new</span> <span class="nx">HtmlWebpackPlugin</span><span class="p">()</span>
   <span class="p">]</span>
@@ -2556,7 +2557,7 @@ npm run build
 </code></pre></div>
 <h3 id="41-entry">4.1-entry:<a class="headerlink" href="#41-entry" title="Permanent link">&para;</a></h3>
 <p>指定webpack打包入⼝⽂件:Webpack 执⾏构建的第⼀步将从 Entry 开始，可抽象成输入</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//单入⼝ SPA，本质是个字符串 </span>
+<div class="highlight"><pre><span></span><code><span class="c1">//单入⼝ SPA，本质是个字符串</span>
 <span class="nx">entry</span><span class="o">:</span><span class="p">{</span>
   <span class="nx">main</span><span class="o">:</span> <span class="s1">&#39;./src/index.js&#39;</span>
 <span class="p">}</span>
@@ -2670,21 +2671,21 @@ npm run build
 <div class="highlight"><pre><span></span><code> npm install url-loader -D
 </code></pre></div>
 <p>案例：</p>
-<div class="highlight"><pre><span></span><code><span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
-  <span class="nx">rules</span><span class="o">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.(png|jpe?g|gif)$/</span><span class="p">,</span>
-      <span class="nx">use</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">loader</span><span class="o">:</span> <span class="s2">&quot;url-loader&quot;</span><span class="p">,</span>
-        <span class="nx">options</span><span class="o">:</span> <span class="p">{</span>
-          <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;[name]_[hash].[ext]&quot;</span><span class="p">,</span>
-          <span class="nx">outputPath</span><span class="o">:</span> <span class="s2">&quot;images/&quot;</span><span class="p">,</span> <span class="c1">//⼩于2048，才转换成base64</span>
-          <span class="nx">limit</span><span class="o">:</span> <span class="mf">2048</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">},</span>
+<div class="highlight"><pre><span></span><code>module: {
+  rules: [
+    {
+      test: /\.(png|jpe?g|gif)$/,
+      use: {
+        loader: &quot;url-loader&quot;,
+        options: {
+          name: &quot;[name]_[hash].[ext]&quot;,
+          outputPath: &quot;images/&quot;, //⼩于2048，才转换成base64
+          limit: 2048
+        }
+      }
+    }
+  ]
+},
 </code></pre></div>
 <h3 id="53-css-loader">5.3 css-loader<a class="headerlink" href="#53-css-loader" title="Permanent link">&para;</a></h3>
 <p>样式处理:</p>
@@ -2808,9 +2809,9 @@ chunks: 允许只添加某些块 (⽐如，仅仅 unit test 块) chunksSortMode:
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">CleanWebpackPlugin</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;clean-webpack-plugin&quot;</span><span class="p">);</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="err">plugi</span><span class="kc">ns</span><span class="p">:</span> <span class="p">[</span>
-  <span class="kc">ne</span><span class="err">w</span> <span class="err">Clea</span><span class="kc">n</span><span class="err">WebpackPlugi</span><span class="kc">n</span><span class="err">()</span>
-<span class="p">]</span>
+<div class="highlight"><pre><span></span><code>plugins: [
+  new CleanWebpackPlugin()
+]
 </code></pre></div>
 <p>笔记：</p>
 <p>hash 目的是浏览器缓存</p>
@@ -2846,7 +2847,7 @@ chunks: 允许只添加某些块 (⽐如，仅仅 unit test 块) chunksSortMode:
 </code></pre></div>
 <p>output 中占位符</p>
 <ul>
-<li>Hash: 整个项目的 hash 值，每次构建一次，都会有新的 hash </li>
+<li>Hash: 整个项目的 hash 值，每次构建一次，都会有新的 hash</li>
 <li>chunkhash：根据不同的入口进行依赖解析，构建对应的 chunk, 生成对应的 hash。如果 entry 模块没有内容改动，则对应的 hash 不变</li>
 <li>name: 文件名，bundle 的文件名和入口的 key 一致</li>
 </ul>

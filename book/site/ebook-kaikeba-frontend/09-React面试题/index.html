@@ -2266,7 +2266,7 @@
 <p>Ref目的是获取原生的DOM节点，进一步获取元素的尺寸，或者表单的值。</p>
 <p>具体可以给某个HTML元素设置REF，直接获取DOM节点。或者给某个类组件设置REF，直接获取组件对象（然后获取内部的属性和方法）。</p>
 <h4 id="ref">创建REF<a class="headerlink" href="#ref" title="Permanent link">&para;</a></h4>
-<p>推荐使用 this.refs = React.createRef() 函数创建 REF，然后通过 current 获取DOM节点。</p>
+<p>推荐 <code>this.refs = React.createRef()</code> 创建 REF，然后通过 current 获取DOM节点。</p>
 <p>直接使用（例子）input</p>
 <div class="highlight"><pre><span></span><code>this.nameInputRef = React.createRef();
 let value = this.nameInputRef.current.value;
@@ -2282,7 +2282,8 @@ let value = this.nameInputRef.current.value;
 <p>内联函数在每次render都会创建一个匿名函数，重新设置REF，尽量减少使用。</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// &lt;input type=&quot;text&quot; ref={node =&gt; {this.ref = node;}&gt;</span>
 </code></pre></div>
-<p>不推荐使用字符串 this.refs.textInput 创建 REF，有副作用。</p>
+<p>不推荐使用字符串 this.refs.textInput 创建 REF，大量使用有性能问题。</p>
+<p>实际项目可能三种方法都使用（有旧代码）所以三个都要会用。</p>
 <h4 id="ref_1">转发REF<a class="headerlink" href="#ref_1" title="Permanent link">&para;</a></h4>
 <p>类组件可以直接使用REF，函数组件不能直接使用，需要通过转换REF转发设置REF。</p>
 <div class="highlight"><pre><span></span><code>// 函数组件需要通过REF转发后获取
@@ -2295,7 +2296,7 @@ function FunctionComponent(props, ref) {
   );
 }
 </code></pre></div>
-<p>在HOC高阶函数中转发REF：包裹组件不能直接使用子组件的REF，所以需要使用 forwardRef 来转发一下，把内部的REF转发到包裹层外部的组件。使用高阶函数时，设置一个REF，this.inputRef.current 获取子组件的REF。</p>
+<p>在HOC高阶函数中转发REF：包裹组件不能直接使用子组件的REF，所以需要使用 forwardRef 来转发一下，把内部的REF转发到包裹层外部的组件。使用高阶函数时，设置一个REF，this.inputRef.current 获取子组件的 ref。</p>
 <div class="highlight"><pre><span></span><code>const hoc = WrapComponent =&gt; {
   React.forwardRef((props, ref) =&gt; {
     return (
@@ -2315,12 +2316,12 @@ function FunctionComponent(props, ref) {
   );
 }
 </code></pre></div>
-<p>总结：三种创建方式、两种转发REF的情况、一个在HOOK中使用情况（useRef）（口诀321）</p>
+<p>总结：三种创建方式、两种转发REF的情况、一个在HOOK中使用情况（useRef）（记忆 321）</p>
 <h3 id="3">3、生命周期函数<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
 <h4 id="_1">生命周期函数阶段<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
 <p>组件挂载、更新、卸载阶段。</p>
-<p>挂载阶段：constructor 构造器、componentWilMount（不使用）、componentDidMount（发出请求，绑定事件，获取DOM节点尺寸）</p>
-<p>更新阶段：shouldComponentUpdate、componentWillUpdate、componentDidUpdate、getDrivedStateFromProps、componentWillReceiveProps(不使用) 避免在其中setState</p>
+<p>挂载阶段：constructor 构造器、componentWillMount（过时了，不使用）、componentDidMount（发出请求，绑定事件，获取DOM节点尺寸）</p>
+<p>更新阶段：shouldComponentUpdate、componentWillUpdate、componentDidUpdate、getDrivedStateFromProps、componentWillReceiveProps(过时了，不使用) 避免在其中setState</p>
 <p>卸载阶段：componentWillUnmount（解绑事件，删除定时器等）</p>
 <h4 id="_2">新增和删除的生命周期<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
 <p>1、componentWillMount 在服务端处理请求，大规模并发请求不利于服务器，减少使用；</p>

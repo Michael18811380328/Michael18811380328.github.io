@@ -2234,6 +2234,41 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    43 对比新旧生命周期
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-getderivedstatefromprops" class="md-nav__link">
+    44 getDerivedStateFromProps
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-getsnapshotbeforeupdate" class="md-nav__link">
+    45 getSnapshotBeforeUpdate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-getsnapshotbeforeupdate" class="md-nav__link">
+    46 getSnapshotBeforeUpdate 举例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47" class="md-nav__link">
+    47 总结生命周期(新)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2601,6 +2636,41 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    43 对比新旧生命周期
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-getderivedstatefromprops" class="md-nav__link">
+    44 getDerivedStateFromProps
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-getsnapshotbeforeupdate" class="md-nav__link">
+    45 getSnapshotBeforeUpdate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-getsnapshotbeforeupdate" class="md-nav__link">
+    46 getSnapshotBeforeUpdate 举例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47" class="md-nav__link">
+    47 总结生命周期(新)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2673,6 +2743,7 @@
 <li>学习相关的库的使用</li>
 </ol>
 <p><a href="https://study.163.com/course/courseMain.htm?courseId=1210995818">https://study.163.com/course/courseMain.htm?courseId=1210995818</a> 共计126课时，2021年1月出品</p>
+<p>全部课程约38小时；7月24日前学了10小时。</p>
 <h3 id="react_1">第一章 React 基础<a class="headerlink" href="#react_1" title="Permanent link">&para;</a></h3>
 <h4 id="01-react">01 react简介<a class="headerlink" href="#01-react" title="Permanent link">&para;</a></h4>
 <p>React 是构建用户界面的框架。</p>
@@ -2972,20 +3043,39 @@ save = (type, value) =&gt; {
 }
 </code></pre></div>
 <h4 id="37">37 引出生命周期<a class="headerlink" href="#37" title="Permanent link">&para;</a></h4>
-<p>从节点写在组件</p>
+<p>从节点卸载组件</p>
 <div class="highlight"><pre><span></span><code><span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">unmountComponentAtNode</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">));</span>
 </code></pre></div>
-<p>生命周期(旧)-组件挂载流程</p>
-<p>生命周期(旧)-setState流程</p>
-<p>生命周期(旧)-forceUpdate流程</p>
-<p>生命周期(旧)-父组件render流程</p>
-<p>总结生命周期(旧)</p>
-<p>对比新旧生命周期</p>
-<p>getDerivedStateFromProps</p>
-<p>getSnapshotBeforeUpdate</p>
-<p>getSnapshotBeforeUpdate举例</p>
-<p>总结生命周期(新)</p>
-<p>DOM的diffing算法</p>
+<p>38 生命周期(旧)-组件挂载流程</p>
+<p>39 生命周期(旧)-setState流程</p>
+<p>40 生命周期(旧)-forceUpdate流程</p>
+<p>41 生命周期(旧)-父组件render流程</p>
+<p>42 总结生命周期(旧)</p>
+<p>很简单</p>
+<h4 id="43">43 对比新旧生命周期<a class="headerlink" href="#43" title="Permanent link">&para;</a></h4>
+<p>新版本不推荐使用的三个生命周期函数（ComponnentWillMount, ComponentWillReceiveProps, ComponentWillUpdate）；以及新加入的两个生命周期函数(getDerivedStateFromProps, getSnapshotBeforeUpdate) </p>
+<p>为什么不推荐使用？过时的三个生命周期函数，经常造成误解滥用，可能造成bug。在 17版本中，可以使用，界面上提示警告。在 18 版本中异步渲染，不能直接使用这三个生命周期函数，必须加上 UNSAVE 前缀（React.lazy, React.Suspend）。</p>
+<h4 id="44-getderivedstatefromprops">44 getDerivedStateFromProps<a class="headerlink" href="#44-getderivedstatefromprops" title="Permanent link">&para;</a></h4>
+<p>这个生命周期函数是 componentWillReceiveProps 的替代，用于 props 变化造成组件 state 更新的情况。</p>
+<p>这是一个静态方法，在组件render前，或者组件更新后都调用。</p>
+<div class="highlight"><pre><span></span><code><span class="k">static</span> <span class="nx">getDerivedStateFromProps</span><span class="p">(</span><span class="nx">nextProps</span><span class="p">,</span> <span class="nx">prevState</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 对比 nextProps 和 prevState 等，返回新的 state 或者 null</span>
+  <span class="c1">// 这是静态方法，无法直接访问到实例对象的属性和状态（this）</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">nextProps</span><span class="p">.</span><span class="nx">name</span> <span class="o">!==</span> <span class="nx">prevState</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">prevState</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">nextProps</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">prevState</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>派生状态会造成代码冗余，尽量避免使用。ComponentWillReceiveProps 只在父组件重新渲染时触发，getDerivedStateFromProps 在每次渲染前调用（包括内部setState）。</p>
+<h4 id="45-getsnapshotbeforeupdate">45 getSnapshotBeforeUpdate<a class="headerlink" href="#45-getsnapshotbeforeupdate" title="Permanent link">&para;</a></h4>
+<h4 id="46-getsnapshotbeforeupdate">46 getSnapshotBeforeUpdate 举例<a class="headerlink" href="#46-getsnapshotbeforeupdate" title="Permanent link">&para;</a></h4>
+<h4 id="47">47 总结生命周期(新)<a class="headerlink" href="#47" title="Permanent link">&para;</a></h4>
+<p>初始化阶段：getDerivedStateFromProps render componentDidMount</p>
+<p>更新阶段：getDerivedStateFromProps shouldComponentUpdate render getSnapshotBeforeUpdate componentDidUpdate</p>
+<p>卸载阶段：componentWillUnmount</p>
+<p>注：getDerivedStateFromProps 在首次加载和再次更新时，都会触发。</p>
+<p>48 DOM的diffing算法</p>
 <h2 id="react-cli">第三章 react-cli<a class="headerlink" href="#react-cli" title="Permanent link">&para;</a></h2>
 <p>初始化react脚手架</p>
 <p>脚手架文件介绍-public</p>
