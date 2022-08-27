@@ -2594,20 +2594,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../ebook-heima-nodejs/08-%E7%AC%AC%E5%85%AB%E5%A4%A9-nodeJS/" class="md-nav__link">
-        黑马程序员nodeJS 08-第八天
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -3245,7 +3231,7 @@
 <p>React 是构建用户界面的框架。</p>
 <p>前端工作包括：发送请求，处理数据，展示数据（使用DOM展现）。发出请求（ajax）、处理数据（算法优化，过滤排序算法）、渲染界面（React 将 JS 数据渲染成 HTML 视图的库）</p>
 <p>React 只处理展示数据（把 state 转换成 DOM）。不管前两部分。</p>
-<p>原生 JS 缺点：操作 DOM繁琐，性能较差（JS 直接操作 DOM，浏览器进行大量的重拍重绘）；jQuery 比较重，代码量很大；原生JS没有组件化方案，代码复用很低。</p>
+<p>原生 JS 缺点：操作 DOM繁琐，性能较差（JS 直接操作 DOM，浏览器进行大量的重排重绘，reflow and repaint）；jQuery 比较重，代码量很大；原生JS没有组件化方案，代码复用很低。</p>
 <p>React 框架优点：组件化（提高组件复用率）、声明式开发；便于 ReactNative 进行移动端开发；虚拟 DOM 和 Diff 算法高性能。</p>
 <h4 id="02-hello-react">02 hello-react案例<a class="headerlink" href="#02-hello-react" title="Permanent link">&para;</a></h4>
 <ul>
@@ -3259,21 +3245,21 @@
 <li>Script 这个 type （实际上不会这样写）</li>
 <li>内部是 JSX，不需要加引号（不是字符串 dom = '';）</li>
 </ol>
-<div class="highlight"><pre><span></span><code>&lt;script type=&quot;text/babel&quot;&gt;
-    let dom = &lt;div&gt;&lt;/div&gt;;
-&lt;/script&gt;
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/babel&quot;</span><span class="o">&gt;</span>
+  <span class="kd">let</span> <span class="nx">dom</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;;</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
 </code></pre></div>
 <h4 id="03-dom">03 虚拟DOM的两种创建方式<a class="headerlink" href="#03-dom" title="Permanent link">&para;</a></h4>
 <p>创建虚拟 DOM，可以使用 JSX 字面量（优先），或者使用 React API 创建。</p>
-<div class="highlight"><pre><span></span><code>const VDOM = React.createElement(&#39;h1&#39;, {id: &#39;test&#39;}, &#39;Hi&#39;);
-ReactDOM.render(VDOM, document.getElementById(&#39;root&#39;));
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">VDOM</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;h1&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;test&#39;</span><span class="p">},</span> <span class="s1">&#39;Hi&#39;</span><span class="p">);</span>
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">VDOM</span><span class="p">,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">));</span>
 
-const vDOM2 = &lt;div&gt;&lt;/div&gt;;
+<span class="kd">const</span> <span class="nx">vDOM2</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;;</span>
 </code></pre></div>
 <h4 id="04-domdom">04 虚拟DOM与真实DOM<a class="headerlink" href="#04-domdom" title="Permanent link">&para;</a></h4>
 <p>虚拟DOM就是 jsx 语法中创建的虚拟 DOM，真实 DOM 就是原生 JS 创建的 DOM。</p>
-<div class="highlight"><pre><span></span><code>let virtualDOM = &lt;div&gt;&lt;/div&gt;;
-let trueDOM = document.getElementById(&#39;test&#39;);
+<div class="highlight"><pre><span></span><code><span class="kd">let</span> <span class="nx">virtualDOM</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;;</span>
+<span class="kd">let</span> <span class="nx">trueDOM</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">);</span>
 </code></pre></div>
 <p>虚拟 DOM 特点：</p>
 <ol>
@@ -3300,15 +3286,15 @@ let trueDOM = document.getElementById(&#39;test&#39;);
 <li>语句：if for while switch 等语句结构，不会返回结果，这部分不能在 JSX 中使用</li>
 </ul>
 <p>所以，三目运算法可以使用，if 判断无法使用</p>
-<div class="highlight"><pre><span></span><code>&lt;div&gt;
-    {
-    arr.map((item) =&gt; {
-      return (
-        &lt;span key={item.id}&gt;{item.value}&lt;/span&gt;
-      );
-    })
-  }
-&lt;/div&gt;
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+  <span class="p">{</span>
+    <span class="nx">arr</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">(</span>
+        <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">value</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/span&gt;</span>
+      <span class="p">);</span>
+    <span class="p">})</span>
+  <span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/div&gt;</span>
 </code></pre></div>
 <h3 id="react_1">第二章 React 面向组件编程<a class="headerlink" href="#react_1" title="Permanent link">&para;</a></h3>
 <h4 id="07">07 组件与模块<a class="headerlink" href="#07" title="Permanent link">&para;</a></h4>
@@ -3320,16 +3306,16 @@ let trueDOM = document.getElementById(&#39;test&#39;);
 <p>react 开发调试工具（Component 可以查看组件层级和 state props 等属性，Profiers 查看页面性能）</p>
 <p>profiler 记录网站的性能（加载时间）</p>
 <h4 id="09">09 函数式组件<a class="headerlink" href="#09" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>function Demo() {
-  console.log(this);
-  // 在函数组件中，经过babel编译后，是严格模式，所以 this 是 undefined
-  return &lt;span&gt;&lt;/span&gt;;
-}
-ReactDOM.render(&lt;Demo/&gt;, document.getElementById(&#39;root&#39;));
-// ReactDOM.render 执行过程
-// 1. 解析第一个参数，找到组件定义 Demo（函数组件）
-// 2. 调用 Demo 函数，将返回值 虚拟 DOM 转换成真实 DOM
-// 3. 解析第二个参数，将真实DOM渲染到页面上
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">Demo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="c1">// 在函数组件中，经过babel编译后，是严格模式，所以 this 是 undefined</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;;</span>
+<span class="p">}</span>
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">Demo</span><span class="o">/&gt;</span><span class="p">,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">));</span>
+<span class="c1">// ReactDOM.render 执行过程</span>
+<span class="c1">// 1. 解析第一个参数，找到组件定义 Demo（函数组件）</span>
+<span class="c1">// 2. 调用 Demo 函数，将返回值 虚拟 DOM 转换成真实 DOM</span>
+<span class="c1">// 3. 解析第二个参数，将真实DOM渲染到页面上</span>
 </code></pre></div>
 <h4 id="10-es6">10 ES6 类<a class="headerlink" href="#10-es6" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">Person</span> <span class="p">{</span>
@@ -3358,31 +3344,31 @@ ReactDOM.render(&lt;Demo/&gt;, document.getElementById(&#39;root&#39;));
 <span class="nx">s2</span><span class="p">.</span><span class="nx">speak</span><span class="p">();</span>
 </code></pre></div>
 <h4 id="11">11 类式组件<a class="headerlink" href="#11" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>class MyComponent extends React.Component {
-  render() {
-    return (
-        &lt;span&gt;test&lt;/span&gt;
-    );
-  }
-}
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">MyComponent</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="nx">test</span><span class="o">&lt;</span><span class="err">/span&gt;</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-// &lt;MyComponent /&gt;
+<span class="c1">// &lt;MyComponent /&gt;</span>
 </code></pre></div>
 <p>遇到标签后，React 解析到是一个类，执行 new MyComponent 创建类的实例对象，调用 render 方法返回虚拟 DOM，然后渲染到页面上作为真实DOM节点。</p>
 <p>2.2 state</p>
 <h4 id="12-14-state">12-14 state 入门<a class="headerlink" href="#12-14-state" title="Permanent link">&para;</a></h4>
 <p>state 是状态机，通过更新状态驱动页面更新</p>
-<div class="highlight"><pre><span></span><code>class Weather extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isHot: false,
-    };
-  }
-  render() {
-    return (&lt;span&gt;&lt;/span&gt;);
-  }
-}
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nx">Weather</span> <span class="k">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kr">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nx">isHot</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>原生事件绑定</p>
 <div class="highlight"><pre><span></span><code><span class="kd">let</span> <span class="nx">dom</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;btn1&#39;</span><span class="p">);</span>
@@ -3396,11 +3382,11 @@ ReactDOM.render(&lt;Demo/&gt;, document.getElementById(&#39;root&#39;));
 <span class="p">}</span>
 </code></pre></div>
 <p>React 中通常不直接获取DOM</p>
-<div class="highlight"><pre><span></span><code>let dom = (&lt;div onClick={this.onClick}&gt;&lt;/div&gt;);
+<div class="highlight"><pre><span></span><code><span class="kd">let</span> <span class="nx">dom</span> <span class="o">=</span> <span class="p">(</span><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">onClick</span><span class="p">}</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;);</span>
 
-onClick = (e) =&gt; {
-  console.log(1);
-}
+<span class="nx">onClick</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+<span class="p">}</span>
 </code></pre></div>
 <h4 id="15-this">15 类中方法中的this<a class="headerlink" href="#15-this" title="Permanent link">&para;</a></h4>
 <h4 id="16-this">16 解决类中this指向问题<a class="headerlink" href="#16-this" title="Permanent link">&para;</a></h4>
@@ -3424,12 +3410,12 @@ onClick = (e) =&gt; {
 
 <span class="nx">sum</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">,</span><span class="mf">3</span><span class="p">,</span><span class="mf">4</span><span class="p">);</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>let obj = { name: &#39;a&#39;, age: 19 };
+<div class="highlight"><pre><span></span><code><span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="nx">age</span><span class="o">:</span> <span class="mf">19</span> <span class="p">};</span>
 
-// props 较多可以这样写，大括号并不是对象，是 jsx 的语法糖
-&lt;MyComponent {...obj}/&gt;
+<span class="c1">// props 较多可以这样写，大括号并不是对象，是 jsx 的语法糖</span>
+<span class="o">&lt;</span><span class="nx">MyComponent</span> <span class="p">{...</span><span class="nx">obj</span><span class="p">}</span><span class="o">/&gt;</span>
 
-// console.log(...obj); 不能直接展开对象打印到原生JS中
+<span class="c1">// console.log(...obj); 不能直接展开对象打印到原生JS中</span>
 </code></pre></div>
 <h4 id="22-props">22 限制 props 类型<a class="headerlink" href="#22-props" title="Permanent link">&para;</a></h4>
 <p>使用 PropTypes 和 defaultProps 限制数据类型和默认值</p>
@@ -3447,16 +3433,16 @@ onClick = (e) =&gt; {
 </code></pre></div>
 <h4 id="25-props">25 函数式组件使用 props<a class="headerlink" href="#25-props" title="Permanent link">&para;</a></h4>
 <p>函数式组件可以使用 props，hook 中可以使用 setEffect 设置状态，也可以限制数据类型。</p>
-<div class="highlight"><pre><span></span><code>function Persion(props) {
-  const { name, age } = props;
-  return &lt;span&gt;{name}&lt;/span&gt;;
-}
+<div class="highlight"><pre><span></span><code><span class="kd">function</span> <span class="nx">Persion</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">age</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">props</span><span class="p">;</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/span&gt;;</span>
+<span class="p">}</span>
 
-Person.defaultProps = {
-  age: 20,
-};
+<span class="nx">Person</span><span class="p">.</span><span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">age</span><span class="o">:</span> <span class="mf">20</span><span class="p">,</span>
+<span class="p">};</span>
 
-&lt;Person name={&#39;Tom&#39;} /&gt;
+<span class="o">&lt;</span><span class="nx">Person</span> <span class="nx">name</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Tom&#39;</span><span class="p">}</span> <span class="o">/&gt;</span>
 </code></pre></div>
 <p>2.4 refs</p>
 <h4 id="27ref">27字符串形式的ref<a class="headerlink" href="#27ref" title="Permanent link">&para;</a></h4>
@@ -3469,16 +3455,16 @@ Person.defaultProps = {
 <h4 id="28-ref">28 回调形式的ref<a class="headerlink" href="#28-ref" title="Permanent link">&para;</a></h4>
 <p>使用字符串形式创建 ref，react 官方不推荐这种写法（后期会废弃）性能比较差</p>
 <p>推荐使用 createRefs 或者 回调函数创建 refs</p>
-<div class="highlight"><pre><span></span><code>&lt;input ref={(node) =&gt; this.input1 = node} /&gt;
-&lt;input ref={c =&gt; this.input2 = c}/&gt;
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">ref</span><span class="o">=</span><span class="p">{(</span><span class="nx">node</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">input1</span> <span class="o">=</span> <span class="nx">node</span><span class="p">}</span> <span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="nx">input</span> <span class="nx">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">c</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">input2</span> <span class="o">=</span> <span class="nx">c</span><span class="p">}</span><span class="o">/&gt;</span>
 </code></pre></div>
 <h4 id="29-ref">29 回调ref中调用次数的问题<a class="headerlink" href="#29-ref" title="Permanent link">&para;</a></h4>
 <p>如果回调函数直接写在 JSX 中，每次 render 都会调用两次。所以，回调函数可以放在类的方法中。React 官方说这两种方法的性能差异不大。</p>
-<div class="highlight"><pre><span></span><code>&lt;input ref={this.setRef}/&gt;
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">ref</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">setRef</span><span class="p">}</span><span class="o">/&gt;</span>
 
-setRef = (node) =&gt; {
-  this.input2 = node;
-}
+<span class="nx">setRef</span> <span class="o">=</span> <span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">input2</span> <span class="o">=</span> <span class="nx">node</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div>
 <h4 id="30createref">30createRef的使用<a class="headerlink" href="#30createref" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="k">this</span><span class="p">.</span><span class="nx">inputRef</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createRef</span><span class="p">();</span>
@@ -3502,19 +3488,19 @@ setRef = (node) =&gt; {
 <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
 </code></pre></div>
 <h4 id="34">34 受控组件<a class="headerlink" href="#34" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>&lt;input onChange={this.save(&quot;username&quot;)}/&gt;
-&lt;input onChange={this.save(&quot;password&quot;)}/&gt;
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">save</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">)}</span><span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="nx">input</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">save</span><span class="p">(</span><span class="s2">&quot;password&quot;</span><span class="p">)}</span><span class="o">/&gt;</span>
 
-save = (type) =&gt; {
-  // 这里返回一个函数，就是高阶函数
-  // 首次加载时，返回这个函数。当 onChange 触发时，执行内部回调函数
-  return (event) =&gt; {
-    // console.log(event.target.value, type);
-    this.setState({
-      [type]: event.target.value
-    });
-  }
-}
+<span class="nx">save</span> <span class="o">=</span> <span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// 这里返回一个函数，就是高阶函数</span>
+  <span class="c1">// 首次加载时，返回这个函数。当 onChange 触发时，执行内部回调函数</span>
+  <span class="k">return</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// console.log(event.target.value, type);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+      <span class="p">[</span><span class="nx">type</span><span class="p">]</span><span class="o">:</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 <h4 id="35-">35 高阶函数-函数柯里化<a class="headerlink" href="#35-" title="Permanent link">&para;</a></h4>
 <p>高阶函数：参数是一个函数，或者返回值是一个函数的函数，就是高阶函数（Promsise, setTimeout, reduce）</p>
@@ -3530,13 +3516,13 @@ save = (type) =&gt; {
 <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">sum</span><span class="p">(</span><span class="mf">1</span><span class="p">)(</span><span class="mf">2</span><span class="p">)(</span><span class="mf">3</span><span class="p">);</span>
 </code></pre></div>
 <h4 id="36">36 不用柯里化的写法<a class="headerlink" href="#36" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>&lt;input onChange={e =&gt; this.save(&#39;username&#39;, e.target.value)}/&gt;
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">e</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">save</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)}</span><span class="o">/&gt;</span>
 
-save = (type, value) =&gt; {
-  this.setState({
-    [type]: value,
-  });
-}
+<span class="nx">save</span> <span class="o">=</span> <span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+    <span class="p">[</span><span class="nx">type</span><span class="p">]</span><span class="o">:</span> <span class="nx">value</span><span class="p">,</span>
+  <span class="p">});</span>
+<span class="p">}</span>
 </code></pre></div>
 <h4 id="37">37 引出生命周期<a class="headerlink" href="#37" title="Permanent link">&para;</a></h4>
 <p>从节点卸载组件</p>
@@ -3699,7 +3685,7 @@ save = (type, value) =&gt; {
 
 <span class="c1">// 这样回调函数更清晰，推荐这种写法</span>
 <span class="nx">axios</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">url</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span>
-    <span class="nx">res</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">res</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
       <span class="nx">data</span><span class="o">:</span> <span class="nx">res</span><span class="p">.</span><span class="nx">data</span>
@@ -3713,14 +3699,14 @@ save = (type, value) =&gt; {
 <h4 id="69-github-">69 github搜索案例-展示数据<a class="headerlink" href="#69-github-" title="Permanent link">&para;</a></h4>
 <h4 id="70-github">70 github搜索案例<a class="headerlink" href="#70-github" title="Permanent link">&para;</a></h4>
 <p>三目运算法可以嵌套使用</p>
-<div class="highlight"><pre><span></span><code>&lt;div&gt;
-    {
-    isFirst ? &lt;div&gt;Welcome&lt;/div&gt; :
-    isLoading ? &lt;Loading/&gt; :
-    isError ? &lt;Error&gt; :
-    &lt;List/&gt;
-  }
-&lt;/div&gt;
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+  <span class="p">{</span>
+    <span class="nx">isFirst</span> <span class="o">?</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Welcome</span><span class="o">&lt;</span><span class="err">/div&gt; :</span>
+    <span class="nx">isLoading</span> <span class="o">?</span> <span class="o">&lt;</span><span class="nx">Loading</span><span class="o">/&gt;</span> <span class="o">:</span>
+    <span class="nx">isError</span> <span class="o">?</span> <span class="o">&lt;</span><span class="ne">Error</span><span class="o">&gt;</span> <span class="o">:</span>
+    <span class="o">&lt;</span><span class="nx">List</span><span class="o">/&gt;</span>
+  <span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/div&gt;</span>
 </code></pre></div>
 <h4 id="71-pubsub">71 消息订阅与发布-pubsub<a class="headerlink" href="#71-pubsub" title="Permanent link">&para;</a></h4>
 <p>Pubsub-js 是一个第三方库，publish-subscribe</p>
@@ -3746,7 +3732,7 @@ save = (type, value) =&gt; {
 <p>问题：老版本浏览器不支持；实际上使用不多（原生XHR书写麻烦，axios 已经封装）。</p>
 <p>fetch 关注分离：第一步先判断服务器是否连接，第二步再获取返回的数据</p>
 <div class="highlight"><pre><span></span><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api1/search/users?q=test&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span>
-    <span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;连接服务器成功&#39;</span><span class="p">);</span>
     <span class="c1">// 这里的返回值是 Promise 所以可以使用 then 处理</span>
     <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">join</span><span class="p">();</span>
@@ -3756,7 +3742,7 @@ save = (type, value) =&gt; {
     <span class="k">return</span> <span class="ow">new</span> <span class="nb">Promise</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{});</span>
   <span class="p">},</span>
 <span class="p">).</span><span class="nx">then</span><span class="p">(</span>
-    <span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;获取数据成功&#39;</span><span class="p">)</span>
   <span class="p">},</span>
   <span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
@@ -3766,12 +3752,12 @@ save = (type, value) =&gt; {
 </code></pre></div>
 <p>上面这样写，需要使用两个 error 处理函数，实际可以使用一个替代</p>
 <div class="highlight"><pre><span></span><code><span class="nx">fetch</span><span class="p">(</span><span class="nx">api</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span>
-    <span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;连接服务器成功&#39;</span><span class="p">);</span>
     <span class="k">return</span> <span class="nx">response</span><span class="p">.</span><span class="nx">join</span><span class="p">();</span>
   <span class="p">},</span>
 <span class="p">).</span><span class="nx">then</span><span class="p">(</span>
-    <span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">response</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;获取数据成功&#39;</span><span class="p">)</span>
   <span class="p">}</span>
 <span class="p">).</span><span class="k">catch</span><span class="p">(</span>
@@ -3854,22 +3840,22 @@ save = (type, value) =&gt; {
 <p>path 对应的 value 是组件 component，对应界面展示的内容</p>
 <div class="highlight"><pre><span></span><code>npm install react-router-dom
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>import { Link, BrowserRouter } from &#39;react-router-dom&#39;;
-import { About, Home } from &#39;./component/&#39;;
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="p">{</span> <span class="nx">Link</span><span class="p">,</span> <span class="nx">BrowserRouter</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;react-router-dom&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">About</span><span class="p">,</span> <span class="nx">Home</span> <span class="p">}</span> <span class="kr">from</span> <span class="s1">&#39;./component/&#39;</span><span class="p">;</span>
 
-render () {
-  return (
-    // 路由链接实现切换组件(这里最好放在顶层组件)
-    &lt;BrowserRouter&gt;
-      &lt;Link to=&quot;/about&quot;&gt;关于我们&lt;/Link&gt;
-      &lt;Link to=&quot;/home&quot;&gt;主页&lt;/Link&gt;
-    &lt;/BrowserRouter&gt;
+<span class="nx">render</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="c1">// 路由链接实现切换组件(这里最好放在顶层组件)</span>
+    <span class="o">&lt;</span><span class="nx">BrowserRouter</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Link</span> <span class="nx">to</span><span class="o">=</span><span class="s2">&quot;/about&quot;</span><span class="o">&gt;</span><span class="nx">关于我们</span><span class="o">&lt;</span><span class="err">/Link&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Link</span> <span class="nx">to</span><span class="o">=</span><span class="s2">&quot;/home&quot;</span><span class="o">&gt;</span><span class="nx">主页</span><span class="o">&lt;</span><span class="err">/Link&gt;</span>
+    <span class="o">&lt;</span><span class="err">/BrowserRouter&gt;</span>
 
-    // 注册路由
-    &lt;Route path=&quot;/about&quot; component={About} /&gt;
-    &lt;Route path=&quot;/home&quot; component={Home} /&gt;
-  );
-}
+    <span class="c1">// 注册路由</span>
+    <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">path</span><span class="o">=</span><span class="s2">&quot;/about&quot;</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">About</span><span class="p">}</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">path</span><span class="o">=</span><span class="s2">&quot;/home&quot;</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">Home</span><span class="p">}</span> <span class="o">/&gt;</span>
+  <span class="p">);</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>改进后的顶层组件</p>
 <div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nx">React</span> <span class="kr">from</span> <span class="s1">&#39;react&#39;</span><span class="p">;</span>
@@ -3878,7 +3864,7 @@ render () {
 <span class="k">import</span> <span class="nx">App</span> <span class="kr">from</span> <span class="s1">&#39;./App&#39;</span><span class="p">;</span>
 
 <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
-    <span class="o">&lt;</span><span class="nx">BrowserRouter</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">BrowserRouter</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="nx">App</span><span class="o">/&gt;</span>
   <span class="o">&lt;</span><span class="err">/BrowserRouter&gt;,</span>
   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">);</span>
@@ -3893,17 +3879,17 @@ render () {
 <h3 id="78">78 路由组件与一般组件<a class="headerlink" href="#78" title="Permanent link">&para;</a></h3>
 <p>路由组件内部，可以收到特殊的 props</p>
 <div class="highlight"><pre><span></span><code><span class="nx">history</span><span class="err">（</span><span class="nx">history</span> <span class="nx">的一个属性就是</span> <span class="nx">location</span><span class="err">）</span>
-    <span class="nx">go</span>
+  <span class="nx">go</span>
   <span class="nx">goback</span>
   <span class="nx">goForward</span>
   <span class="nx">push</span>
   <span class="nx">replace</span>
 <span class="nx">location</span>
-    <span class="nx">pathname</span>
+  <span class="nx">pathname</span>
   <span class="nx">search</span>
   <span class="nx">state</span>
 <span class="nx">match</span>
-    <span class="nx">params</span>
+  <span class="nx">params</span>
   <span class="nx">path</span>
   <span class="nx">url</span>
 </code></pre></div>
@@ -3920,14 +3906,14 @@ render () {
   <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">const</span> <span class="p">{</span> <span class="nx">to</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">;</span>
     <span class="k">return</span> <span class="p">(</span>
-        <span class="o">&lt;</span><span class="nx">NavLink</span>
+      <span class="o">&lt;</span><span class="nx">NavLink</span>
         <span class="nx">activeClassName</span><span class="o">=</span><span class="s2">&quot;test&quot;</span>
         <span class="nx">className</span><span class="o">=</span><span class="s2">&quot;list-group-item&quot;</span>
         <span class="nx">to</span><span class="o">=</span><span class="p">{</span><span class="nx">to</span><span class="p">}</span>
         <span class="p">{...</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">}</span>
-            <span class="o">&gt;</span>
+      <span class="o">&gt;</span>
         <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">}</span>
-            <span class="o">&lt;</span><span class="err">/NavLink&gt;</span>
+      <span class="o">&lt;</span><span class="err">/NavLink&gt;</span>
     <span class="p">);</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -3935,45 +3921,45 @@ render () {
 <h3 id="81-switch">81 Switch的使用<a class="headerlink" href="#81-switch" title="Permanent link">&para;</a></h3>
 <p>通常情况下，path 和 component 是一一对应的，如果有相同的 path 后面会覆盖前面</p>
 <p>如果是 switch 嵌套的路由，那么优先匹配，找到满足的就不继续匹配了，提高效率</p>
-<div class="highlight"><pre><span></span><code>&lt;Switch&gt;
-    &lt;Route path=&quot;/to&quot; component={About}/&gt;
-  &lt;Route path=&quot;/to&quot; component={My}/&gt;
-&lt;/Switch&gt;
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">Switch</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">path</span><span class="o">=</span><span class="s2">&quot;/to&quot;</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">About</span><span class="p">}</span><span class="o">/&gt;</span>
+  <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">path</span><span class="o">=</span><span class="s2">&quot;/to&quot;</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">My</span><span class="p">}</span><span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="err">/Switch&gt;</span>
 </code></pre></div>
 <p>实际项目中，通常不会写两个相同的 path</p>
 <h3 id="82">82 解决样式丢失问题<a class="headerlink" href="#82" title="Permanent link">&para;</a></h3>
 <p>开发中，可能公共样式丢失（bootstrap 样式引入无效）或者其他静态资源引入不正常</p>
 <p>检查引入的路径</p>
-<div class="highlight"><pre><span></span><code>&lt;link rel=&#39;icon&#39; href=&quot;%PUBLIC_URL%/favicon.ico&quot; /&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;./css/bootstrap.css&quot; /&gt;
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">link</span> <span class="nx">rel</span><span class="o">=</span><span class="s1">&#39;icon&#39;</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;%PUBLIC_URL%/favicon.ico&quot;</span> <span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="nx">link</span> <span class="nx">rel</span><span class="o">=</span><span class="s2">&quot;stylesheet&quot;</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;./css/bootstrap.css&quot;</span> <span class="o">/&gt;</span>
 
-// 使用项目路径代替相对路径
-&lt;link rel=&quot;stylesheet&quot; href=&quot;%PUBLIC_URL%/bootstrap.css&quot; /&gt;
+<span class="c1">// 使用项目路径代替相对路径</span>
+<span class="o">&lt;</span><span class="nx">link</span> <span class="nx">rel</span><span class="o">=</span><span class="s2">&quot;stylesheet&quot;</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;%PUBLIC_URL%/bootstrap.css&quot;</span> <span class="o">/&gt;</span>
 </code></pre></div>
 <p>不要写 ./ 相对路径，可以写 / 从根目录中引入，或者 %PUBLIC_URL% 表示公共路径</p>
 <h3 id="83">83 路由的模糊匹配与严格匹配<a class="headerlink" href="#83" title="Permanent link">&para;</a></h3>
 <p>默认路由是模糊匹配（例如组件 /about 可以匹配路由链接 /about/us/）顺序需要一致</p>
 <p>严格匹配： exact={true} 必须严格匹配，通常不需要（可能造成二级路由失效）</p>
-<div class="highlight"><pre><span></span><code>&lt;Route exact={true} path=&quot;/about&quot; component={About} /&gt;
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">exact</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span> <span class="nx">path</span><span class="o">=</span><span class="s2">&quot;/about&quot;</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">About</span><span class="p">}</span> <span class="o">/&gt;</span>
 </code></pre></div>
 <h3 id="84-redirect">84 Redirect的使用<a class="headerlink" href="#84-redirect" title="Permanent link">&para;</a></h3>
 <p>redirect 表示重定向，通常用于 Switch 的无效匹配时，默认跳转的页面</p>
 <p>写在路由注册最下方，当所有路由都无法匹配是，跳转到 redirect 指定的路由</p>
-<div class="highlight"><pre><span></span><code>&lt;Switch&gt;
-    &lt;Route path=&quot;/about&quot; componnet={About} /&gt;
-  &lt;Route path=&quot;/home&quot; component={Home} /&gt;
-  &lt;Redirect to=&quot;/about&quot; /&gt;
-&lt;/Switch&gt;
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">Switch</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">path</span><span class="o">=</span><span class="s2">&quot;/about&quot;</span> <span class="nx">componnet</span><span class="o">=</span><span class="p">{</span><span class="nx">About</span><span class="p">}</span> <span class="o">/&gt;</span>
+  <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">path</span><span class="o">=</span><span class="s2">&quot;/home&quot;</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">Home</span><span class="p">}</span> <span class="o">/&gt;</span>
+  <span class="o">&lt;</span><span class="nx">Redirect</span> <span class="nx">to</span><span class="o">=</span><span class="s2">&quot;/about&quot;</span> <span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="err">/Switch&gt;</span>
 </code></pre></div>
 <h3 id="85">85 嵌套路由<a class="headerlink" href="#85" title="Permanent link">&para;</a></h3>
 <p>多级导航-多级路由嵌套</p>
 <div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">className</span><span class="o">=</span><span class="s">&quot;nav nav-tabs&quot;</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">MyNavLink</span> <span class="na">to</span><span class="o">=</span><span class="s">&quot;/home/news&quot;</span><span class="p">&gt;</span>新闻<span class="p">&lt;/</span><span class="nt">MyNavLink</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">MyNavLink</span> <span class="na">to</span><span class="o">=</span><span class="s">&quot;/home/news&quot;</span><span class="p">&gt;</span>新闻<span class="p">&lt;/</span><span class="nt">MyNavLink</span><span class="p">&gt;</span>
     <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">MyNavLink</span> <span class="na">to</span><span class="o">=</span><span class="s">&quot;/home/message&quot;</span><span class="p">&gt;</span>消息<span class="p">&lt;/</span><span class="nt">MyNavLink</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">MyNavLink</span> <span class="na">to</span><span class="o">=</span><span class="s">&quot;/home/message&quot;</span><span class="p">&gt;</span>消息<span class="p">&lt;/</span><span class="nt">MyNavLink</span><span class="p">&gt;</span>
     <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
   <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">Switch</span><span class="p">&gt;</span>
@@ -3986,16 +3972,16 @@ render () {
 <p>注册子路由，要协商父路由的 path</p>
 <p>路由的匹配是按照注册路由的顺序进行的</p>
 <h3 id="86-params">86 向路由组件传递params参数<a class="headerlink" href="#86-params" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>&lt;Link to={`home/message/datail/${id}/${name}`} &gt;{title}&lt;/Link&gt;
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">Link</span> <span class="nx">to</span><span class="o">=</span><span class="p">{</span><span class="sb">`home/message/datail/</span><span class="si">${</span><span class="nx">id</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">}</span> <span class="o">&gt;</span><span class="p">{</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/Link&gt;</span>
 
-// 声明接收 params 参数
-&lt;Route path=&quot;/home/message/detail/:id/:name&quot; component={Detail} /&gt;
+<span class="c1">// 声明接收 params 参数</span>
+<span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">path</span><span class="o">=</span><span class="s2">&quot;/home/message/detail/:id/:name&quot;</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">Detail</span><span class="p">}</span> <span class="o">/&gt;</span>
 </code></pre></div>
 <p>在子路由中接收参数（这种可读性强，使用最多）</p>
-<div class="highlight"><pre><span></span><code>const { id, name } = this.props.match.params;
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">name</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">match</span><span class="p">.</span><span class="nx">params</span><span class="p">;</span>
 </code></pre></div>
 <h3 id="87-search">87 向路由组件传递search参数<a class="headerlink" href="#87-search" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>&lt;Link to={`/home/message/detail/?id=${id}&amp;name=${name}`}&gt;{title}&lt;/Link&gt;
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">Link</span> <span class="nx">to</span><span class="o">=</span><span class="p">{</span><span class="sb">`/home/message/detail/?id=</span><span class="si">${</span><span class="nx">id</span><span class="si">}</span><span class="sb">&amp;name=</span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/Link&gt;</span>
 </code></pre></div>
 <p>子组件中接收到字符串，需要解析成对象</p>
 <div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nx">qs</span> <span class="kr">from</span> <span class="s1">&#39;querystring&#39;</span><span class="p">;</span>
@@ -4008,7 +3994,7 @@ render () {
 </code></pre></div>
 <h3 id="88-state">88 向路由组件传递state参数<a class="headerlink" href="#88-state" title="Permanent link">&para;</a></h3>
 <p>这样界面的路由中，用户看不到传递的参数。</p>
-<div class="highlight"><pre><span></span><code>&lt;Link to={{pathname: &#39;/home/message/detail&#39;, state: {id: id, name: name}}}&gt;{title}&lt;/Link&gt;
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">Link</span> <span class="nx">to</span><span class="o">=</span><span class="p">{{</span><span class="nx">pathname</span><span class="o">:</span> <span class="s1">&#39;/home/message/detail&#39;</span><span class="p">,</span> <span class="nx">state</span><span class="o">:</span> <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="nx">name</span><span class="p">}}}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/Link&gt;</span>
 </code></pre></div>
 <p>子组件获取参数</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="p">{</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">name</span> <span class="p">}</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
@@ -4020,11 +4006,11 @@ render () {
 <li>Search: 在 ?key=value 中传参。参数：this.props.location.search（string）</li>
 <li>state 参数 刷新也可以保留参数，this.props.location.state </li>
 </ul>
-<div class="highlight"><pre><span></span><code>&lt;Link to={`/home/${id}/${title}`}&gt;&lt;/Link&gt;
+<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="nx">Link</span> <span class="nx">to</span><span class="o">=</span><span class="p">{</span><span class="sb">`/home/</span><span class="si">${</span><span class="nx">id</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">title</span><span class="si">}</span><span class="sb">`</span><span class="p">}</span><span class="o">&gt;&lt;</span><span class="err">/Link&gt;</span>
 
-&lt;Link to={`/home/?id=${id}&amp;title=${title}`}&gt;&lt;/Link&gt;
+<span class="o">&lt;</span><span class="nx">Link</span> <span class="nx">to</span><span class="o">=</span><span class="p">{</span><span class="sb">`/home/?id=</span><span class="si">${</span><span class="nx">id</span><span class="si">}</span><span class="sb">&amp;title=</span><span class="si">${</span><span class="nx">title</span><span class="si">}</span><span class="sb">`</span><span class="p">}</span><span class="o">&gt;&lt;</span><span class="err">/Link&gt;</span>
 
-&lt;Link replace={true} to={{pathname: &#39;/home/message/detail&#39;, state; {id: id, title: title}}}&gt;&lt;/Link&gt;
+<span class="o">&lt;</span><span class="nx">Link</span> <span class="nx">replace</span><span class="o">=</span><span class="p">{</span><span class="kc">true</span><span class="p">}</span> <span class="nx">to</span><span class="o">=</span><span class="p">{{</span><span class="nx">pathname</span><span class="o">:</span> <span class="s1">&#39;/home/message/detail&#39;</span><span class="p">,</span> <span class="nx">state</span><span class="p">;</span> <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">title</span><span class="o">:</span> <span class="nx">title</span><span class="p">}}}</span><span class="o">&gt;&lt;</span><span class="err">/Link&gt;</span>
 </code></pre></div>
 <h4 id="90-pushrepalce">90 push与repalce<a class="headerlink" href="#90-pushrepalce" title="Permanent link">&para;</a></h4>
 <p>通过 JS 更改 history 即可</p>

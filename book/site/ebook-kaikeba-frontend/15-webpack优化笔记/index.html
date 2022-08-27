@@ -2129,20 +2129,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../ebook-heima-nodejs/08-%E7%AC%AC%E5%85%AB%E5%A4%A9-nodeJS/" class="md-nav__link">
-        黑马程序员nodeJS 08-第八天
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -2318,17 +2304,17 @@
 <p>可以在每一个 loader 上都设置 includes 缩小文件范围</p>
 <h3 id="resolvemodules">优化 resolve.modules<a class="headerlink" href="#resolvemodules" title="Permanent link">&para;</a></h3>
 <p>Resolve.modules 用于 webpack 在什么目录下面查找第三方模块。如果在当前的目录中没有找到，那么会向上级目录递归查找，这样相对耗时。我们可以手动设置路径。</p>
-<div class="highlight"><pre><span></span><code><span class="err">module.expor</span><span class="kc">ts</span> <span class="err">=</span> <span class="p">{</span>
-  <span class="err">resolve</span><span class="p">:</span> <span class="p">{</span>
-    <span class="err">modules</span><span class="p">:</span> <span class="p">[</span><span class="err">pa</span><span class="kc">t</span><span class="err">h.resolve(__dir</span><span class="kc">na</span><span class="err">me</span><span class="p">,</span> <span class="s2">&quot;./node_modules&quot;</span><span class="err">)</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">resolve</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">modules</span><span class="o">:</span> <span class="p">[</span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s2">&quot;./node_modules&quot;</span><span class="p">)]</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="resolvealias">优化 resolve.alias<a class="headerlink" href="#resolvealias" title="Permanent link">&para;</a></h3>
 <p>通常语法是 <code>import react from 'react'</code> ，这个会从 react 中查找 index.js 在什么位置。</p>
 <p>Resolve.alias 可以将原来的路径，映射成一个直接导入路径，加快读取包的速度。</p>
-<p>react 中有两套规范的代码 cjs 和 UMD 不同的模块化的代码，我们可以指定需要的文件。</p>
-<p>具体的例子</p>
+<p>react 中有两套规范的代码 cjs 和 umd 不同的模块化的代码，我们可以指定需要的文件。</p>
+<p>例子</p>
 <div class="highlight"><pre><span></span><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">resolve</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">alias</span><span class="o">:</span> <span class="p">{</span>
@@ -2339,6 +2325,10 @@
 <span class="p">}</span>
 </code></pre></div>
 <p>主要消耗时间是 loader，这部分消耗时间较少，优化效果不明显</p>
+<p>实际项目中，如果一个叶子节点，引用另一个叶子节点，那么就是 <code>import xxx from '../../../../utils</code> 这样写，如果改动文件的相对位置，维护起来很麻烦，那么就使用 alias 进行路径简化，直接写成 <code>import xxx from '@/utils</code> 即可引入，这个组件的位置移动后，也不需要再更改这个路径</p>
+<p>可能的问题：有的项目编译时，显示 <code>path.resolve(__dirname, "src")</code> 会报错，引入的文件在 src 外部，那么可以使用 <code>path.resolve(process.cwd(), 'src')</code> 这样可以正常使用.</p>
+<p><code>__dirname process.cwd()</code> 的区别参考 <a href="https://www.cnblogs.com/yky-iris/p/8617765.html">https://www.cnblogs.com/yky-iris/p/8617765.html</a></p>
+<p><code>__dirname</code> 表示模块的目录名，<code>process.cwd()</code> 表示当前进程执行的路径名。这个是否和 webpack 版本相关，不确定。</p>
 <h3 id="resolveextensions">优化 resolve.extensions 配置<a class="headerlink" href="#resolveextensions" title="Permanent link">&para;</a></h3>
 <p>extensions 主要管理文件的后缀，直接 import 即可导入，不需要加上 js 后缀</p>
 <p>但是滥用这个属性，需要 webpack 去查找各种的文件格式，最好只使用一两种</p>

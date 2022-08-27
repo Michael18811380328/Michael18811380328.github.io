@@ -1023,6 +1023,48 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Koa%E6%A1%86%E6%9E%B6/" class="md-nav__link">
+        Koa框架
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mysql%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E8%BF%9E%E6%8E%A5%E6%B1%A0/" class="md-nav__link">
+        Mysql 数据库和连接池
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Node%20%E4%B8%8B%20LDAP%20%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        Node 下 LDAP 实现
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -1756,13 +1798,13 @@
 <ul>
 <li>Node.js开启服务进程例子</li>
 </ul>
-<div class="highlight"><pre><span></span><code>const http = require(&#39;http&#39;);
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
 
-const server = http.createServer();
-server.listen(3000,()=&gt;{
-    process.title=&#39;程序员成长指北测试进程&#39;;
-    console.log(&#39;进程id&#39;,process.pid)
-})
+<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">();</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mf">3000</span><span class="p">,()=&gt;{</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">title</span><span class="o">=</span><span class="s1">&#39;程序员成长指北测试进程&#39;</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;进程id&#39;</span><span class="p">,</span><span class="nx">process</span><span class="p">.</span><span class="nx">pid</span><span class="p">)</span>
+<span class="p">})</span>
 </code></pre></div>
 <p>运行上面代码后，以下为 Mac 系统自带的监控工具 “活动监视器” 所展示的效果，可以看到我们刚开启的 Nodejs 进程 7663</p>
 <p><img alt="img" src="https://pic3.zhimg.com/50/v2-95bc9b749969ab866e5113c1dbd85894_hd.jpg" /><img alt="img" src="https://pic3.zhimg.com/80/v2-95bc9b749969ab866e5113c1dbd85894_hd.jpg" /></p>
@@ -1772,30 +1814,30 @@ server.listen(3000,()=&gt;{
 <p><strong>单线程就是一个进程只开一个线程</strong></p>
 <p>Javascript 就是属于单线程，程序顺序执行(这里暂且不提JS异步)，可以想象一下队列，前面一个执行完之后，后面才可以执行，当你在使用单线程语言编码时切勿有过多耗时的同步操作，否则线程会造成阻塞，导致后续响应无法处理。你如果采用 Javascript 进行编码时候，请尽可能的利用Javascript异步操作的特性。</p>
 <p>经典计算耗时造成线程阻塞的例子</p>
-<div class="highlight"><pre><span></span><code>const http = require(&#39;http&#39;);
-const longComputation = () =&gt; {
-  let sum = 0;
-  for (let i = 0; i &lt; 1e10; i++) {
-    sum += i;
-  };
-  return sum;
-};
-const server = http.createServer();
-server.on(&#39;request&#39;, (req, res) =&gt; {
-  if (req.url === &#39;/compute&#39;) {
-    console.info(&#39;计算开始&#39;,new Date());
-    const sum = longComputation();
-    console.info(&#39;计算结束&#39;,new Date());
-    return res.end(`Sum is ${sum}`);
-  } else {
-    res.end(&#39;Ok&#39;)
-  }
-});
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">longComputation</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mf">1e10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">i</span><span class="p">;</span>
+  <span class="p">};</span>
+  <span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">();</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;request&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span> <span class="o">===</span> <span class="s1">&#39;/compute&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;计算开始&#39;</span><span class="p">,</span><span class="ow">new</span> <span class="nb">Date</span><span class="p">());</span>
+    <span class="kd">const</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">longComputation</span><span class="p">();</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;计算结束&#39;</span><span class="p">,</span><span class="ow">new</span> <span class="nb">Date</span><span class="p">());</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="sb">`Sum is </span><span class="si">${</span><span class="nx">sum</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">});</span>
 
-server.listen(3000);
-//打印结果
-//计算开始 2019-07-28T07:08:49.849Z
-//计算结束 2019-07-28T07:09:04.522Z
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mf">3000</span><span class="p">);</span>
+<span class="c1">//打印结果</span>
+<span class="c1">//计算开始 2019-07-28T07:08:49.849Z</span>
+<span class="c1">//计算结束 2019-07-28T07:09:04.522Z</span>
 </code></pre></div>
 <p>查看打印结果，当我们调用<code>127.0.0.1:3000/compute</code>
 的时候，如果想要调用其他的路由地址比如127.0.0.1/大约需要15秒时间，也可以说一个用户请求完第一个<code>compute</code>接口后需要等待15秒，这对于用户来说是极其不友好的。下文我会通过创建多进程的方式<code>child_process.fork</code> 和<code>cluster</code> 来解决解决这个问题。</p>
@@ -1845,80 +1887,80 @@ server.listen(3000);
 <p>fork开启子进程解决文章起初的计算耗时造成线程阻塞。
 在进行 compute 计算时创建子进程，子进程计算完成通过 <code>send</code> 方法将结果发送给主进程，主进程通过 <code>message</code> 监听到信息后处理并退出。</p>
 <p>fork_app.js</p>
-<div class="highlight"><pre><span></span><code>const http = require(&#39;http&#39;);
-const fork = require(&#39;child_process&#39;).fork;
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">fork</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;child_process&#39;</span><span class="p">).</span><span class="nx">fork</span><span class="p">;</span>
 
-const server = http.createServer((req, res) =&gt; {
-    if(req.url == &#39;/compute&#39;){
-        const compute = fork(&#39;./fork_compute.js&#39;);
-        compute.send(&#39;开启一个新的子进程&#39;);
+<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">((</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span> <span class="o">==</span> <span class="s1">&#39;/compute&#39;</span><span class="p">){</span>
+        <span class="kd">const</span> <span class="nx">compute</span> <span class="o">=</span> <span class="nx">fork</span><span class="p">(</span><span class="s1">&#39;./fork_compute.js&#39;</span><span class="p">);</span>
+        <span class="nx">compute</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;开启一个新的子进程&#39;</span><span class="p">);</span>
 
-        // 当一个子进程使用 process.send() 发送消息时会触发 &#39;message&#39; 事件
-        compute.on(&#39;message&#39;, sum =&gt; {
-            res.end(`Sum is ${sum}`);
-            compute.kill();
-        });
+        <span class="c1">// 当一个子进程使用 process.send() 发送消息时会触发 &#39;message&#39; 事件</span>
+        <span class="nx">compute</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="nx">sum</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="sb">`Sum is </span><span class="si">${</span><span class="nx">sum</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+            <span class="nx">compute</span><span class="p">.</span><span class="nx">kill</span><span class="p">();</span>
+        <span class="p">});</span>
 
-        // 子进程监听到一些错误消息退出
-        compute.on(&#39;close&#39;, (code, signal) =&gt; {
-            console.log(`收到close事件，子进程收到信号 ${signal} 而终止，退出码 ${code}`);
-            compute.kill();
-        })
-    }else{
-        res.end(`ok`);
-    }
-});
-server.listen(3000, 127.0.0.1, () =&gt; {
-    console.log(`server started at http://${127.0.0.1}:${3000}`);
-});
+        <span class="c1">// 子进程监听到一些错误消息退出</span>
+        <span class="nx">compute</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;close&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="nx">signal</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`收到close事件，子进程收到信号 </span><span class="si">${</span><span class="nx">signal</span><span class="si">}</span><span class="sb"> 而终止，退出码 </span><span class="si">${</span><span class="nx">code</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+            <span class="nx">compute</span><span class="p">.</span><span class="nx">kill</span><span class="p">();</span>
+        <span class="p">})</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="sb">`ok`</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mf">3000</span><span class="p">,</span> <span class="mf">127.0.0.1</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`server started at http://</span><span class="si">${</span><span class="mf">127.0.0.1</span><span class="si">}</span><span class="sb">:</span><span class="si">${</span><span class="mf">3000</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="p">});</span>
 </code></pre></div>
 <p>fork_compute.js</p>
 <p>针对文初需要进行计算的的例子我们创建子进程拆分出来单独进行运算。</p>
-<div class="highlight"><pre><span></span><code>const computation = () =&gt; {
-    let sum = 0;
-    console.info(&#39;计算开始&#39;);
-    console.time(&#39;计算耗时&#39;);
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">computation</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;计算开始&#39;</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="s1">&#39;计算耗时&#39;</span><span class="p">);</span>
 
-    for (let i = 0; i &lt; 1e10; i++) {
-        sum += i
-    };
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mf">1e10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">i</span>
+    <span class="p">};</span>
 
-    console.info(&#39;计算结束&#39;);
-    console.timeEnd(&#39;计算耗时&#39;);
-    return sum;
-};
+    <span class="nx">console</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s1">&#39;计算结束&#39;</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="s1">&#39;计算耗时&#39;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
+<span class="p">};</span>
 
-process.on(&#39;message&#39;, msg =&gt; {
-    console.log(msg, &#39;process.pid&#39;, process.pid); // 子进程id
-    const sum = computation();
+<span class="nx">process</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="nx">msg</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">msg</span><span class="p">,</span> <span class="s1">&#39;process.pid&#39;</span><span class="p">,</span> <span class="nx">process</span><span class="p">.</span><span class="nx">pid</span><span class="p">);</span> <span class="c1">// 子进程id</span>
+    <span class="kd">const</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">computation</span><span class="p">();</span>
 
-    // 如果Node.js进程是通过进程间通信产生的，那么，process.send()方法可以用来给父进程发送消息
-    process.send(sum);
-})
+    <span class="c1">// 如果Node.js进程是通过进程间通信产生的，那么，process.send()方法可以用来给父进程发送消息</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">sum</span><span class="p">);</span>
+<span class="p">})</span>
 </code></pre></div>
 <p><strong>cluster模块</strong></p>
 <p><strong>cluster 开启子进程Demo</strong></p>
-<div class="highlight"><pre><span></span><code>const http = require(&#39;http&#39;);
-const numCPUs = require(&#39;os&#39;).cpus().length;
-const cluster = require(&#39;cluster&#39;);
-if(cluster.isMaster){
-    console.log(&#39;Master proces id is&#39;,process.pid);
-    // fork workers
-    for(let i= 0;i&lt;numCPUs;i++){
-        cluster.fork();
-    }
-    cluster.on(&#39;exit&#39;,function(worker,code,signal){
-        console.log(&#39;worker process died,id&#39;,worker.process.pid)
-    })
-}else{
-    // Worker可以共享同一个TCP连接
-    // 这里是一个http服务器
-    http.createServer(function(req,res){
-        res.writeHead(200);
-        res.end(&#39;hello word&#39;);
-    }).listen(8000);
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">numCPUs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;os&#39;</span><span class="p">).</span><span class="nx">cpus</span><span class="p">().</span><span class="nx">length</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">cluster</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cluster&#39;</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">cluster</span><span class="p">.</span><span class="nx">isMaster</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Master proces id is&#39;</span><span class="p">,</span><span class="nx">process</span><span class="p">.</span><span class="nx">pid</span><span class="p">);</span>
+    <span class="c1">// fork workers</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span> <span class="mf">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">numCPUs</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="nx">cluster</span><span class="p">.</span><span class="nx">fork</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="nx">cluster</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;exit&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">worker</span><span class="p">,</span><span class="nx">code</span><span class="p">,</span><span class="nx">signal</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;worker process died,id&#39;</span><span class="p">,</span><span class="nx">worker</span><span class="p">.</span><span class="nx">process</span><span class="p">.</span><span class="nx">pid</span><span class="p">)</span>
+    <span class="p">})</span>
+<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+    <span class="c1">// Worker可以共享同一个TCP连接</span>
+    <span class="c1">// 这里是一个http服务器</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span><span class="nx">res</span><span class="p">){</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mf">200</span><span class="p">);</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;hello word&#39;</span><span class="p">);</span>
+    <span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mf">8000</span><span class="p">);</span>
 
-}
+<span class="p">}</span>
 </code></pre></div>
 <p><strong>cluster原理分析</strong></p>
 <p><img alt="img" src="https://pic2.zhimg.com/50/v2-8b30871d873d39aa99a6526a9baa12a1_hd.jpg" /><img alt="img" src="https://pic2.zhimg.com/80/v2-8b30871d873d39aa99a6526a9baa12a1_hd.jpg" /></p>
@@ -1954,23 +1996,23 @@ cluster模块采用的是经典的主从模型，Cluster会创建一个master，
 <p>结合句柄的发送与还原示意图更容易理解。</p>
 <p><img alt="img" src="https://pic1.zhimg.com/50/v2-db1efb168a121ef3e04886906f0ad134_hd.jpg" /><img alt="img" src="https://pic1.zhimg.com/80/v2-db1efb168a121ef3e04886906f0ad134_hd.jpg" /></p>
 <p><code>send()</code>方法在将消息发送到IPC管道前，实际将消息组装成了两个对象，一个参数是hadler，另一个是message。message参数如下所示：</p>
-<div class="highlight"><pre><span></span><code>{
-    cmd:&#39;NODE_HANDLE&#39;,
-    type:&#39;net.Server&#39;,
-    msg:message
-}
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+    <span class="nx">cmd</span><span class="o">:</span><span class="s1">&#39;NODE_HANDLE&#39;</span><span class="p">,</span>
+    <span class="nx">type</span><span class="o">:</span><span class="s1">&#39;net.Server&#39;</span><span class="p">,</span>
+    <span class="nx">msg</span><span class="o">:</span><span class="nx">message</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>发送到IPC管道中的实际上是我们要发送的句柄文件描述符。这个message对象在写入到IPC管道时，也会通过<code>JSON.stringfy()</code>进行序列化。所以最终发送到IPC通道中的信息都是字符串，send()方法能发送消息和句柄并不意味着它能发送任何对象。</p>
 <p>连接了IPC通道的子线程可以读取父进程发来的消息，将字符串通过JSON.parse()解析还原为对象后，才触发message事件将消息传递给应用层使用。在这个过程中，消息对象还要被进行过滤处理，message.cmd的值如果以NODE_为前缀，它将响应一个内部事件internalMessage，如果message.cmd值为NODE_HANDLE,它将取出<code>message.type</code>值和得到的文件描述符一起还原出一个对应的对象。</p>
 <p>以发送的TCP服务器句柄为例，子进程收到消息后的还原过程代码如下:</p>
-<div class="highlight"><pre><span></span><code>function(message,handle,emit){
-    var self = this;
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span><span class="nx">handle</span><span class="p">,</span><span class="nx">emit</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
 
-    var server = new net.Server();
-    server.listen(handler,function(){
-      emit(server);
-    });
-}
+    <span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">net</span><span class="p">.</span><span class="nx">Server</span><span class="p">();</span>
+    <span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">handler</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">emit</span><span class="p">(</span><span class="nx">server</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>这段还原代码，<code>子进程根据message.type创建对应的TCP服务器对象，然后监听到文件描述符上</code>。由于底层细节不被应用层感知，所以子进程中，开发者会有一种服务器对象就是从父进程中直接传递过来的错觉。</p>
 <p>Node进程之间只有消息传递，不会真正的传递对象，这种错觉是抽象封装的结果。目前Node只支持我前面提到的几种句柄，并非任意类型的句柄都能在进程之间传递，除非它有完整的发送和还原的过程。</p>
@@ -1986,52 +2028,52 @@ cluster模块采用的是经典的主从模型，Cluster会创建一个master，
 <li>在主进程中监听了子进程的变化，如果是自杀信号重新启动一个工作进程。</li>
 <li>主进程在监听到退出消息的时候，先退出子进程在退出主进程</li>
 </ul>
-<div class="highlight"><pre><span></span><code>// master.js
-const fork = require(&#39;child_process&#39;).fork;
-const cpus = require(&#39;os&#39;).cpus();
+<div class="highlight"><pre><span></span><code><span class="c1">// master.js</span>
+<span class="kd">const</span> <span class="nx">fork</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;child_process&#39;</span><span class="p">).</span><span class="nx">fork</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">cpus</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;os&#39;</span><span class="p">).</span><span class="nx">cpus</span><span class="p">();</span>
 
-const server = require(&#39;net&#39;).createServer();
-server.listen(3000);
-process.title = &#39;node-master&#39;
+<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;net&#39;</span><span class="p">).</span><span class="nx">createServer</span><span class="p">();</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mf">3000</span><span class="p">);</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;node-master&#39;</span>
 
-const workers = {};
-const createWorker = () =&gt; {
-    const worker = fork(&#39;worker.js&#39;)
-    worker.on(&#39;message&#39;, function (message) {
-        if (message.act === &#39;suicide&#39;) {
-            createWorker();
-        }
-    })
-    worker.on(&#39;exit&#39;, function(code, signal) {
-        console.log(&#39;worker process exited, code: %s signal: %s&#39;, code, signal);
-        delete workers[worker.pid];
-    });
-    worker.send(&#39;server&#39;, server);
-    workers[worker.pid] = worker;
-    console.log(&#39;worker process created, pid: %s ppid: %s&#39;, worker.pid, process.pid);
-}
+<span class="kd">const</span> <span class="nx">workers</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">const</span> <span class="nx">createWorker</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">worker</span> <span class="o">=</span> <span class="nx">fork</span><span class="p">(</span><span class="s1">&#39;worker.js&#39;</span><span class="p">)</span>
+    <span class="nx">worker</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">act</span> <span class="o">===</span> <span class="s1">&#39;suicide&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">createWorker</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="nx">worker</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;exit&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="nx">signal</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;worker process exited, code: %s signal: %s&#39;</span><span class="p">,</span> <span class="nx">code</span><span class="p">,</span> <span class="nx">signal</span><span class="p">);</span>
+        <span class="ow">delete</span> <span class="nx">workers</span><span class="p">[</span><span class="nx">worker</span><span class="p">.</span><span class="nx">pid</span><span class="p">];</span>
+    <span class="p">});</span>
+    <span class="nx">worker</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;server&#39;</span><span class="p">,</span> <span class="nx">server</span><span class="p">);</span>
+    <span class="nx">workers</span><span class="p">[</span><span class="nx">worker</span><span class="p">.</span><span class="nx">pid</span><span class="p">]</span> <span class="o">=</span> <span class="nx">worker</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;worker process created, pid: %s ppid: %s&#39;</span><span class="p">,</span> <span class="nx">worker</span><span class="p">.</span><span class="nx">pid</span><span class="p">,</span> <span class="nx">process</span><span class="p">.</span><span class="nx">pid</span><span class="p">);</span>
+<span class="p">}</span>
 
-for (let i=0; i&lt;cpus.length; i++) {
-    createWorker();
-}
+<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mf">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">cpus</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">createWorker</span><span class="p">();</span>
+<span class="p">}</span>
 
-process.once(&#39;SIGINT&#39;, close.bind(this, &#39;SIGINT&#39;)); // kill(2) Ctrl-C
-process.once(&#39;SIGQUIT&#39;, close.bind(this, &#39;SIGQUIT&#39;)); // kill(3) Ctrl-\
-process.once(&#39;SIGTERM&#39;, close.bind(this, &#39;SIGTERM&#39;)); // kill(15) default
-process.once(&#39;exit&#39;, close.bind(this));
+<span class="nx">process</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="s1">&#39;SIGINT&#39;</span><span class="p">,</span> <span class="nx">close</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s1">&#39;SIGINT&#39;</span><span class="p">));</span> <span class="c1">// kill(2) Ctrl-C</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="s1">&#39;SIGQUIT&#39;</span><span class="p">,</span> <span class="nx">close</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s1">&#39;SIGQUIT&#39;</span><span class="p">));</span> <span class="c1">// kill(3) Ctrl-\</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="s1">&#39;SIGTERM&#39;</span><span class="p">,</span> <span class="nx">close</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s1">&#39;SIGTERM&#39;</span><span class="p">));</span> <span class="c1">// kill(15) default</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="s1">&#39;exit&#39;</span><span class="p">,</span> <span class="nx">close</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
 
-function close (code) {
-    console.log(&#39;进程退出！&#39;, code);
+<span class="kd">function</span> <span class="nx">close</span> <span class="p">(</span><span class="nx">code</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;进程退出！&#39;</span><span class="p">,</span> <span class="nx">code</span><span class="p">);</span>
 
-    if (code !== 0) {
-        for (let pid in workers) {
-            console.log(&#39;master process exited, kill worker pid: &#39;, pid);
-            workers[pid].kill(&#39;SIGINT&#39;);
-        }
-    }
+    <span class="k">if</span> <span class="p">(</span><span class="nx">code</span> <span class="o">!==</span> <span class="mf">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">pid</span> <span class="ow">in</span> <span class="nx">workers</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;master process exited, kill worker pid: &#39;</span><span class="p">,</span> <span class="nx">pid</span><span class="p">);</span>
+            <span class="nx">workers</span><span class="p">[</span><span class="nx">pid</span><span class="p">].</span><span class="nx">kill</span><span class="p">(</span><span class="s1">&#39;SIGINT&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
-    process.exit(0);
-}
+    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>工作进程</p>
 <p>worker.js 子进程处理逻辑如下：</p>
@@ -2040,34 +2082,34 @@ function close (code) {
 <li>通过 message 事件接收主进程 send 方法发送的消息</li>
 <li>监听 uncaughtException 事件，捕获未处理的异常，发送自杀信息由主进程重建进程，子进程在链接关闭之后退出</li>
 </ul>
-<div class="highlight"><pre><span></span><code>// worker.js
-const http = require(&#39;http&#39;);
-const server = http.createServer((req, res) =&gt; {
-    res.writeHead(200, {
-        &#39;Content-Type&#39;: &#39;text/plan&#39;
-    });
-    res.end(&#39;I am worker, pid: &#39; + process.pid + &#39;, ppid: &#39; + process.ppid);
-    throw new Error(&#39;worker process exception!&#39;); // 测试异常进程退出、重启
-});
+<div class="highlight"><pre><span></span><code><span class="c1">// worker.js</span>
+<span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">((</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mf">200</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/plan&#39;</span>
+    <span class="p">});</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;I am worker, pid: &#39;</span> <span class="o">+</span> <span class="nx">process</span><span class="p">.</span><span class="nx">pid</span> <span class="o">+</span> <span class="s1">&#39;, ppid: &#39;</span> <span class="o">+</span> <span class="nx">process</span><span class="p">.</span><span class="nx">ppid</span><span class="p">);</span>
+    <span class="k">throw</span> <span class="ow">new</span> <span class="ne">Error</span><span class="p">(</span><span class="s1">&#39;worker process exception!&#39;</span><span class="p">);</span> <span class="c1">// 测试异常进程退出、重启</span>
+<span class="p">});</span>
 
-let worker;
-process.title = &#39;node-worker&#39;
-process.on(&#39;message&#39;, function (message, sendHandle) {
-    if (message === &#39;server&#39;) {
-        worker = sendHandle;
-        worker.on(&#39;connection&#39;, function(socket) {
-            server.emit(&#39;connection&#39;, socket);
-        });
-    }
-});
+<span class="kd">let</span> <span class="nx">worker</span><span class="p">;</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;node-worker&#39;</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="nx">sendHandle</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">message</span> <span class="o">===</span> <span class="s1">&#39;server&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">worker</span> <span class="o">=</span> <span class="nx">sendHandle</span><span class="p">;</span>
+        <span class="nx">worker</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">server</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="nx">socket</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">});</span>
 
-process.on(&#39;uncaughtException&#39;, function (err) {
-    console.log(err);
-    process.send({act: &#39;suicide&#39;});
-    worker.close(function () {
-        process.exit(1);
-    })
-})
+<span class="nx">process</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;uncaughtException&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">send</span><span class="p">({</span><span class="nx">act</span><span class="o">:</span> <span class="s1">&#39;suicide&#39;</span><span class="p">});</span>
+    <span class="nx">worker</span><span class="p">.</span><span class="nx">close</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">})</span>
 </code></pre></div>
 <p><strong>Node.js 进程守护</strong></p>
 <p><strong>什么是进程守护？</strong></p>
@@ -2075,7 +2117,7 @@ process.on(&#39;uncaughtException&#39;, function (err) {
 <p><strong>如何实现进程守护</strong></p>
 <p>这里我只说一些第三方的进程守护框架，pm2 和 forever ，它们都可以实现进程守护，底层也都是通过上面讲的 child_process 模块和 cluster 模块 实现的，这里就不再提它们的原理。</p>
 <p>pm2 指定生产环境启动一个名为 test 的 node 服务</p>
-<div class="highlight"><pre><span></span><code>pm2 start app.js --env production --name test
+<div class="highlight"><pre><span></span><code><span class="nx">pm2</span> <span class="nx">start</span> <span class="nx">app</span><span class="p">.</span><span class="nx">js</span> <span class="o">--</span><span class="nx">env</span> <span class="nx">production</span> <span class="o">--</span><span class="nx">name</span> <span class="nx">test</span>
 </code></pre></div>
 <p><strong>pm2常用api</strong></p>
 <ul>
@@ -2099,7 +2141,7 @@ process.on(&#39;uncaughtException&#39;, function (err) {
   ps aux | grep server
   说明:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>root     20158  0.0  5.0 1251592 95396 ?       Sl   5月17   1:19 node /srv/mini-program-api/launch_pm2.js
+<div class="highlight"><pre><span></span><code><span class="nx">root</span>     <span class="mf">20158</span>  <span class="mf">0.0</span>  <span class="mf">5.0</span> <span class="mf">1251592</span> <span class="mf">95396</span> <span class="o">?</span>       <span class="nx">Sl</span>   <span class="mf">5</span><span class="nx">月17</span>   <span class="mf">1</span><span class="o">:</span><span class="mf">19</span> <span class="nx">node</span> <span class="o">/</span><span class="nx">srv</span><span class="o">/</span><span class="nx">mini</span><span class="o">-</span><span class="nx">program</span><span class="o">-</span><span class="nx">api</span><span class="o">/</span><span class="nx">launch_pm2</span><span class="p">.</span><span class="nx">js</span>
 </code></pre></div>
 <p>上面是执行命令后在linux中显示的结果，第二个参数就是进程对应的PID</p>
 <ul>
@@ -2115,7 +2157,7 @@ process.on(&#39;uncaughtException&#39;, function (err) {
 </li>
 <li>kill 命令用于终止进程</li>
 </ul>
-<div class="highlight"><pre><span></span><code>例如： `kill -9 [PID]`
+<div class="highlight"><pre><span></span><code><span class="nx">例如</span><span class="err">：</span> <span class="sb">`kill -9 [PID]`</span>
 </code></pre></div>
 <p>-9 表示强迫进程立即停止</p>
 <p>这个强大和危险的命令迫使进程在运行时突然终止，进程在结束后不能自我清理。 危害是导致系统资源无法正常释放，一般不推荐使用，除非其他办法都无效。 当使用此命令时，一定要通过ps -ef确认没有剩下任何僵尸进程。 只能通过终止父进程来消除僵尸进程。如果僵尸进程被init收养，问题就比较严重了。 杀死init进程意味着关闭系统。 如果系统中有僵尸进程，并且其父进程是init， 而且僵尸进程占用了大量的系统资源，那么就需要在某个时候重启机器以清除进程表了。</p>
@@ -2126,13 +2168,13 @@ process.on(&#39;uncaughtException&#39;, function (err) {
 </ol>
 <p><strong>Node.js 线程</strong></p>
 <p><strong>Node.js关于单线程的误区</strong></p>
-<div class="highlight"><pre><span></span><code>const http = require(&#39;http&#39;);
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
 
-const server = http.createServer();
-server.listen(3000,()=&gt;{
-    process.title=&#39;程序员成长指北测试进程&#39;;
-    console.log(&#39;进程id&#39;,process.pid)
-})
+<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">();</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mf">3000</span><span class="p">,()=&gt;{</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">title</span><span class="o">=</span><span class="s1">&#39;程序员成长指北测试进程&#39;</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;进程id&#39;</span><span class="p">,</span><span class="nx">process</span><span class="p">.</span><span class="nx">pid</span><span class="p">)</span>
+<span class="p">})</span>
 </code></pre></div>
 <p>仍然看本文第一段代码，创建了http服务，开启了一个进程，都说了Node.js是单线程，所以 Node 启动后线程数应该为 1，但是为什么会开启7个线程呢？难道Javascript不是单线程不知道小伙伴们有没有这个疑问？</p>
 <p>解释一下这个原因：</p>
@@ -2146,16 +2188,16 @@ server.listen(3000,()=&gt;{
 <p>所以大家常说的 Node 是单线程的指的是 JavaScript 的执行是单线程的(开发者编写的代码运行在单线程环境中)，但 Javascript 的宿主环境，无论是 Node 还是浏览器都是多线程的因为libuv中有线程池的概念存在的，libuv会通过类似线程池的实现来模拟不同操作系统的异步调用，这对开发者来说是不可见的。</p>
 <p><strong>某些异步 IO 会占用额外的线程</strong></p>
 <p>还是上面那个例子，我们在定时器执行的同时，去读一个文件：</p>
-<div class="highlight"><pre><span></span><code>const fs = require(&#39;fs&#39;)
-setInterval(() =&gt; {
-    console.log(new Date().getTime())
-}, 3000)
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">)</span>
+<span class="nx">setInterval</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="ow">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">())</span>
+<span class="p">},</span> <span class="mf">3000</span><span class="p">)</span>
 
-fs.readFile(&#39;./index.html&#39;, () =&gt; {})
+<span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="s1">&#39;./index.html&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{})</span>
 </code></pre></div>
 <p>线程数量变成了 11 个，这是因为在 Node 中有一些 IO 操作（DNS，FS）和一些 CPU 密集计算（Zlib，Crypto）会启用 Node 的线程池，而线程池默认大小为 4，因为线程数变成了 11。
 我们可以手动更改线程池默认大小：</p>
-<div class="highlight"><pre><span></span><code>process.env.UV_THREADPOOL_SIZE = 64
+<div class="highlight"><pre><span></span><code><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">UV_THREADPOOL_SIZE</span> <span class="o">=</span> <span class="mf">64</span>
 </code></pre></div>
 <p>一行代码轻松把线程变成 71。</p>
 <p>Libuv</p>
@@ -2167,40 +2209,40 @@ fs.readFile(&#39;./index.html&#39;, () =&gt; {})
 <p><strong>Node.js 线程创建</strong></p>
 <p>直到 Node 10.5.0 的发布，官方才给出了一个实验性质的模块 worker_threads 给 Node 提供真正的多线程能力。</p>
 <p>先看下简单的 demo：</p>
-<div class="highlight"><pre><span></span><code>const {
-  isMainThread,
-  parentPort,
-  workerData,
-  threadId,
-  MessageChannel,
-  MessagePort,
-  Worker
-} = require(&#39;worker_threads&#39;);
+<div class="highlight"><pre><span></span><code><span class="kd">const</span> <span class="p">{</span>
+  <span class="nx">isMainThread</span><span class="p">,</span>
+  <span class="nx">parentPort</span><span class="p">,</span>
+  <span class="nx">workerData</span><span class="p">,</span>
+  <span class="nx">threadId</span><span class="p">,</span>
+  <span class="nx">MessageChannel</span><span class="p">,</span>
+  <span class="nx">MessagePort</span><span class="p">,</span>
+  <span class="nx">Worker</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;worker_threads&#39;</span><span class="p">);</span>
 
-function mainThread() {
-  for (let i = 0; i &lt; 5; i++) {
-    const worker = new Worker(__filename, { workerData: i });
-    worker.on(&#39;exit&#39;, code =&gt; { console.log(`main: worker stopped with exit code ${code}`); });
-    worker.on(&#39;message&#39;, msg =&gt; {
-      console.log(`main: receive ${msg}`);
-      worker.postMessage(msg + 1);
-    });
-  }
-}
+<span class="kd">function</span> <span class="nx">mainThread</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mf">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mf">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">worker</span> <span class="o">=</span> <span class="ow">new</span> <span class="nx">Worker</span><span class="p">(</span><span class="nx">__filename</span><span class="p">,</span> <span class="p">{</span> <span class="nx">workerData</span><span class="o">:</span> <span class="nx">i</span> <span class="p">});</span>
+    <span class="nx">worker</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;exit&#39;</span><span class="p">,</span> <span class="nx">code</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`main: worker stopped with exit code </span><span class="si">${</span><span class="nx">code</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span> <span class="p">});</span>
+    <span class="nx">worker</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="nx">msg</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`main: receive </span><span class="si">${</span><span class="nx">msg</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+      <span class="nx">worker</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="nx">msg</span> <span class="o">+</span> <span class="mf">1</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 
-function workerThread() {
-  console.log(`worker: workerDate ${workerData}`);
-  parentPort.on(&#39;message&#39;, msg =&gt; {
-    console.log(`worker: receive ${msg}`);
-  }),
-  parentPort.postMessage(workerData);
-}
+<span class="kd">function</span> <span class="nx">workerThread</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`worker: workerDate </span><span class="si">${</span><span class="nx">workerData</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+  <span class="nx">parentPort</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="nx">msg</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`worker: receive </span><span class="si">${</span><span class="nx">msg</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+  <span class="p">}),</span>
+  <span class="nx">parentPort</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="nx">workerData</span><span class="p">);</span>
+<span class="p">}</span>
 
-if (isMainThread) {
-  mainThread();
-} else {
-  workerThread();
-}
+<span class="k">if</span> <span class="p">(</span><span class="nx">isMainThread</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mainThread</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="nx">workerThread</span><span class="p">();</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>上述代码在主线程中开启五个子线程，并且主线程向子线程发送简单的消息。</p>
 <p>由于 worker_thread 目前仍然处于实验阶段，所以启动时需要增加 --experimental-worker flag，运行后观察活动监视器，开启了5个子线程</p>

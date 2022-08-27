@@ -1,5 +1,7 @@
 import React from 'react';
 import { Table } from 'reactstrap';
+import { timestampToTime, getHistorys } from './utils';
+import MyToast from './components/MyToast';
 import './App.css';
 
 class App extends React.Component {
@@ -7,52 +9,13 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      historys: this.init(),
+      historys: getHistorys(),
+      showToast: false,
+      toastTitle: '',
+      toastBody: '',
     };
   }
-
-  init() {
-    // 读取 localStorage 封装到工具函数中
-    var historyStr = window.localStorage.getItem('blog-history') || '';
-    if (!historyStr || typeof historyStr !== 'string') {
-      historyStr = '{}';
-    }
-    var historyObj = {};
-    try {
-      historyObj = JSON.parse(historyStr);
-    } catch (e) {
-      console.log(e);
-    }
   
-    var historyArr = [];
-    for (let key in historyObj) {
-      let value = historyObj[key];
-      let item = {
-        name: key,
-        time: value.time,
-        url: value.url,
-      };
-      historyArr.push(item);
-      // 可以获取全部的历史记录，放在 state 中。界面先渲染 30 条记录，滚动到底部后，加载更多记录即可（如果是异步网络请求，也类似这样渲染）。
-      if (historyArr.length >= 30) break;
-    }
-    historyArr.sort((a, b) => (a.time < b.time ? 1 : -1));
-    return historyArr;
-  }
-  
-  // 工具函数 utils
-  timestampToTime(timestamp) {
-    var date = new Date(timestamp);
-    var Y = date.getFullYear() + '-';
-    var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-    var D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate()) + ' ';
-    var h = (date.getHours() < 10 ? '0'+date.getHours() : date.getHours()) + ':';
-    var m = (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes()) + ':';
-    var s = (date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds()); 
-    let strDate = Y+M+D+h+m+s;
-    return strDate;
-  }
-
   deleteLog = (index) => {
     let historys = this.state.historys.slice(0);
     historys.splice(index, 1);
@@ -65,12 +28,32 @@ class App extends React.Component {
     });
     const historyStr = JSON.stringify(historyObj);
     window.localStorage.setItem('blog-history', historyStr);
-    
     // 删除成功后，界面提示一个 toast 反馈用户
+    this.openToast('温馨提示', '当前浏览记录已删除');
+    setTimeout(() => {
+      this.closeToast();
+    }, 3000);
+  }
+
+  openToast = (title = '', body = '') => {
+    this.setState({
+      showToast: true,
+      toastTitle: title,
+      toastBody: body,
+    });
+  }
+
+  closeToast = () => {
+    this.setState({
+      showToast: false,
+      toastTitle: '',
+      toastBody: '',
+    });
   }
   
   // 需要测试打包目录 /history/build 目录下
   render () {
+    // 这里的样式需要修改一下
     if (this.state.historys.length === 0) {
       return '没有浏览记录';
     }
@@ -93,13 +76,16 @@ class App extends React.Component {
                 <tr key={name}>
                   <td><span>{name}</span></td>
                   <td><a href={url}>{url}</a></td>
-                  <td>{this.timestampToTime(time)}</td>
+                  <td>{timestampToTime(time)}</td>
                   <td onClick={() => {this.deleteLog(index)}} style={{cursor: 'pointer'}}>x</td> 
                 </tr>
               );
             })}
           </tbody>
         </Table>
+        {this.state.showToast &&
+          <MyToast title={this.state.toastTitle} body={this.state.toastBody} closeToast={this.closeToast}/>
+        }
       </div>
     );
   }
