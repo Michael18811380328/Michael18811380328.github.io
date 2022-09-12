@@ -1,0 +1,7628 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/javascript/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BD%BF%E7%94%A8%20GraphQL%20%E8%80%8C%E6%94%BE%E5%BC%83%20REST/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
+    
+    
+      
+        <title>为什么我使用 GraphQL 而放弃 REST - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.24c991ad.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ef5552">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#graphql-rest-api" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              为什么我使用 GraphQL 而放弃 REST
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Michael18811380328/Michael18811380328.github.io/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          About
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        README
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        index
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          笔记
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="笔记" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../note/algre-note/" class="md-nav__link">
+        algre-note
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../note/frontend-note/" class="md-nav__link">
+        frontend-note
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../note/network-note/" class="md-nav__link">
+        network-note
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../note/other-note/" class="md-nav__link">
+        other-note
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../note/think-note/" class="md-nav__link">
+        think-note
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../note/%E6%8F%90%E5%8D%87%E5%B7%A5%E4%BD%9C%E6%95%88%E7%8E%87/" class="md-nav__link">
+        提升工作效率
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../note/%E7%A8%8B%E5%BA%8F%E5%91%98%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8%E5%91%A8%E6%9C%AB%E6%8F%90%E9%AB%98/" class="md-nav__link">
+        程序员如何利用周末提高.md
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Javascript
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Javascript" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Javascript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1%20%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%89%8D%E7%AB%AF%E9%80%82%E9%85%8D%E6%96%B9%E6%A1%88%EF%BC%88%E6%80%BB%E7%BB%93%EF%BC%89/" class="md-nav__link">
+        1 移动端前端适配方案（总结）
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+        10-移动端开发教程-移动端事件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2%20%E5%89%8D%E7%AB%AF%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%80%82%E9%85%8D%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        2 前端移动端适配总结
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3%20%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%80%82%E9%85%8D%E6%96%B9%E6%A1%88/" class="md-nav__link">
+        3 移动端适配方案
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4%20%E7%A7%BB%E5%8A%A8WEB%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E8%B5%84%E6%BA%90%E6%95%B4%E5%90%88/" class="md-nav__link">
+        4 移动WEB前端开发资源整合
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AMD%20%E5%92%8C%20CMD%20%E7%9A%84%E5%8C%BA%E5%88%AB%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/" class="md-nav__link">
+        AMD 和 CMD 的区别有哪些？
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ActionSheet%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E6%94%B9%E8%BF%9B/" class="md-nav__link">
+        ActionSheet回调函数享元模式改进
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CommonJS-AMD-CMD/" class="md-nav__link">
+        CommonJS-AMD-CMD
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Creating%20and%20triggering%20events/" class="md-nav__link">
+        Creating and triggering events
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ECMA7%E6%96%B0%E6%8F%90%E6%A1%88/" class="md-nav__link">
+        ECMA7新提案
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ES6%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8/" class="md-nav__link">
+        ES6 迭代器与生成器
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ES6-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        ES6-阮一峰
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ES6newFeature/" class="md-nav__link">
+        ES6newFeature
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ES7%E6%96%B0%E7%89%B9%E6%80%A7/" class="md-nav__link">
+        ES7新特性
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FE-Cookbook/" class="md-nav__link">
+        FE-Cookbook
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Favicon%20dimensions/" class="md-nav__link">
+        Favicon dimensions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../File%20browser/" class="md-nav__link">
+        File browser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FileReader/" class="md-nav__link">
+        FileReader
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Formula%20Parser/" class="md-nav__link">
+        Formula Parser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../G2%20%E7%9A%84%E5%9B%BE%E8%A1%A8%E5%9D%90%E6%A0%87%E8%BD%B4%20Axis%20%E5%9D%90%E6%A0%87%E8%BD%B4/" class="md-nav__link">
+        G2 的图表坐标轴 Axis 坐标轴
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GRASP%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%8E%9F%E5%88%99/" class="md-nav__link">
+        GRASP软件设计的模式和原则
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Google%20JavaScript%20Style%20Guide/" class="md-nav__link">
+        Google JavaScript Style Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GraphQL%20vs%20REST%20API%20%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        GraphQL vs REST API 架构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../H5%E6%8B%96%E6%8B%BDfirefox%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        H5拖拽firefox浏览器兼容问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HTML5%E8%A7%A6%E6%91%B8%E4%BA%8B%E4%BB%B6%28touchstart%E3%80%81touchmove%E5%92%8Ctouchend%29/" class="md-nav__link">
+        HTML5触摸事件(touchstart、touchmove和touchend)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HTTP%20%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        HTTP 教程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../How%20to%20clean%20your%20Docker%20data/" class="md-nav__link">
+        How to clean your Docker data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ID%20%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/react-dom/" class="md-nav__link">
+        react-dom
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Installing%20ts-jest/" class="md-nav__link">
+        Installing ts-jest
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%20%E5%8A%A0%E6%B3%95%E4%B9%98%E6%B3%95%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3-number-precision/" class="md-nav__link">
+        JS 加法乘法错误解决-number-precision
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        JS 性能优化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        JS 设计模式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS-testing/" class="md-nav__link">
+        JS-testing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JSON%20Server/" class="md-nav__link">
+        JSON Server
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JSzip/" class="md-nav__link">
+        JSzip
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%E5%88%A4%E6%96%AD%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1%E7%88%B6%E5%AD%90%E5%85%B3%E7%B3%BB/" class="md-nav__link">
+        JS判断事件对象父子关系
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3%E5%8C%96%28flat%29%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        JS数组扁平化(flat)方法总结详解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%E7%9A%84%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C%EF%BC%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%97%B4%E7%9A%84%E5%8D%8F%E4%BD%9C/" class="md-nav__link">
+        JS的异步操作，浏览器的多线程间的协作
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JavaScript%20JSON.stringify%28%29/" class="md-nav__link">
+        JavaScript JSON.stringify()
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JavaScript%20%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%86%8D%E8%B0%88Event%20Loop/" class="md-nav__link">
+        JavaScript 运行机制详解：再谈Event Loop
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Javascript%E4%B8%ADdocument.execCommand%28%29%E7%9A%84%E7%94%A8%E6%B3%95/" class="md-nav__link">
+        Javascript中document.execCommand()的用法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Javascript%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%95%B0%E7%BB%84%E9%99%8D%E7%BB%B4/" class="md-nav__link">
+        Javascript实现的数组降维
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LocalStorage%E7%9A%84%E5%89%AF%E6%9C%AC/" class="md-nav__link">
+        LocalStorage的副本
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mac%E4%B8%8A%E6%90%AD%E5%BB%BAnginx%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        Mac上搭建nginx教程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Math-trunk/" class="md-nav__link">
+        Math-trunk
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MkDocs%20%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/" class="md-nav__link">
+        MkDocs 中文文档
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mocha%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        Mocha 单元测试
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Nginx%E5%9C%A8%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8/" class="md-nav__link">
+        Nginx在应用程序中的作用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PWA%20%E7%9A%84%E4%BC%98%E5%8A%BF/" class="md-nav__link">
+        PWA 的优势
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PWA-%E6%B8%90%E8%BF%9B%E5%BC%8FWeb%E5%BA%94%E7%94%A8%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        PWA-渐进式Web应用简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RESTful%20API%20%E8%AE%BE%E8%AE%A1%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        RESTful API 设计指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RVM/" class="md-nav__link">
+        RVM
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Resumable%20%E5%A4%A7%E6%96%87%E4%BB%B6%E5%88%86%E5%9D%97%E4%B8%8A%E4%BC%A0%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        Resumable 大文件分块上传介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Ruby%E6%A0%87%E5%87%86%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" class="md-nav__link">
+        Ruby标准开发环境部署
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SSH%E5%8E%9F%E7%90%86%E4%B8%8E%E8%BF%90%E7%94%A8%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" class="md-nav__link">
+        SSH原理与运用（一）：远程登录
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Sentry/" class="md-nav__link">
+        Sentry
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Smart%20PNG%20and%20JPEG%20compression/" class="md-nav__link">
+        Smart PNG and JPEG compression
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Swagger%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        Swagger介绍及使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Synchronous%20XMLHttpRequest%20on%20the%20main%20thread%20is%20deprecated/" class="md-nav__link">
+        Synchronous XMLHttpRequest on the main thread is deprecated
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TensorFlow.js%20%E5%85%A5%E9%97%A8%E5%B9%B6%E5%8A%A8%E6%89%8B%E7%BC%96%E5%86%99%E5%A8%B1%E4%B9%90%E7%89%88%E7%9A%84%E5%8F%8C%E8%89%B2%E7%90%83%E5%9C%A8%E7%BA%BF%E9%A2%84%E6%B5%8B/" class="md-nav__link">
+        TensorFlow.js 入门并动手编写娱乐版的双色球在线预测
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Uncaught%20TypeError%20Cannot%20set%20property/" class="md-nav__link">
+        Uncaught TypeError Cannot set property
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Visual%20Studio%20Code%E5%BF%85%E5%A4%87%E6%8F%92%E4%BB%B6/" class="md-nav__link">
+        Visual Studio Code必备插件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Window.getComputedStyle%28%29/" class="md-nav__link">
+        Window.getComputedStyle()
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Work%20at%20Alibaba%20%E5%8A%A0%E5%85%A5%E6%88%91%E4%BB%AC/" class="md-nav__link">
+        Work at Alibaba 加入我们
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%5BH5%5Dvideo%E6%A0%87%E7%AD%BE%E7%9A%84poster%E5%B1%9E%E6%80%A7%E5%9B%BE%E7%89%87%E9%93%BA%E6%BB%A1%E6%95%B4%E4%B8%AA%E5%B1%8F%E5%B9%95/" class="md-nav__link">
+        [H5]video标签的poster属性图片铺满整个屏幕
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendChild%28%29%20%E6%96%B9%E6%B3%95%E7%A7%BB%E9%99%A4DOM%E8%8A%82%E7%82%B9/" class="md-nav__link">
+        appendChild() 方法移除DOM节点
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../babel%E6%89%93%E5%8C%85%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        babel打包使用说明
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../background-image%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E6%8B%89%E4%BC%B8%E5%B9%B3%E9%93%BA/" class="md-nav__link">
+        background-image背景图片拉伸平铺
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../caniuse-lite%20browserslis%20%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" class="md-nav__link">
+        caniuse-lite browserslis 报错解决
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../console.log%E5%90%8C%E6%AD%A5%E4%B8%8E%E5%BC%82%E6%AD%A5/" class="md-nav__link">
+        console.log同步与异步
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contentEditable%20%E5%AE%9E%E7%8E%B0%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        contentEditable 实现富文本编辑器
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../createJS/readme/" class="md-nav__link">
+        readme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../createjs/" class="md-nav__link">
+        createjs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document.execCommand/" class="md-nav__link">
+        document.execCommand
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editor-js/" class="md-nav__link">
+        editor-js
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../font-smoothing%20%E4%BC%98%E5%8C%96%E5%AD%97%E4%BD%93%E6%98%BE%E7%A4%BA/" class="md-nav__link">
+        font-smoothing 优化字体显示
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../http-server/" class="md-nav__link">
+        http-server
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iOS%20safari%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8Aoverflow%20scroll%E5%85%83%E7%B4%A0%E6%97%A0%E6%B3%95%E6%BB%9A%E5%8A%A8bug%E6%B7%B1%E7%A9%B6/" class="md-nav__link">
+        iOS safari浏览器上overflow scroll元素无法滚动bug深究
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iframe/" class="md-nav__link">
+        iframe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ipad%20%E4%BD%BF%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        ipad 使用小技巧
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../js%20%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%AF%B9%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/" class="md-nav__link">
+        js 移动端对键盘监听
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../js%E4%B8%AD%E9%80%9A%E8%BF%87Object.prototype.toString%E6%96%B9%E6%B3%95----%E7%B2%BE%E7%A1%AE%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+        js中通过Object.prototype.toString方法----精确判断对象的类型
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../localstorage/" class="md-nav__link">
+        localstorage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../markdown-emoji/" class="md-nav__link">
+        markdown-emoji
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../markdown%E8%AF%AD%E6%B3%95%E7%BB%BC%E5%90%88/" class="md-nav__link">
+        markdown语法综合
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nginx/" class="md-nav__link">
+        nginx
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../onbeforeunload/" class="md-nav__link">
+        onbeforeunload
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parcel/" class="md-nav__link">
+        parcel
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssh%20connect%20to%20host%20github.com%20port%2022%20Connection%20refused%20fatal%20Could%20not%20read%20from%20remote%20repository%20%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" class="md-nav__link">
+        ssh connect to host github.com port 22 Connection refused fatal Could not read from remote repository 报错解决
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../text-runner/" class="md-nav__link">
+        text-runner
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../throttle-lodash/" class="md-nav__link">
+        throttle-lodash
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../viewerjs/" class="md-nav__link">
+        viewerjs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vscode%E4%BF%9D%E5%AD%98%E8%87%AA%E5%8A%A8%E5%9C%A8%E6%9C%AB%E5%B0%BE%E5%8A%A0%E7%A9%BA%E8%A1%8C/" class="md-nav__link">
+        vscode保存自动在末尾加空行
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web-worker/" class="md-nav__link">
+        web-worker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../webpack%20%E8%B5%B7%E6%AD%A5/" class="md-nav__link">
+        webpack 起步
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../window.requestAnimationFrame/" class="md-nav__link">
+        window.requestAnimationFrame
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%CE%BCPlot/" class="md-nav__link">
+        μPlot
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95composition/" class="md-nav__link">
+        中文输入法composition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          为什么我使用 GraphQL 而放弃 REST
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        为什么我使用 GraphQL 而放弃 REST
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rest" class="md-nav__link">
+    REST 有什么问题吗？
+  </a>
+  
+    <nav class="md-nav" aria-label="REST 有什么问题吗？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rest-api" class="md-nav__link">
+    每个 REST API 都是独特的
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    没有静态类型意味着要注意类型验证
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    分页和过滤并不简单
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    不容易记录和测试
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    关系查询和批量查询会让人更加沮丧
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    你需要同时在服务器和客户端上实现每个端点
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graphql" class="md-nav__link">
+    GraphQL 如何做得更好？
+  </a>
+  
+    <nav class="md-nav" aria-label="GraphQL 如何做得更好？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    一个简单的例子
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphql_1" class="md-nav__link">
+    GraphQL 是个时髦的东西，是一种时尚，对吗？
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#so-whats-wrong-with-rest" class="md-nav__link">
+    So what’s wrong with REST?
+  </a>
+  
+    <nav class="md-nav" aria-label="So what’s wrong with REST?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#every-rest-api-is-a-snowflake" class="md-nav__link">
+    Every REST API is a snowflake
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-static-typing-means-caring-about-type-validation" class="md-nav__link">
+    No static typing means caring about type validation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pagination-and-filtering-is-not-so-simple" class="md-nav__link">
+    Pagination and filtering is not so simple
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-easy-to-document-and-test" class="md-nav__link">
+    Not easy to document and test
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relations-and-batch-queries-make-it-even-more-frustrating" class="md-nav__link">
+    Relations and batch queries make it even more frustrating
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#you-need-every-endpoint-implemented-both-on-server-and-client" class="md-nav__link">
+    You need every endpoint implemented both on server and client
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#and-hows-graphql-better" class="md-nav__link">
+    And how’s GraphQL better?
+  </a>
+  
+    <nav class="md-nav" aria-label="And how’s GraphQL better?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-quick-example" class="md-nav__link">
+    A quick example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphql-is-this-new-hipster-thing-a-fad-right" class="md-nav__link">
+    GraphQL is this new hipster thing, a fad, right?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BA%94%E5%B9%B4%E4%B9%8B%E5%90%8E%E7%9A%84%E5%89%8D%E7%AB%AF%E4%BC%9A%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%EF%BC%9F/" class="md-nav__link">
+        五年之后的前端会是什么样？
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%8A%A0%E8%BD%BD%E7%9A%84%E8%BF%87%E7%A8%8B/" class="md-nav__link">
+        从输入URL到页面加载的过程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        代码规范
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%A0%E9%9D%A0%E5%93%AA%E4%BA%9B%E8%AE%B2%E8%A7%A3%E5%AD%A6%E4%BC%9A%E4%BA%86%E6%9B%BE%E7%BB%8F%E6%80%8E%E4%B9%88%E4%B9%9F%E5%AD%A6%E4%B8%8D%E4%BC%9A%E7%9A%84%E7%AE%97%E6%B3%95%EF%BC%9F/" class="md-nav__link">
+        你靠哪些讲解学会了曾经怎么也学不会的算法？
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8%20nvm%20%E7%AE%A1%E7%90%86%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E7%9A%84%20node%20%E4%B8%8E%20npm/" class="md-nav__link">
+        使用 nvm 管理不同版本的 node 与 npm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8Jest%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        使用Jest单元测试
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8Jest%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        使用Jest测试
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8nodejs%E8%BF%9E%E6%8E%A5mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" class="md-nav__link">
+        使用nodejs连接mysql数据库实现增删改查
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/" class="md-nav__link">
+        内存泄漏
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%88%86%E5%B8%83%E5%BC%8F%E5%92%8C%E9%9B%86%E7%BE%A4/" class="md-nav__link">
+        分布式和集群
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%88%A4%E6%96%AD%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AFpc%E7%AB%AF%E8%BF%98%E6%98%AF%E6%89%8B%E6%9C%BA%E7%AB%AF/" class="md-nav__link">
+        判断浏览器是pc端还是手机端
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E4%BD%BF%E7%94%A8js%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        前端使用js读取文件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8Cseo%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        前端如何进行seo优化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        前端常用工具
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E8%AF%BB%E4%B9%A6%E7%B1%8D%E6%9C%89%E5%93%AA%E4%BA%9B%E5%80%BC%E5%BE%97%E6%8E%A8%E8%8D%90%EF%BC%9F/" class="md-nav__link">
+        前端开发工程师必读书籍有哪些值得推荐？
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E4%B8%AD%E9%98%B6/" class="md-nav__link">
+        前端技术中阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E6%8F%90%E5%8D%87/" class="md-nav__link">
+        前端技术提升
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E6%9C%AA%E6%9D%A5%E5%8F%91%E5%B1%95/" class="md-nav__link">
+        前端未来发展
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E5%BC%80%E5%8F%91/" class="md-nav__link">
+        前端模块化开发
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7%E7%90%86%E8%AE%BA/" class="md-nav__link">
+        前端监控理论
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E8%8B%B1%E8%AF%AD%E5%8D%95%E8%AF%8D/" class="md-nav__link">
+        前端英语单词
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        前端需要了解的计算机网络知识
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        前端项目结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E9%A6%96%E5%B1%8F%E4%BC%98%E5%8C%96%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        前端首屏优化的一些总结
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94Taskwarrior/" class="md-nav__link">
+        命令行任务管理工具——Taskwarrior
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%9A%E4%B8%AA%E8%BF%9E%E7%BB%AD%E7%9A%84%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%8E%E6%9F%AF%E9%87%8C%E5%8C%96/" class="md-nav__link">
+        多个连续的箭头函数与柯里化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%A7%E5%85%AC%E5%8F%B8%E9%87%8C%E6%80%8E%E6%A0%B7%E5%BC%80%E5%8F%91%E5%92%8C%E9%83%A8%E7%BD%B2%E5%89%8D%E7%AB%AF/" class="md-nav__link">
+        大公司里怎样开发和部署前端
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A6%82%E4%BD%95%E5%86%99%E9%80%9A%E7%94%A8%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        如何写通用组件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%EF%BC%9F/" class="md-nav__link">
+        如何理解最小二乘法？
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7%E7%BD%91%E9%A1%B5%E5%B4%A9%E6%BA%83%EF%BC%9F/" class="md-nav__link">
+        如何监控网页崩溃？
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        学习笔记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%B8%B8%E7%94%A8%E5%88%B0%E7%9A%84ES6%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        常用到的ES6语法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%B8%B8%E7%94%A8%E7%9A%84JS%E5%BA%93/" class="md-nav__link">
+        常用的JS库
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%2025%20%E4%B8%AAJavaScript%20%E5%8D%95%E8%A1%8C%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        开发中常用的 25 个JavaScript 单行代码
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BD%BB%E5%BA%95%E5%BC%84%E6%87%82%E5%BC%BA%E7%BC%93%E5%AD%98%E4%B8%8E%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98/" class="md-nav__link">
+        彻底弄懂强缓存与协商缓存
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%80%BB%E8%BE%91%E5%B1%82%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        微信小游戏客户端逻辑层性能优化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%89%8B%E6%9C%BAweb%E5%89%8D%E7%AB%AF%E8%B0%83%E8%AF%95%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/" class="md-nav__link">
+        手机web前端调试页面的几种方式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%8B%96%E6%8B%BD%E5%85%83%E7%B4%A0%E4%BE%8B%E5%AD%90/" class="md-nav__link">
+        拖拽元素例子
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%94%B9%E5%8F%98%E6%90%9C%E7%B4%A2%E7%9A%84%E5%87%BD%E6%95%B0%20demo/" class="md-nav__link">
+        改变搜索的函数 demo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        数组去重的几种方法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" class="md-nav__link">
+        文件上传
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%97%B6%E9%97%B4%E6%97%B6%E5%8C%BA%E9%94%99%E8%AF%AF%E4%BF%AE%E5%A4%8Dmoment/" class="md-nav__link">
+        时间时区错误修复moment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%9B%B4%E6%94%B9%20CheckBox%20%E9%A2%9C%E8%89%B2/" class="md-nav__link">
+        更改 CheckBox 颜色
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%A8%A1%E6%8B%9F%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+        模拟移动端键盘监听事件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%B5%85%E8%B0%88%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="md-nav__link">
+        浅谈知识体系
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%B9%E5%87%BA%E6%8F%90%E9%86%92/" class="md-nav__link">
+        浏览器弹出提醒
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        浏览器进程和线程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%20SVN/" class="md-nav__link">
+        版本控制 SVN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A4%BE%E5%8C%BA%E7%BB%84%E4%BB%B6%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+        社区组件推荐
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A7%92%E5%BC%80%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AE%9E%E7%8E%B0%E8%B5%B7%E6%9D%A5%E6%9C%89%E5%A4%9A%E9%9A%BE/" class="md-nav__link">
+        秒开浏览器实现起来有多难
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A7%BB%E5%8A%A8%E7%AB%AFtouch%E4%BA%8B%E4%BB%B6%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        移动端touch事件详解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%A7%A6%E5%B1%8F%E6%BB%91%E5%8A%A8/" class="md-nav__link">
+        移动端触屏滑动
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94%E4%BB%8E12.67s%E5%88%B01.06s%E7%9A%84%E6%95%85%E4%BA%8B/" class="md-nav__link">
+        网站性能优化实战——从12.67s到1.06s的故事
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E9%A1%B5%E6%80%A7%E8%83%BD%E7%AE%A1%E7%90%86%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        网页性能管理详解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%85%BE%E8%AE%AF14W%20%E8%A1%8C%E4%BB%A3%E7%A0%81%E9%87%8F%E7%9A%84%E5%89%8D%E7%AB%AF%E9%A1%B5%E9%9D%A2%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7/" class="md-nav__link">
+        腾讯14W 行代码量的前端页面长什么样
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%85%BE%E8%AE%AF%E9%9D%A2%E8%AF%95%E5%9B%9B%E9%97%AE%EF%BC%8CAre%20you%20OK/" class="md-nav__link">
+        腾讯面试四问，Are you OK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%87%AA%E5%AE%9A%E4%B9%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E5%AE%9E%E7%8E%B0-%E8%8D%89%E7%A8%BF/" class="md-nav__link">
+        自定义滚动条实现-草稿
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%8B%B9%E6%9E%9C%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E6%B1%A0%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        苹果笔记本电池优化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%A7%A3%E5%86%B3%20primordials%20is%20not%20defined%20bug/" class="md-nav__link">
+        解决 primordials is not defined bug
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%A7%A3%E5%86%B3%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E7%82%B9%E5%87%BBBackspace%E5%9B%9E%E9%80%80%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        解决浏览器中点击Backspace回退问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        计算机组成原理知识
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E7%9A%84%E6%95%B0%E5%AD%97%E6%A0%BC%E5%BC%8F%20Intl.NumberFormat/" class="md-nav__link">
+        设置不同的数字格式 Intl.NumberFormat
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AF%A6%E8%A7%A3TCP%E8%BF%9E%E6%8E%A5%E7%9A%84%E2%80%9C%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E2%80%9D%E4%B8%8E%E2%80%9C%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E2%80%9D%28%E4%B8%8A%29/" class="md-nav__link">
+        详解TCP连接的“三次握手”与“四次挥手”(上)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E8%A7%A3%E9%87%8A/" class="md-nav__link">
+        进程与线程的一个简单解释
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        进程和线程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%80%9A%E7%94%A8%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        通用组件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%80%9A%E7%94%A8%E8%8B%B1%E8%AF%AD%E5%8D%95%E8%AF%8D/" class="md-nav__link">
+        通用英语单词
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%93%BE%E6%BB%B4%E7%AC%94%E8%AE%B0markdownAPP/" class="md-nav__link">
+        链滴笔记markdownAPP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%98%BF%E9%87%8C%E6%9C%AA%E6%9D%A5%E5%89%8D%E7%AB%AF%E7%9A%84%E6%9C%BA%E4%BC%9A%E5%9C%A8%E5%93%AA%E9%87%8C/" class="md-nav__link">
+        阿里未来前端的机会在哪里
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9B%85%E8%99%8E%E5%86%9B%E8%A7%84/" class="md-nav__link">
+        雅虎军规
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        面向对象设计模式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        高阶组件传值问题
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          常用第三方库
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="常用第三方库" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          常用第三方库
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/000-dir/" class="md-nav__link">
+        000-dir
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/001-anv-g2/" class="md-nav__link">
+        001-anv-g2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/002-react-image-lightbox/" class="md-nav__link">
+        002-react-image-lightbox
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/003-antd-mobile/" class="md-nav__link">
+        003-antd-mobile
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/004-autoprefixer/" class="md-nav__link">
+        004-autoprefixer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/005-axios/" class="md-nav__link">
+        005-axios
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/006-deep-copy/" class="md-nav__link">
+        006-deep-copy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/007-dom-helper/" class="md-nav__link">
+        007-dom-helper
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/008-glamor/" class="md-nav__link">
+        008-glamor
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/009-html2canvas/" class="md-nav__link">
+        009-html2canvas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/010-i18next/" class="md-nav__link">
+        010-i18next
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/011-i18next-browser-languagedetector/" class="md-nav__link">
+        011-i18next-browser-languagedetector
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/012-i18next-xhr-backend/" class="md-nav__link">
+        012-i18next-xhr-backend
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/013-is-hotkey/" class="md-nav__link">
+        013-is-hotkey
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/014-keymirror/" class="md-nav__link">
+        014-keymirror
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/015-lodash-throttle/" class="md-nav__link">
+        015-lodash-throttle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/016-promise/" class="md-nav__link">
+        016-promise
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/017-qrcode-react/" class="md-nav__link">
+        017-qrcode-react
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/018-raf/" class="md-nav__link">
+        018-raf
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/022-react-is-deprecated/" class="md-nav__link">
+        022-react-is-deprecated
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/024-React-Sweet-Progress/" class="md-nav__link">
+        024-React-Sweet-Progress
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/025-reactstrap/" class="md-nav__link">
+        025-reactstrap
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/026-reselect/" class="md-nav__link">
+        026-reselect
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/027-ron-react-autocomplete/" class="md-nav__link">
+        027-ron-react-autocomplete
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/028-shallow-equal/" class="md-nav__link">
+        028-shallow-equal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/030-whatwg-fetch/" class="md-nav__link">
+        030-whatwg-fetch
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/031-babel-cli/" class="md-nav__link">
+        031-babel-cli
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/039-babel-preset-env/" class="md-nav__link">
+        039-babel-preset-env
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/040-babel-preset-react/" class="md-nav__link">
+        040-babel-preset-react
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/100-debug/" class="md-nav__link">
+        100-debug
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/101-number-precision/" class="md-nav__link">
+        101-number-precision
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/102-slugid/" class="md-nav__link">
+        102-slugid
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/103-socket-io-client/" class="md-nav__link">
+        103-socket-io-client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/168-copy-to-clipboard/" class="md-nav__link">
+        168-copy-to-clipboard
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/175-moment/" class="md-nav__link">
+        175-moment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/183-react-dnd/" class="md-nav__link">
+        183-react-dnd
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/184-react-dnd-html5-backend/" class="md-nav__link">
+        184-react-dnd-html5-backend
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/186-react-i18next/" class="md-nav__link">
+        186-react-i18next
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/192-react-select/" class="md-nav__link">
+        192-react-select
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/255-connect-multiparty/" class="md-nav__link">
+        255-connect-multiparty
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/256-csv/" class="md-nav__link">
+        256-csv
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/257-date-format/" class="md-nav__link">
+        257-date-format
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/258-detect-character-encoding/" class="md-nav__link">
+        258-detect-character-encoding
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/259-etcd3/" class="md-nav__link">
+        259-etcd3
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/260-express/" class="md-nav__link">
+        260-express
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/261-express-rate-limit/" class="md-nav__link">
+        261-express-rate-limit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/262-iconv-lite/" class="md-nav__link">
+        262-iconv-lite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/263-jsonwebtoken/" class="md-nav__link">
+        263-jsonwebtoken
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/264-log4js/" class="md-nav__link">
+        264-log4js
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/265-mysql/" class="md-nav__link">
+        265-mysql
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/266-redis/" class="md-nav__link">
+        266-redis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/267-request/" class="md-nav__link">
+        267-request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/268-response-time/" class="md-nav__link">
+        268-response-time
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/269-socket.io/" class="md-nav__link">
+        269-socket.io
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/270-uuid/" class="md-nav__link">
+        270-uuid
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/290-lodash/" class="md-nav__link">
+        290-lodash
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/291-jszip/" class="md-nav__link">
+        291-jszip
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/292-react-is/" class="md-nav__link">
+        292-react-is
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/293-react-intl-universal/" class="md-nav__link">
+        293-react-intl-universal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/294-crypto-js/" class="md-nav__link">
+        294-crypto-js
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/300-dayjs/" class="md-nav__link">
+        300-dayjs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/301-chartjs/" class="md-nav__link">
+        301-chartjs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/302-formik/" class="md-nav__link">
+        302-formik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/readme/" class="md-nav__link">
+        readme
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          AntDesign
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AntDesign" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          AntDesign
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/01-color/" class="md-nav__link">
+        01-color
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/02-border/" class="md-nav__link">
+        02-border
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/03-font/" class="md-nav__link">
+        03-font
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/04-unit/" class="md-nav__link">
+        04-unit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/05-react-%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        05-react-介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/06-react-%E5%9C%A8%20create-react-app%20%E4%B8%AD%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        06-react-在 create-react-app 中使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/07-react-%E5%AE%9A%E5%88%B6%E4%B8%BB%E9%A2%98/" class="md-nav__link">
+        07-react-定制主题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/08-%E6%A0%B7%E5%BC%8F%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD/" class="md-nav__link">
+        08-样式按需加载
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/09-%E7%BB%84%E4%BB%B6%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        09-组件使用
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          CSS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CSS" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          CSS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/Bilibili-%E6%A8%A1%E7%B3%8A%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C%E5%88%86%E6%9E%90-css-filter/" class="md-nav__link">
+        Bilibili-模糊实现效果分析-css-filter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/CSS%20Modules%20%E7%94%A8%E6%B3%95%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        CSS Modules 用法教程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/CSS%20%E5%AE%9A%E4%BD%8D%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        CSS 定位详解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/CSS%20%E5%AE%9E%E7%8E%B0%20table%20%E8%A1%A8%E5%A4%B4%E5%9B%BA%E5%AE%9A%20tbody%20%E6%98%BE%E7%A4%BA%E5%9E%82%E7%9B%B4%E6%BB%9A%E5%8A%A8%E6%9D%A1%E5%B9%B6%E8%87%AA%E5%AE%9A%E4%B9%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E6%A0%B7%E5%BC%8F/" class="md-nav__link">
+        CSS 实现 table 表头固定 tbody 显示垂直滚动条并自定义滚动条样式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/CSS3%28%40media%29%E5%88%A4%E6%96%AD%E6%89%8B%E6%9C%BA%E6%A8%AA%E7%AB%96%E5%B1%8F%20%28%E5%AE%9E%E7%94%A8%E3%80%81%E8%B5%9E%EF%BC%89/" class="md-nav__link">
+        CSS3(@media)判断手机横竖屏 (实用、赞）
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/Grid%E5%B8%83%E5%B1%80/" class="md-nav__link">
+        Grid布局
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/SVG%20%E9%81%BF%E5%85%8D%E9%94%AF%E9%BD%BF/" class="md-nav__link">
+        SVG 避免锯齿
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/Sass-Mix%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        Sass-Mix函数
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/UnCSS/" class="md-nav__link">
+        UnCSS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/css-sweeper%20from%20PropJockey/" class="md-nav__link">
+        css-sweeper from PropJockey
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/flex%20%E8%A1%A5%E5%85%85/" class="md-nav__link">
+        flex 补充
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/word-breakbreak-all%E5%92%8Cword-wrapbreak-word%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        word-breakbreak-all和word-wrapbreak-word的区别
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/z-index%E6%97%A0%E6%95%88%E8%A7%A3%E5%86%B3/" class="md-nav__link">
+        z-index无效解决
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/zindex%E5%9C%A8iOS%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        zindex在iOS系统中的兼容性问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87%E5%B9%B3%E6%BB%91%E6%98%BE%E7%A4%BA/" class="md-nav__link">
+        字体图标平滑显示
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/%E7%B2%98%E6%80%A7%E5%AE%9A%E4%BD%8Dposition-sticky/" class="md-nav__link">
+        粘性定位position-sticky
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/%E8%A1%A8%E6%83%85emoji/" class="md-nav__link">
+        表情emoji
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          微信小程序
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="微信小程序" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          微信小程序
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../weixin/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B01-%E5%88%9D%E6%AC%A1%E4%B8%8A%E6%89%8B/" class="md-nav__link">
+        微信小程序入门教程01-初次上手.md
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../weixin/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B02-%E9%A1%B5%E9%9D%A2%E6%A0%B7%E5%BC%8F/" class="md-nav__link">
+        微信小程序入门教程02-页面样式.md
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../weixin/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B03-%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        微信小程序入门教程03-脚本编程.md
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../weixin/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B04-API%20%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        微信小程序入门教程04-API 使用.md
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../weixin/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/" class="md-nav__link">
+        微信小程序官方文档.md
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          typescript and wechat
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="typescript and wechat" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          typescript and wechat
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/00-TypeScript%20%E5%AE%98%E6%96%B9%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        00-TypeScript 官方入门教程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/01-%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        01-简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/02-%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        02-基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/03-%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        03-进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/04-%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%BC%80%E5%8F%91-%E6%B5%8B%E8%AF%95%E7%BC%96%E8%AF%91/" class="md-nav__link">
+        04-工程化开发-测试编译
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/10-Typescript%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/" class="md-nav__link">
+        10-Typescript常见问题整理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/typescript%20%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        typescript 编译选项和配置文件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../typescript/%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82TS%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        网易云课堂TS入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../weixin/taro-UI%20%E7%BB%84%E4%BB%B6%E5%BA%93%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        taro-UI 组件库说明
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../weixin/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9D%91/" class="md-nav__link">
+        小程序项目的坑
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          react
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="react" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          react
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/Create-React-App/" class="md-nav__link">
+        Create-React-App
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%26%20Webpack/" class="md-nav__link">
+        React & Webpack
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20FAQ/" class="md-nav__link">
+        React FAQ
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20Fiber%20Architecture/" class="md-nav__link">
+        React Fiber Architecture
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20Image%20Lightbox/" class="md-nav__link">
+        React Image Lightbox
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20PureComponent%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        React PureComponent 使用指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20Router%20%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3%EF%BC%88%E4%B8%80%EF%BC%89/" class="md-nav__link">
+        React Router 中文文档（一）
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20Router%20%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3%EF%BC%88%E4%BA%8C%EF%BC%89/" class="md-nav__link">
+        React Router 中文文档（二）
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20Testing%20Library%20%E5%92%8C%20Jest%20%E5%AE%8C%E6%88%90%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        React Testing Library 和 Jest 完成单元测试
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20data%20grid/" class="md-nav__link">
+        React data grid
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/" class="md-nav__link">
+        React 中的事件处理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%E5%90%84%E7%A7%8Dbug%20%E4%BC%9A%E5%AE%9E%E6%97%B6%E6%9B%B4%E6%96%B0/" class="md-nav__link">
+        React 各种bug 会实时更新
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%E5%B8%B8%E7%94%A8%E6%9C%AF%E8%AF%AD%E5%90%AB%E4%B9%89/" class="md-nav__link">
+        React 常用术语含义
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%E5%BC%BA%E5%88%B6%E6%9B%B4%E6%96%B0%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        React 强制更新组件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%E6%93%8D%E4%BD%9C%E5%85%83%E7%B4%A0%E7%9A%84API/" class="md-nav__link">
+        React 操作元素的API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        React 框架学习笔记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%E6%B5%8B%E8%AF%95%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        React 测试入门教程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%E7%9A%84%20PureComponent%20%E4%B8%8E%20Component/" class="md-nav__link">
+        React 的 PureComponent 与 Component
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B-%E4%BC%A0%E6%99%BA%E6%92%AD%E5%AE%A2/" class="md-nav__link">
+        React 视频教程-传智播客
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%E8%A7%86%E9%A2%91%E6%95%99%E7%A8%8B-%E6%8A%80%E6%9C%AF%E8%83%96/" class="md-nav__link">
+        React 视频教程-技术胖
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%20%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        React 高阶组件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React-Design%20Principles/" class="md-nav__link">
+        React-Design Principles
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React-Hooks/" class="md-nav__link">
+        React-Hooks
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React-Router/" class="md-nav__link">
+        React-Router
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React-Select/" class="md-nav__link">
+        React-Select
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React-Suspense%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E6%8E%A2%E8%AE%A8/" class="md-nav__link">
+        React-Suspense的实现与探讨
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React-advanced-guides/" class="md-nav__link">
+        React-advanced-guides
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React-mentions/" class="md-nav__link">
+        React-mentions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React-%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/" class="md-nav__link">
+        React-学习资源
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        React-性能优化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React-%E9%AB%98%E9%98%B6API/" class="md-nav__link">
+        React-高阶API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React.Children%E7%9A%84API/" class="md-nav__link">
+        React.Children的API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React.Component/" class="md-nav__link">
+        React.Component
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/ReactRouter-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        ReactRouter-阮一峰
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%E4%B8%AD%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93/" class="md-nav__link">
+        React中数据传输
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+        React事件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%E5%BF%AB%E6%8D%B7%E8%BE%93%E5%85%A5/" class="md-nav__link">
+        React快捷输入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%E6%95%B0%E6%8D%AE%E6%B5%81/" class="md-nav__link">
+        React数据流
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%E6%96%B0%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F--getDerivedStateFromProps/" class="md-nav__link">
+        React新生命周期--getDerivedStateFromProps
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E6%94%B9%E5%8F%98DOM%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        React点击事件改变DOM方法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%B5%81%E7%A8%8B%E5%9B%BE/" class="md-nav__link">
+        React生命周期流程图
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%E7%BB%84%E4%BB%B6%E5%BA%93%E6%90%AD%E5%BB%BA%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        React组件库搭建总结
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%E8%8E%B7%E5%8F%96%E5%B0%BA%E5%AF%B8/" class="md-nav__link">
+        React获取尺寸
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/React%E8%BF%9B%E9%98%B6%E2%80%94%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        React进阶—性能优化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/Refs%20%26%20DOM/" class="md-nav__link">
+        Refs & DOM
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/TS-React-Webpack/" class="md-nav__link">
+        TS-React-Webpack
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/Testing%20React%20components/" class="md-nav__link">
+        Testing React components
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/VS%20Code%20%E5%BF%AB%E6%8D%B7%E8%BE%93%E5%85%A5/" class="md-nav__link">
+        VS Code 快捷输入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/getDerivedStateFromProps%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        getDerivedStateFromProps的使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/gojs-react/" class="md-nav__link">
+        gojs-react
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/jsx%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        jsx语法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react%20%E4%B8%AD%E9%80%9A%E8%BF%87ref%E8%8E%B7%E5%8F%96%E9%AB%98%E9%98%B6%EF%BC%88HOC%EF%BC%89%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="md-nav__link">
+        react 中通过ref获取高阶（HOC）子组件实例的解决方案
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react%20%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E5%8F%8A%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        react 项目结构及编码规范
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react%2Bgraphql%E5%AE%9E%E7%8E%B0github%20dashboard/" class="md-nav__link">
+        react+graphql实现github dashboard
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-canvas/react-canvas%20%E8%B0%83%E7%A0%94/" class="md-nav__link">
+        react-canvas 调研
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-colorful/" class="md-nav__link">
+        react-colorful
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-dnd/react-dnd/" class="md-nav__link">
+        react-dnd
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-dnd/react-dnd%E4%BD%BF%E7%94%A8%E6%89%8B%E8%AE%B0/" class="md-nav__link">
+        react-dnd使用手记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-dnd/%E5%AE%98%E6%96%B9%E8%8B%B1%E6%96%87%E6%96%87%E6%A1%A3/01-readme/" class="md-nav__link">
+        01-readme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-dnd/%E5%AE%98%E6%96%B9%E8%8B%B1%E6%96%87%E6%96%87%E6%A1%A3/02-quickstart/" class="md-nav__link">
+        02-quickstart
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-dnd/%E5%AE%98%E6%96%B9%E8%8B%B1%E6%96%87%E6%96%87%E6%A1%A3/03-Overview/" class="md-nav__link">
+        03-Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-dnd/%E5%AE%98%E6%96%B9%E8%8B%B1%E6%96%87%E6%96%87%E6%A1%A3/API/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-dnd/%E5%AE%98%E6%96%B9%E8%8B%B1%E6%96%87%E6%96%87%E6%A1%A3/React%20DnD/" class="md-nav__link">
+        React DnD
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-dnd/%E5%AE%98%E6%96%B9%E8%8B%B1%E6%96%87%E6%96%87%E6%A1%A3/Testing/" class="md-nav__link">
+        Testing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-dnd/%E5%AE%98%E6%96%B9%E8%8B%B1%E6%96%87%E6%96%87%E6%A1%A3/Tutorial/" class="md-nav__link">
+        Tutorial
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-dnd/%E5%AE%98%E6%96%B9%E8%8B%B1%E6%96%87%E6%96%87%E6%A1%A3/react-dnd-DragLayer/" class="md-nav__link">
+        react-dnd-DragLayer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-dnd/%E5%AE%98%E6%96%B9%E8%8B%B1%E6%96%87%E6%96%87%E6%A1%A3/react-dnd-DragSource/" class="md-nav__link">
+        react-dnd-DragSource
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-dnd/%E5%AE%98%E6%96%B9%E8%8B%B1%E6%96%87%E6%96%87%E6%A1%A3/react-dnd-DropTarget/" class="md-nav__link">
+        react-dnd-DropTarget
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-lazy-load/" class="md-nav__link">
+        react-lazy-load
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-motion/" class="md-nav__link">
+        react-motion
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-redux/" class="md-nav__link">
+        react-redux
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-responsive/" class="md-nav__link">
+        react-responsive
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-transition-group-%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/" class="md-nav__link">
+        react-transition-group-动画效果
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/react-useRef/" class="md-nav__link">
+        react-useRef
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8A%E7%AF%87%EF%BC%88%E9%A6%96%E6%AC%A1%E6%B8%B2%E6%9F%93%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+        reactjs源码分析-上篇（首次渲染实现原理）
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/reactjs%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90-%E4%B8%8B%E7%AF%87%EF%BC%88%E6%9B%B4%E6%96%B0%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%EF%BC%89/" class="md-nav__link">
+        reactjs源码分析-下篇（更新机制实现原理）
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/reactstrap/" class="md-nav__link">
+        reactstrap
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/stackoverflow-Highlight%20text%20using%20ReactJS/" class="md-nav__link">
+        stackoverflow-Highlight text using ReactJS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4Suspense%E6%98%AF%E4%B8%80%E7%A7%8D%E5%B7%A8%E5%A4%A7%E7%9A%84%E7%AA%81%E7%A0%B4/" class="md-nav__link">
+        为什么说Suspense是一种巨大的突破
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/%E5%AF%B9React%20children%E7%90%86%E8%A7%A3/" class="md-nav__link">
+        对React children理解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/%E6%88%91%E7%9A%84%20REACT%202015%20%E4%B9%8B%E8%B7%AF/" class="md-nav__link">
+        我的 REACT 2015 之路
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/%E6%88%91%E7%9A%84React%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93%E5%AE%9E%E8%B7%B5/" class="md-nav__link">
+        我的React服务端渲染实践
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/%E6%8E%8C%E6%8F%A1%E6%8B%96%E6%8B%BD%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%88%E4%BD%BF%E7%94%A8ReactJS%20hooks%EF%BC%89/" class="md-nav__link">
+        掌握拖拽的实现（使用ReactJS hooks）
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react/%E9%98%AE%E4%B8%80%E5%B3%B0%20react%20%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        阮一峰 react 系列教程
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10">
+          工程化
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="工程化" data-md-level="1">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          工程化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/BUG-Auto%20packing%20the%20repository%20in%20background%20for%20optimum%20performance/" class="md-nav__link">
+        BUG-Auto packing the repository in background for optimum performance
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/HTTP%20%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        HTTP 教程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/Mkdocs-github-blog/" class="md-nav__link">
+        Mkdocs-github-blog
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/Mkdocs-guide/" class="md-nav__link">
+        Mkdocs-guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/Mkdocs-mac-env/" class="md-nav__link">
+        Mkdocs-mac-env
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/Nightmare/" class="md-nav__link">
+        Nightmare
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/Tencent-review-code/" class="md-nav__link">
+        Tencent-review-code
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/Translation/" class="md-nav__link">
+        Translation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/enzyme%20%E7%AE%80%E5%8D%95%E5%AE%9E%E8%B7%B5/" class="md-nav__link">
+        enzyme 简单实践
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git-use-process/" class="md-nav__link">
+        git-use-process
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/gitbook%20%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%E4%B9%8B%E4%B8%BB%E9%A2%98%E6%8F%92%E4%BB%B6/" class="md-nav__link">
+        gitbook 入门教程之主题插件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/gitbook%20%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%E4%B9%8B%E4%BD%BF%E7%94%A8%20gitbook-cli%20%E5%BC%80%E5%8F%91%E7%94%B5%E5%AD%90%E4%B9%A6/" class="md-nav__link">
+        gitbook 入门教程之使用 gitbook-cli 开发电子书
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/gitbook%20%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%E4%B9%8B%E4%BD%BF%E7%94%A8%20gitbook-editor%20%E7%BC%96%E8%BE%91%E5%99%A8%E5%BC%80%E5%8F%91%E7%94%B5%E5%AD%90%E4%B9%A6/" class="md-nav__link">
+        gitbook 入门教程之使用 gitbook-editor 编辑器开发电子书
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/gitbook-cli/" class="md-nav__link">
+        gitbook-cli
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/markdown-new-style/" class="md-nav__link">
+        markdown-new-style
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/npm%20link%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        npm link的使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/npm%20package-lock%E7%9A%84%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        npm package-lock的管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/npm%20%E5%8F%91%E5%B8%83%E4%B8%A4%E6%AD%A5%E9%AA%8C%E8%AF%81/" class="md-nav__link">
+        npm 发布两步验证
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/npm%20%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        npm 学习
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/npx/" class="md-nav__link">
+        npx
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/webpack5%20%E5%92%8C%20webpack4%20%E7%9A%84%E5%8C%BA%E5%88%AB%E6%9C%89%E5%93%AA%E4%BA%9B/" class="md-nav__link">
+        webpack5 和 webpack4 的区别有哪些
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/yalc/" class="md-nav__link">
+        yalc
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E5%A6%82%E4%BD%95%E5%90%91%E5%BC%80%E6%BA%90%E7%A4%BE%E5%8C%BA%E6%8F%90%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        如何向开源社区提问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E5%A6%82%E4%BD%95%E5%90%91%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E6%8F%90%E4%BA%A4%E6%97%A0%E6%B3%95%E8%A7%A3%E7%AD%94%E7%9A%84%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        如何向开源项目提交无法解答的问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E5%9C%B0%E6%8A%A5%E5%91%8A%20Bug/" class="md-nav__link">
+        如何有效地报告 Bug
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="md-nav__link">
+        正则表达式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%87%BD%E6%95%B0%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        生命周期函数源码学习
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B7%A5%E5%85%B7%20LOCALFORAGE/" class="md-nav__link">
+        第三方工具 LOCALFORAGE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E7%BD%91%E6%98%93%E4%BA%91-Webpack%20%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        网易云-Webpack 打包工具简单使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E7%BD%91%E9%A1%B5%E6%80%A7%E8%83%BD%E7%AE%A1%E7%90%86%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        网页性能管理详解
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" type="checkbox" id="__nav_11" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_11">
+          react中文官方文档
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="react中文官方文档" data-md-level="1">
+        <label class="md-nav__title" for="__nav_11">
+          <span class="md-nav__icon md-icon"></span>
+          react中文官方文档
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/0%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        0 学习笔记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/2-11%20%E7%BB%84%E5%90%88%20vs%20%E7%BB%A7%E6%89%BF/" class="md-nav__link">
+        2-11 组合 vs 继承
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/2-12%20React%E7%BB%84%E4%BB%B6%E5%8C%96%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        2-12 React组件化实现
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/2-9%20%E8%A1%A8%E5%8D%95/" class="md-nav__link">
+        2-9 表单
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-1%20%E6%97%A0%E9%9A%9C%E7%A2%8D%E8%BE%85%E5%8A%A9%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        3-1 无障碍辅助功能
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-10%20Optimizing%20Performance/" class="md-nav__link">
+        3-10 Optimizing Performance
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-11%20Portals/" class="md-nav__link">
+        3-11 Portals
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-12%20Profiler%20API/" class="md-nav__link">
+        3-12 Profiler API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-15%20%E5%8D%8F%E8%B0%83/" class="md-nav__link">
+        3-15 协调
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-16%20Refs%20and%20the%20DOM/" class="md-nav__link">
+        3-16 Refs and the DOM
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-17%20Render%20Props/" class="md-nav__link">
+        3-17 Render Props
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-18%20%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E6%A3%80%E6%9F%A5/" class="md-nav__link">
+        3-18 静态类型检查
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-19%20%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        3-19 严格模式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-2%20%E4%BB%A3%E7%A0%81%E6%89%93%E5%8C%85%E5%88%86%E5%89%B2/" class="md-nav__link">
+        3-2 代码打包分割
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-21%20%E9%9D%9E%E5%8F%97%E6%8E%A7%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        3-21 非受控组件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-22%20Web%20Components/" class="md-nav__link">
+        3-22 Web Components
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-3%20Context/" class="md-nav__link">
+        3-3 Context
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-4%20%E9%94%99%E8%AF%AF%E8%BE%B9%E7%95%8C/" class="md-nav__link">
+        3-4 错误边界
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-5%20Refs%20%E8%BD%AC%E5%8F%91/" class="md-nav__link">
+        3-5 Refs 转发
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-6%20Fragments/" class="md-nav__link">
+        3-6 Fragments
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-7%20%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        3-7 高阶组件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-8%20%E4%B8%8E%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E5%8D%8F%E5%90%8C/" class="md-nav__link">
+        3-8 与第三方库协同
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/3-9%20%E6%B7%B1%E5%85%A5%20JSX/" class="md-nav__link">
+        3-9 深入 JSX
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/4-1%20React%20%E9%A1%B6%E5%B1%82%20API/" class="md-nav__link">
+        4-1 React 顶层 API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/4-10%20React%20%E6%9C%AF%E8%AF%AD%E8%AF%8D%E6%B1%87%E8%A1%A8/" class="md-nav__link">
+        4-10 React 术语词汇表
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/4-2%20React.Component/" class="md-nav__link">
+        4-2 React.Component
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/4-3%20ReactDOM/" class="md-nav__link">
+        4-3 ReactDOM
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/4-4%20ReactDOMServer/" class="md-nav__link">
+        4-4 ReactDOMServer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/4-5%20DOM%20%E5%85%83%E7%B4%A0/" class="md-nav__link">
+        4-5 DOM 元素
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/4-6%20%E5%90%88%E6%88%90%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+        4-6 合成事件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/4-7%20Test%20Utilities/" class="md-nav__link">
+        4-7 Test Utilities
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/4-8%20Test%20Renderer/" class="md-nav__link">
+        4-8 Test Renderer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/4-9%20JavaScript%20%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82/" class="md-nav__link">
+        4-9 JavaScript 环境要求
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/5-1%20Hook%20%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        5-1 Hook 简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/5-2%20Hook%20%E6%A6%82%E8%A7%88/" class="md-nav__link">
+        5-2 Hook 概览
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/5-3%20%E4%BD%BF%E7%94%A8%20State%20Hook/" class="md-nav__link">
+        5-3 使用 State Hook
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/5-4%20%E4%BD%BF%E7%94%A8%20Effect%20Hook/" class="md-nav__link">
+        5-4 使用 Effect Hook
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/5-5%20Hook%20%E8%A7%84%E5%88%99/" class="md-nav__link">
+        5-5 Hook 规则
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/5-6%20%E8%87%AA%E5%AE%9A%E4%B9%89%20Hook/" class="md-nav__link">
+        5-6 自定义 Hook
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/5-7%20Hook%20API%20%E7%B4%A2%E5%BC%95/" class="md-nav__link">
+        5-7 Hook API 索引
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/5-8%20Hooks%20FAQ/" class="md-nav__link">
+        5-8 Hooks FAQ
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/6-1%20%E6%B5%8B%E8%AF%95%E6%A6%82%E8%A7%88/" class="md-nav__link">
+        6-1 测试概览
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/6-2%20%E6%B5%8B%E8%AF%95%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        6-2 测试技巧
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/6-3%20%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83/" class="md-nav__link">
+        6-3 测试环境
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/7-1%20AJAX%20and%20APIs/" class="md-nav__link">
+        7-1 AJAX and APIs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/7-2%20Babel%EF%BC%8CJSX%20%E5%8F%8A%E6%9E%84%E5%BB%BA%E8%BF%87%E7%A8%8B/" class="md-nav__link">
+        7-2 Babel，JSX 及构建过程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/7-3%20%E4%BC%A0%E9%80%92%E5%87%BD%E6%95%B0%E7%BB%99%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        7-3 传递函数给组件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/7-4%20%E7%BB%84%E4%BB%B6%E7%8A%B6%E6%80%81/" class="md-nav__link">
+        7-4 组件状态
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/7-5%20%E6%A0%B7%E5%BC%8F%E4%B8%8E%20CSS/" class="md-nav__link">
+        7-5 样式与 CSS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/7-6%20%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        7-6 项目文件结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/7-7%20Virtual%20DOM%20%E5%8F%8A%E5%86%85%E6%A0%B8/" class="md-nav__link">
+        7-7 Virtual DOM 及内核
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../react-official-zh/readme/" class="md-nav__link">
+        readme
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rest" class="md-nav__link">
+    REST 有什么问题吗？
+  </a>
+  
+    <nav class="md-nav" aria-label="REST 有什么问题吗？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rest-api" class="md-nav__link">
+    每个 REST API 都是独特的
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    没有静态类型意味着要注意类型验证
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    分页和过滤并不简单
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    不容易记录和测试
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    关系查询和批量查询会让人更加沮丧
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    你需要同时在服务器和客户端上实现每个端点
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graphql" class="md-nav__link">
+    GraphQL 如何做得更好？
+  </a>
+  
+    <nav class="md-nav" aria-label="GraphQL 如何做得更好？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    一个简单的例子
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphql_1" class="md-nav__link">
+    GraphQL 是个时髦的东西，是一种时尚，对吗？
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#so-whats-wrong-with-rest" class="md-nav__link">
+    So what’s wrong with REST?
+  </a>
+  
+    <nav class="md-nav" aria-label="So what’s wrong with REST?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#every-rest-api-is-a-snowflake" class="md-nav__link">
+    Every REST API is a snowflake
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-static-typing-means-caring-about-type-validation" class="md-nav__link">
+    No static typing means caring about type validation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pagination-and-filtering-is-not-so-simple" class="md-nav__link">
+    Pagination and filtering is not so simple
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-easy-to-document-and-test" class="md-nav__link">
+    Not easy to document and test
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relations-and-batch-queries-make-it-even-more-frustrating" class="md-nav__link">
+    Relations and batch queries make it even more frustrating
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#you-need-every-endpoint-implemented-both-on-server-and-client" class="md-nav__link">
+    You need every endpoint implemented both on server and client
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#and-hows-graphql-better" class="md-nav__link">
+    And how’s GraphQL better?
+  </a>
+  
+    <nav class="md-nav" aria-label="And how’s GraphQL better?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-quick-example" class="md-nav__link">
+    A quick example
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphql-is-this-new-hipster-thing-a-fad-right" class="md-nav__link">
+    GraphQL is this new hipster thing, a fad, right?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/javascript/为什么我使用 GraphQL 而放弃 REST.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="graphql-rest-api">为什么我使用 GraphQL 而放弃 REST API？<a class="headerlink" href="#graphql-rest-api" title="Permanent link">&para;</a></h1>
+<ul>
+<li>
+<p>Max Desiatov</p>
+</li>
+<li>
+<p>平川</p>
+</li>
+<li>
+<p>万佳</p>
+</li>
+<li>
+<p>2021 年 5 月 09 日</p>
+</li>
+<li>
+<p>本文字数：5911 字</p>
+</li>
+</ul>
+<p>阅读完需：约 19 分钟</p>
+<p><strong><em>本文最初发布于 Max Desiatov 的个人博客，经原作者授权由 InfoQ 中文站翻译并分享。</em></strong></p>
+<p>在大多数移动和 Web 应用中，服务器交互需要花费开发人员大量时间和精力来开发和测试。</p>
+<p>在我所开发的那些拥有最复杂 API 应用程序中，网络层设计和维护占去高达 40%的开发时间，特别是由于我在本文中提到的一些边缘情况。这样实现过几次后，很容易就会发现，有一些不同的模式、工具和框架可以带来帮助。虽然我们很幸运，不必再关心<a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a>，但<a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a>也不是历史的终结。</p>
+<p>最近，我有机会为自己的项目和客户开发和运行一些使用 GraphQL API 构建的移动和 Web 应用程序。这真是一个很好的体验，尤其要感谢令人惊叹的 <a href="https://www.graphile.org/postgraphile/">PostGraphile</a> 和 <a href="https://www.apollographql.com/client">Apollo</a>。至此，我再也无法回过头来享受使用 REST 的工作了。</p>
+<h2 id="rest">REST 有什么问题吗？<a class="headerlink" href="#rest" title="Permanent link">&para;</a></h2>
+<h4 id="rest-api">每个 REST API 都是独特的<a class="headerlink" href="#rest-api" title="Permanent link">&para;</a></h4>
+<p>公平地说，REST 甚至不是一个标准。维基百科将其<a href="https://en.wikipedia.org/wiki/Representational_state_transfer">定义</a>为：</p>
+<blockquote>
+<p>一种架构风格，基于 HTTP 定义了一组约束和属性。</p>
+</blockquote>
+<p>虽然确实存在像 JSON API 规范这样的东西，但在实践中，我们很少看到有 RESTful 后端实现它。在最好的情况下，你可能会偶然发现一些使用 <a href="https://www.infoq.cn/article/OpenAPI/Swagger">OpenAPI/Swagger</a> 的东西。即使这样，OpenAPI 也没有指定 API 的形状或格式，它只是一个机器可读的规范，允许（但不是要求）你对 API 运行自动化测试、自动生成文档等。</p>
+<p>主要问题仍然存在。你可能会说你的 API 是 RESTful 的，但是对于如何安排端点或是否应该（例如）使用 HTTP 方法<code>PATCH</code>进行对象更新，一般没有严格的规则。</p>
+<p>还有一些东西乍一看是 RESTful 的，但如果你仔细看，就不是那么像了：<a href="https://www.dropbox.com/developers/documentation/http/documentation">Dropbox HTTP API</a>。</p>
+<blockquote>
+<p>端点接受请求体中的文件内容，因此，它们的参数将以 JSON 的形式在<code>Dropbox-API-Arg</code>请求头或 arg URL 参数中传递。</p>
+</blockquote>
+<p>JSON 在请求头中？</p>
+<p>没错，Dropbox API 端点要求你将请求正文留空，并将有效载荷序列化为 JSON，放到一个自定义的 HTTP 头中。为这种特殊情况编写客户端代码很有趣。我们不能抱怨，因为毕竟没有广泛使用的标准。</p>
+<p>事实上，下面提到的大多数注意事项都是由于缺乏标准造成的，但是我想强调一下在实践中经常看到的情况。</p>
+<p>在一个有经验的团队中，你可以避免这些问题，但是你难道不希望一些问题已经在软件方面得到解决吗？</p>
+<h4 id="_1">没有静态类型意味着要注意类型验证<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<p>无论如何努力避免这种情况，你迟早会遇到 JSON 属性拼写错误、发送或接收的数据类型错误、字段丢失等问题。如果你的客户端和/或服务器编程语言是静态类型的，并且你不能用错误的字段名或类型构造对象，那可能没问题。如果你的 API 是版本化的，旧 API 的 URL 为<code>/API/v1</code>，新版本的 URL 为<code>/API/v2</code>，那么你可能做得很好。如果有一个 OpenAPI 规范，可以为你生成客户端/服务器类型声明，那就更好了。</p>
+<p>但你真能负担得起在所有项目中都做到这样吗？当你的团队在冲刺期间决定重命名或重新安排对象字段时，你能负担得起上线<code>/api/v1.99</code>端点的成本吗？即使完成了，团队会不会忘记更新规范并通知客户端开发人员更新内容？</p>
+<p>在客户端或服务器上的所有验证逻辑，你确定都是正确的吗？理想情况下，你希望它在两边都得到验证，对吧？维护所有这些自定义代码非常有趣。或者保持 API JSON 模式是最新的。</p>
+<h4 id="_2">分页和过滤并不简单<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>大多数 API 都使用对象集合。在待办事项列表应用中，列表本身就是一个集合。大多数集合都可以包含 100 多个项。对于大多数服务器来说，在一次响应的一个集合中返回所有项是一个繁重的操作。如果再乘以在线用户的数量，就会产生很大的 AWS 账单。显而易见的解决方案：只返回集合的子集。</p>
+<p>分页相对简单。在查询参数中传递类似<code>offset</code>和<code>limit</code>这样的值：<code>/todos?Limit =10&amp;offset=20</code>以获得从 20 开始的 10 个对象。每个人对这些参数的命名都不一样，有些人喜欢<code>count</code>和<code>skip</code>，而我喜欢<code>offset</code>和<code>limit</code>，因为它们直接对应于 SQL 修饰符。</p>
+<p>一些后端数据库会暴露要传递给下一页查询的游标或标记。请查看<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html">Elasticsearch API</a>，该 API 建议在需要依次浏览大量结果文档时使用<code>scroll</code>调用。还有一些 API 在头中传递相关信息。参见<a href="https://developer.github.com/v3/guides/traversing-with-pagination/">GitHub REST API</a>（至少不是在头中传递 JSON）。</p>
+<p>说到过滤，就有趣多了……需要按一个字段过滤吗？没问题，可能是<code>/todos?filter=key%3Dvalue</code>，也可能是可读性更好的<code>/todos?filterKey=key&amp;filterValue=value</code>。那么按两个值过滤呢？这应该很简单，对吧？使用<a href="https://en.wikipedia.org/wiki/Percent-encoding">URL编码</a>，查询看起来是这个样子：<code>/todos?filterKeys=key1%2Ckey2&amp;filterValue=value</code>。但通常，我们没有办法阻止特性蔓延，可能会出现使用<code>AND</code>/<code>OR</code>操作符进行高级过滤的需求。或者复杂的全文搜索查询和复杂的过滤。迟早你会看到一些 API 发明了自己的过滤 <a href="https://en.wikipedia.org/wiki/Domain-specific_language">DSL</a>。URL 查询组件已经不够用了，但是<code>GET</code>请求中的请求体也不太好，这意味着你最终要在<code>POST</code>请求中发送非可变查询（Elasticsearch 就是这样做的）。至此，API 还是 RESTful 的吗？</p>
+<p>无论哪种方式，客户端和服务器都需要特别注意解析、格式化和验证所有这些参数。如此多的乐趣！举例来说，如果没有恰当的验证且存在未初始化的变量，你就很容易地得到类似这样的东西：<code>/todos?offset=undefined</code>。</p>
+<h4 id="_3">不容易记录和测试<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>上面提到的 <a href="https://swagger.io/">Swagger</a> 可能是目前最好的工具，但其应用还不够广泛。根据我的观察，更常见的情况是，API 文档单独维护。对一个稳定且广泛使用的 API 来说，这没什么大不了的，但是在敏捷流程的开发过程中，这就比较糟糕了。文档单独存储意味着，它经常不会更新，特别是当更改是一个小的、但会破坏客户端的更改时。</p>
+<p>如果你不使用 Swagger，这可能意味着你需要维护专门的测试基础设施。与单元测试相比，你对集成测试（即同时测试客户端和服务器端代码）的需求会更多。</p>
+<h4 id="_4">关系查询和批量查询会让人更加沮丧<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>对于比较大的 API，这就成了一个问题，因为你可能有许多相关的集合。让我们进一步来看一个待办事项列表应用程序的例子：假设每个待办事项也可以属于一个项目。你是否总是希望一次获取所有相关的项目？可能不需要，但是还需要添加更多的查询参数。也许你不想一次获取所有对象字段。如果应用程序需要项目有所有者，并且除了每个集合有单独的视图显示外，还有一个视图显示所有这些数据的聚合？它要么是三个独立的 HTTP 请求，要么是一个复杂的请求，同时获取所有数据用于聚合。</p>
+<p>无论哪种方式，都存在复杂性和性能上的权衡，在不断发展的应用程序中维护这些请求会带来更多令人头痛的问题。</p>
+<h4 id="_5">你需要同时在服务器和客户端上实现每个端点<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>还有大量的库可以在 <a href="https://en.wikipedia.org/wiki/Object-relational_mapping">ORM</a> 或直接数据库自省的帮助下自动生成 REST 端点。即使使用了这样的库，它们通常也不是很灵活或可扩展的。也就是说，如果需要自定义参数、高级过滤行为或对请求/响应有效负载的一些更智能的处理，就需要从头重新实现端点。</p>
+<p>另一项任务是在客户端代码中使用这些端点。如果有的话，最好使用代码生成，但是它似乎不够灵活。即使是使用像 <a href="https://github.com/moya/moya">Moya</a> 这样的辅助库，也会遇到同样障碍：有许多自定义行为需要处理，这是由前面提到的边缘情况引起的。</p>
+<p>如果开发团队不是全栈的，那么服务器和客户端团队之间的沟通就至关重要，在没有机器可读的 API 规范的情况下更是如此。</p>
+<h2 id="graphql">GraphQL 如何做得更好？<a class="headerlink" href="#graphql" title="Permanent link">&para;</a></h2>
+<p>对于所有讨论过的问题，我倾向于认为，在 CRUD 应用程序中，有一种标准方式来生成和使用 API 会非常棒。通用的工具和模式、集成测试和文档基础设施将有助于解决技术和组织问题。</p>
+<p>GraphQL 有一个 RFC 规范草案 和一个参考实现。此外，请参阅 <a href="http://graphql.org/learn/">GraphQL教程</a>，它描述了你需要了解的大多数概念。有针对不同平台的实现，也有许多可用的开发工具，其中最著名的是 GraphiQL，它捆绑了一个很好的、具有自动完成功能的 API 浏览器，以及一个文档浏览器，可以浏览从 GraphQL 模式自动生成的文档。</p>
+<p>事实上，我发现 GraphiQL 是不可或缺的。它可以帮助解决我前面提到的客户端和服务器团队之间的沟通问题。只要 GraphQL 模式中有任何更改，你就可以在 GraphQL 浏览器中看到它，就像嵌入式 API 文档。现在，客户端和服务器团队可以以一种更好的方式在 API 设计上开展合作，缩短迭代时间，共享自动生成的文档，它们让每次 API 更新对每个人都可见。要了解这些工具是如何工作的，请查看 Star Wars API 示例，它可以作为<a href="http://graphql.org/swapi-graphql/">GraphiQL的在线演示</a>。</p>
+<p>能指定从服务器请求的对象字段让客户端可以根据需要只获取需要的数据。不再有多个重量级的查询发送到一个刚性的 REST API，为了让客户端可以在应用程序 UI 中一次性显示它。你不再受限于一组端点，而是有一个可以查询和修改的模式，能够挑选客户端指定的字段和对象。服务器只需以这种方式实现顶级模式对象。</p>
+<h4 id="_6">一个简单的例子<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>GraphQL 模式定义了可用于在服务器和客户端之间通信的类型。有两种特殊类型，它们同时也是 GraphQL 的核心概念：<code>Query</code>和<code>Mutation</code>。在大多数情况下，向 GraphQL API 发出的每个请求要么是没有副作用的<code>Query</code>实例，要么是会修改存储在服务器上的对象的<code>Mutation</code>实例。</p>
+<p>现在，继续我们待办事项列表应用程序的例子，考虑下面这个 GraphQL 模式：</p>
+<div class="highlight"><pre><span></span><code>type Project {  id: ID  name: String!}type TodoItem {  id: ID  description: String!  isCompleted: Boolean!  dueDate: Date  project: Project}type TodoList {  totalCount: Int!  items: [TodoItem]!}type Query {  allTodos(limit: Int, offset: Int): TodoList!  todoByID(id: ID!): TodoItem}type Mutation {  createTodo(item: TodoItem!): TodoItem  deleteTodo(id: ID!): TodoItem  updateTodo(id: ID!, newItem: TodoItem!): TodoItem}schema {  query: Query  mutation: Mutation}
+</code></pre></div>
+<p>复制代码</p>
+<p>底部的<code>schema</code>块是特定的，定义了前面描述的根类型<code>Query</code>和<code>Mutation</code>。此外，它非常简单：<code>type</code>块定义新的类型，每个块包含具有自己类型的字段定义。类型可以是非可选的，例如<code>String!</code>字段不能有空值，而<code>String</code>可以。字段也可以有命名参数，所以<code>TodoList!</code>类型的字段<code>allTodos(limit: Int, offset: Int): TodoList!</code>接受两个可选参数，而其本身的值是非可选的，这意味着它将始终返回一个不能为空的<code>TodoList</code>实例。然后，要查询所有待办事项的<code>id</code>和名称，你可以编写这样一个查询：</p>
+<div class="highlight"><pre><span></span><code>query {  allTodos(limit: 5) {    totalCount    items {      id      description      isCompleted    }  }}
+</code></pre></div>
+<p>复制代码</p>
+<p>GraphQL 客户端库根据模式自动解析和验证查询，然后将其发送到 GraphQL 服务器。请注意，<code>allTodos</code>字段的<code>offset</code>参数是缺失的。作为可选项，它的缺失意味着它有<code>null</code>值。如果服务器提供这种模式，文档中可能会声明，<code>null</code>偏移量意味着默认情况下应该返回第一页。响应可能是这样的：</p>
+<div class="highlight"><pre><span></span><code>{  &quot;data&quot;: {    &quot;allTodos&quot;: {      &quot;totalCount&quot;: 42,      &quot;items&quot;: [        {          &quot;id&quot;: 1,          &quot;description&quot;: &quot;write a blogpost&quot;,          &quot;isCompleted&quot;: true        },        {          &quot;id&quot;: 2,          &quot;description&quot;: &quot;edit until looks good&quot;,          &quot;isCompleted&quot;: true        },        {          &quot;id&quot;: 2,          &quot;description&quot;: &quot;proofread&quot;,          &quot;isCompleted&quot;: false        },        {          &quot;id&quot;: 4,          &quot;description&quot;: &quot;publish on the website&quot;,          &quot;isCompleted&quot;: false        },        {          &quot;id&quot;: 5,          &quot;description&quot;: &quot;share&quot;,          &quot;isCompleted&quot;: false        }      ]    }  }}
+</code></pre></div>
+<p>复制代码</p>
+<p>如果你从查询中删除<code>isCompleted</code>字段，它将从结果中消失。或者你可以添加<code>project</code>字段，用其<code>id</code>和<code>name</code>来遍历关系。将<code>offset</code>参数添加到<code>allTodos</code>字段进行分页，这样<code>allTodos(count: 5, offset: 5)</code>将返回第二页。结果中提供了<code>totalCount</code>字段，这很有用，因为现在你知道总共有<code>42 / 5 = 9</code>页。但显然，如果不需要<code>totalCount</code>，你可以忽略它。查询可以完全控制将要接收的实际信息，但是底层的 GraphQL 基础设施还必须确保所有必需的字段和参数都在那里。如果你的 GraphQL 服务器足够聪明，它将不会对你不需要的字段运行数据库查询，而且有些库好到免费提供这种查询。此模式中的其他变体和查询也是如此：对输入进行类型检查和验证，并且基于查询，GraphQL 服务器知道期望的结果形状。本质上，所有通信都通过服务器上一个预定义的 URL（通常是<code>/graphql</code>）运行，借助一个简单的<code>POST</code>请求，其中包含序列化为 JSON 有效负载的查询。但是，你几乎从来都不需要接触如此低的抽象层。</p>
+<p>总体来说还不错：我们已经解决了类型级别的验证问题，分页看起来也不错，并且在需要时可以轻松地遍历实体关系。如果使用一些现成的 GraphQL-&gt;数据库查询翻译库，你甚至不需要在服务器上编写大多数数据库查询。客户端库可以很容易地将 GraphQL 响应自动解包为所需类型的对象实例，因为从模式和查询可以提前知道响应形状。</p>
+<h4 id="graphql_1">GraphQL 是个时髦的东西，是一种时尚，对吗？<a class="headerlink" href="#graphql_1" title="Permanent link">&para;</a></h4>
+<p>虽然 <a href="https://github.com/Netflix/falcor">Netflix falcor</a>似乎在解决类似问题，它比 GraphQL 早几个月发布在 GitHub 上，也更早地引起我的注意，但很明显，似乎 GraphQL 赢了。良好的工具和强大的行业支持使其非常有吸引力。</p>
+<p>除了一些客户端库中存在的一些小问题（现在已经解决了）之外，我强烈推荐你仔细看看 GraphQL 在你的技术栈中可以提供什么。它已经出技术预览四年多了，而且这个生态系统正在变得更加强大。在 Facebook 设计 GraphQL 的同时，我们也看到越来越多的大公司在他们的产品中使用它：GitHub、Shopify、Khan Academy、Coursera，而且<a href="http://graphql.org/users/">这个列表还在不断增长</a>。</p>
+<p>有很多流行的开源项目都在使用 GraphQL：这个博客是基于静态站点生成器 Gatsby，它将 GraphQL 查询的结果转换成数据，然后呈现到 HTML 文件中。如果你使用的是 WordPress，也有 GraphQL API 可以使用。Reaction Commerce 是 Shopify 的开源替代方案，同样是基于 GraphQL。</p>
+<p>另外值得一提的两个 GraphQL 库是 PostGraphile 和 Apollo。</p>
+<p>如果你使用 PostgreSQL 作为后端数据库，PostGraphile 能够扫描 SQL 模式并自动生成一个带有实现的 GraphQL 模式。你可以将所有常见的 CRUD 操作暴露为所有表的查询和修改。它可能看起来像 ORM，但它不是：你可以完全控制如何设计数据库模式，以及使用什么索引。</p>
+<p>最妙的是，PostGraphile 还以查询和修改的方式暴露视图和函数，所以如果有特别复杂的 SQL 查询需要映射到 GraphQL 字段，只需创建 SQL 视图或函数，它就会自动出现在 GraphQL 模式中。通过像行级安全这样的高级 Postgres 特性，你可以通过编写少量 SQL 策略实现复杂的访问控制逻辑。PostGraphile 甚至还有模式文档这样的东西，可以从 Postgres 注释自动生成。</p>
+<p>相应地，Apollo 提供了多个平台的客户端库，以及在最流行的编程语言（包括 TypeScript 和 Swift）中生成类型定义的代码生成器。</p>
+<p>总的来说，我发现，Apollo 比 Relay 等更简单和易于使用。由于 Apollo 客户端库架构简单，我能够将一个使用 React.js 与 Redux 的应用慢慢过渡到 React Apollo，一个组件一个组件的，只在有意义的时候才这样做。与原生 iOS 应用一样，Apollo iOS 是一个相对轻量级的、易于使用的库。</p>
+<p><a href="https://desiatov.com/">Max Desiatov</a></p>
+<p><img alt="Max Desiatov" src="data:image/jpeg;base64,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" />I'm <strong>Max Desiatov</strong>, a software consultant building mobile and backend apps. I curate <strong><a href="https://twitter.com/ServerSideSwift">@ServerSideSwift</a></strong> feed, and co-maintain <strong><a href="https://swiftwasm.org/">WebAssembly support for Swift</a></strong> and a framework called <strong><a href="https://tokamak.dev/">Tokamak</a></strong> compatible with SwiftUI.</p>
+<p><strong><a href="https://desiatov.com/">Blog</a>**</strong><a href="https://desiatov.com/sponsor">Support My Work</a>**</p>
+<p>Why I use GraphQL and avoid REST APIs28 May, 2018</p>
+<p>Server interactions take a significant amount of time and effort to develop and test in most mobile and web apps. In apps with most complex APIs I worked on, the networking layer took up to 40% of the development time to design and maintain, specifically due to some of the edge cases I mention below in this article. After implementing this a few times, it’s easy to see different patterns, tools and frameworks that can help with this. While we’re lucky (well, most of us are, I hope) not to care about <a href="https://en.wikipedia.org/wiki/SOAP">SOAP</a> anymore, <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> isn’t the end of history either.</p>
+<p>Recently I had a chance to develop and to run in production a few mobile and web apps built with <a href="http://graphql.org/">GraphQL</a> APIs, both for my own projects and my clients. This has been a really good experience, not least thanks to wonderful <a href="https://www.graphile.org/postgraphile/">PostGraphile</a> and <a href="https://www.apollographql.com/client">Apollo</a> libraries. At this point, it’s quite hard for me to come back and enjoy working with REST.</p>
+<p>But obviously, this needs a little explanation.</p>
+<h2 id="so-whats-wrong-with-rest">So what’s wrong with REST?<a class="headerlink" href="#so-whats-wrong-with-rest" title="Permanent link">&para;</a></h2>
+<h3 id="every-rest-api-is-a-snowflake">Every REST API is a snowflake<a class="headerlink" href="#every-rest-api-is-a-snowflake" title="Permanent link">&para;</a></h3>
+<p>To be fair, REST isn’t even a standard. Wikipedia <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">defines</a> it as</p>
+<blockquote>
+<p>an architectural style that defines a set of constraints and properties based on HTTP</p>
+</blockquote>
+<p>While something like <a href="http://jsonapi.org/">JSON API</a> spec does exist, in practice it’s very rare that you see a RESTful backend implementing it. In best case scenario, you might stumble upon something that uses <a href="https://en.wikipedia.org/wiki/OpenAPI_Specification">OpenAPI/Swagger</a>. Even then, OpenAPI doesn’t specify anything about APIs shape or form, it’s just a machine-readable spec, that allows (but not requires) you to run automatic tests on your API, automatically generate documentation etc.</p>
+<p>The main problem is still there. You may say your API is RESTful, but there are no strict rules in general on how endpoints are arranged or whether you should, for example, use <code>PATCH</code> HTTP method for object updates.</p>
+<p>There are also things that look RESTful on a first glance, but not so much if you squint: <a href="https://www.dropbox.com/developers/documentation/http/documentation">Dropbox HTTP API</a>.</p>
+<blockquote>
+<p>endpoints accept file content in the request body, so their arguments are instead passed as JSON in the <code>Dropbox-API-Arg</code> request header or arg URL parameter.</p>
+</blockquote>
+<p>JSON in a request header? (╯°□°）╯︵ ┻━┻</p>
+<p>That’s right, there are Dropbox API endpoints that require you to leave request body empty and to serialise a payload as JSON and chuck it an a custom HTTP header. It’s fun to write client code for special cases like this. But we can’t complain, because there is no widely-used standard after all.</p>
+<p>In fact, most of the caveats mentioned below are caused by lack of a standard, but I’d like to highlight what I’ve seen in practice most frequently.</p>
+<p>And yes, you can avoid most of these problems in a disciplined experienced team, but wouldn’t you want some of this stuff to be resolved already on a software side?</p>
+<h3 id="no-static-typing-means-caring-about-type-validation">No static typing means caring about type validation<a class="headerlink" href="#no-static-typing-means-caring-about-type-validation" title="Permanent link">&para;</a></h3>
+<p>No matter how much you try to avoid this, sooner or later you stumble upon misspelt JSON properties, wrong data types sent or received, fields missing etc. You’re probably ok if your client and/or server programming language is statically typed and you just can’t construct an object with a wrong field name or type. You’re probably doing good if your API is versioned and you have an old version on <code>/api/v1</code> URL and a new version with a renamed field on <code>/api/v2</code> URL. Even better if you have an OpenAPI spec that generates client/server type declarations for you.</p>
+<p>But can you really afford all this in all your projects? Can you afford setting up <code>/api/v1.99</code> endpoint when during a sprint your team decides to rename or rearrange object fields? Even if it’s done, will the team not forget to update the spec and to ping the client devs about the update?</p>
+<p>You sure you have all the validation logic right either on client or on server? Ideally, you want it validated on both sides, right? Maintaining all of this custom code is a lot of fun. Or keeping your API <a href="http://json-schema.org/">JSON Schema</a> up to date.</p>
+<h3 id="pagination-and-filtering-is-not-so-simple">Pagination and filtering is not so simple<a class="headerlink" href="#pagination-and-filtering-is-not-so-simple" title="Permanent link">&para;</a></h3>
+<p>Most APIs work with collections of objects. In a todo-list app, the list itself is a collection. Most collections can contain more than 100 items. For most servers returning all items in a collection in same response is a heavy operation. Multiply that by a number of online users and it can add up to a hefty AWS bill. Obvious solution: return only a subset of a collection.</p>
+<p>Pagination is comparatively straightforward. Pass something like <code>offset</code> and <code>limit</code> values in query parameters: <code>/todos?limit=10&amp;offset=20</code> to get only 10 objects starting at the 20<sup>th</sup>. Everyone names these parameters differently, some prefer <code>count</code> and <code>skip</code>, I like <code>offset</code> and <code>limit</code> because they directly correspond to SQL modifiers.</p>
+<p>Some backend databases expose cursors or tokens to be passed for next page query. Check out <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html">Elasticsearch API</a> that recommends using <code>scroll</code> calls when you need to go through a huge list of resulting documents sequentially. There are also APIs that pass relevant information in headers. See <a href="https://developer.github.com/v3/guides/traversing-with-pagination/">GitHub REST API</a> (at least that’s not JSON passed in headers 😅).</p>
+<p>When it comes to filtering, it’s so much more interesting… Need filtering by one field? No problem, it could be <code>/todos?filter=key%3Dvalue</code> or maybe more human-readable <code>/todos?filterKey=key&amp;filterValue=value</code>. How’s about filtering by two values? Hm, that should be easy, right? Query would look like <code>/todos?filterKeys=key1%2Ckey2&amp;filterValue=value</code> with <a href="https://en.wikipedia.org/wiki/Percent-encoding">URL encoding</a>. But often there is no way to stop the feature creep, maybe a requirement appears for advanced filtering with <code>AND</code>/<code>OR</code> operators. Or maybe complex full-text search queries together with complex filtering. Sooner or later you can see a few APIs that invent their own filtering <a href="https://en.wikipedia.org/wiki/Domain-specific_language">DSL</a>. URL query components are no longer sufficient, but request body in <code>GET</code> requests is not great either, which means you end-up sending non-mutating queries in <code>POST</code> requests (which is what Elasticsearch does). Is the API still RESTful at this point?</p>
+<p>Either way, both clients and servers need to take extra care with parsing, formatting and validating all these parameters. So much fun! 🙃 As an example, without proper validation and with uninitialised variables you can easily get something like <code>/todos?offset=undefined</code>.</p>
+<h3 id="not-easy-to-document-and-test">Not easy to document and test<a class="headerlink" href="#not-easy-to-document-and-test" title="Permanent link">&para;</a></h3>
+<p><a href="https://swagger.io/">Swagger</a> mentioned above is probably the best tool for this at the moment, but it isn’t used widely enough. Much more frequently I see APIs with documentation maintained separately. Not a big deal for a stable widely used API, but much worse during development in an agile process. Documentation stored separately means it’s frequently not updated at all, especially if it’s a minor, but client-breaking change.</p>
+<p>If you don’t use Swagger, it probably means you have specialised test infrastructure to maintain. There’s also a much higher chance you need integration tests rather than unit-tests, means testing both client and server-side code.</p>
+<h3 id="relations-and-batch-queries-make-it-even-more-frustrating">Relations and batch queries make it even more frustrating<a class="headerlink" href="#relations-and-batch-queries-make-it-even-more-frustrating" title="Permanent link">&para;</a></h3>
+<p>This becomes a problem with much larger APIs, where you might have a number of related collections. Let’s go further with an example of a todo-list app: suppose every todo item can also belong to a project. Would you always want to fetch all related projects at once? Probably not, but then there are more query parameters to add. Maybe you don’t want to fetch all object fields at once. What if the app needs projects to have owners and there’s a view with all this data aggregated in addition to separate views displaying each collection separately? It’s either three separate HTTP requests or one complex request with all data fetched at once for aggregation.</p>
+<p>Either way, there are complexity and performance tradeoffs, maintaining which in a growing application brings more headaches than one would like.</p>
+<h3 id="you-need-every-endpoint-implemented-both-on-server-and-client">You need every endpoint implemented both on server <em>and</em> client<a class="headerlink" href="#you-need-every-endpoint-implemented-both-on-server-and-client" title="Permanent link">&para;</a></h3>
+<p>There is also a ton of libraries that can automatically generate a REST endpoint with some help from <a href="https://en.wikipedia.org/wiki/Object-relational_mapping">ORMs</a> or direct database introspection. Even when those are used, usually they aren’t very flexible or extensible. That means reimplementing an endpoint from scratch if there is a need for custom parameters, advanced filtering behaviour or just some smarter handling of request or response payload.</p>
+<p>Yet another task is consuming those endpoints in client code. It’s great to use code-generation if you have it, but again it seems to be not flexible enough. Even with helper libraries like <a href="https://github.com/moya/moya">Moya</a>, you stumble upon the same barrier: there is a lot of custom behaviour to handle, which is caused by edge cases mentioned above.</p>
+<p>If a dev team isn’t full-stack, communication between server and client teams is crucial, even critical when there’s no machine-readable API spec.</p>
+<h2 id="and-hows-graphql-better">And how’s GraphQL better?<a class="headerlink" href="#and-hows-graphql-better" title="Permanent link">&para;</a></h2>
+<p>With all issues discussed, I’m inclined to say that in <a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete">CRUD</a> apps it would be great to have a standard way to produce and consume APIs. Common tooling and patterns, integrated testing and documentation infrastructure would help with both technical and organisational issues.</p>
+<p><a href="http://graphql.org/">GraphQL</a> has a draft <a href="https://en.wikipedia.org/wiki/Request_for_Comments">RFC</a> spec and a <a href="https://github.com/graphql/graphql-js">reference implementation</a>. Also, check out <a href="http://graphql.org/learn/">GraphQL tutorial</a>, which describes most of the concepts you’d need to know. There are implementations for different platforms, and there is plenty of developer tools available as well, most notably <a href="https://github.com/graphql/graphiql">GraphiQL</a>, which bundles a nice API explorer with auto-completion and a browser for documentation automatically generated from a GraphQL schema.</p>
+<p>In fact, I find GraphiQL indispensable. It can help in solving communication issues between client and server-side teams I’ve mentioned earlier. As soon as any changes are available in a GraphQL schema, you’ll be able to see it in GraphiQL browser, same with embedded API documentation. Now client and server teams can work together on API design in an even better way with shorter iteration time and shared documentation that’s automatically generated and visible to everyone on every API update. To get a feeling of how these tools work check out a Star Wars API example that is available as a <a href="http://graphql.org/swapi-graphql/">GraphiQL live demo</a>.</p>
+<p>Being able to specify object fields requested from a server allows clients to fetch only data they need when they need. No more multiple heavy queries issued to a rigid REST API, which are then stitched on the client just to display it all at once in app UI. You are no longer restricted to a set of endpoints, but have a schema of queries and mutations, being able to cherry-pick fields and objects that a client specifically requires. And a server only needs to implement top-level schema objects this way.</p>
+<h3 id="a-quick-example">A quick example<a class="headerlink" href="#a-quick-example" title="Permanent link">&para;</a></h3>
+<p>A GraphQL schema defines types that can be used in communication between servers and clients. There are two special types that are also <a href="http://graphql.org/learn/schema/#the-query-and-mutation-types">core concepts</a> in GraphQL: <code>Query</code> and <code>Mutation</code>. Most of the time every request that is issued to a GraphQL API is either a <code>Query</code> instance that is free of side-effects or a <code>Mutation</code> instance that modifies objects stored on the server.</p>
+<p>Now, sticking with our todo app example, consider this GraphQL schema:</p>
+<div class="highlight"><pre><span></span><code>type Project {
+  id: ID
+  name: String!
+}
+
+type TodoItem {
+  id: ID
+  description: String!
+  isCompleted: Boolean!
+  dueDate: Date
+  project: Project
+}
+
+type TodoList {
+  totalCount: Int!
+  items: [TodoItem]!
+}
+
+type Query {
+  allTodos(limit: Int, offset: Int): TodoList!
+  todoByID(id: ID!): TodoItem
+}
+
+type Mutation {
+  createTodo(item: TodoItem!): TodoItem
+  deleteTodo(id: ID!): TodoItem
+  updateTodo(id: ID!, newItem: TodoItem!): TodoItem
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+</code></pre></div>
+<p>This <code>schema</code> block at the bottom is special and defines root <code>Query</code> and <code>Mutation</code> types as described previously. Otherwise, it’s pretty straightforward: <code>type</code> blocks define new types, each block contains field definitions with their own types. Types can be non-optional, for example <code>String!</code> field can’t ever have <code>null</code> value, while <code>String</code> can. Fields can also have named parameters, so <code>allTodos(limit: Int, offset: Int): TodoList!</code> field of type <code>TodoList!</code> takes two optional parameters, while its own value is non-optional, meaning it will always return a <code>TodoList</code> instance that can’t be <code>null</code>.</p>
+<p>Then to query all todos with ids and names you’d write a query like this:</p>
+<div class="highlight"><pre><span></span><code>query {
+  allTodos(limit: 5) {
+    totalCount
+    items {
+      id
+      description
+      isCompleted
+    }
+  }
+}
+</code></pre></div>
+<p>GraphQL client library automatically parses and validates the query against the schema and only then sends it to a GraphQL server. Note that <code>offset</code> argument to <code>allTodos</code> field is absent. Being optional, its absence means it has <code>null</code> value. If the server supplies this sort of schema, it’s probably stated in documentation that <code>null</code> offset means that first page should be returned by default. The response could look like this:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;allTodos&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;totalCount&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+      <span class="nt">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;write a blogpost&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;isCompleted&quot;</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;edit until looks good&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;isCompleted&quot;</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;proofread&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;isCompleted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;publish on the website&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;isCompleted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+          <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;share&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;isCompleted&quot;</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>If you drop <code>isCompleted</code> field from the query, it’ll disappear from the result. Or you can add <code>project</code> field with its <code>id</code> and <code>name</code> to traverse the relation. Add <code>offset</code> parameter to <code>allTodos</code> field to paginate, and so <code>allTodos(count: 5, offset: 5)</code> will return the second page. Helpfully enough, you’ve got <code>totalCount</code> field in the result, so now you know you’ve got <code>42 / 5 = 9</code> pages in total. But obviously, you can omit <code>totalCount</code> if you don’t need it. The query is in full control of what actual information will be received, but underlying GraphQL infrastructure also ensures that all required fields and parameters are there. If your GraphQL server is smart enough, it won’t run database queries for fields you don’t need, and some libraries are good enough to provide that for free. Same with the rest of mutations and queries in this schema: input is type-checked and validated, and based on the query a GraphQL server knows what result shape is expected.</p>
+<p>Under the hood, all communication runs through a predefined URL (usually <code>/graphql</code>) on a server with a simple <code>POST</code> request that contains the query serialised as a JSON payload. You almost never have a need to be exposed to an abstraction layer this low though.</p>
+<p>Not too bad overall: we’ve got type-level validation issues taken care of, pagination is also looking good and entity relations can be easily traversed when needed. If you use some GraphQL -&gt; database query translation libraries that are available, you wouldn’t even need to write most of the database queries on the server. Client-side libraries can unpack a GraphQL response automatically as an object instance of a needed type quite easily, as naturally the response shape is known upfront from the schema and queries.</p>
+<h3 id="graphql-is-this-new-hipster-thing-a-fad-right">GraphQL is this new hipster thing, a fad, right?<a class="headerlink" href="#graphql-is-this-new-hipster-thing-a-fad-right" title="Permanent link">&para;</a></h3>
+<p>While <a href="https://github.com/Netflix/falcor">falcor by Netflix</a> seemed to be solving a similar problem, was published on GitHub a few months earlier than GraphQL and came up on my personal radar earlier, it clearly looks like GraphQL has won. Good tooling and strong industry support make it quite compelling. Aside from a few minor glitches in some client libraries (that since have been resolved), I can’t recommend highly enough to have a good look at what GraphQL could offer in your tech stack. It is <a href="http://graphql.org/blog/production-ready/">out of technical preview</a> for almost two years now and the ecosystem is growing even stronger. While Facebook designed GraphQL, we see more and more big companies using it in their products as well: <a href="https://developer.github.com/v4/">GitHub</a>, <a href="https://help.shopify.com/api/custom-storefronts/storefront-api/graphql-explorer">Shopify</a>, <a href="http://engineering.khanacademy.org/posts/creating-query-components-with-apollo.htm">Khan Academy</a>, <a href="https://dev-blog.apollodata.com/courseras-journey-to-graphql-a5ad3b77f39a">Coursera</a>, and the list <a href="http://graphql.org/users/">is growing</a>.</p>
+<p>There’s plenty of popular open-source projects that use GraphQL: this blog is powered by <a href="https://www.gatsbyjs.org/">Gatsby</a> static site generator, which translates results of GraphQL queries into data that are rendered into an HTML file. If you’re on WordPress, a <a href="https://wpgraphql.com/">GraphQL API</a> is available for it as well. <a href="https://github.com/reactioncommerce/reaction">Reaction Commerce</a> is an open-source alternative to Shopify that’s also powered by GraphQL.</p>
+<p>A few GraphQL libraries worth mentioning again are <a href="https://www.graphile.org/postgraphile/">PostGraphile</a> and <a href="https://www.apollographql.com/client">Apollo</a>.</p>
+<p>If you use PostgreSQL as your database on the backend, PostGraphile is able to scan a SQL schema and automatically generate a GraphQL schema with an implementation. You get all common CRUD operations exposed as queries and mutations for all tables. It may look like it’s an ORM, but it isn’t: you’re in full control of how your database schema is designed, and what indices are used. Great thing is that PostGraphile also exposes views and functions as queries and mutations, so if there is particularly complex SQL query that you’d like to map to a GraphQL field, just create that SQL view or function and it’ll appear automatically in GraphQL schema. With advanced Postgres features like <a href="https://www.postgresql.org/docs/10/static/ddl-rowsecurity.html">row-level security</a>, you can get complex access control logic implemented with only a few SQL policies to write. PostGraphile even has awesome things like schema documentation <a href="https://www.graphile.org/postgraphile/postgresql-schema-design/#table-documentation">generated automatically from Postgres comments</a> 🤩.</p>
+<p>In turn, Apollo provides both client libraries for multiple platforms and code generators that produce type definitions in most popular programming languages, including TypeScript and Swift. In general, I find Apollo much simpler and manageable to use than, for example, <a href="https://github.com/facebook/relay">Relay</a>. Thanks to simple architecture of Apollo client library, I was able to slowly transition an app that used <a href="http://reactjs.com/">React.js</a> with <a href="https://redux.js.org/">Redux</a> to <a href="https://github.com/apollographql/react-apollo">React Apollo</a>, component by component and only when it made sense to do so. Same with native iOS apps, <a href="https://github.com/apollographql/apollo-ios">Apollo iOS</a> is a relatively lightweight library that’s easy to use.</p>
+<p>In a future article, I’d like to describe some of my experience with this tech stack. In the meantime, shoot me a <a href="https://twitter.com/maxdesiatov">message on Twitter</a> about your experience with GraphQL or if you’re just interested how it could work in your app 👋.</p>
+<hr />
+<p>If you enjoyed this article, please consider <a href="https://desiatov.com/sponsor">becoming a sponsor</a>. My goal is to produce content like this and to work on open-source projects full time, every single contribution brings me closer to it! This also benefits you as a reader and as a user of <a href="https://github.com/MaxDesiatov">my open-source projects</a>, ensuring that my blog and projects are constantly maintained and improved.</p>
+<hr />
+<ul>
+<li><a href="https://desiatov.com/closures/">How do closures and callbacks work? It's turtles all the way down →</a></li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95composition/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 中文输入法composition" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              中文输入法composition
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../%E4%BA%94%E5%B9%B4%E4%B9%8B%E5%90%8E%E7%9A%84%E5%89%8D%E7%AB%AF%E4%BC%9A%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%EF%BC%9F/" class="md-footer__link md-footer__link--next" aria-label="Next: 五年之后的前端会是什么样？" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              五年之后的前端会是什么样？
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; Michael An
+          </div>
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.e99e714c.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.bc35569b.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>
