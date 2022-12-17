@@ -261,20 +261,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../thought/" class="md-nav__link">
-        thought
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -310,6 +296,20 @@
           笔记
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../all-leetcode/" class="md-nav__link">
+        leetcode-all
+      </a>
+    </li>
+  
+
+            
           
             
               
@@ -395,13 +395,6 @@
   
     <nav class="md-nav" aria-label="网络">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-web" class="md-nav__link">
-    1 常见的web攻击
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#2" class="md-nav__link">
@@ -575,7 +568,7 @@
         
           <li class="md-nav__item">
   <a href="#jquery" class="md-nav__link">
-    jquery
+    jquery 废弃笔记
   </a>
   
 </li>
@@ -1735,13 +1728,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-web" class="md-nav__link">
-    1 常见的web攻击
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#2" class="md-nav__link">
     2 本地不同项目调试问题
   </a>
@@ -1913,7 +1899,7 @@
         
           <li class="md-nav__item">
   <a href="#jquery" class="md-nav__link">
-    jquery
+    jquery 废弃笔记
   </a>
   
 </li>
@@ -2070,23 +2056,6 @@
   <h1>other-note</h1>
 
 <h2 id="_1">网络<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<h4 id="1-web">1 常见的web攻击<a class="headerlink" href="#1-web" title="Permanent link">&para;</a></h4>
-<ul>
-<li>XSS：cross site scripting 跨站脚本攻击；有漏洞的网站运行攻击者的脚本命令。可以利用虚假表单获取个人信息。利用 JS 获取用户的cookie值。被害者在不知情的情况下，帮助攻击者发送恶意请求（显示伪造的文章或者图片，显示伪造的网页登录情况）。例子：被攻击的A网站中，通过URL传值，获取登录用户名。那么攻击者在URL中设置自己的攻击脚本，获取cookie等信息。<code>localhost:3000/?id=&lt;script&gt;alert('1')&lt;/script&gt;</code> 进一步执行远程脚本 <code>localhost:3000/?id=&lt;script src="http://www.baidu.com/index.js"&gt;&lt;/script&gt;</code> 获取信息。</li>
-<li>CSRF、点击劫持、OS注入、请求劫持、DDOS</li>
-<li>SQL注入：用户在提交数据时（用户名密码），可能把非法的用户名（例如某一段SQL语句）提交到服务器。服务器在查找数据库时，<code>select * from db where username is XXX</code> 把非法的SQL执行，造成数据损失等。避免方法：永远不要相信用户的输入；对用户的输入进行校验和转换；不要使用超级管理员权限执行某些操作等。</li>
-</ul>
-<p>XSS 解决方法，避免把用户传递的变量，直接和 HTML 拼接，然后执行。</p>
-<p>解决：将用户的输入通过下面函数转换成合法的HTML，先创建文本节点，然后在获取内部HTML</p>
-<div class="highlight"><pre><span></span><code><span class="nx">HTMLescape</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">html</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">html</span><span class="p">))</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="nx">parentNode</span><span class="w"></span>
-<span class="w">    </span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</code></pre></div>
-<p>然后把生成的HTML，使用 <code>&lt;a href="://www.baidu.com"&gt; + str + &lt;/a&gt;</code> 包起来，这样就避免了XSS</p>
-<p>开课吧笔记有两节安全的课程，可以参考</p>
 <h4 id="2">2 本地不同项目调试问题<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
 <ul>
 <li>本地浏览器支持跨域操作（后端服务和前端页面不在一个端口，但是需要请求登录）：更改本地浏览器配置。可以设置 webpack 支持代理，但是设置后无效，可能和 webpack 版本有关，所以直接使用命令行打开浏览器（增加参数打开）参考：<a href="https://blog.csdn.net/qq_41541368/article/details/104035074">https://blog.csdn.net/qq_41541368/article/details/104035074</a> 扩展：直接写一个脚本，电脑开机后直接命令行执行，打开对应的程序，不需要手动双击每一个程序</li>
@@ -2256,7 +2225,7 @@ git cherry-pick A-hash B-hash <span class="c1"># 把两个hash之间的全部Com
 <p>特点：View 和 ModalView 双向绑定，View 更改后直接体现在 ModalView 中。</p>
 <p>原始链接：<a href="http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html">http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html</a></p>
 <p>后面部分废弃笔记</p>
-<h3 id="jquery">jquery<a class="headerlink" href="#jquery" title="Permanent link">&para;</a></h3>
+<h3 id="jquery">jquery 废弃笔记<a class="headerlink" href="#jquery" title="Permanent link">&para;</a></h3>
 <ol>
 <li>DOM方法：</li>
 </ol>
