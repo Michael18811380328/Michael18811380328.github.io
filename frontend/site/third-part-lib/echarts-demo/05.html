@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="echarts-5.min.js"></script>
+  </head>
+  <body>
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+      // 动态排序柱状图是一种展示随时间变化的数据排名变化的图表，从 ECharts 5 开始内置支持。
+      var myChart = echarts.init(document.getElementById('main'));
+
+      var data = [];
+      for (let i = 0; i < 5; ++i) {
+        data.push(Math.round(Math.random() * 200));
+      }
+
+      option = {
+        title: {
+          text: '05 ECharts 动态排序柱状图'
+        },
+        xAxis: {
+          //X 轴最大值: 建议设为 'dataMax' 表示用数据的最大值作为 X 轴最大值，视觉效果更好
+          max: 'dataMax'
+        },
+        yAxis: {
+          type: 'category',
+          data: ['美国', '中国', '日本', '英国', '法国'],
+
+          inverse: true, // Y 轴从下往上是从小到大的排列
+
+          animationDuration: 300, // 建议设为 300，表示第一次柱条排序动画的时长
+
+          animationDurationUpdate: 300, // 建议设为 300，表示第一次后柱条排序动画的时长
+
+          // 只显示前 n 名，将 yAxis.max 设为 n - 1，否则显示所有柱条
+          max: 4 // only the largest 3 bars will be displayed 
+        },
+        series: [
+          {
+            realtimeSort: true, //开启该系列的动态排序效果
+            name: 'X',
+            type: 'bar',
+            data: data,
+            label: {
+              show: true,
+              position: 'right',
+              valueAnimation: true // 实时改变标签的值
+            }
+          }
+        ],
+        legend: {
+          show: true
+        },
+        // 表示第一份数据不需要从 0 开始动画（如果希望从 0 开始则设为和 animationDurationUpdate 相同的值）
+        animationDuration: 3000,
+        // 每次更新动画时长，建议设为 3000，这一数值应与调用 setOption 改变数据的频率相同
+        animationDurationUpdate: 3000,
+        animationEasing: 'linear',
+        animationEasingUpdate: 'linear'
+      };
+
+      // 随机增加函数
+      function update() {
+        var data = option.series[0].data;
+        for (var i = 0; i < data.length; ++i) {
+          if (Math.random() > 0.9) {
+            data[i] += Math.round(Math.random() * 2000);
+          } else {
+            data[i] += Math.round(Math.random() * 200);
+          }
+        }
+        myChart.setOption(option);
+      }
+
+      // 数值更新频率，和 animationDurationUpdate 保持一致
+      setInterval(function() {
+        update();
+      }, 3000);
+
+    </script>
+  </body>
+</html>

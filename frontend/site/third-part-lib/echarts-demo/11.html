@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="echarts-5.min.js"></script>
+  </head>
+  <body>
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+      var myChart = echarts.init(document.getElementById('main'));
+
+      // 阶梯线图又称方波图，它使用水平和垂直的线来连接两个数据点，而普通折线图则直接将两个点连接起来。
+      // 阶梯线图能够很好地表达数据的突变（低电平高电平）。
+
+      option = {
+        title: {
+          text: '11 方波图',
+        },
+        xAxis: {
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            name: 'Step Start',
+            type: 'line',
+            // 系列的 step 属性用来表征阶梯线图的连接类型，它共有三种取值：'start'、'middle' 和 'end'，分别表示在当前点，当前点与下个点的中间点，下个点拐弯。
+            step: 'start',
+            data: [120, 132, 101, 134, 90, 230, 210]
+          },
+          {
+            name: 'Step Middle',
+            type: 'line',
+            step: 'middle',
+            data: [220, 282, 201, 234, 290, 430, 410]
+          },
+          {
+            name: 'Step End',
+            type: 'line',
+            step: 'end',
+            data: [450, 432, 401, 454, 590, 530, 510]
+          }
+        ]
+      };
+      myChart.setOption(option);
+    </script>
+  </body>
+</html>

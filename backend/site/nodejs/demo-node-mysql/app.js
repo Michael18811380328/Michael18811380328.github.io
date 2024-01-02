@@ -1,24 +1,24 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const mysql = require('mysql');
+const mysql = require("mysql");
 
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '123456',
+  host: "localhost",
+  user: "root",
+  password: "123456",
   // port: '3306',
-  database: 'test1',
+  database: "test1",
 });
 
-db.connect(err => {
+db.connect((err) => {
   if (err) {
     throw err;
   }
-  console.log('connect success');
+  console.log("connect success");
 });
 
 app.listen(3000, () => {
-  console.log('server port is at 3000');
+  console.log("server port is at 3000");
 });
 
 // 报错：node连接Mysql报错ER_NOT_SUPPORTED_AUTH_MODE
@@ -32,8 +32,7 @@ app.get("/createdb", (req, res) => {
   db.query(sql, (err, result) => {
     if (err) {
       console.log(err);
-    }
-    else {
+    } else {
       console.log(result);
       res.send("Database create success!");
     }
@@ -41,37 +40,35 @@ app.get("/createdb", (req, res) => {
 });
 
 app.get("/createTable", (req, res) => {
-  let sql = "CREATE TABLE posts(id int AUTO_INCREMENT, title VARCHAR(255), body VARCHAR(255), PRIMARY KEY(ID))";
+  let sql =
+    "CREATE TABLE posts(id int AUTO_INCREMENT, title VARCHAR(255), body VARCHAR(255), PRIMARY KEY(ID))";
   db.query(sql, (err, result) => {
     if (err) {
       console.log(err);
-    }
-    else {
+    } else {
       console.log(result);
-      res.send('Table create success');
-    }
-  })
-});
-
-app.get('/add-comment1', (req, res) => {
-  // 实际上这部分从post请求参数中获取
-  let post = {
-    title: 'have a nice day',
-    body: 'today we have a nice day. xxx.'
-  };
-  // 这里的问号会把post传进SQL语句中，放置SQL注入
-  let sql = "INSERT INTO posts SET ?"
-  db.query(sql, post, (req, res) => {
-    if (err) {
-      console.log(err);
-    }
-    else {
-      console.log(res);
-      res.send('post comment success');
+      res.send("Table create success");
     }
   });
 });
 
+app.get("/add-comment1", (req, res) => {
+  // 实际上这部分从post请求参数中获取
+  let post = {
+    title: "have a nice day",
+    body: "today we have a nice day. xxx.",
+  };
+  // 这里的问号会把post传进SQL语句中，放置SQL注入
+  let sql = "INSERT INTO posts SET ?";
+  db.query(sql, post, (req, res) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(res);
+      res.send("post comment success");
+    }
+  });
+});
 
 app.get("/getposts", (req, res) => {
   // 实际中使用where，不会直接用通配符查询
@@ -79,11 +76,10 @@ app.get("/getposts", (req, res) => {
   db.query(sql, (err, result) => {
     if (err) {
       console.log(err);
-    }
-    else {
+    } else {
       console.log(result);
       res.json(result);
-      res.send('query success');
+      res.send("query success");
     }
   });
 });
@@ -94,8 +90,7 @@ app.get("/getposts/:id", (req, res) => {
   db.query(sql, (err, result) => {
     if (err) {
       console.log(err);
-    }
-    else {
+    } else {
       console.log(result);
       res.json(result);
     }
@@ -110,13 +105,12 @@ app.get("updatecomment/:id", (req, res) => {
   db.query(sql, (err, result) => {
     if (err) {
       console.log(err);
-    }
-    else {
+    } else {
       console.log(result);
       res.send(`update ${id} success`);
     }
   });
-})
+});
 
 // 删除数据
 app.get("deletepost/:id", (req, res) => {
@@ -124,10 +118,9 @@ app.get("deletepost/:id", (req, res) => {
   db.query(sql, (err, result) => {
     if (err) {
       console.log(err);
-    }
-    else {
+    } else {
       console.log(result);
       res.send(`删除成功`);
     }
-  })
-})
+  });
+});

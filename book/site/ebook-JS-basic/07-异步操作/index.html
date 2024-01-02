@@ -2096,7 +2096,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../other/leanpub-auto-the-road-to-ecmascript-6/" class="md-nav__link">
+      <a href="../../other/leanpub-auto-the-road-to-ecmascript-6.md" class="md-nav__link">
         leanpub-auto-the-road-to-ecmascript-6
       </a>
     </li>
@@ -2236,8 +2236,64 @@
   
   
     <li class="md-nav__item">
+      <a href="../../other/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E6%80%8E%E6%A0%B7%E8%B7%91%E8%B5%B7%E6%9D%A5%E7%9A%84/" class="md-nav__link">
+        计算机是怎样跑起来的
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../ebook-upguigu-nodejs/nodeJS-basic/" class="md-nav__link">
         尚硅谷 nodeJS-basic
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-Principles%20of%20Computer%20Composition/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        计算机组成原理知识点总结
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-qianfeng-express/01/" class="md-nav__link">
+        qianfeng-express
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/express%E5%9B%BE%E4%B9%A6%E9%A6%86%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
+        express图书馆项目
       </a>
     </li>
   
@@ -2267,14 +2323,14 @@
       
       
         <label class="md-nav__link" for="__nav_9">
-          黑马程序员nodejs
+          黑马程序员nodejs笔记
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="黑马程序员nodejs" data-md-level="1">
+      <nav class="md-nav" aria-label="黑马程序员nodejs笔记" data-md-level="1">
         <label class="md-nav__title" for="__nav_9">
           <span class="md-nav__icon md-icon"></span>
-          黑马程序员nodejs
+          黑马程序员nodejs笔记
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -2462,13 +2518,13 @@
   <h1>07-异步操作</h1>
 
 <h2 id="_1">异步操作<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>2021-11-18</p>
+<p>2021-11-18 2023-04-08</p>
 <h3 id="_2">概念<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <h4 id="1">1、单线程模式<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
 <p>JS 语言只在一个线程上运行，JS在某时刻只能执行一个任务，其他任务必须在后面排队等待。实际上 JS V8 引擎宏观上具有多线程，单个 JS 脚本文件只能在一个线程（主线程）上运行，其他线程在后台配合。</p>
-<p>单线程的原因：多线程消耗性能，浏览器DOM设计更复杂。</p>
-<p>单线程好处：设计简单，执行环境单纯不会冲突。</p>
-<p>单线程缺点：读写外部数据或者发送请求，可能脚本长时间停滞（浏览器假死），此时CPU还在闲置。</p>
+<p>单线程的原因：浏览器线程主要和 DOM 相关，如果多个线程同时更改 DOM，就造成了不确定性，所以早期使用单线程完成。</p>
+<p>单线程好处：设计简单，执行环境单纯，线程不会冲突。</p>
+<p>单线程缺点：读写外部数据，或者发送请求，可能脚本长时间停滞（浏览器假死），此时 CPU 还在闲置，界面是空白。</p>
 <p>H5规定：一个JS脚本可以创建多个线程，子线程完全被主线程控制，子线程不能控制DOM（本质单线程没变）。</p>
 <h4 id="2">2、同步任务和异步任务<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
 <p>程序中的任务分成**同步任务和异步任务**；同步任务是主线程中的任务，必须等上一个任务完成后再执行下一个任务。异步任务不在主线程中，进入**任务队列**。当主线程的一个状态变化后（例如ajax接到数据），任务队列中的任务会以回调函数的形式进入主线程执行，不会产生堵塞。Ajax可以实现同步任务和异步任务。如果是同步任务，需要等请求返回后执行后面的代码；如果是异步任务，在请求的同时，会执行后面的代码；请求响应后，主线程再调用回调函数。</p>
@@ -2477,40 +2533,40 @@
 <p>事件循环：JS 引擎不断检查异步事件；当同步事件进行完，JS引擎会检查任务队列中的异步任务并执行，直到全部任务执行结束，对应程序执行结束。</p>
 <h4 id="4">4、异步操作的模式<a class="headerlink" href="#4" title="Permanent link">&para;</a></h4>
 <p><strong>回调函数</strong>：简单，但是不同程序高度耦合，多个回调函数嵌套很复杂，每个任务对应一个回调函数。</p>
-<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">f1</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="c1">//</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="kd">function</span><span class="w"> </span><span class="nx">f2</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="c1">//</span><span class="w"></span>
-<span class="w">  </span><span class="nx">callback</span><span class="p">();</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-<span class="nx">f2</span><span class="p">(</span><span class="nx">f1</span><span class="p">);</span><span class="w"></span>
-<span class="c1">// 把回调函数以参数的形式传入同步任务函数中</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">f1</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">//</span>
+<span class="p">}</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">f2</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">//</span>
+<span class="w">  </span><span class="nx">callback</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="nx">f2</span><span class="p">(</span><span class="nx">f1</span><span class="p">);</span>
+<span class="c1">// 把回调函数以参数的形式传入同步任务函数中</span>
 </code></pre></div>
 <p><strong>事件驱动</strong>：可以绑定多个事件，每个事件可以执行多个回调函数，去耦合，模块化。整个程序如果是事件驱动，那么主线程不明确。</p>
-<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">f1</span><span class="p">(){</span><span class="w"></span>
-<span class="w">  </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">f1</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;onclick&#39;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="mf">1000</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">f1</span><span class="p">(){</span>
+<span class="w">  </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">f1</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;onclick&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="mf">1000</span><span class="p">);</span>
+<span class="p">}</span>
 
-<span class="nx">f1</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">f2</span><span class="p">);</span><span class="w"></span>
+<span class="nx">f1</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">f2</span><span class="p">);</span>
 </code></pre></div>
 <p><strong>发布订阅</strong>（观察者模式，publish-subscribe pattern, observer pattern）</p>
-<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">f2</span><span class="p">);</span><span class="w"> </span><span class="c1">// f2 函数向信号中心$订阅 done 信号</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">f2</span><span class="p">);</span><span class="w"> </span><span class="c1">// f2 函数向信号中心$订阅 done 信号</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">f1</span><span class="w"> </span><span class="p">(){</span><span class="w"></span>
-<span class="w">  </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">$</span><span class="p">.</span><span class="nx">publish</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="c1">// f1 执行完毕后，向信号中心 $ 发布done信号(从而引发f2函数执行)</span><span class="w"></span>
-<span class="w">  </span><span class="p">});</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">f1</span><span class="w"> </span><span class="p">(){</span>
+<span class="w">  </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">$</span><span class="p">.</span><span class="nx">publish</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// f1 执行完毕后，向信号中心 $ 发布done信号(从而引发f2函数执行)</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">}</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">f2</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="c1">// do something</span><span class="w"></span>
-<span class="w">  </span><span class="nx">$</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="c1">// 函数执行完毕后，取消订阅</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">f2</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// do something</span>
+<span class="w">  </span><span class="nx">$</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// 函数执行完毕后，取消订阅</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>发布订阅模式比事件驱动模式好，可以查看消息中心获取信号数量，信号订阅者，从整体上监控程序的运行</p>
 <h4 id="5">5、多个异步任务的流程控制<a class="headerlink" href="#5" title="Permanent link">&para;</a></h4>
@@ -2521,55 +2577,55 @@
 <h3 id="_3">定时器<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>主要是 setTimeout setInterval clearTimeout, clearInterval，可以向任务队列添加定时任务。</p>
 <p>setTimeout 函数返回一个变量（递增的整数），用于清除定时器。函数默认传入两个参数，分别是异步执行的函数和间隔时间，可选参数是回调函数的变量（ab）;函数内部的作用于是 window，this 的指向发生变化，注意。</p>
-<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">;</span><span class="w"></span>
-<span class="kd">let</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="c1">// that.fucntion...</span><span class="w"></span>
-<span class="p">},</span><span class="w"> </span><span class="mf">1000</span><span class="p">,</span><span class="w"> </span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// that.fucntion...</span>
+<span class="p">},</span><span class="w"> </span><span class="mf">1000</span><span class="p">,</span><span class="w"> </span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">);</span>
 </code></pre></div>
 <p>setInterval 函数的参数、返回值相同，可以定时执行某个函数，不会主动停止。缺点：间隔不包括函数运行的时间，如果函数执行时间较长，那么后一次函数也会准时执行。</p>
 <p>在滚动函数或者渐变函数中，最好的办法是设置 setTimeout 并在函数内部设置下一次时间间隔函数。</p>
 <p>清除所有定时器</p>
-<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="c1">// 每轮事件循环检查一次</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">gid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setInterval</span><span class="p">(</span><span class="nx">clearAllTimeouts</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// 每轮事件循环检查一次</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">gid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setInterval</span><span class="p">(</span><span class="nx">clearAllTimeouts</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span>
 
-<span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">clearAllTimeouts</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="nx">gid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="nx">id</span><span class="o">--</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">})();</span><span class="w"></span>
+<span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">clearAllTimeouts</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="nx">gid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="nx">id</span><span class="o">--</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">})();</span>
 
-<span class="p">(</span><span class="kd">function</span><span class="p">(){</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">gid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setInterval</span><span class="p">(</span><span class="nx">clearAllTimeouts</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 事件循环时检查一次</span><span class="w"></span>
-<span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">clearAllTimeouts</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 首先创建一个定时器，获取定时器最大值</span><span class="w"></span>
-<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="c1">// 清除全部的定时器</span><span class="w"></span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="nx">gid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">      </span><span class="nx">id</span><span class="o">--</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="p">})();</span><span class="w"></span>
+<span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">gid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setInterval</span><span class="p">(</span><span class="nx">clearAllTimeouts</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 事件循环时检查一次</span>
+<span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">clearAllTimeouts</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="mf">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// 首先创建一个定时器，获取定时器最大值</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// 清除全部的定时器</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="nx">gid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="nx">id</span><span class="o">--</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">})();</span>
 </code></pre></div>
 <p>防抖</p>
-<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;textarea&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">debounce</span><span class="p">(</span><span class="nx">ajaxAction</span><span class="p">));</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;textarea&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">debounce</span><span class="p">(</span><span class="nx">ajaxAction</span><span class="p">));</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">debounce</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">timer</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">arguments</span><span class="p">;</span><span class="w"> </span><span class="c1">// 传入的参数</span><span class="w"></span>
-<span class="w">  </span><span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span><span class="w"> </span><span class="c1">// 首先清除一下上次的定时器</span><span class="w"></span>
-<span class="w">  </span><span class="nx">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="mf">2000</span><span class="p">);</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">debounce</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">timer</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">arguments</span><span class="p">;</span><span class="w"> </span><span class="c1">// 传入的参数</span>
+<span class="w">  </span><span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span><span class="w"> </span><span class="c1">// 首先清除一下上次的定时器</span>
+<span class="w">  </span><span class="nx">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="p">);</span>
+<span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="mf">2000</span><span class="p">);</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>定时器原理</p>
 <p>把当前事件移出事件队列，等固定的时间后执行这个事件。</p>
@@ -2579,42 +2635,53 @@
 <h3 id="promise">Promise对象<img alt="🐛" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f41b.png" title=":bug:" /><a class="headerlink" href="#promise" title="Permanent link">&para;</a></h3>
 <p>Promise 是异步操作和回调函数的很好的解决方案，这里简单介绍（主要在ES6）</p>
 <p>异步任务返回一个 Promise 实例，这个实例具有 then 的方法，可以处理下一步的回调函数。Promise 简化了回调函数的写法。</p>
-<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">f1</span><span class="w"> </span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="c1">// deal with async event</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">f1</span><span class="w"> </span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// deal with async event</span>
+<span class="p">}</span>
 
-<span class="kd">let</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">(</span><span class="nx">f1</span><span class="p">);</span><span class="w"></span>
-<span class="nx">a</span><span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">res</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="c1">// deal with response</span><span class="w"></span>
-<span class="p">});</span><span class="w"></span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">(</span><span class="nx">f1</span><span class="p">);</span>
+<span class="nx">a</span><span class="p">.</span><span class="nx">then</span><span class="p">((</span><span class="nx">res</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// deal with response</span>
+<span class="p">});</span>
 </code></pre></div>
 <p>传统写法和 Promise 写法，回调函数变成链式函数</p>
-<div class="highlight"><pre><span></span><code><span class="nx">f1</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">value1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nx">f2</span><span class="p">(</span><span class="nx">value1</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">value2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="c1">//</span><span class="w"></span>
-<span class="w">  </span><span class="p">});</span><span class="w"></span>
-<span class="p">});</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="nx">f1</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">value1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">f2</span><span class="p">(</span><span class="nx">value1</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">value2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">//</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">});</span>
 
-<span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">(</span><span class="nx">f1</span><span class="p">)).</span><span class="nx">then</span><span class="p">(</span><span class="nx">f2</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">f3</span><span class="p">)...</span><span class="w"></span>
+<span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">(</span><span class="nx">f1</span><span class="p">)).</span><span class="nx">then</span><span class="p">(</span><span class="nx">f2</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">f3</span><span class="p">)...</span>
 </code></pre></div>
 <p>Promise 实例对象的状态（对应ajax请求对象的状态），结果可能是两个，成功或者失败（成功返回 result， 失败返回 error，如果发出异步那么结果一定会发生，所以称为承诺）</p>
 <p>Promise.prototype.then 可以为异步事件添加回调函数，例如下面的图片加载</p>
-<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">preloadImage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Image</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="nx">image</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">resolve</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nx">image</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">reject</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nx">image</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">path</span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="p">});</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">preloadImage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span><span class="w"> </span><span class="nx">reject</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Image</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">image</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">resolve</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">image</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">reject</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">image</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">path</span><span class="p">;</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">};</span>
 
-<span class="nx">preloadImage</span><span class="p">(</span><span class="s1">&#39;https://example.com/my.jpg&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">)</span><span class="w"></span>
-<span class="p">}).</span><span class="nx">then</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;加载成功&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="p">});</span><span class="w"></span>
+<span class="nx">preloadImage</span><span class="p">(</span><span class="s1">&#39;https://example.com/my.jpg&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">((</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">)</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;加载成功&#39;</span><span class="p">)</span>
+<span class="p">});</span>
 </code></pre></div>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 5, 2023</span>
+      
+    
+  </small>
+</div>
 
 
 

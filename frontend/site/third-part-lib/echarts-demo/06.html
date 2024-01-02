@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="echarts-5.min.js"></script>
+  </head>
+  <body>
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script type="text/javascript">
+      var myChart = echarts.init(document.getElementById('main'));
+
+      // 使用堆叠的柱状图，模拟阶梯瀑布图（K线图）
+      // 例如：第一个数据是 900，第二个数据 345 表示的是在 900 的基础上增加了 345……
+      var data = [900, 345, 393, -108, -154, 135, 178, 286, -119, -361, -203];
+      
+      // 将这个数据展示为阶梯瀑布图时，我们可以使用三个系列：
+      // 第一个是不可交互的透明系列，用来实现“悬空”的柱状图效果；
+      // 第二个系列用来表示正数；
+      // 第三个系列用来表示负数。
+
+      // 数据预处理（三套柱状图）
+      var help = [];
+      var positive = [];
+      var negative = [];
+
+      var sum = 0;
+      for (var i = 0; i < data.length; ++i) {
+        // 根据正负号判断
+        // 正数添加到正数数组，负数数组添加一个 - ；反之亦然
+        if (data[i] >= 0) {
+          positive.push(data[i]);
+          negative.push('-');
+        } else {
+          positive.push('-');
+          negative.push(-data[i]);
+        }
+
+        // 第一个数据，在帮助中加入一个 0
+        if (i === 0) {
+          help.push(0);
+        } else {
+          // 每次循环求和
+          sum += data[i - 1];
+          // 然后在辅助数组中增加对应的值
+          if (data[i] < 0) {
+            help.push(sum + data[i]);
+          } else {
+            help.push(sum);
+          }
+        }
+      }
+
+      // 图表配置
+      option = {
+        title: {
+          text: '06 ECharts Waterfall 阶梯瀑布图(K线图)'
+        },
+        // 画布样式布局
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        // 
+        xAxis: {
+          type: 'category',
+          splitLine: {
+            show: false
+          },
+          // 数据处理
+          data: (function() {
+            var list = [];
+            for (var i = 1; i <= 11; i++) {
+              list.push('Oct/' + i);
+            }
+            return list;
+          })()
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          // 辅助柱状图，背景是白色空的（看一下这个实际作用，去掉的话，所有都是0开始，这个高度表示每次的基准数值，下面的空白区域）
+          {
+            type: 'bar',
+            stack: 'all',
+            // 这里显示透明色，是前一天收盘的基准值
+            itemStyle: {
+              normal: {
+                barBorderColor: 'rgba(0,0,0,0)',
+                color: 'rgba(0,0,0,0)'
+              },
+              emphasis: {
+                barBorderColor: 'rgba(0,0,0,0)',
+                color: 'rgba(0,0,0,0)'
+              }
+            },
+            data: help
+          },
+          // 升高表示股价上涨，显示绿色
+          {
+            name: 'positive',
+            type: 'bar',
+            stack: 'all',
+            data: positive,
+            itemStyle: {
+              color: '#f33'
+            }
+          },
+          // 降低表示股价下跌，显示绿色
+          {
+            name: 'negative',
+            type: 'bar',
+            stack: 'all',
+            data: negative,
+            itemStyle: {
+              color: 'rgb(87, 187, 154)'
+            }
+          }
+        ]
+      };
+      myChart.setOption(option);
+    </script>
+  </body>
+</html>

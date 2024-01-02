@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="echarts-5.min.js"></script>
+  </head>
+  <body>
+    <div id="main" style="width: 1250px;height:400px;"></div>
+    <script type="text/javascript">
+      var myChart = echarts.init(document.getElementById('main'));
+
+      var option;
+
+      // 辅助函数：股价数据预处理（把矩阵变成对象，包括 categoryData values volumns 几个字段）
+      function splitData(rawData) {
+        var categoryData = [];
+        var values = [];
+        var volumns = [];
+        for (var i = 0; i < rawData.length; i++) {
+          categoryData.push(rawData[i].splice(0, 1)[0]);
+          values.push(rawData[i]);
+          volumns.push(rawData[i][4]);
+        }
+        return {
+          categoryData: categoryData,
+          values: values,
+          volumns: volumns
+        };
+      }
+
+      // 辅助函数：计算移动平均值
+      function calculateMA(dayCount, data) {
+        var result = [];
+        for (var i = 0, len = data.values.length; i < len; i++) {
+          if (i < dayCount) {
+            result.push('-');
+            continue;
+          }
+          var sum = 0;
+          for (var j = 0; j < dayCount; j++) {
+            sum += data.values[i - j][1];
+          }
+          result.push(+(sum / dayCount).toFixed(3));
+        }
+        return result;
+      }
+
+      // 获取历史股价，读取本地 json 
+      fetch('./stock-DJI.json').then((response) => response.json()).then((response) => {
+        // 数据预处理
+        var data = splitData(response);
+        // 设置选项
+        myChart.setOption(
+          (option = {
+            // 显示动画效果（这是股票K线图，不需要显示动画效果）
+            animation: false,
+
+            title: {
+              text: '17 K线图',
+            },
+
+            // 图例
+            legend: {
+              // 距离底部0px，居中对齐
+              bottom: 0,
+              // 显示在正下方
+              left: 'center',
+              // 显示的标签是：道琼斯指数，移动平均线 5 10 20 30
+              data: ['Dow-Jones index', 'MA5', 'MA10', 'MA20', 'MA30']
+            },
+
+            // 大提示弹框
+            tooltip: {
+              // 当鼠标移动到X轴附近，显示弹窗
+              trigger: 'axis',
+              // 鼠标变成十字星
+              axisPointer: {
+                type: 'cross'
+              },
+              // 背景色是灰色透明
+              backgroundColor: 'rgba(255, 255, 255, 0.8)',
+              // 位置函数
+              position: function (pos, params, el, elRect, size) {
+                var obj = { top: 10 };
+                // 弹窗显示的位置：当鼠标在统计图右侧移动，弹窗显示在左侧 left: 30; 当鼠标在统计图左侧移动，弹窗显示在右侧 right: 30
+                obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+                // 源代码是简化写法，也类似于下面的代码
+                // if (pos[0] < size.viewSize[0] / 2) {
+                //   obj.left = 30;
+                // } else {
+                //   obj.right = 30;
+                // }
+                return obj;
+              },
+              // 默认情况下，随着数值变化，弹框宽度会自适应（宽度不断变化）所以设置固定宽度，不管移动到什么位置，都显示170px
+              extraCssText: 'width: 170px'
+            },
+
+            // 这是坐标轴指示器（axisPointer）的全局公用设置，鼠标悬浮到图上，可以出现标线和刻度文本
+            axisPointer: {
+              // 大提示弹框，显示全部的折线图图例
+              // 不同轴的 axisPointer 可以进行联动，在这里设置。联动表示轴能同步一起活动。轴依据他们的 axisPointer 当前对应的值来联动。
+              link: {
+                xAxisIndex: 'all',
+                // xAxisIndex: [0, 3, 4],
+                // yAxisName: 'someName'
+              },
+              // 鼠标移动到坐标轴上，显示灰色标签
+              label: {
+                backgroundColor: '#777'
+              }
+            },
+
+            // 界面右上角工具栏。内置有导出图片，数据视图，动态类型切换，数据区域缩放，重置五个工具。
+            toolbox: {
+              // toolbox. feature 各个公式的配置项
+              feature: {
+                // 数据视图，展示二维表格的数据
+                dataView: {
+                  show: true,
+                  title: 'Data View'
+                },
+                // 保存为图片
+                // 如果开启自定义工具，这里可能会报错，原因是 html2canvas 中有外部图片
+                // 参考 https://blog.csdn.net/topc2000/article/details/93977061
+                saveAsImage: {
+                  type: 'png', // png, jpg, svg
+                  name: '道琼斯指数测试截图',
+                  backgroundColor: 'auto',
+                  connectedBackgroundColor: '#fff',
+                  // 导出图片忽略工具栏
+                  excludeComponents: ['toolbox'],
+                  show: true,
+                  // 高分辨率
+                  pixelRatio: 2,
+                  title: 'Michael 的保存为图片',
+                  // 自定义下载图标
+                  icon: 'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z',
+                },
+                // 数据区域缩放。目前只支持直角坐标系的缩放(对应界面上两个图标，区域缩放，区域缩放还原)
+                dataZoom: {
+                  yAxisIndex: false
+                },
+                // 选框组件的控制按钮（横向选择，纵向选择，清除选择）
+                brush: {
+                  type: ['lineX', 'lineY', 'clear'],
+                },
+                // 支持自定义工具配置项（有外部图片，会污染canvas）
+                // myTool2: {
+                //   show: true,
+                //   title: 'Michael 测试自定义扩展方法',
+                //   icon: 'image://https://echarts.apache.org/zh/images/favicon.png',
+                //   onclick: function (){
+                //     alert('myToolHandler2')
+                //   }
+                // },
+                // 配置项还原
+                restore: {
+                  show: true,
+                }
+              }
+            },
+
+            // 刷子：区域选择组件；用户可以选择图中一部分数据，从而便于向用户展示被选中数据，或者他们的一些统计计算结果
+            // https://echarts.apache.org/zh/option.html#brush
+            brush: {
+              xAxisIndex: 'all', // 指定哪些 xAxisIndex 可以被刷选
+              brushLink: 'all', // 不同系列间，选中的项可以联动。
+              outOfBrush: {
+                colorAlpha: 0.1
+                // 定义 在选中范围外 的视觉元素，图元的颜色的透明度。
+                // 如果 outOfBrush 没有指定，默认color: '#ddd'，如果你不想要这个color，比如可以换成：colorAlpha: 0.1
+              }
+            },
+
+            // 直角坐标系内绘图网格，单个 grid 内最多可以放置上下两个 X 轴，左右两个 Y 轴。可以在网格上绘制折线图，柱状图，散点图（气泡图）。
+            grid: [
+              {
+                left: '10%',
+                right: '8%',
+                height: '50%'
+              },
+              {
+                left: '10%',
+                right: '8%',
+                bottom: '20%',
+                height: '15%'
+              }
+            ],
+
+            // 两个 X 轴
+            xAxis: [
+              // 第一个是时间轴
+              {
+                type: 'category',
+                data: data.categoryData,
+                scale: true,
+                boundaryGap: false,
+                axisLine: { onZero: false },
+                // 不显示分割线
+                splitLine: { show: false },
+                splitNumber: 20,
+                min: 'dataMin',
+                max: 'dataMax',
+                axisPointer: {
+                  z: 100
+                },
+                // show: false,
+              },
+              // 第二个轴是交易量
+              {
+                type: 'category',
+                gridIndex: 1,
+                data: data.categoryData,
+                scale: true,
+                boundaryGap: false,
+                axisLine: { onZero: false },
+                axisTick: { show: false },
+                splitLine: { show: false },
+                axisLabel: { show: false },
+                splitNumber: 20,
+                min: 'dataMin',
+                max: 'dataMax',
+                // 鼠标经过
+                axisPointer: {
+                  label: {
+                    formatter: function (params) {
+                      var seriesValue = (params.seriesData[0] || {}).value;
+                      return (params.value +
+                        (seriesValue != null ? '\n' + echarts.format.addCommas(seriesValue) : '')
+                      );
+                    }
+                  }
+                }
+              }
+            ],
+
+            yAxis: [
+              {
+                scale: true,
+                splitArea: {
+                  show: true
+                },
+                // show: false,
+              },
+              {
+                scale: true,
+                gridIndex: 1,
+                splitNumber: 2,
+                axisLabel: { show: false },
+                axisLine: { show: false },
+                axisTick: { show: false },
+                splitLine: { show: false },
+                // show: false,
+              }
+            ],
+
+            // dataZoom 区域缩放组件，从而能自由关注细节的数据信息，或者概览数据整体，或者去除离群点的影响。
+            // 可以选择一定时间的股票价格，显示在X轴下方
+            dataZoom: [
+              {
+                type: 'inside',
+                xAxisIndex: [0, 1],
+                start: 98,
+                end: 100
+              },
+              {
+                show: true,
+                xAxisIndex: [0, 1],
+                type: 'slider',
+                top: '85%',
+                start: 98,
+                end: 100
+              }
+            ],
+            
+            // 6个图：
+            series: [
+              // 蜡烛图 candlestick
+              {
+                name: 'Dow-Jones index',
+                type: 'candlestick',
+                data: data.values,
+                // 设置颜色
+                itemStyle: {
+                  normal: {
+                    color: '#06B800', // 上升颜色
+                    color0: '#FA0000', // 下降颜色
+                    borderColor: null,
+                    borderColor0: null
+                  }
+                },
+                // K线图的提示框
+                tooltip: {
+                  formatter: function (param) {
+                    param = param[0];
+                    var str = [
+                      'Date: ' + param.name + '<hr size=1 style="margin: 3px 0">',
+                      'Open: ' + param.data[0] + '<br/>',
+                      'Close: ' + param.data[1] + '<br/>',
+                      'Lowest: ' + param.data[2] + '<br/>',
+                      'Highest: ' + param.data[3] + '<br/>'
+                    ].join('');
+                    return str;
+                  }
+                }
+              },
+              // 四条均线
+              {
+                name: 'MA5',
+                type: 'line',
+                data: calculateMA(5, data),
+                smooth: true,
+                lineStyle: {
+                  normal: { opacity: 0.5 }
+                }
+              },
+              // {
+              //   name: 'MA10',
+              //   type: 'line',
+              //   data: calculateMA(10, data),
+              //   smooth: true,
+              //   lineStyle: {
+              //     normal: { opacity: 0.5 }
+              //   }
+              // },
+              // {
+              //   name: 'MA20',
+              //   type: 'line',
+              //   data: calculateMA(20, data),
+              //   smooth: true,
+              //   lineStyle: {
+              //     normal: { opacity: 0.5 }
+              //   }
+              // },
+              {
+                name: 'MA30',
+                type: 'line',
+                data: calculateMA(30, data),
+                smooth: true,
+                lineStyle: {
+                  normal: { opacity: 0.5 }
+                }
+              },
+              // 交易量：柱状图
+              {
+                name: 'Volumn',
+                type: 'bar',
+                xAxisIndex: 1,
+                yAxisIndex: 1,
+                data: data.volumns
+              }
+            ]
+          }),
+          true
+        );
+      });
+      option && myChart.setOption(option);
+    </script>
+  </body>
+</html>

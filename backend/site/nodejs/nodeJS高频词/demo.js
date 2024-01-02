@@ -1,4 +1,4 @@
-var fs = require('fs');
+var fs = require("fs");
 
 // 辅助函数：读取本地文件（如果是网页，直接使用爬虫获取）
 function getFile(filePath) {
@@ -19,11 +19,11 @@ function getFile(filePath) {
 
 // 辅助函数：把高频词结果写入文件中
 function writeFile(str) {
-  fs.writeFile('./result.txt', str, function(err){ 
+  fs.writeFile("./result.txt", str, function (err) {
     if (err) {
-      console.log('write file error');
+      console.log("write file error");
     } else {
-      console.log('write file success');
+      console.log("write file success");
     }
   });
 }
@@ -31,9 +31,9 @@ function writeFile(str) {
 // 获取高频词
 function getFrequence(str) {
   // 删除特殊符号（只保留字母数字）
-  str = str.replace(/[^A-Za-z0-9\s]/ig, '').replace(/[\n+]/ig, '');
+  str = str.replace(/[^A-Za-z0-9\s]/gi, "").replace(/[\n+]/gi, "");
   // 转换成数组
-  var arr = str.split(' ');
+  var arr = str.split(" ");
   var obj = {};
   arr.forEach((item) => {
     let key = item.toLowerCase();
@@ -52,19 +52,19 @@ function getFrequence(str) {
       arr2.push({ times, key });
     }
   }
-  arr2.sort((a, b) => a.times > b.times ? -1 : 1);
+  arr2.sort((a, b) => (a.times > b.times ? -1 : 1));
 
   var arr3 = [];
-  arr2.forEach(item => {
+  arr2.forEach((item) => {
     arr3.push(item.key);
-    // arr3.push(item.times); 
+    // arr3.push(item.times);
     // 统计次数需要这个代码，如果仅仅是背单词就不需要这个代码
-    arr3.push('\n');
+    arr3.push("\n");
   });
-  return arr3.join(' ');
+  return arr3.join(" ");
 }
 
 // 这里写入读取文件的相对路径（）
-var filePath = './leanpub-auto-the-road-to-ecmascript-6.md';
+var filePath = "./leanpub-auto-the-road-to-ecmascript-6.md";
 
 getFile(filePath);

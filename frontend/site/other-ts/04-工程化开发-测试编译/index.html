@@ -1,0 +1,6406 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/other-ts/04-%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%BC%80%E5%8F%91-%E6%B5%8B%E8%AF%95%E7%BC%96%E8%AF%91/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.7">
+    
+    
+      
+        <title>04-工程化开发-测试编译 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.20d9efc8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ef5552">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              04-工程化开发-测试编译
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          About
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="About" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          About
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        README
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        index
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Javascript
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Javascript" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Javascript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/1%20%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%89%8D%E7%AB%AF%E9%80%82%E9%85%8D%E6%96%B9%E6%A1%88%EF%BC%88%E6%80%BB%E7%BB%93%EF%BC%89/" class="md-nav__link">
+        1 移动端前端适配方案（总结）
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/10-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+        10-移动端开发教程-移动端事件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/2%20%E5%89%8D%E7%AB%AF%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%80%82%E9%85%8D%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        2 前端移动端适配总结
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/2022%E5%B9%B4%E5%89%8D%E7%AB%AF%E6%96%B0%E6%8A%80%E6%9C%AF%E6%B1%87%E6%80%BB/" class="md-nav__link">
+        2022年前端新技术汇总
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/3%20%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%80%82%E9%85%8D%E6%96%B9%E6%A1%88/" class="md-nav__link">
+        3 移动端适配方案
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/4%20%E7%A7%BB%E5%8A%A8WEB%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E8%B5%84%E6%BA%90%E6%95%B4%E5%90%88/" class="md-nav__link">
+        4 移动WEB前端开发资源整合
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/AMD%20%E5%92%8C%20CMD%20%E7%9A%84%E5%8C%BA%E5%88%AB%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/" class="md-nav__link">
+        AMD 和 CMD 的区别有哪些？
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/ActionSheet%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E6%94%B9%E8%BF%9B/" class="md-nav__link">
+        ActionSheet回调函数享元模式改进
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/CommonJS-AMD-CMD/" class="md-nav__link">
+        CommonJS-AMD-CMD
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/Creating%20and%20triggering%20events/" class="md-nav__link">
+        Creating and triggering events
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/ECMA7%E6%96%B0%E6%8F%90%E6%A1%88/" class="md-nav__link">
+        ECMA7新提案
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/ES2020%20%E6%96%B0%E6%A0%87%E5%87%86/" class="md-nav__link">
+        ES2020 新标准
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/ES6%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8/" class="md-nav__link">
+        ES6 迭代器与生成器
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/ES6-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        ES6-阮一峰
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/ES6newFeature/" class="md-nav__link">
+        ES6newFeature
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/ES7%E6%96%B0%E7%89%B9%E6%80%A7/" class="md-nav__link">
+        ES7新特性
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/FE-Cookbook/" class="md-nav__link">
+        FE-Cookbook
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/Favicon%20dimensions/" class="md-nav__link">
+        Favicon dimensions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/File%20browser/" class="md-nav__link">
+        File browser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/FileReader/" class="md-nav__link">
+        FileReader
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/Formula%20Parser/" class="md-nav__link">
+        Formula Parser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/GRASP%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%8E%9F%E5%88%99/" class="md-nav__link">
+        GRASP软件设计的模式和原则
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/Google%20JavaScript%20Style%20Guide/" class="md-nav__link">
+        Google JavaScript Style Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/H5%E6%8B%96%E6%8B%BDfirefox%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        H5拖拽firefox浏览器兼容问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/HTML5%E8%A7%A6%E6%91%B8%E4%BA%8B%E4%BB%B6%28touchstart%E3%80%81touchmove%E5%92%8Ctouchend%29/" class="md-nav__link">
+        HTML5触摸事件(touchstart、touchmove和touchend)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/HTTP%20%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        HTTP 教程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/How%20to%20clean%20your%20Docker%20data/" class="md-nav__link">
+        How to clean your Docker data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/Installing ts-jest.md" class="md-nav__link">
+        Installing ts-jest
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/JS%20%E5%8A%A0%E6%B3%95%E4%B9%98%E6%B3%95%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3-number-precision/" class="md-nav__link">
+        JS 加法乘法错误解决-number-precision
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/JS%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        JS 性能优化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/JS%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        JS 设计模式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/JS-testing/" class="md-nav__link">
+        JS-testing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/JS%E5%88%A4%E6%96%AD%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1%E7%88%B6%E5%AD%90%E5%85%B3%E7%B3%BB/" class="md-nav__link">
+        JS判断事件对象父子关系
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/JS%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3%E5%8C%96%28flat%29%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        JS数组扁平化(flat)方法总结详解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/JS%E7%9A%84%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C%EF%BC%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%97%B4%E7%9A%84%E5%8D%8F%E4%BD%9C/" class="md-nav__link">
+        JS的异步操作，浏览器的多线程间的协作
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/JavaScript%20JSON.stringify%28%29/" class="md-nav__link">
+        JavaScript JSON.stringify()
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/JavaScript%20%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%86%8D%E8%B0%88Event%20Loop/" class="md-nav__link">
+        JavaScript 运行机制详解：再谈Event Loop
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/Javascript%E4%B8%ADdocument.execCommand%28%29%E7%9A%84%E7%94%A8%E6%B3%95/" class="md-nav__link">
+        Javascript中document.execCommand()的用法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/Javascript%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%95%B0%E7%BB%84%E9%99%8D%E7%BB%B4/" class="md-nav__link">
+        Javascript实现的数组降维
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/LocalStorage%E7%9A%84%E5%89%AF%E6%9C%AC/" class="md-nav__link">
+        LocalStorage的副本
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/Math-trunk/" class="md-nav__link">
+        Math-trunk
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/MkDocs%20%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/" class="md-nav__link">
+        MkDocs 中文文档
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/PWA%20%E7%9A%84%E4%BC%98%E5%8A%BF/" class="md-nav__link">
+        PWA 的优势
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/PWA-%E6%B8%90%E8%BF%9B%E5%BC%8FWeb%E5%BA%94%E7%94%A8%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        PWA-渐进式Web应用简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/Resumable%20%E5%A4%A7%E6%96%87%E4%BB%B6%E5%88%86%E5%9D%97%E4%B8%8A%E4%BC%A0%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        Resumable 大文件分块上传介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/Sentry.md" class="md-nav__link">
+        Sentry
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/Smart%20PNG%20and%20JPEG%20compression/" class="md-nav__link">
+        Smart PNG and JPEG compression
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/Swagger%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        Swagger介绍及使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/Synchronous%20XMLHttpRequest%20on%20the%20main%20thread%20is%20deprecated/" class="md-nav__link">
+        Synchronous XMLHttpRequest on the main thread is deprecated
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/TensorFlow.js%20%E5%85%A5%E9%97%A8%E5%B9%B6%E5%8A%A8%E6%89%8B%E7%BC%96%E5%86%99%E5%A8%B1%E4%B9%90%E7%89%88%E7%9A%84%E5%8F%8C%E8%89%B2%E7%90%83%E5%9C%A8%E7%BA%BF%E9%A2%84%E6%B5%8B/" class="md-nav__link">
+        TensorFlow.js 入门并动手编写娱乐版的双色球在线预测
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/Uncaught%20TypeError%20Cannot%20set%20property/" class="md-nav__link">
+        Uncaught TypeError Cannot set property
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/Window.getComputedStyle%28%29/" class="md-nav__link">
+        Window.getComputedStyle()
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/Work at Alibaba 加入我们.md" class="md-nav__link">
+        Work at Alibaba 加入我们
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/appendChild%28%29%20%E6%96%B9%E6%B3%95%E7%A7%BB%E9%99%A4DOM%E8%8A%82%E7%82%B9/" class="md-nav__link">
+        appendChild() 方法移除DOM节点
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/babel%E6%89%93%E5%8C%85%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        babel打包使用说明
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/background-image%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87%E6%8B%89%E4%BC%B8%E5%B9%B3%E9%93%BA/" class="md-nav__link">
+        background-image背景图片拉伸平铺
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/caniuse-lite%20browserslis%20%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" class="md-nav__link">
+        caniuse-lite browserslis 报错解决
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/console.log%E5%90%8C%E6%AD%A5%E4%B8%8E%E5%BC%82%E6%AD%A5/" class="md-nav__link">
+        console.log同步与异步
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/contentEditable%20%E5%AE%9E%E7%8E%B0%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        contentEditable 实现富文本编辑器
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/document-id-bug/" class="md-nav__link">
+        document-id-bug
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/document.execCommand/" class="md-nav__link">
+        document.execCommand
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/font-smoothing%20%E4%BC%98%E5%8C%96%E5%AD%97%E4%BD%93%E6%98%BE%E7%A4%BA/" class="md-nav__link">
+        font-smoothing 优化字体显示
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/http-server.md" class="md-nav__link">
+        http-server
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/iOS%20safari%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8Aoverflow%20scroll%E5%85%83%E7%B4%A0%E6%97%A0%E6%B3%95%E6%BB%9A%E5%8A%A8bug%E6%B7%B1%E7%A9%B6/" class="md-nav__link">
+        iOS safari浏览器上overflow scroll元素无法滚动bug深究
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/iframe/" class="md-nav__link">
+        iframe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/javascript%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/" class="md-nav__link">
+        javascript的内存泄漏
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/js%20%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%AF%B9%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/" class="md-nav__link">
+        js 移动端对键盘监听
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/js%E4%B8%AD%E9%80%9A%E8%BF%87Object.prototype.toString%E6%96%B9%E6%B3%95----%E7%B2%BE%E7%A1%AE%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+        js中通过Object.prototype.toString方法----精确判断对象的类型
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/localstorage/" class="md-nav__link">
+        localstorage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/markdown-emoji/" class="md-nav__link">
+        markdown-emoji
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/markdown%E8%AF%AD%E6%B3%95%E7%BB%BC%E5%90%88/" class="md-nav__link">
+        markdown语法综合
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/onbeforeunload/" class="md-nav__link">
+        onbeforeunload
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/parcel.md" class="md-nav__link">
+        parcel
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/ssh%20connect%20to%20host%20github.com%20port%2022%20Connection%20refused%20fatal%20Could%20not%20read%20from%20remote%20repository%20%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" class="md-nav__link">
+        ssh connect to host github.com port 22 Connection refused fatal Could not read from remote repository 报错解决
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/text-runner/" class="md-nav__link">
+        text-runner
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/video%E6%A0%87%E7%AD%BE%E7%9A%84poster%E5%B1%9E%E6%80%A7%E5%9B%BE%E7%89%87%E9%93%BA%E6%BB%A1%E6%95%B4%E4%B8%AA%E5%B1%8F%E5%B9%95/" class="md-nav__link">
+        video标签的poster属性图片铺满整个屏幕
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/web-worker/" class="md-nav__link">
+        web-worker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/window.requestAnimationFrame/" class="md-nav__link">
+        window.requestAnimationFrame
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95composition/" class="md-nav__link">
+        中文输入法composition
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E4%BA%94%E5%B9%B4%E4%B9%8B%E5%90%8E%E7%9A%84%E5%89%8D%E7%AB%AF%E4%BC%9A%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%EF%BC%9F/" class="md-nav__link">
+        五年之后的前端会是什么样？
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%8A%A0%E8%BD%BD%E7%9A%84%E8%BF%87%E7%A8%8B/" class="md-nav__link">
+        从输入URL到页面加载的过程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        代码规范
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E4%BD%A0%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%20javascript%20%E7%9A%84%E7%BB%86%E8%8A%82/" class="md-nav__link">
+        你需要知道的 javascript 的细节
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E4%BD%A0%E9%9D%A0%E5%93%AA%E4%BA%9B%E8%AE%B2%E8%A7%A3%E5%AD%A6%E4%BC%9A%E4%BA%86%E6%9B%BE%E7%BB%8F%E6%80%8E%E4%B9%88%E4%B9%9F%E5%AD%A6%E4%B8%8D%E4%BC%9A%E7%9A%84%E7%AE%97%E6%B3%95%EF%BC%9F/" class="md-nav__link">
+        你靠哪些讲解学会了曾经怎么也学不会的算法？
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E4%BD%BF%E7%94%A8%20nvm%20%E7%AE%A1%E7%90%86%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E7%9A%84%20node%20%E4%B8%8E%20npm/" class="md-nav__link">
+        使用 nvm 管理不同版本的 node 与 npm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E4%BD%BF%E7%94%A8nodejs%E8%BF%9E%E6%8E%A5mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" class="md-nav__link">
+        使用nodejs连接mysql数据库实现增删改查
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/" class="md-nav__link">
+        内存泄漏
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%88%A4%E6%96%AD%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AFpc%E7%AB%AF%E8%BF%98%E6%98%AF%E6%89%8B%E6%9C%BA%E7%AB%AF/" class="md-nav__link">
+        判断浏览器是pc端还是手机端
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%89%8D%E7%AB%AF%E4%BD%BF%E7%94%A8js%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        前端使用js读取文件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%89%8D%E7%AB%AF%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8Cseo%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        前端如何进行seo优化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%89%8D%E7%AB%AF%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        前端常用工具
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E8%AF%BB%E4%B9%A6%E7%B1%8D%E6%9C%89%E5%93%AA%E4%BA%9B%E5%80%BC%E5%BE%97%E6%8E%A8%E8%8D%90%EF%BC%9F/" class="md-nav__link">
+        前端开发工程师必读书籍有哪些值得推荐？
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E4%B8%AD%E9%98%B6/" class="md-nav__link">
+        前端技术中阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E6%8F%90%E5%8D%87/" class="md-nav__link">
+        前端技术提升
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%89%8D%E7%AB%AF%E6%9C%AA%E6%9D%A5%E5%8F%91%E5%B1%95/" class="md-nav__link">
+        前端未来发展
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E5%BC%80%E5%8F%91/" class="md-nav__link">
+        前端模块化开发
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7%E7%90%86%E8%AE%BA/" class="md-nav__link">
+        前端监控理论
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%89%8D%E7%AB%AF%E8%8B%B1%E8%AF%AD%E5%8D%95%E8%AF%8D/" class="md-nav__link">
+        前端英语单词
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%89%8D%E7%AB%AF%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        前端需要了解的计算机网络知识
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        前端项目结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%89%8D%E7%AB%AF%E9%A6%96%E5%B1%8F%E4%BC%98%E5%8C%96%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        前端首屏优化的一些总结
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94Taskwarrior/" class="md-nav__link">
+        命令行任务管理工具——Taskwarrior
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%A4%9A%E4%B8%AA%E8%BF%9E%E7%BB%AD%E7%9A%84%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%8E%E6%9F%AF%E9%87%8C%E5%8C%96/" class="md-nav__link">
+        多个连续的箭头函数与柯里化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%A4%A7%E5%85%AC%E5%8F%B8%E9%87%8C%E6%80%8E%E6%A0%B7%E5%BC%80%E5%8F%91%E5%92%8C%E9%83%A8%E7%BD%B2%E5%89%8D%E7%AB%AF/" class="md-nav__link">
+        大公司里怎样开发和部署前端
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%A6%82%E4%BD%95%E5%86%99%E9%80%9A%E7%94%A8%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        如何写通用组件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%EF%BC%9F/" class="md-nav__link">
+        如何理解最小二乘法？
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7%E7%BD%91%E9%A1%B5%E5%B4%A9%E6%BA%83%EF%BC%9F/" class="md-nav__link">
+        如何监控网页崩溃？
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        学习笔记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%B8%B8%E7%94%A8%E5%88%B0%E7%9A%84ES6%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        常用到的ES6语法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%B8%B8%E7%94%A8%E7%9A%84JS%E5%BA%93/" class="md-nav__link">
+        常用的JS库
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%2025%20%E4%B8%AAJavaScript%20%E5%8D%95%E8%A1%8C%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        开发中常用的 25 个JavaScript 单行代码
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E5%BD%BB%E5%BA%95%E5%BC%84%E6%87%82%E5%BC%BA%E7%BC%93%E5%AD%98%E4%B8%8E%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98/" class="md-nav__link">
+        彻底弄懂强缓存与协商缓存
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E6%89%8B%E6%9C%BAweb%E5%89%8D%E7%AB%AF%E8%B0%83%E8%AF%95%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/" class="md-nav__link">
+        手机web前端调试页面的几种方式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E6%8B%96%E6%8B%BD%E5%85%83%E7%B4%A0%E4%BE%8B%E5%AD%90/" class="md-nav__link">
+        拖拽元素例子
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E6%94%B9%E5%8F%98%E6%90%9C%E7%B4%A2%E7%9A%84%E5%87%BD%E6%95%B0%20demo/" class="md-nav__link">
+        改变搜索的函数 demo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        数组去重的几种方法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" class="md-nav__link">
+        文件上传
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E6%97%B6%E9%97%B4%E6%97%B6%E5%8C%BA%E9%94%99%E8%AF%AF%E4%BF%AE%E5%A4%8Dmoment/" class="md-nav__link">
+        时间时区错误修复moment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E6%9B%B4%E6%94%B9%20CheckBox%20%E9%A2%9C%E8%89%B2/" class="md-nav__link">
+        更改 CheckBox 颜色
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E6%A8%A1%E6%8B%9F%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+        模拟移动端键盘监听事件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/浅谈知识体系.md" class="md-nav__link">
+        浅谈知识体系
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%B9%E5%87%BA%E6%8F%90%E9%86%92/" class="md-nav__link">
+        浏览器弹出提醒
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        浏览器进程和线程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%20SVN/" class="md-nav__link">
+        版本控制 SVN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E7%A4%BE%E5%8C%BA%E7%BB%84%E4%BB%B6%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+        社区组件推荐
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E7%A7%92%E5%BC%80%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AE%9E%E7%8E%B0%E8%B5%B7%E6%9D%A5%E6%9C%89%E5%A4%9A%E9%9A%BE/" class="md-nav__link">
+        秒开浏览器实现起来有多难
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E7%A7%BB%E5%8A%A8%E7%AB%AFtouch%E4%BA%8B%E4%BB%B6%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        移动端touch事件详解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%A7%A6%E5%B1%8F%E6%BB%91%E5%8A%A8/" class="md-nav__link">
+        移动端触屏滑动
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%AE%9E%E6%88%98%E2%80%94%E2%80%94%E4%BB%8E12.67s%E5%88%B01.06s%E7%9A%84%E6%95%85%E4%BA%8B/" class="md-nav__link">
+        网站性能优化实战——从12.67s到1.06s的故事
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E7%BD%91%E9%A1%B5%E6%80%A7%E8%83%BD%E7%AE%A1%E7%90%86%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        网页性能管理详解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E8%85%BE%E8%AE%AF14W%20%E8%A1%8C%E4%BB%A3%E7%A0%81%E9%87%8F%E7%9A%84%E5%89%8D%E7%AB%AF%E9%A1%B5%E9%9D%A2%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7/" class="md-nav__link">
+        腾讯14W 行代码量的前端页面长什么样
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E8%85%BE%E8%AE%AF%E9%9D%A2%E8%AF%95%E5%9B%9B%E9%97%AE%EF%BC%8CAre%20you%20OK/" class="md-nav__link">
+        腾讯面试四问，Are you OK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E5%AE%9E%E7%8E%B0-%E8%8D%89%E7%A8%BF/" class="md-nav__link">
+        自定义滚动条实现-草稿
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E8%8B%B9%E6%9E%9C%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E6%B1%A0%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        苹果笔记本电池优化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E8%A7%A3%E5%86%B3%20primordials%20is%20not%20defined%20bug/" class="md-nav__link">
+        解决 primordials is not defined bug
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E8%A7%A3%E5%86%B3%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E7%82%B9%E5%87%BBBackspace%E5%9B%9E%E9%80%80%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        解决浏览器中点击Backspace回退问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E7%9A%84%E6%95%B0%E5%AD%97%E6%A0%BC%E5%BC%8F%20Intl.NumberFormat/" class="md-nav__link">
+        设置不同的数字格式 Intl.NumberFormat
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E8%AF%A6%E8%A7%A3TCP%E8%BF%9E%E6%8E%A5%E7%9A%84%E2%80%9C%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E2%80%9D%E4%B8%8E%E2%80%9C%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E2%80%9D%28%E4%B8%8A%29/" class="md-nav__link">
+        详解TCP连接的“三次握手”与“四次挥手”(上)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E9%80%9A%E7%94%A8%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        通用组件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E9%80%9A%E7%94%A8%E8%8B%B1%E8%AF%AD%E5%8D%95%E8%AF%8D/" class="md-nav__link">
+        通用英语单词
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E9%93%BE%E6%BB%B4%E7%AC%94%E8%AE%B0markdownAPP/" class="md-nav__link">
+        链滴笔记markdownAPP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E9%98%BF%E9%87%8C%E6%9C%AA%E6%9D%A5%E5%89%8D%E7%AB%AF%E7%9A%84%E6%9C%BA%E4%BC%9A%E5%9C%A8%E5%93%AA%E9%87%8C/" class="md-nav__link">
+        阿里未来前端的机会在哪里
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E9%9B%85%E8%99%8E%E5%86%9B%E8%A7%84/" class="md-nav__link">
+        雅虎军规
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        面向对象设计模式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        高阶组件传值问题
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          常用第三方库
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="常用第三方库" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          常用第三方库
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/000-dir/" class="md-nav__link">
+        000-dir
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/001-anv-g2/" class="md-nav__link">
+        001-anv-g2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/002-react-image-lightbox/" class="md-nav__link">
+        002-react-image-lightbox
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/003-antd-mobile/" class="md-nav__link">
+        003-antd-mobile
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/004-autoprefixer/" class="md-nav__link">
+        004-autoprefixer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/005-axios/" class="md-nav__link">
+        005-axios
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/006-deep-copy/" class="md-nav__link">
+        006-deep-copy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/007-dom-helper/" class="md-nav__link">
+        007-dom-helper
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/008-glamor/" class="md-nav__link">
+        008-glamor
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/009-html2canvas/" class="md-nav__link">
+        009-html2canvas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/010-i18next/" class="md-nav__link">
+        010-i18next
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/011-i18next-browser-languagedetector/" class="md-nav__link">
+        011-i18next-browser-languagedetector
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/012-i18next-xhr-backend/" class="md-nav__link">
+        012-i18next-xhr-backend
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/013-is-hotkey/" class="md-nav__link">
+        013-is-hotkey
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/014-keymirror/" class="md-nav__link">
+        014-keymirror
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/015-lodash-throttle/" class="md-nav__link">
+        015-lodash-throttle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/016-promise/" class="md-nav__link">
+        016-promise
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/017-qrcode-react/" class="md-nav__link">
+        017-qrcode-react
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/018-raf/" class="md-nav__link">
+        018-raf
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/020-zxing-library%20%E5%AE%9E%E7%8E%B0%E5%89%8D%E7%AB%AF%E6%89%AB%E7%A0%81%E5%8A%9F%E8%83%BD/" class="md-nav__link">
+        020-zxing-library 实现前端扫码功能
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/021-puppeteer-print-pdf/" class="md-nav__link">
+        021-puppeteer-print-pdf
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/022-react-is-deprecated/" class="md-nav__link">
+        022-react-is-deprecated
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/024-React-Sweet-Progress/" class="md-nav__link">
+        024-React-Sweet-Progress
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/025-reactstrap/" class="md-nav__link">
+        025-reactstrap
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/026-reselect/" class="md-nav__link">
+        026-reselect
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/027-ron-react-autocomplete/" class="md-nav__link">
+        027-ron-react-autocomplete
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/028-shallow-equal/" class="md-nav__link">
+        028-shallow-equal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/030-whatwg-fetch/" class="md-nav__link">
+        030-whatwg-fetch
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/031-babel-cli/" class="md-nav__link">
+        031-babel-cli
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/032-react-i18next/" class="md-nav__link">
+        032-react-i18next
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/039-babel-preset-env/" class="md-nav__link">
+        039-babel-preset-env
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/040-babel-preset-react/" class="md-nav__link">
+        040-babel-preset-react
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/050-react-custom-scrollbars/" class="md-nav__link">
+        050-react-custom-scrollbars
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/051-react-select/" class="md-nav__link">
+        051-react-select
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/052-react-select/" class="md-nav__link">
+        052-react-select
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/053-react-media/" class="md-nav__link">
+        053-react-media
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/054-isScroll/" class="md-nav__link">
+        054-isScroll
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/055-JSzip/" class="md-nav__link">
+        055-JSzip
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/056-dayjs/" class="md-nav__link">
+        056-dayjs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/100-debug/" class="md-nav__link">
+        100-debug
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/101-number-precision/" class="md-nav__link">
+        101-number-precision
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/102-slugid/" class="md-nav__link">
+        102-slugid
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/103-socket-io-client/" class="md-nav__link">
+        103-socket-io-client
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/168-copy-to-clipboard/" class="md-nav__link">
+        168-copy-to-clipboard
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/175-moment/" class="md-nav__link">
+        175-moment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/180-gojs/" class="md-nav__link">
+        180-gojs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/181-UUID-js/" class="md-nav__link">
+        181-UUID-js
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/182-video-js/" class="md-nav__link">
+        182-video-js
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/183-react-dnd/" class="md-nav__link">
+        183-react-dnd
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/184-react-dnd-html5-backend/" class="md-nav__link">
+        184-react-dnd-html5-backend
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/185-lerna/" class="md-nav__link">
+        185-lerna
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/186-react-i18next/" class="md-nav__link">
+        186-react-i18next
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/187-watermark/" class="md-nav__link">
+        187-watermark
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/255-connect-multiparty/" class="md-nav__link">
+        255-connect-multiparty
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/256-csv/" class="md-nav__link">
+        256-csv
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/257-date-format/" class="md-nav__link">
+        257-date-format
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/258-detect-character-encoding/" class="md-nav__link">
+        258-detect-character-encoding
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/259-etcd3/" class="md-nav__link">
+        259-etcd3
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/260-express/" class="md-nav__link">
+        260-express
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/261-express-rate-limit/" class="md-nav__link">
+        261-express-rate-limit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/262-iconv-lite/" class="md-nav__link">
+        262-iconv-lite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/263-jsonwebtoken/" class="md-nav__link">
+        263-jsonwebtoken
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/264-log4js/" class="md-nav__link">
+        264-log4js
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/265-mysql/" class="md-nav__link">
+        265-mysql
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/266-redis/" class="md-nav__link">
+        266-redis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/267-request/" class="md-nav__link">
+        267-request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/268-response-time/" class="md-nav__link">
+        268-response-time
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/269-socket.io/" class="md-nav__link">
+        269-socket.io
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/270-uuid/" class="md-nav__link">
+        270-uuid
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/280-Rxjs/" class="md-nav__link">
+        280-Rxjs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/290-lodash/" class="md-nav__link">
+        290-lodash
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/291-jszip/" class="md-nav__link">
+        291-jszip
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/292-react-is/" class="md-nav__link">
+        292-react-is
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/293-react-intl-universal/" class="md-nav__link">
+        293-react-intl-universal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/294-crypto-js/" class="md-nav__link">
+        294-crypto-js
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/301-chartjs.md" class="md-nav__link">
+        301-chartjs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/302-formik.md" class="md-nav__link">
+        302-formik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/303-JS-Bridge.md" class="md-nav__link">
+        303-JS-Bridge
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/304-rc-calendar.md" class="md-nav__link">
+        304-rc-calendar
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/305-jest.md" class="md-nav__link">
+        305-jest
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/306-react-cookies.md" class="md-nav__link">
+        306-react-cookies
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/307-socket%20io/" class="md-nav__link">
+        307-socket io
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/308-JSON%20Server/" class="md-nav__link">
+        308-JSON Server
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/309-uglyJS/" class="md-nav__link">
+        309-uglyJS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/310-viewerjs/" class="md-nav__link">
+        310-viewerjs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/311-editor-js/" class="md-nav__link">
+        311-editor-js
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/312-Mocha/" class="md-nav__link">
+        312-Mocha
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/313-throttle-lodash/" class="md-nav__link">
+        313-throttle-lodash
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/314-ThreeJS/" class="md-nav__link">
+        314-ThreeJS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/315-%CE%BCPlot/" class="md-nav__link">
+        315-μPlot
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/Bootstrap.md" class="md-nav__link">
+        Bootstrap
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/G2 的图表坐标轴 Axis 坐标轴.md" class="md-nav__link">
+        G2 的图表坐标轴 Axis 坐标轴
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/codemirror/Code-mirror/" class="md-nav__link">
+        Code-mirror
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/codemirror/codemirror-readme/" class="md-nav__link">
+        codemirror-readme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/codemirror/codemirror/" class="md-nav__link">
+        codemirror
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/d3/%23Introduction/" class="md-nav__link">
+        #Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/d3/D3 API Reference.md" class="md-nav__link">
+        D3 API Reference
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/d3/d3-drag/" class="md-nav__link">
+        d3-drag
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/d3/%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%8F%AF%E6%8B%96%E5%8A%A8%E7%9A%84%E5%9C%86%E5%B1%95%E7%A4%BAd3.drag%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        创建一个可拖动的圆展示d3.drag的使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/d3/%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        说明
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/debugjs/" class="md-nav__link">
+        README
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/echarts/Readme/" class="md-nav__link">
+        Readme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/echarts-demo/readme/" class="md-nav__link">
+        readme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/editorJS/editor-js.md" class="md-nav__link">
+        editor-js
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/leaflet/01-Leaflet Tutorials.md" class="md-nav__link">
+        01-Leaflet Tutorials
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/leaflet/02-Leaflet API reference.md" class="md-nav__link">
+        02-Leaflet API reference
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/leaflet/Leaflet.md" class="md-nav__link">
+        Leaflet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/simple-statistics/docs.md" class="md-nav__link">
+        docs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/simple-statistics/readme.md" class="md-nav__link">
+        readme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/" class="md-nav__link">
+        README
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/Slate%20remove%20leaves/" class="md-nav__link">
+        Slate remove leaves
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate/readme/" class="md-nav__link">
+        readme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate/slate%20core/" class="md-nav__link">
+        slate core
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-new-API/block/" class="md-nav__link">
+        block
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-new-API/change/" class="md-nav__link">
+        change
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-new-API/data/" class="md-nav__link">
+        data
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-new-API/decoration/" class="md-nav__link">
+        decoration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-new-API/document/" class="md-nav__link">
+        document
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-new-API/inline/" class="md-nav__link">
+        inline
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-new-API/mark/" class="md-nav__link">
+        mark
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-new-API/node/" class="md-nav__link">
+        node
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-new-API/operation/" class="md-nav__link">
+        operation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-new-API/point/" class="md-nav__link">
+        point
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-new-API/range/" class="md-nav__link">
+        range
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-new-API/schema/" class="md-nav__link">
+        schema
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-new-API/selection/" class="md-nav__link">
+        selection
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-new-API/text/" class="md-nav__link">
+        text
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-new-API/utils/" class="md-nav__link">
+        utils
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-new-API/value/" class="md-nav__link">
+        value
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-new-API/" class="md-nav__link">
+        slate-new-API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-old-API/readme/" class="md-nav__link">
+        readme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/slate-old-API/slate%20core/" class="md-nav__link">
+        slate core
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/slate/%E5%8E%9F%E7%94%9FRange%E5%AF%B9%E8%B1%A1/" class="md-nav__link">
+        原生Range对象
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-part-lib/%E5%B8%B8%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        常用第三方库介绍
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          AntDesign
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AntDesign" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          AntDesign
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/01-color/" class="md-nav__link">
+        01-color
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/02-border/" class="md-nav__link">
+        02-border
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/03-font/" class="md-nav__link">
+        03-font
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/04-unit/" class="md-nav__link">
+        04-unit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/05-react-%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        05-react-介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/06-react-%E5%9C%A8%20create-react-app%20%E4%B8%AD%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        06-react-在 create-react-app 中使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/07-react-%E5%AE%9A%E5%88%B6%E4%B8%BB%E9%A2%98/" class="md-nav__link">
+        07-react-定制主题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/08-%E6%A0%B7%E5%BC%8F%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD/" class="md-nav__link">
+        08-样式按需加载
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/09-%E7%BB%84%E4%BB%B6%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        09-组件使用
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          CSS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CSS" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          CSS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/Bilibili-%E6%A8%A1%E7%B3%8A%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C%E5%88%86%E6%9E%90-css-filter/" class="md-nav__link">
+        Bilibili-模糊实现效果分析-css-filter
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/CSS%20Modules%20%E7%94%A8%E6%B3%95%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        CSS Modules 用法教程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/CSS%20%E5%AE%9A%E4%BD%8D%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        CSS 定位详解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/CSS%20%E5%AE%9E%E7%8E%B0%20table%20%E8%A1%A8%E5%A4%B4%E5%9B%BA%E5%AE%9A%20tbody%20%E6%98%BE%E7%A4%BA%E5%9E%82%E7%9B%B4%E6%BB%9A%E5%8A%A8%E6%9D%A1%E5%B9%B6%E8%87%AA%E5%AE%9A%E4%B9%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E6%A0%B7%E5%BC%8F/" class="md-nav__link">
+        CSS 实现 table 表头固定 tbody 显示垂直滚动条并自定义滚动条样式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/CSS3%E5%88%A4%E6%96%AD%E6%89%8B%E6%9C%BA%E6%A8%AA%E7%AB%96%E5%B1%8F%20/" class="md-nav__link">
+        CSS3判断手机横竖屏 
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/Grid%E5%B8%83%E5%B1%80/" class="md-nav__link">
+        Grid布局
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/SVG%20%E9%81%BF%E5%85%8D%E9%94%AF%E9%BD%BF/" class="md-nav__link">
+        SVG 避免锯齿
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/Sass-Mix%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        Sass-Mix函数
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/UnCSS/" class="md-nav__link">
+        UnCSS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/css-sweeper%20from%20PropJockey/" class="md-nav__link">
+        css-sweeper from PropJockey
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/flex%20%E8%A1%A5%E5%85%85/" class="md-nav__link">
+        flex 补充
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/word-breakbreak-all%E5%92%8Cword-wrapbreak-word%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        word-breakbreak-all和word-wrapbreak-word的区别
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/z-index%E6%97%A0%E6%95%88%E8%A7%A3%E5%86%B3/" class="md-nav__link">
+        z-index无效解决
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/zindex%E5%9C%A8iOS%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        zindex在iOS系统中的兼容性问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/%E5%8F%8C%E8%89%B2%E5%9B%BE%E6%A0%87/" class="md-nav__link">
+        双色图标
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87%E5%B9%B3%E6%BB%91%E6%98%BE%E7%A4%BA/" class="md-nav__link">
+        字体图标平滑显示
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/%E7%B2%98%E6%80%A7%E5%AE%9A%E4%BD%8Dposition-sticky/" class="md-nav__link">
+        粘性定位position-sticky
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/%E8%A1%A8%E6%83%85emoji/" class="md-nav__link">
+        表情emoji
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          微信小程序和webpack
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="微信小程序和webpack" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          微信小程序和webpack
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../webpack/readme/" class="md-nav__link">
+        readme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../webpack/webpack%20%E8%B5%B7%E6%AD%A5/" class="md-nav__link">
+        webpack 起步
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../weixin/Taro%E6%A1%86%E6%9E%B6/" class="md-nav__link">
+        Taro框架
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../weixin/taro-UI%20%E7%BB%84%E4%BB%B6%E5%BA%93%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        taro-UI 组件库说明
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../weixin/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9D%91/" class="md-nav__link">
+        小程序项目的坑
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../weixin/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%80%BB%E8%BE%91%E5%B1%82%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        微信小游戏客户端逻辑层性能优化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../weixin/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B01-%E5%88%9D%E6%AC%A1%E4%B8%8A%E6%89%8B/" class="md-nav__link">
+        微信小程序入门教程01-初次上手
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../weixin/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B02-%E9%A1%B5%E9%9D%A2%E6%A0%B7%E5%BC%8F/" class="md-nav__link">
+        微信小程序入门教程02-页面样式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../weixin/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B03-%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        微信小程序入门教程03-脚本编程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../weixin/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B04-API%20%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        微信小程序入门教程04-API 使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../weixin/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3/" class="md-nav__link">
+        微信小程序官方文档
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          工程化
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="工程化" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          工程化
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/BUG-Auto%20packing%20the%20repository%20in%20background%20for%20optimum%20performance/" class="md-nav__link">
+        BUG-Auto packing the repository in background for optimum performance
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/HTTP%20%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        HTTP 教程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/Mkdocs-github-blog/" class="md-nav__link">
+        Mkdocs-github-blog
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/Mkdocs-guide/" class="md-nav__link">
+        Mkdocs-guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/Mkdocs-mac-env/" class="md-nav__link">
+        Mkdocs-mac-env
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/Nightmare/" class="md-nav__link">
+        Nightmare
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/Tencent-review-code/" class="md-nav__link">
+        Tencent-review-code
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/Translation/" class="md-nav__link">
+        Translation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/enzyme%20%E7%AE%80%E5%8D%95%E5%AE%9E%E8%B7%B5/" class="md-nav__link">
+        enzyme 简单实践
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git-use-process/" class="md-nav__link">
+        git-use-process
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/gitbook%20%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%E4%B9%8B%E4%B8%BB%E9%A2%98%E6%8F%92%E4%BB%B6/" class="md-nav__link">
+        gitbook 入门教程之主题插件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/gitbook%20%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%E4%B9%8B%E4%BD%BF%E7%94%A8%20gitbook-cli%20%E5%BC%80%E5%8F%91%E7%94%B5%E5%AD%90%E4%B9%A6/" class="md-nav__link">
+        gitbook 入门教程之使用 gitbook-cli 开发电子书
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/gitbook%20%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%E4%B9%8B%E4%BD%BF%E7%94%A8%20gitbook-editor%20%E7%BC%96%E8%BE%91%E5%99%A8%E5%BC%80%E5%8F%91%E7%94%B5%E5%AD%90%E4%B9%A6/" class="md-nav__link">
+        gitbook 入门教程之使用 gitbook-editor 编辑器开发电子书
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/gitbook-cli/" class="md-nav__link">
+        gitbook-cli
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/markdown-new-style/" class="md-nav__link">
+        markdown-new-style
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/npm%20link%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        npm link的使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/npm%20package-lock%E7%9A%84%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        npm package-lock的管理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/npm%20%E5%8F%91%E5%B8%83%E4%B8%A4%E6%AD%A5%E9%AA%8C%E8%AF%81/" class="md-nav__link">
+        npm 发布两步验证
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/npm%20%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        npm 学习
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/npx/" class="md-nav__link">
+        npx
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/webpack5%20%E5%92%8C%20webpack4%20%E7%9A%84%E5%8C%BA%E5%88%AB%E6%9C%89%E5%93%AA%E4%BA%9B/" class="md-nav__link">
+        webpack5 和 webpack4 的区别有哪些
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/webpack%E8%AE%BE%E7%BD%AEdevServer%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9B%AE%E4%B8%BAhttps%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        webpack设置devServer启动项目为https协议
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/yalc/" class="md-nav__link">
+        yalc
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E5%A6%82%E4%BD%95%E5%90%91%E5%BC%80%E6%BA%90%E7%A4%BE%E5%8C%BA%E6%8F%90%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        如何向开源社区提问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E5%A6%82%E4%BD%95%E5%90%91%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E6%8F%90%E4%BA%A4%E6%97%A0%E6%B3%95%E8%A7%A3%E7%AD%94%E7%9A%84%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        如何向开源项目提交无法解答的问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E5%9C%B0%E6%8A%A5%E5%91%8A%20Bug/" class="md-nav__link">
+        如何有效地报告 Bug
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="md-nav__link">
+        正则表达式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E6%B7%B1%E5%BA%A6%E8%A7%A3%E9%94%81Webpack%E7%B3%BB%E5%88%97%28%E4%BC%98%E5%8C%96%E7%AF%87%2903/" class="md-nav__link">
+        深度解锁Webpack系列(优化篇)03
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E6%B7%B1%E5%BA%A6%E8%A7%A3%E9%94%81Webpack%E7%B3%BB%E5%88%97%28%E5%9F%BA%E7%A1%80%E7%AF%87%29%2001/" class="md-nav__link">
+        深度解锁Webpack系列(基础篇) 01
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E6%B7%B1%E5%BA%A6%E8%A7%A3%E9%94%81Webpack%E7%B3%BB%E5%88%97%28%E8%BF%9B%E9%98%B6%E7%AF%87%2902/" class="md-nav__link">
+        深度解锁Webpack系列(进阶篇)02
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B7%A5%E5%85%B7%20LOCALFORAGE/" class="md-nav__link">
+        第三方工具 LOCALFORAGE
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E7%BD%91%E6%98%93%E4%BA%91-Webpack%20%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        网易云-Webpack 打包工具简单使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/%E7%BD%91%E9%A1%B5%E6%80%A7%E8%83%BD%E7%AE%A1%E7%90%86%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        网页性能管理详解
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          typescript
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="typescript" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          typescript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-TypeScript%20%E5%AE%98%E6%96%B9%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        00-TypeScript 官方入门教程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        01-简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        02-基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-%E8%BF%9B%E9%98%B6/" class="md-nav__link">
+        03-进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        04-工程化开发-测试编译
+      </a>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-Typescript%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/" class="md-nav__link">
+        10-Typescript常见问题整理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TS%20%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/" class="md-nav__link">
+        TS 常见问题整理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TS%2BJEST%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        TS+JEST 单元测试配置文件说明
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TypeScript%E7%BC%96%E8%AF%91%E5%99%A8-%E9%BB%98%E8%AE%A4%E6%83%85%E5%86%B5%E4%B8%8B%E4%B8%8D%E5%90%AF%E7%94%A8downlevelIteration/" class="md-nav__link">
+        TypeScript编译器-默认情况下不启用downlevelIteration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Typescript%20Use%20compiler%20option%20bug/" class="md-nav__link">
+        Typescript Use compiler option bug
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Webpack%20%E8%BD%AC%E8%AF%91%20Typescript%20%E7%8E%B0%E6%9C%89%E6%96%B9%E6%A1%88/" class="md-nav__link">
+        Webpack 转译 Typescript 现有方案
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../typescript%20%E7%BC%96%E8%AF%91%E9%80%89%E9%A1%B9%E5%92%8C%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        typescript 编译选项和配置文件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E6%A1%A3%E6%A0%91/" class="md-nav__link">
+        文档树
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82TS%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        网易云课堂TS入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runoob-ts/00-basic/" class="md-nav__link">
+        00-basic
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runoob-ts/01-install/01-install/" class="md-nav__link">
+        01-install
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runoob-ts/02-basic/02-basic-grammar/" class="md-nav__link">
+        02-basic-grammar
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runoob-ts/03-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+        03-数据类型
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runoob-ts/04-%E5%8F%98%E9%87%8F/" class="md-nav__link">
+        04-变量
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runoob-ts/05-%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        05-运算符
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runoob-ts/06-%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5/" class="md-nav__link">
+        06-条件语句
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runoob-ts/09-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8BAPI/" class="md-nav__link">
+        09-数据类型API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runoob-ts/10-%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1/" class="md-nav__link">
+        10-数组对象
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runoob-ts/11-map/" class="md-nav__link">
+        11-map
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runoob-ts/12-%E5%85%83%E7%BB%84/" class="md-nav__link">
+        12-元组
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runoob-ts/13-%E6%8E%A5%E5%8F%A3/" class="md-nav__link">
+        13-接口
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runoob-ts/14-%E7%B1%BB/" class="md-nav__link">
+        14-类
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runoob-ts/15-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4/15-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4/" class="md-nav__link">
+        15-命名空间
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runoob-ts/16-%E6%A8%A1%E5%9D%97/16-%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        16-模块
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../runoob-ts/17-%E5%A3%B0%E6%98%8E%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        17-声明文件
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/other-ts/04-工程化开发-测试编译.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="_1">工程<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>掌握了 TypeScript 的语法就像学会了砌墙的工艺。</p>
+<p>我们学习 TypeScript 的目的不是为了造一间小茅屋，而是为了造高楼大厦，这也正是 TypeScript 的类型系统带来的优势。</p>
+<p>那么一项大工程应该如何开展呢？本部分的内容就会介绍 TypeScript 工程化的最佳实践，具体内容包括：</p>
+<ul>
+<li><a href="https://ts.xcatliu.com/engineering/lint.html">代码检查</a></li>
+<li><a href="https://ts.xcatliu.com/engineering/compiler-options.html">编译选项</a></li>
+</ul>
+<h1 id="_2">代码检查<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
+<p>2019 年 1 月，<a href="https://www.oschina.net/news/103818/future-typescript-eslint">TypeScirpt 官方决定全面采用 ESLint</a> 作为代码检查的工具，并创建了一个新项目 <a href="https://github.com/typescript-eslint/typescript-eslint">typescript-eslint</a>，提供了 TypeScript 文件的解析器 <a href="https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/parser">@typescript-eslint/parser</a> 和相关的配置选项 <a href="https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin">@typescript-eslint/eslint-plugin</a> 等。TypeScript 的代码检查方案就是 <a href="https://github.com/typescript-eslint/typescript-eslint">typescript-eslint</a>。</p>
+<h2 id="_3">什么是代码检查<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>代码检查主要是用来发现代码错误、统一代码风格。</p>
+<p>在 JavaScript 项目中，我们一般使用 <a href="https://eslint.org/">ESLint</a> 来进行代码检查，它通过插件化的特性极大的丰富了适用范围，搭配 <a href="https://github.com/typescript-eslint/typescript-eslint">typescript-eslint</a> 之后，甚至可以用来检查 TypeScript 代码。</p>
+<h2 id="_4">为什么需要代码检查<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>有人会觉得，JavaScript 非常灵活，所以需要代码检查。而 TypeScript 已经能够在编译阶段检查出很多问题了，为什么还需要代码检查呢？</p>
+<p>因为 TypeScript 关注的重心是类型的检查，而不是代码风格。当团队的人员越来越多时，同样的逻辑不同的人写出来可能会有很大的区别：</p>
+<ul>
+<li>缩进应该是四个空格还是两个空格？</li>
+<li>是否应该禁用 <code>var</code>？</li>
+<li>接口名是否应该以 <code>I</code> 开头？</li>
+<li>是否应该强制使用 <code>===</code> 而不是 <code>==</code>？</li>
+</ul>
+<p>这些问题 TypeScript 不会关注，但是却影响到多人协作开发时的效率、代码的可理解性以及可维护性。</p>
+<p>下面来看一个具体的例子：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">myName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Tom&#39;</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`My name is </span><span class="si">${</span><span class="nx">myNane</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`My name is </span><span class="si">${</span><span class="nx">myName</span><span class="p">.</span><span class="nx">toStrng</span><span class="p">()</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+</code></pre></div>
+<p>以上代码你能看出有什么错误吗？</p>
+<p>分别用 tsc 编译和 eslint 检查后，报错信息如下：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">myName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Tom&#39;</span><span class="p">;</span>
+<span class="c1">// eslint 报错信息：</span>
+<span class="c1">// Unexpected var, use let or const instead.eslint(no-var)</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`My name is </span><span class="si">${</span><span class="nx">myNane</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="c1">// tsc 报错信息：</span>
+<span class="c1">// Cannot find name &#39;myNane&#39;. Did you mean &#39;myName&#39;?</span>
+<span class="c1">// eslint 报错信息：</span>
+<span class="c1">// &#39;myNane&#39; is not defined.eslint(no-undef)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`My name is </span><span class="si">${</span><span class="nx">myName</span><span class="p">.</span><span class="nx">toStrng</span><span class="p">()</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="c1">// tsc 报错信息：</span>
+<span class="c1">// Property &#39;toStrng&#39; does not exist on type &#39;string&#39;. Did you mean &#39;toString&#39;?</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th align="left">存在的问题</th>
+<th align="left"><code>tsc</code> 是否报错</th>
+<th align="left"><code>eslint</code> 是否报错</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">应该使用 <code>let</code> 或 <code>const</code> 而不是 <code>var</code></td>
+<td align="left">❌</td>
+<td align="left">✅</td>
+</tr>
+<tr>
+<td align="left"><code>myName</code> 被误写成了 <code>myNane</code></td>
+<td align="left">✅</td>
+<td align="left">✅</td>
+</tr>
+<tr>
+<td align="left"><code>toString</code> 被误写成了 <code>toStrng</code></td>
+<td align="left">✅️</td>
+<td align="left">❌</td>
+</tr>
+</tbody>
+</table>
+<p>上例中，我们使用了 <code>var</code> 来定义一个变量，但其实 ES6 中有更先进的语法 <code>let</code> 和 <code>const</code>，此时就可以通过 <code>eslint</code> 检查出来，提示我们应该使用 <code>let</code> 或 <code>const</code> 而不是 <code>var</code>。</p>
+<p>对于未定义的变量 <code>myNane</code>，<code>tsc</code> 和 <code>eslint</code> 都可以检查出来。</p>
+<p>由于 <code>eslint</code> 无法识别 <code>myName</code> 存在哪些方法，所以对于拼写错误的 <code>toString</code> 没有检查出来。</p>
+<p>由此可见，<code>eslint</code> 能够发现出一些 <code>tsc</code> 不会关心的错误，检查出一些潜在的问题，所以代码检查还是非常重要的。</p>
+<h2 id="typescript-eslint">在 TypeScript 中使用 ESLint<a class="headerlink" href="#typescript-eslint" title="Permanent link">&para;</a></h2>
+<h3 id="eslint">安装 ESLint<a class="headerlink" href="#eslint" title="Permanent link">&para;</a></h3>
+<p>ESLint 可以安装在当前项目中或全局环境下，因为代码检查是项目的重要组成部分，所以我们一般会将它安装在当前项目中。可以运行下面的脚本来安装：</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>--save-dev<span class="w"> </span>eslint
+</code></pre></div>
+<p>由于 ESLint 默认使用 <a href="https://github.com/eslint/espree">Espree</a> 进行语法解析，无法识别 TypeScript 的一些语法，故我们需要安装 <a href="https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser"><code>@typescript-eslint/parser</code></a>，替代掉默认的解析器，别忘了同时安装 <code>typescript</code>：</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>--save-dev<span class="w"> </span>typescript<span class="w"> </span>@typescript-eslint/parser
+</code></pre></div>
+<p>接下来需要安装对应的插件 <a href="https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin">@typescript-eslint/eslint-plugin</a> 它作为 eslint 默认规则的补充，提供了一些额外的适用于 ts 语法的规则。</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>--save-dev<span class="w"> </span>@typescript-eslint/eslint-plugin
+</code></pre></div>
+<h3 id="_5">创建配置文件<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>ESLint 需要一个配置文件来决定对哪些规则进行检查，配置文件的名称一般是 <code>.eslintrc.js</code> 或 <code>.eslintrc.json</code>。</p>
+<p>当运行 ESLint 的时候检查一个文件的时候，它会首先尝试读取该文件的目录下的配置文件，然后再一级一级往上查找，将所找到的配置合并起来，作为当前被检查文件的配置。</p>
+<p>我们在项目的根目录下创建一个 <code>.eslintrc.js</code>，内容如下：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">parser</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;@typescript-eslint/parser&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">plugins</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;@typescript-eslint&#39;</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">rules</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 禁止使用 var</span>
+<span class="w">        </span><span class="s1">&#39;no-var&#39;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;error&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="c1">// 优先使用 interface 而不是 type</span>
+<span class="w">        </span><span class="s1">&#39;@typescript-eslint/consistent-type-definitions&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="s2">&quot;error&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s2">&quot;interface&quot;</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>以上配置中，我们指定了两个规则，其中 <code>no-var</code> 是 ESLint 原生的规则，<code>@typescript-eslint/consistent-type-definitions</code> 是 <code>@typescript-eslint/eslint-plugin</code> 新增的规则。</p>
+<p>规则的取值一般是一个数组（上例中的 <code>@typescript-eslint/consistent-type-definitions</code>），其中第一项是 <code>off</code>、<code>warn</code> 或 <code>error</code> 中的一个，表示关闭、警告和报错。后面的项都是该规则的其他配置。</p>
+<p>如果没有其他配置的话，则可以将规则的取值简写为数组中的第一项（上例中的 <code>no-var</code>）。</p>
+<p>关闭、警告和报错的含义如下：</p>
+<ul>
+<li>关闭：禁用此规则</li>
+<li>警告：代码检查时输出错误信息，但是不会影响到 exit code</li>
+<li>报错：发现错误时，不仅会输出错误信息，而且 exit code 将被设为 1（一般 exit code 不为 0 则表示执行出现错误）</li>
+</ul>
+<h3 id="ts">检查一个 ts 文件<a class="headerlink" href="#ts" title="Permanent link">&para;</a></h3>
+<p>创建了配置文件之后，我们来创建一个 ts 文件看看是否能用 ESLint 去检查它。</p>
+<p>创建一个新文件 <code>index.ts</code>，将以下内容复制进去：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">myName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Tom&#39;</span><span class="p">;</span>
+<span class="kr">type</span><span class="w"> </span><span class="nx">Foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+</code></pre></div>
+<p>然后执行以下命令：</p>
+<div class="highlight"><pre><span></span><code>./node_modules/.bin/eslint<span class="w"> </span>index.ts
+</code></pre></div>
+<p>则会得到如下报错信息：</p>
+<div class="highlight"><pre><span></span><code>/path/to/index.ts
+<span class="w">  </span><span class="m">1</span>:1<span class="w">  </span>error<span class="w">  </span>Unexpected<span class="w"> </span>var,<span class="w"> </span>use<span class="w"> </span><span class="nb">let</span><span class="w"> </span>or<span class="w"> </span>const<span class="w"> </span>instead<span class="w">  </span>no-var
+<span class="w">  </span><span class="m">3</span>:6<span class="w">  </span>error<span class="w">  </span>Use<span class="w"> </span>an<span class="w"> </span><span class="sb">`</span>interface<span class="sb">`</span><span class="w"> </span>instead<span class="w"> </span>of<span class="w"> </span>a<span class="w"> </span><span class="sb">`</span><span class="nb">type</span><span class="sb">`</span><span class="w">    </span>@typescript-eslint/consistent-type-definitions
+
+✖<span class="w"> </span><span class="m">2</span><span class="w"> </span>problems<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="w"> </span>errors,<span class="w"> </span><span class="m">0</span><span class="w"> </span>warnings<span class="o">)</span>
+<span class="w">  </span><span class="m">2</span><span class="w"> </span>errors<span class="w"> </span>and<span class="w"> </span><span class="m">0</span><span class="w"> </span>warnings<span class="w"> </span>potentially<span class="w"> </span>fixable<span class="w"> </span>with<span class="w"> </span>the<span class="w"> </span><span class="sb">`</span>--fix<span class="sb">`</span><span class="w"> </span>option.
+</code></pre></div>
+<p>上面的结果显示，刚刚配置的两个规则都生效了：禁止使用 <code>var</code>；优先使用 <code>interface</code> 而不是 <code>type</code>。</p>
+<p>需要注意的是，我们使用的是 <code>./node_modules/.bin/eslint</code>，而不是全局的 <code>eslint</code> 脚本，这是因为代码检查是项目的重要组成部分，所以我们一般会将它安装在当前项目中。</p>
+<p>可是每次执行这么长一段脚本颇有不便，我们可以通过在 <code>package.json</code> 中添加一个 <code>script</code> 来创建一个 npm script 来简化这个步骤：</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;eslint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eslint index.ts&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这时只需执行 <code>npm run eslint</code> 即可。</p>
+<h3 id="ts_1">检查整个项目的 ts 文件<a class="headerlink" href="#ts_1" title="Permanent link">&para;</a></h3>
+<p>我们的项目源文件一般是放在 <code>src</code> 目录下，所以需要将 <code>package.json</code> 中的 <code>eslint</code> 脚本改为对一个目录进行检查。由于 <code>eslint</code> 默认不会检查 <code>.ts</code> 后缀的文件，所以需要加上参数 <code>--ext .ts</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;eslint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eslint src --ext .ts&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>此时执行 <code>npm run eslint</code> 即会检查 <code>src</code> 目录下的所有 <code>.ts</code> 后缀的文件。</p>
+<h3 id="vscode-eslint">在 VSCode 中集成 ESLint 检查<a class="headerlink" href="#vscode-eslint" title="Permanent link">&para;</a></h3>
+<p>在编辑器中集成 ESLint 检查，可以在开发过程中就发现错误，甚至可以在保存时自动修复错误，极大的增加了开发效率。</p>
+<p>要在 VSCode 中集成 ESLint 检查，我们需要先安装 ESLint 插件，点击「扩展」按钮，搜索 ESLint，然后安装即可。</p>
+<p>VSCode 中的 ESLint 插件默认是不会检查 <code>.ts</code> 后缀的，需要在「文件 =&gt; 首选项 =&gt; 设置 =&gt; 工作区」中（也可以在项目根目录下创建一个配置文件 <code>.vscode/settings.json</code>），添加以下配置：</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;eslint.validate&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;javascript&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;javascriptreact&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;typescript&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;typescript.tsdk&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_modules/typescript/lib&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这时再打开一个 <code>.ts</code> 文件，将鼠标移到红色提示处，即可看到这样的报错信息了：</p>
+<p><img alt="VSCode ESLint 错误信息" src="https://ts.xcatliu.com/assets/vscode-eslint-error.png" /></p>
+<p>我们还可以开启保存时自动修复的功能，通过配置：</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;eslint.autoFixOnSave&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;eslint.validate&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;javascript&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;javascriptreact&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;typescript&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;autoFix&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;typescript.tsdk&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_modules/typescript/lib&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>就可以在保存文件后，自动修复为：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">myName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Tom&#39;</span><span class="p">;</span>
+
+<span class="kd">interface</span><span class="w"> </span><span class="nx">Foo</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div>
+<h3 id="prettier">使用 Prettier 修复格式错误<a class="headerlink" href="#prettier" title="Permanent link">&para;</a></h3>
+<p>ESLint 包含了一些代码格式的检查，比如空格、分号等。但前端社区中有一个更先进的工具可以用来格式化代码，那就是 <a href="https://prettier.io/">Prettier</a>。</p>
+<p>Prettier 聚焦于代码的格式化，通过语法分析，重新整理代码的格式，让所有人的代码都保持同样的风格。</p>
+<p>首先需要安装 Prettier：</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>--save-dev<span class="w"> </span>prettier
+</code></pre></div>
+<p>然后创建一个 <code>prettier.config.js</code> 文件，里面包含 Prettier 的配置项。Prettier 的配置项很少，这里我推荐大家一个配置规则，作为参考：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// prettier.config.js or .prettierrc.js</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 一行最多 100 字符</span>
+<span class="w">    </span><span class="nx">printWidth</span><span class="o">:</span><span class="w"> </span><span class="mf">100</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// 使用 4 个空格缩进</span>
+<span class="w">    </span><span class="nx">tabWidth</span><span class="o">:</span><span class="w"> </span><span class="mf">4</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// 不使用缩进符，而使用空格</span>
+<span class="w">    </span><span class="nx">useTabs</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// 行尾需要有分号</span>
+<span class="w">    </span><span class="nx">semi</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// 使用单引号</span>
+<span class="w">    </span><span class="nx">singleQuote</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// 对象的 key 仅在必要时用引号</span>
+<span class="w">    </span><span class="nx">quoteProps</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;as-needed&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// jsx 不使用单引号，而使用双引号</span>
+<span class="w">    </span><span class="nx">jsxSingleQuote</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// 末尾不需要逗号</span>
+<span class="w">    </span><span class="nx">trailingComma</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// 大括号内的首尾需要空格</span>
+<span class="w">    </span><span class="nx">bracketSpacing</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// jsx 标签的反尖括号需要换行</span>
+<span class="w">    </span><span class="nx">jsxBracketSameLine</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// 箭头函数，只有一个参数的时候，也需要括号</span>
+<span class="w">    </span><span class="nx">arrowParens</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;always&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// 每个文件格式化的范围是文件的全部内容</span>
+<span class="w">    </span><span class="nx">rangeStart</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">rangeEnd</span><span class="o">:</span><span class="w"> </span><span class="kc">Infinity</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// 不需要写文件开头的 @prettier</span>
+<span class="w">    </span><span class="nx">requirePragma</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// 不需要自动在文件开头插入 @prettier</span>
+<span class="w">    </span><span class="nx">insertPragma</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// 使用默认的折行标准</span>
+<span class="w">    </span><span class="nx">proseWrap</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;preserve&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// 根据显示样式决定 html 要不要折行</span>
+<span class="w">    </span><span class="nx">htmlWhitespaceSensitivity</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;css&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// 换行符使用 lf</span>
+<span class="w">    </span><span class="nx">endOfLine</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;lf&#39;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>接下来安装 VSCode 中的 Prettier 插件，然后修改 <code>.vscode/settings.json</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;files.eol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;</span>
+<span class="s2">&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;editor.tabSize&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;editor.formatOnSave&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;editor.defaultFormatter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;esbenp.prettier-vscode&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;eslint.autoFixOnSave&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;eslint.validate&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;javascript&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;javascriptreact&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;typescript&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;autoFix&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;typescript.tsdk&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_modules/typescript/lib&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这样就实现了保存文件时自动格式化并且自动修复 ESLint 错误。</p>
+<p>需要注意的是，由于 ESLint 也可以检查一些代码格式的问题，所以在和 Prettier 配合使用时，我们一般会把 ESLint 中的代码格式相关的规则禁用掉，否则就会有冲突了。</p>
+<h3 id="alloyteam-eslint">使用 AlloyTeam 的 ESLint 配置<a class="headerlink" href="#alloyteam-eslint" title="Permanent link">&para;</a></h3>
+<p>ESLint 原生的规则和 <code>@typescript-eslint/eslint-plugin</code> 的规则太多了，而且原生的规则有一些在 TypeScript 中支持的不好，需要禁用掉。</p>
+<p>这里我推荐使用 <a href="https://github.com/AlloyTeam/eslint-config-alloy#typescript">AlloyTeam ESLint 规则中的 TypeScript 版本</a>，它已经为我们提供了一套完善的配置规则，并且与 Prettier 是完全兼容的（eslint-config-alloy 不包含任何代码格式的规则，代码格式的问题交给更专业的 Prettier 去处理）。</p>
+<p>安装：</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>--save-dev<span class="w"> </span>eslint<span class="w"> </span>typescript<span class="w"> </span>@typescript-eslint/parser<span class="w"> </span>@typescript-eslint/eslint-plugin<span class="w"> </span>eslint-config-alloy
+</code></pre></div>
+<p>在你的项目根目录下创建 <code>.eslintrc.js</code>，并将以下内容复制到文件中即可：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">extends</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s1">&#39;alloy&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">&#39;alloy/typescript&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nx">env</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 您的环境变量（包含多个预定义的全局变量）</span>
+<span class="w">        </span><span class="c1">// Your environments (which contains several predefined global variables)</span>
+<span class="w">        </span><span class="c1">//</span>
+<span class="w">        </span><span class="c1">// browser: true,</span>
+<span class="w">        </span><span class="c1">// node: true,</span>
+<span class="w">        </span><span class="c1">// mocha: true,</span>
+<span class="w">        </span><span class="c1">// jest: true,</span>
+<span class="w">        </span><span class="c1">// jquery: true</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">globals</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 您的全局变量（设置为 false 表示它不允许被重新赋值）</span>
+<span class="w">        </span><span class="c1">// Your global variables (setting to false means it&#39;s not allowed to be reassigned)</span>
+<span class="w">        </span><span class="c1">//</span>
+<span class="w">        </span><span class="c1">// myGlobal: false</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nx">rules</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 自定义您的规则</span>
+<span class="w">        </span><span class="c1">// Customize your rules</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>更多的使用方法，请参考 <a href="https://github.com/AlloyTeam/eslint-config-alloy">AlloyTeam ESLint 规则</a></p>
+<h3 id="eslint-tsx">使用 ESLint 检查 tsx 文件<a class="headerlink" href="#eslint-tsx" title="Permanent link">&para;</a></h3>
+<p>如果需要同时支持对 tsx 文件的检查，则需要对以上步骤做一些调整：</p>
+<p>安装 <code>eslint-plugin-react</code></p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>--save-dev<span class="w"> </span>eslint-plugin-react
+</code></pre></div>
+<p>package.json 中的 scripts.eslint 添加 <code>.tsx</code> 后缀</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;eslint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eslint src --ext .ts,.tsx&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>VSCode 的配置中新增 typescriptreact 检查</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;files.eol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;</span>
+<span class="s2">&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;editor.tabSize&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;editor.formatOnSave&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;editor.defaultFormatter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;esbenp.prettier-vscode&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;eslint.autoFixOnSave&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;eslint.validate&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;javascript&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;javascriptreact&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;typescript&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;autoFix&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;language&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;typescriptreact&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;autoFix&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;typescript.tsdk&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node_modules/typescript/lib&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>使用 AlloyTeam ESLint 规则中的 TypeScript React 版本</p>
+<p><a href="https://github.com/AlloyTeam/eslint-config-alloy#typescript-react">AlloyTeam ESLint 规则中的 TypeScript React 版本</a></p>
+<h2 id="troubleshootings">Troubleshootings<a class="headerlink" href="#troubleshootings" title="Permanent link">&para;</a></h2>
+<p>报错解决：Cannot find module '@typescript-eslint/parser'</p>
+<p>你运行的是全局的 eslint，需要改为运行 <code>./node_modules/.bin/eslint</code>。</p>
+<p>VSCode 没有显示出 ESLint 的报错</p>
+<ol>
+<li>检查「文件 =&gt; 首选项 =&gt; 设置」中有没有配置正确</li>
+<li>检查必要的 npm 包有没有安装</li>
+<li>检查 <code>.eslintrc.js</code> 有没有配置</li>
+<li>检查文件是不是在 <code>.eslintignore</code> 中</li>
+</ol>
+<p>如果以上步骤都不奏效，则可以在「文件 =&gt; 首选项 =&gt; 设置」中配置 <code>"eslint.trace.server": "messages"</code>，按 <code>Ctrl</code>+<code>Shift</code>+<code>U</code> 打开输出面板，然后选择 ESLint 输出，查看具体错误。</p>
+<p><img alt="VSCode 的 ESLint 输出" src="https://ts.xcatliu.com/assets/vscode-output-eslint.png" /></p>
+<p>为什么有些定义了的变量（比如使用 <code>enum</code> 定义的变量）未使用，ESLint 却没有报错？</p>
+<p>因为无法支持这种变量定义的检查。建议在 <code>tsconfig.json</code> 中添加以下配置，使 <code>tsc</code> 编译过程能够检查出定义了未使用的变量：</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;compilerOptions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;noUnusedLocals&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;noUnusedParameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>启用了 noUnusedParameters 之后，只使用了第二个参数，但是又必须传入第一个参数，这就会报错了</p>
+<p>第一个参数以下划线开头即可，参考 <a href="https://github.com/Microsoft/TypeScript/issues/9458">https://github.com/Microsoft/TypeScript/issues/9458</a></p>
+<h1 id="_6">编译选项<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h1>
+<p>TypeScript 提供了非常多的编译选项。索引：</p>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">类型</th>
+<th align="left">默认值</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><a href="https://ts.xcatliu.com/engineering/compiler-options.html#allowjs"><code>allowJs</code></a></td>
+<td align="left"><code>boolean</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">允许编译 js 文件</td>
+</tr>
+<tr>
+<td align="left"><a href="https://ts.xcatliu.com/engineering/compiler-options.html#allowsyntheticdefaultimports"><code>allowSyntheticDefaultImports</code></a></td>
+<td align="left"><code>boolean</code></td>
+<td align="left"><code>false</code></td>
+<td align="left">允许对不包含默认导出的模块使用默认导入。这个选项不会影响生成的代码，只会影响类型检查。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="allowjs">allowJs<a class="headerlink" href="#allowjs" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>允许编译 js 文件。</p>
+</blockquote>
+<p>设置为 <code>true</code> 时，js 文件会被 tsc 编译，否则不会。一般在项目中 js, ts 混合开发时需要设置。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 设置为 true 时，编译后的文件包含 foo.js</span>
+├──<span class="w"> </span>lib
+│<span class="w">   </span>├──<span class="w"> </span>foo.js
+│<span class="w">   </span>└──<span class="w"> </span>index.js
+├──<span class="w"> </span>src
+│<span class="w">   </span>├──<span class="w"> </span>foo.js
+│<span class="w">   </span>└──<span class="w"> </span>index.ts
+├──<span class="w"> </span>package.json
+└──<span class="w"> </span>tsconfig.json
+<span class="c1"># 设置为 false 时，编译后的文件不包含 foo.js</span>
+├──<span class="w"> </span>lib
+│<span class="w">   </span>└──<span class="w"> </span>index.js
+├──<span class="w"> </span>src
+│<span class="w">   </span>├──<span class="w"> </span>foo.js
+│<span class="w">   </span>└──<span class="w"> </span>index.ts
+├──<span class="w"> </span>package.json
+└──<span class="w"> </span>tsconfig.json
+</code></pre></div>
+<h2 id="allowsyntheticdefaultimports">allowSyntheticDefaultImports<a class="headerlink" href="#allowsyntheticdefaultimports" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>允许对不包含默认导出的模块使用默认导入。这个选项不会影响生成的代码，只会影响类型检查。</p>
+</blockquote>
+<p><code>export = foo</code> 是 ts 为了兼容 commonjs 创造的语法，它对应于 commonjs 中的 <code>module.exports = foo</code>。</p>
+<p>在 ts 中，如果要引入一个通过 <code>export = foo</code> 导出的模块，标准的语法是 <code>import foo = require('foo')</code>，或者 <code>import * as foo from 'foo'</code>。</p>
+<p>但由于历史原因，我们已经习惯了使用 <code>import foo from 'foo'</code>。</p>
+<p>这个选项就是为了解决这个问题。当它设置为 <code>true</code> 时，允许使用 <code>import foo from 'foo'</code> 来导入一个通过 <code>export = foo</code> 导出的模块。当它设置为 <code>false</code> 时，则不允许，会报错。</p>
+<p>当然，我们一般不会在 ts 文件中使用 <code>export = foo</code> 来导出模块，而是在<a href="https://ts.xcatliu.com/basics/declaration-files#export-1">写（符合 commonjs 规范的）第三方库的声明文件</a>时，才会用到 <code>export = foo</code> 来导出类型。</p>
+<p>比如 React 的声明文件中，就是通过 <code>export = React</code> 来导出类型：</p>
+<div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">React</span><span class="p">;</span>
+<span class="k">export</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">namespace</span><span class="w"> </span><span class="nx">React</span><span class="p">;</span>
+
+<span class="kr">declare</span><span class="w"> </span><span class="nx">namespace</span><span class="w"> </span><span class="nx">React</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 声明 React 的类型</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>此时若我们通过 <code>import React from 'react'</code> 来导入 react 则会报错 ：</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">React</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="c1">// Module &#39;&quot;typescript-tutorial/examples/compiler-options/02-allowSyntheticDefaultImports/false/node_modules/@types/react/index&quot;&#39; can only be default-imported using the &#39;esModuleInterop&#39; flagts(1259)</span>
+</code></pre></div>
+<p>解决办法就是将 <code>allowSyntheticDefaultImports</code> 设置为 <code>true</code>。</p>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 5, 2023</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../03-%E8%BF%9B%E9%98%B6/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 03-进阶" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              03-进阶
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../10-Typescript%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%95%B4%E7%90%86/" class="md-footer__link md-footer__link--next" aria-label="Next: 10-Typescript常见问题整理" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              10-Typescript常见问题整理
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.8492ddcf.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>
