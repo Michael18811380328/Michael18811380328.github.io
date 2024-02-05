@@ -1058,14 +1058,14 @@
         
           <li class="md-nav__item">
   <a href="#webpackprovideplugin" class="md-nav__link">
-    webpack.providePlugin 提供库
+    webpack.providePlugin
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#copy-webpack-plugin" class="md-nav__link">
-    copy-webpack-plugin 可以帮助拷贝内容
+    copy-webpack-plugin
   </a>
   
 </li>
@@ -1104,8 +1104,21 @@
       
         <li class="md-nav__item">
   <a href="#03-webpack" class="md-nav__link">
-    03 webpack 中常见的问题解决方法
+    03 webpack 中常见问题
   </a>
+  
+    <nav class="md-nav" aria-label="03 webpack 中常见问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    环境和目录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1306,7 +1319,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../26-webpack%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+      <a href="../26-webpack的高级技巧.md" class="md-nav__link">
         26-webpack的高级技巧
       </a>
     </li>
@@ -2478,14 +2491,14 @@
         
           <li class="md-nav__item">
   <a href="#webpackprovideplugin" class="md-nav__link">
-    webpack.providePlugin 提供库
+    webpack.providePlugin
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#copy-webpack-plugin" class="md-nav__link">
-    copy-webpack-plugin 可以帮助拷贝内容
+    copy-webpack-plugin
   </a>
   
 </li>
@@ -2524,8 +2537,21 @@
       
         <li class="md-nav__item">
   <a href="#03-webpack" class="md-nav__link">
-    03 webpack 中常见的问题解决方法
+    03 webpack 中常见问题
   </a>
+  
+    <nav class="md-nav" aria-label="03 webpack 中常见问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    环境和目录
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2551,6 +2577,11 @@
 
 <h1 id="webpack">第七课 网易项目webpack配置解析<a class="headerlink" href="#webpack" title="Permanent link">&para;</a></h1>
 <p>webpack版本是4；目标是：自己可以看懂90%的配置文件，并自定义plugin和loader</p>
+<p>Webpack 不同等级的使用者：</p>
+<p>初级：可以通过CLI搭建基本的webpack并打包项目</p>
+<p>中级：可以更改一部分配置文件（loader plugin）</p>
+<p>高级：使用webpack解决项目的问题</p>
+<p>2024年备注：webpack5 已经使用在生产项目，注意更新知识体系</p>
 <h2 id="01">01 环境与目录<a class="headerlink" href="#01" title="Permanent link">&para;</a></h2>
 <p>环境分类：开发、测试、生产</p>
 <p>开发环境中：增加开发服务器操作</p>
@@ -2768,11 +2799,11 @@ webpack.base.js<span class="w"> </span>与<span class="w"> </span>webpack.pro.js
 <h2 id="02-loader">02 常用 loader 和插件<a class="headerlink" href="#02-loader" title="Permanent link">&para;</a></h2>
 <p>常用插件 plugins，下面依次介绍</p>
 <ul>
-<li>webpack.DefinePlugin 再打包阶段定义全局变量</li>
-<li>webpack.HashedModuledsPlugin 保持 module.id 稳定</li>
-<li>webpack.NoEmitOnErrorsPlugin 屏蔽错误</li>
+<li>webpack.DefinePlugin 在打包阶段定义全局变量</li>
+<li>webpack.HashedModuledsPlugin 保持 module.id 稳定，第三方库避免重复打包</li>
+<li>webpack.NoEmitOnErrorsPlugin 屏蔽打包时的错误，浏览器可以显示界面</li>
 <li>webpack.providePlugin 提供库</li>
-<li>copy-webpack-plugin 可以帮助拷贝内容</li>
+<li>copy-webpack-plugin 帮助手动拷贝内容（未打包的字体图标或者图片）</li>
 </ul>
 <h3 id="webpackdefineplugin">webpack.DefinePlugin<a class="headerlink" href="#webpackdefineplugin" title="Permanent link">&para;</a></h3>
 <p>指定当前的环境变量（打包阶段定义全局变量）</p>
@@ -2805,6 +2836,23 @@ webpack.base.js<span class="w"> </span>与<span class="w"> </span>webpack.pro.js
 <span class="w">  </span><span class="nx">publish_env</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&quot;online&quot;&#39;</span>
 <span class="p">};</span>
 </code></pre></div>
+<p>练习</p>
+<div class="highlight"><pre><span></span><code><span class="nx">plugins</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="ow">new</span><span class="w"> </span><span class="nx">webpack</span><span class="p">.</span><span class="nx">DefinePlugin</span><span class="p">({</span>
+<span class="w">        </span><span class="s1">&#39;process.env&#39;</span><span class="o">:</span><span class="w"> </span><span class="nx">env</span>
+<span class="w">    </span><span class="p">}),</span>
+<span class="w">    </span><span class="ow">new</span><span class="w"> </span><span class="nx">UglifyJsPlugin</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">uglifyOptions</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">compress</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">warnings</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nx">sourceMap</span><span class="o">:</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">build</span><span class="p">.</span><span class="nx">productionSourceMap</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">parallel</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}),</span>
+<span class="p">]</span>
+</code></pre></div>
+<p>插件都放在 plugins 数组中，创建一个插件的实例</p>
 <h3 id="webpackhashedmoduleidsplugin">webpack.HashedModuleIdsPlugin<a class="headerlink" href="#webpackhashedmoduleidsplugin" title="Permanent link">&para;</a></h3>
 <p>保持模块的 module.id 稳定</p>
 <p>如何判断一个文件是新的还是旧的（浏览器读取新文件，还是读取缓存文件），就根据文件后面的hash值判断。所以webpack打包输出的文件中就增加了哈希值。</p>
@@ -2835,7 +2883,7 @@ webpack.base.js<span class="w"> </span>与<span class="w"> </span>webpack.pro.js
 </code></pre></div>
 <h3 id="webpacknoemitonerrorsplugin">webpack.NoEmitOnErrorsPlugin<a class="headerlink" href="#webpacknoemitonerrorsplugin" title="Permanent link">&para;</a></h3>
 <p>这个插件在上面已经使用了。如果代码出现问题，webpack 默认不会继续编译，显示错误。这个插件可以继续编译并让浏览器显示（操作更友好）。</p>
-<h3 id="webpackprovideplugin">webpack.providePlugin 提供库<a class="headerlink" href="#webpackprovideplugin" title="Permanent link">&para;</a></h3>
+<h3 id="webpackprovideplugin">webpack.providePlugin<a class="headerlink" href="#webpackprovideplugin" title="Permanent link">&para;</a></h3>
 <p>如果我们在全局中使用某些库，例如jquery，可以使用这个插件</p>
 <p>base.conf.js</p>
 <p>对于 axios jquery 等通用组件，每个组件都需要import，可以只用这个插件。直接在这里定义，不需要在不同组件中全局定义，定以后可以打包到环境中（React等是否可以这样使用？）</p>
@@ -2853,7 +2901,8 @@ webpack.base.js<span class="w"> </span>与<span class="w"> </span>webpack.pro.js
 <span class="w">  </span><span class="p">}),</span>
 <span class="p">]</span>
 </code></pre></div>
-<h3 id="copy-webpack-plugin">copy-webpack-plugin 可以帮助拷贝内容<a class="headerlink" href="#copy-webpack-plugin" title="Permanent link">&para;</a></h3>
+<h3 id="copy-webpack-plugin">copy-webpack-plugin<a class="headerlink" href="#copy-webpack-plugin" title="Permanent link">&para;</a></h3>
+<p>可以帮助拷贝内容</p>
 <p>这个插件不是自带的，需要安装</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">CopyWebpackPlugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;copy-webpack-plugin&#39;</span><span class="p">);</span>
 
@@ -2952,7 +3001,7 @@ webpack.base.js<span class="w"> </span>与<span class="w"> </span>webpack.pro.js
 如果使用几百个组件，那么使用这个可以节省很多事件
 这是一个第三方库，需要单独安装到dev中</p>
 <p>可以使用dtable这样的大项目测试一下编译的时间</p>
-<h2 id="03-webpack">03 webpack 中常见的问题解决方法<a class="headerlink" href="#03-webpack" title="Permanent link">&para;</a></h2>
+<h2 id="03-webpack">03 webpack 中常见问题<a class="headerlink" href="#03-webpack" title="Permanent link">&para;</a></h2>
 <p>如果对模块内容进行处理：loader 是首选方案；</p>
 <p>如果要加入特殊的功能：可以自定义增加插件 plugin；</p>
 <p>项目中打包简化：可变性配置：通过编写响应的操作函数；</p>
@@ -3002,13 +3051,64 @@ webpack.base.js<span class="w"> </span>与<span class="w"> </span>webpack.pro.js
 <p>make 周期需要处理很多编译的配置，新手不好做，done 周期直接操作编译后的文件，相对简单</p>
 <p>loader 是对某一类文件进行处理（css-loader sass-loader）</p>
 <p>plugin 是监听到 webpack 的某个过程（make）执行的一个操作（webpack插件系统的生命周期）</p>
+<h3 id="_1">环境和目录<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>这部分和 01 有重复</p>
+<ul>
+<li>开发环境（dev）webpack.dev.conf.js</li>
+<li>测试环境（test）Test.js 打包测试文件，而不是打包业务代码</li>
+<li>生产环境（prod）</li>
+</ul>
+<p>对应不同的配置文件</p>
+<p>基本配置文件：webpack.base.conf.js (主要是loaders) vue-loader, babel-loader, url-loader(handle image file jpg), url-loader(handle meida file mp4)</p>
+<p>在不同环境中，把基本配置和特定环境的配置项目 merge 成一个配置文件。</p>
+<p>例如：生产环境下执行下面的操作</p>
+<div class="highlight"><pre><span></span><code>node<span class="w"> </span>build.js
+</code></pre></div>
+<p>JS内部使用 webpack.base.conf.js and webpack.prod.conf.js 合并文件，从 config 中拿出  index.js and pro.env 中的环境变量，然后进行生产环境下面的打包。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">ora</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;ora&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;rimraf&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">chalk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;chalk&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">webpack</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../config&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">webpackConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./webpack.prod.conf.js&#39;</span><span class="p">);</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">spinner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ora</span><span class="p">(</span><span class="s1">&#39;building starting&#39;</span><span class="p">);</span>
+<span class="nx">spinner</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
+
+<span class="c1">// delete dist dir</span>
+<span class="nx">rm</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">build</span><span class="p">.</span><span class="nx">assetsRoot</span><span class="p">,</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">build</span><span class="p">.</span><span class="nx">assetsSubDirectory</span><span class="p">),</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="nx">err</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// start webpack </span>
+<span class="w">    </span><span class="nx">webpack</span><span class="p">(</span><span class="nx">webpackConfig</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="nx">stats</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">spinner</span><span class="p">.</span><span class="nx">stop</span><span class="p">();</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="nx">err</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">stats</span><span class="p">.</span><span class="nx">toString</span><span class="p">({</span>
+<span class="w">            </span><span class="nx">colors</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">modules</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">children</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="c1">// ts-loader set it true</span>
+<span class="w">            </span><span class="nx">chunks</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">chunkModules</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">        </span><span class="p">})</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;\n\n&#39;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">stats</span><span class="p">.</span><span class="nx">hasErrors</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">red</span><span class="p">(</span><span class="s1">&#39;build with error.\n&#39;</span><span class="p">));</span>
+<span class="w">            </span><span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chalk</span><span class="p">.</span><span class="nx">cyan</span><span class="p">(</span><span class="s1">&#39;build complete.\n&#39;</span><span class="p">));</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 20, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 5, 2024</span>
       
     
   </small>
