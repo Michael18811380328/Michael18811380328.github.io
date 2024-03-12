@@ -267,7 +267,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../note/log/" class="md-nav__link">
+      <a href="../../note/log.md" class="md-nav__link">
         log
       </a>
     </li>
@@ -315,7 +315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../note/2021%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/" class="md-nav__link">
+      <a href="../../note/2021年度总结.md" class="md-nav__link">
         2021年度总结
       </a>
     </li>
@@ -329,7 +329,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../note/2022%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/" class="md-nav__link">
+      <a href="../../note/2022年度总结.md" class="md-nav__link">
         2022年度总结
       </a>
     </li>
@@ -497,7 +497,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../note/%E5%85%A8%E9%9D%A2%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3%E5%A4%A7%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+      <a href="../../note/全面深入了解大模型.md" class="md-nav__link">
         全面深入了解大模型
       </a>
     </li>
@@ -727,7 +727,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mysql%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+      <a href="../mysql 学习笔记.md" class="md-nav__link">
         mysql 学习笔记
       </a>
     </li>
@@ -811,7 +811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" class="md-nav__link">
+      <a href="../计算机组成原理.md" class="md-nav__link">
         计算机组成原理
       </a>
     </li>
@@ -1839,6 +1839,38 @@
 <h1 id="_3">添加交互<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
 <h1 id="_4">状态管理<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h1>
 <h1 id="escape-hatches">脱围机制 Escape Hatches<a class="headerlink" href="#escape-hatches" title="Permanent link">&para;</a></h1>
+<p>使用非 react 内部方法，处理需要的功能（例如处理界面滚动，处理视频播放，需要使用原生 JS 实现）</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// video 元素</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">isPlaying</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">ref</span><span class="p">.</span><span class="nx">current</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">ref</span><span class="p">.</span><span class="nx">current</span><span class="p">.</span><span class="nx">pause</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>实际上，不使用 React 的方法，如何实现其他功能？</p>
+<p>1、组件属性？使用 useRef 存储</p>
+<p>2、操作 DOM 节点（获取计算尺寸位置等）；当State变化时，操作 DOM 节点</p>
+<p>在渲染时，尽量计算，不要使用新的 State（name = firstName + lastName）</p>
+<p>React 不允许组件访问其他组件的 DOM 节点。甚至自己的子组件也不行 使用 forwardRef API 可以实现这个功能</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">MyInput</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">forwardRef</span><span class="p">((</span><span class="nx">props</span><span class="p">,</span><span class="w"> </span><span class="nx">ref</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">input</span><span class="w"> </span><span class="p">{...</span><span class="nx">props</span><span class="p">}</span><span class="w"> </span><span class="nx">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">ref</span><span class="p">}</span><span class="w"> </span><span class="o">/&gt;</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>没有依赖数组作为第二个参数，与依赖数组位空数组 [] 的行为是不一致的：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="c1">// 这里的代码会在每次渲染后执行</span>
+<span class="p">});</span>
+
+<span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="c1">// 这里的代码只会在组件挂载后执行</span>
+<span class="p">},</span><span class="w"> </span><span class="p">[]);</span>
+
+<span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="c1">//这里的代码只会在每次渲染后，并且 a 或 b 的值与上次渲染不一致时执行</span>
+<span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">]);</span>
+</code></pre></div>
+<p>这部分写的比较啰嗦，确实案例和细节很多，有些专有名词比较多。</p>
+<p>看了前4小节</p>
 <h2 id="hooks">Hooks 相关<a class="headerlink" href="#hooks" title="Permanent link">&para;</a></h2>
 <p><strong>请确保你已经为你的项目启用了 <a href="https://www.npmjs.com/package/eslint-plugin-react-hooks"><code>eslint-plugin-react-hooks</code></a> 规则</strong>。这在 React 项目中是必备的，同时能帮助你及早的捕获较为严重的 bug。我们推荐的 <a href="https://www.npmjs.com/package/eslint-config-react-app"><code>eslint-config-react-app</code></a> preset 中已经集成了该规则。</p>
 <h2 id="ts">TS 相关<a class="headerlink" href="#ts" title="Permanent link">&para;</a></h2>
@@ -1870,7 +1902,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 5, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 26, 2024</span>
       
     
   </small>

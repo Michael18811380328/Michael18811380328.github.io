@@ -267,7 +267,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../log/" class="md-nav__link">
+      <a href="../log.md" class="md-nav__link">
         log
       </a>
     </li>
@@ -317,7 +317,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../2021%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/" class="md-nav__link">
+      <a href="../2021年度总结.md" class="md-nav__link">
         2021年度总结
       </a>
     </li>
@@ -331,7 +331,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../2022%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/" class="md-nav__link">
+      <a href="../2022年度总结.md" class="md-nav__link">
         2022年度总结
       </a>
     </li>
@@ -499,7 +499,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../%E5%85%A8%E9%9D%A2%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3%E5%A4%A7%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+      <a href="../全面深入了解大模型.md" class="md-nav__link">
         全面深入了解大模型
       </a>
     </li>
@@ -825,6 +825,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#0381" class="md-nav__link">
+    0381 浏览器同域名请求的最大并发数限制
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -944,7 +951,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../new/mysql%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+      <a href="../../new/mysql 学习笔记.md" class="md-nav__link">
         mysql 学习笔记
       </a>
     </li>
@@ -1028,7 +1035,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../new/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" class="md-nav__link">
+      <a href="../../new/计算机组成原理.md" class="md-nav__link">
         计算机组成原理
       </a>
     </li>
@@ -2185,6 +2192,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#0381" class="md-nav__link">
+    0381 浏览器同域名请求的最大并发数限制
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2438,13 +2452,22 @@ res.setHeader(&#39;last-modified&#39;: Mon, 24 Dec 2018 09:49:49 GMT)
 <p>对比 HTTP 请求</p>
 <p>建立连接后，客户端和服务器可以互相发送消息，实现真实的长连接</p>
 <p>主要用于实时通信（聊天室，共同编辑文档等）</p>
+<h2 id="0381">0381 浏览器同域名请求的最大并发数限制<a class="headerlink" href="#0381" title="Permanent link">&para;</a></h2>
+<p>问题：客户端每隔1s发送一个请求轮询，实际上服务器接受到的请求并不是每隔1s，刚开始 1s 一个，后续突然很多集中发过来。这个是什么问题？</p>
+<p><img alt="" src="https://cloud.seatable.cn/workspace/32/asset/e82c7317-556e-45c4-8b5d-092331cd8977/images/auto-upload/image-1709086138821.png" /></p>
+<p>原因：JS 和 python 部分设置基本没问题。这个是浏览器内部限制。</p>
+<p>参考：<a href="https://cloud.tencent.com/developer/article/1683127">https://cloud.tencent.com/developer/article/1683127</a> </p>
+<p>不同浏览器对同域名请求的最大并发数限制，大部分是4-8。所以当某一个请求还没有返回时，后续的请求就在浏览器本地阻塞没有发出（但是JS还在定时器中循环发送）。当某个耗时的请求返回结果后，已有阻塞的请求会并行发送，就会出现截图后面的问题。</p>
+<p>解决思路：前端避免通过 setInterval 发送请求。应该在 API 返回结果后，根据结果情况，自调用执行函数发送请求，这样即使某个耗时请求卡顿，也不会在浏览器阻塞太多请求。</p>
+<p><img alt="" src="https://cloud.seatable.cn/workspace/32/asset/e82c7317-556e-45c4-8b5d-092331cd8977/images/auto-upload/image-1709087935778.png" /></p>
+<p><img width="464" src="https://cloud.seatable.cn/workspace/32/asset/e82c7317-556e-45c4-8b5d-092331cd8977/images/auto-upload/image-1709087947619.png" /></p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">February 5, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 2, 2024</span>
       
     
   </small>
