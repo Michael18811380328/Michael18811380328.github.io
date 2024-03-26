@@ -5,6 +5,7 @@ EasyDL 图像分类 调用模型公有云API Python3实现
 import json
 import base64
 import requests
+
 """
 使用 requests 库发送请求
 使用 pip（或者 pip3）检查我的 python3 环境是否安装了该库，执行命令
@@ -15,14 +16,14 @@ import requests
 
 # 这里需要判断本地测试文件是否存在
 # 目标图片的 本地文件路径，支持jpg/png/bmp格式
-IMAGE_FILEPATH = "/Users/seafile/desktop/test.png"
+IMAGE_FILEPATH = "/Users/desktop/test.png"
 
 # 可选的请求参数
 # top_num: 返回的分类数量，不声明的话默认为 6 个
 PARAMS = {"top_num": 2}
 
 # 服务详情 中的 接口地址
-MODEL_API_URL = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/classification/seafile-image"
+MODEL_API_URL = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/classification/image"
 
 # 调用 API 需要 ACCESS_TOKEN。若已有 ACCESS_TOKEN 则于下方填入该字符串
 # 否则，留空 ACCESS_TOKEN，于下方填入 该模型部署的 API_KEY 以及 SECRET_KEY，会自动申请并显示新 ACCESS_TOKEN
