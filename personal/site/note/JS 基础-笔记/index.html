@@ -944,6 +944,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#0391-eventistrusted" class="md-nav__link">
+    0391 Event.isTrusted 是什么
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0393-dbclick-ios" class="md-nav__link">
+    0393 dbClick 不支持 IOS 设备怎么办
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1607,7 +1621,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../think/%E3%80%8A%E5%BF%83%E8%8B%A5%E8%8F%A9%E6%8F%90%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+      <a href="../../think/《心若菩提》读书笔记.md" class="md-nav__link">
         《心若菩提》读书笔记
       </a>
     </li>
@@ -1621,7 +1635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../think/%E4%BA%BA%E7%94%9F%E7%9C%9F%E7%9B%B8/" class="md-nav__link">
+      <a href="../../think/人生真相.md" class="md-nav__link">
         人生真相
       </a>
     </li>
@@ -3191,6 +3205,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#0391-eventistrusted" class="md-nav__link">
+    0391 Event.isTrusted 是什么
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0393-dbclick-ios" class="md-nav__link">
+    0393 dbClick 不支持 IOS 设备怎么办
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4115,15 +4143,47 @@ every
 <span class="nx">searchParams</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span><span class="w"> </span><span class="c1">// &quot;q=URLUtils.searchParams&quot;</span>
 </code></pre></div>
 <h2 id="0386">0386 如何判断一个对象或者数组是空<a class="headerlink" href="#0386" title="Permanent link">&para;</a></h2>
-<p>1、Object.keys(obj).length === 0</p>
-<p>2、JSON.stringify(obj).length === 2</p>
+<p>test</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">length</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">length</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="0391-eventistrusted">0391 Event.isTrusted 是什么<a class="headerlink" href="#0391-eventistrusted" title="Permanent link">&para;</a></h2>
+<p>Event 接口的 <strong>isTrusted</strong> 属性是一个只读属性，它是一个布尔值。当事件是由用户行为生成的时候，这个属性的值为 <code>true</code> ，而当事件是由脚本创建、修改、通过 EventTarget.dispatchEvent() 派发的时候，这个属性的值为 <code>false</code> 。</p>
+<h2 id="0393-dbclick-ios">0393 dbClick 不支持 IOS 设备怎么办<a class="headerlink" href="#0393-dbclick-ios" title="Permanent link">&para;</a></h2>
+<p>iOS 兼容性问题，不支持 dbClick 事件，可以用两次单击事件模拟</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nx">onMobileDoubleClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">timer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">clearTimeout</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">timer</span><span class="p">);</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">event</span><span class="p">.</span><span class="nx">isTrusted</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">pageX</span><span class="p">,</span><span class="w"> </span><span class="nx">pageY</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isWaitingForDoubleClick</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">isWaitingForDoubleClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">diffX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">pageX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">prevPosition</span><span class="p">.</span><span class="nx">x</span><span class="p">);</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">diffY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">pageY</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">prevPosition</span><span class="p">.</span><span class="nx">y</span><span class="p">);</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">diffX</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">5</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">diffY</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">onCellDoubleClick</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">prevPosition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="nx">pageX</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="nx">pageY</span><span class="w"> </span><span class="p">};</span>
+<span class="w">      </span><span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">isWaitingForDoubleClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="nx">isWaitingForDoubleClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">      </span><span class="p">},</span><span class="w"> </span><span class="mf">200</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+</code></pre></div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 16, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 26, 2024</span>
       
     
   </small>
