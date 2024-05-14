@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="ZXing for JS">
+
+  <title>官方案例 |ZXing TypeScript | Decoding from camera stream</title>
+
+  <!-- 引入线上样式库 -->
+  <link rel="stylesheet" rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null" href="https://unpkg.com/normalize.css@8.0.0/normalize.css">
+  <link rel="stylesheet" rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null" href="https://unpkg.com/milligram@1.3.0/dist/milligram.min.css">
+
+  <!-- 如果线上不支持，可以使用本地样式库 -->
+  <!-- <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="./css/normalize.css">
+  <link rel="stylesheet" href="./css/milligram.min.css"> -->
+</head>
+
+<body>
+
+  <main class="wrapper" style="padding-top:2em">
+
+    <section class="container" id="demo-content">
+      <h1 class="title">Scan QR Code from Video Camera</h1>
+
+      <p>This example shows how to scan a QR code with ZXing javascript library from the device video camera. If more
+        than one video input devices are available (for example front and back camera) the example shows how to read
+        them and use a select to change the input device.</p>
+
+      <p>此示例显示如何使用ZXing javascript库从设备摄像机扫描二维码。如果有多个视频输入设备可用（例如前置和后置摄像头），该示例将显示如何读取它们并使用选择来更改输入设备。</p>
+
+      <!-- 点击按钮，开始或者重置 -->
+      <div>
+        <a class="button" id="startButton">Start</a>
+        <a class="button" id="resetButton">Reset</a>
+      </div>
+
+      <!-- 这里显示视频 -->
+      <div>
+        <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
+      </div>
+
+      <!-- 更改视频来源，如果有多个摄像头 -->
+      <div id="sourceSelectPanel" style="display:none">
+        <label for="sourceSelect">Change video source 更改视频源</label>
+        <select id="sourceSelect" style="max-width:400px">
+        </select>
+      </div>
+
+      <div style="display: table">
+        <label for="decoding-style"> Decoding Style 解码样式</label>
+        <select id="decoding-style" size="1">
+          <option value="once">Decode once 解码一次</option>
+          <option value="continuously">Decode continuously 连续解码</option>
+        </select>
+      </div>
+
+      <label>Result:</label>
+      <pre>
+        <code id="result"></code>
+      </pre>
+
+      <p>See the <a href="https://github.com/zxing-js/library/tree/master/docs/examples/qr-camera/">source code</a> for
+        this example.</p>
+    </section>
+
+    <footer class="footer">
+      <section class="container">
+        <p>ZXing TypeScript Demo.</p>
+      </section>
+    </footer>
+
+  </main>
+
+  <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
+  <script type="text/javascript">
+
+    // 解码一次
+    function decodeOnce(codeReader, selectedDeviceId) {
+      codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
+        console.log(result)
+        // 捕获到视频中的二维码，解析后返回字符串，例如微信个人名片：https://u.wechat.com/EG_lz_oLmz6PHpvOemd5XMw
+        document.getElementById('result').textContent = result.text
+      }).catch((err) => {
+        console.error(err)
+        document.getElementById('result').textContent = err
+      })
+    }
+
+    // 连续解码
+    function decodeContinuously(codeReader, selectedDeviceId) {
+
+      codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
+
+        if (result) {
+          // properly decoded qr code 正确解码的二维码
+          console.log('Found QR code!', result)
+          document.getElementById('result').textContent = result.text
+        }
+        if (err) {
+          // As long as this error belongs into one of the following categories
+          // the code reader is going to continue as excepted. Any other error
+          // will stop the decoding loop.
+          //
+          // Excepted Exceptions:
+          //  - NotFoundException
+          //  - ChecksumException
+          //  - FormatException
+          if (err instanceof ZXing.NotFoundException) {
+            console.log('No QR code found.')
+          }
+          if (err instanceof ZXing.ChecksumException) {
+            console.log('A code was found, but it\'s read value was not valid.')
+          }
+          if (err instanceof ZXing.FormatException) {
+            console.log('A code was found, but it was in a invalid format.')
+          }
+        }
+      })
+    }
+
+    window.addEventListener('load', function () {
+
+      // 设置变量保存选中摄像头
+      let selectedDeviceId;
+
+      // 初始化对象
+      const codeReader = new ZXing.BrowserQRCodeReader()
+      console.log('ZXing code reader initialized')
+
+      // 先获取输入设备的信息
+      codeReader.getVideoInputDevices()
+        .then((videoInputDevices) => {
+
+          // 获取当前设备的摄像头个数 videoInputDevices
+          const sourceSelect = document.getElementById('sourceSelect')
+          // 默认第一个是选中的设别ID
+          selectedDeviceId = videoInputDevices[0].deviceId
+          
+          // 如果有多个摄像头
+          if (videoInputDevices.length >= 1) {
+            videoInputDevices.forEach((element) => {
+              const sourceOption = document.createElement('option')
+              sourceOption.text = element.label
+              sourceOption.value = element.deviceId
+              sourceSelect.appendChild(sourceOption)
+            })
+
+            sourceSelect.onchange = () => {
+              selectedDeviceId = sourceSelect.value;
+            };
+
+            const sourceSelectPanel = document.getElementById('sourceSelectPanel')
+            sourceSelectPanel.style.display = 'block'
+          }
+
+          // 点击开始按钮的回调函数
+          document.getElementById('startButton').addEventListener('click', () => {
+            // 获取渲染的次数，然后执行对应的函数
+            const decodingStyle = document.getElementById('decoding-style').value;
+            if (decodingStyle == "once") {
+              decodeOnce(codeReader, selectedDeviceId);
+            } else {
+              decodeContinuously(codeReader, selectedDeviceId);
+            }
+            console.log(`Started decode from camera with id ${selectedDeviceId}`)
+          })
+
+          // 点击重置按钮的回调函数
+          document.getElementById('resetButton').addEventListener('click', () => {
+            // 重置对象
+            codeReader.reset()
+            document.getElementById('result').textContent = '';
+            console.log('Reset.')
+          })
+
+        })
+        .catch((err) => {
+          // 本地使用 http-server 测试时，使用 http 协议，移动端报错 Can't enumerate devices, method not supported. 无法枚举设备，不支持方法。
+          // https://stackoverflow.com/questions/63833315/zebra-crossing-javascript-not-detecting-devices
+          // It turns out, the script requires a browser SSL connection. Not just on the JS, but the enveloping page as well.
+          // 解决方法
+          // 首先使用以下命令生成一个证书 ** 对 key.pem 和 cert.pem，它将有效期约10年（准确地说是3650天）
+          // openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
+          // # 然后便可以起服务了 下面两个命令都可以，后者会自动打开默认浏览器运行页面
+          // http-server -S
+          // http-server -S -C cert.pem -o
+          // 本机直接使用 http-server 即可启动服务
+          alert(err)
+        })
+    })
+  </script>
+
+</body>
+
+</html>
