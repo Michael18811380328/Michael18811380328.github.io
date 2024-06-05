@@ -4051,13 +4051,11 @@
 <span class="nx">chainWebpack</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">config</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">config</span><span class="p">.</span><span class="nx">plugin</span><span class="p">(</span><span class="s1">&#39;webpack-bundle-analyzer&#39;</span><span class="p">).</span><span class="nx">use</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-bundle-analyzer&#39;</span><span class="p">).</span><span class="nx">BundleAnalyzerPlugin</span><span class="p">);</span>
 <span class="p">}</span>
-<span class="nx">复制代码</span>
 </code></pre></div>
 <h4 id="2-vueclimap">2. 去掉<code>vuecli</code>打包生成的map文件<a class="headerlink" href="#2-vueclimap" title="Permanent link">&para;</a></h4>
 <p>这些文件用于错误时给出准确的提示,线上环境是不需要的.</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// vue.config.js</span>
 <span class="nx">productionSourceMap</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span>
-<span class="nx">复制代码</span>
 </code></pre></div>
 <h4 id="3cdn">3.<code>CDN</code>引入需要的资源<a class="headerlink" href="#3cdn" title="Permanent link">&para;</a></h4>
 <p>在<code>vue.config.js</code>中配置不打包相关资源. 这样可以大幅降低项目打包文件大小</p>
@@ -4098,7 +4096,6 @@
 <span class="w">    </span><span class="p">});</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">},</span>
-<span class="nx">复制代码</span>
 </code></pre></div>
 <p>然后在<code>public/index.html</code>中加入以下代码, 正式环境才走<code>cdn</code></p>
 <div class="highlight"><pre><span></span><code><span class="o">&lt;%</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;production&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">%&gt;</span>
@@ -4109,7 +4106,6 @@
 <span class="o">&lt;</span><span class="nx">script</span><span class="w"> </span><span class="nx">src</span><span class="o">=</span><span class="s2">&quot;&lt;%=js%&gt;&quot;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
 <span class="o">&lt;%</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">%&gt;</span>
 <span class="o">&lt;%</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">%&gt;</span>
-<span class="nx">复制代码</span>
 </code></pre></div>
 <p>开启了<code>cdn</code>加载资源后, 线上环境没有被<code>webpack</code>打包的资源都走了<code>cdn</code>加载, 如图 <img alt="img" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/495d5b68358e4c24a8f591c42b3005f0~tplv-k3u1fbpfcp-zoom-1.image" /></p>
 <h4 id="4-gzip">4. 开启<code>gzip</code>打包<a class="headerlink" href="#4-gzip" title="Permanent link">&para;</a></h4>
@@ -4131,7 +4127,6 @@
 <span class="w">    </span><span class="p">})</span>
 <span class="w">  </span><span class="p">);</span>
 <span class="p">},</span>
-<span class="nx">复制代码</span>
 </code></pre></div>
 <p>同时需要配置<code>nginx</code>才可支持<code>gzip</code></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// nginx.conf</span>
@@ -4145,7 +4140,6 @@
 <span class="w">  </span><span class="nx">gzip_types</span><span class="w"> </span><span class="nx">text</span><span class="o">/</span><span class="nx">plain</span><span class="w"> </span><span class="nx">application</span><span class="o">/</span><span class="nx">javascript</span><span class="w"> </span><span class="nx">text</span><span class="o">/</span><span class="nx">css</span><span class="w"> </span><span class="nx">application</span><span class="o">/</span><span class="nx">xml</span><span class="w"> </span><span class="nx">text</span><span class="o">/</span><span class="nx">javascript</span><span class="w"> </span><span class="nx">application</span><span class="o">/</span><span class="nx">x</span><span class="o">-</span><span class="nx">httpd</span><span class="o">-</span><span class="nx">php</span><span class="w"> </span><span class="nx">image</span><span class="o">/</span><span class="nx">jpeg</span><span class="w"> </span>
 <span class="w">              </span><span class="nx">image</span><span class="o">/</span><span class="nx">gif</span><span class="w"> </span><span class="nx">image</span><span class="o">/</span><span class="nx">png</span><span class="p">;</span><span class="w">   </span>
 <span class="p">}</span>
-<span class="nx">复制代码</span>
 </code></pre></div>
 <p>配置完之后可以看到线上环境的资源会以<code>gzip</code>的格式传输 <img alt="img" src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4e1b4630a1ec49fda0a255a344f0502f~tplv-k3u1fbpfcp-zoom-1.image" /></p>
 <h4 id="5">5. 配置路由懒加载<a class="headerlink" href="#5" title="Permanent link">&para;</a></h4>
@@ -4158,7 +4152,6 @@
 <span class="w">    </span><span class="nx">component</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="k">import</span><span class="p">(</span><span class="s1">&#39;@/views/GenalChat.vue&#39;</span><span class="p">),</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="p">];</span>
-<span class="nx">复制代码</span>
 </code></pre></div>
 <h4 id="6-ssrprerendering">6. 服务端渲染(SSR)/预渲染(Prerendering)<a class="headerlink" href="#6-ssrprerendering" title="Permanent link">&para;</a></h4>
 <p>由于服务端渲染对代码侵入性比较高,因此我使用了预渲染方案.</p>
@@ -4183,12 +4176,11 @@
 <span class="w">    </span><span class="p">],</span>
 <span class="w">  </span><span class="p">};</span>
 <span class="p">},</span>
-<span class="nx">复制代码</span>
+
 <span class="nx">特别提醒</span>
 <span class="mf">1.</span><span class="w"> </span><span class="nx">第5条和第6条是冲突的</span><span class="o">!</span><span class="w"> </span><span class="nx">配置了预渲染的路由不可以使用路由懒加载</span><span class="o">!</span>
 <span class="mf">2.</span><span class="w"> </span><span class="nx">linux环境下构建预渲染代码很可能会报一些奇怪的错误</span><span class="p">,</span><span class="w"> </span><span class="nx">需要百度解决</span><span class="o">!</span>
 <span class="mf">3.</span><span class="w"> </span><span class="nx">坑是真的多</span><span class="p">...</span>
-<span class="nx">复制代码</span>
 </code></pre></div>
 <h3 id="_4">更多思路<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <blockquote>
@@ -4227,7 +4219,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 20, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 27, 2024</span>
       
     
   </small>

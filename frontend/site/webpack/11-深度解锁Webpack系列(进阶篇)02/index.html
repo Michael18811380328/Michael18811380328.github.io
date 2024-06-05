@@ -4070,7 +4070,7 @@
 <blockquote>
 <p><code>public</code> 目录结构</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>复制代码├── public
+<div class="highlight"><pre><span></span><code>├── public
 │   ├── config.js
 │   ├── index.html
 │   ├── js
@@ -4079,7 +4079,7 @@
 │   └── login.html
 </code></pre></div>
 <p>现在，我们在 <code>index.html</code> 中引入了 <code>./js/base.js</code>。</p>
-<div class="highlight"><pre><span></span><code>复制代码&lt;!-- index.html --&gt;
+<div class="highlight"><pre><span></span><code>&lt;!-- index.html --&gt;
 &lt;script src=&quot;./js/base.js&quot;&gt;&lt;/script&gt;
 </code></pre></div>
 <p>这时候，我们 <code>npm run dev</code>，会发现有找不到该资源文件的报错信息。</p>
@@ -4088,10 +4088,10 @@
 <p><img alt="050a81c7-59e4-4596-b08f-62cefce353d0.jpg" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/9/170bae7eedad0932~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp" /></p>
 <p>幸运的是，<code>webpack</code> 为我们这些记性不好又爱偷懒的人提供了好用的插件 <a href="https://link.juejin.cn/?target=https%3A%2F%2Fwebpack.js.org%2Fplugins%2Fcopy-webpack-plugin%2F">CopyWebpackPlugin</a>，它的作用就是将单个文件或整个目录复制到构建目录。</p>
 <p>首先安装一下依赖：</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install copy-webpack-plugin -D
+<div class="highlight"><pre><span></span><code>npm install copy-webpack-plugin -D
 </code></pre></div>
 <p>修改配置(当前，需要做的是将 <code>public/js</code> 目录拷贝至 <code>dist/js</code> 目录)：</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 const CopyWebpackPlugin = require(&#39;copy-webpack-plugin&#39;);
 module.exports = {
     //...
@@ -4110,7 +4110,7 @@ module.exports = {
 <p>此时，重新执行 <code>npm run dev</code>，报错信息已经消失。</p>
 <p>这里说一下 <code>flatten</code> 这个参数，设置为 <code>true</code>，那么它只会拷贝文件，而不会把文件夹路径都拷贝上，大家可以不设置 <code>flatten</code> 时，看下构建结果。</p>
 <p>另外，如果我们要拷贝一个目录下的很多文件，但是想过滤掉某个或某些文件，那么 <code>CopyWebpackPlugin</code> 还为我们提供了 <code>ignore</code> 参数。</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 const CopyWebpackPlugin = require(&#39;copy-webpack-plugin&#39;);
 module.exports = {
     //...
@@ -4131,14 +4131,14 @@ module.exports = {
 <h3 id="2provideplugin">2.ProvidePlugin<a class="headerlink" href="#2provideplugin" title="Permanent link">&para;</a></h3>
 <p><code>ProvidePlugin</code> 在我看来，是为懒人准备的，不过也别过度使用，毕竟全局变量不是什么“好东西”。<code>ProvidePlugin</code> 的作用就是不需要 <code>import</code> 或 <code>require</code> 就可以在项目中到处使用。</p>
 <p><code>ProvidePlugin</code> 是 <code>webpack</code> 的内置插件，使用方式如下：</p>
-<div class="highlight"><pre><span></span><code>复制代码new webpack.ProvidePlugin({
+<div class="highlight"><pre><span></span><code>new webpack.ProvidePlugin({
   identifier1: &#39;module1&#39;,
   identifier2: [&#39;module2&#39;, &#39;property2&#39;]
 });
 </code></pre></div>
 <p>默认寻找路径是当前文件夹 <code>./**</code> 和 <code>node_modules</code>，当然啦，你可以指定全路径。</p>
 <p><code>React</code> 大家都知道的，使用的时候，要在每个文件中引入 <code>React</code>，不然立刻抛错给你看。还有就是 <code>jquery</code>, <code>lodash</code> 这样的库，可能在多个文件中使用，但是懒得每次都引入，好嘛，一起来偷个懒，修改下 <code>webpack</code> 的配置:</p>
-<div class="highlight"><pre><span></span><code>复制代码const webpack = require(&#39;webpack&#39;);
+<div class="highlight"><pre><span></span><code>const webpack = require(&#39;webpack&#39;);
 module.exports = {
     //...
     plugins: [
@@ -4155,7 +4155,7 @@ module.exports = {
 <p>这样配置之后，你就可以在项目中随心所欲的使用 <code>$</code>、<code>_map</code>了，并且写 <code>React</code> 组件时，也不需要 <code>import</code> <code>React</code> 和 <code>Component</code> 了，如果你想的话，你还可以把 <code>React</code> 的 <code>Hooks</code> 都配置在这里。</p>
 <p>另外呢，<code>Vue</code> 的配置后面多了一个 <code>default</code>，这是因为 <code>vue.esm.js</code> 中使用的是 <code>export default</code> 导出的，对于这种，必须要指定 <code>default</code>。<code>React</code> 使用的是 <code>module.exports</code> 导出的，因此不要写 <code>default</code>。</p>
 <p>另外，就是如果你项目启动了 <code>eslint</code> 的话，记得修改下 <code>eslint</code> 的配置文件，增加以下配置：</p>
-<div class="highlight"><pre><span></span><code>复制代码{
+<div class="highlight"><pre><span></span><code>{
     &quot;globals&quot;: {
         &quot;React&quot;: true,
         &quot;Vue&quot;: true,
@@ -4169,7 +4169,7 @@ module.exports = {
 <p>CSS打包我们前面已经说过了，不过呢，有些时候，我们可能会有抽离CSS的需求，即将CSS文件单独打包，这可能是因为打包成一个JS文件太大，影响加载速度，也有可能是为了缓存(例如，只有JS部分有改动)，还有可能就是“我高兴”：我想抽离就抽离，谁也管不着。</p>
 <p>不管你是因为什么原因要抽离CSS，只要你有需求，我们就可以去实现。</p>
 <p>首先，安装 <code>loader</code>:</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install mini-css-extract-plugin -D
+<div class="highlight"><pre><span></span><code>npm install mini-css-extract-plugin -D
 </code></pre></div>
 <blockquote>
 <p><code>mini-css-extract-plugin</code> 和 <code>extract-text-webpack-plugin</code> 相比:</p>
@@ -4181,7 +4181,7 @@ module.exports = {
 <li>只适用CSS</li>
 </ol>
 <p>修改我们的配置文件：</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 const MiniCssExtractPlugin = require(&#39;mini-css-extract-plugin&#39;);
 module.exports = {
     plugins: [
@@ -4219,7 +4219,7 @@ module.exports = {
 }
 </code></pre></div>
 <p>现在，我们重新编译：<code>npm run build</code>，目录结构如下所示:</p>
-<div class="highlight"><pre><span></span><code>复制代码.
+<div class="highlight"><pre><span></span><code>.
 ├── dist
 │   ├── assets
 │   │   ├── alita_e09b5c.jpg
@@ -4232,12 +4232,12 @@ module.exports = {
 │   └── index.html
 </code></pre></div>
 <p>前面说了最好新建一个 <code>.browserslistrc</code> 文件，这样可以多个 <code>loader</code> 共享配置，所以，动手在根目录下新建文件 (<code>.browserslistrc</code>)，内容如下（你可以根据自己项目需求，修改为其它的配置）:</p>
-<div class="highlight"><pre><span></span><code>复制代码last 2 version
+<div class="highlight"><pre><span></span><code>last 2 version
 &gt; 0.25%
 not dead
 </code></pre></div>
 <p>修改 <code>webpack.config.js</code>：</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 const MiniCssExtractPlugin = require(&#39;mini-css-extract-plugin&#39;);
 module.exports = {
     //...
@@ -4274,10 +4274,10 @@ module.exports = {
 <p>更多配置项，可以查看<a href="https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Fwebpack-contrib%2Fmini-css-extract-plugin">mini-css-extract-plugin</a></p>
 <h4 id="css">将抽离出来的css文件进行压缩<a class="headerlink" href="#css" title="Permanent link">&para;</a></h4>
 <p>使用 <code>mini-css-extract-plugin</code>，<code>CSS</code> 文件默认不会被压缩，如果想要压缩，需要配置 <code>optimization</code>，首先安装 <code>optimize-css-assets-webpack-plugin</code>.</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install optimize-css-assets-webpack-plugin -D
+<div class="highlight"><pre><span></span><code>npm install optimize-css-assets-webpack-plugin -D
 </code></pre></div>
 <p>修改webpack配置：</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 const OptimizeCssPlugin = require(&#39;optimize-css-assets-webpack-plugin&#39;);
 
 module.exports = {
@@ -4291,7 +4291,7 @@ module.exports = {
 <p>注意，这里将 <code>OptimizeCssPlugin</code> 直接配置在 <code>plugins</code> 里面，那么 <code>js</code> 和 <code>css</code> 都能够正常压缩，如果你将这个配置在 <code>optimization</code>，那么需要再配置一下 <code>js</code> 的压缩(开发环境下不需要去做CSS的压缩，因此后面记得将其放到 <code>webpack.config.prod.js</code> 中哈)。</p>
 <p>配置完之后，测试的时候发现，抽离之后，修改 <code>css</code> 文件时，第一次页面会刷新，但是第二次页面不会刷新 —— 好嘛，我平时的业务中用不着抽离 <code>css</code>，这个问题搁置了好多天(准确来说是忘记了)。</p>
 <p>3月8号再次修改这篇文章的时候，正好看到了 <code>MiniCssExtractPlugin.loader</code> 对应的 <code>option</code> 设置，我们再次修改下对应的 <code>rule</code>。</p>
-<div class="highlight"><pre><span></span><code>复制代码module.exports = {
+<div class="highlight"><pre><span></span><code>module.exports = {
     rules: [
         {
             test: /\.(c|le)ss$/,
@@ -4314,7 +4314,7 @@ module.exports = {
 <h3 id="4">4.按需加载<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
 <p>很多时候我们不需要一次性加载所有的JS文件，而应该在不同阶段去加载所需要的代码。<code>webpack</code>内置了强大的分割代码的功能可以实现按需加载。</p>
 <p>比如，我们在点击了某个按钮之后，才需要使用使用对应的JS文件中的代码，需要使用 <code>import()</code> 语法：</p>
-<div class="highlight"><pre><span></span><code>复制代码document.getElementById(&#39;btn&#39;).onclick = function() {
+<div class="highlight"><pre><span></span><code>document.getElementById(&#39;btn&#39;).onclick = function() {
     import(&#39;./handle&#39;).then(fn =&gt; fn.default());
 }
 </code></pre></div>
@@ -4332,7 +4332,7 @@ module.exports = {
 <li>首先配置 <code>devServer</code> 的 <code>hot</code> 为 <code>true</code></li>
 <li>并且在 <code>plugins</code> 中增加 <code>new webpack.HotModuleReplacementPlugin()</code></li>
 </ol>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 const webpack = require(&#39;webpack&#39;);
 module.exports = {
     //....
@@ -4348,7 +4348,7 @@ module.exports = {
 <ol>
 <li>在入口文件中新增:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>复制代码if(module &amp;&amp; module.hot) {
+<div class="highlight"><pre><span></span><code>if(module &amp;&amp; module.hot) {
     module.hot.accept()
 }
 </code></pre></div>
@@ -4356,7 +4356,7 @@ module.exports = {
 <p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/9/170bae7ef7c6718b~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp" /></p>
 <h3 id="6">6.多页应用打包<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
 <p>有时，我们的应用不一定是一个单页应用，而是一个多页应用，那么如何使用 <code>webpack</code> 进行打包呢。为了生成目录看起来清晰，不生成单独的 <code>map</code> 文件。</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 const path = require(&#39;path&#39;);
 const HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;);
 module.exports = {
@@ -4383,7 +4383,7 @@ module.exports = {
 </code></pre></div>
 <p>如果需要配置多个 <code>HtmlWebpackPlugin</code>，那么 <code>filename</code> 字段不可缺省，否则默认生成的都是 <code>index.html</code>，如果你希望 <code>html</code> 的文件名中也带有 <code>hash</code>，那么直接修改 <code>fliename</code> 字段即可，例如: <code>filename: 'login.[hash:6].html'</code>。</p>
 <p>生成目录如下:</p>
-<div class="highlight"><pre><span></span><code>复制代码.
+<div class="highlight"><pre><span></span><code>.
 ├── dist
 │   ├── 2.463ccf.js
 │   ├── assets
@@ -4400,7 +4400,7 @@ module.exports = {
 </code></pre></div>
 <p>看起来，似乎是OK了，不过呢，查看 <code>index.html</code> 和 <code>login.html</code> 会发现，都同时引入了 <code>index.f7d21a.js</code> 和 <code>login.f7d21a.js</code>，通常这不是我们想要的，我们希望，<code>index.html</code> 中只引入 <code>index.f7d21a.js</code>，<code>login.html</code> 只引入 <code>login.f7d21a.js</code>。</p>
 <p><code>HtmlWebpackPlugin</code> 提供了一个 <code>chunks</code> 的参数，可以接受一个数组，配置此参数仅会将数组中指定的js引入到html文件中，此外，如果你需要引入多个JS文件，仅有少数不想引入，还可以指定 <code>excludeChunks</code> 参数，它接受一个数组。</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     //...
     plugins: [
@@ -4425,7 +4425,7 @@ module.exports = {
 <li>modules</li>
 </ol>
 <p><code>resolve.modules</code> 配置 <code>webpack</code> 去哪些目录下寻找第三方模块，默认情况下，只会去 <code>node_modules</code> 下寻找，如果你我们项目中某个文件夹下的模块经常被导入，不希望写很长的路径，那么就可以通过配置 <code>resolve.modules</code> 来简化。</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     //....
     resolve: {
@@ -4438,7 +4438,7 @@ module.exports = {
 <li>alias</li>
 </ol>
 <p><code>resolve.alias</code> 配置项通过别名把原导入路径映射成一个新的导入路径，例如：</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     //....
     resolve: {
@@ -4449,7 +4449,7 @@ module.exports = {
 }
 </code></pre></div>
 <p>例如，我们有一个依赖 <code>@my/react-native-web</code> 可以实现 <code>react-native</code> 转 <code>web</code>。我们代码一般下面这样:</p>
-<div class="highlight"><pre><span></span><code>复制代码import { View, ListView, StyleSheet, Animated } from &#39;react-native&#39;;
+<div class="highlight"><pre><span></span><code>import { View, ListView, StyleSheet, Animated } from &#39;react-native&#39;;
 </code></pre></div>
 <p>配置了别名之后，在转 web 时，会从 <code>@my/react-native-web</code> 寻找对应的依赖。</p>
 <p>当然啦，如果某个依赖的名字太长了，你也可以给它配置一个短一点的别名，这样用起来比较爽，尤其是带有 <code>scope</code> 的包。</p>
@@ -4457,7 +4457,7 @@ module.exports = {
 <li>extensions</li>
 </ol>
 <p>适配多端的项目中，可能会出现 <code>.web.js</code>, <code>.wx.js</code>，例如在转web的项目中，我们希望首先找 <code>.web.js</code>，如果没有，再找 <code>.js</code>。我们可以这样配置:</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     //....
     resolve: {
@@ -4466,7 +4466,7 @@ module.exports = {
 }
 </code></pre></div>
 <p>首先寻找 <code>../dialog.web.js</code> ，如果不存在的话，再寻找 <code>../dialog.js</code>。这在适配多端的代码中非常有用，否则，你就需要根据不同的平台去引入文件(以牺牲了速度为代价)。</p>
-<div class="highlight"><pre><span></span><code>复制代码import dialog from &#39;../dialog&#39;;
+<div class="highlight"><pre><span></span><code>import dialog from &#39;../dialog&#39;;
 </code></pre></div>
 <p>当然，配置 <code>extensions</code>，我们就可以缺省文件后缀，在导入语句没带文件后缀时，会自动带上<code>extensions</code> 中配置的后缀后，去尝试访问文件是否存在，因此要将高频的后缀放在前面，并且数组不要太长，减少尝试次数。如果没有配置 <code>extensions</code>，默认只会找对对应的js文件。</p>
 <ol>
@@ -4477,7 +4477,7 @@ module.exports = {
 <li>mainFields</li>
 </ol>
 <p>有一些第三方模块会提供多份代码，例如 <code>bootstrap</code>，可以查看 <code>bootstrap</code> 的 <code>package.json</code> 文件：</p>
-<div class="highlight"><pre><span></span><code>复制代码{
+<div class="highlight"><pre><span></span><code>{
     &quot;style&quot;: &quot;dist/css/bootstrap.css&quot;,
     &quot;sass&quot;: &quot;scss/bootstrap.scss&quot;,
     &quot;main&quot;: &quot;dist/js/bootstrap&quot;,
@@ -4486,7 +4486,7 @@ module.exports = {
 <p><code>resolve.mainFields</code> 默认配置是 <code>['browser', 'main']</code>，即首先找对应依赖 <code>package.json</code> 中的 <code>brower</code> 字段，如果没有，找 <code>main</code> 字段。</p>
 <p>如：<code>import 'bootstrap'</code> 默认情况下，找得是对应的依赖的 <code>package.json</code> 的 <code>main</code> 字段指定的文件，即 <code>dist/js/bootstrap</code>。</p>
 <p>假设我们希望，<code>import 'bootsrap'</code> 默认去找 <code>css</code> 文件的话，可以配置 <code>resolve.mainFields</code> 为:</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     //....
     resolve: {
@@ -4503,8 +4503,8 @@ module.exports = {
 <li><code>webpack.prod.js</code>：定义生产环境的配置</li>
 </ul>
 <p><a href="https://link.juejin.cn/?target=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2Fwebpack-merge">webpack-merge</a> 专为 <code>webpack</code> 设计，提供了一个 <code>merge</code> 函数，用于连接数组，合并对象。</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install webpack-merge -D
-复制代码const merge = require(&#39;webpack-merge&#39;);
+<div class="highlight"><pre><span></span><code>npm install webpack-merge -D
+const merge = require(&#39;webpack-merge&#39;);
 merge({
     devtool: &#39;cheap-module-eval-source-map&#39;,
     module: {
@@ -4539,7 +4539,7 @@ merge({
 }
 </code></pre></div>
 <p><code>webpack.config.base.js</code> 中是通用的 <code>webpack</code> 配置，以 <code>webpack.config.dev.js</code> 为例，如下：</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.dev.js
+<div class="highlight"><pre><span></span><code>//webpack.config.dev.js
 const merge = require(&#39;webpack-merge&#39;);
 const baseWebpackConfig = require(&#39;./webpack.config.base&#39;);
 
@@ -4549,7 +4549,7 @@ module.exports = merge(baseWebpackConfig, {
 });
 </code></pre></div>
 <p>然后修改我们的 <code>package.json</code>，指定对应的 <code>config</code> 文件：</p>
-<div class="highlight"><pre><span></span><code>复制代码//package.json
+<div class="highlight"><pre><span></span><code>//package.json
 {
     &quot;scripts&quot;: {
         &quot;dev&quot;: &quot;cross-env NODE_ENV=development webpack-dev-server --config=webpack.config.dev.js&quot;,
@@ -4568,7 +4568,7 @@ module.exports = merge(baseWebpackConfig, {
 <li>如果 <code>value</code> 是一个对象，正常对象定义即可</li>
 <li>如果 <code>key</code> 中有 <code>typeof</code>，它只针对 <code>typeof</code> 调用定义</li>
 </ul>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.dev.js
+<div class="highlight"><pre><span></span><code>//webpack.config.dev.js
 const webpack = require(&#39;webpack&#39;);
 module.exports = {
     plugins: [
@@ -4578,7 +4578,7 @@ module.exports = {
         })
     ]
 }
-复制代码//index.js
+//index.js
 if(DEV === &#39;dev&#39;) {
     //开发环境
 }else {
@@ -4589,7 +4589,7 @@ if(DEV === &#39;dev&#39;) {
 <h3 id="10webpack">10.利用webpack解决跨域问题<a class="headerlink" href="#10webpack" title="Permanent link">&para;</a></h3>
 <p>假设前端在3000端口，服务端在4000端口，我们通过 <code>webpack</code> 配置的方式去实现跨域。</p>
 <p>首先，我们在本地创建一个 <code>server.js</code>：</p>
-<div class="highlight"><pre><span></span><code>复制代码let express = require(&#39;express&#39;);
+<div class="highlight"><pre><span></span><code>let express = require(&#39;express&#39;);
 
 let app = express();
 
@@ -4601,7 +4601,7 @@ app.listen(4000);
 </code></pre></div>
 <p>执行代码(<code>run code</code>)，现在我们可以在浏览器中访问到此接口: <code>http://localhost:4000/api/user</code>。</p>
 <p>在 <code>index.js</code> 中请求 <code>/api/user</code>，修改 <code>index.js</code> 如下:</p>
-<div class="highlight"><pre><span></span><code>复制代码//需要将 localhost:3000 转发到 localhost:4000（服务端） 端口
+<div class="highlight"><pre><span></span><code>//需要将 localhost:3000 转发到 localhost:4000（服务端） 端口
 fetch(&quot;/api/user&quot;)
     .then(response =&gt; response.json())
     .then(data =&gt; console.log(data))
@@ -4610,7 +4610,7 @@ fetch(&quot;/api/user&quot;)
 <p>我们希望通过配置代理的方式，去访问 4000 的接口。</p>
 <h4 id="_1">配置代理<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
 <p>修改 <code>webpack</code> 配置:</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     //...
     devServer: {
@@ -4623,7 +4623,7 @@ module.exports = {
 <p>重新执行 <code>npm run dev</code>，可以看到控制台打印出来了 <code>{name: "刘小夕"}</code>，实现了跨域。</p>
 <p>大多情况，后端提供的接口并不包含 <code>/api</code>，即：<code>/user</code>，<code>/info</code>、<code>/list</code> 等，配置代理时，我们不可能罗列出每一个api。</p>
 <p>修改我们的服务端代码，并重新执行。</p>
-<div class="highlight"><pre><span></span><code>复制代码//server.js
+<div class="highlight"><pre><span></span><code>//server.js
 let express = require(&#39;express&#39;);
 
 let app = express();
@@ -4635,7 +4635,7 @@ app.get(&#39;/user&#39;, (req, res) =&gt; {
 app.listen(4000);
 </code></pre></div>
 <p>尽管后端的接口并不包含 <code>/api</code>，我们在请求后端接口时，仍然以 <code>/api</code> 开头，在配置代理时，去掉 <code>/api</code>，修改配置:</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     //...
     devServer: {
@@ -4655,7 +4655,7 @@ module.exports = {
 <blockquote>
 <p>简单数据模拟</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>复制代码module.exports = {
+<div class="highlight"><pre><span></span><code>module.exports = {
     devServer: {
         before(app) {
             app.get(&#39;/user&#39;, (req, res) =&gt; {
@@ -4666,7 +4666,7 @@ module.exports = {
 }
 </code></pre></div>
 <p>在 <code>src/index.js</code> 中直接请求 <code>/user</code> 接口。</p>
-<div class="highlight"><pre><span></span><code>复制代码fetch(&quot;user&quot;)
+<div class="highlight"><pre><span></span><code>fetch(&quot;user&quot;)
     .then(response =&gt; response.json())
     .then(data =&gt; console.log(data))
     .catch(err =&gt; console.log(err));
@@ -4678,12 +4678,12 @@ module.exports = {
 <ol>
 <li>安装 <a href="https://link.juejin.cn/?target=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2Fmocker-api">mocker-api</a>:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>复制代码npm install mocker-api -D
+<div class="highlight"><pre><span></span><code>npm install mocker-api -D
 </code></pre></div>
 <ol>
 <li>在项目中新建mock文件夹，新建 mocker.js.文件，文件如下:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>复制代码module.exports = {
+<div class="highlight"><pre><span></span><code>module.exports = {
     &#39;GET /user&#39;: {name: &#39;刘小夕&#39;},
     &#39;POST /login/account&#39;: (req, res) =&gt; {
         const { password, username } = req.body
@@ -4703,7 +4703,7 @@ module.exports = {
 <ol>
 <li>修改 <code>webpack.config.base.js</code>:</li>
 </ol>
-<div class="highlight"><pre><span></span><code>复制代码const apiMocker = require(&#39;mocker-api&#39;);
+<div class="highlight"><pre><span></span><code>const apiMocker = require(&#39;mocker-api&#39;);
 module.export = {
     //...
     devServer: {
@@ -4718,7 +4718,7 @@ module.export = {
 <li>重启 <code>npm run dev</code>，可以看到，控制台成功打印出来 <code>{name: '刘小夕'}</code></li>
 <li>我们再修改下 <code>src/index.js</code>，检查下POST接口是否成功</li>
 </ol>
-<div class="highlight"><pre><span></span><code>复制代码//src/index.js
+<div class="highlight"><pre><span></span><code>//src/index.js
 fetch(&quot;/login/account&quot;, {
     method: &quot;POST&quot;,
     headers: {
@@ -4746,7 +4746,7 @@ fetch(&quot;/login/account&quot;, {
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 27, 2024</span>
       
     
   </small>

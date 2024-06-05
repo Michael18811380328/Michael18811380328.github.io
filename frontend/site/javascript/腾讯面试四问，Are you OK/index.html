@@ -4177,7 +4177,6 @@
     &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-复制代码
 </code></pre></div>
 <p>// 页面 B</p>
 <div class="highlight"><pre><span></span><code>&lt;html&gt;
@@ -4193,7 +4192,6 @@
     &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-复制代码
 </code></pre></div>
 <p>效果展示</p>
 <p><img alt="img" src="https://user-gold-cdn.xitu.io/2020/7/29/17398b005ae4cd06?imageslim" /></p>
@@ -4207,7 +4205,6 @@ window.onbeforeunload = function (e) {
             localStorage.setItem(&quot;name&quot;,&quot;close&quot;);
             return &#39;确定离开此页吗？&#39;;
         }
-复制代码
 </code></pre></div>
 <p>好啦！这便是新页面被正常关闭情况下的传值问题的解答。如果页面是意外崩溃掉了呢？</p>
 <h3 id="b_1">B 页面意外崩溃<a class="headerlink" href="#b_1" title="Permanent link">&para;</a></h3>
@@ -4280,7 +4277,6 @@ window.onbeforeunload = function (e) {
     &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-复制代码
 </code></pre></div>
 <p>// service-worker.js</p>
 <div class="highlight"><pre><span></span><code>const CHECK_CRASH_INTERVAL = 10 * 1000; // 每 10s 检查一次
@@ -4320,7 +4316,6 @@ this.addEventListener(&#39;message&#39;, (e) =&gt; {
     delete pages[data.id]
   }
 })
-复制代码
 </code></pre></div>
 <p>效果展示：</p>
 <p><img alt="img" src="https://user-gold-cdn.xitu.io/2020/7/29/1739979ff2874792?imageslim" /></p>
@@ -4349,7 +4344,6 @@ this.addEventListener(&#39;message&#39;, (e) =&gt; {
 <p>当一个数据为响应式时，vue 会给该数据添加一个__ob__属性，因此可以通过判断target对象是否存在__ob__属性来判断target是否是响应式数据。当target是非响应式数据时，我们就按照普通对象添加属性的方式来处理；当target对象是响应式数据时，我们将target的属性key也设置为响应式并手动触发通知其属性值的更新；</p>
 <div class="highlight"><pre><span></span><code>defineReactive(ob.value, key, val)
 ob.dep.notify()
-复制代码
 </code></pre></div>
 <p>此节结尾，本瓜再抛一两个问题吧：</p>
 <ol>
@@ -4393,7 +4387,6 @@ imgs.forEach(item =&gt; {
     // 监听目标元素
     observer.observe(item);
 });
-复制代码
 </code></pre></div>
 <p>你还知道其他实现懒加载的方法吗？</p>
 <h2 id="_6">首屏加载<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
@@ -4407,7 +4400,6 @@ imgs.forEach(item =&gt; {
 <p>而图片资源处理是异步的，会先将图片长宽应用于页面排版，然后随着收到图片数据由上至下绘制显示的。并且浏览器对每个页面的TCP连接数限制，使得并不是所有图片都能立刻开始下载和显示。</p>
 <p>所以我们需要获取首屏内最后一张图片加载完的时间（绑定首屏内所有图片的 load 事件），然后减去 navigationStart 时间，则为“首屏加载”时间。</p>
 <div class="highlight"><pre><span></span><code>首屏位置调用 API 开始统计 -&gt; 绑定首屏内所有图片的 load 事件 -&gt; 页面加载完后判断图片是否在首屏内，找出加载最慢的一张 -&gt; 首屏时间
-复制代码
 </code></pre></div>
 <h3 id="_7">白屏时间计算？<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>白屏时间 = 开始渲染时间(首字节时间+HTML下载完成时间)+头部资源加载时间。</p>
@@ -4417,15 +4409,12 @@ performance.timing.responseStart - performance.timing.navigationStart
 // or 在 chrome 高版本下
 
 (chrome.loadTimes().firstPaintTime - chrome.loadTimes().startLoadTime)*1000
-复制代码
 </code></pre></div>
 <h3 id="documentready">用户可操作时间(即 document.ready)<a class="headerlink" href="#documentready" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>performance.timing.domContentLoadedEventEnd - performance.timing.navigationStart
-复制代码
 </code></pre></div>
 <h3 id="onload">onload 总下载时间？<a class="headerlink" href="#onload" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>performance.timing.loadEventEnd - performance.timing.navigationStart
-复制代码
 </code></pre></div>
 <h2 id="_8">小结<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <h3 id="_9">再深一步<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
@@ -4444,7 +4433,7 @@ performance.timing.responseStart - performance.timing.navigationStart
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 20, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 27, 2024</span>
       
     
   </small>

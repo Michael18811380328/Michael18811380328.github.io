@@ -4131,7 +4131,7 @@
 <p><a href="https://juejin.cn/post/6844904079219490830">带你深度解锁Webpack系列(基础篇)</a> 和 <a href="https://juejin.cn/post/6844904084927938567">带你深度解锁Webpack系列(进阶篇)</a>，主要是讲解了 <code>Webpack</code> 的配置，但是随着项目越来越大，构建速度可能会越来越慢，构建出来的js的体积也越来越大，此时就需要对 <code>Webpack</code> 的配置进行优化。</p>
 <p>本文罗列出了十多种优化方式，大家可以结合自己的项目，选择适当的方式进行优化。这些 <code>Webpack</code> 插件的源码我大多也没有看过，主要是结合 <code>Webpack</code> 官方文档以及项目实践，并且花了大量的时间验证后输出了本文，如果文中有错误的地方，欢迎在评论区指正。</p>
 <p>鉴于前端技术变更迅速，祭出本篇文章基于 <code>Webpack</code> 的版本号:</p>
-<div class="highlight"><pre><span></span><code>复制代码├── webpack@4.41.5 
+<div class="highlight"><pre><span></span><code>├── webpack@4.41.5 
 └── webpack-cli@3.3.10 
 </code></pre></div>
 <p>本文对应的项目地址(编写本文时使用)供参考：<a href="https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2FYvetteLau%2Fwebpack%2Ftree%2Fmaster%2Fwebpack-optimize">github.com/YvetteLau/w…</a></p>
@@ -4142,7 +4142,7 @@
 <p><img alt="smp.jpeg" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/14/170d9bf274c164c1~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" /></p>
 <p>对比前后的信息，来确定优化的效果。</p>
 <p><a href="https://link.juejin.cn/?target=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2Fspeed-measure-webpack-plugin">speed-measure-webpack-plugin</a> 的使用很简单，可以直接用其来包裹 <code>Webpack</code> 的配置:</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 const SpeedMeasurePlugin = require(&quot;speed-measure-webpack-plugin&quot;);
 const smp = new SpeedMeasurePlugin();
 
@@ -4155,7 +4155,7 @@ module.exports = smp.wrap(config);
 <h3 id="1excludeinclude">1.exclude/include<a class="headerlink" href="#1excludeinclude" title="Permanent link">&para;</a></h3>
 <p>我们可以通过 <code>exclude</code>、<code>include</code> 配置来确保转译尽可能少的文件。顾名思义，<code>exclude</code> 指定要排除的文件，<code>include</code> 指定要包含的文件。</p>
 <p><code>exclude</code> 的优先级高于 <code>include</code>，在 <code>include</code> 和 <code>exclude</code> 中使用绝对路径数组，尽量避免 <code>exclude</code>，更倾向于使用 <code>include</code>。</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 const path = require(&#39;path&#39;);
 module.exports = {
     //...
@@ -4175,10 +4175,10 @@ module.exports = {
 <h3 id="2-cache-loader">2. cache-loader<a class="headerlink" href="#2-cache-loader" title="Permanent link">&para;</a></h3>
 <p>在一些性能开销较大的 <code>loader</code> 之前添加 <code>cache-loader</code>，将结果缓存中磁盘中。默认保存在 <code>node_modueles/.cache/cache-loader</code> 目录下。</p>
 <p>首先安装依赖：</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install cache-loader -D
+<div class="highlight"><pre><span></span><code>npm install cache-loader -D
 </code></pre></div>
 <p><code>cache-loader</code> 的配置很简单，放在其他 <code>loader</code> 之前即可。修改<code>Webpack</code> 的配置如下:</p>
-<div class="highlight"><pre><span></span><code>复制代码module.exports = {
+<div class="highlight"><pre><span></span><code>module.exports = {
     //...
 
     module: {
@@ -4199,10 +4199,10 @@ module.exports = {
 <p>由于有大量文件需要解析和处理，构建是文件读写和计算密集型的操作，特别是当文件数量变多后，<code>Webpack</code> 构建慢的问题会显得严重。文件读写和计算操作是无法避免的，那能不能让 <code>Webpack</code> 同一时刻处理多个任务，发挥多核 CPU 电脑的威力，以提升构建速度呢？</p>
 <p><code>HappyPack</code> 就能让 <code>Webpack</code> 做到这点，它把任务分解给多个子进程去并发的执行，子进程处理完后再把结果发送给主进程。</p>
 <p>首先需要安装 <code>happypack</code>:</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install happypack -D
+<div class="highlight"><pre><span></span><code>npm install happypack -D
 </code></pre></div>
 <p>修改配置文件:</p>
-<div class="highlight"><pre><span></span><code>复制代码const Happypack = require(&#39;happypack&#39;);
+<div class="highlight"><pre><span></span><code>const Happypack = require(&#39;happypack&#39;);
 module.exports = {
     //...
     module: {
@@ -4238,7 +4238,7 @@ module.exports = {
 <p><code>happypack</code> 默认开启 <code>CPU核数 - 1</code> 个进程，当然，我们也可以传递 <code>threads</code> 给 <code>Happypack</code>。</p>
 <p><img alt="happypack.jpeg" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/14/170d9bf27caaa71c~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" /></p>
 <p>说明：当 <code>postcss-loader</code> 配置在 <code>Happypack</code> 中，必须要在项目中创建 <code>postcss.config.js</code>。</p>
-<div class="highlight"><pre><span></span><code>复制代码//postcss.config.js
+<div class="highlight"><pre><span></span><code>//postcss.config.js
 module.exports = {
     plugins: [
         require(&#39;autoprefixer&#39;)()
@@ -4256,10 +4256,10 @@ module.exports = {
 <li>这些 <code>loader</code> 无法获取 <code>webpack</code> 的选项设置。</li>
 </ul>
 <p>首先安装依赖：</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install thread-loader -D
+<div class="highlight"><pre><span></span><code>npm install thread-loader -D
 </code></pre></div>
 <p>修改配置:</p>
-<div class="highlight"><pre><span></span><code>复制代码module.exports = {
+<div class="highlight"><pre><span></span><code>module.exports = {
     module: {
         //我的项目中,babel-loader耗时比较长，所以我给它配置 thread-loader
         rules: [
@@ -4279,10 +4279,10 @@ module.exports = {
 <p><code>HardSourceWebpackPlugin</code> 为模块提供中间缓存，缓存默认的存放路径是: <code>node_modules/.cache/hard-source</code>。</p>
 <p>配置 <code>hard-source-webpack-plugin</code>，首次构建时间没有太大变化，但是第二次开始，构建时间大约可以节约 80%。</p>
 <p>首先安装依赖:</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install hard-source-webpack-plugin -D
+<div class="highlight"><pre><span></span><code>npm install hard-source-webpack-plugin -D
 </code></pre></div>
 <p>修改 <code>webpack</code> 的配置：</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 var HardSourceWebpackPlugin = require(&#39;hard-source-webpack-plugin&#39;);
 module.exports = {
     //...
@@ -4297,7 +4297,7 @@ module.exports = {
 <h3 id="7noparse">7.noParse<a class="headerlink" href="#7noparse" title="Permanent link">&para;</a></h3>
 <p>如果一些第三方模块没有AMD/CommonJS规范版本，可以使用 <code>noParse</code> 来标识这个模块，这样 <code>Webpack</code> 会引入这些模块，但是不进行转化和解析，从而提升 <code>Webpack</code> 的构建性能 ，例如：<code>jquery</code> 、<code>lodash</code>。</p>
 <p><a href="https://link.juejin.cn/?target=http%3A%2F%2Fwebpack.html.cn%2Fconfiguration%2Fmodule.html">noParse</a> 属性的值是一个正则表达式或者是一个 <code>function</code>。</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     //...
     module: {
@@ -4310,7 +4310,7 @@ module.exports = {
 <p>配置<code>noParse</code> 前，构建需要 <code>2392ms</code>。配置了 <code>noParse</code> 之后，构建需要 <code>1613ms</code>。 如果你使用到了不需要解析的第三方依赖，那么配置 <code>noParse</code> 很显然是一定会起到优化作用的。</p>
 <h3 id="8resolve">8.resolve<a class="headerlink" href="#8resolve" title="Permanent link">&para;</a></h3>
 <p><code>resolve</code> 配置 <code>webpack</code> 如何寻找模块所对应的文件。假设我们确定模块都从根目录下的 <code>node_modules</code> 中查找，我们可以配置:</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 const path = require(&#39;path&#39;);
 module.exports = {
     //...
@@ -4325,7 +4325,7 @@ module.exports = {
 <h3 id="9ignoreplugin">9.IgnorePlugin<a class="headerlink" href="#9ignoreplugin" title="Permanent link">&para;</a></h3>
 <p><code>webpack</code> 的内置插件，作用是忽略第三方包指定目录。</p>
 <p>例如: <code>moment</code> (2.24.0版本) 会将所有本地化内容和核心功能一起打包，我们就可以使用 <code>IgnorePlugin</code> 在打包时忽略本地化内容。</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     //...
     plugins: [
@@ -4335,13 +4335,13 @@ module.exports = {
 }
 </code></pre></div>
 <p>在使用的时候，如果我们需要指定语言，那么需要我们手动的去引入语言包，例如，引入中文语言包:</p>
-<div class="highlight"><pre><span></span><code>复制代码import moment from &#39;moment&#39;;
+<div class="highlight"><pre><span></span><code>import moment from &#39;moment&#39;;
 import &#39;moment/locale/zh-cn&#39;;// 手动引入
 </code></pre></div>
 <p><code>index.js</code> 中只引入 <code>moment</code>，打包出来的 <code>bundle.js</code> 大小为 <code>263KB</code>，如果配置了 <code>IgnorePlugin</code>，单独引入 <code>moment/locale/zh-cn</code>，构建出来的包大小为 <code>55KB</code>。</p>
 <h3 id="10externals">10.externals<a class="headerlink" href="#10externals" title="Permanent link">&para;</a></h3>
 <p>我们可以将一些JS文件存储在 <code>CDN</code> 上(减少 <code>Webpack</code>打包出来的 <code>js</code> 体积)，在 <code>index.html</code> 中通过 <code>&lt;script&gt;</code> 标签引入，如:</p>
-<div class="highlight"><pre><span></span><code>复制代码&lt;!DOCTYPE html&gt;
+<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;UTF-8&quot;&gt;
@@ -4356,7 +4356,7 @@ import &#39;moment/locale/zh-cn&#39;;// 手动引入
 &lt;/html&gt;
 </code></pre></div>
 <p>我们希望在使用时，仍然可以通过 <code>import</code> 的方式去引用(如 <code>import $ from 'jquery'</code>)，并且希望 <code>webpack</code> 不会对其进行打包，此时就可以配置 <code>externals</code>。</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     //...
     externals: {
@@ -4369,7 +4369,7 @@ module.exports = {
 <p>有些时候，如果所有的JS文件都打成一个JS文件，会导致最终生成的JS文件很大，这个时候，我们就要考虑拆分 <code>bundles</code>。</p>
 <p><code>DllPlugin</code> 和 <code>DLLReferencePlugin</code> 可以实现拆分 <code>bundles</code>，并且可以大大提升构建速度，<code>DllPlugin</code> 和 <code>DLLReferencePlugin</code> 都是 <code>webpack</code> 的内置模块。</p>
 <p>我们使用 <code>DllPlugin</code> 将不会频繁更新的库进行编译，当这些依赖的版本没有变化时，就不需要重新编译。我们新建一个 <code>webpack</code> 的配置文件，来专门用于编译动态链接库，例如名为: <code>webpack.config.dll.js</code>，这里我们将 <code>react</code> 和 <code>react-dom</code> 单独打包成一个动态链接库。</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.dll.js
+<div class="highlight"><pre><span></span><code>//webpack.config.dll.js
 const webpack = require(&#39;webpack&#39;);
 const path = require(&#39;path&#39;);
 
@@ -4394,7 +4394,7 @@ module.exports = {
 }
 </code></pre></div>
 <p>在 <code>package.json</code> 的 <code>scripts</code> 中增加:</p>
-<div class="highlight"><pre><span></span><code>复制代码{
+<div class="highlight"><pre><span></span><code>{
     &quot;scripts&quot;: {
         &quot;dev&quot;: &quot;NODE_ENV=development webpack-dev-server&quot;,
         &quot;build&quot;: &quot;NODE_ENV=production webpack&quot;,
@@ -4403,14 +4403,14 @@ module.exports = {
 }
 </code></pre></div>
 <p>执行 <code>npm run build:all</code>，可以看到 <code>dist</code> 目录如下，之所以将动态链接库单独放在 <code>dll</code> 目录下，主要是为了使用 <code>CleanWebpackPlugin</code> 更为方便的过滤掉动态链接库。</p>
-<div class="highlight"><pre><span></span><code>复制代码dist
+<div class="highlight"><pre><span></span><code>dist
 └── dll
     ├── manifest.json
     └── react.dll.9dcd9d.js
 </code></pre></div>
 <p><code>manifest.json</code> 用于让 <code>DLLReferencePlugin</code> 映射到相关依赖上。</p>
 <p>修改 <code>webpack</code> 的主配置文件: <code>webpack.config.js</code> 的配置：</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 const webpack = require(&#39;webpack&#39;);
 const path = require(&#39;path&#39;);
 module.exports = {
@@ -4431,7 +4431,7 @@ module.exports = {
 </code></pre></div>
 <p>使用 <code>npm run build</code> 构建，可以看到 <code>bundle.js</code> 的体积大大减少。</p>
 <p>修改 <code>public/index.html</code> 文件，在其中引入 <code>react.dll.js</code></p>
-<div class="highlight"><pre><span></span><code>复制代码&lt;script src=&quot;/dll/react.dll.9dcd9d.js&quot;&gt;&lt;/script&gt;
+<div class="highlight"><pre><span></span><code>&lt;script src=&quot;/dll/react.dll.9dcd9d.js&quot;&gt;&lt;/script&gt;
 </code></pre></div>
 <blockquote>
 <p>构建速度</p>
@@ -4444,7 +4444,7 @@ module.exports = {
 <h3 id="12">12.抽离公共代码<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
 <p>抽离公共代码是对于多页应用来说的，如果多个页面引入了一些公共模块，那么可以把这些公共的模块抽离出来，单独打包。公共代码只需要下载一次就缓存起来了，避免了重复下载。</p>
 <p>抽离公共代码对于单页应用和多页应该在配置上没有什么区别，都是配置在 <code>optimization.splitChunks</code> 中。</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     optimization: {
         splitChunks: {//分割代码块
@@ -4477,7 +4477,7 @@ module.exports = {
 <p>runtimeChunk</p>
 </blockquote>
 <p><code>runtimeChunk</code> 的作用是将包含 <code>chunk</code> 映射关系的列表从 <code>main.js</code> 中抽离出来，在配置了 <code>splitChunk</code> 时，记得配置 <code>runtimeChunk</code>.</p>
-<div class="highlight"><pre><span></span><code>复制代码module.exports = {
+<div class="highlight"><pre><span></span><code>module.exports = {
     //...
     optimization: {
         runtimeChunk: {
@@ -4491,10 +4491,10 @@ module.exports = {
 <p>在做 <code>webpack</code> 构建优化的时候，<code>vendor</code> 打出来超过了1M，<code>react</code> 和 <code>react-dom</code> 已经打包成了DLL。</p>
 <p>因此需要借助 <code>webpack-bundle-analyzer</code> 查看一下是哪些包的体积较大。</p>
 <p>首先安装依赖：</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install webpack-bundle-analyzer -D
+<div class="highlight"><pre><span></span><code>npm install webpack-bundle-analyzer -D
 </code></pre></div>
 <p>使用也很简单，修改下我们的配置：</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.prod.js
+<div class="highlight"><pre><span></span><code>//webpack.config.prod.js
 const BundleAnalyzerPlugin = require(&#39;webpack-bundle-analyzer&#39;).BundleAnalyzerPlugin;
 const merge = require(&#39;webpack-merge&#39;);
 const baseWebpackConfig = require(&#39;./webpack.config.base&#39;);
@@ -4509,7 +4509,7 @@ module.exports = merge(baseWebpackConfig, {
 <p><code>npm run build</code> 构建，会默认打开： <code>http://127.0.0.1:8888/</code>，可以看到各个包的体积：</p>
 <p><img alt="W1.jpeg" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/14/170d9bf330fb2a0b~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" /></p>
 <p>进一步对 <code>vendor</code> 进行拆分，将 <code>vendor</code> 拆分成了4个(使用 <code>splitChunks</code> 进行拆分即可)。</p>
-<div class="highlight"><pre><span></span><code>复制代码module.exports = {
+<div class="highlight"><pre><span></span><code>module.exports = {
     optimization: {
     concatenateModules: false,
     splitChunks: {//分割代码块
@@ -4543,7 +4543,7 @@ module.exports = merge(baseWebpackConfig, {
 <h3 id="13webpack">13.webpack自身的优化<a class="headerlink" href="#13webpack" title="Permanent link">&para;</a></h3>
 <h4 id="tree-shaking">tree-shaking<a class="headerlink" href="#tree-shaking" title="Permanent link">&para;</a></h4>
 <p>如果使用ES6的<code>import</code> 语法，那么在生产环境下，会自动移除没有使用到的代码。</p>
-<div class="highlight"><pre><span></span><code>复制代码//math.js
+<div class="highlight"><pre><span></span><code>//math.js
 const add = (a, b) =&gt; {
     console.log(&#39;aaaaaa&#39;)
     return a + b;
@@ -4558,7 +4558,7 @@ export {
     add,
     minus
 }
-复制代码//index.js
+//index.js
 import {add, minus} from &#39;./math&#39;;
 add(2,3);
 </code></pre></div>
@@ -4572,7 +4572,7 @@ add(2,3);
 <p>在不配置 <code>@babel/plugin-transform-runtime</code> 时，<code>babel</code> 会使用很小的辅助函数来实现类似 <code>_createClass</code> 等公共方法。默认情况下，它将被注入(<code>inject</code>)到需要它的每个文件中。但是这样的结果就是导致构建出来的JS体积变大。</p>
 <p>我们也并不需要在每个 <code>js</code> 中注入辅助函数，因此我们可以使用 <code>@babel/plugin-transform-runtime</code>，<code>@babel/plugin-transform-runtime</code> 是一个可以重复使用 <code>Babel</code> 注入的帮助程序，以节省代码大小的插件。</p>
 <p>因此我们可以在 <code>.babelrc</code> 中增加 <code>@babel/plugin-transform-runtime</code> 的配置。</p>
-<div class="highlight"><pre><span></span><code>复制代码{
+<div class="highlight"><pre><span></span><code>{
     &quot;presets&quot;: [],
     &quot;plugins&quot;: [
         [
@@ -4608,7 +4608,7 @@ add(2,3);
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 27, 2024</span>
       
     
   </small>

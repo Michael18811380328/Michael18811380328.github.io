@@ -4172,15 +4172,15 @@
 <p>本篇文章对应的项目地址(编写本文时使用): <a href="https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2FYvetteLau%2Fwebpack%2Ftree%2Fmaster%2Fwebpack-first">github.com/YvetteLau/w…</a></p>
 <p>使用 <code>npm init -y</code> 进行初始化(也可以使用 <code>yarn</code>)。</p>
 <p>要使用 <code>webpack</code>，那么必然需要安装 <code>webpack</code>、<code>webpack-cli</code>:</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install webpack webpack-cli -D
+<div class="highlight"><pre><span></span><code>npm install webpack webpack-cli -D
 </code></pre></div>
 <p>鉴于前端技术变更迅速，祭出本篇文章基于 <code>webpack</code> 的版本号:</p>
-<div class="highlight"><pre><span></span><code>复制代码├── webpack@4.41.5 
+<div class="highlight"><pre><span></span><code>├── webpack@4.41.5 
 └── webpack-cli@3.3.10 
 </code></pre></div>
 <p>从 <code>wepack V4.0.0</code> 开始， <code>webpack</code> 是开箱即用的，在不引入任何配置文件的情况下就可以使用。</p>
 <p>新建 <code>src/index.js</code> 文件，我们在文件中随便写点什么:</p>
-<div class="highlight"><pre><span></span><code>复制代码//index.js
+<div class="highlight"><pre><span></span><code>//index.js
 class Animal {
     constructor(name) {
         this.name = name;
@@ -4196,7 +4196,7 @@ const dog = new Animal(&#39;dog&#39;);
 <p>可以看到项目下多了个 <code>dist</code> 目录，里面有一个打包出来的文件 <code>main.js</code>。</p>
 <p><code>webpack</code> 有默认的配置，如默认的入口文件是 <code>./src</code>，默认打包到<code>dist/main.js</code>。更多的默认配置可以查看: <code>node_modules/webpack/lib/WebpackOptionsDefaulter.js</code>。</p>
 <p>查看 <code>dist/main.js</code> 文件，可以看到，<code>src/index.js</code> 并没有被转义为低版本的代码，这显然不是我们想要的。</p>
-<div class="highlight"><pre><span></span><code>复制代码{
+<div class="highlight"><pre><span></span><code>{
     &quot;./src/index.js&quot;:
         (function (module, exports) {
 
@@ -4210,16 +4210,16 @@ const dog = new Animal(&#39;dog&#39;);
 <p>将JS代码向低版本转换，我们需要使用 <code>babel-loader</code>。</p>
 <h4 id="babel-loader">babel-loader<a class="headerlink" href="#babel-loader" title="Permanent link">&para;</a></h4>
 <p>首先安装一下 <code>babel-loader</code></p>
-<div class="highlight"><pre><span></span><code>复制代码npm install babel-loader -D
+<div class="highlight"><pre><span></span><code>npm install babel-loader -D
 </code></pre></div>
 <p>此外，我们还需要配置 <code>babel</code>，为此我们安装一下以下依赖:</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install @babel/core @babel/preset-env @babel/plugin-transform-runtime -D
+<div class="highlight"><pre><span></span><code>npm install @babel/core @babel/preset-env @babel/plugin-transform-runtime -D
 
 npm install @babel/runtime @babel/runtime-corejs3
 </code></pre></div>
 <p>对babel7配置不熟悉的小伙伴，可以阅读一下这篇文章: <a href="https://juejin.cn/post/6844904008679686152">不可错过的 Babel7 知识</a></p>
 <p>新建 <code>webpack.config.js</code>，如下:</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     module: {
         rules: [
@@ -4236,7 +4236,7 @@ module.exports = {
 <p>这里，我们可以在 <code>.babelrc</code> 中编写 <code>babel</code> 的配置，也可以在 <code>webpack.config.js</code> 中进行配置。</p>
 <h4 id="babelrc">创建一个 .babelrc<a class="headerlink" href="#babelrc" title="Permanent link">&para;</a></h4>
 <p>配置如下：</p>
-<div class="highlight"><pre><span></span><code>复制代码{
+<div class="highlight"><pre><span></span><code>{
     &quot;presets&quot;: [&quot;@babel/preset-env&quot;],
     &quot;plugins&quot;: [
         [
@@ -4250,7 +4250,7 @@ module.exports = {
 </code></pre></div>
 <p>现在，我们重新执行  <code>npx webpack --mode=development</code>，查看 <code>dist/main.js</code>，会发现已经被编译成了低版本的JS代码。</p>
 <h4 id="webpack-babel">在webpack中配置 babel<a class="headerlink" href="#webpack-babel" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     // mode: &#39;development&#39;,
     module: {
@@ -4282,13 +4282,13 @@ module.exports = {
 <li><code>loader</code> 需要配置在 <code>module.rules</code> 中，<code>rules</code> 是一个数组。</li>
 <li><code>loader</code> 的格式为:</li>
 </ul>
-<div class="highlight"><pre><span></span><code>复制代码{
+<div class="highlight"><pre><span></span><code>{
     test: /\.jsx?$/,//匹配规则
     use: &#39;babel-loader&#39;
 }
 </code></pre></div>
 <p>或者也可以像下面这样:</p>
-<div class="highlight"><pre><span></span><code>复制代码//适用于只有一个 loader 的情况
+<div class="highlight"><pre><span></span><code>//适用于只有一个 loader 的情况
 {
     test: /\.jsx?$/,
     loader: &#39;babel-loader&#39;,
@@ -4304,7 +4304,7 @@ module.exports = {
 <li><code>use</code> 字段可以是一个数组，例如处理CSS文件是，<code>use: ['style-loader', 'css-loader']</code></li>
 <li><code>use</code> 数组的每一项既可以是字符串也可以是一个对象，当我们需要在<code>webpack</code> 的配置文件中对 <code>loader</code> 进行配置，就需要将其编写为一个对象，并且在此对象的 <code>options</code> 字段中进行配置，如：</li>
 </ul>
-<div class="highlight"><pre><span></span><code>复制代码rules: [
+<div class="highlight"><pre><span></span><code>rules: [
     {
         test: /\.jsx?$/,
         use: {
@@ -4321,7 +4321,7 @@ module.exports = {
 <p>不要说细心的小伙伴了，即使是粗心的小伙伴肯定也发现了，我们在使用 <code>webpack</code> 进行打包的时候，一直运行的都是 <code>npx webpack --mode=development</code> 是否可以将 <code>mode</code> 配置在 <code>webpack.config.js</code> 中呢？显然是可以的。</p>
 <h3 id="5mode">5.mode<a class="headerlink" href="#5mode" title="Permanent link">&para;</a></h3>
 <p>将 <code>mode</code> 增加到 <code>webpack.config.js</code> 中:</p>
-<div class="highlight"><pre><span></span><code>复制代码module.exports = {
+<div class="highlight"><pre><span></span><code>module.exports = {
     //....
     mode: &quot;development&quot;,
     module: {
@@ -4341,11 +4341,11 @@ module.exports = {
 <p>查看页面，难免就需要 <code>html</code> 文件，有小伙伴可能知道，有时我们会指定打包文件中带有 <code>hash</code>，那么每次生成的 <code>js</code> 文件名会有所不同，总不能让我们每次都人工去修改 <code>html</code>，这样不是显得我们很蠢嘛~</p>
 <p>我们可以使用 <code>html-webpack-plugin</code> 插件来帮助我们完成这些事情。</p>
 <p>首先，安装一下插件:</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install html-webpack-plugin -D 
+<div class="highlight"><pre><span></span><code>npm install html-webpack-plugin -D 
 </code></pre></div>
 <p>新建 <code>public</code> 目录，并在其中新建一个 <code>index.html</code> 文件( 文件内容使用 <code>html:5</code> 快捷生成即可)</p>
 <p>修改 <code>webpack.config.js</code> 文件。</p>
-<div class="highlight"><pre><span></span><code>复制代码//首先引入插件
+<div class="highlight"><pre><span></span><code>//首先引入插件
 const HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;);
 module.exports = {
     //...
@@ -4371,7 +4371,7 @@ module.exports = {
 <p>此时我们可以增加一个配置文件，业务通过设置 <code>true</code> 或 <code>false</code> 来选出自己需要的功能，我们再根据配置文件的内容，为每个业务生成相应的 <code>html</code> 文件，岂不是美美的。</p>
 <p>Let's Go!</p>
 <p>首先，我们在 <code>public</code> 目录下新增一个 <code>config.js</code> ( 文件名你喜欢叫什么就叫什么 )，将其内容设置为:</p>
-<div class="highlight"><pre><span></span><code>复制代码//public/config.js 除了以下的配置之外，这里面还可以有许多其他配置，例如,pulicPath 的路径等等
+<div class="highlight"><pre><span></span><code>//public/config.js 除了以下的配置之外，这里面还可以有许多其他配置，例如,pulicPath 的路径等等
 module.exports = {
     dev: {
         template: {
@@ -4390,7 +4390,7 @@ module.exports = {
 }
 </code></pre></div>
 <p>现在，我们修改下我们的 <code>webpack.config.js</code>:</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 const HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;);
 const isDev = process.env.NODE_ENV === &#39;development&#39;;
 const config = require(&#39;./public/config&#39;)[isDev ? &#39;dev&#39; : &#39;build&#39;];
@@ -4408,7 +4408,7 @@ modue.exports = {
 }
 </code></pre></div>
 <p>相应的，我们需要修改下我们的 <code>public/index.html</code> 文件(嵌入的js和css并不存在，仅作为示意)：</p>
-<div class="highlight"><pre><span></span><code>复制代码&lt;!DOCTYPE html&gt;
+<div class="highlight"><pre><span></span><code>&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
     &lt;meta charset=&quot;UTF-8&quot;&gt;
@@ -4429,8 +4429,8 @@ modue.exports = {
 </code></pre></div>
 <p><code>process.env</code> 中默认并没有 <code>NODE_ENV</code>，这里配置下我们的 <code>package.json</code> 的 <code>scripts</code>.</p>
 <p>为了兼容Windows和Mac，我们先安装一下 <code>cross-env</code>:</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install cross-env -D
-复制代码{
+<div class="highlight"><pre><span></span><code>npm install cross-env -D
+{
     &quot;scripts&quot;: {
         &quot;dev&quot;: &quot;cross-env NODE_ENV=development webpack&quot;,
         &quot;build&quot;: &quot;cross-env NODE_ENV=production webpack&quot;
@@ -4443,10 +4443,10 @@ modue.exports = {
 <h4 id="_1">如何在浏览器中实时展示效果<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
 <p>说了这么多，到现在还没能在浏览器中实时查看效果，是不是已经有点捉急了，先看一下如何实时查看效果吧，不然都不知道自己配得对不对。</p>
 <p>话不多说，先装依赖:</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install webpack-dev-server -D
+<div class="highlight"><pre><span></span><code>npm install webpack-dev-server -D
 </code></pre></div>
 <p>修改下咱们的 <code>package.json</code> 文件的 <code>scripts</code>：</p>
-<div class="highlight"><pre><span></span><code>复制代码&quot;scripts&quot;: {
+<div class="highlight"><pre><span></span><code>&quot;scripts&quot;: {
     &quot;dev&quot;: &quot;cross-env NODE_ENV=development webpack-dev-server&quot;,
     &quot;build&quot;: &quot;cross-env NODE_ENV=production webpack&quot;
 },
@@ -4455,7 +4455,7 @@ modue.exports = {
 <p>Excuse me。怪我平时不认真咯，每次都乖乖的配个 <code>contentBase</code>，原来根本不需要配，带着疑问，我又去搜寻了一番。</p>
 <p>原来在配置了 <code>html-webpack-plugin</code> 的情况下， <code>contentBase</code> 不会起任何作用，也就是说我以前都是白配了，这是一个悲伤的故事。</p>
 <p>不过呢，我们还是可以在 <code>webpack.config.js</code> 中进行 <code>webpack-dev-server</code> 的其它配置，例如指定端口号，设置浏览器控制台消息，是否压缩等等:</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     //...
     devServer: {
@@ -4481,7 +4481,7 @@ module.exports = {
 <p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/2/17098ee5021f55a7~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp" /></p>
 <p>本篇文章不是为了细说 <code>webpack-dev-server</code> 的配置，所以这里就不多说了。关于 <code>webpack-dev-server</code> 更多的配置可以<a href="https://link.juejin.cn?target=https%3A%2F%2Fwebpack.js.org%2Fconfiguration%2Fdev-server%2F">点击查看</a>。</p>
 <p>细心的小伙伴可能发现了一个小问题，我们在<code>src/index.js</code>中增加一句 <code>console.log('aaa')</code>：</p>
-<div class="highlight"><pre><span></span><code>复制代码class Animal {
+<div class="highlight"><pre><span></span><code>class Animal {
     constructor(name) {
         this.name = name;
     }
@@ -4499,7 +4499,7 @@ console.log(&#39;aaa&#39;);
 <h3 id="7devtool">7.devtool<a class="headerlink" href="#7devtool" title="Permanent link">&para;</a></h3>
 <p><code>devtool</code> 中的一些设置，可以帮助我们将编译后的代码映射回原始源代码。不同的值会明显影响到构建和重新构建的速度。</p>
 <p>对我而言，能够定位到源码的行即可，因此，综合构建速度，在开发模式下，我设置的 <code>devtool</code> 的值是 <code>cheap-module-eval-source-map</code>。</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     devtool: &#39;cheap-module-eval-source-map&#39; //开发环境下使用
 }
@@ -4512,8 +4512,8 @@ module.exports = {
 <h3 id="8">8.如何处理样式文件呢<a class="headerlink" href="#8" title="Permanent link">&para;</a></h3>
 <p><code>webpack</code> 不能直接处理 <code>css</code>，需要借助 <code>loader</code>。如果是 <code>.css</code>，我们需要的 <code>loader</code> 通常有： <code>style-loader</code>、<code>css-loader</code>，考虑到兼容性问题，还需要 <code>postcss-loader</code>，而如果是 <code>less</code> 或者是 <code>sass</code> 的话，还需要 <code>less-loader</code> 和 <code>sass-loader</code>，这里配置一下 <code>less</code> 和 <code>css</code> 文件(<code>sass</code> 的话，使用 <code>sass-loader</code>即可):</p>
 <p>先安装一下需要使用的依赖:</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install style-loader less-loader css-loader postcss-loader autoprefixer less -D
-复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>npm install style-loader less-loader css-loader postcss-loader autoprefixer less -D
+//webpack.config.js
 module.exports = {
     //...
     module: {
@@ -4542,7 +4542,7 @@ module.exports = {
 }
 </code></pre></div>
 <p>测试一下，新建一个 <code>less</code> 文件，<code>src/index.less</code>:</p>
-<div class="highlight"><pre><span></span><code>复制代码//src/index.less
+<div class="highlight"><pre><span></span><code>//src/index.less
 @color: red;
 body{
     background: @color;
@@ -4550,7 +4550,7 @@ body{
 }
 </code></pre></div>
 <p>再在入口文件中引入此 <code>less</code>:</p>
-<div class="highlight"><pre><span></span><code>复制代码//src/index.js
+<div class="highlight"><pre><span></span><code>//src/index.js
 import &#39;./index.less&#39;;
 </code></pre></div>
 <p>我们修改了配置文件，重新启动一下服务: <code>npm run dev</code>。可以看到页面的背景色变成了红色。</p>
@@ -4568,7 +4568,7 @@ import &#39;./index.less&#39;;
 <p>当然，<code>loader</code> 其实还有一个参数，可以修改优先级，<code>enforce</code> 参数，其值可以为: <code>pre</code>(优先执行) 或 <code>post</code> (滞后执行)。</p>
 <p>现在，我们已经可以处理 <code>.less</code> 文件啦，<code>.css</code> 文件只需要修改匹配规则，删除 <code>less-loader</code> 即可。</p>
 <p>现在的一切看起来都很完美，但是假设我们的文件中使用了本地的图片，例如:</p>
-<div class="highlight"><pre><span></span><code>复制代码body{
+<div class="highlight"><pre><span></span><code>body{
     background: url(&#39;../images/thor.png&#39;);
 }
 </code></pre></div>
@@ -4576,14 +4576,14 @@ import &#39;./index.less&#39;;
 <h3 id="9">9.图片/字体文件处理<a class="headerlink" href="#9" title="Permanent link">&para;</a></h3>
 <p>我们可以使用 <code>url-loader</code> 或者 <code>file-loader</code> 来处理本地的资源文件。<code>url-loader</code> 和 <code>file-loader</code> 的功能类似，但是 <code>url-loader</code> 可以指定在文件大小小于指定的限制时，返回 <code>DataURL</code>，因此，个人会优先选择使用 <code>url-loader</code>。</p>
 <p>首先安装依赖:</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install url-loader -D
+<div class="highlight"><pre><span></span><code>npm install url-loader -D
 </code></pre></div>
 <p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/2/17098ee506dad2eb~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp" /></p>
 <p>安装 <code>url-loader</code> 的时候，控制台会提示你，还需要安装下 <code>file-loader</code>，听人家的话安装下就行(新版 <code>npm</code> 不会自动安装 <code>peerDependencies</code>)：</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install file-loader -D
+<div class="highlight"><pre><span></span><code>npm install file-loader -D
 </code></pre></div>
 <p>在 <code>webpack.config.js</code> 中进行配置：</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     //...
     modules: {
@@ -4610,7 +4610,7 @@ module.exports = {
 <p>默认情况下，生成的文件的文件名就是文件内容的 <code>MD5</code> 哈希值并会保留所引用资源的原始扩展名，例如我上面的图片(thor.jpeg)对应的文件名如下：</p>
 <p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/2/17098ee50ad69750~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp" /></p>
 <p>当然，你也可以通过 <code>options</code> 参数进行修改。</p>
-<div class="highlight"><pre><span></span><code>复制代码//....
+<div class="highlight"><pre><span></span><code>//....
 use: [
     {
         loader: &#39;url-loader&#39;,
@@ -4629,16 +4629,16 @@ use: [
 <p>到了这里，有点**岁月静好**的感觉了。</p>
 <p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/2/17098ee545e78629~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp" /></p>
 <p>不过还没完，如果你在 <code>public/index.html</code> 文件中，使用本地的图片，例如，我们修改一下 <code>public/index.html</code>：</p>
-<div class="highlight"><pre><span></span><code>复制代码&lt;img src=&quot;./a.jpg&quot; /&gt;
+<div class="highlight"><pre><span></span><code>&lt;img src=&quot;./a.jpg&quot; /&gt;
 </code></pre></div>
 <p>重启本地服务，虽然，控制台不会报错，但是你会发现，浏览器中根本加载不出这张图片，Why？因为构建之后，通过相对路径压根找不着这张图片呀。</p>
 <p>How？怎么解决呢？</p>
 <h3 id="10-html">10.处理 html 中的本地图片<a class="headerlink" href="#10-html" title="Permanent link">&para;</a></h3>
 <p>安装 <code>html-withimg-loader</code> 来解决咯。</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install html-withimg-loader -D
+<div class="highlight"><pre><span></span><code>npm install html-withimg-loader -D
 </code></pre></div>
 <p>修改 <code>webpack.config.js</code>：</p>
-<div class="highlight"><pre><span></span><code>复制代码module.exports = {
+<div class="highlight"><pre><span></span><code>module.exports = {
     //...
     module: {
         rules: [
@@ -4651,13 +4651,13 @@ use: [
 }
 </code></pre></div>
 <p>然后在我们的 <code>html</code> 中引入一张文件测试一下（图片地址自己写咯，这里只是示意）:</p>
-<div class="highlight"><pre><span></span><code>复制代码&lt;!-- index.html --&gt;
+<div class="highlight"><pre><span></span><code>&lt;!-- index.html --&gt;
 &lt;img src=&quot;./thor.jpeg&quot; /&gt;
 </code></pre></div>
 <p>重启本地服务，图片并没能加载，审查元素的话，会发现图片的地址显示的是 <code>{"default":"assets/thor_a5f7c0.jpeg"}</code>。</p>
 <p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/2/17098ee552daf18d~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.awebp" /></p>
 <p>我当前 <code>file-loader</code> 的版本是 5.0.2，5版本之后，需要增加 <code>esModule</code> 属性：</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     //...
     modules: {
@@ -4680,14 +4680,14 @@ module.exports = {
 </code></pre></div>
 <p>再重启本地服务，就搞定啦。</p>
 <p>话说使用 <code>html-withimg-loader</code> 处理图片之后，<code>html</code> 中就不能使用 <code>vm</code>, <code>ejs</code> 的模板了，如果想继续在 <code>html</code> 中使用 <code>&lt;% if(htmlWebpackPlugin.options.config.header) { %&gt;</code> 这样的语法，但是呢，又希望能使用本地图片，可不可以？鱼和熊掌都想要，虽然很多时候，能吃个鱼就不错了，但是这里是可以的哦，像下面这样编写图片的地址，并且删除<code>html-withimg-loader</code>的配置即可。</p>
-<div class="highlight"><pre><span></span><code>复制代码&lt;!-- index.html --&gt;
+<div class="highlight"><pre><span></span><code>&lt;!-- index.html --&gt;
 &lt;img src=&quot;&lt;%= require(&#39;./thor.jpeg&#39;) %&gt;&quot; /&gt;
 </code></pre></div>
 <p>图片加载OK啦，并且 <code>&lt;% %&gt;</code> 语法也可以正常使用，吼吼吼<sub>~</sub></p>
 <p>虽然，<code>webpack</code> 的默认配置很好用，但是有的时候，我们会有一些其它需要啦，例如，我们不止一个入口文件，这时候，该怎么办呢？</p>
 <h3 id="11">11.入口配置<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
 <p>入口的字段为: <code>entry</code></p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     entry: &#39;./src/index.js&#39; //webpack的默认配置
 }
@@ -4695,7 +4695,7 @@ module.exports = {
 <p><code>entry</code> 的值可以是一个字符串，一个数组或是一个对象。</p>
 <p>字符串的情况无需多说，就是以对应的文件为入口。</p>
 <p>为数组时，表示有“多个主入口”，想要多个依赖文件一起注入时，会这样配置。例如:</p>
-<div class="highlight"><pre><span></span><code>复制代码entry: [
+<div class="highlight"><pre><span></span><code>entry: [
     &#39;./src/polyfills.js&#39;,
     &#39;./src/index.js&#39;
 ]
@@ -4704,7 +4704,7 @@ module.exports = {
 <p>那什么时候是对象呢？不要捉急，后面将多页配置的时候，会说到。</p>
 <h3 id="12">12.出口配置<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
 <p>配置 <code>output</code> 选项可以控制 <code>webpack</code> 如何输出编译文件。</p>
-<div class="highlight"><pre><span></span><code>复制代码const path = require(&#39;path&#39;);
+<div class="highlight"><pre><span></span><code>const path = require(&#39;path&#39;);
 module.exports = {
     entry: &#39;./src/index.js&#39;,
     output: {
@@ -4717,7 +4717,7 @@ module.exports = {
 <p>例如，你最终编译出来的代码部署在 CDN 上，资源的地址为: '<a href="https://link.juejin.cn?target=https%3A%2F%2FAAA%2FBBB%2FYourProject%2FXXX">https://AAA/BBB/YourProject/XXX</a>'，那么可以将生产的 <code>publicPath</code> 配置为: <code>//AAA/BBB/</code>。</p>
 <p>编译时，可以不配置，或者配置为 <code>/</code>。可以在我们之前提及的 <code>config.js</code> 中指定 <code>publicPath</code>（<code>config.js</code> 中区分了 <code>dev</code> 和 <code>public</code>）， 当然还可以区分不同的环境指定配置文件来设置，或者是根据 <code>isDev</code> 字段来设置。</p>
 <p>除此之外呢，考虑到CDN缓存的问题，我们一般会给文件名加上 <code>hash</code>.</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     output: {
         path: path.resolve(__dirname, &#39;dist&#39;), //必须是绝对路径
@@ -4731,10 +4731,10 @@ module.exports = {
 <h3 id="13dist">13.每次打包前清空dist目录<a class="headerlink" href="#13dist" title="Permanent link">&para;</a></h3>
 <p>反正我是懒得手动去清理的，只要你足够懒，你总是会找到好办法的，懒人推动科技进步。这里，我们需要插件: <code>clean-webpack-plugin</code></p>
 <p>安装依赖:</p>
-<div class="highlight"><pre><span></span><code>复制代码npm install clean-webpack-plugin -D
+<div class="highlight"><pre><span></span><code>npm install clean-webpack-plugin -D
 </code></pre></div>
 <p>以前，<code>clean-webpack-plugin</code> 是默认导出的，现在不是，所以引用的时候，需要注意一下。另外，现在构造函数接受的参数是一个对象，可缺省。</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 const { CleanWebpackPlugin } = require(&#39;clean-webpack-plugin&#39;);
 
 module.exports = {
@@ -4749,7 +4749,7 @@ module.exports = {
 <h4 id="dist">希望dist目录下某个文件夹不被清空<a class="headerlink" href="#dist" title="Permanent link">&para;</a></h4>
 <p>不过呢，有些时候，我们并不希望整个 <code>dist</code> 目录都被清空，比如，我们不希望，每次打包的时候，都删除 <code>dll</code> 目录，以及 <code>dll</code> 目录下的文件或子目录，该怎么办呢？</p>
 <p><code>clean-webpack-plugin</code> 为我们提供了参数 <code>cleanOnceBeforeBuildPatterns</code>。</p>
-<div class="highlight"><pre><span></span><code>复制代码//webpack.config.js
+<div class="highlight"><pre><span></span><code>//webpack.config.js
 module.exports = {
     //...
     plugins: [
@@ -4783,7 +4783,7 @@ module.exports = {
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 27, 2024</span>
       
     
   </small>

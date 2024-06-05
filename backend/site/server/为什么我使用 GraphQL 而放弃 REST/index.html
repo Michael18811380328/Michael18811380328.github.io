@@ -630,7 +630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../network/Nginx%E5%9C%A8%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8/" class="md-nav__link">
+      <a href="../../network/Nginx在应用程序中的作用.md" class="md-nav__link">
         Nginx在应用程序中的作用
       </a>
     </li>
@@ -742,7 +742,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../network/nginx/" class="md-nav__link">
+      <a href="../../network/nginx.md" class="md-nav__link">
         nginx
       </a>
     </li>
@@ -1849,15 +1849,12 @@
 <p>现在，继续我们待办事项列表应用程序的例子，考虑下面这个 GraphQL 模式：</p>
 <div class="highlight"><pre><span></span><code>type Project {  id: ID  name: String!}type TodoItem {  id: ID  description: String!  isCompleted: Boolean!  dueDate: Date  project: Project}type TodoList {  totalCount: Int!  items: [TodoItem]!}type Query {  allTodos(limit: Int, offset: Int): TodoList!  todoByID(id: ID!): TodoItem}type Mutation {  createTodo(item: TodoItem!): TodoItem  deleteTodo(id: ID!): TodoItem  updateTodo(id: ID!, newItem: TodoItem!): TodoItem}schema {  query: Query  mutation: Mutation}
 </code></pre></div>
-<p>复制代码</p>
 <p>底部的<code>schema</code>块是特定的，定义了前面描述的根类型<code>Query</code>和<code>Mutation</code>。此外，它非常简单：<code>type</code>块定义新的类型，每个块包含具有自己类型的字段定义。类型可以是非可选的，例如<code>String!</code>字段不能有空值，而<code>String</code>可以。字段也可以有命名参数，所以<code>TodoList!</code>类型的字段<code>allTodos(limit: Int, offset: Int): TodoList!</code>接受两个可选参数，而其本身的值是非可选的，这意味着它将始终返回一个不能为空的<code>TodoList</code>实例。然后，要查询所有待办事项的<code>id</code>和名称，你可以编写这样一个查询：</p>
 <div class="highlight"><pre><span></span><code>query {  allTodos(limit: 5) {    totalCount    items {      id      description      isCompleted    }  }}
 </code></pre></div>
-<p>复制代码</p>
 <p>GraphQL 客户端库根据模式自动解析和验证查询，然后将其发送到 GraphQL 服务器。请注意，<code>allTodos</code>字段的<code>offset</code>参数是缺失的。作为可选项，它的缺失意味着它有<code>null</code>值。如果服务器提供这种模式，文档中可能会声明，<code>null</code>偏移量意味着默认情况下应该返回第一页。响应可能是这样的：</p>
 <div class="highlight"><pre><span></span><code>{  &quot;data&quot;: {    &quot;allTodos&quot;: {      &quot;totalCount&quot;: 42,      &quot;items&quot;: [        {          &quot;id&quot;: 1,          &quot;description&quot;: &quot;write a blogpost&quot;,          &quot;isCompleted&quot;: true        },        {          &quot;id&quot;: 2,          &quot;description&quot;: &quot;edit until looks good&quot;,          &quot;isCompleted&quot;: true        },        {          &quot;id&quot;: 2,          &quot;description&quot;: &quot;proofread&quot;,          &quot;isCompleted&quot;: false        },        {          &quot;id&quot;: 4,          &quot;description&quot;: &quot;publish on the website&quot;,          &quot;isCompleted&quot;: false        },        {          &quot;id&quot;: 5,          &quot;description&quot;: &quot;share&quot;,          &quot;isCompleted&quot;: false        }      ]    }  }}
 </code></pre></div>
-<p>复制代码</p>
 <p>如果你从查询中删除<code>isCompleted</code>字段，它将从结果中消失。或者你可以添加<code>project</code>字段，用其<code>id</code>和<code>name</code>来遍历关系。将<code>offset</code>参数添加到<code>allTodos</code>字段进行分页，这样<code>allTodos(count: 5, offset: 5)</code>将返回第二页。结果中提供了<code>totalCount</code>字段，这很有用，因为现在你知道总共有<code>42 / 5 = 9</code>页。但显然，如果不需要<code>totalCount</code>，你可以忽略它。查询可以完全控制将要接收的实际信息，但是底层的 GraphQL 基础设施还必须确保所有必需的字段和参数都在那里。如果你的 GraphQL 服务器足够聪明，它将不会对你不需要的字段运行数据库查询，而且有些库好到免费提供这种查询。此模式中的其他变体和查询也是如此：对输入进行类型检查和验证，并且基于查询，GraphQL 服务器知道期望的结果形状。本质上，所有通信都通过服务器上一个预定义的 URL（通常是<code>/graphql</code>）运行，借助一个简单的<code>POST</code>请求，其中包含序列化为 JSON 有效负载的查询。但是，你几乎从来都不需要接触如此低的抽象层。</p>
 <p>总体来说还不错：我们已经解决了类型级别的验证问题，分页看起来也不错，并且在需要时可以轻松地遍历实体关系。如果使用一些现成的 GraphQL-&gt;数据库查询翻译库，你甚至不需要在服务器上编写大多数数据库查询。客户端库可以很容易地将 GraphQL 响应自动解包为所需类型的对象实例，因为从模式和查询可以提前知道响应形状。</p>
 <h4 id="graphql_1">GraphQL 是个时髦的东西，是一种时尚，对吗？<a class="headerlink" href="#graphql_1" title="Permanent link">&para;</a></h4>
@@ -2025,7 +2022,7 @@ schema {
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 5, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 27, 2024</span>
       
     
   </small>

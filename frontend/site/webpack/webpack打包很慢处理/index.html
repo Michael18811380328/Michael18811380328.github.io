@@ -4108,7 +4108,6 @@
 -   new webpack.DefinePlugin({ &quot;process.env.NODE_ENV&quot;: JSON.stringify(&quot;development&quot;) }),
 - ]
 }
-复制代码
 </code></pre></div>
 <p><code>production</code> 模式下，由于提供了<code>splitChunks</code>和<code>minimize</code>，所以基本零配置，代码就会自动分割、压缩、优化，同时 webpack 也会自动帮你 <code>Scope hoisting</code> 和 <code>Tree-shaking</code>。</p>
 <div class="highlight"><pre><span></span><code>module.exports = {
@@ -4120,7 +4119,6 @@
 -    new webpack.NoEmitOnErrorsPlugin()
 -  ]
 }
-复制代码
 </code></pre></div>
 <p>webpack 一直以来最饱受诟病的就是其配置门槛极高，配置内容极其复杂和繁琐，容易让人从入门到放弃，而它的后起之秀如 rollup、parcel 等均在配置流程上做了极大的优化，做到开箱即用，所以<code>webpack 4</code> 也从中借鉴了不少经验来提升自身的配置效率。<strong>愿世间再也不需要 webpack 配置工程师</strong>。</p>
 <h2 id="html-webpack-plugin">html-webpack-plugin<a class="headerlink" href="#html-webpack-plugin" title="Permanent link">&para;</a></h2>
@@ -4137,7 +4135,6 @@
 <p>这属性会决定你 chunks 的加载顺序，如果设置为<code>none</code>，你的 chunk 加载在页面中加载的顺序就不能够保证了，可能会出现样式被覆盖的情况。比如我在<code>app.css</code>里面修改了一个第三方库<code>element-ui</code>的样式，通过加载顺序的先后来覆盖它，但由于设置为了<code>none</code>，打包出来的结果变成了这样：</p>
 <div class="highlight"><pre><span></span><code>&lt;link href=&quot;/app.8945fbfc.css&quot; rel=&quot;stylesheet&quot;&gt;
 &lt;link href=&quot;/chunk-elementUI.2db88087.css&quot; rel=&quot;stylesheet&quot;&gt;
-复制代码
 </code></pre></div>
 <p><code>app.css</code>被先加载了，之前写的样式覆盖就失效了，除非你使用<code>important</code>或者其它 css 权重的方式覆盖它，但这明显是不太合理的。 <code>vue-cli</code>正好也有这个相关 <a href="https://github.com/vuejs/vue-cli/issues/1978#issuecomment-409267484">issue</a>，尤雨溪也在不使用<code>@next</code>版本的基础上 hack 了它，有兴趣的可以自己研究一下，本人在项目中直接使用了<code>@next</code>版本，也没遇到其它什么问题（除了不兼容 webpack 的 <code>prefetch/preload</code> 相关 <a href="https://github.com/jantimon/html-webpack-plugin/issues/934">issue</a>）。两种方案都可以，自行选择。</p>
 <p>其它 <code>html-webpack-plugin</code> 的配置和之前使用没有什么区别。</p>
@@ -4156,7 +4153,6 @@
 optimization: {
   minimizer: [new OptimizeCSSAssetsPlugin()];
 }
-复制代码
 </code></pre></div>
 <p><img alt="img" src="https://user-gold-cdn.xitu.io/2018/7/30/164e93dc299d7062?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" /></p>
 <p>如上图测试用例所示，由于<code>optimize-css-assets-webpack-plugin</code>这个插件默认使用了 <a href="https://github.com/cssnano/cssnano">cssnano</a> 来作 css 优化， 所以它不仅压缩了代码、删掉了代码中无用的注释、还去除了冗余的 css、优化了 css 的书写顺序，优化了你的代码 <code>margin: 10px 20px 10px 20px;</code> =&gt;<code>margin:10px 20px;</code>。同时大大减小了你 css 的文件大小。更多优化的细节见<a href="https://cssnano.co/guides/optimisations">文档</a>。</p>
@@ -4168,7 +4164,6 @@ optimization: {
   filename: devMode ? &quot;[name].css&quot; : &quot;[name].[hash].css&quot;,
   chunkFilename: devMode ? &quot;[id].css&quot; : &quot;[id].[hash].css&quot;
 });
-复制代码
 </code></pre></div>
 <blockquote>
 <p>简单说明一下： <code>filename</code> 是指在你入口文件<code>entry</code>中引入生成出来的文件名，而<code>chunkname</code>是指那些未被在入口文件<code>entry</code>引入，但又通过按需加载（异步）模块的时候引入的文件。</p>
@@ -4211,11 +4206,9 @@ optimization: {
 <p>最早的方案是开发环境中不是用路由懒加载了，只在线上环境中使用。封装一个<code>_import</code>函数，通过环境变区分是否需要懒加载。</p>
 <p>开发环境：</p>
 <div class="highlight"><pre><span></span><code>module.exports = file =&gt; require(&quot;@/views/&quot; + file + &quot;.vue&quot;).default;
-复制代码
 </code></pre></div>
 <p>生成环境：</p>
 <div class="highlight"><pre><span></span><code>module.exports = file =&gt; () =&gt; import(&quot;@/views/&quot; + file + &quot;.vue&quot;);
-复制代码
 </code></pre></div>
 <p>但由于 webpack <code>import</code>实现机制问题，会产生一定的副作用。如上面的写法就会导致<code>@/views/</code>下的 所有<code>.vue</code> 文件都会被打包。不管你是否被依赖引用了，会多打包一些可能永远都用不到 js 代码。 <a href="https://github.com/PanJiaChen/vue-element-admin/issues/292">相关 issue</a></p>
 <p>目前新的解决方案思路还是一样的，只在生成模式中使用路由懒加载，本地开发不使用懒加载。但换了一种没副作用的实现方式。</p>
@@ -4224,7 +4217,6 @@ optimization: {
 <p><strong>具体代码：</strong></p>
 <p>首先在<code>package.json</code>中增加<code>BABEL_ENV</code></p>
 <div class="highlight"><pre><span></span><code>&quot;dev&quot;: &quot;BABEL_ENV=development webpack-dev-server XXXX&quot;
-复制代码
 </code></pre></div>
 <p>接着在<code>.babelrc</code>只能加入<code>babel-plugin-dynamic-import-node</code>这个<code>plugins</code>，并让它只有在<code>development</code>模式中才生效。</p>
 <div class="highlight"><pre><span></span><code>{
@@ -4234,11 +4226,9 @@ optimization: {
     }
   }
 }
-复制代码
 </code></pre></div>
 <p>之后就大功告成了，路由只要像平时一样写就可以了。<a href="https://panjiachen.github.io/vue-element-admin-site/zh/guide/advanced/lazy-loading.html#新方案">文档</a></p>
 <div class="highlight"><pre><span></span><code> { path: &#39;/login&#39;, component: () =&gt; import(&#39;@/views/login/index&#39;)}
-复制代码
 </code></pre></div>
 <p>这样能大大提升你热更新的速度。基本两百加页面也能在<code>2000ms</code>的热跟新完成，基本做到无感刷新。当然你的项目本身就不大页面也不多，完全没必要搞这些。<strong>当你的页面变化跟不是你写代码速度的时候再考虑也不迟。</strong></p>
 <h2 id="_8">打包速度<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
@@ -4270,7 +4260,6 @@ optimization: {
     }]
   ]
 }
-复制代码
 </code></pre></div>
 <p>顺便说一下都 8102 年了，请不要在使用<code>babel-preset-esxxxx</code>系列了，请用<code>babel-preset-env</code>，相关文章 <a href="https://zhuanlan.zhihu.com/p/29506685">再见，babel-preset-2015</a>。</p>
 <h1 id="_9">第二部分<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h1>
@@ -4353,7 +4342,6 @@ optimization: {
     }
   }
 };
-复制代码
 </code></pre></div>
 <p><img alt="img" src="https://user-gold-cdn.xitu.io/2018/8/3/164fefcc3a2ef69f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" /></p>
 <p>上图就是最终拆包结果概要，你可以 <strong><a href="https://panjiachen.gitee.io/vue-element-admin/bundle-report">点我点我点我</a></strong>，在线查看拆包结果。</p>
@@ -4362,7 +4350,6 @@ optimization: {
 
 - test: resolve(&quot;src/components&quot;)
 + test: resolve(&quot;src/components/global_components&quot;) //你注册全局组件的目录
-复制代码
 </code></pre></div>
 <h3 id="_12">博弈<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <p>其实优化就是一个**博弈**的过程，是让 a bundle 大一点还是 b? 是让首次加载快一点还是让 cache 的利用率高一点？ 但有一点要切记，拆包的时候不要过分的追求颗粒化，什么都单独的打成一个 bundle，不然你一个页面可能需要加载十几个<code>.js</code>文件，如果你还不是<code>HTTP/2</code>的情况下，请求的阻塞还是很明显的(受限于浏览器并发请求数)。所以还是那句话资源的加载策略并没什么完全的方案，都需要结合自己的项目找到最合适的拆包策略。</p>
@@ -4392,13 +4379,11 @@ optimization: {
   name: &quot;manifest&quot;,
   minChunks: Infinity
 });
-复制代码
 </code></pre></div>
 <p>现在只要一行配置就可以了</p>
 <div class="highlight"><pre><span></span><code>{
   runtimeChunk: true;
 }
-复制代码
 </code></pre></div>
 <p>它的作用是将包含<code>chunks 映射关系的 list</code>单独从 <code>app.js</code>里提取出来，因为每一个 chunk 的 id 基本都是基于内容 hash 出来的，所以你每次改动都会影响它，如果不将它提取出来的话，等于<code>app.js</code>每次都会改变。缓存就失效了。</p>
 <p>单独抽离 runtimeChunk 之后，每次打包都会生成一个<code>runtimeChunk.xxx.js</code>。（默认叫这名字，可自行修改）</p>
@@ -4414,7 +4399,6 @@ new ScriptExtHtmlWebpackPlugin({
   //`runtime` must same as runtimeChunk name. default is `runtime`
   inline: /runtime\..*\.js$/
 });
-复制代码
 </code></pre></div>
 <h3 id="module-vs-chunk">Module vs Chunk<a class="headerlink" href="#module-vs-chunk" title="Permanent link">&para;</a></h3>
 <p>我们经常看到<code>xxxModuleIdsPlugin</code>、<code>xxxChunksPlugin</code>，所以在 webpack 中 <code>module</code>和 <code>chunk</code>到底是一个怎么样的关系呢？</p>
@@ -4433,11 +4417,9 @@ new ScriptExtHtmlWebpackPlugin({
     JFUb: function(e, t, l) {}
   }
 ]);
-复制代码
 </code></pre></div>
 <p>一个<code>module</code>还能跨<code>chunk</code>引用另一个<code>module</code>，比如我想在<code>app.js</code>里面需要引用 <code>chunkId</code>为<code>13</code>的模块<code>2700</code>可以这样引用：</p>
 <div class="highlight"><pre><span></span><code>return n.e(13).then(n.bind(null, &quot;27OO&quot;));
-复制代码
 </code></pre></div>
 <h3 id="hashedmoduleidsplugin">HashedModuleIdsPlugin<a class="headerlink" href="#hashedmoduleidsplugin" title="Permanent link">&para;</a></h3>
 <p>了解了 <code>module</code>和<code>chunk</code>之后，我们来研究一下 <code>moduleId</code>。</p>
@@ -4446,7 +4428,6 @@ new ScriptExtHtmlWebpackPlugin({
   path: path.join(__dirname, &#39;dist&#39;),
   filename: &#39;[name].[chunkhash].js&#39;,
 }
-复制代码
 </code></pre></div>
 <p>我们在入口文件中随便引入一个新文件<code>test.js</code></p>
 <div class="highlight"><pre><span></span><code>//main.js
@@ -4454,7 +4435,6 @@ import &quot;./test&quot;;
 
 //test.js
 console.log(&quot;apple&quot;);
-复制代码
 </code></pre></div>
 <p>我们运行<code>npm run build</code>，发现了一件奇怪的事情，我只是多引入了一个文件，但发现有十几个文件发生了变化。这是为什么呢？</p>
 <p>我们随便挑一个文件 diff 一下，发现两个文件只有 <code>module id</code> 的不同。</p>
@@ -4491,7 +4471,6 @@ console.log(&quot;apple&quot;);
 <p>很多人可能连这个配置项都没有注意过，不过早在 2015 年就已经被设计出来让你更好的利用 cache。<a href="https://webpack.js.org/configuration/other-options/#recordspath">官方文档</a></p>
 <p>要使用它配置也很简单：</p>
 <div class="highlight"><pre><span></span><code>recordsPath: path.join(__dirname, &quot;records.json&quot;);
-复制代码
 </code></pre></div>
 <p>对，只要这一行代码就能开启这个选项，并打包的时候会自动生成一个 JSON 文件。它含有 webpack 的 <code>records</code> 记录 - 即「用于存储跨多次构建(across multiple builds)的模块标识符」的数据片段。可以使用此文件来跟踪在每次构建之间的模块变化。</p>
 <p>大白话就是：等于每次构建都是基于上次构建的基础上进行的。它会先读取你上次的 chunk 和 module id 的信息之后再进行打包。所以这时候你再添加或者删除 <code>chunk</code>，并不会导致之前所说的乱序了。</p>
@@ -4525,7 +4504,6 @@ console.log(&quot;apple&quot;);
       2
   }
 }
-复制代码
 </code></pre></div>
 <p>我们和之前一样，在路由里面添加一个懒加载的页面，打包对比后发现 id 并不会像之前那样按照遍历到的顺序插入了，而是基于之前的 id 依次累加了。一般新增页面都会在末尾填写一个新 id，删除 chunk 的话，会将原来代表 chunk 的 id，保留，但不会再使用。</p>
 <p><img alt="img" src="https://user-gold-cdn.xitu.io/2018/7/29/164e4a7f0bf37f02?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" /></p>
@@ -4536,14 +4514,12 @@ console.log(&quot;apple&quot;);
 <h2 id="webpackchunkname">webpackChunkName<a class="headerlink" href="#webpackchunkname" title="Permanent link">&para;</a></h2>
 <p>在 webpack2.4.0 版本之后可以自定义异步 chunk 的名字了，例如：</p>
 <div class="highlight"><pre><span></span><code>import(/* webpackChunkName: &quot;my-chunk-name&quot; */ &quot;module&quot;);
-复制代码
 </code></pre></div>
 <p>我们在结合 vue 的懒加载可以这样写。</p>
 <div class="highlight"><pre><span></span><code>{
     path: &#39;/test&#39;,
     component: () =&gt; import(/* webpackChunkName: &quot;test&quot; */ &#39;@/views/test&#39;)
   },
-复制代码
 </code></pre></div>
 <p>打包之后就生成了名为 <code>test</code>的 chunk 文件。</p>
 <p><img alt="img" src="https://user-gold-cdn.xitu.io/2018/8/7/165126897252edca?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" /></p>
@@ -4559,7 +4535,6 @@ console.log(&quot;apple&quot;);
   }
   return chunk.modules.map(m =&gt; path.relative(m.context, m.request)).join(&quot;_&quot;);
 });
-复制代码
 </code></pre></div>
 <p>适配 webpack4 和 vue 的新实现方案：</p>
 <div class="highlight"><pre><span></span><code>new webpack.NamedChunksPlugin(chunk =&gt; {
@@ -4568,7 +4543,6 @@ console.log(&quot;apple&quot;);
   }
   return Array.from(chunk.modulesIterable, m =&gt; m.id).join(&quot;_&quot;);
 });
-复制代码
 </code></pre></div>
 <p>当然这个方案还是有一些弊端的因为 id 会可能很长，如果一个 chunk 依赖了很多个 module 的话，id 可能有几十位，所以我们还需要缩短一下它的长度。我们首先将拼接起来的 id hash 以下，而且要保证 hash 的结果位数也能太长，浪费字节，但太短又容易发生碰撞，所以最后我们我们选择 4 位长度，并且手动用 Set 做一下碰撞校验，发生碰撞的情况下位数加 1，直到碰撞为止。详细代码如下：</p>
 <div class="highlight"><pre><span></span><code>const seen = new Set();
@@ -4590,7 +4564,6 @@ new webpack.NamedChunksPlugin(chunk =&gt; {
     return modules[0].id;
   }
 });
-复制代码
 </code></pre></div>
 <p>我给 <code>vue-cli</code> 官方也提了一个相关 <a href="https://github.com/vuejs/vue-cli/issues/1916">issue</a>尤雨溪最后也采纳了这个方案。 所以如果你现在下载最新 <code>vue-cli@3</code>上面啰嗦了半天的东西，其实都已经默认配置好了(但作者本人为了找到这个 hack 方法整整花了两天时间 o(╥﹏╥)o)。</p>
 <p>目前测试了一段时间没发现有什么问题。不过有一点不是很理解，不知道 webpack 出于什么样的原因，官方一直没有修复这个问题？可能是在等 webpack5 的时候放大招吧。</p>
@@ -5144,7 +5117,7 @@ module.exports = {
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 19, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 27, 2024</span>
       
     
   </small>

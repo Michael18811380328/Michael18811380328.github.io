@@ -934,7 +934,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../04%20%E9%9D%A2%E8%AF%95%E9%A2%982-%E6%AF%94%E8%BE%83%E8%80%81/" class="md-nav__link">
+      <a href="../04 面试题2-比较老.md" class="md-nav__link">
         04 面试题2-比较老
       </a>
     </li>
@@ -5076,7 +5076,6 @@ test()
   &lt;div class=&quot;box-left&quot;&gt;&lt;/div&gt;
   &lt;div class=&quot;box-right&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;
-复制代码
 </code></pre></div>
 <h4 id="float-margin">利用<code>float + margin</code>实现<a class="headerlink" href="#float-margin" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code>.box {
@@ -5097,7 +5096,6 @@ test()
   margin-left: 200px;
   background-color: red;
 }
-复制代码
 </code></pre></div>
 <h4 id="calc">利用<code>calc</code>计算宽度<a class="headerlink" href="#calc" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code>.box {
@@ -5119,7 +5117,6 @@ test()
   float: right;
   background-color: red;
 }
-复制代码
 </code></pre></div>
 <h4 id="float-overflow">利用<code>float + overflow</code>实现<a class="headerlink" href="#float-overflow" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code>.box {
@@ -5140,7 +5137,6 @@ test()
   overflow: hidden;
   background-color: red;
 }
-复制代码
 </code></pre></div>
 <h4 id="flex">利用<code>flex</code>实现<a class="headerlink" href="#flex" title="Permanent link">&para;</a></h4>
 <p>这里不是最佳答案，应该是使用<code>flex-basis</code>实现更合理</p>
@@ -5163,7 +5159,6 @@ test()
   overflow: hidden;
   background-color: red;
 }
-复制代码
 </code></pre></div>
 <h3 id="_10">了解跨域吗，一般什么情况下会导致跨域<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <blockquote>
@@ -5416,7 +5411,6 @@ test()
 │  ┌──────────┴────────────┐
 └──┤    close callbacks    │&lt;————— socket.on(&#39;close&#39;, ...)
    └───────────────────────┘
-复制代码
 </code></pre></div>
 <p>Node.js中宏任务分成了几种类型，并且放在了不同的task queue里。不同的task queue在执行顺序上也有区别，微任务放在了每个task queue的末尾：</p>
 <ul>
@@ -5542,14 +5536,12 @@ function handleReequest(req, res) {
 const server = new http.Server();
 server.listen(8001, &#39;127.0.0.1&#39;);
 server.on(&#39;request&#39;, handleReequest);
-复制代码
 </code></pre></div>
 <h5 id="_36">存储型<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h5>
 <p>存储型 XSS 会把用户输入的数据 "存储" 在服务器端，当浏览器请求数据时，脚本从服务器上传回并执行。这种 XSS 攻击具有很强的稳定性。比较常见的一个场景是攻击者在社区或论坛上写下一篇包含恶意 JavaScript 代码的文章或评论，文章或评论发表后，所有访问该文章或评论的用户，都会在他们的浏览器中执行这段恶意的 JavaScript 代码：</p>
 <div class="highlight"><pre><span></span><code>// 例如在评论中输入以下留言
 // 如果请求这段留言的时候服务端不做转义处理，请求之后页面会执行这段恶意代码
 &lt;script&gt;alert(&#39;xss 攻击&#39;)&lt;/script&gt;
-复制代码
 </code></pre></div>
 <h5 id="dom">基于DOM<a class="headerlink" href="#dom" title="Permanent link">&para;</a></h5>
 <p>基于 DOM 的 XSS 攻击是指通过恶意脚本修改页面的 DOM 结构，是纯粹发生在客户端的攻击：</p>
@@ -5572,15 +5564,12 @@ server.on(&#39;request&#39;, handleReequest);
         div.innerHTML = `&lt;a href=${val}&gt;testLink&lt;/a&gt;`
     }, false);
 &lt;/script&gt;
-复制代码
 </code></pre></div>
 <p>点击 Submit 按钮后，会在当前页面插入一个链接，其地址为用户的输入内容。如果用户在输入时构造了如下内容：</p>
 <div class="highlight"><pre><span></span><code>&#39;&#39; onclick=alert(/xss/)
-复制代码
 </code></pre></div>
 <p>用户提交之后，页面代码就变成了：</p>
 <div class="highlight"><pre><span></span><code>&lt;a href onlick=&quot;alert(/xss/)&quot;&gt;testLink&lt;/a&gt;
-复制代码
 </code></pre></div>
 <p>此时，用户点击生成的链接，就会执行对应的脚本。</p>
 <h5 id="xss_2">XSS攻击防范<a class="headerlink" href="#xss_2" title="Permanent link">&para;</a></h5>
@@ -5595,7 +5584,6 @@ const decodingMap = {
   &#39;&amp;amp;&#39;: &#39;&amp;&#39;,
   &#39;&amp;#10;&#39;: &#39;\n&#39;
 }
-复制代码
 </code></pre></div>
 <p><strong>输出检查</strong>：用户的输入会存在问题，服务端的输出也会存在问题。一般来说，除富文本的输出外，在变量输出到 HTML 页面时，可以使用编码或转义的方式来防御 XSS 攻击。例如利用 sanitize-html 对输出内容进行有规则的过滤之后再输出到页面中。</p>
 <h4 id="csrfxsrf">CSRF/XSRF（跨站请求伪造）<a class="headerlink" href="#csrfxsrf" title="Permanent link">&para;</a></h4>
@@ -5613,7 +5601,6 @@ const decodingMap = {
 <li>Permanent Cookie(持久性 Cookie)：与会话期 Cookie 不同的是，持久性 Cookie 可以指定一个特定的过期时间（Expires）或有效期（Max-Age）。</li>
 </ul>
 <div class="highlight"><pre><span></span><code>res.setHeader(&#39;Set-Cookie&#39;, [&#39;mycookie=222&#39;, &#39;test=3333; expires=Sat, 21 Jul 2018 00:00:00 GMT;&#39;]);
-复制代码
 </code></pre></div>
 <p>上述代码创建了两个 Cookie：mycookie 和 test，前者属于会话期 Cookie，后者则属于持久性 Cookie。</p>
 <h5 id="csrf_1">CSRF攻击<a class="headerlink" href="#csrf_1" title="Permanent link">&para;</a></h5>
@@ -5698,9 +5685,6 @@ const decodingMap = {
   width: 50%;
   background-color: greenyellow;
 } */
-
-
-复制代码
 </code></pre></div>
 <ul>
 <li>使用绝对定位和CSS3新增的属性<code>transform</code>（这个属性还和GPU硬件加速、固定定位相关）</li>
@@ -5726,7 +5710,6 @@ const decodingMap = {
   transform:translate(-50%,0);
   background-color: greenyellow;
 }
-复制代码
 </code></pre></div>
 <ul>
 <li>使用绝对定位和<code>margin-left</code>（元素定宽）</li>
@@ -5749,7 +5732,6 @@ const decodingMap = {
   margin-left: -50px;
   background-color: greenyellow;
 }
-复制代码
 </code></pre></div>
 <h4 id="_40">垂直居中<a class="headerlink" href="#_40" title="Permanent link">&para;</a></h4>
 <ul>
@@ -5769,7 +5751,6 @@ const decodingMap = {
   content:&#39;&#39;;
   height:100%;
 }
-复制代码
 </code></pre></div>
 <h5 id="_41">居中元素高度不定<a class="headerlink" href="#_41" title="Permanent link">&para;</a></h5>
 <ul>
@@ -5784,7 +5765,6 @@ const decodingMap = {
     display: table-cell;
     vertical-align:middle;
 }
-复制代码
 </code></pre></div>
 <ul>
 <li>可用 Flex 2012版, 这是CSS布局未来的趋势。Flexbox是CSS3新增属性，设计初衷是为了解决像垂直居中这样的常见布局问题：</li>
@@ -5794,7 +5774,6 @@ const decodingMap = {
   display: flex;
   align-items: center;
 }
-复制代码
 </code></pre></div>
 <p>优点：内容块的宽高任意, 优雅的溢出. 可用于更复杂高级的布局技术中. 缺点：IE8/IE9不支持、需要浏览器厂商前缀、渲染上可能会有一些问题。</p>
 <ul>
@@ -5812,7 +5791,6 @@ const decodingMap = {
   transform: translate(0, -50%);
   background-color: greenyellow;
 }
-复制代码
 </code></pre></div>
 <p>缺点：IE8不支持, 属性需要追加浏览器厂商前缀，可能干扰其他 <code>transform</code> 效果，某些情形下会出现文本或元素边界渲染模糊的现象。</p>
 <h5 id="_42">居中元素高度固定<a class="headerlink" href="#_42" title="Permanent link">&para;</a></h5>
@@ -5833,7 +5811,6 @@ const decodingMap = {
   height: 50px;
   margin-top: -25px;
 }
-复制代码
 </code></pre></div>
 <ul>
 <li>设置父元素相对定位, 子元素如下css样式:</li>
@@ -5853,7 +5830,6 @@ const decodingMap = {
   height: 100px;
   background-color: greenyellow;
 }
-复制代码
 </code></pre></div>
 <h4 id="_43">水平垂直居中<a class="headerlink" href="#_43" title="Permanent link">&para;</a></h4>
 <ul>
@@ -5870,7 +5846,6 @@ const decodingMap = {
   margin: auto;
   background-color: greenyellow;
 }
-复制代码
 </code></pre></div>
 <ul>
 <li>Flex布局</li>
@@ -5887,7 +5862,6 @@ const decodingMap = {
 .box-center{
   background-color: greenyellow;
 }
-复制代码
 </code></pre></div>
 <ul>
 <li>绝对定位实现(定位元素定宽定高)</li>
@@ -5910,7 +5884,6 @@ const decodingMap = {
   height: 50px;
   background-color: greenyellow;
 }
-复制代码
 </code></pre></div>
 <h3 id="flex_1">用过Flex么，能简单介绍一下么<a class="headerlink" href="#flex_1" title="Permanent link">&para;</a></h3>
 <blockquote>
@@ -5971,7 +5944,6 @@ let obj = {
 console.log(myFun.myCall(obj, 11, 22))
 console.log(myFun.myApply(obj, [11, 22]))
 console.log(myFun.myBind(obj, 33)(11, 22))
-复制代码
 </code></pre></div>
 <h3 id="_44">伪类和伪元素的区别<a class="headerlink" href="#_44" title="Permanent link">&para;</a></h3>
 <blockquote>
@@ -6016,7 +5988,6 @@ console.log(myFun.myBind(obj, 33)(11, 22))
     }, wait)
   }
 }
-复制代码
 </code></pre></div>
 <h4 id="_50">带立即执行参数的消抖<a class="headerlink" href="#_50" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code>function debounceImmediate (fn, wait = 1000, immediate) {
@@ -6045,7 +6016,6 @@ console.log(myFun.myBind(obj, 33)(11, 22))
     }
   }
 }
-复制代码
 </code></pre></div>
 <h4 id="_51">节流<a class="headerlink" href="#_51" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code>function throttle (fn, wait) {
@@ -6060,7 +6030,6 @@ console.log(myFun.myBind(obj, 33)(11, 22))
     }
   }
 }
-复制代码
 </code></pre></div>
 <h3 id="vuecomputed">Vue中的computed实现原理<a class="headerlink" href="#vuecomputed" title="Permanent link">&para;</a></h3>
 <blockquote>
@@ -6099,7 +6068,6 @@ console.log(myFun.myBind(obj, 33)(11, 22))
     }
   }
 })
-复制代码
 </code></pre></div>
 <p>由于 <code>this.firstName</code> 和 <code>this.lastName</code> （上面是Vue官方示例）都是响应式变量，因此会触发它们的 getter，根据我们之前的分析，它们会把自身持有的 dep 添加到当前正在计算的 watcher 中，这个时候<code>Dep.target</code>就是这个 computed watcher，具体步骤如下：</p>
 <ul>
@@ -6124,7 +6092,6 @@ initInjections(vm) // resolve injections before data/props
 initState(vm)
 initProvide(vm) // resolve provide after data/props
 callHook(vm, &#39;created&#39;)
-复制代码
 </code></pre></div>
 <h3 id="_52">小结<a class="headerlink" href="#_52" title="Permanent link">&para;</a></h3>
 <p>51信用卡的这次面试其实面试官考察的点还是蛮深入的，问了一些Vue底层源码的实现，总体感觉自己回答的还可以，但是面试官说：你应该去阿里...</p>
@@ -6197,7 +6164,7 @@ callHook(vm, &#39;created&#39;)
   &lt;div class=&quot;box-left&quot;&gt;&lt;/div&gt;
   &lt;div class=&quot;box-right&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;
-复制代码
+
 .box {
   height: 200px;
   display: flex;
@@ -6217,7 +6184,6 @@ callHook(vm, &#39;created&#39;)
   overflow: hidden;
   background-color: red;
 }
-复制代码
 </code></pre></div>
 <h3 id="es6es7es8">ES6/ES7/ES8的特性<a class="headerlink" href="#es6es7es8" title="Permanent link">&para;</a></h3>
 <h3 id="dom_3">说说DOM事件流<a class="headerlink" href="#dom_3" title="Permanent link">&para;</a></h3>
@@ -6421,7 +6387,7 @@ callHook(vm, &#39;created&#39;)
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 29, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 27, 2024</span>
       
     
   </small>

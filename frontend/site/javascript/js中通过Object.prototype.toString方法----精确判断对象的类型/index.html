@@ -3895,25 +3895,23 @@
 <p>要想区别对象、数组、函数单纯使用 typeof 是不行的，JavaScript中,通过Object.prototype.toString方法，判断某个对象值属于哪种内置类型。</p>
 <p>在介绍Object.prototype.toString方法之前，我们先把toString()方法和Object.prototype.toString.call()方法进行对比。</p>
 <h3 id="tostringobjectprototypetostringcall">toString()方法和Object.prototype.toString.call()方法对比<a class="headerlink" href="#tostringobjectprototypetostringcall" title="Permanent link">&para;</a></h3>
-<p><a href="javascript:void(0);"><img alt="复制代码" src="https://common.cnblogs.com/images/copycode.gif" /></a></p>
-<div class="highlight"><pre><span></span><code>var arr=[1,2];
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">arr</span><span class="o">=</span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">];</span>
 
-//直接对一个数组调用toString()
-arr.toString();// &quot;1,2&quot;
+<span class="c1">//直接对一个数组调用toString()</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span><span class="c1">// &quot;1,2&quot;</span>
 
-//通过call指定arr数组为Object.prototype对象中的toString方法的上下文
-Object.prototype.toString.call(arr); //&quot;[object Array]&quot;
+<span class="c1">//通过call指定arr数组为Object.prototype对象中的toString方法的上下文</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arr</span><span class="p">);</span><span class="w"> </span><span class="c1">//&quot;[object Array]&quot;</span>
 </code></pre></div>
-<p><a href="javascript:void(0);"><img alt="复制代码" src="https://common.cnblogs.com/images/copycode.gif" /></a></p>
 <p>Object.prototype中的toString方法是确实被继承下来了，但是很多东西总不会一层不变，作为儿子的数组重写了toString方法，所以直接调用数组对象上面的toString方法调用到的实际是重写后的方法，并不是Object.prototype中的toString方法。</p>
 <p>应用场景：如果没有应用场景讲这个也没啥用了，那到底有啥用呢？</p>
 <p>Object.prototype对象上的toString方法可以用来判断数据类型</p>
-<div class="highlight"><pre><span></span><code>Object.prototype.toString.call(arr); //&quot;[object Array]&quot;  判断是否是数组
+<div class="highlight"><pre><span></span><code><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arr</span><span class="p">);</span><span class="w"> </span><span class="c1">//&quot;[object Array]&quot;  判断是否是数组</span>
 </code></pre></div>
 <p>而重写后的toString方法可以把对象转换成字符串，还可以把数值转换成不同进制的数</p>
-<div class="highlight"><pre><span></span><code>[1,2].toString();// &quot;1,2&quot;  得到字符串
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">].</span><span class="nx">toString</span><span class="p">();</span><span class="c1">// &quot;1,2&quot;  得到字符串</span>
 
-(10).toString(2);//10进制转2进制 1010 ，如果1.toString(2)会报错，因为js会认为.是数字的小数点而不是调用符号
+<span class="p">(</span><span class="mf">10</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span><span class="c1">//10进制转2进制 1010 ，如果1.toString(2)会报错，因为js会认为.是数字的小数点而不是调用符号</span>
 </code></pre></div>
 <h4 id="tostring">为什么toString会有不同的作用呢？<a class="headerlink" href="#tostring" title="Permanent link">&para;</a></h4>
 <p>其实，这里面就涉及到**js原型及原型链**的相关知识</p>
@@ -3929,15 +3927,14 @@ Array.prototype.toString.call(arr);
 <p>所以，当我们使用<code>arr.toString()</code>时，不能进行复杂数据类型的判断，因为它调用的是<code>Array.prototype.toString</code>，虽然<code>Array</code>也继承自<code>Object</code>，但js在<code>Array.prototype</code>上重写了<code>toString</code>，而我们通过<code>toString.call(arr)</code>实际上是通过原型链调用了<code>Object.prototype.toString</code>。</p>
 <h3 id="_1">精确判断对象的类型<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
 <p>JavaScript 中一切都是对象，任何都不例外，对所有值类型应用 Object.prototype.toString.call() 方法结果如下：</p>
-<p><a href="javascript:void(0);"><img alt="复制代码" src="https://common.cnblogs.com/images/copycode.gif" /></a></p>
-<div class="highlight"><pre><span></span><code>console.log(Object.prototype.toString.call(123));    //[object Number]
-console.log(Object.prototype.toString.call(&#39;123&#39;));    //[object String]
-console.log(Object.prototype.toString.call(undefined));    //[object Undefined]
-console.log(Object.prototype.toString.call(true));    //[object Boolean]
-console.log(Object.prototype.toString.call({}));    //[object Object]
-console.log(Object.prototype.toString.call([]));    //[object Array]
-console.log(Object.prototype.toString.call(function(){}));    //[object Function]
-console.log(Object.prototype.toString.call(null));    //[[object Null]]
+<div class="highlight"><pre><span></span><code><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="mf">123</span><span class="p">));</span><span class="w">    </span><span class="c1">//[object Number]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="s1">&#39;123&#39;</span><span class="p">));</span><span class="w">    </span><span class="c1">//[object String]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="kc">undefined</span><span class="p">));</span><span class="w">    </span><span class="c1">//[object Undefined]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="kc">true</span><span class="p">));</span><span class="w">    </span><span class="c1">//[object Boolean]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">({}));</span><span class="w">    </span><span class="c1">//[object Object]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">([]));</span><span class="w">    </span><span class="c1">//[object Array]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="kd">function</span><span class="p">(){}));</span><span class="w">    </span><span class="c1">//[object Function]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="kc">null</span><span class="p">));</span><span class="w">    </span><span class="c1">//[[object Null]]</span>
 </code></pre></div>
 
   <hr>
@@ -3945,7 +3942,7 @@ console.log(Object.prototype.toString.call(null));    //[[object Null]]
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 12, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 27, 2024</span>
       
     
   </small>
