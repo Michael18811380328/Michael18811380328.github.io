@@ -915,20 +915,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../new/frontend-note/" class="md-nav__link">
-        frontend-note
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../new/github%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
         github项目介绍
       </a>
@@ -945,20 +931,6 @@
     <li class="md-nav__item">
       <a href="../../new/log/" class="md-nav__link">
         log
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../new/think-note.md" class="md-nav__link">
-        think-note
       </a>
     </li>
   
@@ -1294,6 +1266,34 @@
         <li class="md-nav__item">
   <a href="#0416-less" class="md-nav__link">
     0416 less 怎么使用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0431" class="md-nav__link">
+    0431 浏览器如何获取当前地址信息
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0433" class="md-nav__link">
+    0433 常用的动画效果有哪些？
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0436" class="md-nav__link">
+    0436 如何设置夜间模式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0451-textarea" class="md-nav__link">
+    0451 textarea 的高度自动变化
   </a>
   
 </li>
@@ -2631,6 +2631,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#0431" class="md-nav__link">
+    0431 浏览器如何获取当前地址信息
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0433" class="md-nav__link">
+    0433 常用的动画效果有哪些？
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0436" class="md-nav__link">
+    0436 如何设置夜间模式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0451-textarea" class="md-nav__link">
+    0451 textarea 的高度自动变化
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3196,13 +3224,94 @@ flex-shrink: number 收缩量
 <p><a href="https://lesscss.cn/usage/" title="https://lesscss.cn/usage/">https://lesscss.cn/usage/</a></p>
 <p>小说阅读器项目中，使用了 less 语法，vscode 自动编译成 css 文件进行引入</p>
 <p>如果项目需要使用，可以在 loader 中配置 less-loader 进行编译输出</p>
+<h2 id="0431">0431 浏览器如何获取当前地址信息<a class="headerlink" href="#0431" title="Permanent link">&para;</a></h2>
+<p>BOM 中有一个地理位置的 API</p>
+<p>navigator.geolocation.getCurrentPosition(onSuccess, onError, options) 可以获取当前的位置</p>
+<p>参考 MDN：<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Geolocation" title="https://developer.mozilla.org/zh-CN/docs/Web/API/Geolocation">https://developer.mozilla.org/zh-CN/docs/Web/API/Geolocation</a></p>
+<p>也可以实时监听当前设备的位置，watchPosition() clearWatch() 对应的回调函数获取实时的位置</p>
+<p>原理：浏览器获取设备的 GPS 定位信息，或者获取网络供应商 ISP 的位置。因为获取地理位置需要一定时间，所以函数是异步执行的，在回调函数中获取位置。</p>
+<p>在《JavaScript权威指南》犀牛书 22章第一节中有详细使用介绍</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">enableHighAccuracy</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">timeout</span><span class="o">:</span><span class="w"> </span><span class="mf">5000</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">maximumAge</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="c1">// 返回当前的经度纬度，定位精度（有些设别还有海拔和速度）</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">success</span><span class="p">(</span><span class="nx">pos</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">crd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pos</span><span class="p">.</span><span class="nx">coords</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Your current position is:&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Latitude : &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">crd</span><span class="p">.</span><span class="nx">latitude</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Longitude: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">crd</span><span class="p">.</span><span class="nx">longitude</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;More or less &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">crd</span><span class="p">.</span><span class="nx">accuracy</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot; meters.&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;ERROR(&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">code</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;): &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">navigator</span><span class="p">.</span><span class="nx">geolocation</span><span class="p">.</span><span class="nx">getCurrentPosition</span><span class="p">(</span><span class="nx">success</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">);</span>
+</code></pre></div>
+<p>实际问题：</p>
+<p>无法获取位置：某些浏览器可能不支持，或者设置了不允许地理位置定位，那么需要改动浏览器配置信息才能获取到。通常手机上换几个浏览器，点击允许访问位置，可以获取到上面的信息。</p>
+<p>这个在特定的功能会使用，目前产品中用得不多。</p>
+<h2 id="0433">0433 常用的动画效果有哪些？<a class="headerlink" href="#0433" title="Permanent link">&para;</a></h2>
+<p>这里有动画效果：<a href="https://enjoycss.com/1npo" title="https://enjoycss.com/1npo">https://enjoycss.com/1npo</a></p>
+<h2 id="0436">0436 如何设置夜间模式<a class="headerlink" href="#0436" title="Permanent link">&para;</a></h2>
+<p>可以直接使用CSS媒体查询 perfers-color-scheme 判断当前用户是否将系统的主体色设置成暗色或者亮色。属性：light dart no-perference 偏好。</p>
+<div class="highlight"><pre><span></span><code><span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="o">(</span><span class="nt">perfers-color-scheme</span><span class="o">:</span><span class="w"> </span><span class="nt">light</span><span class="o">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">body</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="kc">white</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="o">(</span><span class="nt">perfers-color-scheme</span><span class="o">:</span><span class="w"> </span><span class="nt">dark</span><span class="o">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">body</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="kc">black</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="o">(</span><span class="nt">perfers-color-scheme</span><span class="o">:</span><span class="w"> </span><span class="nt">no-perference</span><span class="o">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">body</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="kc">white</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>也可以使用 JS 进行媒体查询，然后设置全局属性，通过类名更改样式</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">matchMedia</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">matchMedia</span><span class="p">(</span><span class="s1">&#39;(prefers-color-scheme: dark)&#39;</span><span class="p">)</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">mode</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">mode</span><span class="p">.</span><span class="nx">matches</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;dark&#39;</span><span class="p">);</span><span class="w"> </span>
+<span class="p">}</span><span class="w"> </span>
+<span class="c1">// 监听主题切换事件 </span>
+<span class="nx">mode</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">mode</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;change&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">matches</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;dark-bg&#39;</span><span class="p">);</span><span class="w"> </span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s1">&#39;dark-bg&#39;</span><span class="p">);</span><span class="w">  </span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span>
+<span class="p">});</span>
+</code></pre></div>
+<p>参考：</p>
+<p><a href="https://www.zhihu.com/question/437949548" title="https://www.zhihu.com/question/437949548">https://www.zhihu.com/question/437949548</a></p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/@media/prefers-color-scheme" title="https://developer.mozilla.org/zh-CN/docs/Web/CSS/@media/prefers-color-scheme">https://developer.mozilla.org/zh-CN/docs/Web/CSS/@media/prefers-color-scheme</a></p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/matchMedia" title="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/matchMedia">https://developer.mozilla.org/zh-CN/docs/Web/API/Window/matchMedia</a></p>
+<h2 id="0451-textarea">0451 textarea 的高度自动变化<a class="headerlink" href="#0451-textarea" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>默认加载时，设置高度是固定的（100px）然后溢出不显示</p>
+</li>
+<li>
+<p>点击编辑后，根据内容设置高度，然后设置溢出显示滚动条，这样方便编辑</p>
+</li>
+</ul>
+<p>缺陷：点击编辑后，外部整体的高度会被撑开，可能有其他的问题</p>
+<p>​</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 14, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 24, 2024</span>
       
     
   </small>

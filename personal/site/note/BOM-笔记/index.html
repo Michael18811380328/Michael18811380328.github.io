@@ -915,20 +915,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../new/frontend-note/" class="md-nav__link">
-        frontend-note
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../new/github%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
         github项目介绍
       </a>
@@ -945,20 +931,6 @@
     <li class="md-nav__item">
       <a href="../../new/log/" class="md-nav__link">
         log
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../new/think-note.md" class="md-nav__link">
-        think-note
       </a>
     </li>
   
@@ -1222,6 +1194,27 @@
         <li class="md-nav__item">
   <a href="#0428" class="md-nav__link">
     0428 微信兼容问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0438" class="md-nav__link">
+    0438 移动端点击事件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0452" class="md-nav__link">
+    0452 谷歌浏览器历史版本
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0453" class="md-nav__link">
+    0453 移动端的键盘输入问题和切换界面问题
   </a>
   
 </li>
@@ -2515,6 +2508,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#0438" class="md-nav__link">
+    0438 移动端点击事件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0452" class="md-nav__link">
+    0452 谷歌浏览器历史版本
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0453" class="md-nav__link">
+    0453 移动端的键盘输入问题和切换界面问题
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2958,13 +2972,47 @@
 <p>早期版本的调试步骤参考：https://www.yuque.com/wuchendi/fe/winwechat 具体需要下载一个 dev 的包，然后可以打开调试台</p>
 <p>最新的 windows 微信版本支持 ES6，所以不需要做兼容处理</p>
 <p>​</p>
+<h2 id="0438">0438 移动端点击事件<a class="headerlink" href="#0438" title="Permanent link">&para;</a></h2>
+<p>移动端点击事件</p>
+<p>1、click 会延迟 200-300ms 。默认移动端双击屏幕会放大缩小浏览器，所以 click 后会判断是否点击两次。默认的 dbClick 时间会去掉。</p>
+<p>2、移动端执行的是 touch 事件。touchstart, touchmove touchend 三个事件后，再触发 click 。如果已经监听 touch 事件，那么需要把默认的 click 事件去掉。时间对象 e 包括了很多点击的属性</p>
+<p>3、touch 对应的手势事件</p>
+<ul>
+<li>
+<p>点按 touchstart touchend 间隔很小</p>
+</li>
+<li>
+<p>长按 touchstart touchend 间隔很大，且没有 touchmove 事件</p>
+</li>
+<li>
+<p>单指上划（下划）左右滑 touchstart touchend 间隔很大，有 touchmove 事件，然后通过移动的位置，判断滑动的方向</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nx">endX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">firstTouch</span><span class="p">.</span><span class="nx">pageX</span><span class="p">;</span>
+<span class="nx">endY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">firstTouch</span><span class="p">.</span><span class="nx">pageY</span><span class="p">;</span>
+
+<span class="c1">// x方向移动大于y方向的移动，并且x方向的移动大于25个像素，表示在向左侧滑动</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">endX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">startX</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">endY</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">startY</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">startX</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">endX</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">25</span><span class="p">){</span>
+<span class="w">    </span><span class="nx">handler</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="nx">e</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><a href="https://www.jianshu.com/p/997b23232bb8" title="https://www.jianshu.com/p/997b23232bb8">https://www.jianshu.com/p/997b23232bb8</a></p>
+<p><a href="https://juejin.cn/post/6844903569141809166" title="https://juejin.cn/post/6844903569141809166">https://juejin.cn/post/6844903569141809166</a></p>
+<p><a href="https://juejin.cn/post/6844903506311118856" title="https://juejin.cn/post/6844903506311118856">https://juejin.cn/post/6844903506311118856</a></p>
+<h2 id="0452">0452 谷歌浏览器历史版本<a class="headerlink" href="#0452" title="Permanent link">&para;</a></h2>
+<p>这里是全部的谷歌浏览器版本，用于排查某一个版本的问题</p>
+<p>2011-2020 主要版本：https://sourceforge.net/projects/osxportableapps/files/Chromium/</p>
+<p>https://www.applex.net/downloads/google-chrome-for-mac.25/history</p>
+<p>http://www.chromium.org/getting-involved/dev-channel</p>
+<h2 id="0453">0453 移动端的键盘输入问题和切换界面问题<a class="headerlink" href="#0453" title="Permanent link">&para;</a></h2>
+<p>移动端的键盘输入问题和切换界面问题；如果是一个界面内部的，不需要考虑；如果是新开的一个页面，需要考虑这个问题；目前的解决办法是，主动让 input 失去焦点，输入法自动关闭，再打开下一单页面（实际问题：移动端中，用户编辑过滤器时，先输入文本或者数字，移动端键盘打开，然后更改列，键盘没有及时关闭，样式错误）</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 14, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 24, 2024</span>
       
     
   </small>

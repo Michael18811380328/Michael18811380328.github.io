@@ -915,20 +915,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../new/frontend-note/" class="md-nav__link">
-        frontend-note
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../new/github%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
         github项目介绍
       </a>
@@ -945,20 +931,6 @@
     <li class="md-nav__item">
       <a href="../../new/log/" class="md-nav__link">
         log
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../new/think-note.md" class="md-nav__link">
-        think-note
       </a>
     </li>
   
@@ -2466,9 +2438,12 @@
 <h1 id="nodejs">nodejs笔记<a class="headerlink" href="#nodejs" title="Permanent link">&para;</a></h1>
 <p>原始表格链接：<a href="https://cloud.seatable.cn/dtable/external-links/8fef1366ff844618a82f/">https://cloud.seatable.cn/dtable/external-links/8fef1366ff844618a82f/</a></p>
 <h2 id="0025-node">0025 浏览器和node中的事件循环<a class="headerlink" href="#0025-node" title="Permanent link">&para;</a></h2>
-<p>浏览器主要的同步和异步操作是 set time out 和 set interval</p>
-<p>主线程执行完后会执行任务队列当中的 set time out和 set interval</p>
+<p>浏览器主要的同步和异步操作是 setTimeout 和 setInterval</p>
+<p>主线程执行完后会执行任务队列当中的 setTimeout 和 setInterval</p>
 <p>node 当中是 event loop 主要分为宏任务和微任务，执行完一个宏任务，就会执行相应的微任务</p>
+<p>具体宏任务微任务的区别：<a href="https://juejin.cn/post/7281192416077021236" title="https://juejin.cn/post/7281192416077021236">https://juejin.cn/post/7281192416077021236</a></p>
+<p>执行顺序： 同步任务 ---&gt; 微任务 ---&gt; 宏任务</p>
+<p>​</p>
 <h2 id="0094-vue">0094 vue 事件代理和元素绑定事件<a class="headerlink" href="#0094-vue" title="Permanent link">&para;</a></h2>
 <p>类似React的原生事件和合成事件</p>
 <h2 id="0192-express-appuse-appall">0192 Express 中 app.use 和 app.all 区别<a class="headerlink" href="#0192-express-appuse-appall" title="Permanent link">&para;</a></h2>
@@ -2485,7 +2460,7 @@
 <p>就是 GET post delete put 都会走这个路由，请求路径pathname必须和 /xxx 完全匹配</p>
 <h2 id="0193-express">0193 Express 中间件是什么？原理是什么<a class="headerlink" href="#0193-express" title="Permanent link">&para;</a></h2>
 <h3 id="_1">中间件定义<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
-<p>中间件的本质就是一个函数，在收到请求和返回相应的过程中做一些我们想做的事情。</p>
+<p>中间件的本质就是一个函数，在收到请求和返回响应的过程中，做一些我们想做的事情。</p>
 <h3 id="_2">中间件作用<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>执行任何代码。</p>
 <p>修改请求和响应对象。</p>
@@ -2496,19 +2471,19 @@
 <p>当请求发送到服务器 request，服务器取出中间件，并创建一个运行环境，使用中间件处理请求（例如验证 token）。</p>
 <p>然后把这个请求返回 next() 执行堆栈中下一个中间件——逐步迭代过程。</p>
 <p>伪代码如下</p>
-<div class="highlight"><pre><span></span><code>// 这个中间件带路径，表示满足 &#39;*&#39; 才能访问
-app.use(&#39;*&#39;, (request, response, next) =&gt; {
-    if （request.token）{
-        let result = checkJWT(request.token);
-        if (result) {
-            return next();
-        }
-    }
-    return res.status(401).send(&#39;Token is invalid&#39;);
-})
+<div class="highlight"><pre><span></span><code><span class="c1">// 这个中间件带路径，表示满足 &#39;*&#39; 才能访问</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">request</span><span class="p">,</span><span class="w"> </span><span class="nx">response</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="err">（</span><span class="nx">request</span><span class="p">.</span><span class="nx">token</span><span class="err">）</span><span class="p">{</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">checkJWT</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">token</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">next</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">res</span><span class="p">.</span><span class="nx">status</span><span class="p">(</span><span class="mf">401</span><span class="p">).</span><span class="nx">send</span><span class="p">(</span><span class="s1">&#39;Token is invalid&#39;</span><span class="p">);</span>
+<span class="p">})</span>
 </code></pre></div>
 <p>因此，中间件的执行顺序很重要。</p>
-<p><a href="https://juejin.cn/post/6844903573663416334">https://juejin.cn/post/6844903573663416334</a> </p>
+<p><a href="https://juejin.cn/post/6844903573663416334">https://juejin.cn/post/6844903573663416334</a></p>
 <h2 id="0195-express">0195 Express 常用中间件有哪些？<a class="headerlink" href="#0195-express" title="Permanent link">&para;</a></h2>
 <ul>
 <li>body-parser 第三方中间件，用于解析post数据</li>
@@ -2546,28 +2521,52 @@ app.use(&#39;*&#39;, (request, response, next) =&gt; {
 <div class="highlight"><pre><span></span><code>./src
 ├── _bin
 │   └── www 启动脚本（初始化 express 服务器，创建 web-socket 服务，文件自动保存服务，监听事件并写入日志）
+
+
 ├── api
 │   └── sea-server-api 请求后端的API，获取 token，获取上传下载链接，上传下载文件
+
+
 ├── app 全局 express 实例入口文件，处理POST请求格式，跨域，登录验证，路由，错误返回
+
+
 ├── dao 数据库操作
 │   └── operation-log 将操作日志写入数据库，获取当前 doc 悬挂的 operations
+
+
 ├── db-helper 数据库工具函数（数据库配置，创建连接池，执行查询，断开连接）
+
+
 ├── loggers
 │   └── index 日志打印工具函数（设置日志路径，日志级别）
+
+
 ├── middleware 中间件
 │   ├── auth 登录验证 jwtToken
 │   ├── cors 跨域
+
+
 ├── config 配置文件（数据库配置，服务器地址，端口号等）
+
+
 ├── constants 常量：服务器的基本 API 配置，最大缓存的操作数量
+
+
 ├── utils
 │   ├── index 工具函数（文件目录操作，时间转换，解析 URL）
 │   └── slate-utils 批量执行操作并更新最后修改人
+
+
 ├── route 服务端路由组件（文件内容和协作人的路由）
+
+
 用户管理
 ├── controllers ——不同路由执行的操作（具体操作在 managers 中实现）核心逻辑
 │   └── user-controller 客户端请求用户，返回当前 doc 中的协作人
 ├── managers
 │   └── users-manager 用户管理组件
+
+
 文件管理（核心）
 ├── controllers ——不同路由执行的操作（具体操作在 managers 中实现）核心逻辑
 │   ├── document-controller GET 和 POST 分别对应文档获取和保存
@@ -2575,15 +2574,20 @@ app.use(&#39;*&#39;, (request, response, next) =&gt; {
 │   ├── document-manager（文档对象管理器，全部文档的保存，更新，获取，新建）
 ├── models
 │   └── document 一个文档对象（包括自身属性和基本操作）
+
+
 操作管理（核心）
 ├── managers
 │   ├── operations-manager 操作管理（操作管理器对象存储1000条近期记录，其他的操作写入数据库，然后支持获取服务器和客户端的差距的操作-丢失获取）
+
+
 web-socket 服务（核心）
 └── wss
     ├── auth ws-jwt 登录认证
     ├── index web-socket 服务器主程序（用户进入房间，用户离开房间，更新文档，同步文档，断开连接，服务器错误处理等）
     └── io-helper ws-工具函数（离开进入房间，广播错误信息等）
 </code></pre></div>
+<p>​</p>
 <h2 id="0203-nodejs-bash">0203 nodejs 中输入 bash 命令<a class="headerlink" href="#0203-nodejs-bash" title="Permanent link">&para;</a></h2>
 <p>需求：写一个nodejs 脚本，然后批量操作文件或者查询文件信息（使用bash命令）</p>
 <p>使用内置的 child_process 可以执行 bash 命令</p>
@@ -2632,14 +2636,14 @@ web-socket 服务（核心）
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">111</span><span class="p">)</span><span class="w"> </span><span class="c1">// 111</span>
 </code></pre></div>
 <p>参考：<a href="https://juejin.cn/post/7002106372200333319">https://juejin.cn/post/7002106372200333319</a></p>
-<p>相关知识还有：事件循环，线程池等，这部分目前了解概念。</p>
+<p>相关知识还有：事件循环，线程池等</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 14, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 24, 2024</span>
       
     
   </small>
