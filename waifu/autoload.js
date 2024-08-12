@@ -34,9 +34,9 @@ function loadExternalResource(url, type) {
 // In desktop, load resource and init live_2d (看板娘)
 if (screen.width >= 768) {
 	Promise.all([
-		loadExternalResource(LIVE_2D_PATH + "waifu.min.css", "css"),
+		loadExternalResource(LIVE_2D_PATH + "waifu.css", "css"),
 		loadExternalResource(LIVE_2D_PATH + "live2d.min.js", "js"),
-		loadExternalResource(LIVE_2D_PATH + "waifu-tips.min.js", "js")
+		loadExternalResource(LIVE_2D_PATH + "waifu-tips.js", "js")
 	]).then(() => {
 		// note: in recent waifu-tips, initWidget parameters is changed to 
 		// initWidget(config, apiPath)
