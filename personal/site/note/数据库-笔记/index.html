@@ -1307,6 +1307,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#0687-elastic-search" class="md-nav__link">
+    0687 elastic search 的基本原理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0296-mysql" class="md-nav__link">
     0296 MYSQL 高并发性能问题
   </a>
@@ -2068,6 +2075,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#0687-elastic-search" class="md-nav__link">
+    0687 elastic search 的基本原理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0296-mysql" class="md-nav__link">
     0296 MYSQL 高并发性能问题
   </a>
@@ -2132,6 +2146,47 @@
 <p>如果是一对多的关系（例如用户表和评论表），那么用户表的 id 就是主键，在评论表中建立 user_id 作为外键。</p>
 <p>如果是多对多的关系（例如用户表和图书表），那么需要新建一个中间表，user_book 存放外键。用户表中 id 是主键，图书表中 id 也是主键，user_book 表中，新建 book_id 和 user_id 作为外键，进行关联和约束。</p>
 <p>主键是唯一的，确保了数据增删改的联动性。</p>
+<h2 id="0687-elastic-search">0687 elastic search 的基本原理<a class="headerlink" href="#0687-elastic-search" title="Permanent link">&para;</a></h2>
+<p>参考：<a href="https://www.ruanyifeng.com/blog/2017/08/elasticsearch.html" title="https://www.ruanyifeng.com/blog/2017/08/elasticsearch.html">https://www.ruanyifeng.com/blog/2017/08/elasticsearch.html</a> 2017年的博客</p>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html" title="https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html</a></p>
+<p><a href="https://www.elastic.co/cn/blog/a-practical-introduction-to-elasticsearch" title="https://www.elastic.co/cn/blog/a-practical-introduction-to-elasticsearch">https://www.elastic.co/cn/blog/a-practical-introduction-to-elasticsearch</a></p>
+<p>个人理解：</p>
+<p>安装和环境：elastic 搜索时一个单独的服务，需要运行在 Java 环境中；默认端口是 9200.</p>
+<p>搜索原理：类似数据库增加索引，elastic 对于文本内容也增加了索引（具体的中文分词、英文分词、构建字典树等细节不考虑）。增加索引后，对全文搜索性能更好。</p>
+<p>关键词：节点 Node，集群 cluster，索引 Index，文档 Document。每一个 elastic 是一个节点，多个节点构成分布式集群。每一个索引，包括多个文档。</p>
+<p>搜索步骤：</p>
+<p>通过 API 建立删除索引</p>
+<div class="highlight"><pre><span></span><code>PUT localhost:9200/novel
+DELETE localhost:9200/novel
+</code></pre></div>
+<p>设置中文分词（创建索引时，增加配置）"analyzer": "ik_max_word" 表示分词器</p>
+<div class="highlight"><pre><span></span><code>curl -X PUT &#39;localhost:9200/accounts&#39; -d &#39;
+
+{
+  &quot;mappings&quot;: {
+    &quot;person&quot;: {
+      &quot;properties&quot;: {
+        &quot;user&quot;: {
+          &quot;type&quot;: &quot;text&quot;,
+          &quot;analyzer&quot;: &quot;ik_max_word&quot;,
+          &quot;search_analyzer&quot;: &quot;ik_max_word&quot;
+        },
+        &quot;title&quot;: {
+          &quot;type&quot;: &quot;text&quot;,
+          &quot;analyzer&quot;: &quot;ik_max_word&quot;,
+          &quot;search_analyzer&quot;: &quot;ik_max_word&quot;
+        },
+        &quot;desc&quot;: {
+          &quot;type&quot;: &quot;text&quot;,
+          &quot;analyzer&quot;: &quot;ik_max_word&quot;,
+          &quot;search_analyzer&quot;: &quot;ik_max_word&quot;
+        }
+      }
+    }
+  }
+}&#39;
+</code></pre></div>
+<p>​</p>
 <h2 id="0296-mysql">0296 MYSQL 高并发性能问题<a class="headerlink" href="#0296-mysql" title="Permanent link">&para;</a></h2>
 <p>Mysql 高并发性能问题，后端需要考虑的，前端了解即可。</p>
 <p>问题：mysql 分布式还不完善，所以存在高并发的问题。如果并行请求很多，mysql 锁无法合理分配资源，产生延时。</p>
@@ -2177,7 +2232,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 27, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 10, 2024</span>
       
     
   </small>

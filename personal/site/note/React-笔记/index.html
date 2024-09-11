@@ -1557,6 +1557,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#0688-usestate" class="md-nav__link">
+    0688 useState 的原理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0689-useeffect-uselayouteffect" class="md-nav__link">
+    0689 useEffect 和 useLayoutEffect 的区别
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0662-useimperativehandle" class="md-nav__link">
     0662 useImperativeHandle 有什么作用
   </a>
@@ -2743,6 +2757,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#0688-usestate" class="md-nav__link">
+    0688 useState 的原理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#0689-useeffect-uselayouteffect" class="md-nav__link">
+    0689 useEffect 和 useLayoutEffect 的区别
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0662-useimperativehandle" class="md-nav__link">
     0662 useImperativeHandle 有什么作用
   </a>
@@ -3322,6 +3350,31 @@ props state 更新时渲染组件
 <p>setState 在react 合成事件 (onClick) 和JS代码中是异步的；在原生JS事件（addeventListener）和定时器中是同步的、第一个参数可以是对象，或者是一个函数（返回新的state对象）。</p>
 <p>componentDidUpdate 阶段，React 组件重新渲染，但是真实 DOM 的 redraw 还没有完成，所以更改 top 不会产生动画。设置CSS无效。解决：setTimeout 后，DOM 主线程的 redraw 已经执行完，真实 DOM 已经渲染到界面上，更改 top 值，render tree 重新生成，动画效果可以显示（其他CSS样式类似）。行排序动画遇到这个坑（在 componentDidUpdate 阶段设置 top ，动画无效）参考：<a href="https://blog.csdn.net/huangpin815/article/details/80023480">https://blog.csdn.net/huangpin815/article/details/80023480</a></p>
 <p>react 中强制更新组件，this.forceUpdate() 尽量避免使用，最好使用 state 或者 props 数据驱动更新，这样符合 react 的设计思路</p>
+<h2 id="0688-usestate">0688 useState 的原理<a class="headerlink" href="#0688-usestate" title="Permanent link">&para;</a></h2>
+<p>实际上就是类组件 this.setState 状态更新的语法糖</p>
+<p>内部底层的逻辑：<a href="https://juejin.cn/post/7076456859611168776" title="https://juejin.cn/post/7076456859611168776">https://juejin.cn/post/7076456859611168776</a></p>
+<h2 id="0689-useeffect-uselayouteffect">0689 useEffect 和 useLayoutEffect 的区别<a class="headerlink" href="#0689-useeffect-uselayouteffect" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p><code>useEffect</code> 是异步非阻塞，<code>useLayoutEffect</code> 是同步阻塞。</p>
+</li>
+<li>
+<p><code>useEffect</code> 是在浏览器绘制之后执行，<code>useLayoutEffect</code> 是在 DOM 变更之后，浏览器绘制前执行</p>
+</li>
+<li>
+<p><code>useLayoutEffect</code>和<code>componentDidMount</code>是等价的，会同步调用，阻塞渲染</p>
+</li>
+<li>
+<p>会影响到渲染的操作尽量放到 <code>useLayoutEffect</code>中去，避免出现闪烁问题</p>
+</li>
+<li>
+<p>优先使用 <code>useEffect</code>，因为它是异步执行的，不会阻塞渲染</p>
+</li>
+<li>
+<p><code>useLayoutEffect</code> 会阻塞 DOM 的渲染，避免过度使用</p>
+</li>
+</ul>
+<p>参考：<a href="https://juejin.cn/post/7240600121208504375" title="https://juejin.cn/post/7240600121208504375">https://juejin.cn/post/7240600121208504375</a></p>
 <h2 id="0662-useimperativehandle">0662 useImperativeHandle 有什么作用<a class="headerlink" href="#0662-useimperativehandle" title="Permanent link">&para;</a></h2>
 <p>useImperativeHandle，结合 forwardRef，实现父组件调用子组件 dom 上某些属性和方法</p>
 <p>forwardRef 可用于函数式组件，父组件访问子组件内部的 dom</p>
@@ -3399,7 +3452,7 @@ props state 更新时渲染组件
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 27, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 10, 2024</span>
       
     
   </small>
