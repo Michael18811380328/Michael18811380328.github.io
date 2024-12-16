@@ -37,6 +37,6 @@ function runScript(cmd, file_name = '') {
 }
 
 // this is graph path
-const initDir = '/Users/seafile/PersonalRepo/ImagesMichael/dot';
+const initDir = '/PersonalRepo/ImagesMichael/dot';
 // todo check init dir is valid
 generateGraph(initDir);
