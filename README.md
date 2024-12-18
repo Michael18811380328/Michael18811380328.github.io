@@ -32,7 +32,7 @@
     ├── images 需要改动
     ├── leetcode 需要改动
     ├── personal
-    ├── python 需要改动
+    ├── python
     ├── react
     └── vue 需要改动
 ~~~

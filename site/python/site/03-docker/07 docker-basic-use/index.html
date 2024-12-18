@@ -1,0 +1,2228 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/03-docker/07%20docker-basic-use/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.7">
+    
+    
+      
+        <title>07 docker-basic-use - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.20d9efc8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ff6e42">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="deep-orange" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#docker" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              07 docker-basic-use
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        index
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          00-introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="00-introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          00-introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-introduction/log/" class="md-nav__link">
+        log
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-introduction/structure/" class="md-nav__link">
+        structure
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          01-basic
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="01-basic" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          01-basic
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/01-%E6%90%AD%E5%BB%BApython3%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="md-nav__link">
+        01-搭建python3开发环境
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/02-linux%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        02-linux基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/03-python%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        03-python基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/12-Python3%20%E5%BA%8F%E5%88%97%E8%A7%A3%E5%8C%85/" class="md-nav__link">
+        12-Python3 序列解包
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/22-%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A0/" class="md-nav__link">
+        22-基础练习
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/50-python3-subporcess%20%E5%AD%90%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        50-python3-subporcess 子进程管理模块
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/Python3%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        Python3 多线程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/curl/" class="md-nav__link">
+        curl
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/linux-basic/" class="md-nav__link">
+        linux-basic
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          02-database
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="02-database" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          02-database
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-database/00-readme/" class="md-nav__link">
+        00-readme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-database/Mac%20pip%20install%20mysql-python%20unsuccessful/" class="md-nav__link">
+        Mac pip install mysql-python unsuccessful
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-database/Mac%E5%AE%89%E8%A3%85MySQLdb%EF%BC%88python-mysql%EF%BC%89%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        Mac安装MySQLdb（python-mysql）模块
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-database/Python%E6%93%8D%E4%BD%9C%20MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        Python操作 MySQL数据库
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-database/SQLite-API-Python/" class="md-nav__link">
+        SQLite-API-Python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-database/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        数据库概念
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-database/%E6%B7%B1%E5%85%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        深入MySQL数据库
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-database/%E9%98%BF%E9%87%8C%E4%BA%91MySQL%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        阿里云MySQL入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          03-docker
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="03-docker" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          03-docker
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01%20Docker%20%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        01 Docker 入门教程-阮一峰
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02%20Docker%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%95%99%E7%A8%8B-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        02 Docker 微服务教程-阮一峰
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03%20Docker%20%E5%8D%A0%E7%94%A8%E5%86%85%E5%AD%98%E5%A4%AA%E5%A4%A7%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        03 Docker 占用内存太大的解决方法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04%20Docker%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        04 Docker笔记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05%20docker%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        05 docker入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06%20Docker-download/" class="md-nav__link">
+        06 Docker-download
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          07 docker-basic-use
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        07 docker-basic-use
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 基本操作
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 配置
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08%20docker-basic-RYF/" class="md-nav__link">
+        08 docker-basic-RYF
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09%20Nginx%20%E5%AE%B9%E5%99%A8%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        09 Nginx 容器教程
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          04-django
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="04-django" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          04-django
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-django/01-Django%20%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        01-Django 框架介绍
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          05-flask/Flask_todo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="05-flask/Flask_todo" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          05-flask/Flask_todo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/01-Flask%20%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        01-Flask 概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/02-Flask%20%E7%8E%AF%E5%A2%83/" class="md-nav__link">
+        02-Flask 环境
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/03-Flask%20%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        03-Flask 应用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/04-Flask%20%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        04-Flask 路由
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/05-Flask%20%E5%8F%98%E9%87%8F%E8%A7%84%E5%88%99/" class="md-nav__link">
+        05-Flask 变量规则
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/06-Flask%20URL%E6%9E%84%E5%BB%BA/" class="md-nav__link">
+        06-Flask URL构建
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/07-Flask%20HTTP%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        07-Flask HTTP方法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/08-Flask%20%E6%A8%A1%E6%9D%BF/" class="md-nav__link">
+        08-Flask 模板
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/09-Flask%20%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        09-Flask 静态文件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/10-Flask%20Request%E5%AF%B9%E8%B1%A1/" class="md-nav__link">
+        10-Flask Request对象
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/11-Flask%20%E5%B0%86%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E5%8F%91%E9%80%81%E5%88%B0%E6%A8%A1%E6%9D%BF/" class="md-nav__link">
+        11-Flask 将表单数据发送到模板
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/12-Flask%20Cookies/" class="md-nav__link">
+        12-Flask Cookies
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/13-Flask%20%E4%BC%9A%E8%AF%9D/" class="md-nav__link">
+        13-Flask 会话
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/14-Flask%20%E9%87%8D%E5%AE%9A%E5%90%91%E5%92%8C%E9%94%99%E8%AF%AF/" class="md-nav__link">
+        14-Flask 重定向和错误
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/15-Flask%20%E6%B6%88%E6%81%AF%E9%97%AA%E7%8E%B0/" class="md-nav__link">
+        15-Flask 消息闪现
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/16-Flask%20%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" class="md-nav__link">
+        16-Flask 文件上传
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/17-Flask%20%E6%89%A9%E5%B1%95/" class="md-nav__link">
+        17-Flask 扩展
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/18-Flask%20%E9%82%AE%E4%BB%B6/" class="md-nav__link">
+        18-Flask 邮件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/19-Flask%20WTF/" class="md-nav__link">
+        19-Flask WTF
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/20-Flask%20SQLite/" class="md-nav__link">
+        20-Flask SQLite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/21-Flask%20SQLAlchemy/" class="md-nav__link">
+        21-Flask SQLAlchemy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/22-Flask%20Sijax/" class="md-nav__link">
+        22-Flask Sijax
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/23-Flask%20%E9%83%A8%E7%BD%B2/" class="md-nav__link">
+        23-Flask 部署
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/24-Flask%20FastCGI/" class="md-nav__link">
+        24-Flask FastCGI
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          05-flask/Flask_todo_2
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="05-flask/Flask_todo_2" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          05-flask/Flask_todo_2
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo_2/Flask1%E2%80%93Hello%20World/" class="md-nav__link">
+        Flask1–Hello World
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo_2/Flask2%E2%80%93%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        Flask2–路由
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo_2/Flask3-%E6%A8%A1%E6%9D%BF/" class="md-nav__link">
+        Flask3-模板
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo_2/Flask4-%E8%AF%B7%E6%B1%82%EF%BC%8C%E5%93%8D%E5%BA%94%E5%8F%8A%E4%BC%9A%E8%AF%9D/" class="md-nav__link">
+        Flask4-请求，响应及会话
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo_2/Flask5%E2%80%93%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E5%8F%8A%E6%B6%88%E6%81%AF%E9%97%AA%E7%8E%B0/" class="md-nav__link">
+        Flask5–错误处理及消息闪现
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo_2/Flask6-%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9B%86%E6%88%90/" class="md-nav__link">
+        Flask6-数据库集成
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          05-flask/netease/08-db-demo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="05-flask/netease/08-db-demo" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          05-flask/netease/08-db-demo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/netease/readme/" class="md-nav__link">
+        readme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/no-flask-basic/" class="md-nav__link">
+        no-flask-basic
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/no-flask%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        no-flask网易云课堂笔记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/readme-zh/" class="md-nav__link">
+        readme-zh
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10">
+          06-third-part-lib
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="06-third-part-lib" data-md-level="1">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          06-third-part-lib
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/001-Beautiful-Soup/" class="md-nav__link">
+        001-Beautiful-Soup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/002-Requests/" class="md-nav__link">
+        002-Requests
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/003-pandas/" class="md-nav__link">
+        003-pandas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/004-matplotlib/" class="md-nav__link">
+        004-matplotlib
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/005-numpy/" class="md-nav__link">
+        005-numpy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/006-seaborn/" class="md-nav__link">
+        006-seaborn
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/007-autopep8/" class="md-nav__link">
+        007-autopep8
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/008-virtualenv/" class="md-nav__link">
+        008-virtualenv
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/009-Black/" class="md-nav__link">
+        009-Black
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/01-Detect%20mobile%20devices%20with%20Django%20and%20Python%203/" class="md-nav__link">
+        01-Detect mobile devices with Django and Python 3
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/010-pypinyin/" class="md-nav__link">
+        010-pypinyin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/011-Jinja2/" class="md-nav__link">
+        011-Jinja2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/012-UnicodeDecodeError%20utf8%20codec%20cant%20decode%20invalid%20start%20byte/" class="md-nav__link">
+        012-UnicodeDecodeError utf8 codec cant decode invalid start byte
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/100-Python%E6%9C%89%E5%93%AA%E4%BA%9B%E7%BB%8F%E5%85%B8%E7%9A%84%E5%B8%B8%E7%94%A8%E5%BA%93/" class="md-nav__link">
+        100-Python有哪些经典的常用库
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/30-%E5%A6%82%E4%BD%95%E4%BC%98%E9%9B%85%E7%9A%84%E7%BB%B4%E6%8A%A4%20Python%20%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
+        30-如何优雅的维护 Python 项目
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/31-Python%20%E7%9A%84%E4%B8%BB%E8%A6%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" class="md-nav__link">
+        31-Python 的主要应用场景
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/32-python-socket/" class="md-nav__link">
+        32-python-socket
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/33-Python%E7%9B%AE%E5%89%8D%E5%BB%BA%E8%AE%AE%E6%9C%80%E5%A5%BD%E5%AE%89%E8%A3%85%E4%BB%80%E4%B9%88%E7%89%88%E6%9C%AC/" class="md-nav__link">
+        33-Python目前建议最好安装什么版本
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/Chrome%E6%8A%93%E5%8C%85%E5%88%86%E6%9E%90/" class="md-nav__link">
+        Chrome抓包分析
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/Could%20not%20find%20a%20version%20that%20satisfies%20the%20requirement%20requirements/" class="md-nav__link">
+        Could not find a version that satisfies the requirement requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/K-means%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        K-means聚类算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/Python%20SimpleHTTPServer/" class="md-nav__link">
+        Python SimpleHTTPServer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/Python-%E7%88%AC%E8%99%AB/" class="md-nav__link">
+        Python-爬虫
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/Python3%20%E6%A0%87%E5%87%86%E5%BA%93%E6%A6%82%E8%A7%88/" class="md-nav__link">
+        Python3 标准库概览
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/Python3%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E5%AE%9E%E6%88%98%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        Python3网络爬虫快速入门实战解析
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/Simple%20Minecraft-inspired%20program%20using%20Python%20and%20Pyglet/" class="md-nav__link">
+        Simple Minecraft-inspired program using Python and Pyglet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/mkdocs/" class="md-nav__link">
+        mkdocs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/no-%E4%BD%BF%E7%94%A8%20Mkdocs%20%E5%9C%A8%20Github%20%E4%B8%8A%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2%E6%96%87%E7%AB%A0/" class="md-nav__link">
+        no-使用 Mkdocs 在 Github 上快速部署文章
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/pip%20%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        pip 安装与使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/unittest%E5%85%A5%E9%97%A8%E7%94%A8%E6%B3%95/" class="md-nav__link">
+        unittest入门用法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/wechat-robot-demo-02/" class="md-nav__link">
+        wechat-robot-demo-02
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/wechat-robot-demo01/" class="md-nav__link">
+        wechat-robot-demo01
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/%E5%B8%B8%E7%94%A8%E7%9A%84python%E5%BA%93/" class="md-nav__link">
+        常用的python库
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/%E6%A1%88%E4%BE%8B-Python%E5%8F%AF%E8%A7%86%E5%8C%96%E4%BA%A4%E9%80%9A%E6%8B%A5%E5%A0%B5%E6%83%85%E5%86%B5/" class="md-nav__link">
+        案例-Python可视化交通拥堵情况
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/%E7%88%AC%E8%99%AB%E6%8A%80%E6%9C%AF%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        爬虫技术介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        网络爬虫简介
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 基本操作
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 配置
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/03-docker/07 docker-basic-use.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="docker">docker 常见操作补充<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h1>
+<p>ctime: 2021-08-30</p>
+<p>mtime: 2024-03-25</p>
+<p>参考官方文档</p>
+<p><a href="https://docs.docker.com/docker-for-mac/install/">https://docs.docker.com/docker-for-mac/install/</a></p>
+<h4 id="1">1. 基本操作<a class="headerlink" href="#1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># 检查当前 docker 版本</span>
+docker<span class="w"> </span>--version<span class="w"> </span><span class="c1"># Docker version 18.09, build c97c6d6</span>
+
+docker-compose
+<span class="c1"># 可以使用 YML 文件来配置应用程序需要的所有服务</span>
+
+docker-compose<span class="w"> </span>up
+<span class="c1"># 可以从 YML 文件配置中创建并启动所有服务</span>
+
+docker-machine
+<span class="c1"># 可以创建查看虚拟机（详见 https://www.runoob.com/docker/docker-machine.html）当前没有用到</span>
+</code></pre></div>
+<p>运行一个镜像（如果没有就会联网安装，到官方去 pull）</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>hello-world
+</code></pre></div>
+<p>使用 docker 搭建一个网络服务器 nginx</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--detach<span class="w"> </span>--publish<span class="o">=</span><span class="m">80</span>:80<span class="w"> </span>--name<span class="o">=</span>webserver<span class="w"> </span>nginx
+</code></pre></div>
+<p>现在打开浏览器访问 localhost 即可看到 nginx 的界面</p>
+<p>当容器已经运行，可以查看容器的属性</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>ps
+
+<span class="c1"># 等价于</span>
+docker<span class="w"> </span>container<span class="w"> </span>ls
+</code></pre></div>
+<p>停止容器，然后删除已有容器，再删除已有镜像（日常开发不需要删除容器和镜像，这里通常是镜像发生更新时，需要备份数据，更新镜像）。</p>
+<p>镜像和容器，对应面向对象中的类和实例。</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>container<span class="w"> </span>stop<span class="w"> </span>webserver
+
+docker<span class="w"> </span>container<span class="w"> </span>rm<span class="w"> </span>webserver
+
+docker<span class="w"> </span>image<span class="w"> </span>rm<span class="w"> </span>nginx
+</code></pre></div>
+<p>因为 docker 镜像会定期更新，所以本地开发需要根据镜像发布，然后定期更新镜像操作</p>
+<p><div class="highlight"><pre><span></span><code><span class="c1"># 查看当前的镜像的ID</span>
+docker<span class="w"> </span>ps<span class="w"> </span>-aq
+<span class="c1"># 30b8a8b128f4</span>
+<span class="c1"># ec328f5a228d</span>
+
+<span class="c1"># 列出当前的镜像(详情)，就是把上面的详情列出来</span>
+docker<span class="w"> </span>image<span class="w"> </span>ls
+</code></pre></div>
+结果
+<div class="highlight"><pre><span></span><code>REPOSITORY                                       TAG                 IMAGE ID            CREATED             SIZE
+nginx                                            latest              27a188018e18        6 days ago          109MB
+hello-world                                      latest              fce289e99eb9        3 months ago        1.84kB
+docker.test.top/test-dev/test-pro-dev            master              74f5640d3df7        7 months ago        1.04GB
+docker.test.top/test-dev/mariadb                 10.3                2c73b3262fff        9 months ago        363MB
+memcached                                        1.4-alpine          273374b463b8        21 months ago       7.68MB
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 删除一个镜像，但是不能直接删除镜像的仓库，需要删除镜像的ID</span>
+docker<span class="w"> </span>image<span class="w"> </span>rm<span class="w"> </span>hello-world
+Error<span class="w"> </span>response<span class="w"> </span>from<span class="w"> </span>daemon:<span class="w"> </span>conflict:<span class="w"> </span>unable<span class="w"> </span>to<span class="w"> </span>remove<span class="w"> </span>repository<span class="w"> </span>reference<span class="w"> </span><span class="s2">&quot;hello-world&quot;</span><span class="w"> </span><span class="o">(</span>must<span class="w"> </span>force<span class="o">)</span><span class="w"> </span>-<span class="w"> </span>container<span class="w"> </span>ec328f5a228d<span class="w"> </span>is<span class="w"> </span>using<span class="w"> </span>its<span class="w"> </span>referenced<span class="w"> </span>image<span class="w"> </span>fce289e99eb9
+
+<span class="c1"># 列出当前的容器</span>
+docker<span class="w"> </span>container<span class="w"> </span>ls
+
+CONTAINER<span class="w"> </span>ID<span class="w">        </span>IMAGE<span class="w">                                                   </span>COMMAND<span class="w">                  </span>CREATED<span class="w">             </span>STATUS<span class="w">              </span>PORTS<span class="w">      </span>NAMES
+30b8a8b128f4<span class="w">        </span>nginx<span class="w">                                                   </span><span class="s2">&quot;nginx -g &#39;daemon of…&quot;</span><span class="w">   </span><span class="m">5</span><span class="w"> </span>hours<span class="w"> </span>ago<span class="w">         </span>Up<span class="w"> </span><span class="m">22</span><span class="w"> </span>minutes<span class="w">       </span><span class="m">0</span>.0.0.0:80-&gt;80/tcp<span class="w">     </span>webserver
+73b12bea8807<span class="w">        </span>docker.test.top/test-dev/test-pro-dev:master<span class="w">   </span><span class="s2">&quot;/sbin/my_init -- /r…&quot;</span><span class="w">   </span><span class="m">6</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">        </span>Up<span class="w"> </span><span class="m">22</span><span class="w"> </span>minutes<span class="w">       </span><span class="m">0</span>.0.0.0:3000-&gt;3000/tcp,<span class="w">    </span>test-dev-pro
+dfdf5180c891<span class="w">        </span>docker.test.top/test-dev/mariadb:10.3<span class="w">             </span><span class="s2">&quot;docker-entrypoint.s…&quot;</span><span class="w">   </span><span class="m">6</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">        </span>Up<span class="w"> </span><span class="m">22</span><span class="w"> </span>minutes<span class="w">       </span><span class="m">0</span>.0.0.0:3306-&gt;3306/tcp<span class="w">     </span>test-mysql
+3b54b280d6ef<span class="w">        </span>memcached:1.4-alpine<span class="w">                                    </span><span class="s2">&quot;docker-entrypoint.s…&quot;</span><span class="w">   </span><span class="m">6</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">        </span>Up<span class="w"> </span><span class="m">22</span><span class="w"> </span>minutes<span class="w">       </span><span class="m">0</span>.0.0.0:11211-&gt;11211/tcp<span class="w">    </span>test-memcached
+
+<span class="c1"># 强行删除 30b8a8b128f4 nginx 容器</span>
+docker<span class="w"> </span>rm<span class="w"> </span>-f<span class="w"> </span>30b8a8b128f4
+30b8a8b128f4
+
+<span class="c1"># 可以看出容器以及被删除</span>
+docker<span class="w"> </span>container<span class="w"> </span>ls
+CONTAINER<span class="w"> </span>ID<span class="w">        </span>IMAGE<span class="w">                                                   </span>COMMAND<span class="w">                  </span>CREATED<span class="w">             </span>STATUS<span class="w">              </span>PORTS<span class="w">   </span>NAMES
+73b12bea8807<span class="w">        </span>docker.test.top/test-dev/test-pro-dev:master<span class="w">   </span><span class="s2">&quot;/sbin/my_init -- /r…&quot;</span><span class="w">   </span><span class="m">6</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">        </span>Up<span class="w"> </span><span class="m">23</span><span class="w"> </span>minutes<span class="w">       </span><span class="m">0</span>.0.0.0:3000-&gt;3000/tcp<span class="w">   </span>test-dev-pro
+dfdf5180c891<span class="w">        </span>docker.test.top/test-dev/mariadb:10.3<span class="w">             </span><span class="s2">&quot;docker-entrypoint.s…&quot;</span><span class="w">   </span><span class="m">6</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">        </span>Up<span class="w"> </span><span class="m">23</span><span class="w"> </span>minutes<span class="w">       </span><span class="m">0</span>.0.0.0:3306-&gt;3306/tcp<span class="w">   </span>test-mysql
+3b54b280d6ef<span class="w">        </span>memcached:1.4-alpine<span class="w">                                    </span><span class="s2">&quot;docker-entrypoint.s…&quot;</span><span class="w">   </span><span class="m">6</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">        </span>Up<span class="w"> </span><span class="m">23</span><span class="w"> </span>minutes<span class="w">       </span><span class="m">0</span>.0.0.0:11211-&gt;11211/tcp<span class="w">    </span>test-memcached
+
+<span class="c1"># 删除容器后，再删除镜像(NGINX)</span>
+docker<span class="w"> </span>rmi<span class="w"> </span>27a188018e18
+Untagged:<span class="w"> </span>nginx:latest
+Untagged:<span class="w"> </span>nginx@sha256:e71b1bf4281f25533cf15e6e5f9be4dac74d2328152edf7ecde23abc54e16c1c
+Deleted:<span class="w"> </span>sha256:27a188018e1847b312022b02146bb7ac3da54e96fab838b7db9f102c8c3dd778
+Deleted:<span class="w"> </span>sha256:261d1996088c57b71d8ea9412f719bcbb8f4cb68a6e463d30abb85cc5fc5724b
+Deleted:<span class="w"> </span>sha256:e6fbd1f039a7391ab57afeb1b11a73781bcbd6ae8041d98c5988b90c46ce5726
+Deleted:<span class="w"> </span>sha256:5dacd731af1b0386ead06c8b1feff9f65d9e0bdfec032d2cd0bc03690698feda
+
+<span class="c1"># 已经删除镜像 NGINX</span>
+docker<span class="w"> </span>images
+REPOSITORY<span class="w">                                       </span>TAG<span class="w">                 </span>IMAGE<span class="w"> </span>ID<span class="w">            </span>CREATED<span class="w">             </span>SIZE
+hello-world<span class="w">                                      </span>latest<span class="w">              </span>fce289e99eb9<span class="w">        </span><span class="m">3</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">        </span><span class="m">1</span>.84kB
+docker.test.top/test-dev/test-pro-dev<span class="w">   </span>master<span class="w">              </span>74f5640d3df7<span class="w">        </span><span class="m">7</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">        </span><span class="m">1</span>.04GB
+docker.test.top/test-dev/mariadb<span class="w">           </span><span class="m">10</span>.3<span class="w">                </span>2c73b3262fff<span class="w">        </span><span class="m">9</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">        </span>363MB
+memcached<span class="w">                                        </span><span class="m">1</span>.4-alpine<span class="w">          </span>273374b463b8<span class="w">        </span><span class="m">21</span><span class="w"> </span>months<span class="w"> </span>ago<span class="w">       </span><span class="m">7</span>.68MB
+</code></pre></div>
+<h4 id="2">2. 配置<a class="headerlink" href="#2" title="Permanent link">&para;</a></h4>
+<ol>
+<li>通用：配置 docker 开机启动、自动升级、用户统计反馈、虚拟机备份、记住 docker 登录等（使用默认）</li>
+<li>文件共享：设置 docker 的运行目录。使用默认配置。</li>
+<li>高级：设置 docker 运行的硬件资源
+  docker 使用宿主机的一半 CPU（如果需要增加或者减少性能，可以改变 CPU 个数）；
+  内存通常使用宿主机的 2G 运行内存（可以增加或者减少）swap 虚拟内存，通常设置为 1G 虚拟内存。
+  如果电脑的 CPU 吃不消，所以增加内存和虚拟内存，增加 CPU 个数，这样可以缓解单个 CPU 的性能。</li>
+<li>用户代理：选择默认的用户代理</li>
+<li>存储位置和容量：可以迁移镜像在计算机中的位置和设置容量</li>
+</ol>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 20, 2024</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../06%20Docker-download/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 06 Docker-download" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              06 Docker-download
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../08%20docker-basic-RYF/" class="md-footer__link md-footer__link--next" aria-label="Next: 08 docker-basic-RYF" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              08 docker-basic-RYF
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.8492ddcf.min.js"></script>
+      
+    
+  </body>
+</html>
