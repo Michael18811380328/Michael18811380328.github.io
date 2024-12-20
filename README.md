@@ -13,7 +13,7 @@
 │   ├── games
 │   ├── history
 │   ├── index.html
-│   ├── novel-demo
+│   ├── novel-demo 需要改动
 │   └── react-demos 需要改动
 
 ├── resource 静态资源（图片、音视频）
