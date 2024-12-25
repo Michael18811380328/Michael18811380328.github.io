@@ -30,12 +30,12 @@
     ├── book
     ├── frontend
     ├── images 需要改动
-    ├── leetcode 需要改动
+    ├── leetcode
     ├── personal
     ├── python
     ├── react
     ├── webpack
-    └── vue 需要改动
+    └── vue
 ~~~
 
 version 5.0 重构内容比较多，正常的部分先上线，未测试的部分先不上线。
