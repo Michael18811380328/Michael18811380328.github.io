@@ -14,7 +14,7 @@
 │   ├── history
 │   ├── index.html
 │   ├── novel-demo 需要改动
-│   └── react-demos 需要改动
+│   └── react-demos
 
 ├── resource 静态资源（图片、音视频）
 │   ├── assets
