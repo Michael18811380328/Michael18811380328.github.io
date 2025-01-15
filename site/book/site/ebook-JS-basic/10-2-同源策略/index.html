@@ -1,0 +1,4474 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/ebook-JS-basic/10-2-%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/">
+      
+      
+        <link rel="prev" href="../10-1-BOM/">
+      
+      
+        <link rel="next" href="../10-3-%E8%A1%A8%E5%8D%95/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>10-2-同源策略 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bom" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              10-2-同源策略
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    book-JS-The-good-parts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            book-JS-The-good-parts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book-JS-The-good-parts/JS-the-good-parts.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS-the-good-parts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book-JS-The-good-parts/curry-function.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    curry-function
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-JS-basic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-JS-basic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-数据类型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-运算符
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-%E8%AF%AD%E6%B3%95%E4%B8%93%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-语法专题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-%E6%A0%87%E5%87%86%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-标准库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-面向对象编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-异步操作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-DOM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-DOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-Event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-Event
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-1-BOM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-1-BOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    10-2-同源策略
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    10-2-同源策略
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bom" class="md-nav__link">
+    <span class="md-ellipsis">
+      第十章 BOM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第十章 BOM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#107" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.7 同源策略
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.7 同源策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#same-origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Same-origin 介绍
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cookie" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cookie 共享
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      iframe多窗口通信
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ajax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ajax 处理跨域
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ajax 处理跨域">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1jsonp" class="md-nav__link">
+    <span class="md-ellipsis">
+      1、JSONP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2websocket" class="md-nav__link">
+    <span class="md-ellipsis">
+      2、WebSocket
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3cors" class="md-nav__link">
+    <span class="md-ellipsis">
+      3、CORS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#108-cors" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.8 CORS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.8 CORS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cors" class="md-nav__link">
+    <span class="md-ellipsis">
+      CORS概述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单请求
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      非简单请求
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#109-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.9 Storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#109-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.9 History
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1010-location-url-urlsearchparems" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.10 Location, URL, URLSearchParems 对象
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.10 Location, URL, URLSearchParems 对象">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#location" class="md-nav__link">
+    <span class="md-ellipsis">
+      Location
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#url" class="md-nav__link">
+    <span class="md-ellipsis">
+      URL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="URL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1url" class="md-nav__link">
+    <span class="md-ellipsis">
+      1、URL的编码和解码
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2url" class="md-nav__link">
+    <span class="md-ellipsis">
+      2、URL对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3urlsearchparams" class="md-nav__link">
+    <span class="md-ellipsis">
+      3、URLSearchParams
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1011-arraybuffer-blob" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.11 ArrayBuffer, Blob
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.11 ArrayBuffer, Blob">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arraybuffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      ArrayBuffer 对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blob" class="md-nav__link">
+    <span class="md-ellipsis">
+      Blob 对象
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Blob 对象">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      获取文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      下载文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#url_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成URL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      读取文件
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1012-file-filelist-filereader" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.12 File, FileList, FileReader
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-3-%E8%A1%A8%E5%8D%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-3-表单
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-4-IndexedDB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-4-IndexedDB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-5-web-worker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-5-web-worker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E6%8E%A5%E5%8F%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-网页元素接口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-JSES6-RYF
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-JSES6-RYF
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/01-%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/02-%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-变量赋值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/03-%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-解构赋值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/04-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-字符串的扩展
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/05-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-字符串方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/06-%E6%AD%A3%E5%88%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-正则
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/07-%E6%95%B0%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-数值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/08-%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/09-%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-数组
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/10-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E5%B1%9E%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-对象的新增属性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/11-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-对象的新增方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/12-Symbol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-Symbol
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/13-Set%20%E5%92%8C%20Map%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-Set 和 Map 数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/14-Proxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14-Proxy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/15-Reflect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15-Reflect
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/16-Promise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-Promise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/17-%E9%81%8D%E5%8E%86%E5%99%A8%E7%9A%84%E5%BE%AA%E7%8E%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-遍历器的循环
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/18-Generator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18-Generator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/19-Generator%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19-Generator异步应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/20-async%20%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-async 函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/21-Class%20%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-Class 的基本语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/22-Class%20%E7%9A%84%E7%BB%A7%E6%89%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22-Class 的继承
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/23-Module%20%E7%9A%84%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23-Module 的语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/24-Module%20%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24-Module 的加载实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/25-%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25-编程风格
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-Principles of Computer Composition
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-Principles of Computer Composition
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-Principles of Computer Composition/计算机组成原理知识点总结.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机组成原理知识点总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-heima-nodejs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-heima-nodejs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/00/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    00
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-javascript-secret-garden
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-javascript-secret-garden
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-javascript-secret-garden/JavaScript 秘密花园-zh.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript 秘密花园-zh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-kaikeba-frontend
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-kaikeba-frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/01%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 性能优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/02%20%E5%89%8D%E7%AB%AF%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02 前端测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/03%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03 设计模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/04%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 数据结构与算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/05%20%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05 面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/06%20%E9%9D%A2%E8%AF%95%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06 面试技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/07%20%E9%A1%B9%E7%9B%AE%E8%AF%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07 项目课
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/08-React%E9%A2%84%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-React预习笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/09-React%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-React面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/10-React%E7%BB%84%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-React组件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/11-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-自动化测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/12-webpack-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-webpack-01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/13-webpack-02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-webpack-02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/14-webpack-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14-webpack-03
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/15-webpack%E4%BC%98%E5%8C%96%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15-webpack优化笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/16-webpack%E4%BC%98%E5%8C%96%E5%AE%98%E6%96%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-webpack优化官方
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/17-webpack-05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-webpack-05
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/18-webpack-06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18-webpack-06
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/19-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8-%E5%B8%B8%E8%A7%81Web%E6%94%BB%E5%87%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19-前端安全-常见Web攻击
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/20-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8-%E9%98%B2%E5%BE%A1%E6%89%8B%E6%AE%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-前端安全-防御手段
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-netease-senior-frontend
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-netease-senior-frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/02-v8%E5%BC%95%E6%93%8E%E5%9B%9E%E6%94%B6%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-v8引擎回收内存简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/03-node%E4%B8%8B%E9%9D%A2%E7%9A%84Restful%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-node下面的Restful实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/04-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%9A%84%E6%8F%90%E5%8D%87%E2%80%94%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E6%88%91%E4%BB%AC%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-编程思想的提升—如何提高我们代码的可扩展性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/06-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8Cssr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-浏览器渲染原理和ssr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/07-%E7%BD%91%E6%98%93%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-网易真实项目webpack配置解析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/08-%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90API%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-从架构分析API层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/09-%E5%89%8D%E7%AB%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-前端负责人的工作内容
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/10-%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%E5%AD%A6%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-分析源码学架构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/11-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E9%AB%98%E8%B4%A8%E9%87%8F%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-设计模式高质量代码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/12-nodeJS%2BMongoDB%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-nodeJS+MongoDB登录系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/12-nodejs-mongodb-mongoose/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-nodejs-mongodb-mongoose
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/13-%E4%BD%BF%E7%94%A8VUE%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-使用VUE创建组件（没学完）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/16-%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-构建自己的脚手架工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/17-webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-webpack编译原理分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/20-%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD-VUE%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-组件封装的基本技能-VUE（没学完）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/21-ssr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-ssr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/24-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%A6%82%E4%BD%95%E5%81%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24-单元测试如何做
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/25-%E5%9F%BA%E4%BA%8ENodeJS%E6%89%93%E9%80%A0Web%E6%9E%B6%E6%9E%84%E4%B8%AD%E9%97%B4%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25-基于NodeJS打造Web架构中间层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-network-basic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-network-basic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/01%20%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/02%20%E7%89%A9%E7%90%86%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02 物理层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/03%20%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03 数据链路层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/04%20%E7%BD%91%E7%BB%9C%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 网络层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/05%20%E8%BF%90%E8%BE%93%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05 运输层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/06%20%E5%BA%94%E7%94%A8%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06 应用层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/todo%20%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E5%85%A5%E9%97%A8-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    todo 互联网协议入门-阮一峰
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-qianfeng-express
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-qianfeng-express
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-qianfeng-express/01.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-upguigu-nodejs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-upguigu-nodejs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-upguigu-nodejs/nodeJS-basic.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nodeJS-basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/H5C3%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    H5C3从入门到精通
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/JS%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS 数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/data%20structure%20basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    data structure basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/express%E5%9B%BE%E4%B9%A6%E9%A6%86%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    express图书馆项目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    代码整洁之道 读书笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%85%B6%E4%BB%96%E4%B9%A6%E5%8D%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    其他书单
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E7%AC%94%E8%AE%B0-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端工程化笔记-阮一峰
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%B0%9A%E7%A1%85%E8%B0%B7-React%E6%8A%80%E6%9C%AF%E5%85%A8%E5%AE%B6%E6%A1%B62021%E7%89%88%E7%AC%94%E8%AE%B001/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    尚硅谷-React技术全家桶2021版笔记01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%B0%9A%E7%A1%85%E8%B0%B7-React%E6%8A%80%E6%9C%AF%E5%85%A8%E5%AE%B6%E6%A1%B62021%E7%89%88%E7%AC%94%E8%AE%B002/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    尚硅谷-React技术全家桶2021版笔记02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JS%E4%B8%8A%E5%8D%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-你不知道的JS上卷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JS%E4%B8%AD%E5%8D%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-你不知道的JS中卷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E5%9B%BE%E8%A7%A3HTTP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-图解HTTP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E9%AB%98%E6%80%A7%E8%83%BDJS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-高性能JS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E6%80%8E%E6%A0%B7%E8%B7%91%E8%B5%B7%E6%9D%A5%E7%9A%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机是怎样跑起来的
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bom" class="md-nav__link">
+    <span class="md-ellipsis">
+      第十章 BOM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第十章 BOM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#107" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.7 同源策略
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.7 同源策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#same-origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Same-origin 介绍
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cookie" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cookie 共享
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      iframe多窗口通信
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ajax" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ajax 处理跨域
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ajax 处理跨域">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1jsonp" class="md-nav__link">
+    <span class="md-ellipsis">
+      1、JSONP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2websocket" class="md-nav__link">
+    <span class="md-ellipsis">
+      2、WebSocket
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3cors" class="md-nav__link">
+    <span class="md-ellipsis">
+      3、CORS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#108-cors" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.8 CORS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.8 CORS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cors" class="md-nav__link">
+    <span class="md-ellipsis">
+      CORS概述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      简单请求
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      非简单请求
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#109-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.9 Storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#109-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.9 History
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1010-location-url-urlsearchparems" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.10 Location, URL, URLSearchParems 对象
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.10 Location, URL, URLSearchParems 对象">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#location" class="md-nav__link">
+    <span class="md-ellipsis">
+      Location
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#url" class="md-nav__link">
+    <span class="md-ellipsis">
+      URL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="URL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1url" class="md-nav__link">
+    <span class="md-ellipsis">
+      1、URL的编码和解码
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2url" class="md-nav__link">
+    <span class="md-ellipsis">
+      2、URL对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3urlsearchparams" class="md-nav__link">
+    <span class="md-ellipsis">
+      3、URLSearchParams
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1011-arraybuffer-blob" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.11 ArrayBuffer, Blob
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.11 ArrayBuffer, Blob">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arraybuffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      ArrayBuffer 对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blob" class="md-nav__link">
+    <span class="md-ellipsis">
+      Blob 对象
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Blob 对象">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      获取文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      下载文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#url_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      生成URL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      读取文件
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1012-file-filelist-filereader" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.12 File, FileList, FileReader
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>10-2-同源策略</h1>
+
+<h2 id="bom">第十章 BOM<a class="headerlink" href="#bom" title="Permanent link">&para;</a></h2>
+<p>统计信息：字数 29680  阅读60分钟</p>
+<p>2021-11-24 2023-04-11</p>
+<h3 id="107">10.7 同源策略<a class="headerlink" href="#107" title="Permanent link">&para;</a></h3>
+<h4 id="same-origin">Same-origin 介绍<a class="headerlink" href="#same-origin" title="Permanent link">&para;</a></h4>
+<p>起源：不同源的网页不能打开cookie。</p>
+<p>同源：协议域名端口都相同。</p>
+<p>目的：保证用户数据的安全，防止恶意网站窃取用户数据。</p>
+<p>现在：无法获取非同源网页的cookie，localStorage，IndexedDB；DOM；无法发送AJAX请求。</p>
+<p>非同源网页可以调用下面的属性和方法。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">window</span><span class="p">.</span><span class="nx">closed</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">frames</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">length</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">location</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">opener</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">parent</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">self</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">top</span>
+<span class="nb">window</span><span class="p">.</span><span class="nb">window</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">blur</span><span class="p">()</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">close</span><span class="p">()</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">focus</span><span class="p">()</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">()</span>
+</code></pre></div>
+<h4 id="cookie">Cookie 共享<a class="headerlink" href="#cookie" title="Permanent link">&para;</a></h4>
+<p>两个网页的一级域名相同（xxx.com）次级域名不同（docs.demo）可以设置 document.domain 相同来共享cookie，设置是会重置端口为null。两个页面需要同时设置 document.domain = 'xxx.com'; 才能达到同源的目的。设置后两个界面可以通过 document.cookie 获取相同的信息。</p>
+<h4 id="iframe">iframe多窗口通信<a class="headerlink" href="#iframe" title="Permanent link">&para;</a></h4>
+<p>一个界面中嵌入多个窗口，一个窗口可以获取父窗口和子窗口的window，如果不同源，不能操作DOM（document.getElementByID('myIframe')..contentWindow.document 会报错）。</p>
+<p>如果两个窗口的一级域名相同，次级域名不同，可以类似cookie 设置 document.domain。</p>
+<p>如果l两个窗口完全不同源，需要使用下面的两个方案（开发中未使用）：</p>
+<p><strong>片段识别符</strong></p>
+<p>片段标识符（fragment identifier）指的是，URL 的<code>#</code>号后面的部分，比如<code>http://example.com/x.html#fragment</code>的<code>#fragment</code>。如果只是改变片段标识符，页面不会重新刷新。</p>
+<p>父窗口可以把信息，写入子窗口的片段标识符。</p>
+<div class="highlight"><pre><span></span><code>var src = originURL + &#39;#&#39; + data;
+document.getElementById(&#39;myIFrame&#39;).src = src;
+</code></pre></div>
+<p>上面代码中，父窗口把所要传递的信息，写入 iframe 窗口的片段标识符。</p>
+<p>子窗口通过监听<code>hashchange</code>事件得到通知。</p>
+<div class="highlight"><pre><span></span><code>window.onhashchange = checkMessage;
+
+function checkMessage() {
+  var message = window.location.hash;
+  // ...
+}
+</code></pre></div>
+<p>同样的，子窗口也可以改变父窗口的片段标识符。</p>
+<div class="highlight"><pre><span></span><code>parent.location.href = target + &#39;#&#39; + hash;
+</code></pre></div>
+<p><strong>window.postMessage()</strong></p>
+<p>上面的这种方法属于破解，HTML5 为了解决这个问题，引入了一个全新的API：跨文档通信 API（Cross-document messaging）。</p>
+<p>这个 API 为<code>window</code>对象新增了一个<code>window.postMessage</code>方法，允许跨窗口通信，不论这两个窗口是否同源。举例来说，父窗口<code>aaa.com</code>向子窗口<code>bbb.com</code>发消息，调用<code>postMessage</code>方法就可以了。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 父窗口打开一个子窗口</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">popup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;http://bbb.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;title&#39;</span><span class="p">);</span>
+<span class="c1">// 父窗口向子窗口发消息</span>
+<span class="nx">popup</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s1">&#39;Hello World!&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;http://bbb.com&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p><code>postMessage</code>方法的第一个参数是具体的信息内容，第二个参数是接收消息的窗口的源（origin），即“协议 + 域名 + 端口”。也可以设为<code>*</code>，表示不限制域名，向所有窗口发送。</p>
+<p>子窗口向父窗口发送消息的写法类似。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 子窗口向父窗口发消息</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">opener</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s1">&#39;Nice to see you&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;http://aaa.com&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>父窗口和子窗口都可以通过<code>message</code>事件，监听对方的消息。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 父窗口和子窗口都可以用下面的代码，</span>
+<span class="c1">// 监听 message 消息</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">},</span><span class="kc">false</span><span class="p">);</span>
+</code></pre></div>
+<p><code>message</code>事件的参数是事件对象<code>event</code>，提供以下三个属性。</p>
+<blockquote>
+<ul>
+<li><code>event.source</code>：发送消息的窗口</li>
+<li><code>event.origin</code>: 消息发向的网址</li>
+<li><code>event.data</code>: 消息内容</li>
+</ul>
+</blockquote>
+<p>下面的例子是，子窗口通过<code>event.source</code>属性引用父窗口，然后发送消息。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">receiveMessage</span><span class="p">);</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">receiveMessage</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">event</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s1">&#39;Nice to see you!&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;*&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码有几个地方需要注意。首先，<code>receiveMessage</code>函数里面没有过滤信息的来源，任意网址发来的信息都会被处理。其次，<code>postMessage</code>方法中指定的目标窗口的网址是一个星号，表示该信息可以向任意网址发送。通常来说，这两种做法是不推荐的，因为不够安全，可能会被恶意利用。</p>
+<p><code>event.origin</code>属性可以过滤不是发给本窗口的消息。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">receiveMessage</span><span class="p">);</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">receiveMessage</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">origin</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s1">&#39;http://aaa.com&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;Hello World&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">event</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">origin</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>LocalStorage</strong></p>
+<p>通过<code>window.postMessage</code>，读写其他窗口的 LocalStorage 也成为了可能。</p>
+<p>下面是一个例子，主窗口写入 iframe 子窗口的<code>localStorage</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">window</span><span class="p">.</span><span class="nx">onmessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s1">&#39;http://bbb.com&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="nx">payload</span><span class="p">.</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">payload</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>上面代码中，子窗口将父窗口发来的消息，写入自己的 LocalStorage。</p>
+<p>父窗口发送消息的代码如下。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">win</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;iframe&#39;</span><span class="p">)[</span><span class="mf">0</span><span class="p">].</span><span class="nx">contentWindow</span><span class="p">;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Jack&#39;</span><span class="w"> </span><span class="p">};</span>
+<span class="nx">win</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span>
+<span class="w">  </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;storage&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="nx">obj</span><span class="p">}),</span>
+<span class="w">  </span><span class="s1">&#39;http://bbb.com&#39;</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>加强版的子窗口接收消息的代码如下。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">window</span><span class="p">.</span><span class="nx">onmessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s1">&#39;http://bbb.com&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+<span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="nx">payload</span><span class="p">.</span><span class="nx">method</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s1">&#39;set&#39;</span><span class="o">:</span>
+<span class="w">      </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="nx">payload</span><span class="p">.</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">payload</span><span class="p">.</span><span class="nx">data</span><span class="p">));</span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s1">&#39;get&#39;</span><span class="o">:</span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">parent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">parent</span><span class="p">;</span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="nx">payload</span><span class="p">.</span><span class="nx">key</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">parent</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;http://aaa.com&#39;</span><span class="p">);</span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="s1">&#39;remove&#39;</span><span class="o">:</span>
+<span class="w">      </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="nx">payload</span><span class="p">.</span><span class="nx">key</span><span class="p">);</span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>加强版的父窗口发送消息代码如下。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">win</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;iframe&#39;</span><span class="p">)[</span><span class="mf">0</span><span class="p">].</span><span class="nx">contentWindow</span><span class="p">;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Jack&#39;</span><span class="w"> </span><span class="p">};</span>
+<span class="c1">// 存入对象</span>
+<span class="nx">win</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span>
+<span class="w">  </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;storage&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;set&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="nx">obj</span><span class="p">}),</span>
+<span class="w">  </span><span class="s1">&#39;http://bbb.com&#39;</span>
+<span class="p">);</span>
+<span class="c1">// 读取对象</span>
+<span class="nx">win</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span>
+<span class="w">  </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;storage&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;get&quot;</span><span class="p">}),</span>
+<span class="w">  </span><span class="s2">&quot;*&quot;</span>
+<span class="p">);</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">onmessage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s1">&#39;http://aaa.com&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">).</span><span class="nx">name</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div>
+<h4 id="ajax">Ajax 处理跨域<a class="headerlink" href="#ajax" title="Permanent link">&para;</a></h4>
+<p>服务器端处理：架设代理服务器：浏览器访问同源服务器，服务器请求外部服务。还有三种方法：JSONP，websocket， CORS。</p>
+<h5 id="1jsonp">1、JSONP<a class="headerlink" href="#1jsonp" title="Permanent link">&para;</a></h5>
+<p>JSONP 简单易用，没有兼容性问题，老式浏览器全部支持，服务端改造非常小。</p>
+<p>它的做法如下。</p>
+<p>第一步，网页添加一个<code>&lt;script&gt;</code>元素，向服务器请求一个脚本，这不受同源政策限制，可以跨域请求。</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://api.foo.com?callback=bar&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>注意，请求的脚本网址有一个<code>callback</code>参数（<code>?callback=bar</code>），用来告诉服务器，客户端的回调函数名称（<code>bar</code>）。</p>
+<p>第二步，服务器收到请求后，拼接一个字符串，将 JSON 数据放在函数名里面，作为字符串返回（<code>bar({...})</code>）。</p>
+<p>第三步，客户端会将服务器返回的字符串，作为代码解析，因为浏览器认为，这是<code>&lt;script&gt;</code>标签请求的脚本内容。这时，客户端只要定义了<code>bar()</code>函数，就能在该函数体内，拿到服务器返回的 JSON 数据。</p>
+<p>下面看一个实例。首先，网页动态插入<code>&lt;script&gt;</code>元素，由它向跨域网址发出请求。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">addScriptTag</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">script</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">script</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;text/javascript&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">script</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">src</span><span class="p">;</span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">addScriptTag</span><span class="p">(</span><span class="s1">&#39;http://example.com/ip?callback=foo&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">foo</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Your public IP address is: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">ip</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>上面代码通过动态添加<code>&lt;script&gt;</code>元素，向服务器<code>example.com</code>发出请求。注意，该请求的查询字符串有一个<code>callback</code>参数，用来指定回调函数的名字，这对于 JSONP 是必需的。</p>
+<p>服务器收到这个请求以后，会将数据放在回调函数的参数位置返回。</p>
+<div class="highlight"><pre><span></span><code>foo({
+  &#39;ip&#39;: &#39;8.8.8.8&#39;
+});
+</code></pre></div>
+<p>由于<code>&lt;script&gt;</code>元素请求的脚本，直接作为代码运行。这时，只要浏览器定义了<code>foo</code>函数，该函数就会立即调用。作为参数的 JSON 数据被视为 JavaScript 对象，而不是字符串，因此避免了使用<code>JSON.parse</code>的步骤。</p>
+<h5 id="2websocket">2、WebSocket<a class="headerlink" href="#2websocket" title="Permanent link">&para;</a></h5>
+<p>WebSocket 是一种通信协议，使用<code>ws://</code>（非加密）和<code>wss://</code>（加密）作为协议前缀。该协议不实行同源政策，只要服务器支持，就可以通过它进行跨源通信。</p>
+<p>下面是一个例子，浏览器发出的 WebSocket 请求的头信息。</p>
+<div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/chat</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">server.example.com</span>
+<span class="na">Upgrade</span><span class="o">:</span> <span class="l">websocket</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">Upgrade</span>
+<span class="na">Sec-WebSocket-Key</span><span class="o">:</span> <span class="l">x3JJHMbDL1EzLkh9GBhXDw==</span>
+<span class="na">Sec-WebSocket-Protocol</span><span class="o">:</span> <span class="l">chat, superchat</span>
+<span class="na">Sec-WebSocket-Version</span><span class="o">:</span> <span class="l">13</span>
+
+Origin: http://example.com
+</code></pre></div>
+<p>上面代码中，有一个字段是<code>Origin</code>，表示该请求的请求源（origin），即发自哪个域名。</p>
+<p>正是因为有了<code>Origin</code>这个字段，所以 WebSocket 才没有实行同源政策。因为服务器可以根据这个字段，判断是否许可本次通信。如果该域名在白名单内，服务器就会做出如下回应。</p>
+<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">101</span> <span class="ne">Switching Protocols</span>
+<span class="na">Upgrade</span><span class="o">:</span> <span class="l">websocket</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">Upgrade</span>
+<span class="na">Sec-WebSocket-Accept</span><span class="o">:</span> <span class="l">HSmrc0sMlYUkAGmm5OPpG2HaGWk=</span>
+<span class="na">Sec-WebSocket-Protocol</span><span class="o">:</span> <span class="l">chat</span>
+</code></pre></div>
+<h5 id="3cors">3、CORS<a class="headerlink" href="#3cors" title="Permanent link">&para;</a></h5>
+<h3 id="108-cors">10.8 CORS<a class="headerlink" href="#108-cors" title="Permanent link">&para;</a></h3>
+<h4 id="cors">CORS概述<a class="headerlink" href="#cors" title="Permanent link">&para;</a></h4>
+<p>CORS 是跨源资源分享（Cross-Origin Resource Sharing）的缩写，它是 W3C 标准，属于跨源 AJAX 请求的根本解决方法。相比 JSONP 只能发<code>GET</code>请求，CORS 允许任何类型的请求。JSONP 的优势在于支持老式浏览器，以及可以向不支持 CORS 的网站请求数据。</p>
+<p>兼容：CORS 需要浏览器和服务器同时支持，目前浏览器都支持。对于前端开发，CORS和AJAX差不多，如果发出的请求是跨域的，那么在请求头更改信息，用户体验良好。后端开发需要在服务器实现CORS API。</p>
+<p>分类：简单请求和非简单请求</p>
+<p>简单请求：请求方法（get-post-head）和请求头信息简单，请求头只能是下面的属性。简单请求类似于表单请求，浏览器允许表单请求跨域。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">Accept</span>
+<span class="nx">Accept</span><span class="o">-</span><span class="nx">Language</span>
+<span class="nx">Content</span><span class="o">-</span><span class="nx">Language</span>
+<span class="nx">Last</span><span class="o">-</span><span class="nx">Event</span><span class="o">-</span><span class="nx">ID</span>
+<span class="nx">Content</span><span class="o">-</span><span class="nx">Type</span><span class="err">：</span><span class="nx">只限于三个值application</span><span class="o">/</span><span class="nx">x</span><span class="o">-</span><span class="nx">www</span><span class="o">-</span><span class="nx">form</span><span class="o">-</span><span class="nx">urlencoded</span><span class="err">、</span><span class="nx">multipart</span><span class="o">/</span><span class="nx">form</span><span class="o">-</span><span class="nx">data</span><span class="err">、</span><span class="nx">text</span><span class="o">/</span><span class="nx">plain</span>
+</code></pre></div>
+<h4 id="_1">简单请求<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<p>浏览器发现请求跨域，需要在请求头中加入 Origin: <a href="https://demo.xxx.com">https://demo.xxx.com</a> 字段，包括当前请求的协议域名端口号；服务器判断这个origin在许可的范围内，在相应头中添加 Access-Control-Allow-Origin 字段，实现跨域；如果这个origin不在许可范围内，就返回正常的HTTP回应，不包含 Access-Control-Allow-Origin 字段，此时前端xhr.onerror 会捕获到这个错误。下面是正确的字符说明</p>
+<div class="highlight"><pre><span></span><code><span class="err">// 服务器的响应头</span>
+<span class="err">Access-Control-Allow-Origin: http://api.bob.com // 必选参数，返回值是origin的参数，或者是*，表示接受任意域名的请求</span>
+<span class="err">Access-Control-Allow-Credentials: true // 可选参数：这个值表示是否发送cookie，只能设置为true，不设置就表示false（默认浏览器cookie不包括在CORS请求中）</span>
+<span class="err">Access-Control-Expose-Headers: FooBar // 可选参数：JS脚本默认可以获取部分响应头信息，这里加上这个属性，表示可以获取这个信息：getResponseHeader(&#39;FooBar&#39;) </span>
+<span class="err">Content-Type: text/html; charset=utf-8</span>
+</code></pre></div>
+<p>默认CORS请求不包含 cookie，为了避免CSRF风险。如果需要发送cookie，前端需要设置 xhr.withCredentials = true; 服务器会返回 Access-Control-Allow-Credentials: true，实现跨域。</p>
+<p>如果服务器要求浏览器发送 Cookie，<code>Access-Control-Allow-Origin</code>就不能设为星号，必须指定明确的、与请求网页一致的域名。</p>
+<h4 id="_2">非简单请求<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>非简单请求：请求的方法特殊（PUT DELETE）请求头的字段特殊（Content-Type: 'application/json'）</p>
+<p>第一步 预检请求（preflight）</p>
+<p>在通信开始前，发送一个预检请求，浏览器询问服务器当前网页所在域名是否在服务器的许可列表中，哪些请求方法和请求头字段是允许的。服务器响应同意后，浏览器可以继续发送请求。如果不同意就不能发送；这样避免了服务器收到大量跨域的PUT delete请求。下面是一个预检请求的请求头：</p>
+<div class="highlight"><pre><span></span><code><span class="err">OPTIONS /cors HTTP/1.1 预检请求的方法是 OPTIONS</span>
+<span class="err">Origin: http://api.bob.com 源是网页的网址</span>
+<span class="err">Access-Control-Request-Method: PUT 这是可以接受的请求方法</span>
+<span class="err">Access-Control-Request-Headers: X-Custom-Header 这里是自定义的请求头字段</span>
+<span class="err">Host: api.alice.com</span>
+<span class="err">Accept-Language: en-US</span>
+<span class="err">Connection: keep-alive</span>
+<span class="err">User-Agent: Mozilla/5.0...</span>
+</code></pre></div>
+<p>第二步 服务器响应</p>
+<p>服务器收到预检请求，允许跨域，做出回应，响应头如下</p>
+<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Date</span><span class="o">:</span> <span class="l">Mon, 01 Dec 2008 01:15:39 GMT</span>
+<span class="na">Server</span><span class="o">:</span> <span class="l">Apache/2.0.61 (Unix)</span>
+<span class="na">Access-Control-Allow-Origin</span><span class="o">:</span> <span class="l">http://api.bob.com 这里表示当前网页可以跨域</span>
+<span class="na">Access-Control-Allow-Methods</span><span class="o">:</span> <span class="l">GET, POST, PUT 这里是可以跨域的方法</span>
+<span class="na">Access-Control-Allow-Headers</span><span class="o">:</span> <span class="l">X-Custom-Header</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/html; charset=utf-8</span>
+<span class="na">Content-Encoding</span><span class="o">:</span> <span class="l">gzip</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">0</span>
+<span class="na">Keep-Alive</span><span class="o">:</span> <span class="l">timeout=2, max=100</span>
+<span class="na">Connection</span><span class="o">:</span> <span class="l">Keep-Alive</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/plain</span>
+</code></pre></div>
+<p>如果不允许跨域，onerror 会捕获错误</p>
+<div class="highlight"><pre><span></span><code><span class="err">XMLHttpRequest cannot load http://api.alice.com.</span>
+<span class="err">Origin http://api.bob.com is not allowed by Access-Control-Allow-Origin.</span>
+</code></pre></div>
+<p>第三步 浏览器正常的请求</p>
+<p>浏览器自动添加Origin字段，发送正常的请求</p>
+<h3 id="109-storage">10.9 Storage<a class="headerlink" href="#109-storage" title="Permanent link">&para;</a></h3>
+<p>Storage API 的实例对象有两个：window.localStorage and window.sessionStorage。他们的区别是，关闭当前窗口（对话）后存储是否继续保留。保存的数据以键值对保存，实际上是一个字符串（数值参数会转化成字符串存储）。每个域名的存储不同，最小的chrome是2.5MB，也受同域限制，跨域操作会报错。</p>
+<p>属性和方法</p>
+<div class="highlight"><pre><span></span><code><span class="mf">1</span><span class="err">、</span><span class="nb">window</span><span class="p">.</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">length</span>
+
+<span class="mf">2</span><span class="err">、</span><span class="nb">window</span><span class="p">.</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;key&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;value&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 这里设置的key-value都是字符串，其他数据类型会强制转换成字符串，方法没有返回值。如果存储满了，这个方法会报错。或者直接改变属性也可以。如果已有这个key, 重新设置会覆盖原始值。</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">localStorage</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">value</span><span class="p">;</span>
+
+<span class="mf">3</span><span class="err">、</span><span class="nb">window</span><span class="p">.</span><span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span><span class="w"> </span><span class="nx">如果不存在就返回</span><span class="w"> </span><span class="kc">null</span>
+
+<span class="mf">4</span><span class="err">、</span><span class="nb">window</span><span class="p">.</span><span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span><span class="w"> </span><span class="nx">如果key不存在</span><span class="err">，</span><span class="nx">方法不会报错</span><span class="err">；</span>
+<span class="mf">5</span><span class="err">、</span><span class="nb">window</span><span class="p">.</span><span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span><span class="w"> </span><span class="c1">// return undefined</span>
+<span class="mf">6</span><span class="err">、</span><span class="nb">window</span><span class="p">.</span><span class="nx">sessionStorage</span><span class="p">.</span><span class="nx">key</span><span class="w"> </span><span class="nx">返回一个key的伪数组</span><span class="err">，</span><span class="nx">结合length可以遍历</span><span class="err">；</span>
+</code></pre></div>
+<p>存储事件：当存储内容变化时，会触发storage事件。这个事件很特殊：如果一个窗口存储变化，那么当前窗口不会触发，同一个域名的其他窗口会触发这个事件（可以使用这个属性进行不同窗口的通信）</p>
+<div class="highlight"><pre><span></span><code><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;storage&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">onChange</span><span class="p">);</span>
+
+<span class="nx">onChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">key</span><span class="p">);</span><span class="w"> </span><span class="nx">表示变动的键名</span><span class="err">（</span><span class="nx">如果是clear事件返回null</span><span class="err">）</span>
+<span class="w">  </span><span class="nx">e</span><span class="p">.</span><span class="nx">newValue</span>
+<span class="w">  </span><span class="nx">e</span><span class="p">.</span><span class="nx">oldValue</span>
+<span class="w">  </span><span class="nx">e</span><span class="p">.</span><span class="nx">url</span>
+<span class="w">  </span><span class="nx">e</span><span class="p">.</span><span class="nx">storageArea</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>localStorage 的可以参考自己总结的博客。</p>
+<p><a href="https://blog.csdn.net/weixin_41697143/article/details/98479748">https://blog.csdn.net/weixin_41697143/article/details/98479748</a></p>
+<h3 id="109-history">10.9 History<a class="headerlink" href="#109-history" title="Permanent link">&para;</a></h3>
+<p>浏览器的历史对象。JS脚本不允许获取历史地址，但是可以跳转导航。对历史对象的操作，和浏览器的前进后退按钮相同。</p>
+<p>属性：history.length 当前历史的条数；history.state 历史堆栈顶层的属性（默认undefined）</p>
+<p>方法：</p>
+<ul>
+<li>history.back(); history.forward(); 这里会从缓存中加载页面。</li>
+<li>history.go(0) 默认是0，表示刷新界面；使用加减1表示网页前进后退。</li>
+<li>History.pushState(state, title, url) state 表示状态对象，当popstate事件触发后，这个对象会传入回调函数。title 表示新页面标题，url 表示新的网址。这个方法会把当前的地址改成URL，history中会增加一个历史信息，但是界面不会跳转（不会刷新）这个网址不能跨域，否则报错。</li>
+<li>History.replaceState(state, title, url) 替换当前的历史记录为新的URL（原始历史被替换）</li>
+</ul>
+<p>事件：popstate</p>
+<p>当history对象变化时会触发这个事件：pushState() and replaceState() 不会触发这个事件，其他三个事件或者点击前进后退按钮就会触发这个事件。可以给这个事件指定回调函数。注意，页面第一次加载的时候，浏览器不会触发<code>popstate</code>事件。</p>
+<h3 id="1010-location-url-urlsearchparems">10.10 Location, URL, URLSearchParems 对象<a class="headerlink" href="#1010-location-url-urlsearchparems" title="Permanent link">&para;</a></h3>
+<h4 id="location">Location<a class="headerlink" href="#location" title="Permanent link">&para;</a></h4>
+<p>Location 对象可以操作 URL，使用 window.location or document.location 可以获取Location对象。下面是常用的属性：</p>
+<div class="highlight"><pre><span></span><code>location.href 整个URL （如果更改，浏览器会立刻跳转到新地址，即使URL与原始相同，界面仍然会刷新）
+location.origin 协议、主机名、端口 http://www.baidu.com:8080(这是只读属性)
+location.protocol 协议（包括冒号） http:
+location.host 主机名和端口号 www.baidu.com:8080(默认80and443端口会省略)
+hostname 主机名
+port 端口号
+
+pathname 路径：从根路径开始（包括根路径）
+search 查询部分：问号开始（不包括问号）
+hash 哈希部分：井号开始（不包括#）
+username
+password 域名前面的用户名和密码 测试是undefined
+</code></pre></div>
+<p>更改 location.href 可以变成新的锚点('#comment')。<code>Location.href</code>属性是浏览器唯一允许跨域写入的属性，即非同源的窗口可以改写另一个窗口（比如子窗口与父窗口）的<code>Location.href</code>属性，导致后者的网址跳转。<code>Location</code>的其他属性都不允许跨域写入。</p>
+<p>方法：</p>
+<ul>
+<li>location.assign(newURL) 浏览器立刻跳转到新的URL，如果不是URL会报错</li>
+<li>location.replace(newURL) 直接跳转到新的网页，当前的历史不会保存（可以判断是否是移动端，然后界面进行跳转）；</li>
+<li>location.reload(true) 重载当前窗口（刷新界面）如果传入true，表示想服务器重新请求，请求新界面不滚动；如果是false或者默认不传值，直接从缓存中加载，界面停留在当前滚动的位置。</li>
+<li>location.toString() 等价于 let a = location.href;</li>
+</ul>
+<h4 id="url">URL<a class="headerlink" href="#url" title="Permanent link">&para;</a></h4>
+<h5 id="1url">1、URL的编码和解码<a class="headerlink" href="#1url" title="Permanent link">&para;</a></h5>
+<p>URL中的汉字和特殊字符需要转码成为UTF-8编码（例如%82）请求中路径文件名需要转码</p>
+<ul>
+<li>encodeURI('<a href="http://www.example.com/q=春节">http://www.example.com/q=春节</a>') （注意是URI，不是URL）传入一个字符串，会将元字符（冒号斜杠）和语义字符之外的字符，都进行转义，这里可以传入一个完整的URL</li>
+<li>encodeURIComponent（filepath + name）会转码除了语义字符之外的所有字符，即元字符也会被转码。如果斜杠和冒号被转义就会出错。</li>
+<li>decodeURI</li>
+<li>decodeURIComponent 是上面两个方法的逆运算</li>
+</ul>
+<h5 id="2url">2、URL对象<a class="headerlink" href="#2url" title="Permanent link">&para;</a></h5>
+<p>URL对象是一个原生对象，a标签继承了URL对象的属性和方法（href）</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URL</span><span class="p">(</span><span class="s1">&#39;http://www.example.com/index.html&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">url</span><span class="p">.</span><span class="nx">href</span><span class="p">);</span>
+<span class="nx">如果参数是另一个</span><span class="w"> </span><span class="nx">URL</span><span class="w"> </span><span class="nx">实例</span><span class="err">，</span><span class="nx">构造函数会自动读取该实例的href属性</span><span class="err">，</span><span class="nx">作为实际参数</span><span class="err">。</span><span class="nx">如果</span><span class="w"> </span><span class="nx">URL</span><span class="w"> </span><span class="nx">字符串是一个相对路径</span><span class="err">，</span><span class="nx">那么需要表示绝对路径的第二个参数</span><span class="err">，</span><span class="nx">作为计算基准</span><span class="err">。</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">url2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URL</span><span class="p">(</span><span class="s1">&#39;page2.html&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;http://example.com/page1.html&#39;</span><span class="p">);</span>
+<span class="c1">// &quot;http://example.com/page2.html&quot;</span>
+</code></pre></div>
+<p>属性：URL实例对象的属性和Location的属性基本一致（origin只读，其他都可以修改）</p>
+<p>方法</p>
+<ul>
+<li>URL.createObjectURL()为上传/下载的文件、流媒体文件生成一个 URL 字符串。这个字符串代表了<code>File</code>对象或<code>Blob</code>对象的 URL。</li>
+<li>URL.revokeObjectURL()用来释放<code>URL.createObjectURL</code>方法生成的 URL 实例。它的参数就是<code>URL.createObjectURL</code>方法返回的 URL 字符串。</li>
+</ul>
+<h5 id="3urlsearchparams">3、URLSearchParams<a class="headerlink" href="#3urlsearchparams" title="Permanent link">&para;</a></h5>
+<p>URLSearchParams 用来构造、解析、处理 URL 查询部分（？后面的部分）参数可以使字符串对象数组，会对查询字符串自动编码（encode）。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 方法一：传入字符串</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URLSearchParams</span><span class="p">(</span><span class="s1">&#39;?foo=1&amp;bar=2&#39;</span><span class="p">);</span>
+<span class="c1">// 方法二：传入数组</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URLSearchParams</span><span class="p">([[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">],</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">]]);</span>
+<span class="c1">// 方法三：传入对象</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URLSearchParams</span><span class="p">({</span><span class="s1">&#39;foo&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mf">2</span><span class="p">});</span>
+</code></pre></div>
+<p>浏览器向服务器发送表单数据时，可以直接使用<code>URLSearchParams</code>实例作为表单数据（POS请求的数据）。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;https://example.com/api&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="nx">params</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(...)</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">URLSearchParams</span><span class="p">({</span><span class="nx">version</span><span class="o">:</span><span class="w"> </span><span class="mf">2.0</span><span class="p">});</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;?&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">params</span><span class="p">;</span>
+</code></pre></div>
+<ul>
+<li>URLSearchParams.toString() 把实例对象转化成字符串</li>
+<li>URLSearchParams.append('baz', 3) 追加一个查询参数。第一个为键名，第二个为键值，没有返回值。</li>
+<li>URLSearchParams.delete() 删除一个查询参数。</li>
+<li>URLSearchParams.has() 查询一个参数 返回布尔值</li>
+<li>URLSearchParams.set('foo', 5) 设置一个查询参数；如果没有这个参数就增加</li>
+<li>URLSearchParams.get() 获取某个value</li>
+<li>URLSearchParams.getAll() 返回全部的value数组</li>
+<li>URLSearchParams.sort()  按照Unicode进行排序</li>
+<li>URLSearchParams.keys()、URLSearchParams.values()、URLSearchParams.entries() 返回一个遍历器对象，让for...of... 循环遍历。<code>keys</code>方法返回的是键名的遍历器，<code>values</code>方法返回的是键值的遍历器，<code>entries</code>返回的是键值对的遍历器。</li>
+</ul>
+<h3 id="1011-arraybuffer-blob">10.11 ArrayBuffer, Blob<a class="headerlink" href="#1011-arraybuffer-blob" title="Permanent link">&para;</a></h3>
+<h4 id="arraybuffer">ArrayBuffer 对象<a class="headerlink" href="#arraybuffer" title="Permanent link">&para;</a></h4>
+<p>可以获取操作二进制数据（操作内存），主要在ES6中介绍。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">ArrayBuffer</span><span class="p">(</span><span class="mf">8</span><span class="p">);</span><span class="w"> </span><span class="c1">// 构造函数创建实例对象，表示这段二进制数据占用多少个字节</span>
+<span class="nx">buffer</span><span class="p">.</span><span class="nx">byteLength</span><span class="p">;</span><span class="w"> </span><span class="nx">当前对象占用的内存长度</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">buffer2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">buffer</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="mf">4</span><span class="p">);</span><span class="w"> </span><span class="nx">复制一部分内存</span>
+</code></pre></div>
+<h4 id="blob">Blob 对象<a class="headerlink" href="#blob" title="Permanent link">&para;</a></h4>
+<p>表示二进制文件的数据内容（图片）Binary Large Object 二进制大型对象，可以用来操作二进制文件</p>
+<div class="highlight"><pre><span></span><code><span class="nx">构造函数</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">blob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">newBlob</span><span class="p">([</span><span class="nx">array</span><span class="p">],</span><span class="w"> </span><span class="nx">options</span><span class="p">);</span>
+<span class="c1">// 第一个参数是二进制数组，数组成员是二进制数据或者字符串，第二个可选参数是配置，type，表示数据类型</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">htmlFragment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;&lt;span&gt;Michael&lt;/span&gt;&#39;</span><span class="p">];</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">blob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Blob</span><span class="p">(</span><span class="nx">htmlFragemtn</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;text/html&#39;</span>
+<span class="p">});</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="w"> </span><span class="p">};</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">blob2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Blob</span><span class="p">([</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">obj</span><span class="p">)],</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;application/json&#39;</span>
+<span class="p">});</span>
+
+<span class="nx">属性和方法</span>
+<span class="nx">size</span><span class="w"> </span><span class="nx">返回二进制文件的长度</span>
+<span class="nx">type</span><span class="w"> </span><span class="nx">返回二进制文件的类型</span><span class="w"> </span>
+<span class="nx">blob</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span><span class="w"> </span><span class="nx">end</span><span class="p">,</span><span class="w"> </span><span class="nx">type</span><span class="p">)</span><span class="w"> </span><span class="nx">截取一部分二进制文件</span><span class="err">（</span><span class="nx">可以设置类型</span><span class="err">）</span>
+</code></pre></div>
+<p>下面使用Blob读取上传的文件</p>
+<h5 id="_3">获取文件<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
+<p>input type=file 的上传组件，浏览器不允许脚本直接控制value，必须用户上传。用户选好文件后，即可读取文件。文件输入input和拖拽对象dataTransfer 返回的是一个类数组，FileList，每一个item是一个File对象（File对象是Blob构造函数的特殊实例，具有 name,lastModifiedData 的属性）</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// HTML 代码如下</span>
+<span class="c1">// &lt;input type=&quot;file&quot; accept=&quot;image/*&quot; multiple onchange=&quot;fileinfo(this.files)&quot;/&gt;</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">fileinfo</span><span class="p">(</span><span class="nx">files</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">files</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="_4">下载文件<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h5>
+<p>在AJAX请求中，如果设置responseType = blob 下载的结果就是Blob对象</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">xhr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">XMLHttpRequest</span><span class="p">();</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">);</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">responseType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;blob&#39;</span><span class="p">;</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">response</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+</code></pre></div>
+<h5 id="url_1">生成URL<a class="headerlink" href="#url_1" title="Permanent link">&para;</a></h5>
+<p>浏览器允许使用<code>URL.createObjectURL()</code>方法，针对 Blob 对象生成一个临时 URL，以便于某些 API 使用。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">droptarget</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;droptarget&#39;</span><span class="p">);</span>
+<span class="nx">droptarget</span><span class="p">.</span><span class="nx">ondrop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">dataTransfer</span><span class="p">.</span><span class="nx">files</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">files</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">files</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">type</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">type</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">6</span><span class="p">)</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s1">&#39;images/&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">img</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">URL</span><span class="p">.</span><span class="nx">createObjectURL</span><span class="p">(</span><span class="nx">files</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+<span class="w">    </span><span class="nx">img</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">100</span><span class="p">;</span>
+<span class="w">      </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">URL</span><span class="p">.</span><span class="nx">revokeObjectURL</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">src</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="_5">读取文件<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h5>
+<p>取得 Blob 对象以后，可以通过<code>FileReader</code>对象，读取 Blob 对象的内容，即文件内容。</p>
+<p>FileReader 对象提供四个方法，处理 Blob 对象。Blob 对象作为参数传入这些方法，然后以指定的格式返回。</p>
+<ul>
+<li><code>FileReader.readAsText()</code>：返回文本，需要指定文本编码，默认为 UTF-8。</li>
+<li><code>FileReader.readAsArrayBuffer()</code>：返回 ArrayBuffer 对象。</li>
+<li><code>FileReader.readAsDataURL()</code>：返回 Data URL。</li>
+<li><code>FileReader.readAsBinaryString()</code>：返回原始的二进制字符串。</li>
+</ul>
+<p>下面是<code>FileReader.readAsText()</code>方法的例子，用来读取文本文件。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// HTML 代码如下</span>
+<span class="c1">// &lt;input type=’file&#39; onchange=&#39;readfile(this.files[0])&#39;&gt;&lt;/input&gt;</span>
+<span class="c1">// &lt;pre id=&#39;output&#39;&gt;&lt;/pre&gt;</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">readfile</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">FileReader</span><span class="p">();</span>
+<span class="w">  </span><span class="nx">reader</span><span class="p">.</span><span class="nx">readAsText</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">reader</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">reader</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;output&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">out</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">out</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">text</span><span class="p">));</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">reader</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">e</span><span class="p">);</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码中，通过指定 FileReader 实例对象的<code>onload</code>监听函数，在实例的<code>result</code>属性上拿到文件内容。</p>
+<p>下面是<code>FileReader.readAsArrayBuffer()</code>方法的例子，用于读取二进制文件。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// HTML 代码如下</span>
+<span class="c1">// &lt;input type=&quot;file&quot; onchange=&quot;typefile(this.files[0])&quot;&gt;&lt;/input&gt;</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">typefile</span><span class="p">(</span><span class="nx">file</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// 文件开头的四个字节，生成一个 Blob 对象</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">slice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">4</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">FileReader</span><span class="p">();</span>
+<span class="w">  </span><span class="c1">// 读取这四个字节</span>
+<span class="w">  </span><span class="nx">reader</span><span class="p">.</span><span class="nx">readAsArrayBuffer</span><span class="p">(</span><span class="nx">slice</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">reader</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">reader</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// 将这四个字节的内容，视作一个32位整数</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">view</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">DataView</span><span class="p">(</span><span class="nx">buffer</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">magic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">view</span><span class="p">.</span><span class="nx">getUint32</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 根据文件的前四个字节，判断它的类型</span>
+<span class="w">    </span><span class="k">switch</span><span class="p">(</span><span class="nx">magic</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="mh">0x89504E47</span><span class="o">:</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">verified_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;image/png&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="mh">0x47494638</span><span class="o">:</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">verified_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;image/gif&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="mh">0x25504446</span><span class="o">:</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">verified_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;application/pdf&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="mh">0x504b0304</span><span class="o">:</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">verified_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;application/zip&#39;</span><span class="p">;</span><span class="w"> </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">verified_type</span><span class="p">);</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">}</span><span class="w">  </span>
+</code></pre></div>
+<h3 id="1012-file-filelist-filereader">10.12 File, FileList, FileReader<a class="headerlink" href="#1012-file-filelist-filereader" title="Permanent link">&para;</a></h3>
+<p>File 对象：File对象是一个特殊的Blob实例，文件上传后，即可从input元素中拿到这个对象</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;file-update&#39;</span><span class="p">).</span><span class="nx">files</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
+
+<span class="nx">构造函数</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">File</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">options</span><span class="p">);</span>
+<span class="nx">array</span><span class="w"> </span><span class="nx">是文件数组</span><span class="err">（</span><span class="nx">可以使arraybuffer或者string</span><span class="err">，</span><span class="nx">name是文件路径或者文件名</span><span class="err">，</span><span class="nx">options是配置文件</span><span class="err">，</span><span class="nx">type</span><span class="o">=</span><span class="s2">&quot;application/json&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">lastModified</span><span class="o">:</span><span class="w"> </span><span class="nx">时间戳</span><span class="err">）</span>
+
+<span class="nx">属性和方法</span>
+<span class="nx">file</span><span class="p">.</span><span class="nx">name</span>
+<span class="nx">file</span><span class="p">.</span><span class="nx">size</span>
+<span class="nx">file</span><span class="p">.</span><span class="nx">type</span>
+<span class="nx">file</span><span class="p">.</span><span class="nx">lastModified</span>
+<span class="nx">file</span><span class="p">.</span><span class="nx">slice</span><span class="p">()</span><span class="w"> </span><span class="nx">这是继承自Blob对象的方法</span>
+</code></pre></div>
+<p>FileList 伪数组，每一项是一个File对象：文件输入选择或者拖拽元素节点返回的就是FileList对象。FileList.length 返回的长度表示包含文件的个数。</p>
+<p>FileReader 对象用于读取文件对象的内容。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">FileReader</span><span class="p">();</span>
+
+<span class="nx">属性和方法</span>
+<span class="nx">reader</span><span class="p">.</span><span class="nx">error</span>
+<span class="nx">reader</span><span class="p">.</span><span class="nx">readyState</span><span class="p">(</span><span class="nx">表示加载的过程0</span><span class="o">-</span><span class="mf">1</span><span class="o">-</span><span class="mf">2</span><span class="p">)</span><span class="nx">未加载</span><span class="o">-</span><span class="nx">正在加载</span><span class="o">-</span><span class="nx">加载完成</span>
+<span class="nx">reader</span><span class="p">.</span><span class="nx">result</span><span class="w"> </span><span class="nx">读取完成后的文件内容</span><span class="err">，</span><span class="nx">可能是字符串或者arraybuffer实例</span>
+
+<span class="nx">reader</span><span class="p">.</span><span class="nx">onabort</span>
+<span class="nx">reader</span><span class="p">.</span><span class="nx">onerror</span>
+<span class="nx">reader</span><span class="p">.</span><span class="nx">onload</span>
+<span class="nx">reader</span><span class="p">.</span><span class="nx">onloadstart</span>
+<span class="nx">reader</span><span class="p">.</span><span class="nx">onloadend</span>
+<span class="nx">reader</span><span class="p">.</span><span class="nx">onprogress</span>
+</code></pre></div>
+<p>eg</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// HTML 代码如下</span>
+<span class="c1">// &lt;input type=&quot;file&quot; onchange=&quot;onChange(event)&quot;&gt;</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">onChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">FileReader</span><span class="p">();</span>
+<span class="w">  </span><span class="nx">reader</span><span class="p">.</span><span class="nx">readAsText</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">reader</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">result</span><span class="p">);</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>FileReader 有以下实例方法。</p>
+<ul>
+<li>FileReader.abort()：终止读取操作，<code>readyState</code>属性将变成<code>2</code>。</li>
+<li>FileReader.readAsArrayBuffer()：以 ArrayBuffer 的格式读取文件，读取完成后<code>result</code>属性将返回一个 ArrayBuffer 实例。</li>
+<li>FileReader.readAsBinaryString()：读取完成后，<code>result</code>属性将返回原始的二进制字符串。</li>
+<li>FileReader.readAsDataURL()：读取完成后，<code>result</code>属性将返回一个 Data URL 格式（Base64 编码）的字符串，代表文件内容。对于图片文件，这个字符串可以用于<code>&lt;img&gt;</code>元素的<code>src</code>属性。注意，这个字符串不能直接进行 Base64 解码，必须把前缀<code>data:*/*;base64,</code>从字符串里删除以后，再进行解码。</li>
+<li>FileReader.readAsText()：读取完成后，<code>result</code>属性将返回文件内容的文本字符串。该方法的第一个参数是代表文件的 Blob 实例，第二个参数是可选的，表示文本编码，默认为 UTF-8。</li>
+</ul>
+<p>下面是一个例子。</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* HTML 代码如下</span>
+<span class="cm">  &lt;input type=&quot;file&quot; onchange=&quot;previewFile()&quot;&gt;</span>
+<span class="cm">  &lt;img src=&quot;&quot; height=&quot;200&quot;&gt;</span>
+<span class="cm">*/</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">previewFile</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">preview</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">file</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;input[type=file]&#39;</span><span class="p">).</span><span class="nx">files</span><span class="p">[</span><span class="mf">0</span><span class="p">];</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">reader</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">FileReader</span><span class="p">();</span>
+
+<span class="w">  </span><span class="nx">reader</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;load&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">preview</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">reader</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+<span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">file</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">reader</span><span class="p">.</span><span class="nx">readAsDataURL</span><span class="p">(</span><span class="nx">file</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码中，用户选中图片文件以后，脚本会自动读取文件内容，然后作为一个 Data URL 赋值给<code>&lt;img&gt;</code>元素的<code>src</code>属性，从而把图片展示出来。</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+  </span>
+
+    
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:1822852997@qq.com">Michael An</a>, 
+        <a href="mailto:2331806369@qq.com">Michael An</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>

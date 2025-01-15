@@ -1,0 +1,3948 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/ebook-kaikeba-frontend/16-webpack%E4%BC%98%E5%8C%96%E5%AE%98%E6%96%B9/">
+      
+      
+        <link rel="prev" href="../15-webpack%E4%BC%98%E5%8C%96%E7%AC%94%E8%AE%B0/">
+      
+      
+        <link rel="next" href="../17-webpack-05/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>16-webpack优化官方 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#webpack" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              16-webpack优化官方
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    book-JS-The-good-parts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            book-JS-The-good-parts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book-JS-The-good-parts/JS-the-good-parts.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS-the-good-parts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book-JS-The-good-parts/curry-function.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    curry-function
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-JS-basic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-JS-basic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/01-%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/02-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-数据类型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/03-%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-运算符
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/04-%E8%AF%AD%E6%B3%95%E4%B8%93%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-语法专题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/05-%E6%A0%87%E5%87%86%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-标准库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/06-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-面向对象编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/07-%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-异步操作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/08-DOM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-DOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/09-Event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-Event
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-1-BOM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-1-BOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-2-%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-2-同源策略
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-3-%E8%A1%A8%E5%8D%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-3-表单
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-4-IndexedDB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-4-IndexedDB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-5-web-worker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-5-web-worker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/11-%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E6%8E%A5%E5%8F%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-网页元素接口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-JSES6-RYF
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-JSES6-RYF
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/01-%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/02-%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-变量赋值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/03-%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-解构赋值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/04-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-字符串的扩展
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/05-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-字符串方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/06-%E6%AD%A3%E5%88%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-正则
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/07-%E6%95%B0%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-数值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/08-%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/09-%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-数组
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/10-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E5%B1%9E%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-对象的新增属性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/11-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-对象的新增方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/12-Symbol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-Symbol
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/13-Set%20%E5%92%8C%20Map%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-Set 和 Map 数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/14-Proxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14-Proxy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/15-Reflect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15-Reflect
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/16-Promise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-Promise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/17-%E9%81%8D%E5%8E%86%E5%99%A8%E7%9A%84%E5%BE%AA%E7%8E%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-遍历器的循环
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/18-Generator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18-Generator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/19-Generator%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19-Generator异步应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/20-async%20%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-async 函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/21-Class%20%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-Class 的基本语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/22-Class%20%E7%9A%84%E7%BB%A7%E6%89%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22-Class 的继承
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/23-Module%20%E7%9A%84%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23-Module 的语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/24-Module%20%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24-Module 的加载实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/25-%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25-编程风格
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-Principles of Computer Composition
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-Principles of Computer Composition
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-Principles of Computer Composition/计算机组成原理知识点总结.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机组成原理知识点总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-heima-nodejs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-heima-nodejs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/00/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    00
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-javascript-secret-garden
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-javascript-secret-garden
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-javascript-secret-garden/JavaScript 秘密花园-zh.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript 秘密花园-zh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-kaikeba-frontend
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-kaikeba-frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 性能优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02%20%E5%89%8D%E7%AB%AF%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02 前端测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03 设计模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 数据结构与算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05%20%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05 面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06%20%E9%9D%A2%E8%AF%95%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06 面试技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07%20%E9%A1%B9%E7%9B%AE%E8%AF%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07 项目课
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-React%E9%A2%84%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-React预习笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-React%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-React面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-React%E7%BB%84%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-React组件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-自动化测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-webpack-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-webpack-01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-webpack-02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-webpack-02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-webpack-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14-webpack-03
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-webpack%E4%BC%98%E5%8C%96%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15-webpack优化笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    16-webpack优化官方
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    16-webpack优化官方
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化开发体验
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化输出质量
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resolvemodules" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化 resolve.modules 配置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resolvealias" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化 resolve.alias 配置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resolveextensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化 resolve.extensions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexless" class="md-nav__link">
+    <span class="md-ellipsis">
+      index.less
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="index.less">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#css" class="md-nav__link">
+    <span class="md-ellipsis">
+      压缩css
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#css-tree-shaking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Css tree shaking
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#js-tree-shaking" class="md-nav__link">
+    <span class="md-ellipsis">
+      JS tree shaking
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-splitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码分割 code Splitting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-webpack-05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-webpack-05
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-webpack-06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18-webpack-06
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8-%E5%B8%B8%E8%A7%81Web%E6%94%BB%E5%87%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19-前端安全-常见Web攻击
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8-%E9%98%B2%E5%BE%A1%E6%89%8B%E6%AE%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-前端安全-防御手段
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-netease-senior-frontend
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-netease-senior-frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/02-v8%E5%BC%95%E6%93%8E%E5%9B%9E%E6%94%B6%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-v8引擎回收内存简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/03-node%E4%B8%8B%E9%9D%A2%E7%9A%84Restful%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-node下面的Restful实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/04-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%9A%84%E6%8F%90%E5%8D%87%E2%80%94%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E6%88%91%E4%BB%AC%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-编程思想的提升—如何提高我们代码的可扩展性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/06-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8Cssr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-浏览器渲染原理和ssr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/07-%E7%BD%91%E6%98%93%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-网易真实项目webpack配置解析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/08-%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90API%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-从架构分析API层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/09-%E5%89%8D%E7%AB%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-前端负责人的工作内容
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/10-%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%E5%AD%A6%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-分析源码学架构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/11-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E9%AB%98%E8%B4%A8%E9%87%8F%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-设计模式高质量代码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/12-nodeJS%2BMongoDB%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-nodeJS+MongoDB登录系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/12-nodejs-mongodb-mongoose/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-nodejs-mongodb-mongoose
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/13-%E4%BD%BF%E7%94%A8VUE%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-使用VUE创建组件（没学完）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/16-%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-构建自己的脚手架工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/17-webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-webpack编译原理分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/20-%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD-VUE%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-组件封装的基本技能-VUE（没学完）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/21-ssr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-ssr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/24-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%A6%82%E4%BD%95%E5%81%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24-单元测试如何做
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/25-%E5%9F%BA%E4%BA%8ENodeJS%E6%89%93%E9%80%A0Web%E6%9E%B6%E6%9E%84%E4%B8%AD%E9%97%B4%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25-基于NodeJS打造Web架构中间层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-network-basic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-network-basic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/01%20%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/02%20%E7%89%A9%E7%90%86%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02 物理层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/03%20%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03 数据链路层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/04%20%E7%BD%91%E7%BB%9C%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 网络层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/05%20%E8%BF%90%E8%BE%93%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05 运输层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/06%20%E5%BA%94%E7%94%A8%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06 应用层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/todo%20%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E5%85%A5%E9%97%A8-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    todo 互联网协议入门-阮一峰
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-qianfeng-express
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-qianfeng-express
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-qianfeng-express/01.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-upguigu-nodejs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-upguigu-nodejs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-upguigu-nodejs/nodeJS-basic.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nodeJS-basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/H5C3%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    H5C3从入门到精通
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/JS%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS 数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/data%20structure%20basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    data structure basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/express%E5%9B%BE%E4%B9%A6%E9%A6%86%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    express图书馆项目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    代码整洁之道 读书笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%85%B6%E4%BB%96%E4%B9%A6%E5%8D%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    其他书单
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E7%AC%94%E8%AE%B0-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端工程化笔记-阮一峰
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%B0%9A%E7%A1%85%E8%B0%B7-React%E6%8A%80%E6%9C%AF%E5%85%A8%E5%AE%B6%E6%A1%B62021%E7%89%88%E7%AC%94%E8%AE%B001/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    尚硅谷-React技术全家桶2021版笔记01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%B0%9A%E7%A1%85%E8%B0%B7-React%E6%8A%80%E6%9C%AF%E5%85%A8%E5%AE%B6%E6%A1%B62021%E7%89%88%E7%AC%94%E8%AE%B002/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    尚硅谷-React技术全家桶2021版笔记02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JS%E4%B8%8A%E5%8D%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-你不知道的JS上卷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JS%E4%B8%AD%E5%8D%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-你不知道的JS中卷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E5%9B%BE%E8%A7%A3HTTP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-图解HTTP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E9%AB%98%E6%80%A7%E8%83%BDJS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-高性能JS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E6%80%8E%E6%A0%B7%E8%B7%91%E8%B5%B7%E6%9D%A5%E7%9A%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机是怎样跑起来的
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化开发体验
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化输出质量
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resolvemodules" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化 resolve.modules 配置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resolvealias" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化 resolve.alias 配置
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resolveextensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化 resolve.extensions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexless" class="md-nav__link">
+    <span class="md-ellipsis">
+      index.less
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="index.less">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#css" class="md-nav__link">
+    <span class="md-ellipsis">
+      压缩css
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#css-tree-shaking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Css tree shaking
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#js-tree-shaking" class="md-nav__link">
+    <span class="md-ellipsis">
+      JS tree shaking
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-splitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      代码分割 code Splitting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="webpack">webpack性能优化 优化开发体验<a class="headerlink" href="#webpack" title="Permanent link">&para;</a></h1>
+<p>统计信息：字数 18859  阅读38分钟</p>
+<p>2021-10-29</p>
+<p>这部分对应视频教程中 456 三节，原始笔记比较乱。</p>
+<p>这三节视频较长，讲师水平一般，根据实际情况学习。</p>
+<h4 id="_1">优化开发体验<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<p>提升效率；优化构建速度；优化使⽤体验</p>
+<h4 id="_2">优化输出质量<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>优化要发布到线上的代码，减少⽤户能感知到的加载时间；提升代码性能，性能好，执⾏就快</p>
+<p>缩⼩小⽂文件范围</p>
+<p>Loader 优化loader配置</p>
+<p>test include exclude三个配置项来缩小 loader 的处理范围 推荐 include</p>
+<div class="highlight"><pre><span></span><code><span class="nx">include</span><span class="o">:</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;./src&quot;</span><span class="p">),</span>
+</code></pre></div>
+<h4 id="resolvemodules">优化 resolve.modules 配置<a class="headerlink" href="#resolvemodules" title="Permanent link">&para;</a></h4>
+<p>resolve.modules ⽤于配置 webpack 去哪些⽬录下寻找第三⽅模块，默认是['node_modules']</p>
+<p>寻找第三⽅模块，默认是在当前项⽬目⽬目录下的node_modules⾥面去找，如果没有找到，就会去上⼀级目录../node_modules找，再没有会去../../node_modules中找，以此类推，和Node.js的模块寻找机制很类似。</p>
+<p>如果我们的第三⽅模块都安装在了了项⽬根目录下，就可以直接指明这个路径。</p>
+<h4 id="resolvealias">优化 resolve.alias 配置<a class="headerlink" href="#resolvealias" title="Permanent link">&para;</a></h4>
+<p>resolve.alias配置通过别名来将原导入路径映射成⼀个新的导⼊路径</p>
+<p>拿react为例，我们引⼊入的react库，⼀般存在两套代码</p>
+<p>cjs 采⽤commonJS规范的模块化代码，umd 已经打包好的完整代码，没有采⽤模块化，可以直接执⾏</p>
+<p>默认情况下，webpack会从⼊口⽂件 ./node_modules/bin/react/index 开始递归解析和处理依赖的文件。我们可以直接指定⽂件，避免这处的耗时。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="o">=</span><span class="p">{</span>
+<span class="w">  </span><span class="nx">resolve</span><span class="o">:</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">modules</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;./node_modules&quot;</span><span class="p">)]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nx">alias</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;@&quot;</span><span class="o">:</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;./pages&quot;</span><span class="p">),</span>
+<span class="w">  </span><span class="s2">&quot;react&quot;</span><span class="o">:</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;./node_modules/react/umd/react.production.min.js&quot;</span><span class="p">),</span>
+<span class="w">  </span><span class="s2">&quot;react-dom&quot;</span><span class="o">:</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="w"> </span><span class="nx">__dirname</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;./node_modules/react-dom/umd/react-dom.production.min.js&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="resolveextensions">优化 resolve.extensions<a class="headerlink" href="#resolveextensions" title="Permanent link">&para;</a></h4>
+<p>配置 resolve.extensions 在导入语句没带文件后缀时，webpack 会⾃自动带上后缀后，去尝试查找文件是否存在。</p>
+<p>默认值:</p>
+<div class="highlight"><pre><span></span><code>extensions:[&#39;.js&#39;,&#39;.json&#39;,&#39;.jsx&#39;,&#39;.ts&#39;]
+</code></pre></div>
+<p>后缀尝试列表尽量的小</p>
+<p>导入语句尽量量的带上后缀。</p>
+<p>使⽤ externals 优化 cdn 静态资源：公司有cdn:静态资源有部署到cdn 有链接了了</p>
+<p>我的bundle⽂件⾥，就不⽤打包进去这个依赖了，体积会小</p>
+<p>我们可以将⼀些JS⽂文件存储在 CDN 上(减少 Webpack 打包出来的 js 体积)，在 index.html 中通过标签引入，如:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;ie=edge&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Document<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;root&quot;</span><span class="p">&gt;</span>root<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://libs.baidu.com/jquery/2.0.0/jquery.min.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>我们希望在使⽤时，仍然可以通过 import 的⽅式去引⽤(如 import $ from 'jquery' )，并且希望 webpack 不会对其进⾏打包，此时就可以配置 externals 。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">//webpack.config.js</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">//...</span>
+<span class="w">  </span><span class="nx">externals</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">//jquery通过script引⼊入之后，全局中即有了了 jQuery 变量量 &#39;jquery&#39;: &#39;jQuery&#39;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>使⽤静态资源路路径publicPath(CDN) CDN通过将资源部署到世界各地，使得⽤户可以就近访问资源，加快访问速度。要接入CDN，需要把⽹网⻚页的静态资源上传到CDN服务上，在访问这些资源时，使⽤CDN服务提供的URL。</p>
+<p>咱们公司得有cdn服务器器地址 确保静态资源⽂文件的上传与否</p>
+<p>css⽂文件的处理 使⽤less或者sass当做css技术栈</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>npm<span class="w"> </span>install<span class="w"> </span>less<span class="w"> </span>less-loader<span class="w"> </span>--save-dev
+</code></pre></div>
+<p>使⽤postcss为样式⾃自动补⻬齐浏览器器前缀 <a href="https://caniuse.com/">https://caniuse.com/</a></p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>i<span class="w">  </span>postcss-loader<span class="w"> </span>autoprefixer<span class="w"> </span>-D
+</code></pre></div>
+<p>新建postcss.config.js </p>
+<div class="highlight"><pre><span></span><code><span class="c1">// webpack.config.js</span>
+<span class="nx">output</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">publicPath</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;//cdnURL.com&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">//指定存放JS⽂文件的CDN地址</span>
+<span class="p">}</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="sr">/\.less$/</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">use</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;style-loader&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;css-loader&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;less-loader&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">plugins</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;autoprefixer&quot;</span><span class="p">)({</span>
+<span class="w">        </span><span class="nx">overrideBrowserslist</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;last 2 versions&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&gt;1%&quot;</span><span class="p">]</span>
+<span class="w">      </span><span class="p">})</span><span class="w"> </span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">};</span>
+</code></pre></div>
+<h2 id="indexless">index.less<a class="headerlink" href="#indexless" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="nt">body</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">div</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">flex</span><span class="p">;</span>
+<span class="w">    </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">red</span><span class="w"> </span><span class="kc">solid</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+
+<span class="p">}</span>
+</code></pre></div>
+<p>webpack.config.js
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="sr">/\.less$/</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">include</span><span class="o">:</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;./src&quot;</span><span class="p">),</span>
+<span class="w">  </span><span class="nx">use</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;style-loader&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">loader</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;css-loader&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">&quot;less-loader&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;postcss-loader&quot;</span>
+
+
+
+<span class="p">]</span><span class="w"> </span><span class="p">},</span>
+</code></pre></div></p>
+<p>如果不做抽取配置，我们的 css 是直接打包进 js ⾥里里⾯面的，我们希望能单独⽣生成 css ⽂文件。 因为单独⽣生 成css,css可以和js并⾏下载，提⾼高页⾯加载效率</p>
+<p>借助MiniCssExtractPlugin 完成抽离css</p>
+<div class="highlight"><pre><span></span><code>npm install mini-css-extract-plugin -D
+const MiniCssExtractPlugin = require(&quot;mini-css-extract-plugin&quot;);
+ {
+   test: /\.scss$/,
+
+
+
+use: \[
+ // &quot;style-loader&quot;, // 不再需要style-loader，⽤MiniCssExtractPlugin.loader
+</code></pre></div>
+<p>代替</p>
+<div class="highlight"><pre><span></span><code>MiniCssExtractPlugin.loader,
+</code></pre></div>
+<p>"css-loader", // 编译css "postcss-loader", "sass-loader" // 编译scss</p>
+<p>] },</p>
+<div class="highlight"><pre><span></span><code><span class="nx">plugins</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">   </span><span class="ow">new</span><span class="w"> </span><span class="nx">MiniCssExtractPlugin</span><span class="p">({</span>
+<span class="w">     </span><span class="nx">filename</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;css/[name]_[contenthash:6].css&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="nx">chunkFilename</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;[id].css&quot;</span>
+<span class="w">   </span><span class="p">})</span>
+<span class="p">]</span>
+</code></pre></div>
+<h4 id="css">压缩css<a class="headerlink" href="#css" title="Permanent link">&para;</a></h4>
+<p>借助 optimize-css-assets-webpack-plugin</p>
+<p>借助cssnano</p>
+<p>安装</p>
+<p>npm install cssnano -D</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// npm i optimize-css-assets-webpack-plugin -D</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">OptimizeCSSAssetsPlugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;optimize-css-assets-webpack-plugin&quot;</span><span class="p">);</span>
+
+<span class="ow">new</span><span class="w"> </span><span class="nx">OptimizeCSSAssetsPlugin</span><span class="p">({</span>
+<span class="w"> </span><span class="nx">cssProcessor</span><span class="o">:</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;cssnano&quot;</span><span class="p">),</span><span class="w"> </span><span class="c1">//引⼊入cssnano配置压缩选项 cssProcessorOptions: {</span>
+<span class="w">    </span><span class="nx">discardComments</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">removeAll</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="p">})</span>
+
+<span class="c1">// 压缩HTML 借助html-webpack-plugin</span>
+
+<span class="ow">new</span><span class="w"> </span><span class="nx">htmlWebpackPlugin</span><span class="p">({</span><span class="w"> </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;京东商城&quot;</span><span class="p">,</span>
+
+
+<span class="w">      </span><span class="nx">template</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;./index.html&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">filename</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;index.html&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">minify</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// 压缩HTML⽂文件</span>
+<span class="w"> </span><span class="nx">removeComments</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
+<span class="w"> </span><span class="c1">// 移除HTML中的注释 </span>
+<span class="w"> </span><span class="nx">collapseWhitespace</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
+<span class="w"> </span><span class="c1">// 删除空⽩白符与换⾏符 </span>
+<span class="w"> </span><span class="nx">minifyCSS</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span>
+<span class="w"> </span><span class="c1">// 压缩内联css</span>
+
+<span class="p">}</span><span class="w"> </span><span class="p">}),</span>
+</code></pre></div>
+<p>development vs Production模式区分打包 npm install webpack-merge -D</p>
+<p>案例</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">merge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;webpack-merge&quot;</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">commonConfig</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./webpack.common.js&quot;</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">devConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+
+
+<span class="p">...</span><span class="w"> </span>
+<span class="p">}</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">merge</span><span class="p">(</span><span class="nx">commonConfig</span><span class="p">,</span><span class="nx">devConfig</span><span class="p">)</span>
+<span class="c1">//package.js</span>
+<span class="s2">&quot;scripts&quot;</span><span class="o">:</span><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;dev&quot;</span><span class="o">:</span><span class="s2">&quot;webpack-dev-server --config ./build/webpack.dev.js&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;build&quot;</span><span class="o">:</span><span class="s2">&quot;webpack --config ./build/webpack.prod.js&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>基于环境变量量区分</p>
+<p>借助cross-env</p>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>i<span class="w"> </span>cross-env<span class="w"> </span>-D
+</code></pre></div>
+<p>package⾥里里⾯面配置命令脚本，传⼊入参数</p>
+<p>在webpack.config.js⾥里里拿到参数 process.env.NODE_ENV</p>
+<p>tree Shaking</p>
+<p>webpack2.x开始⽀支持 tree shaking概念，顾名思义，"摇树"，清除⽆无⽤ css,js(Dead Code) Dead Code ⼀般具有以下⼏几个特征</p>
+<p>代码不会被执⾏，不可到达 代码执⾏的结果不会被⽤到 代码只会影响死变量量(只写不读)
+ Js tree shaking只⽀支持ES module的引⼊入⽅式!!!!,</p>
+<div class="highlight"><pre><span></span><code><span class="err">##package.jso</span><span class="kc">n</span>
+<span class="nt">&quot;test&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cross-env NODE_ENV=test webpack --config ./webpack.config.test.js&quot;</span><span class="p">,</span>
+</code></pre></div>
+<p>//外部传⼊入的全局变量量 module.exports = (env)=&gt;{</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="nx">env</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">env</span><span class="p">.</span><span class="nx">production</span><span class="p">){</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">merge</span><span class="p">(</span><span class="nx">commonConfig</span><span class="p">,</span><span class="nx">prodConfig</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">merge</span><span class="p">(</span><span class="nx">commonConfig</span><span class="p">,</span><span class="nx">devConfig</span><span class="p">)</span>
+
+
+
+<span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>//外部传⼊入变量量
+ scripts:" --env.production"</p>
+<h4 id="css-tree-shaking">Css tree shaking<a class="headerlink" href="#css-tree-shaking" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="c1">// npm i glob-all purify-css purifycss-webpack --save-dev</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">PurifyCSS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;purifycss-webpack&#39;</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">glob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;glob-all&#39;</span><span class="p">)</span>
+<span class="nx">plugins</span><span class="o">:</span><span class="p">[</span>
+<span class="c1">// 清除⽆无⽤ css new PurifyCSS({</span>
+
+<span class="nx">paths</span><span class="o">:</span><span class="w"> </span><span class="nx">glob</span><span class="p">.</span><span class="nx">sync</span><span class="p">(</span><span class="err">\</span><span class="p">[</span>
+<span class="w"> </span><span class="c1">// 要做 CSS Tree Shaking 的路路径⽂文件</span>
+<span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="err">\</span><span class="nx">_</span><span class="err">\</span><span class="nx">_dirname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;./src/\*.html&#39;</span><span class="p">),</span><span class="w"> </span><span class="c1">// 请注意，我们同样需要对 html ⽂文件进⾏ tree shaking</span>
+<span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="err">\</span><span class="nx">_</span><span class="err">\</span><span class="nx">_dirname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;./src/\*.js&#39;</span><span class="p">)</span>
+
+<span class="p">])</span><span class="w"> </span>
+<span class="p">})</span>
+
+<span class="p">]</span>
+</code></pre></div>
+<h4 id="js-tree-shaking">JS tree shaking<a class="headerlink" href="#js-tree-shaking" title="Permanent link">&para;</a></h4>
+<p>只⽀支持import⽅式引⼊入，不⽀支持commonjs的⽅式引⼊入 案例:</p>
+<p>//expo.js</p>
+<div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">minus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">b</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">//index.js</span>
+
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">add</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;./expo&quot;</span><span class="p">;</span>
+<span class="nx">add</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span>
+<span class="c1">//webpack.config.js</span>
+</code></pre></div>
+<p>optimization: {
+ usedExports: true // 哪些导出的模块被使⽤了了，再做打包
+}</p>
+<p>只要mode是production就会⽣生效，develpoment的tree shaking是不⽣生效的，因为webpack为了了 ⽅便便你的调试</p>
+<p>可以查看打包后的代码注释以辨别是否⽣生效。
+⽣生产模式不需要配置，默认开启</p>
+<p>副作⽤</p>
+<h4 id="code-splitting">代码分割 code Splitting<a class="headerlink" href="#code-splitting" title="Permanent link">&para;</a></h4>
+<p>单页⾯应⽤spa: 打包完后，所有页⾯只⽣生成了了⼀个bundle.js</p>
+<p>代码体积变⼤大，不利利于下载
+  没有合理利利⽤浏览器器资源</p>
+<p>多页⾯应⽤mpa: 如果多个页⾯引⼊入了了⼀些公共模块，那么可以把这些公共的模块抽离出来，单独打包。公共代码只需要</p>
+<p>下载⼀次就缓存起来了了，避免了了重复下载。</p>
+<p>//package.json
+ "sideEffects":false //正常对所有模块进⾏tree shaking , 仅⽣生产模式有效，需要配合 usedExports</p>
+<p>或者 在数组⾥里里⾯面排除不需要tree shaking的模块 "sideEffects":['*.css','@babel/polyfill']</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;lodash&quot;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">join</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">]))</span>
+</code></pre></div>
+<p>假如我们引⼊入⼀个第三⽅的⼯具库，体积为1mb，⽽而我们的业务逻辑代码也有1mb，那么打包出来的体积⼤大 ⼩小会在2mb</p>
+<p>导致问题:
+ 体积⼤大，加载时间⻓长
+ 业务逻辑会变化，第三⽅⼯具库不会，所以业务逻辑⼀变更更，第三⽅⼯具库也要跟着变。</p>
+<p>其实code Splitting概念 与 webpack并没有直接的关系，只不过webpack中提供了了⼀种更更加⽅便便的⽅法 供我们实现代码分割</p>
+<p>基于<a href="https://webpack.js.org/plugins/split-chunks-plugin/">https://webpack.js.org/plugins/split-chunks-plugin/</a></p>
+<div class="highlight"><pre><span></span><code><span class="err">op</span><span class="kc">t</span><span class="err">imiza</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="err">spli</span><span class="kc">t</span><span class="err">Chu</span><span class="kc">n</span><span class="err">ks</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="err">chu</span><span class="kc">n</span><span class="err">ks</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// 所有的 chunks 代码公共的部分分离出来成为⼀个单独的⽂文件</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="p">},</span>
+
+<span class="err">op</span><span class="kc">t</span><span class="err">imiza</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="err">spli</span><span class="kc">t</span><span class="err">Chu</span><span class="kc">n</span><span class="err">ks</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="err">chu</span><span class="kc">n</span><span class="err">ks</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;asy</span><span class="kc">n</span><span class="err">c&#39;</span><span class="p">,</span><span class="c1">//对同步 initial，异步 async，所有的模块有效 all minSize: 30000,//最⼩小尺⼨寸，当模块⼤大于30kb</span>
+<span class="w">    </span><span class="err">maxSize</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="c1">//对模块进⾏⼆二次分割时使⽤，不推荐使⽤</span>
+<span class="w">    </span><span class="err">mi</span><span class="kc">n</span><span class="err">Chu</span><span class="kc">n</span><span class="err">ks</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="c1">//打包⽣生成的chunk⽂文件最少有⼏几个chunk引⽤了了这个模块</span>
+<span class="w">    </span><span class="err">maxAsy</span><span class="kc">n</span><span class="err">cReques</span><span class="kc">ts</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="c1">//最⼤大异步请求数，默认5</span>
+<span class="w">    </span><span class="err">maxI</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">ialReques</span><span class="kc">ts</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="c1">//最⼤大初始化请求书，⼊入⼝口⽂文件同步请求，默认3</span>
+<span class="w">    </span><span class="err">au</span><span class="kc">t</span><span class="err">oma</span><span class="kc">t</span><span class="err">icNameDelimi</span><span class="kc">ter</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">-</span><span class="err">&#39;</span><span class="p">,</span><span class="c1">//打包分割符号</span>
+<span class="w">    </span><span class="kc">na</span><span class="err">me</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="c1">//打包后的名称，除了了布尔值，还可以接收⼀个函数function</span>
+<span class="w">    </span><span class="err">cacheGroups</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="c1">//缓存组</span>
+<span class="w">      </span><span class="err">ve</span><span class="kc">n</span><span class="err">dors</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kc">test</span><span class="p">:</span><span class="w"> </span><span class="err">/\</span><span class="p">[</span><span class="err">\\\\/</span><span class="p">]</span><span class="kc">n</span><span class="err">ode_modules\</span><span class="p">[</span><span class="err">\\\\/</span><span class="p">]</span><span class="err">/</span><span class="p">,</span><span class="w"> </span><span class="kc">na</span><span class="err">me</span><span class="p">:</span><span class="s2">&quot;vendor&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// 要缓存的 分隔出来的 chunk 名称 </span>
+<span class="w">        </span><span class="err">priori</span><span class="kc">t</span><span class="err">y</span><span class="p">:</span><span class="w"> </span><span class="mi">-10</span><span class="c1">//缓存组优先级 数字越⼤大，优先级越⾼高</span>
+<span class="w">      </span><span class="p">},</span><span class="w"> </span><span class="err">o</span><span class="kc">t</span><span class="err">her</span><span class="p">:{</span>
+<span class="w">        </span><span class="err">chu</span><span class="kc">n</span><span class="err">ks</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;initial&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// 必须三选⼀: &quot;initial&quot; | &quot;all&quot; | &quot;async&quot;(默认就是</span>
+<span class="w">        </span><span class="kc">test</span><span class="p">:</span><span class="w"> </span><span class="err">/reac</span><span class="kc">t</span><span class="err">|lodash/</span><span class="p">,</span><span class="w"> </span><span class="c1">// 正则规则验证，如果符合就提取 chunk, name:&quot;other&quot;,</span>
+<span class="w">        </span><span class="err">asy</span><span class="kc">n</span><span class="err">c)</span>
+<span class="w">        </span><span class="err">mi</span><span class="kc">n</span><span class="err">Size</span><span class="p">:</span><span class="w"> </span><span class="mi">30000</span><span class="p">,</span>
+<span class="w">        </span><span class="err">mi</span><span class="kc">n</span><span class="err">Chu</span><span class="kc">n</span><span class="err">ks</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="err">de</span><span class="kc">fault</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="err">mi</span><span class="kc">n</span><span class="err">Chu</span><span class="kc">n</span><span class="err">ks</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">        </span><span class="err">priori</span><span class="kc">t</span><span class="err">y</span><span class="p">:</span><span class="w"> </span><span class="mi">-20</span><span class="p">,</span>
+<span class="w">        </span><span class="err">reuseExis</span><span class="kc">t</span><span class="err">i</span><span class="kc">n</span><span class="err">gChu</span><span class="kc">n</span><span class="err">k</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="c1">//可设置是否重⽤该chunk</span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span>
+<span class="p">}</span>
+</code></pre></div>
+<p>使⽤下⾯面配置即可:</p>
+<p>Scope Hoisting</p>
+<p>作⽤域提升(Scope Hoisting)是指 webpack 通过 ES6 语法的静态分析，分析出模块之间的依赖关 系，尽可能地把模块放到同⼀个函数中。下⾯面通过代码示例来理解:</p>
+<p>打包后， hello.js 的内容和 index.js 会分开
+ 通过配置 optimization.concatenateModules=true`:开启 Scope Hoisting</p>
+<p>optimization:{ //帮我们⾃自动做代码分割 splitChunks:{</p>
+<p>chunks:"all",//默认是⽀支持异步，我们使⽤all }</p>
+<p>}</p>
+<p>// hello.js</p>
+<div class="highlight"><pre><span></span><code>export default &#39;Hello, Webpack&#39;;
+// index.js
+import str from &#39;./hello.js&#39;;
+console.log(str);
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>// webpack.config.js
+module.exports = {
+    optimization: {
+        concatenateModules: true
+    }
+</code></pre></div>
+<p>};</p>
+<p>我们发现hello.js内容和index.js的内容合并在⼀起了了!所以通过 Scope Hoisting 的功能可以让 Webpack 打包出来的代码⽂文件更更⼩小、运⾏的更更快。</p>
+<p>使⽤⼯具量量化</p>
+<p>speed-measure-webpack-plugin:可以测量量各个插件和 loader 所花费的时间</p>
+<p>webpack-bundle-analyzer:分析webpack打包后的模块依赖关系:</p>
+<div class="highlight"><pre><span></span><code>npm i speed-measure-webpack-plugin -D
+//webpack.config.js
+const SpeedMeasurePlugin = require(&quot;speed-measure-webpack-plugin&quot;);
+const smp = new SpeedMeasurePlugin();
+</code></pre></div>
+<p>const config = { //...webpack配置</p>
+<div class="highlight"><pre><span></span><code>}
+module.exports = smp.wrap(config);
+npm install webpack-bundle-analyzer -D
+const BundleAnalyzerPlugin = require(&#39;webpack-bundle-
+analyzer&#39;).BundleAnalyzerPlugin;
+module.exports = merge(baseWebpackConfig, {
+</code></pre></div>
+<p>//....</p>
+<div class="highlight"><pre><span></span><code>    plugins: [
+        //...
+        new BundleAnalyzerPlugin(),
+    ]
+</code></pre></div>
+<p>})</p>
+<p>启动webpack 构建，会默认打开⼀个窗⼝口 </p>
+<p>DllPlugin插件打包第三⽅类库 优化构建性能</p>
+<p>Dll动态链接库 其实就是做缓存 .dll⽂文件称为动态链接库，在windows系统会经常看到. 百度百科:<a href="https://baike.baidu.com/item/.dll/2133451?fr=aladdin">https://baike.baidu.com/item/.dll/2133451?fr=aladdin</a></p>
+<p>项⽬目中引⼊入了了很多第三⽅库，这些库在很⻓长的⼀段时间内，基本不会更更新，打包的时候分开打包来提升 打包速度，⽽而DllPlugin动态链接库插件，其原理就是把⽹网⻚页依赖的基础模块抽离出来打包到dll⽂文件中， 当需要导⼊入的模块存在于某个dll中时，这个模块不再被打包，⽽而是去dll中获取。</p>
+<p>动态链接库只需要被编译⼀次，项⽬目中⽤到的第三⽅模块，很稳定，例如react,react-dom，只要 没有升级的需求</p>
+<p>webpack已经内置了了对动态链接库的⽀支持 DllPlugin:⽤于打包出⼀个个单独的动态链接库⽂文件</p>
+<p>DllReferencePlugin:⽤于在主要的配置⽂文件中引⼊入DllPlugin插件打包好的动态链接库⽂文件 新建webpack.dll.config.js⽂文件，打包基础模块</p>
+<p>我们在 index.js 中使⽤了了第三⽅库 react 、 react-dom ，接下来，我们先对这两个库先进⾏打包。</p>
+<p><div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">DllPlugin</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;webpack&quot;</span><span class="p">);</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">mode</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;development&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">entry</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">react</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;react&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;react-dom&quot;</span><span class="p">]</span><span class="w"> </span><span class="c1">//! node_modules?</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">output</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;./dll&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="nx">filename</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;[name].dll.js&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">library</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;react&quot;</span>
+<span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="nx">plugins</span><span class="o">:</span><span class="w"> </span><span class="err">\</span><span class="p">[</span>
+<span class="w">  </span><span class="ow">new</span><span class="w"> </span><span class="nx">DllPlugin</span><span class="p">({</span>
+<span class="w">  </span><span class="c1">// manifest.json⽂文件的输出位置</span>
+<span class="w">  </span><span class="nx">path</span><span class="o">:</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="err">\</span><span class="nx">_</span><span class="err">\</span><span class="nx">_dirname</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;./dll&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;\[name]-manifest.json&quot;</span><span class="p">),</span><span class="w"> </span><span class="c1">// 定义打包的公共vendor⽂文件对外暴暴露露的函数名</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;react&quot;</span>
+<span class="p">})</span><span class="w"> </span><span class="p">]</span>
+<span class="p">};</span>
+</code></pre></div>
+在package.json中添加
+ "dev:dll": "webpack --config ./build/webpack.dll.config.js",</p>
+<p>运⾏</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>npm<span class="w"> </span>run<span class="w"> </span>dev:dll
+</code></pre></div>
+<p>你会发现多了了⼀个dll⽂文件夹，⾥里里边有dll.js⽂文件，这样我们就把我们的React这些已经单独打包了了</p>
+<p>dll⽂文件包含了了⼤大量量模块的代码，这些模块被存放在⼀个数组⾥里里。⽤数组的索引号为ID,通过变量量讲 ⾃自⼰己暴暴露露在全局中，就可以在window.xxx访问到其中的模块
+ Manifest.json 描述了了与其对应的dll.js包含了了哪些模块，以及ID和路路径。</p>
+<p>接下来怎么使⽤呢?</p>
+<p>要给web项⽬目构建介⼊入动态链接库，需要完成以下事情: 将⽹网⻚页依赖的基础模块抽离，打包到单独的动态链接库，⼀个动态链接库是可以包含多个模块的。</p>
+<p>当需要导⼊入的模块存在于某个动态链接库中时，不要再次打包，直接使⽤构建好的动态链接库即
+  可。
+  页⾯依赖的所有动态链接库都需要被加载。</p>
+<div class="highlight"><pre><span></span><code><span class="err">##</span><span class="nx">webpack</span><span class="p">.</span><span class="nx">dev</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">js</span>
+<span class="ow">new</span><span class="w"> </span><span class="nx">DllReferencePlugin</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">manifest</span><span class="o">:</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span><span class="s2">&quot;./dll/react-manifest.json&quot;</span><span class="p">)</span>
+<span class="p">}),</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;ie=edge&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>webpack<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;css/main_e2bf39.css&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;app&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;react.dll.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;js/main_142e6c.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>⼿手动添加使⽤，体验不好，这⾥里里推荐使⽤add-asset-html-webpack-plugin插件帮助我们做这个事情。 安装⼀个依赖 npm i add-asset-html-webpack-plugin ，它会将我们打包后的 dll.js ⽂文件注⼊入到我们⽣生成的 index.html 中.在 webpack.base.config.js ⽂文件中进⾏更更改。</p>
+<p>运⾏:</p>
+<p>npm run dev</p>
+<p>这个理解起来不费劲，操作起来很费劲。所幸，在Webpack5中已经不⽤它了了，⽽而是 ⽤ HardSourceWebpackPlugin ，⼀样的优化效果，但是使⽤却及其简单</p>
+<p>提供中间缓存的作⽤
+  ⾸首次构建没有太⼤大的变化
+  第⼆二次构建时间就会有较⼤大的节省</p>
+<div class="highlight"><pre><span></span><code><span class="ow">new</span><span class="w"> </span><span class="nx">AddAssetHtmlWebpackPlugin</span><span class="p">({</span>
+<span class="w"> </span><span class="nx">filepath</span><span class="o">:</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="err">\</span><span class="nx">_</span><span class="err">\</span><span class="nx">_dirname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;../dll/react.dll.js&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// 对应的 dll ⽂文件路路径</span>
+<span class="p">}),</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">HardSourceWebpackPlugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;hard-source-webpack-plugin&#39;</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="ow">new</span><span class="w"> </span><span class="nx">HardSourceWebpackPlugin</span><span class="p">()]</span>
+</code></pre></div>
+<p>使⽤ happypack 并发执⾏任务</p>
+<p>运⾏在 Node.之上的Webpack是单线程模型的，也就是说Webpack需要⼀个⼀个地处理任务，不能同 时处理多个任务。 Happy Pack 就能让Webpack做到这⼀点，它将任务分解给多个⼦进程去并发执 ⾏，⼦进程处理完后再将结果发送给主进程。从⽽而发挥多核 CPU 电脑的威⼒力力。</p>
+<p>npm i -D happypack</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">happyThreadPool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">HappyPack</span><span class="p">.</span><span class="nx">ThreadPool</span><span class="p">({</span><span class="w"> </span><span class="nx">size</span><span class="o">:</span><span class="w"> </span><span class="mf">5</span><span class="w"> </span><span class="p">});</span>
+<span class="c1">//const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })</span>
+<span class="c1">// webpack.config.js</span>
+<span class="nx">rules</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="sr">/\.jsx?$/</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">exclude</span><span class="o">:</span><span class="w"> </span><span class="sr">/node_modules/</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">use</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">loader</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;happypack/loader?id=babel&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">test</span><span class="o">:</span><span class="w"> </span><span class="sr">/\.css$/</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">include</span><span class="o">:</span><span class="w"> </span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;./src&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="nx">use</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;happypack/loader?id=css&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="p">]</span>
+
+<span class="c1">//在plugins中增加</span>
+<span class="nx">plugins</span><span class="o">:</span><span class="p">[</span>
+<span class="w">  </span><span class="ow">new</span><span class="w"> </span><span class="nx">HappyPack</span><span class="p">({</span>
+<span class="w">    </span><span class="c1">// ⽤唯⼀的标识符id，来代表当前的HappyPack是⽤来处理⼀类特定的⽂文件 id:&#39;babel&#39;,</span>
+<span class="w">    </span><span class="c1">// 如何处理.js⽂文件，⽤法和Loader配置中⼀样 loaders:\[&#39;babel-loader?cachedirectory&#39;],</span>
+<span class="w">    </span><span class="nx">threadPool</span><span class="o">:</span><span class="w"> </span><span class="nx">happyThreadPool</span><span class="p">,</span>
+<span class="w">  </span><span class="p">}),</span>
+<span class="w">  </span><span class="ow">new</span><span class="w"> </span><span class="nx">HappyPack</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;css&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">loaders</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;style-loader&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;css-loader&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}),</span>
+<span class="p">]</span>
+
+<span class="c1">// ⼀个loader对应⼀个id</span>
+</code></pre></div>
+<p><a href="https://github.com/webpack-contrib/mini-css-extract-plugin/issues/273">https://github.com/webpack-contrib/mini-css-extract-plugin/issues/273</a></p>
+<p><a href="https://github.com/amireh/happypack/issues/242">https://github.com/amireh/happypack/issues/242</a></p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+  </span>
+
+    
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:1822852997@qq.com">Michael An</a>, 
+        <a href="mailto:2331806369@qq.com">Michael An</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>

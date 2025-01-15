@@ -1,0 +1,2894 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/backend-sql/22-Python%E6%93%8D%E4%BD%9C%20MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/">
+      
+      
+        <link rel="prev" href="../21-Mac-%E5%AE%89%E8%A3%85-python-mysql-%E6%8A%A5%E9%94%99/">
+      
+      
+        <link rel="next" href="../23-Mac%20pip%20install%20mysql-python/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>22-Python操作 MySQL数据库 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#python-mysql" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              22-Python操作 MySQL数据库
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    backend-sql
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            backend-sql
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-redis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-redis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-%E9%98%BF%E9%87%8C%E4%BA%91MySQL%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-阿里云MySQL入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-数据库概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95SSO/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-单点登录SSO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-websocket/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-websocket
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-socket-io/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-socket-io
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-SQLite-API-Python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-SQLite-API-Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-进程和线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E8%A7%A3%E9%87%8A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-进程与线程的一个简单解释
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-Mysql%E8%A7%86%E5%9B%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-Mysql视图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-%E6%B7%B1%E5%85%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-深入MySQL数据库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-Mac-%E5%AE%89%E8%A3%85-python-mysql-%E6%8A%A5%E9%94%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-Mac-安装-python-mysql-报错
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    22-Python操作 MySQL数据库
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    22-Python操作 MySQL数据库
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mysql-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是 Mysql db?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql-db_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何安装 Mysql db?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据库连接
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数据库连接">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      实例：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建数据库表
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-Mac%20pip%20install%20mysql-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23-Mac pip install mysql-python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-node%E8%BF%9E%E6%8E%A5Mysql%E6%8A%A5%E9%94%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24-node连接Mysql报错
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-mysql%E6%94%AF%E6%8C%81emoji%E8%A1%A8%E6%83%85%E5%82%A8%E5%AD%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25-mysql支持emoji表情储存
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%9A%E8%A1%A8%E9%93%BE%E6%8E%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26-数据库多表链接
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    express
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            express
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../express/express%20%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    express 入门笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    network
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            network
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/2017-12-19-travis-ci-tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2017-12-19-travis-ci-tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/2018-07-04-indexeddb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2018-07-04-indexeddb
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/2018-07-09-web-worker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2018-07-09-web-worker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/CDN/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CDN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/Token/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Token
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/Visual%20Studio%20Code%E5%BF%85%E5%A4%87%E6%8F%92%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visual Studio Code必备插件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/chrome/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    chrome
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/ddos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ddos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/dns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/http/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    http
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/mac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    mac
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/serviceworker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    serviceworker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/ssl%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ssl协议
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E4%B8%80%E4%B8%AA%20TCP%20%E8%BF%9E%E6%8E%A5%E4%B8%8A%E9%9D%A2%E8%83%BD%E5%8F%91%E5%A4%9A%E5%B0%91%E4%B8%AA%20HTTP%20%E8%AF%B7%E6%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一个 TCP 连接上面能发多少个 HTTP 请求
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E5%89%8D%E7%AB%AF%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端需要了解的计算机网络知识
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E5%9F%BA%E6%9C%AC%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基本网络安全
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    虚拟机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机网络基础知识
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E8%B7%A8%E5%9F%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    跨域
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E8%B7%A8%E5%9F%9F2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    跨域2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    nginx
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            nginx
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nginx/Mac%E4%B8%8A%E6%90%AD%E5%BB%BAnginx%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mac上搭建nginx教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nginx/Nginx%20%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nginx 从入门到实践
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nginx/Nginx%E5%9C%A8%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nginx在应用程序中的作用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nginx/nginx%20%E7%9A%84%E7%94%A8%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nginx 的用法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nginx/%E5%89%8D%E7%AB%AFNginx%20%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端Nginx 入门指南
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nginx/%E5%89%8D%E7%AB%AF%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3Nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端如何理解Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nginx/%E5%B8%A6%E4%BD%A0%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E6%90%9E%E6%87%82Nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    带你深入浅出搞懂Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nginx/%E6%8A%80%E6%9C%AF%E8%83%96-%E5%89%8D%E7%AB%AF%20Nginx%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    技术胖-前端 Nginx入门教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    nodejs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            nodejs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node%20%E4%B8%8B%20LDAP%20%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node 下 LDAP 实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node-LDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node-LDAP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js-path/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node.js-path
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node.js-全局变量
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js%E4%BD%BF%E7%94%A8Nodemailer%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node.js使用Nodemailer发送邮件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/NodeJS%E4%B8%AD%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NodeJS中进程和线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    nodejs/demo-node-mysql
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            nodejs/demo-node-mysql
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/fs.createReadStream/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    fs.createReadStream
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/node-debug/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    node-debug
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/nodeJS%2Bmysql%2B%E8%BF%9E%E6%8E%A5%E6%B1%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nodeJS+mysql+连接池
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    nodejs/nodeJS高频词
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            nodejs/nodeJS高频词
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/nodeJS%E9%AB%98%E9%A2%91%E8%AF%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    README
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/node%E5%AE%9A%E6%97%B6%E5%99%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    node定时器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E4%BD%BF%E7%94%A8nodejs%E8%BF%9E%E6%8E%A5mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用nodejs连接mysql数据库实现增删改查
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84nodeJS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    命令行的nodeJS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E5%BB%96%E9%9B%AA%E5%B3%B0%20NodeJS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    廖雪峰 NodeJS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E8%B0%88%E8%B0%88Node%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    谈谈Node中的常见概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    server
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            server
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/GraphQL%20vs%20REST%20API%20%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GraphQL vs REST API 架构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/LAMP%E5%B9%B3%E5%8F%B0%E7%9A%84%E9%83%A8%E7%BD%B2%E5%8F%8A%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LAMP平台的部署及应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/Linux%20%E5%AE%89%E8%A3%85%20MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux 安装 MySQL数据库系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/Linux%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BAApache%E7%BD%91%E7%AB%99%E6%9C%8D%E5%8A%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux如何搭建Apache网站服务
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/RESTful%20API%20%E8%AE%BE%E8%AE%A1%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RESTful API 设计指南
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/SSH%E5%8E%9F%E7%90%86%E4%B8%8E%E8%BF%90%E7%94%A8-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSH原理与运用-远程登录
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/bzip2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bzip2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    server/docker-compose-demo
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            server/docker-compose-demo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/docker-compose-demo/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    server/docker-compose-demo/web
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            server/docker-compose-demo/web
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/ipad%20%E4%BD%BF%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ipad 使用小技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BD%BF%E7%94%A8%20GraphQL%20%E8%80%8C%E6%94%BE%E5%BC%83%20REST/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么我使用 GraphQL 而放弃 REST
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/%E4%BB%8E%E8%B4%AD%E4%B9%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%B0%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA%E6%88%90%E5%8A%9F%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    从购买服务器到网站搭建成功教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/%E5%88%86%E5%B8%83%E5%BC%8F%E5%92%8C%E9%9B%86%E7%BE%A4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    分布式和集群
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机组成原理知识
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mysql-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是 Mysql db?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mysql-db_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何安装 Mysql db?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据库连接
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数据库连接">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      实例：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建数据库表
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="python-mysql">Python 操作 Mysql 数据库<a class="headerlink" href="#python-mysql" title="Permanent link">&para;</a></h1>
+<p>统计信息：字数 16084  阅读33分钟</p>
+<p>2021-12-01</p>
+<p>Python 标准数据库接口为 Python DB-API ，Python DB-API 为开发人员提供了数据库应用编程接口。</p>
+<p>不同的数据库你需要下载不同的 DB API 模块，例如你需要访问 Oracle 数据库和 Mysql 数据，你需要下载 Oracle 和 Mysql 数据库模块。 DB-API 是一个规范，它定义了一系列必须的对象和数据库存取方式, 以便为各种各样的底层数据库系统和多种多样的数据库接口程序提供一致的访问接口 。Python 的 DB-API ，为大多数的数据库实现了接口，使用它连接各数据库后，就可以用相同的方式操作各数据库。</p>
+<p>Python DB-API 使用流程：</p>
+<ul>
+<li>引入 API 模块。</li>
+<li>打开数据库连接。</li>
+<li>执行 SQL 语句和存储过程。</li>
+<li>关闭数据库连接。</li>
+</ul>
+<h2 id="mysql-db">什么是 Mysql db?<a class="headerlink" href="#mysql-db" title="Permanent link">&para;</a></h2>
+<p>Mysql db 是用于 Python 链接 Mysql 数据库的接口，它实现了 Python 数据库 API 规范 V2.0，基于 Mysql API 上建立的。</p>
+<h2 id="mysql-db_1">如何安装 Mysql db?<a class="headerlink" href="#mysql-db_1" title="Permanent link">&para;</a></h2>
+<p>为了用 DB-API 编写 Mysql 脚本，必须确保已经安装了 Mysql</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">Mysql</span> <span class="n">db</span>
+</code></pre></div>
+<p>如果执行后的输出结果如下所示，意味着你没有安装 Mysql db 模块：</p>
+<div class="highlight"><pre><span></span><code>Traceback<span class="w"> </span><span class="o">(</span>most<span class="w"> </span>recent<span class="w"> </span>call<span class="w"> </span>last<span class="o">)</span>:
+<span class="w">  </span>File<span class="w"> </span><span class="s2">&quot;test.py&quot;</span>,<span class="w"> </span>line<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="k">in</span><span class="w"> </span>&lt;module&gt;
+<span class="w">    </span>import<span class="w"> </span>mysql<span class="w"> </span>db
+ImportError:<span class="w"> </span>No<span class="w"> </span>module<span class="w"> </span>named<span class="w">  </span>Mysql<span class="w"> </span>db
+</code></pre></div>
+<p>安装 Mysql db，请访问 <a href="http://sourceforge.net/projects/">http://sourceforge.net/projects/</a> Mysql -python ，(Linux 平台可以访问：<a href="https://pypi.python.org/pypi/">https://pypi.python.org/pypi/</a> Mysql -python)从这里可选择适合您的平台的安装包，分为预编译的二进制文件和源代码安装包。</p>
+<p>如果您选择二进制文件发行版本的话，安装过程基本安装提示即可完成。如果从源代码进行安装的话，则需要切换到 Mysql db 发行版本的顶级目录，并键入下列命令:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>gunzip<span class="w">  </span>Mysql<span class="w"> </span>-python-1.2.2.tar.gz
+$<span class="w"> </span>tar<span class="w"> </span>-xvf<span class="w">  </span>Mysql<span class="w"> </span>-python-1.2.2.tar
+$<span class="w"> </span><span class="nb">cd</span><span class="w">  </span>Mysql<span class="w"> </span>-python-1.2.2
+$<span class="w"> </span>python<span class="w"> </span>setup.py<span class="w"> </span>build
+$<span class="w"> </span>python<span class="w"> </span>setup.py<span class="w"> </span>install
+</code></pre></div>
+<p>注意：请确保您有 root 权限来安装上述模块。</p>
+<p>报错 1: 执行 sudo python setup.py build 出现问题(SSL 权限)</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>python<span class="w"> </span>setup.py<span class="w"> </span>build
+Downloading<span class="w"> </span>http://pypi.python.org/packages/source/d/distribute/distribute-0.6.28.tar.gz
+urllib2.HTTPError:<span class="w"> </span>HTTP<span class="w"> </span>Error<span class="w"> </span><span class="m">403</span>:<span class="w"> </span>SSL<span class="w"> </span>is<span class="w"> </span>required
+</code></pre></div>
+<p>可以参考 <a href="https://blog.csdn.net/bin642264643/article/details/91972480">https://blog.csdn.net/bin642264643/article/details/91972480</a> 直接在浏览器中访问这个链接进行下载。下载结束，并放在路径下，然后执行 python setup.py build</p>
+<p>报错：出现下面的问题</p>
+<div class="highlight"><pre><span></span><code>running<span class="w"> </span>build
+running<span class="w"> </span>build_py
+copying<span class="w">  </span>Mysql<span class="w"> </span>db/release.py<span class="w"> </span>-&gt;<span class="w"> </span>build/lib.macosx-10.13-intel-2.7/<span class="w"> </span>Mysql<span class="w"> </span>db
+running<span class="w"> </span>build_ext
+building<span class="w"> </span><span class="s1">&#39;_ Mysql &#39;</span><span class="w"> </span>extension
+cc<span class="w"> </span>-fno-strict-aliasing<span class="w"> </span>-fno-common<span class="w"> </span>-dynamic<span class="w"> </span>-arch<span class="w"> </span>x86_64<span class="w"> </span>-arch<span class="w"> </span>i386<span class="w"> </span>-g<span class="w"> </span>-Os<span class="w"> </span>-pipe<span class="w"> </span>-fno-common<span class="w"> </span>-fno-strict-aliasing<span class="w"> </span>-fwrapv<span class="w"> </span>-DENABLE_DTRACE<span class="w"> </span>-DMACOSX<span class="w"> </span>-DNDEBUG<span class="w"> </span>-Wall<span class="w"> </span>-Wstrict-prototypes<span class="w"> </span>-Wshorten-64-to-32<span class="w"> </span>-DNDEBUG<span class="w"> </span>-g<span class="w"> </span>-fwrapv<span class="w"> </span>-Os<span class="w"> </span>-Wall<span class="w"> </span>-Wstrict-prototypes<span class="w"> </span>-DENABLE_DTRACE<span class="w"> </span>-arch<span class="w"> </span>i386<span class="w"> </span>-arch<span class="w"> </span>x86_64<span class="w"> </span>-pipe<span class="w"> </span>-Dversion_info<span class="o">=(</span><span class="m">1</span>,2,4,<span class="s1">&#39;beta&#39;</span>,4<span class="o">)</span><span class="w"> </span>-D__version__<span class="o">=</span><span class="m">1</span>.2.4b4<span class="w"> </span>-I/usr/local/<span class="w"> </span>Mysql<span class="w"> </span>/include<span class="w"> </span>-I/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7<span class="w"> </span>-c<span class="w"> </span>_<span class="w"> </span>Mysql<span class="w"> </span>.c<span class="w"> </span>-o<span class="w"> </span>build/temp.macosx-10.13-intel-2.7/_<span class="w"> </span>Mysql<span class="w"> </span>.o
+_<span class="w"> </span>Mysql<span class="w"> </span>.c:44:10:<span class="w"> </span>fatal<span class="w"> </span>error:<span class="w"> </span><span class="s1">&#39;my_config.h&#39;</span><span class="w"> </span>file<span class="w"> </span>not<span class="w"> </span>found
+<span class="c1">#include &quot;my_config.h&quot;</span>
+<span class="w">         </span>^~~~~~~~~~~~~
+<span class="m">1</span><span class="w"> </span>error<span class="w"> </span>generated.
+error:<span class="w"> </span><span class="nb">command</span><span class="w"> </span><span class="s1">&#39;cc&#39;</span><span class="w"> </span>failed<span class="w"> </span>with<span class="w"> </span><span class="nb">exit</span><span class="w"> </span>status<span class="w"> </span><span class="m">1</span>
+</code></pre></div>
+<p>解决方法 1：</p>
+<p><a href="https://stackoverflow.com/questions/21638444/error-command-cc-failed-with-exit-status-1-">https://stackoverflow.com/questions/21638444/error-command-cc-failed-with-exit-status-1-</a> Mysql db-installation-on-mac</p>
+<div class="highlight"><pre><span></span><code>The<span class="w"> </span>problem<span class="w"> </span>is<span class="w"> </span>unused<span class="w"> </span>arguments<span class="w"> </span>passed<span class="w"> </span>to<span class="w"> </span>compiler.<span class="w"> </span>Try<span class="w"> </span>this<span class="w"> </span>before<span class="w"> </span>running<span class="w"> </span>your<span class="w"> </span>build<span class="w"> </span>code:
+<span class="nb">export</span><span class="w"> </span><span class="nv">CFLAGS</span><span class="o">=</span>-Qunused-arguments
+<span class="nb">export</span><span class="w"> </span><span class="nv">CPPFLAGS</span><span class="o">=</span>-Qunused-arguments
+</code></pre></div>
+<p>使用上面的编译不处理啊啊！看一下最新的教程‘</p>
+<p>可能是 python2.7.10 或者 3 版本的原因，因为本地现在两个版本都安装</p>
+<p>可能是版本不对应， Mysql _python-1.2.5-cp27-none-win_amd64.whl 支持 windows 版本或者 linux 系统，不支持 Mac 系统。</p>
+<p>解决方法 2：</p>
+<p><a href="https://stackoverflow.com/questions/50864438/mac-pip-install-">https://stackoverflow.com/questions/50864438/mac-pip-install-</a> Mysql -python-unsuccessful</p>
+<div class="highlight"><pre><span></span><code>Installing<span class="w"> </span>of<span class="w"> </span>an<span class="w"> </span>older<span class="w"> </span>version<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>Mysql<span class="w"> </span>worked<span class="w"> </span><span class="k">for</span><span class="w"> </span>me:
+brew<span class="w"> </span>remove<span class="w">  </span>Mysql
+brew<span class="w"> </span>install<span class="w">  </span>Mysql<span class="w"> </span>@5.7
+brew<span class="w"> </span>link<span class="w"> </span>--force<span class="w">  </span>Mysql<span class="w"> </span>@5.7
+pip<span class="w"> </span>install<span class="w">  </span>Mysql<span class="w"> </span>-python
+</code></pre></div>
+<h2 id="_1">数据库连接<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>连接数据库前，请先确认以下事项：</p>
+<ul>
+<li>您已经创建了数据库 TESTDB.</li>
+<li>在 TESTDB 数据库中您已经创建了表 EMPLOYEE</li>
+<li>EMPLOYEE 表字段为 FIRST_NAME, LAST_NAME, AGE, SEX 和 INCOME。</li>
+<li>连接数据库 TESTDB 使用的用户名为 "testuser" ，密码为 "test123",你可以可以自己设定或者直接使用 root 用户名及其密码， Mysql 数据库用户授权请使用 Grant 命令。</li>
+<li>在你的机子上已经安装了 Python Mysql db 模块。</li>
+<li>如果您对 sql 语句不熟悉，可以访问 <a href="https://www.runoob.com/sql/sql-tutorial.html">SQL 基础教程</a></li>
+</ul>
+<h3 id="_2">实例：<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>以下实例链接 Mysql 的 TESTDB 数据库：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">mysql</span> <span class="n">db</span>
+
+<span class="c1"># 打开数据库连接</span>
+<span class="n">db</span> <span class="o">=</span>  <span class="n">Mysql</span> <span class="n">db</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="s2">&quot;testuser&quot;</span><span class="p">,</span> <span class="s2">&quot;test123&quot;</span><span class="p">,</span> <span class="s2">&quot;TESTDB&quot;</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span> <span class="p">)</span>
+
+<span class="c1"># 使用cursor()方法获取操作游标</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="c1"># 使用execute方法执行SQL语句</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT VERSION()&quot;</span><span class="p">)</span>
+
+<span class="c1"># 使用 fetchone() 方法获取一条数据</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+<span class="nb">print</span> <span class="s2">&quot;Database version : </span><span class="si">%s</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="n">data</span>
+
+<span class="c1"># 关闭数据库连接</span>
+<span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p>执行以上脚本输出结果如下：<code>Database version : 5.0.45</code></p>
+<h2 id="_3">创建数据库表<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>如果数据库连接存在，使用 execute()方法来为数据库创建表，如下所示创建表 EMPLOYEE：</p>
+<p>```python 
+import mysql db</p>
+<h1 id="_4">打开数据库连接<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h1>
+<p>db =  Mysql db.connect("localhost", "testuser", "test123", "TESTDB", charset='utf8' )</p>
+<h1 id="cursor">使用cursor()方法获取操作游标<a class="headerlink" href="#cursor" title="Permanent link">&para;</a></h1>
+<p>cursor = db.cursor()</p>
+<h1 id="execute">如果数据表已经存在使用 execute() 方法删除表。<a class="headerlink" href="#execute" title="Permanent link">&para;</a></h1>
+<p>cursor.execute("DROP TABLE IF EXISTS EMPLOYEE")</p>
+<h1 id="sql">创建数据表SQL语句<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h1>
+<p>sql = """CREATE TABLE EMPLOYEE (
+         FIRST_NAME  CHAR(20) NOT NULL,
+         LAST_NAME  CHAR(20),
+         AGE INT,
+         SEX CHAR(1),
+         INCOME FLOAT )"""</p>
+<p>cursor.execute(sql)</p>
+<h1 id="_5">关闭数据库连接<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h1>
+<p>db.close()
+<div class="highlight"><pre><span></span><code>---
+
+## 数据库插入操作
+
+以下实例使用执行 SQL INSERT 语句向表 EMPLOYEE 插入记录：
+
+```python
+import Mysql db
+
+# 打开数据库连接
+db =  Mysql db.connect(&quot;localhost&quot;, &quot;testuser&quot;, &quot;test123&quot;, &quot;TESTDB&quot;, charset=&#39;utf8&#39; )
+
+# 使用cursor()方法获取操作游标
+cursor = db.cursor()
+
+# SQL 插入语句
+sql = &quot;&quot;&quot;INSERT INTO EMPLOYEE(FIRST_NAME,
+         LAST_NAME, AGE, SEX, INCOME)
+         VALUES (&#39;Mac&#39;, &#39;Mohan&#39;, 20, &#39;M&#39;, 2000)&quot;&quot;&quot;
+try:
+   # 执行sql语句
+   cursor.execute(sql)
+   # 提交到数据库执行
+   db.commit()
+except:
+   # Rollback in case there is any error
+   db.rollback()
+
+# 关闭数据库连接
+db.close()
+</code></pre></div></p>
+<p>以上例子也可以写成如下形式：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">mysql</span> <span class="n">db</span>
+
+<span class="c1"># 打开数据库连接</span>
+<span class="n">db</span> <span class="o">=</span>  <span class="n">Mysql</span> <span class="n">db</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="s2">&quot;testuser&quot;</span><span class="p">,</span> <span class="s2">&quot;test123&quot;</span><span class="p">,</span> <span class="s2">&quot;TESTDB&quot;</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span> <span class="p">)</span>
+
+<span class="c1"># 使用cursor()方法获取操作游标</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="c1"># SQL 插入语句</span>
+<span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO EMPLOYEE(FIRST_NAME, </span><span class="se">\</span>
+<span class="s2">       LAST_NAME, AGE, SEX, INCOME) </span><span class="se">\</span>
+<span class="s2">       VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2"> )&quot;</span> <span class="o">%</span> \
+       <span class="p">(</span><span class="s1">&#39;Mac&#39;</span><span class="p">,</span> <span class="s1">&#39;Mohan&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+   <span class="c1"># 执行sql语句</span>
+   <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+   <span class="c1"># 提交到数据库执行</span>
+   <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="k">except</span><span class="p">:</span>
+   <span class="c1"># 发生错误时回滚</span>
+   <span class="n">db</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+
+<span class="c1"># 关闭数据库连接</span>
+<span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="_6">实例：<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>以下代码使用变量向 SQL 语句中传递参数:</p>
+<div class="highlight"><pre><span></span><code>..................................
+user_id = &quot;test123&quot;
+password = &quot;password&quot;
+
+con.execute(&#39;insert into Login values(%s, %s)&#39; % \
+             (user_id, password))
+..................................
+</code></pre></div>
+<hr />
+<h2 id="_7">数据库查询操作<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>Python 查询 Mysql 使用 fetchone() 方法获取单条数据, 使用 fetchall() 方法获取多条数据。</p>
+<ul>
+<li>fetchone(): 该方法获取下一个查询结果集。结果集是一个对象</li>
+<li>fetchall():接收全部的返回结果行.</li>
+<li>rowcount: 这是一个只读属性，并返回执行 execute()方法后影响的行数。</li>
+</ul>
+<h3 id="_8">实例：<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>查询 EMPLOYEE 表中 salary（工资）字段大于 1000 的所有数据：</p>
+<p>```python 
+import mysql db</p>
+<h1 id="_9">打开数据库连接<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h1>
+<p>db =  Mysql db.connect("localhost", "testuser", "test123", "TESTDB", charset='utf8' )</p>
+<h1 id="cursor_1">使用cursor()方法获取操作游标<a class="headerlink" href="#cursor_1" title="Permanent link">&para;</a></h1>
+<p>cursor = db.cursor()</p>
+<h1 id="sql_1">SQL 查询语句<a class="headerlink" href="#sql_1" title="Permanent link">&para;</a></h1>
+<p>sql = "SELECT * FROM EMPLOYEE \
+       WHERE INCOME &gt; %s" % (1000)
+try:
+   # 执行SQL语句
+   cursor.execute(sql)
+   # 获取所有记录列表
+   results = cursor.fetchall()
+   for row in results:
+      fname = row[0]
+      lname = row[1]
+      age = row[2]
+      sex = row[3]
+      income = row[4]
+      # 打印结果
+      print "fname=%s,lname=%s,age=%s,sex=%s,income=%s" % \
+             (fname, lname, age, sex, income )
+except:
+   print "Error: unable to fecth data"</p>
+<h1 id="_10">关闭数据库连接<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h1>
+<p>db.close()
+<div class="highlight"><pre><span></span><code>以上脚本执行结果如下：
+</code></pre></div>
+fname=Mac, lname=Mohan, age=20, sex=M, income=2000
+<div class="highlight"><pre><span></span><code>---
+
+## 数据库更新操作
+
+更新操作用于更新数据表的的数据，以下实例将 EMPLOYEE 表中的 SEX 字段为 &#39;M&#39; 的 AGE 字段递增 1：
+
+```python 
+import mysql db
+
+# 打开数据库连接
+db =  Mysql db.connect(&quot;localhost&quot;, &quot;testuser&quot;, &quot;test123&quot;, &quot;TESTDB&quot;, charset=&#39;utf8&#39; )
+
+# 使用cursor()方法获取操作游标
+cursor = db.cursor()
+
+# SQL 更新语句
+sql = &quot;UPDATE EMPLOYEE SET AGE = AGE + 1 WHERE SEX = &#39;%c&#39;&quot; % (&#39;M&#39;)
+try:
+   # 执行SQL语句
+   cursor.execute(sql)
+   # 提交到数据库执行
+   db.commit()
+except:
+   # 发生错误时回滚
+   db.rollback()
+
+# 关闭数据库连接
+db.close()
+</code></pre></div></p>
+<hr />
+<h2 id="_11">删除操作<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>删除操作用于删除数据表中的数据，以下实例演示了删除数据表 EMPLOYEE 中 AGE 大于 20 的所有数据：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">mysql</span> <span class="n">db</span>
+
+<span class="c1"># 打开数据库连接</span>
+<span class="n">db</span> <span class="o">=</span>  <span class="n">Mysql</span> <span class="n">db</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span> <span class="s2">&quot;testuser&quot;</span><span class="p">,</span> <span class="s2">&quot;test123&quot;</span><span class="p">,</span> <span class="s2">&quot;TESTDB&quot;</span><span class="p">,</span> <span class="n">charset</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span> <span class="p">)</span>
+
+<span class="c1"># 使用cursor()方法获取操作游标</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="c1"># SQL 删除语句</span>
+<span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;DELETE FROM EMPLOYEE WHERE AGE &gt; </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="k">try</span><span class="p">:</span>
+
+<span class="c1"># 执行SQL语句</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+
+<span class="c1"># 提交修改</span>
+<span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span> <span class="k">except</span><span class="p">:</span>
+
+<span class="c1"># 发生错误时回滚</span>
+
+<span class="n">db</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+<span class="c1"># 关闭连接 db.close()</span>
+</code></pre></div>
+<h2 id="_12">执行事务<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p>事务机制可以确保数据一致性。</p>
+<p>事务应该具有 4 个属性：原子性、一致性、隔离性、持久性。这四个属性通常称为 ACID 特性。</p>
+<ul>
+<li>原子性（atomicity）。一个事务是一个不可分割的工作单位，事务中包括的诸操作要么都做，要么都不做。</li>
+<li>一致性（consistency）。事务必须是使数据库从一个一致性状态变到另一个一致性状态。一致性与原子性是密切相关的。</li>
+<li>隔离性（isolation）。一个事务的执行不能被其他事务干扰。即一个事务内部的操作及使用的数据对并发的其他事务是隔离的，并发执行的各个事务之间不能互相干扰。</li>
+<li>持久性（durability）。持续性也称永久性（permanence），指一个事务一旦提交，它对数据库中数据的改变就应该是永久性的。接下来的其他操作或故障不应该对其有任何影响。</li>
+</ul>
+<p>Python DB API 2.0 的事务提供了两个方法 commit 或 rollback。</p>
+<h3 id="_13">实例：<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="o">#</span><span class="w"> </span><span class="n">SQL删除记录语句</span>
+<span class="k">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;DELETE FROM EMPLOYEE WHERE AGE &gt; %s&quot;</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">try</span><span class="p">:</span>
+<span class="w">   </span><span class="o">#</span><span class="w"> </span><span class="err">执行</span><span class="n">SQL语句</span>
+<span class="w">   </span><span class="k">cursor</span><span class="p">.</span><span class="k">execute</span><span class="p">(</span><span class="k">sql</span><span class="p">)</span>
+<span class="w">   </span><span class="o">#</span><span class="w"> </span><span class="err">向数据库提交</span>
+<span class="w">   </span><span class="n">db</span><span class="p">.</span><span class="k">commit</span><span class="p">()</span>
+<span class="k">except</span><span class="p">:</span>
+<span class="w">   </span><span class="o">#</span><span class="w"> </span><span class="err">发生错误时回滚</span>
+<span class="w">   </span><span class="n">db</span><span class="p">.</span><span class="k">rollback</span><span class="p">()</span>
+</code></pre></div>
+<p>对于支持事务的数据库， 在 Python 数据库编程中，当游标建立之时，就自动开始了一个隐形的数据库事务。</p>
+<p>commit()方法游标的所有更新操作，rollback（）方法回滚当前游标的所有操作。每一个方法都开始了一个新的事务。</p>
+<hr />
+<h2 id="_14">错误处理<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<p>DB API 中定义了一些数据库操作的错误及异常，下表列出了这些错误和异常:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">异常</th>
+<th style="text-align: left;">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Warning</td>
+<td style="text-align: left;">当有严重警告时触发，例如插入数据是被截断等等。必须是 StandardError 的子类。</td>
+</tr>
+<tr>
+<td style="text-align: left;">Error</td>
+<td style="text-align: left;">警告以外所有其他错误类。必须是 StandardError 的子类。</td>
+</tr>
+<tr>
+<td style="text-align: left;">InterfaceError</td>
+<td style="text-align: left;">当有数据库接口模块本身的错误（而不是数据库的错误）发生时触发。 必须是 Error 的子类。</td>
+</tr>
+<tr>
+<td style="text-align: left;">DatabaseError</td>
+<td style="text-align: left;">和数据库有关的错误发生时触发。 必须是 Error 的子类。</td>
+</tr>
+<tr>
+<td style="text-align: left;">DataError</td>
+<td style="text-align: left;">当有数据处理时的错误发生时触发，例如：除零错误，数据超范围等等。 必须是 DatabaseError 的子类。</td>
+</tr>
+<tr>
+<td style="text-align: left;">OperationalError</td>
+<td style="text-align: left;">指非用户控制的，而是操作数据库时发生的错误。例如：连接意外断开、 数据库名未找到、事务处理失败、内存分配错误等等操作数据库是发生的错误。 必须是 DatabaseError 的子类。</td>
+</tr>
+<tr>
+<td style="text-align: left;">IntegrityError</td>
+<td style="text-align: left;">完整性相关的错误，例如外键检查失败等。必须是 DatabaseError 子类。</td>
+</tr>
+<tr>
+<td style="text-align: left;">InternalError</td>
+<td style="text-align: left;">数据库的内部错误，例如游标（cursor）失效了、事务同步失败等等。 必须是 DatabaseError 子类。</td>
+</tr>
+<tr>
+<td style="text-align: left;">ProgrammingError</td>
+<td style="text-align: left;">程序错误，例如数据表（table）没找到或已存在、SQL 语句语法错误、 参数数量错误等等。必须是 DatabaseError 的子类。</td>
+</tr>
+<tr>
+<td style="text-align: left;">NotSupportedError</td>
+<td style="text-align: left;">不支持错误，指使用了数据库不支持的函数或 API 等。例如在连接对象上 使用.rollback()函数，然而数据库并不支持事务或者事务已关闭。 必须是 DatabaseError 的子类。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_15">说明<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<p>关于 Mysql 的连接，经过摸索，建议正文修改一下，使用 Mysql 官方提供的连接器，我目前安装的 Mysql 是 8.0.12 版本，数据库安装完成后，可以安装“ Mysql -connector-python-8.0.12-py2.7-windows-x86-64bit”，当然了，要根据自己的操作系统和 python 版本以及位数进行选择，我是 win10 的 64 位，python2.7 的 64 位，故选择的上述插件，安装完成后，直接使用以下代码进行测试：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># -*- coding:utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">mysql</span> <span class="o">.</span><span class="n">connector</span>
+
+<span class="c1"># 打开数据库连接（请根据自己的用户名、密码及数据库名称进行修改）</span>
+<span class="n">cnn</span> <span class="o">=</span>  <span class="n">Mysql</span> <span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s1">&#39;root&#39;</span><span class="p">,</span><span class="n">passwd</span><span class="o">=</span><span class="s1">&#39;root&#39;</span><span class="p">,</span><span class="n">database</span><span class="o">=</span><span class="s1">&#39;testdb&#39;</span><span class="p">)</span>
+
+<span class="c1"># 使用cursor()方法获取操作游标</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">cnn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+<span class="c1"># 使用execute方法执行SQL语句</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT VERSION()&quot;</span><span class="p">)</span>
+
+<span class="c1"># 使用 fetchone() 方法获取一条数据</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+<span class="nb">print</span> <span class="s2">&quot;Database version : </span><span class="si">%s</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="n">data</span>
+
+<span class="c1"># 执行sql语句</span>
+<span class="n">cnn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">显示的结果应该如下</span><span class="err">：</span>
+
+<span class="n">Database</span> <span class="n">version</span> <span class="p">:</span> <span class="mf">8.0.12</span>
+</code></pre></div>
+<p>显示的结果应该如下：</p>
+<div class="highlight"><pre><span></span><code>Database version : 8.0.12
+</code></pre></div>
+<p>相关资源下载链接如下：</p>
+<p>Python2.7（个人觉得这个版本语句兼容性高，适合入门）： <a href="https://blog.python.org/2018/05/python-2715-released.html">https://blog.python.org/2018/05/python-2715-released.html</a></p>
+<p>Mysql 8.0.12（请根据自己需要选择版本）：<a href="https://dev.mysql.com/downloads/installer/">https://dev.mysql.com/downloads/installer/</a></p>
+<p>Mysql 官方数据库连接器（请根据自己需要选择）：<a href="https://dev.mysql.com/downloads/connector/python/">https://dev.mysql.com/downloads/connector/python/</a></p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+  </span>
+
+    
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:1822852997@qq.com">Michael An</a>, 
+        <a href="mailto:2331806369@qq.com">Michael An</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4059 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/ebook-kaikeba-frontend/03%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+      
+      
+        <link rel="prev" href="../02%20%E5%89%8D%E7%AB%AF%E6%B5%8B%E8%AF%95/">
+      
+      
+        <link rel="next" href="../04%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>03 设计模式 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#12-4-js" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              03 设计模式
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    book-JS-The-good-parts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            book-JS-The-good-parts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book-JS-The-good-parts/JS-the-good-parts.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS-the-good-parts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book-JS-The-good-parts/curry-function.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    curry-function
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-JS-basic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-JS-basic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/01-%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/02-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-数据类型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/03-%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-运算符
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/04-%E8%AF%AD%E6%B3%95%E4%B8%93%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-语法专题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/05-%E6%A0%87%E5%87%86%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-标准库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/06-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-面向对象编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/07-%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-异步操作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/08-DOM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-DOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/09-Event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-Event
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-1-BOM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-1-BOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-2-%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-2-同源策略
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-3-%E8%A1%A8%E5%8D%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-3-表单
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-4-IndexedDB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-4-IndexedDB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-5-web-worker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-5-web-worker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/11-%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E6%8E%A5%E5%8F%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-网页元素接口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-JSES6-RYF
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-JSES6-RYF
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/01-%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/02-%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-变量赋值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/03-%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-解构赋值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/04-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-字符串的扩展
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/05-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-字符串方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/06-%E6%AD%A3%E5%88%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-正则
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/07-%E6%95%B0%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-数值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/08-%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/09-%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-数组
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/10-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E5%B1%9E%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-对象的新增属性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/11-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-对象的新增方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/12-Symbol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-Symbol
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/13-Set%20%E5%92%8C%20Map%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-Set 和 Map 数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/14-Proxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14-Proxy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/15-Reflect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15-Reflect
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/16-Promise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-Promise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/17-%E9%81%8D%E5%8E%86%E5%99%A8%E7%9A%84%E5%BE%AA%E7%8E%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-遍历器的循环
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/18-Generator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18-Generator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/19-Generator%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19-Generator异步应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/20-async%20%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-async 函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/21-Class%20%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-Class 的基本语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/22-Class%20%E7%9A%84%E7%BB%A7%E6%89%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22-Class 的继承
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/23-Module%20%E7%9A%84%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23-Module 的语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/24-Module%20%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24-Module 的加载实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/25-%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25-编程风格
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-Principles of Computer Composition
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-Principles of Computer Composition
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-Principles of Computer Composition/计算机组成原理知识点总结.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机组成原理知识点总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-heima-nodejs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-heima-nodejs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/00/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    00
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-javascript-secret-garden
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-javascript-secret-garden
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-javascript-secret-garden/JavaScript 秘密花园-zh.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript 秘密花园-zh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-kaikeba-frontend
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-kaikeba-frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 性能优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02%20%E5%89%8D%E7%AB%AF%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02 前端测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    03 设计模式
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    03 设计模式
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      订阅发布模式-观察者模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      单例模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      策略模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      代理模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      中介者模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      装饰器模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      外观模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      工厂模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      建造者模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      迭代器模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      享元模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      职责链模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      适配器模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      模板方法模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      备忘录模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 数据结构与算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05%20%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05 面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06%20%E9%9D%A2%E8%AF%95%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06 面试技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07%20%E9%A1%B9%E7%9B%AE%E8%AF%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07 项目课
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-React%E9%A2%84%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-React预习笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-React%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-React面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-React%E7%BB%84%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-React组件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-自动化测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-webpack-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-webpack-01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-webpack-02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-webpack-02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-webpack-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14-webpack-03
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-webpack%E4%BC%98%E5%8C%96%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15-webpack优化笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-webpack%E4%BC%98%E5%8C%96%E5%AE%98%E6%96%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-webpack优化官方
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-webpack-05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-webpack-05
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-webpack-06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18-webpack-06
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8-%E5%B8%B8%E8%A7%81Web%E6%94%BB%E5%87%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19-前端安全-常见Web攻击
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8-%E9%98%B2%E5%BE%A1%E6%89%8B%E6%AE%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-前端安全-防御手段
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-netease-senior-frontend
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-netease-senior-frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/02-v8%E5%BC%95%E6%93%8E%E5%9B%9E%E6%94%B6%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-v8引擎回收内存简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/03-node%E4%B8%8B%E9%9D%A2%E7%9A%84Restful%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-node下面的Restful实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/04-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%9A%84%E6%8F%90%E5%8D%87%E2%80%94%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E6%88%91%E4%BB%AC%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-编程思想的提升—如何提高我们代码的可扩展性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/06-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8Cssr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-浏览器渲染原理和ssr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/07-%E7%BD%91%E6%98%93%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-网易真实项目webpack配置解析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/08-%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90API%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-从架构分析API层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/09-%E5%89%8D%E7%AB%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-前端负责人的工作内容
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/10-%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%E5%AD%A6%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-分析源码学架构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/11-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E9%AB%98%E8%B4%A8%E9%87%8F%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-设计模式高质量代码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/12-nodeJS%2BMongoDB%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-nodeJS+MongoDB登录系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/12-nodejs-mongodb-mongoose/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-nodejs-mongodb-mongoose
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/13-%E4%BD%BF%E7%94%A8VUE%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-使用VUE创建组件（没学完）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/16-%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-构建自己的脚手架工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/17-webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-webpack编译原理分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/20-%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD-VUE%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-组件封装的基本技能-VUE（没学完）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/21-ssr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-ssr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/24-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%A6%82%E4%BD%95%E5%81%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24-单元测试如何做
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/25-%E5%9F%BA%E4%BA%8ENodeJS%E6%89%93%E9%80%A0Web%E6%9E%B6%E6%9E%84%E4%B8%AD%E9%97%B4%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25-基于NodeJS打造Web架构中间层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-network-basic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-network-basic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/01%20%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/02%20%E7%89%A9%E7%90%86%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02 物理层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/03%20%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03 数据链路层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/04%20%E7%BD%91%E7%BB%9C%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 网络层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/05%20%E8%BF%90%E8%BE%93%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05 运输层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/06%20%E5%BA%94%E7%94%A8%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06 应用层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/todo%20%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E5%85%A5%E9%97%A8-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    todo 互联网协议入门-阮一峰
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-qianfeng-express
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-qianfeng-express
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-qianfeng-express/01.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-upguigu-nodejs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-upguigu-nodejs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-upguigu-nodejs/nodeJS-basic.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nodeJS-basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/H5C3%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    H5C3从入门到精通
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/JS%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS 数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/data%20structure%20basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    data structure basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/express%E5%9B%BE%E4%B9%A6%E9%A6%86%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    express图书馆项目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    代码整洁之道 读书笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%85%B6%E4%BB%96%E4%B9%A6%E5%8D%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    其他书单
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E7%AC%94%E8%AE%B0-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端工程化笔记-阮一峰
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%B0%9A%E7%A1%85%E8%B0%B7-React%E6%8A%80%E6%9C%AF%E5%85%A8%E5%AE%B6%E6%A1%B62021%E7%89%88%E7%AC%94%E8%AE%B001/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    尚硅谷-React技术全家桶2021版笔记01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%B0%9A%E7%A1%85%E8%B0%B7-React%E6%8A%80%E6%9C%AF%E5%85%A8%E5%AE%B6%E6%A1%B62021%E7%89%88%E7%AC%94%E8%AE%B002/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    尚硅谷-React技术全家桶2021版笔记02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JS%E4%B8%8A%E5%8D%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-你不知道的JS上卷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JS%E4%B8%AD%E5%8D%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-你不知道的JS中卷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E5%9B%BE%E8%A7%A3HTTP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-图解HTTP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E9%AB%98%E6%80%A7%E8%83%BDJS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-高性能JS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E6%80%8E%E6%A0%B7%E8%B7%91%E8%B5%B7%E6%9D%A5%E7%9A%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机是怎样跑起来的
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    <span class="md-ellipsis">
+      订阅发布模式-观察者模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      单例模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      策略模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      代理模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      中介者模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      装饰器模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      外观模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      工厂模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      建造者模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      迭代器模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      享元模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      职责链模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      适配器模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      模板方法模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      备忘录模式
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="12-4-js">12-4 JS设计模式<a class="headerlink" href="#12-4-js" title="Permanent link">&para;</a></h1>
+<p>统计信息：字数 14524  阅读30分钟</p>
+<p>简单介绍设计模式的定义和使用。设计模式需要丰富的经验后才能熟练使用。各种方式都可以实现功能，设计模式实现更优雅，更加容易阅读。</p>
+<p>设计模式：一套反复使用，经过分类，代码设计经验的总结。</p>
+<p>下面是主要的设计模式：</p>
+<p>订阅发布模式（观察者模式）、单例模式、策略模式、代理模式、中介者模式、装饰器模式、外观模式、工厂模式、建造者模式、迭代器模式、享元模式、职责链模式、适配器模式、模板方法模式、备忘录模式。</p>
+<h2 id="-">订阅发布模式-观察者模式<a class="headerlink" href="#-" title="Permanent link">&para;</a></h2>
+<p>原代码：多个组件互相通信，事件处理函数混杂，组件耦合高。</p>
+<p>修改后：订阅者和发布者分离，有一个全局的对象处理事件的回调函数。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 对象</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">Event</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">callbacks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">$on</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">[</span><span class="nx">name</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">fn</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">$emit</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">arg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">callbacks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">[</span><span class="nx">name</span><span class="p">];</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">callbacks</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">callbacks</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">c</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="nx">arg</span><span class="p">);</span>
+<span class="w">      </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">$off</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">callbacks</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="c1">// 使用</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">event</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Event</span><span class="p">();</span>
+<span class="nx">event</span><span class="p">.</span><span class="nx">$on</span><span class="p">(</span><span class="s1">&#39;event1&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">arg</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arg</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">event</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">&#39;event1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test1&#39;</span><span class="p">);</span>
+<span class="nx">event</span><span class="p">.</span><span class="nx">$off</span><span class="p">(</span><span class="s1">&#39;event1&#39;</span><span class="p">);</span>
+<span class="nx">event</span><span class="p">.</span><span class="nx">$emit</span><span class="p">(</span><span class="s1">&#39;event1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;test2&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>下面是 VUE 中事件订阅的逻辑(看不懂)</p>
+<div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="nx">fucntion</span><span class="w"> </span><span class="nx">eventMixin</span><span class="w"> </span><span class="p">(</span><span class="nx">Vue</span><span class="o">:</span><span class="w"> </span><span class="nx">Class</span><span class="o">&lt;</span><span class="nx">Component</span><span class="o">&gt;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">hookRE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sr">/^hook:/</span>
+<span class="w">  </span><span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$on</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="nx">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nb">Array</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="o">:</span><span class="w"> </span><span class="nb">Function</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">vm</span><span class="o">:</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">event</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">l</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">vm</span><span class="p">.</span><span class="nx">$on</span><span class="p">(</span><span class="nx">event</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span><span class="w"> </span><span class="nx">fn</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">_events</span><span class="p">[</span><span class="nx">event</span><span class="p">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">_events</span><span class="p">[</span><span class="nx">event</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[])).</span><span class="nx">push</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">hookRE</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">event</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">vm</span><span class="p">.</span><span class="nx">_hasHookEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">vm</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="c1">// Vue.prototype.$once</span>
+<span class="w">  </span><span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$emit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="nx">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">vm</span><span class="o">:</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">cbs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">vm</span><span class="p">.</span><span class="nx">_events</span><span class="p">[</span><span class="nx">event</span><span class="p">]</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">cbs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">cbs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cbs</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">toArray</span><span class="p">(</span><span class="nx">cbs</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nx">cbs</span><span class="p">;</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">toArray</span><span class="p">(</span><span class="nx">cbs</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nx">cbs</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cbs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">l</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">cbs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">apply</span><span class="p">(</span><span class="nx">vm</span><span class="p">,</span><span class="w"> </span><span class="nx">args</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">handleError</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span><span class="w"> </span><span class="nx">vm</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">vm</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_1">单例模式<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>保证一个类仅有一个实例，并提供全局访问点。调用这个类时，先判断是否有实例，如果不存在先创建，如果存在直接返回（保证全局只有这一个实例）</p>
+<p>适应于：对话框（全局点击多次，也是这一个对话框）对话框创建一次即可，使用一个变量缓存即可。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">getSingle</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">result</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="nx">arguemnts</span><span class="p">));</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">createModalLayer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">div</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">div</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;I am a modal&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">div</span><span class="p">.</span><span class="nx">className</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;modal&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;none&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">div</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;none&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">div</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">retunr</span><span class="w"> </span><span class="nx">div</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 使用</span>
+<span class="nx">createModalLayer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getSingle</span><span class="p">(</span><span class="nx">createModalLayer</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;modal-btn&#39;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">modalLayer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">createModalLayer</span><span class="p">();</span>
+<span class="w">  </span><span class="nx">modalLayer</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;block&#39;</span><span class="p">;</span>
+<span class="p">},</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="_2">策略模式<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>定义一系列的算法，每个算法封装起来，然后可以互相替换。将算法实现分离（utils函数），便于不同小算法的维护。</p>
+<p>例如移动端计算界面滚动：那么获取当前移动端边缘的列是一个算法，计算需要显示的列是另一个算法。默认显示的列数量也是一个算法。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 这部分可以放在配置文件json中，然后读取配置文件</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">policy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="s1">&#39;a&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">salary</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">salary</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">4</span><span class="p">;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="s1">&#39;b&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span>
+<span class="w">  </span><span class="s1">&#39;c&#39;</span><span class="o">:</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="c1">// 这样写，便于代码扩展，不需要改动下面的函数</span>
+<span class="c1">// 直接改变上面的策略对象即可</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">calculate1</span><span class="p">(</span><span class="nx">level</span><span class="p">,</span><span class="w"> </span><span class="nx">salary</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">policy</span><span class="p">[</span><span class="nx">level</span><span class="p">]</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">policy</span><span class="p">[</span><span class="nx">level</span><span class="p">](</span><span class="nx">salary</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>表单认证，可以使用策略模式优化</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">form</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="nx">form</span><span class="p">.</span><span class="nx">submit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">form</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">form</span><span class="p">.</span><span class="nx">password</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">form</span><span class="p">.</span><span class="nx">password</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>优化后</p>
+<div class="highlight"><pre><span></span><code><span class="nx">rules</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">require</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;please input&#39;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">min</span><span class="o">:</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="o">:</span><span class="w"> </span><span class="mf">5</span><span class="p">,</span><span class="w"> </span><span class="nx">massage</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;please input 3 to 5 string&#39;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nx">date</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nx">require</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">};</span>
+
+
+<span class="nx">methods</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">submit</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">$refs</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">validdate</span><span class="p">((</span><span class="nx">valid</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">valid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;submit error&#39;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">reset</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">$refs</span><span class="p">[</span><span class="nx">name</span><span class="p">].</span><span class="nx">resetFields</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_3">代理模式<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>通过代理的形式，访问一个对象。</p>
+<p>原因：如果一个操作开销很大，那么设置虚拟代理的形式延迟访问对象（使用虚拟代理实现图片懒加载）</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">imgFunc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">imgNode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">imgNode</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">setSrc</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// imgNode.src = src 模拟耗时的操作</span>
+<span class="w">      </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">imgNode</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">src</span><span class="p">;</span>
+<span class="w">      </span><span class="p">},</span><span class="w"> </span><span class="mf">1000</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">})();</span>
+
+<span class="c1">// 可以改成代理模式</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">proxyImage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">iimg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Image</span><span class="p">();</span>
+<span class="w">  </span><span class="nx">img</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">imgFunc</span><span class="p">.</span><span class="nx">setSrc</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">src</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">setSrc</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">imgFunc</span><span class="p">.</span><span class="nx">setSrc</span><span class="p">(</span><span class="s1">&#39;loading.gif&#39;</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">img</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">src</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">})();</span>
+</code></pre></div>
+<p>函数的防抖节流等 </p>
+<p>文件的延迟上传</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">synchronousFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// 开始同步文件 id</span>
+<span class="p">}</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">proxyFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">timer</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">fucntion</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">cache</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">timer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">synchronousFile</span><span class="p">(</span><span class="nx">cache</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">));</span>
+<span class="w">      </span><span class="nx">clearTimerout</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="w">      </span><span class="nx">cache</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="mf">2000</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">})();</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">checkbox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementByTagName</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">);</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">c</span><span class="p">;</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">checkbox</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">c</span><span class="p">.</span><span class="nx">onclick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">checked</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">proxyFile</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_4">中介者模式<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>通过一个中介者对象，其他相关对象通过中介者来通信，而不是互相引用。当一个发生变化时，只需要通过中介者对象即可。中介者独享可以解耦。</p>
+<p>例如在行展开过程中，不同列都会改变行数据，那我们可以统一一个行中介者，来处理每一个改动造成的数据保存（不需要每一个单独保存数据）。</p>
+<h2 id="_5">装饰器模式<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>不改变自身基础上，给对象动态添加方法（常见的是高阶组件，给原始对象添加方法等）</p>
+<p>例如在移动端界面中，可以都使用一个组件包裹移动端组件，来统一处理安卓设备的返回操作。这个可以进行优化。</p>
+<p>包裹层的函数不能覆盖原始的函数。判断是否 Object assign 操作。</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">React</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">withLog</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Component</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">class</span><span class="w"> </span><span class="nx">NewComponent</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">componentWillMount</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;will mount&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">componentDidMount</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;did mount&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">render</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">Component</span><span class="o">/&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>一个复杂的例子</p>
+<div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">connect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">mapStateToProps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">state</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">state</span><span class="p">,</span><span class="w"> </span><span class="nx">mapDispatchToProps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{})</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="nx">WrapComponent</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">ConnectComponnet</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">React</span><span class="p">.</span><span class="nx">Component</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="nx">contextTypes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">store</span><span class="o">:</span><span class="w"> </span><span class="nx">PropTypes</span><span class="p">.</span><span class="nx">object</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">    </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span><span class="w"> </span><span class="nx">context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">,</span><span class="w"> </span><span class="nx">context</span><span class="p">);</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">props</span><span class="o">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">      </span><span class="p">};</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">componentDidMount</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">store</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">;</span>
+<span class="w">      </span><span class="nx">store</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">update</span><span class="p">);</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">update</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">store</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">;</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">stateProps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">mapStateToProps</span><span class="p">(</span><span class="nx">store</span><span class="p">.</span><span class="nx">getState</span><span class="p">());</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">dispatchProps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">bindActionCreators</span><span class="p">(</span><span class="nx">mapDispatchToProps</span><span class="p">,</span><span class="w"> </span><span class="nx">store</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">);</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+<span class="w">        </span><span class="nx">props</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="p">...</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">props</span><span class="p">,</span>
+<span class="w">          </span><span class="p">...</span><span class="nx">stateProps</span><span class="p">,</span>
+<span class="w">          </span><span class="p">...</span><span class="nx">dispatchProps</span><span class="p">,</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">render</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="p">&lt;</span><span class="nt">WrapComponent</span><span class="w"> </span><span class="p">{</span><span class="na">...this.state.props</span><span class="p">}/&gt;;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>在 SSR 中，使用的 Next 函数也是类似的装饰器模式实现的</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">before</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">_self</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// 返回包含原函数和新函数的”代理函数“</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 执行新函数，保证this不被劫持，新函数接受的参数也会传入原函数，新函数先执行</span>
+<span class="w">    </span><span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="nx">arguments</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 执行原函数，保证this不被劫持，并返回原函数的执行结果</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">_self</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="nx">arguemnts</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">response</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">after</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">_self</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">_self</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="nx">arguments</span><span class="p">);</span>
+<span class="w">    </span><span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="nx">arguments</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">ret</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>代理模式和装饰器模式基本相似，保留了对另一个对象的引用，并且向那个对象发送请求。代理模式的目的：本体访问不方便。装饰器模式：为本体动态加入行为。</p>
+<h2 id="_6">外观模式<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>多个方法一起被调用（适应于兼容性代码），外部暴露一个API，内部处理各种兼容性问题。或者封装组件时（内部实现具体的逻辑，外部暴露props传参）</p>
+<div class="highlight"><pre><span></span><code><span class="nx">addEvent</span><span class="p">(</span><span class="nx">dom</span><span class="p">,</span><span class="w"> </span><span class="nx">type</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">dom</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">dom</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">dom</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">dom</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">type</span><span class="p">,</span><span class="w"> </span><span class="nx">fn</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">dom</span><span class="p">[</span><span class="s1">&#39;on&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">type</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">fn</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">stopEvent</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// preventDefault/stopPropagation/returnValue/cancelBubble</span>
+<span class="w">  </span><span class="c1">// 兼容不同的浏览器，判断函数存在后再执行</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_7">工厂模式<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>弹窗、通知等，外部暴露一个API，然后新建一个实例</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">Notification</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$isServer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">options</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">userOnClose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">options</span><span class="p">.</span><span class="nx">onClose</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;notification_&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">seed</span><span class="o">++</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">options</span><span class="p">.</span><span class="nx">position</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;top-right&#39;</span><span class="p">;</span>
+
+<span class="w">  </span><span class="nx">options</span><span class="p">.</span><span class="nx">onClose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Notifacation</span><span class="p">.</span><span class="nx">close</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">userOnClose</span><span class="p">);</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="nx">instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">NotificationConstructor</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="nx">options</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">isVNode</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">message</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">instance</span><span class="p">.</span><span class="nx">$slots</span><span class="p">.</span><span class="k">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nx">options</span><span class="p">.</span><span class="nx">message</span><span class="p">];</span>
+<span class="w">    </span><span class="nx">options</span><span class="p">.</span><span class="nx">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;123&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">instance</span><span class="p">.</span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">id</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">instance</span><span class="p">.</span><span class="nx">$mount</span><span class="p">();</span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">$el</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">instance</span><span class="p">.</span><span class="nx">visible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">instance</span><span class="p">.</span><span class="nx">dom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">instance</span><span class="p">.</span><span class="nx">$el</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">instance</span><span class="p">.</span><span class="nx">dom</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">zIndex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">PopupManager</span><span class="p">.</span><span class="nx">nextZindex</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_8">建造者模式<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>Builder 创建相对更复杂</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">Person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="w"> </span><span class="nx">work</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">_person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Human</span><span class="p">();</span>
+<span class="w">  </span><span class="nx">_person</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Named</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">_person</span><span class="p">.</span><span class="nx">work</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Work</span><span class="p">(</span><span class="nx">work</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">_person</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_9">迭代器模式<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>数组中 forEach map 方法，不需要关注内部构造，直接可以访问每个元素（把复杂的数据结构，转换成线性的数据结构）</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">each</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">ary</span><span class="p">,</span><span class="w"> </span><span class="nx">callback</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">arg</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">callback</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">ary</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span><span class="w"> </span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">ary</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_10">享元模式<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<p>把一系列的线性 if-else 变换成对象的 key-value 形式，便于扩展。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">Model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">sex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">sex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sex</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">Model</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">takePhoto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">sex</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">underwear</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">maleModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Model</span><span class="p">(</span><span class="s1">&#39;male&#39;</span><span class="p">);</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">femaleModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Model</span><span class="p">(</span><span class="s1">&#39;female&#39;</span><span class="p">);</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mf">50</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">maleModel</span><span class="p">.</span><span class="nx">underwear</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;underware&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">i</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">maleModel</span><span class="p">.</span><span class="nx">takePhoto</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mf">50</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">femaleModel</span><span class="p">.</span><span class="nx">underwear</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;underware&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">j</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">femaleModel</span><span class="p">.</span><span class="nx">takePhoto</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这里区分内部状态和外部状态。</p>
+<h2 id="_11">职责链模式<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>又称为中间件机制。把请求的发起者和接受者解耦，中间的部分可以处理请求。可以沿着职责链传递请求，直到有一个对象处理。类似于中间件的SSR处理机制。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">orderType</span><span class="p">,</span><span class="w"> </span><span class="nx">pay</span><span class="p">,</span><span class="w"> </span><span class="nx">stock</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">orderType</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">pay</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">stock</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">3</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">orderType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 其他的情况</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// 其他的情况</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// 这样复杂的 if-else 嵌套，造成代码层级很多，可以优化</span>
+</code></pre></div>
+<p>链式处理</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">order100</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">orderType</span><span class="p">,</span><span class="w"> </span><span class="nx">pay</span><span class="p">,</span><span class="w"> </span><span class="nx">stock</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">orderType</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">pay</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">Chain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">fn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">fn</span><span class="p">;</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">successor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">Chain</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">setNextSuccessor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">successor</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">successor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">successor</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">Chain</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">passRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="nx">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="nx">arguments</span><span class="p">);</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">ret</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s1">&#39;nextSuccessor&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">successor</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">successor</span><span class="p">.</span><span class="nx">passRequest</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">successor</span><span class="p">,</span><span class="w"> </span><span class="nx">arguments</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">ret</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">chainOrder500</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Chain</span><span class="p">(</span><span class="nx">order500</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="_12">适配器模式<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p>处理不同的接口的适配器</p>
+<p>例如谷歌地图和百度地图的接口不同，那么我们调用不同接口，需要写一个适配器，处理不用第三方库的接口问题。</p>
+<p>可以使用JSON传值。</p>
+<h2 id="_13">模板方法模式<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<p>在一个方法中，定义一个骨架（模板），把具体的实现放在子类中。好处：可以不改变外部模板方法结构的情况下，重新定义算法中某些步骤的具体实现。</p>
+<p>vue slot 和 react children</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">Parent</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">render</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">}&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">Stage</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">render</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">Parent</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span><span class="k">this</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">child</span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">&lt;/</span><span class="nt">Parent</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>外部父组件实现样式渲染（固定内容），内部子组件实现内容编辑（动态编辑）</p>
+<div class="highlight"><pre><span></span><code>&lt;template&gt;
+    &lt;div&gt;
+    &lt;slot /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;template&gt;
+    &lt;parent&gt;
+    &lt;div&gt;child&lt;/div&gt;
+  &lt;/parent&gt;
+&lt;/template&gt;
+</code></pre></div>
+<h2 id="_14">备忘录模式<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<p>可以恢复到对象之前的某个状态（记录用户操作的数组，支持撤销和回退）</p>
+<p>简单的备忘录直接使用数组实现</p>
+<p>复杂的备忘录需要根据每个操作，获取反向操作并执行</p>
+<h2 id="_15">总结<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<p>创建设计模式：工厂模式、单例模式、建造者、原型</p>
+<p>结构化设计模式：外观、适配器、代理、装饰器、享元模式、桥接、组合</p>
+<p>行为设计模式：策略、模板方法、观察者、迭代器、责任链、命令、备忘录、状态、访问者、终结者、解释器等</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+  </span>
+
+    
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:1822852997@qq.com">Michael An</a>, 
+        <a href="mailto:2331806369@qq.com">Michael An</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>

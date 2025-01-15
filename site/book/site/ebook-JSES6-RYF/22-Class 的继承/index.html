@@ -1,0 +1,3995 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/ebook-JSES6-RYF/22-Class%20%E7%9A%84%E7%BB%A7%E6%89%BF/">
+      
+      
+        <link rel="prev" href="../21-Class%20%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">
+      
+      
+        <link rel="next" href="../23-Module%20%E7%9A%84%E8%AF%AD%E6%B3%95/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>22-Class 的继承 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#class" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              22-Class 的继承
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    book-JS-The-good-parts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            book-JS-The-good-parts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book-JS-The-good-parts/JS-the-good-parts.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS-the-good-parts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book-JS-The-good-parts/curry-function.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    curry-function
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-JS-basic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-JS-basic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/01-%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/02-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-数据类型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/03-%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-运算符
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/04-%E8%AF%AD%E6%B3%95%E4%B8%93%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-语法专题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/05-%E6%A0%87%E5%87%86%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-标准库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/06-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-面向对象编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/07-%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-异步操作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/08-DOM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-DOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/09-Event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-Event
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-1-BOM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-1-BOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-2-%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-2-同源策略
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-3-%E8%A1%A8%E5%8D%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-3-表单
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-4-IndexedDB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-4-IndexedDB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/10-5-web-worker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-5-web-worker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JS-basic/11-%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E6%8E%A5%E5%8F%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-网页元素接口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-JSES6-RYF
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-JSES6-RYF
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-变量赋值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-解构赋值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-字符串的扩展
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-字符串方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-%E6%AD%A3%E5%88%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-正则
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-%E6%95%B0%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-数值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-数组
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E5%B1%9E%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-对象的新增属性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-对象的新增方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-Symbol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-Symbol
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-Set%20%E5%92%8C%20Map%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-Set 和 Map 数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-Proxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14-Proxy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-Reflect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15-Reflect
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-Promise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-Promise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-%E9%81%8D%E5%8E%86%E5%99%A8%E7%9A%84%E5%BE%AA%E7%8E%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-遍历器的循环
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-Generator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18-Generator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-Generator%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19-Generator异步应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-async%20%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-async 函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-Class%20%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-Class 的基本语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    22-Class 的继承
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    22-Class 的继承
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      简介
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objectgetprototypeof" class="md-nav__link">
+    <span class="md-ellipsis">
+      Object.getPrototypeOf()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#super" class="md-nav__link">
+    <span class="md-ellipsis">
+      super 关键字
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prototype-__proto__" class="md-nav__link">
+    <span class="md-ellipsis">
+      类的 prototype 属性和__proto__属性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="类的 prototype 属性和__proto__属性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proto" class="md-nav__link">
+    <span class="md-ellipsis">
+      实例的 proto 属性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      原生构造函数的继承
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mixin 模式的实现
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-Module%20%E7%9A%84%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23-Module 的语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-Module%20%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24-Module 的加载实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25-编程风格
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-Principles of Computer Composition
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-Principles of Computer Composition
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-Principles of Computer Composition/计算机组成原理知识点总结.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机组成原理知识点总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-heima-nodejs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-heima-nodejs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/00/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    00
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-javascript-secret-garden
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-javascript-secret-garden
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-javascript-secret-garden/JavaScript 秘密花园-zh.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript 秘密花园-zh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-kaikeba-frontend
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-kaikeba-frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/01%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 性能优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/02%20%E5%89%8D%E7%AB%AF%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02 前端测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/03%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03 设计模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/04%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 数据结构与算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/05%20%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05 面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/06%20%E9%9D%A2%E8%AF%95%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06 面试技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/07%20%E9%A1%B9%E7%9B%AE%E8%AF%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07 项目课
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/08-React%E9%A2%84%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-React预习笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/09-React%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-React面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/10-React%E7%BB%84%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-React组件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/11-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-自动化测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/12-webpack-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-webpack-01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/13-webpack-02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-webpack-02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/14-webpack-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14-webpack-03
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/15-webpack%E4%BC%98%E5%8C%96%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15-webpack优化笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/16-webpack%E4%BC%98%E5%8C%96%E5%AE%98%E6%96%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-webpack优化官方
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/17-webpack-05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-webpack-05
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/18-webpack-06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18-webpack-06
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/19-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8-%E5%B8%B8%E8%A7%81Web%E6%94%BB%E5%87%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19-前端安全-常见Web攻击
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/20-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8-%E9%98%B2%E5%BE%A1%E6%89%8B%E6%AE%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-前端安全-防御手段
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-netease-senior-frontend
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-netease-senior-frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/02-v8%E5%BC%95%E6%93%8E%E5%9B%9E%E6%94%B6%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-v8引擎回收内存简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/03-node%E4%B8%8B%E9%9D%A2%E7%9A%84Restful%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-node下面的Restful实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/04-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%9A%84%E6%8F%90%E5%8D%87%E2%80%94%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E6%88%91%E4%BB%AC%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-编程思想的提升—如何提高我们代码的可扩展性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/06-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8Cssr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-浏览器渲染原理和ssr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/07-%E7%BD%91%E6%98%93%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-网易真实项目webpack配置解析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/08-%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90API%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-从架构分析API层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/09-%E5%89%8D%E7%AB%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-前端负责人的工作内容
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/10-%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%E5%AD%A6%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-分析源码学架构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/11-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E9%AB%98%E8%B4%A8%E9%87%8F%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-设计模式高质量代码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/12-nodeJS%2BMongoDB%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-nodeJS+MongoDB登录系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/12-nodejs-mongodb-mongoose/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-nodejs-mongodb-mongoose
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/13-%E4%BD%BF%E7%94%A8VUE%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-使用VUE创建组件（没学完）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/16-%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-构建自己的脚手架工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/17-webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-webpack编译原理分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/20-%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD-VUE%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-组件封装的基本技能-VUE（没学完）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/21-ssr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-ssr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/24-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%A6%82%E4%BD%95%E5%81%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24-单元测试如何做
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/25-%E5%9F%BA%E4%BA%8ENodeJS%E6%89%93%E9%80%A0Web%E6%9E%B6%E6%9E%84%E4%B8%AD%E9%97%B4%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25-基于NodeJS打造Web架构中间层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-network-basic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-network-basic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/01%20%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/02%20%E7%89%A9%E7%90%86%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02 物理层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/03%20%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03 数据链路层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/04%20%E7%BD%91%E7%BB%9C%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 网络层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/05%20%E8%BF%90%E8%BE%93%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05 运输层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/06%20%E5%BA%94%E7%94%A8%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06 应用层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/todo%20%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E5%85%A5%E9%97%A8-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    todo 互联网协议入门-阮一峰
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-qianfeng-express
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-qianfeng-express
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-qianfeng-express/01.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-upguigu-nodejs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-upguigu-nodejs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-upguigu-nodejs/nodeJS-basic.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nodeJS-basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/H5C3%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    H5C3从入门到精通
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/JS%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS 数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/data%20structure%20basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    data structure basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/express%E5%9B%BE%E4%B9%A6%E9%A6%86%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    express图书馆项目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    代码整洁之道 读书笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%85%B6%E4%BB%96%E4%B9%A6%E5%8D%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    其他书单
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E7%AC%94%E8%AE%B0-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端工程化笔记-阮一峰
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%B0%9A%E7%A1%85%E8%B0%B7-React%E6%8A%80%E6%9C%AF%E5%85%A8%E5%AE%B6%E6%A1%B62021%E7%89%88%E7%AC%94%E8%AE%B001/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    尚硅谷-React技术全家桶2021版笔记01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%B0%9A%E7%A1%85%E8%B0%B7-React%E6%8A%80%E6%9C%AF%E5%85%A8%E5%AE%B6%E6%A1%B62021%E7%89%88%E7%AC%94%E8%AE%B002/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    尚硅谷-React技术全家桶2021版笔记02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JS%E4%B8%8A%E5%8D%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-你不知道的JS上卷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JS%E4%B8%AD%E5%8D%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-你不知道的JS中卷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E5%9B%BE%E8%A7%A3HTTP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-图解HTTP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E9%AB%98%E6%80%A7%E8%83%BDJS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-高性能JS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E6%80%8E%E6%A0%B7%E8%B7%91%E8%B5%B7%E6%9D%A5%E7%9A%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机是怎样跑起来的
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      简介
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objectgetprototypeof" class="md-nav__link">
+    <span class="md-ellipsis">
+      Object.getPrototypeOf()
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#super" class="md-nav__link">
+    <span class="md-ellipsis">
+      super 关键字
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prototype-__proto__" class="md-nav__link">
+    <span class="md-ellipsis">
+      类的 prototype 属性和__proto__属性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="类的 prototype 属性和__proto__属性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proto" class="md-nav__link">
+    <span class="md-ellipsis">
+      实例的 proto 属性
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      原生构造函数的继承
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mixin 模式的实现
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="class">Class 的继承<a class="headerlink" href="#class" title="Permanent link">&para;</a></h1>
+<p>统计信息：字数 20724  阅读42分钟</p>
+<h2 id="_1">简介<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Class 可以通过<code>extends</code>关键字实现继承，这比 ES5 的通过修改原型链实现继承，要清晰和方便很多。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">Point</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">ColorPoint</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Point</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码定义了一个<code>ColorPoint</code>类，该类通过<code>extends</code>关键字，<mark>继承了<code>Point</code>类的所有属性和方法</mark>。但是由于没有部署任何代码，所以这两个类完全一样，等于复制了一个<code>Point</code>类。下面，我们在<code>ColorPoint</code>内部加上代码。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">ColorPoint</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Point</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="p">,</span><span class="w"> </span><span class="nx">color</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="p">);</span><span class="w"> </span><span class="c1">// 调用父类的constructor(x, y)</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">color</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nx">toString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">color</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">super</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span><span class="w"> </span><span class="c1">// 调用父类的toString()</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">PositionPoint</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Point</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="p">);</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">name</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// 这里的xy坐标，子类自己的this对象需要通过父类创建，这样this对象具有父类的实例属性（xy坐标）和实例方法（toString）。然后this对象在子类中加上自己的实例属性（color, name）和方法（toString）。</span>
+</code></pre></div>
+<p>上面代码中==<code>super</code>关键字，它在这里表示父类的构造函数，用来新建父类的<code>this</code>对象==。</p>
+<p><mark>子类必须在<code>constructor</code>方法中调用<code>super</code>方法，否则新建实例时会报错</mark>。</p>
+<p>这是因为子类自己的<code>this</code>对象，必须先通过父类的构造函数完成塑造，得到与父类同样的实例属性和方法，然后再对其进行加工，加上子类自己的实例属性和方法。如果不调用<code>super</code>方法，子类就得不到<code>this</code>对象。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">Point</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">ColorPoint</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Point</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">cp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ColorPoint</span><span class="p">();</span><span class="w"> </span><span class="c1">// ReferenceError</span>
+<span class="c1">// fix: super();</span>
+</code></pre></div>
+<p>上面代码中，<code>ColorPoint</code>继承了父类<code>Point</code>，但是它的构造函数没有调用<code>super</code>方法，导致新建实例时报错。</p>
+<p>ES5 的继承，实质是先创造子类的实例对象<code>this</code>，然后再将父类的方法添加到<code>this</code>上面（<code>Parent.apply(this)</code>）。ES6 的继承机制完全不同，<mark>实质是先将父类实例对象的属性和方法，加到<code>this</code>上面（所以必须先调用<code>super</code>方法），然后再用子类的构造函数修改<code>this</code></mark>。</p>
+<p>如果子类没有定义<code>constructor</code>方法，这个方法会被默认添加，代码如下。也就是说，不管有没有显式定义，任何一个子类都有<code>constructor</code>方法。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">ColorPoint</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Point</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
+
+<span class="c1">// 等同于</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">ColorPoint</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Point</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(...</span><span class="nx">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">(...</span><span class="nx">args</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>另一个需要注意的地方是，在子类的构造函数中，只有调用<code>super</code>之后，才可以使用<code>this</code>关键字，否则会报错。这是因为子类实例的构建，基于父类实例，只有<code>super</code>方法才能调用父类实例。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">Point</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">x</span><span class="p">;</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">y</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">ColorPoint</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Point</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="p">,</span><span class="w"> </span><span class="nx">color</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">color</span><span class="p">;</span><span class="w"> </span><span class="c1">// ReferenceError</span>
+<span class="w">    </span><span class="k">super</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="p">);</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">color</span><span class="p">;</span><span class="w"> </span><span class="c1">// 正确</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码中，子类的<code>constructor</code>方法没有调用<code>super</code>之前，就使用<code>this</code>关键字，结果报错，而放在<code>super</code>方法之后就是正确的。</p>
+<p>下面是生成子类实例的代码。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">cp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ColorPoint</span><span class="p">(</span><span class="mf">25</span><span class="p">,</span><span class="w"> </span><span class="mf">8</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;green&#39;</span><span class="p">);</span>
+
+<span class="nx">cp</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="nx">ColorPoint</span><span class="w"> </span><span class="c1">// true</span>
+<span class="nx">cp</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="nx">Point</span><span class="w"> </span><span class="c1">// true</span>
+</code></pre></div>
+<p>上面代码中，实例对象<code>cp</code>同时是<code>ColorPoint</code>和<code>Point</code>两个类的实例，这与 ES5 的行为完全一致。</p>
+<p>最后，<mark>父类的静态方法，也会被子类继承</mark>。当然，这里也是子类的静态方法，不是子类的实例方法。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="nx">hello</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;hello world&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
+
+<span class="nx">B</span><span class="p">.</span><span class="nx">hello</span><span class="p">()</span><span class="w">  </span><span class="c1">// hello world</span>
+</code></pre></div>
+<h2 id="objectgetprototypeof">Object.getPrototypeOf()<a class="headerlink" href="#objectgetprototypeof" title="Permanent link">&para;</a></h2>
+<p><code>Object.getPrototypeOf</code>方法可以用来从子类上获取父类。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Object</span><span class="p">.</span><span class="nx">getPrototypeOf</span><span class="p">(</span><span class="nx">ColorPoint</span><span class="p">)</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">Point</span>
+<span class="c1">// true</span>
+</code></pre></div>
+<p>因此，可以使用这个方法判断，一个类是否继承了另一个类。</p>
+<h2 id="super">super 关键字<a class="headerlink" href="#super" title="Permanent link">&para;</a></h2>
+<p><mark><code>super</code>这个关键字，既可以当作函数使用，也可以当作对象使用</mark>。在这两种情况下，它的用法完全不同。</p>
+<p>第一种情况==，<code>super</code>作为函数调用时，代表父类的构造函数==。ES6 要求，子类的构造函数必须执行一次<code>super</code>函数。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码中，子类<code>B</code>的构造函数之中的<code>super()</code>，代表调用父类的构造函数。这是必须的，否则 JavaScript 引擎会报错。</p>
+<p>注意，<code>super</code>虽然代表了父类<code>A</code>的构造函数，但是返回的是子类<code>B</code>的实例，即<code>super</code>内部的<code>this</code>指的是<code>B</code>的实例，<mark>因此<code>super()</code>在这里相当于<code>A.prototype.constructor.call(this)</code>。</mark></p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="ow">new</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">class</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="ow">new</span><span class="w"> </span><span class="nx">A</span><span class="p">()</span><span class="w"> </span><span class="c1">// A</span>
+<span class="ow">new</span><span class="w"> </span><span class="nx">B</span><span class="p">()</span><span class="w"> </span><span class="c1">// B</span>
+</code></pre></div>
+<p>上面代码中，<code>new.target</code>指向当前正在执行的函数。可以看到，在<code>super()</code>执行时，它指向的是子类<code>B</code>的构造函数，而不是父类<code>A</code>的构造函数。也就是说，<code>super()</code>内部的<code>this</code>指向的是<code>B</code>。</p>
+<p>作为函数时，<code>super()</code>只能用在子类的构造函数之中，用在其他地方就会报错。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">m</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span><span class="w"> </span><span class="c1">// 报错</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码中，<code>super()</code>用在<code>B</code>类的<code>m</code>方法之中，就会造成语法错误。</p>
+<p>第二种情况==，<code>super</code>作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类==。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">p</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span><span class="w"> </span><span class="c1">// 第一种情况：作为函数执行，代表父类A的构造函数</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">super</span><span class="p">.</span><span class="nx">p</span><span class="p">());</span><span class="w"> </span><span class="c1">// 第二种情况：作为对象，调用super的方法，就是调用构造函数的方法</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">B</span><span class="p">();</span>
+</code></pre></div>
+<p>上面代码中，子类<code>B</code>当中的<code>super.p()</code>，就是将<code>super</code>当作一个对象使用。这时，<code>super</code>在普通方法之中，指向<code>A.prototype</code>，所以<code>super.p()</code>就相当于<code>A.prototype.p()</code>。</p>
+<p>这里需要注意，<mark>由于<code>super</code>指向父类的原型对象，所以定义在父类实例上的方法或属性，是无法通过<code>super</code>调用的。</mark></p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">get</span><span class="w"> </span><span class="nx">m</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">super</span><span class="p">.</span><span class="nx">p</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">B</span><span class="p">();</span>
+<span class="nx">b</span><span class="p">.</span><span class="nx">m</span><span class="w"> </span><span class="c1">// undefined</span>
+</code></pre></div>
+<p>上面代码中，<mark><code>p</code>是父类<code>A</code>实例的属性，<code>super.p</code>就引用不到它</mark>。所以，不能用过super直接调用父类的实例属性（constructor内部的属性），只能获取父类原型对象的属性。</p>
+<p>如果属性定义在父类的原型对象上，<code>super</code>就可以取到。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{}</span>
+<span class="nx">A</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">super</span><span class="p">.</span><span class="nx">x</span><span class="p">)</span><span class="w"> </span><span class="c1">// 2</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">B</span><span class="p">();</span>
+</code></pre></div>
+<p>上面代码中，属性<code>x</code>是定义在<code>A.prototype</code>上面的，所以<code>super.x</code>可以取到它的值。</p>
+<p>ES6 规定，在==子类普通方法中通过<code>super</code>调用父类的方法时==，<mark>方法内部的<code>this</code>指向当前的子类实例</mark>。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">print</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">m</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">.</span><span class="nx">print</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">B</span><span class="p">();</span>
+<span class="nx">b</span><span class="p">.</span><span class="nx">m</span><span class="p">()</span><span class="w"> </span><span class="c1">// 2</span>
+</code></pre></div>
+<p>上面代码中，<code>super.print()</code>虽然调用的是<code>A.prototype.print()</code>，但是<code>A.prototype.print()</code>内部的<code>this</code>指向子类<code>B</code>的实例，导致输出的是<code>2</code>，而不是<code>1</code>。也就是说，实际上执行的是<code>super.print.call(this)</code>。</p>
+<p><mark>由于<code>this</code>指向子类实例，所以如果通过<code>super</code>对某个属性赋值，这时<code>super</code>就是<code>this</code>，赋值的属性会变成子类实例的属性</mark>。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span>
+<span class="w">    </span><span class="k">super</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">super</span><span class="p">.</span><span class="nx">x</span><span class="p">);</span><span class="w"> </span><span class="c1">// undefined</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="p">);</span><span class="w"> </span><span class="c1">// 3</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">B</span><span class="p">();</span>
+</code></pre></div>
+<p>上面代码中，<code>super.x</code>赋值为<code>3</code>，这时等同于对<code>this.x</code>赋值为<code>3</code>。而当读取<code>super.x</code>的时候，读的是<code>A.prototype.x</code>，所以返回<code>undefined</code>。</p>
+<p>如果<code>super</code>作为对象，用在静态方法之中，这时<code>super</code>将指向父类，而不是父类的原型对象。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">Parent</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="nx">myMethod</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;static&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">msg</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nx">myMethod</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;instance&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">msg</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">Child</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">Parent</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="nx">myMethod</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">.</span><span class="nx">myMethod</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nx">myMethod</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">.</span><span class="nx">myMethod</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">Child</span><span class="p">.</span><span class="nx">myMethod</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// static 1</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">child</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Child</span><span class="p">();</span>
+<span class="nx">child</span><span class="p">.</span><span class="nx">myMethod</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span><span class="w"> </span><span class="c1">// instance 2</span>
+</code></pre></div>
+<p>上面代码中，<code>super</code>在静态方法之中指向父类，在普通方法之中指向父类的原型对象。</p>
+<p>另外，在子类的静态方法中通过<code>super</code>调用父类的方法时，方法内部的<code>this</code>指向当前的子类，而不是子类的实例。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="nx">print</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">static</span><span class="w"> </span><span class="nx">m</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">.</span><span class="nx">print</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">B</span><span class="p">.</span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3</span><span class="p">;</span>
+<span class="nx">B</span><span class="p">.</span><span class="nx">m</span><span class="p">()</span><span class="w"> </span><span class="c1">// 3</span>
+</code></pre></div>
+<p>上面代码中，静态方法<code>B.m</code>里面，<code>super.print</code>指向父类的静态方法。这个方法里面的<code>this</code>指向的是<code>B</code>，而不是<code>B</code>的实例。</p>
+<p>注意，<mark>使用<code>super</code>的时候，必须显式指定是作为函数、还是作为对象使用，否则会报错</mark>。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">super</span><span class="p">);</span><span class="w"> </span><span class="c1">// 报错</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码中，<code>console.log(super)</code>当中的<code>super</code>，无法看出是作为函数使用，还是作为对象使用，所以 JavaScript 引擎解析代码的时候就会报错。这时，如果能清晰地表明<code>super</code>的数据类型，就不会报错。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">super</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">()</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="nx">B</span><span class="p">);</span><span class="w"> </span><span class="c1">// true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">let</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">B</span><span class="p">();</span>
+</code></pre></div>
+<p>上面代码中，<code>super.valueOf()</code>表明<code>super</code>是一个对象，因此就不会报错。同时，由于<code>super</code>使得<code>this</code>指向<code>B</code>的实例，所以<code>super.valueOf()</code>返回的是一个<code>B</code>的实例。</p>
+<p>最后，由于对象总是继承其他对象的，所以可以在任意一个对象中，使用<code>super</code>关键字。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">toString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s2">&quot;MyObject: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">super</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nx">obj</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span><span class="w"> </span><span class="c1">// MyObject: [object Object]</span>
+</code></pre></div>
+<h2 id="prototype-__proto__">类的 prototype 属性和__proto__属性<a class="headerlink" href="#prototype-__proto__" title="Permanent link">&para;</a></h2>
+<p>大多数浏览器的 ES5 实现之中，每一个对象都有<code>__proto__</code>属性，指向对应的构造函数的<code>prototype</code>属性。Class 作为构造函数的语法糖，同时有<code>prototype</code>属性和<code>__proto__</code>属性，因此同时存在两条继承链。</p>
+<p>（1）子类的<code>__proto__</code>属性，表示==构造函数的继承==，总是指向父类。</p>
+<p>（2）子类<code>prototype</code>属性的<code>__proto__</code>属性，表示==方法的继承==，总是指向父类的<code>prototype</code>属性。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
+
+<span class="nx">B</span><span class="p">.</span><span class="nx">__proto__</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="c1">// true</span>
+<span class="nx">B</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__proto__</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">A</span><span class="p">.</span><span class="nx">prototype</span><span class="w"> </span><span class="c1">// true</span>
+</code></pre></div>
+<p>上面代码中，子类<code>B</code>的<code>__proto__</code>属性指向父类<code>A</code>，子类<code>B</code>的<code>prototype</code>属性的<code>__proto__</code>属性指向父类<code>A</code>的<code>prototype</code>属性。</p>
+<p>这样的结果是因为，类的继承是按照下面的模式实现的。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
+
+<span class="c1">// B 的实例继承 A 的实例</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">setPrototypeOf</span><span class="p">(</span><span class="nx">B</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span><span class="w"> </span><span class="nx">A</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+
+<span class="c1">// B 继承 A 的静态属性</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">setPrototypeOf</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span><span class="w"> </span><span class="nx">A</span><span class="p">);</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">B</span><span class="p">();</span>
+</code></pre></div>
+<p>《对象的扩展》一章给出过<code>Object.setPrototypeOf</code>方法的实现。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Object</span><span class="p">.</span><span class="nx">setPrototypeOf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span><span class="w"> </span><span class="nx">proto</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">obj</span><span class="p">.</span><span class="nx">__proto__</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">proto</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">obj</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>因此，就得到了上面的结果。</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Object</span><span class="p">.</span><span class="nx">setPrototypeOf</span><span class="p">(</span><span class="nx">B</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span><span class="w"> </span><span class="nx">A</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+<span class="c1">// 等同于</span>
+<span class="nx">B</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__proto__</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">A</span><span class="p">.</span><span class="nx">prototype</span><span class="p">;</span>
+
+<span class="nb">Object</span><span class="p">.</span><span class="nx">setPrototypeOf</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span><span class="w"> </span><span class="nx">A</span><span class="p">);</span>
+<span class="c1">// 等同于</span>
+<span class="nx">B</span><span class="p">.</span><span class="nx">__proto__</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">A</span><span class="p">;</span>
+</code></pre></div>
+<p>这两条继承链，可以这样理解：作为一个对象，子类（<code>B</code>）的原型（<code>__proto__</code>属性）是父类（<code>A</code>）；作为一个构造函数，子类（<code>B</code>）的原型对象（<code>prototype</code>属性）是父类的原型对象（<code>prototype</code>属性）的实例。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">B</span><span class="p">.</span><span class="nx">prototype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">A</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span>
+<span class="c1">// 等同于</span>
+<span class="nx">B</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__proto__</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">A</span><span class="p">.</span><span class="nx">prototype</span><span class="p">;</span>
+</code></pre></div>
+<p><code>extends</code>关键字后面可以跟多种类型的值。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">B</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码的<code>A</code>，只要是一个有<code>prototype</code>属性的函数，就能被<code>B</code>继承。由于函数都有<code>prototype</code>属性（除了<code>Function.prototype</code>函数），因此<code>A</code>可以是任意函数。</p>
+<p>下面，讨论两种情况。第一种，子类继承<code>Object</code>类。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nb">Object</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
+
+<span class="nx">A</span><span class="p">.</span><span class="nx">__proto__</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nb">Object</span><span class="w"> </span><span class="c1">// true</span>
+<span class="nx">A</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__proto__</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="w"> </span><span class="c1">// true</span>
+</code></pre></div>
+<p>这种情况下，<code>A</code>其实就是构造函数<code>Object</code>的复制，<code>A</code>的实例就是<code>Object</code>的实例。</p>
+<p>第二种情况，不存在任何继承。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
+
+<span class="nx">A</span><span class="p">.</span><span class="nx">__proto__</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="w"> </span><span class="c1">// true</span>
+<span class="nx">A</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__proto__</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="w"> </span><span class="c1">// true</span>
+</code></pre></div>
+<p>这种情况下，<code>A</code>作为一个基类（即不存在任何继承），就是一个普通函数，所以直接继承<code>Function.prototype</code>。但是，<code>A</code>调用后返回一个空对象（即<code>Object</code>实例），所以<code>A.prototype.__proto__</code>指向构造函数（<code>Object</code>）的<code>prototype</code>属性。</p>
+<h3 id="proto">实例的 <strong>proto</strong> 属性<a class="headerlink" href="#proto" title="Permanent link">&para;</a></h3>
+<p>子类实例的<code>__proto__</code>属性的<code>__proto__</code>属性，指向父类实例的<code>__proto__</code>属性。也就是说，子类的原型的原型，是父类的原型。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Point</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ColorPoint</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;red&#39;</span><span class="p">);</span>
+
+<span class="nx">p2</span><span class="p">.</span><span class="nx">__proto__</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">p1</span><span class="p">.</span><span class="nx">__proto__</span><span class="w"> </span><span class="c1">// false</span>
+<span class="nx">p2</span><span class="p">.</span><span class="nx">__proto__</span><span class="p">.</span><span class="nx">__proto__</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">p1</span><span class="p">.</span><span class="nx">__proto__</span><span class="w"> </span><span class="c1">// true</span>
+</code></pre></div>
+<p>上面代码中，<code>ColorPoint</code>继承了<code>Point</code>，导致前者原型的原型是后者的原型。</p>
+<p>因此，通过子类实例的<code>__proto__.__proto__</code>属性，可以修改父类实例的行为。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">p2</span><span class="p">.</span><span class="nx">__proto__</span><span class="p">.</span><span class="nx">__proto__</span><span class="p">.</span><span class="nx">printName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Ha&#39;</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">p1</span><span class="p">.</span><span class="nx">printName</span><span class="p">()</span><span class="w"> </span><span class="c1">// &quot;Ha&quot;</span>
+</code></pre></div>
+<p>上面代码在<code>ColorPoint</code>的实例<code>p2</code>上向<code>Point</code>类添加方法，结果影响到了<code>Point</code>的实例<code>p1</code>。</p>
+<h2 id="_2">原生构造函数的继承<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>原生构造函数是指语言内置的构造函数，通常用来生成数据结构。ECMAScript 的原生构造函数大致有下面这些。</p>
+<ul>
+<li>Boolean()</li>
+<li>Number()</li>
+<li>String()</li>
+<li>Array()</li>
+<li>Date()</li>
+<li>Function()</li>
+<li>RegExp()</li>
+<li>Error()</li>
+<li>Object()</li>
+</ul>
+<p>以前，这些原生构造函数是无法继承的，比如，不能自己定义一个<code>Array</code>的子类。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">MyArray</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nb">Array</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="nx">arguments</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">MyArray</span><span class="p">.</span><span class="nx">prototype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">value</span><span class="o">:</span><span class="w"> </span><span class="nx">MyArray</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">writable</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">configurable</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">enumerable</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>上面代码定义了一个继承 Array 的<code>MyArray</code>类。但是，这个类的行为与<code>Array</code>完全不一致。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">colors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">MyArray</span><span class="p">();</span>
+<span class="nx">colors</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;red&quot;</span><span class="p">;</span>
+<span class="nx">colors</span><span class="p">.</span><span class="nx">length</span><span class="w">  </span><span class="c1">// 0</span>
+
+<span class="nx">colors</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="nx">colors</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w">  </span><span class="c1">// &quot;red&quot;</span>
+</code></pre></div>
+<p>之所以会发生这种情况，是因为子类无法获得原生构造函数的内部属性，通过<code>Array.apply()</code>或者分配给原型对象都不行。原生构造函数会忽略<code>apply</code>方法传入的<code>this</code>，也就是说，原生构造函数的<code>this</code>无法绑定，导致拿不到内部属性。</p>
+<p>ES5 是先新建子类的实例对象<code>this</code>，再将父类的属性添加到子类上，由于父类的内部属性无法获取，导致无法继承原生的构造函数。比如，<code>Array</code>构造函数有一个内部属性<code>[[DefineOwnProperty]]</code>，用来定义新属性时，更新<code>length</code>属性，这个内部属性无法在子类获取，导致子类的<code>length</code>属性行为不正常。</p>
+<p>下面的例子中，我们想让一个普通对象继承<code>Error</code>对象。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+
+<span class="nb">Object</span><span class="p">.</span><span class="nx">getOwnPropertyNames</span><span class="p">(</span><span class="ne">Error</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">e</span><span class="p">))</span>
+<span class="c1">// [ &#39;stack&#39; ]</span>
+
+<span class="nb">Object</span><span class="p">.</span><span class="nx">getOwnPropertyNames</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+<span class="c1">// []</span>
+</code></pre></div>
+<p>上面代码中，我们想通过<code>Error.call(e)</code>这种写法，让普通对象<code>e</code>具有<code>Error</code>对象的实例属性。但是，<code>Error.call()</code>完全忽略传入的第一个参数，而是返回一个新对象，<code>e</code>本身没有任何变化。这证明了<code>Error.call(e)</code>这种写法，无法继承原生构造函数。</p>
+<p><mark>ES6 允许继承原生构造函数定义子类，因为 ES6 是先新建父类的实例对象<code>this</code>，然后再用子类的构造函数修饰<code>this</code>，使得父类的所有行为都可以继承</mark>。下面是一个继承<code>Array</code>的例子。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">MyArray</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nb">Array</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(...</span><span class="nx">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">(...</span><span class="nx">args</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">arr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">MyArray</span><span class="p">();</span>
+<span class="nx">arr</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">12</span><span class="p">;</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="c1">// 1</span>
+
+<span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="nx">arr</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w"> </span><span class="c1">// undefined</span>
+</code></pre></div>
+<p>上面代码定义了一个<code>MyArray</code>类，继承了<code>Array</code>构造函数，因此就可以从<code>MyArray</code>生成数组的实例。这意味着，ES6 可以自定义原生数据结构（比如<code>Array</code>、<code>String</code>等）的子类，这是 ES5 无法做到的。</p>
+<p>上面这个例子也说明，<code>extends</code>关键字不仅可以用来继承类，还可以用来继承原生的构造函数。因此可以在原生数据结构的基础上，定义自己的数据结构。下面就是定义了一个带版本功能的数组。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">VersionedArray</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nb">Array</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">history</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[[]];</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">commit</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">slice</span><span class="p">());</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">revert</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span><span class="w"> </span><span class="p">...</span><span class="k">this</span><span class="p">.</span><span class="nx">history</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span><span class="p">]);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">VersionedArray</span><span class="p">();</span>
+
+<span class="nx">x</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+<span class="nx">x</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mf">2</span><span class="p">);</span>
+<span class="nx">x</span><span class="w"> </span><span class="c1">// [1, 2]</span>
+<span class="nx">x</span><span class="p">.</span><span class="nx">history</span><span class="w"> </span><span class="c1">// [[]]</span>
+
+<span class="nx">x</span><span class="p">.</span><span class="nx">commit</span><span class="p">();</span>
+<span class="nx">x</span><span class="p">.</span><span class="nx">history</span><span class="w"> </span><span class="c1">// [[], [1, 2]]</span>
+
+<span class="nx">x</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mf">3</span><span class="p">);</span>
+<span class="nx">x</span><span class="w"> </span><span class="c1">// [1, 2, 3]</span>
+<span class="nx">x</span><span class="p">.</span><span class="nx">history</span><span class="w"> </span><span class="c1">// [[], [1, 2]]</span>
+
+<span class="nx">x</span><span class="p">.</span><span class="nx">revert</span><span class="p">();</span>
+<span class="nx">x</span><span class="w"> </span><span class="c1">// [1, 2]</span>
+</code></pre></div>
+<p>上面代码中，<code>VersionedArray</code>会通过<code>commit</code>方法，将自己的当前状态生成一个版本快照，存入<code>history</code>属性。<code>revert</code>方法用来将数组重置为最新一次保存的版本。除此之外，<code>VersionedArray</code>依然是一个普通数组，所有原生的数组方法都可以在它上面调用。</p>
+<p>下面是一个自定义<code>Error</code>子类的例子，可以用来定制报错时的行为。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">ExtendableError</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="ne">Error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">();</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">message</span><span class="p">;</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">stack</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">()).</span><span class="nx">stack</span><span class="p">;</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="kr">constructor</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nx">MyError</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">ExtendableError</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">super</span><span class="p">(</span><span class="nx">m</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">myerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">MyError</span><span class="p">(</span><span class="s1">&#39;ll&#39;</span><span class="p">);</span>
+<span class="nx">myerror</span><span class="p">.</span><span class="nx">message</span><span class="w"> </span><span class="c1">// &quot;ll&quot;</span>
+<span class="nx">myerror</span><span class="w"> </span><span class="ow">instanceof</span><span class="w"> </span><span class="ne">Error</span><span class="w"> </span><span class="c1">// true</span>
+<span class="nx">myerror</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="c1">// &quot;MyError&quot;</span>
+<span class="nx">myerror</span><span class="p">.</span><span class="nx">stack</span>
+<span class="c1">// Error</span>
+<span class="c1">//     at MyError.ExtendableError</span>
+<span class="c1">//     ...</span>
+</code></pre></div>
+<p>注意，继承<code>Object</code>的子类，有一个<a href="http://stackoverflow.com/questions/36203614/super-does-not-pass-arguments-when-instantiating-a-class-extended-from-object">行为差异</a>。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">NewObj</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nb">Object</span><span class="p">{</span>
+<span class="w">  </span><span class="kr">constructor</span><span class="p">(){</span>
+<span class="w">    </span><span class="k">super</span><span class="p">(...</span><span class="nx">arguments</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">NewObj</span><span class="p">({</span><span class="nx">attr</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">});</span>
+<span class="nx">o</span><span class="p">.</span><span class="nx">attr</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">true</span><span class="w">  </span><span class="c1">// false</span>
+</code></pre></div>
+<p>上面代码中，<code>NewObj</code>继承了<code>Object</code>，但是无法通过<code>super</code>方法向父类<code>Object</code>传参。这是因为 ES6 改变了<code>Object</code>构造函数的行为，一旦发现<code>Object</code>方法不是通过<code>new Object()</code>这种形式调用，ES6 规定<code>Object</code>构造函数会忽略参数。</p>
+<h2 id="mixin">Mixin 模式的实现<a class="headerlink" href="#mixin" title="Permanent link">&para;</a></h2>
+<p>Mixin 指的是多个对象合成一个新的对象，新对象具有各个组成成员的接口。它的最简单实现如下。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">a</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;a&#39;</span>
+<span class="p">};</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">b</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;b&#39;</span>
+<span class="p">};</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{...</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="p">...</span><span class="nx">b</span><span class="p">};</span><span class="w"> </span><span class="c1">// {a: &#39;a&#39;, b: &#39;b&#39;}</span>
+</code></pre></div>
+<p>上面代码中，<code>c</code>对象是<code>a</code>对象和<code>b</code>对象的合成，具有两者的接口。</p>
+<p>下面是一个更完备的实现，将多个类的接口“混入”（mix in）另一个类。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">mix</span><span class="p">(...</span><span class="nx">mixins</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">class</span><span class="w"> </span><span class="nx">Mix</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">constructor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">mixin</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">mixins</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">copyProperties</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">mixin</span><span class="p">());</span><span class="w"> </span><span class="c1">// 拷贝实例属性</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">mixin</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">mixins</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">copyProperties</span><span class="p">(</span><span class="nx">Mix</span><span class="p">,</span><span class="w"> </span><span class="nx">mixin</span><span class="p">);</span><span class="w"> </span><span class="c1">// 拷贝静态属性</span>
+<span class="w">    </span><span class="nx">copyProperties</span><span class="p">(</span><span class="nx">Mix</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span><span class="w"> </span><span class="nx">mixin</span><span class="p">.</span><span class="nx">prototype</span><span class="p">);</span><span class="w"> </span><span class="c1">// 拷贝原型属性</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">Mix</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">copyProperties</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">source</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nb">Reflect</span><span class="p">.</span><span class="nx">ownKeys</span><span class="p">(</span><span class="nx">source</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s1">&#39;constructor&#39;</span>
+<span class="w">      </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s1">&#39;prototype&#39;</span>
+<span class="w">      </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s1">&#39;name&#39;</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kd">let</span><span class="w"> </span><span class="nx">desc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Object</span><span class="p">.</span><span class="nx">getOwnPropertyDescriptor</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span><span class="w"> </span><span class="nx">key</span><span class="p">);</span>
+<span class="w">      </span><span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">desc</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码的<code>mix</code>函数，可以将多个对象合成为一个类。使用的时候，只要继承这个类即可。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nx">DistributedEdit</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">mix</span><span class="p">(</span><span class="nx">Loggable</span><span class="p">,</span><span class="w"> </span><span class="nx">Serializable</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+  </span>
+
+    
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:1822852997@qq.com">Michael An</a>, 
+        <a href="mailto:2331806369@qq.com">Michael An</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>

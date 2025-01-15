@@ -1,0 +1,5704 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/javascript/%E5%A6%82%E4%BD%95%E5%86%99%E9%80%9A%E7%94%A8%E7%BB%84%E4%BB%B6/">
+      
+      
+        <link rel="prev" href="../%E5%A4%A7%E5%85%AC%E5%8F%B8%E9%87%8C%E6%80%8E%E6%A0%B7%E5%BC%80%E5%8F%91%E5%92%8C%E9%83%A8%E7%BD%B2%E5%89%8D%E7%AB%AF/">
+      
+      
+        <link rel="next" href="../%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E4%BF%AE%E5%A4%8D%20NPM%20audit%20%E4%B8%AD%E7%9A%84%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>如何写通用组件 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#-2021-08-21" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              如何写通用组件
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    about
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            about
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    README
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ant-design
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            ant-design
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/01-color/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-color
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/02-border/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-border
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/03-font/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-font
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/04-unit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-unit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/05-react-%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-react-介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/06-react-%E5%9C%A8%20create-react-app%20%E4%B8%AD%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-react-在 create-react-app 中使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/07-react-%E5%AE%9A%E5%88%B6%E4%B8%BB%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-react-定制主题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/08-%E6%A0%B7%E5%BC%8F%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-样式按需加载
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/09-%E7%BB%84%E4%BB%B6%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-组件使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/10-%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-常见的网页布局设计
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/11-ps%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-ps常用快捷键
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    css
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            css
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/01%20font-smoothing%20%E4%BC%98%E5%8C%96%E5%AD%97%E4%BD%93%E6%98%BE%E7%A4%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 font-smoothing 优化字体显示
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/Bilibili-%E6%A8%A1%E7%B3%8A%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C%E5%88%86%E6%9E%90-css-filter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bilibili-模糊实现效果分析-css-filter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/CSS%20Modules%20%E7%94%A8%E6%B3%95%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSS Modules 用法教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/CSS%20%E5%AE%9A%E4%BD%8D%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSS 定位详解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/CSS%20%E5%AE%9E%E7%8E%B0%20table%20%E8%A1%A8%E5%A4%B4%E5%9B%BA%E5%AE%9A%20tbody%20%E6%98%BE%E7%A4%BA%E5%9E%82%E7%9B%B4%E6%BB%9A%E5%8A%A8%E6%9D%A1%E5%B9%B6%E8%87%AA%E5%AE%9A%E4%B9%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E6%A0%B7%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSS 实现 table 表头固定 tbody 显示垂直滚动条并自定义滚动条样式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/CSS3%E5%88%A4%E6%96%AD%E6%89%8B%E6%9C%BA%E6%A8%AA%E7%AB%96%E5%B1%8F%20/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSS3判断手机横竖屏 
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/Grid%E5%B8%83%E5%B1%80/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Grid布局
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/SVG%20%E9%81%BF%E5%85%8D%E9%94%AF%E9%BD%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SVG 避免锯齿
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/Sass-Mix%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sass-Mix函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/UnCSS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UnCSS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/css-sweeper%20from%20PropJockey/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    css-sweeper from PropJockey
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/flex%20%E8%A1%A5%E5%85%85/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    flex 补充
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/word-breakbreak-all%E5%92%8Cword-wrapbreak-word%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    word-breakbreak-all和word-wrapbreak-word的区别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/z-index%E6%97%A0%E6%95%88%E8%A7%A3%E5%86%B3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    z-index无效解决
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/zindex%E5%9C%A8iOS%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zindex在iOS系统中的兼容性问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/%E5%8F%8C%E8%89%B2%E5%9B%BE%E6%A0%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    双色图标
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87%E5%B9%B3%E6%BB%91%E6%98%BE%E7%A4%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    字体图标平滑显示
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/%E7%B2%98%E6%80%A7%E5%AE%9A%E4%BD%8Dposition-sticky/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    粘性定位position-sticky
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/%E8%A1%A8%E6%83%85emoji/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    表情emoji
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    interview/01 技术题目-重要
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            interview/01 技术题目-重要
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/01%20%E6%8A%80%E6%9C%AF%E9%A2%98%E7%9B%AE-%E9%87%8D%E8%A6%81/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    知识体系
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    interview/02 中等
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            interview/02 中等
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/02%20%E4%B8%AD%E7%AD%89/HR%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HR面试题目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    interview/04 不重要
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            interview/04 不重要
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/04%20%E4%B8%8D%E9%87%8D%E8%A6%81/facebook%20%E5%9B%BD%E5%A4%96%E9%9D%A2%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    facebook 国外面试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/04%20%E4%B8%8D%E9%87%8D%E8%A6%81/%E8%B1%AA%E6%83%85%E5%A4%A7%E4%BD%AC%E6%97%A5%E5%B8%B8%E5%B7%A5%E4%BD%9C%E6%84%9F%E6%82%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    豪情大佬日常工作感悟
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    interview/large-companies
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            interview/large-companies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/2019/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2019
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/leetcode/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    leetcode
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E4%BB%8A%E6%97%A5%E5%A4%B4%E6%9D%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    今日头条
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E5%85%A8%E6%A0%88%E9%9D%A2%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    全栈面试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E5%85%B6%E4%BB%96%E5%85%AC%E5%8F%B8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    其他公司
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端知识体系
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E5%B0%8F%E7%B1%B3%E9%9D%A2%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    小米面试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E6%8B%9B%E8%81%98%E8%A6%81%E6%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    招聘要求
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E6%8B%9B%E8%81%98%E8%A6%81%E6%B1%822/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    招聘要求2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E7%99%BE%E5%BA%A6%E9%9D%A2%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    百度面试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E9%85%B7%E7%8B%97%E9%9D%A2%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    酷狗面试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E9%98%BF%E9%87%8C%E9%9D%A2%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    阿里面试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8F%8A%E7%AD%94%E6%A1%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    面试题及答案
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    javascript
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            javascript
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-Resize%20Observer%20%E4%BB%8B%E7%BB%8D%E5%8F%8A%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-Resize Observer 介绍及原理浅析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1%20%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%89%8D%E7%AB%AF%E9%80%82%E9%85%8D%E6%96%B9%E6%A1%88%EF%BC%88%E6%80%BB%E7%BB%93%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1 移动端前端适配方案（总结）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-移动端开发教程-移动端事件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-%E5%B8%B8%E8%A7%81%E7%9A%84%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%E9%A3%8E%E6%A0%BC%E5%92%8C%E6%A1%88%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-常见的前端架构风格和案例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-%E5%A4%A7%E5%9E%8B%E9%A1%B9%E7%9B%AE%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%E6%B5%85%E8%B0%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-大型项目前端架构浅谈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-web-worker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14-web-worker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2%20%E5%89%8D%E7%AB%AF%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%80%82%E9%85%8D%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2 前端移动端适配总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2022%E5%B9%B4%E5%89%8D%E7%AB%AF%E6%96%B0%E6%8A%80%E6%9C%AF%E6%B1%87%E6%80%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2022年前端新技术汇总
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3%20%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%80%82%E9%85%8D%E6%96%B9%E6%A1%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3 移动端适配方案
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8%20vite%20%2B%20vue3%20%2B%20ts%20%2B%20pinia%20%2B%20vueuse%20%E6%89%93%E9%80%A0%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30-手把手教你用 vite + vue3 + ts + pinia + vueuse 打造企业级前端项目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4%20%E7%A7%BB%E5%8A%A8WEB%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E8%B5%84%E6%BA%90%E6%95%B4%E5%90%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4 移动WEB前端开发资源整合
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82%20Service%20Worker%20%E8%BF%90%E7%94%A8%E4%B8%8E%E5%AE%9E%E8%B7%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    40-网易云课堂 Service Worker 运用与实践
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ActionSheet%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E6%94%B9%E8%BF%9B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ActionSheet回调函数享元模式改进
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CommonJS-AMD-CMD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CommonJS-AMD-CMD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Creating%20and%20triggering%20events/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Creating and triggering events
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ECMA7%E6%96%B0%E6%8F%90%E6%A1%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ECMA7新提案
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ES2020%20%E6%96%B0%E6%A0%87%E5%87%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ES2020 新标准
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ES6%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ES6 迭代器与生成器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ES6-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ES6-阮一峰
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ES6newFeature/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ES6newFeature
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ES7%E6%96%B0%E7%89%B9%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ES7新特性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Element.scrollIntoView%28%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Element.scrollIntoView()
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FE-Cookbook/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FE-Cookbook
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Favicon%20dimensions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Favicon dimensions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../File%20browser/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File browser
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FileReader/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FileReader
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Formula%20Parser/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formula Parser
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GRASP%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%8E%9F%E5%88%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GRASP软件设计的模式和原则
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../H5%E6%8B%96%E6%8B%BDfirefox%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    H5拖拽firefox浏览器兼容问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HTML5%E8%A7%A6%E6%91%B8%E4%BA%8B%E4%BB%B6%28touchstart%E3%80%81touchmove%E5%92%8Ctouchend%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTML5触摸事件(touchstart、touchmove和touchend)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HTTP%20%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTTP 教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HTTP%20%E6%95%99%E7%A8%8B%E7%9A%84%E5%89%AF%E6%9C%AC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTTP 教程的副本
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../How%20to%20clean%20your%20Docker%20data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to clean your Docker data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%20%E5%8A%A0%E6%B3%95%E4%B9%98%E6%B3%95%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3-number-precision/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS 加法乘法错误解决-number-precision
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS 性能优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS 设计模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS-testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS-testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%E5%88%A4%E6%96%AD%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1%E7%88%B6%E5%AD%90%E5%85%B3%E7%B3%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS判断事件对象父子关系
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3%E5%8C%96%28flat%29%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS数组扁平化(flat)方法总结详解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%E7%9A%84%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C%EF%BC%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%97%B4%E7%9A%84%E5%8D%8F%E4%BD%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS的异步操作，浏览器的多线程间的协作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JavaScript%20JSON.stringify%28%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript JSON.stringify()
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JavaScript%20%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%86%8D%E8%B0%88Event%20Loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript 运行机制详解：再谈Event Loop
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Javascript%E4%B8%ADdocument.execCommand%28%29%E7%9A%84%E7%94%A8%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Javascript中document.execCommand()的用法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Javascript%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%95%B0%E7%BB%84%E9%99%8D%E7%BB%B4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Javascript实现的数组降维
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LocalStorage%E7%9A%84%E5%89%AF%E6%9C%AC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LocalStorage的副本
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Math-trunk/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Math-trunk
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MkDocs%20%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MkDocs 中文文档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PWA%20%E7%9A%84%E4%BC%98%E5%8A%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PWA 的优势
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PWA-%E6%B8%90%E8%BF%9B%E5%BC%8FWeb%E5%BA%94%E7%94%A8%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PWA-渐进式Web应用简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ReferenceError%20primordials%20is%20not%20defined%20%E6%8A%A5%E9%94%99%E5%92%8C%E8%A7%A3%E5%86%B3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ReferenceError primordials is not defined 报错和解决
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Resumable%20%E5%A4%A7%E6%96%87%E4%BB%B6%E5%88%86%E5%9D%97%E4%B8%8A%E4%BC%A0%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Resumable 大文件分块上传介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Smart%20PNG%20and%20JPEG%20compression/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Smart PNG and JPEG compression
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Swagger%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Swagger介绍及使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Synchronous%20XMLHttpRequest%20on%20the%20main%20thread%20is%20deprecated/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Synchronous XMLHttpRequest on the main thread is deprecated
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Tencent-review-code/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tencent-review-code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Uncaught%20TypeError%20Cannot%20set%20property/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Uncaught TypeError Cannot set property
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Window.getComputedStyle%28%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Window.getComputedStyle()
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendChild%28%29%20%E6%96%B9%E6%B3%95%E7%A7%BB%E9%99%A4DOM%E8%8A%82%E7%82%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    appendChild() 方法移除DOM节点
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../babel%E6%89%93%E5%8C%85%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    babel打包使用说明
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../caniuse-lite%20browserslis%20%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    caniuse-lite browserslis 报错解决
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../console.log%E5%90%8C%E6%AD%A5%E4%B8%8E%E5%BC%82%E6%AD%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    console.log同步与异步
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contentEditable%20%E5%AE%9E%E7%8E%B0%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    contentEditable 实现富文本编辑器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-id-bug/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    document-id-bug
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document.execCommand/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    document.execCommand
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iOS%20safari%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8Aoverflow%20scroll%E5%85%83%E7%B4%A0%E6%97%A0%E6%B3%95%E6%BB%9A%E5%8A%A8bug%E6%B7%B1%E7%A9%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    iOS safari浏览器上overflow scroll元素无法滚动bug深究
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iframe/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    iframe
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../javascript%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    javascript的内存泄漏
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../js%20%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%AF%B9%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    js 移动端对键盘监听
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../js%E4%B8%AD%E9%80%9A%E8%BF%87Object.prototype.toString%E6%96%B9%E6%B3%95----%E7%B2%BE%E7%A1%AE%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    js中通过Object.prototype.toString方法----精确判断对象的类型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../localstorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    localstorage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../markdown-emoji/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    markdown-emoji
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../markdown%E8%AF%AD%E6%B3%95%E7%BB%BC%E5%90%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    markdown语法综合
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../onbeforeunload/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    onbeforeunload
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssh%20connect%20to%20host%20github.com%20port%2022%20Connection%20refused%20fatal%20Could%20not%20read%20from%20remote%20repository%20%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ssh connect to host github.com port 22 Connection refused fatal Could not read from remote repository 报错解决
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../video%E6%A0%87%E7%AD%BE%E7%9A%84poster%E5%B1%9E%E6%80%A7%E5%9B%BE%E7%89%87%E9%93%BA%E6%BB%A1%E6%95%B4%E4%B8%AA%E5%B1%8F%E5%B9%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    video标签的poster属性图片铺满整个屏幕
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../window.requestAnimationFrame/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    window.requestAnimationFrame
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95composition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    中文输入法composition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%B8%BAJS%20%E7%A8%8B%E5%BA%8F%E5%91%98%E5%87%86%E5%A4%87%E7%9A%84%20ts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为JS 程序员准备的 ts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    代码规范
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%8E%E4%BB%A3%E7%A0%81%E6%97%A0%E4%BB%A3%E7%A0%81%E7%9A%84%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E7%A0%94%E7%A9%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    低代码无代码的深入浅出研究
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%A0%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%20javascript%20%E7%9A%84%E7%BB%86%E8%8A%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    你需要知道的 javascript 的细节
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%A0%E9%9D%A0%E5%93%AA%E4%BA%9B%E8%AE%B2%E8%A7%A3%E5%AD%A6%E4%BC%9A%E4%BA%86%E6%9B%BE%E7%BB%8F%E6%80%8E%E4%B9%88%E4%B9%9F%E5%AD%A6%E4%B8%8D%E4%BC%9A%E7%9A%84%E7%AE%97%E6%B3%95%EF%BC%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    你靠哪些讲解学会了曾经怎么也学不会的算法？
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8%20nvm%20%E7%AE%A1%E7%90%86%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E7%9A%84%20node%20%E4%B8%8E%20npm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用 nvm 管理不同版本的 node 与 npm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8nodejs%E8%BF%9E%E6%8E%A5mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用nodejs连接mysql数据库实现增删改查
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    内存泄漏
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%88%A4%E6%96%AD%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AFpc%E7%AB%AF%E8%BF%98%E6%98%AF%E6%89%8B%E6%9C%BA%E7%AB%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    判断浏览器是pc端还是手机端
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E4%BD%BF%E7%94%A8js%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端使用js读取文件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8Cseo%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端如何进行seo优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端常用工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E8%AF%BB%E4%B9%A6%E7%B1%8D%E6%9C%89%E5%93%AA%E4%BA%9B%E5%80%BC%E5%BE%97%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端开发工程师必读书籍有哪些值得推荐
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E4%B8%AD%E9%98%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端技术中阶
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E6%8F%90%E5%8D%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端技术提升
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E6%9C%AA%E6%9D%A5%E5%8F%91%E5%B1%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端未来发展
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E5%BC%80%E5%8F%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端模块化开发
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7%E7%90%86%E8%AE%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端监控理论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E8%8B%B1%E8%AF%AD%E5%8D%95%E8%AF%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端英语单词
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端项目结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E9%A6%96%E5%B1%8F%E4%BC%98%E5%8C%96%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端首屏优化的一些总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94Taskwarrior/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    命令行任务管理工具——Taskwarrior
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%9A%E4%B8%AA%E8%BF%9E%E7%BB%AD%E7%9A%84%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%8E%E6%9F%AF%E9%87%8C%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    多个连续的箭头函数与柯里化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%A7%E5%85%AC%E5%8F%B8%E9%87%8C%E6%80%8E%E6%A0%B7%E5%BC%80%E5%8F%91%E5%92%8C%E9%83%A8%E7%BD%B2%E5%89%8D%E7%AB%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    大公司里怎样开发和部署前端
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    如何写通用组件
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    如何写通用组件
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      前言
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="前言">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      文章目录
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.前端组件库的设计原则
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.前端组件库的设计原则">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 细粒度的考量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 通用性考量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2 技术选型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 技术选型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 css 解决方案
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-js" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 js 解决方案
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 如何快速启动一个组件库项目
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 如何快速启动一个组件库项目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-rollup-vs-webpack" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 打包工具(rollup vs webpack)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 代码检测
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 commit 规范
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 测试工具
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 其它
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.6 快速启动脚手架
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 如何设计一个轮播图组件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 如何设计一个轮播图组件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 轮播图基本原理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 轮播图基础实现
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 轮播图的动画效果
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 改进方向
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考链接
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E4%BF%AE%E5%A4%8D%20NPM%20audit%20%E4%B8%AD%E7%9A%84%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何快速修复 NPM audit 中的安全问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%EF%BC%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何理解最小二乘法？
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7%E7%BD%91%E9%A1%B5%E5%B4%A9%E6%BA%83%EF%BC%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何监控网页崩溃？
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%B8%B8%E7%94%A8%E5%88%B0%E7%9A%84ES6%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用到的ES6语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%B8%B8%E7%94%A8%E7%9A%84JS%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用的JS库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%2025%20%E4%B8%AAJavaScript%20%E5%8D%95%E8%A1%8C%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    开发中常用的 25 个JavaScript 单行代码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BD%BB%E5%BA%95%E5%BC%84%E6%87%82%E5%BC%BA%E7%BC%93%E5%AD%98%E4%B8%8E%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    彻底弄懂强缓存与协商缓存
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%89%8B%E6%9C%BAweb%E5%89%8D%E7%AB%AF%E8%B0%83%E8%AF%95%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    手机web前端调试页面的几种方式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%8B%96%E6%8B%BD%E5%85%83%E7%B4%A0%E4%BE%8B%E5%AD%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    拖拽元素例子
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%94%B9%E5%8F%98%E6%90%9C%E7%B4%A2%E7%9A%84%E5%87%BD%E6%95%B0%20demo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    改变搜索的函数 demo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数组去重的几种方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文件上传
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%97%B6%E9%97%B4%E6%97%B6%E5%8C%BA%E9%94%99%E8%AF%AF%E4%BF%AE%E5%A4%8Dmoment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    时间时区错误修复moment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%9B%B4%E6%94%B9%20CheckBox%20%E9%A2%9C%E8%89%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    更改 CheckBox 颜色
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%A8%A1%E6%8B%9F%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模拟移动端键盘监听事件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    正则表达式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%B9%E5%87%BA%E6%8F%90%E9%86%92/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    浏览器弹出提醒
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    浏览器进程和线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%20SVN/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    版本控制 SVN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A4%BE%E5%8C%BA%E7%BB%84%E4%BB%B6%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    社区组件推荐
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A7%92%E5%BC%80%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AE%9E%E7%8E%B0%E8%B5%B7%E6%9D%A5%E6%9C%89%E5%A4%9A%E9%9A%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    秒开浏览器实现起来有多难
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A7%BB%E5%8A%A8%E7%AB%AFtouch%E4%BA%8B%E4%BB%B6%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    移动端touch事件详解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%A7%A6%E5%B1%8F%E6%BB%91%E5%8A%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    移动端触屏滑动
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93-mermaid-live-editor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第三方库-mermaid-live-editor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%20Tango%20%E4%BD%8E%E4%BB%A3%E7%A0%81%E5%BC%95%E6%93%8E/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网易云音乐 Tango 低代码引擎
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E9%A1%B5%E6%80%A7%E8%83%BD%E7%AE%A1%E7%90%86%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网页性能管理详解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%85%BE%E8%AE%AF%E9%9D%A2%E8%AF%95%E5%9B%9B%E9%97%AE%EF%BC%8CAre%20you%20OK/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    腾讯面试四问，Are you OK
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%87%AA%E5%AE%9A%E4%B9%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E5%AE%9E%E7%8E%B0-%E8%8D%89%E7%A8%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    自定义滚动条实现-草稿
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%8B%B9%E6%9E%9C%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E6%B1%A0%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    苹果笔记本电池优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%A7%A3%E5%86%B3%20primordials%20is%20not%20defined%20bug/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    解决 primordials is not defined bug
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%A7%A3%E5%86%B3%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E7%82%B9%E5%87%BBBackspace%E5%9B%9E%E9%80%80%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    解决浏览器中点击Backspace回退问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E7%9A%84%E6%95%B0%E5%AD%97%E6%A0%BC%E5%BC%8F%20Intl.NumberFormat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设置不同的数字格式 Intl.NumberFormat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AF%A6%E8%A7%A3TCP%E8%BF%9E%E6%8E%A5%E7%9A%84%E2%80%9C%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E2%80%9D%E4%B8%8E%E2%80%9C%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E2%80%9D%28%E4%B8%8A%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    详解TCP连接的“三次握手”与“四次挥手”(上)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%80%9A%E7%94%A8%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    通用组件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%98%BF%E9%87%8C%E6%9C%AA%E6%9D%A5%E5%89%8D%E7%AB%AF%E7%9A%84%E6%9C%BA%E4%BC%9A%E5%9C%A8%E5%93%AA%E9%87%8C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    阿里未来前端的机会在哪里
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9B%85%E8%99%8E%E5%86%9B%E8%A7%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    雅虎军规
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    面向对象设计模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高阶组件传值问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    markdown
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            markdown
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../markdown/Markdown%E8%AF%AD%E6%B3%95%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Markdown语法规范
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../markdown/md-Emoji/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    md-Emoji
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../markdown/md-image-size/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    md-image-size
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../markdown/md-new-style/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    md-new-style
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      前言
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="前言">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      文章目录
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.前端组件库的设计原则
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.前端组件库的设计原则">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 细粒度的考量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 通用性考量
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2 技术选型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 技术选型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 css 解决方案
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-js" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 js 解决方案
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 如何快速启动一个组件库项目
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 如何快速启动一个组件库项目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-rollup-vs-webpack" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 打包工具(rollup vs webpack)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 代码检测
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 commit 规范
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 测试工具
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 其它
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.6 快速启动脚手架
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 如何设计一个轮播图组件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 如何设计一个轮播图组件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 轮播图基本原理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 轮播图基础实现
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 轮播图的动画效果
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 改进方向
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考链接
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="-2021-08-21">通用前端组件-2021-08-21<a class="headerlink" href="#-2021-08-21" title="Permanent link">&para;</a></h1>
+<p>统计信息：字数 32072  阅读65分钟</p>
+<p>参考文章：<a href="https://juejin.cn/post/6844903847874265101">https://juejin.cn/post/6844903847874265101</a></p>
+<h2 id="_1">前言<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>设计前端组件是最能考验开发者基本功的测试之一,因为调用Material design、Antd、iView 等现成组件库的 API 每个人都可以做到,但是很多人并不知道很多常用组件的设计原理。</p>
+<p>能否设计出通用前端组件也是区分前端工程师和前端api调用师的标准之一,那么应该如何设计出一个通用组件呢?</p>
+<blockquote>
+<p>下文中提到的==组件库==通常是指单个组件,而非集合的概念,集合概念的组件库是 Antd iView这种,我们所说的组件库是指集合中的单个组件,集合性质的组件库需要考虑的要更多.</p>
+</blockquote>
+<hr />
+<h3 id="_2">文章目录<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ol>
+<li>前端组件库的设计原则</li>
+<li>组件库的技术选型</li>
+<li>如何快速启动一个组件库项目</li>
+<li>如何设计一个轮播图组件</li>
+</ol>
+<hr />
+<h3 id="1">1.前端组件库的设计原则<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<h4 id="11">1.1 细粒度的考量<a class="headerlink" href="#11" title="Permanent link">&para;</a></h4>
+<p>我们在学习设计模式的时候会遇到很多种设计原则,其中一个设计原则就是==单一职责原则==,在组件库的开发中同样适用,我们原则上一个组件只专注一件事情,单一职责的组件的好处很明显,由于职责单一就可以最大可能性地复用组件,但是这也带来一个问题,过度单一职责的组件也可能会导致过度抽象,造成组件库的碎片化。</p>
+<p>举个例子，一个自动完成组件(AutoComplete),他其实是由 Input 组件和 Select 组件组合而成的,因此我们完全可以复用之前的相关组件,就比如 Antd 的AutoComplete组件中就复用了Select组件,同时Calendar、 Form 等等一系列组件都复用了 Select 组件,那么Select 的细粒度就是合适的,因为 Select 保持的这种细粒度很容易被复用.</p>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167c7a0394422556~tplv-t2oaga2asx-watermark.awebp" /></p>
+<p>那么还有一个例子,一个徽章数组件(Badge),它的右上角会有红点提示,可能是数字也可能是 icon,他的职责当然也很单一，这个红点提示也理所当然也可以被单独抽象为一个独立组件,但是我们通常不会将他作为独立组件,因为在其他场景中这个组件是无法被复用的，因为没有类似的场景再需要小红点这个小组件了，所以作为独立组件就属于细粒度过小,因此我们往往将它作为 Badge 的内部组件,比如在 Antd 中它以ScrollNumber的名称作为Badge的内部组件存在。</p>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167c7a84a60bd61f~tplv-t2oaga2asx-watermark.awebp" /></p>
+<p>所以，所谓的单一职责组件要建立在可复用的基础上，对于不可复用的单一职责组件我们仅仅作为独立组件的内部组件即可。</p>
+<h4 id="12">1.2 通用性考量<a class="headerlink" href="#12" title="Permanent link">&para;</a></h4>
+<p>我们要设计的本身就是通用组件库,不同于我们常见的业务组件,通用组件是与业务解耦但是又服务于业务开发的,那么问题来了,如何保证组件的通用性,通用性高一定是好事吗?</p>
+<p>比如我们设计一个选择器(Select)组件,通常我们会设计成这样</p>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167c7b98eab9246b~tplv-t2oaga2asx-watermark.awebp" /></p>
+<p>这是一个我们最常见也最常用的选择器,但是问题是其通用性大打折扣</p>
+<p>当我们有一个需求是长这样的时候,我们之前的选择器组件就不符合要求了,因为这个 Select 组件的最下部需要有一个可拓展的条目的按钮</p>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167c7c17dbdfc830~tplv-t2oaga2asx-watermark.awebp" /></p>
+<p>这个时候我们难道要重新修改之前的选择器组件,甚至再造一个符合要求的选择器组件吗?一旦有这种情况发生,那么只能说明之前的选择器组件通用性不够,需要我们重新设计.</p>
+<p>Antd 的 Select 组件预留了<code>dropdownRender</code>来进行自定义渲染,其依赖的 <code>rc-select</code>组件中的代码如下</p>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167c7c69dc878398~tplv-t2oaga2asx-watermark.awebp" /></p>
+<blockquote>
+<p>Antd 依赖了大量以<code>rc-</code>开头的底层组件,这些组件被<a href="https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Freact-component">react-component</a>团队(同时也就是Antd 团队)维护,其主要实现组件的底层逻辑,Antd 则是在此基础上添加Ant Design设计语言而实现的</p>
+</blockquote>
+<p>当然类似的设计还有很多,通用性设计其实是一定意义上放弃对 DOM 的掌控,而将 DOM 结构的决定权转移给开发者,<code>dropdownRender</code>其实就是放弃对 Select 下拉菜单中条目的掌控,Antd 的 Select 组件其实还有一个没有在文档中体现的方法<code>getInputElement</code>应该是对 Input 组件的自定义方法,Antd整个 Select 的组件设计非常复杂,基本将所有的 DOM 结构控制权全部暴露给了开发者,其本身只负责底层逻辑和最基本的 DOM 结构.</p>
+<p>这是 Antd 所依赖的 re-select 最终 jsx 的结构,其 DOM 结构很简单,但是暴露了大量自定义渲染的接口给开发者.</p>
+<div class="highlight"><pre><span></span><code><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">SelectTrigger</span>
+<span class="w">    </span><span class="na">onPopupFocus</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">onPopupFocus</span><span class="p">}</span>
+<span class="w">    </span><span class="na">onMouseEnter</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">onMouseEnter</span><span class="p">}</span>
+<span class="w">    </span><span class="na">onMouseLeave</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">onMouseLeave</span><span class="p">}</span>
+<span class="w">    </span><span class="na">dropdownAlign</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">dropdownAlign</span><span class="p">}</span>
+<span class="w">    </span><span class="na">dropdownClassName</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">dropdownClassName</span><span class="p">}</span>
+<span class="w">    </span><span class="na">dropdownMatchSelectWidth</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">dropdownMatchSelectWidth</span><span class="p">}</span>
+<span class="w">    </span><span class="na">defaultActiveFirstOption</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">defaultActiveFirstOption</span><span class="p">}</span>
+<span class="w">    </span><span class="na">dropdownMenuStyle</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">dropdownMenuStyle</span><span class="p">}</span>
+<span class="w">    </span><span class="na">transitionName</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">transitionName</span><span class="p">}</span>
+<span class="w">    </span><span class="na">animation</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">animation</span><span class="p">}</span>
+<span class="w">    </span><span class="na">prefixCls</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">prefixCls</span><span class="p">}</span>
+<span class="w">    </span><span class="na">dropdownStyle</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">dropdownStyle</span><span class="p">}</span>
+<span class="w">    </span><span class="na">combobox</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">combobox</span><span class="p">}</span>
+<span class="w">    </span><span class="na">showSearch</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">showSearch</span><span class="p">}</span>
+<span class="w">    </span><span class="na">options</span><span class="o">=</span><span class="p">{</span><span class="nx">options</span><span class="p">}</span>
+<span class="w">    </span><span class="na">multiple</span><span class="o">=</span><span class="p">{</span><span class="nx">multiple</span><span class="p">}</span>
+<span class="w">    </span><span class="na">disabled</span><span class="o">=</span><span class="p">{</span><span class="nx">disabled</span><span class="p">}</span>
+<span class="w">    </span><span class="na">visible</span><span class="o">=</span><span class="p">{</span><span class="nx">realOpen</span><span class="p">}</span>
+<span class="w">    </span><span class="na">inputValue</span><span class="o">=</span><span class="p">{</span><span class="nx">state</span><span class="p">.</span><span class="nx">inputValue</span><span class="p">}</span>
+<span class="w">    </span><span class="na">value</span><span class="o">=</span><span class="p">{</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">}</span>
+<span class="w">    </span><span class="na">backfillValue</span><span class="o">=</span><span class="p">{</span><span class="nx">state</span><span class="p">.</span><span class="nx">backfillValue</span><span class="p">}</span>
+<span class="w">    </span><span class="na">firstActiveValue</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">firstActiveValue</span><span class="p">}</span>
+<span class="w">    </span><span class="na">onDropdownVisibleChange</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">onDropdownVisibleChange</span><span class="p">}</span>
+<span class="w">    </span><span class="na">getPopupContainer</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">getPopupContainer</span><span class="p">}</span>
+<span class="w">    </span><span class="na">onMenuSelect</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">onMenuSelect</span><span class="p">}</span>
+<span class="w">    </span><span class="na">onMenuDeselect</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">onMenuDeselect</span><span class="p">}</span>
+<span class="w">    </span><span class="na">onPopupScroll</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">onPopupScroll</span><span class="p">}</span>
+<span class="w">    </span><span class="na">showAction</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">showAction</span><span class="p">}</span>
+<span class="w">    </span><span class="na">ref</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">saveSelectTriggerRef</span><span class="p">}</span>
+<span class="w">    </span><span class="na">menuItemSelectedIcon</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">menuItemSelectedIcon</span><span class="p">}</span>
+<span class="w">    </span><span class="na">dropdownRender</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">dropdownRender</span><span class="p">}</span>
+<span class="w">    </span><span class="na">ariaId</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">ariaId</span><span class="p">}</span>
+<span class="w">    </span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nt">div</span>
+<span class="w">      </span><span class="na">id</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span>
+<span class="w">      </span><span class="na">style</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">style</span><span class="p">}</span>
+<span class="w">      </span><span class="na">ref</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">saveRootRef</span><span class="p">}</span>
+<span class="w">      </span><span class="na">onBlur</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">onOuterBlur</span><span class="p">}</span>
+<span class="w">      </span><span class="na">onFocus</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">onOuterFocus</span><span class="p">}</span>
+<span class="w">      </span><span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="nx">classnames</span><span class="p">(</span><span class="nx">rootCls</span><span class="p">)}</span>
+<span class="w">      </span><span class="na">onMouseDown</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">markMouseDown</span><span class="p">}</span>
+<span class="w">      </span><span class="na">onMouseUp</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">markMouseLeave</span><span class="p">}</span>
+<span class="w">      </span><span class="na">onMouseOut</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">markMouseLeave</span><span class="p">}</span>
+<span class="w">      </span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">&lt;</span><span class="nt">div</span>
+<span class="w">        </span><span class="na">ref</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">saveSelectionRef</span><span class="p">}</span>
+<span class="w">        </span><span class="na">key</span><span class="o">=</span><span class="s">&quot;selection&quot;</span>
+<span class="w">        </span><span class="na">className</span><span class="o">=</span><span class="p">{</span><span class="sb">`</span><span class="si">${</span><span class="nx">prefixCls</span><span class="si">}</span><span class="sb">-selection</span>
+<span class="si">${</span><span class="nx">prefixCls</span><span class="si">}</span><span class="sb">-selection--</span><span class="si">${</span><span class="nx">multiple</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s1">&#39;multiple&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;single&#39;</span><span class="si">}</span><span class="sb">`</span><span class="p">}</span>
+<span class="w">        </span><span class="na">role</span><span class="o">=</span><span class="s">&quot;combobox&quot;</span>
+<span class="w">        </span><span class="na">aria-autocomplete</span><span class="o">=</span><span class="s">&quot;list&quot;</span>
+<span class="w">        </span><span class="na">aria-haspopup</span><span class="o">=</span><span class="s">&quot;true&quot;</span>
+<span class="w">        </span><span class="na">aria-controls</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">ariaId</span><span class="p">}</span>
+<span class="w">        </span><span class="na">aria-expanded</span><span class="o">=</span><span class="p">{</span><span class="nx">realOpen</span><span class="p">}</span>
+<span class="w">        </span><span class="p">{</span><span class="na">...extraSelectionProps</span><span class="p">}</span>
+<span class="w">        </span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">{</span><span class="nx">ctrlNode</span><span class="p">}</span>
+<span class="w">        </span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">renderClear</span><span class="p">()}</span>
+<span class="w">        </span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">renderArrow</span><span class="p">(</span><span class="o">!!</span><span class="nx">multiple</span><span class="p">)}</span>
+<span class="w">      </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">&lt;/</span><span class="nt">SelectTrigger</span><span class="p">&gt;</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>那么这么多需要自定义的地方,这个 Select 组件岂不是很难用?因为好像所有地方都需要开发者自定义,通用性设计在将 DOM 结构决定权交给开发者的同时也保留了默认结构,在开发者没有显示自定义的时候默认使用默认渲染结构,其实 Select 的基本使用很方便,如下:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">Select</span><span class="w"> </span><span class="na">defaultValue</span><span class="o">=</span><span class="s">&quot;lucy&quot;</span><span class="w"> </span><span class="na">style</span><span class="o">=</span><span class="p">{{</span><span class="w"> </span><span class="nx">width</span><span class="o">:</span><span class="w"> </span><span class="mf">120</span><span class="w"> </span><span class="p">}}</span><span class="w"> </span><span class="na">disabled</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">&lt;</span><span class="nt">Option</span><span class="w"> </span><span class="na">value</span><span class="o">=</span><span class="s">&quot;lucy&quot;</span><span class="p">&gt;</span><span class="nx">Lucy</span><span class="p">&lt;/</span><span class="nt">Option</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">Select</span><span class="p">&gt;</span>
+</code></pre></div>
+<blockquote>
+<p>组件的形态(DOM结构)永远是千变万化的,但是其行为(逻辑)是固定的,因此通用组件的秘诀之一就是将 DOM 结构的控制权交给开发者,组件只负责行为和最基本的 DOM 结构</p>
+</blockquote>
+<hr />
+<h3 id="2">2 技术选型<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<h4 id="21-css">2.1 css 解决方案<a class="headerlink" href="#21-css" title="Permanent link">&para;</a></h4>
+<p>由于CSS 本身的众多缺陷，如书写繁琐（不支持嵌套）、样式易冲突（没有作用域概念）、缺少变量（不便于一键换主题）等不一而足。为了解决这些问题，社区里的解决方案也是出了一茬又一茬，从最早的 CSS prepocessor（SASS、LESS、Stylus）到后来的后起之秀 PostCSS，再到 CSS Modules、Styled-Components 等。</p>
+<p>Antd 选择了 less 作为 css 的预处理方案,Bootstrap 选择了 Scss,这两种方案孰优孰劣已经争论了很多年了:</p>
+<p><a href="https://link.juejin.cn/?target=https%3A%2F%2Fwww.zhihu.com%2Fquestion%2F34606506">SCSS和LESS相比有什么优势？</a></p>
+<p>但是不管是哪种方案都有一个很烦人的点,就是需要额外引入 css,比如 Antd 需要这样显示引入:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">Button</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;antd/lib/button&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="s1">&#39;antd/lib/button/style&#39;</span><span class="p">;</span><span class="w"> </span>
+</code></pre></div>
+<p>为了解决这种尴尬的情况,Antd 用 <a href="https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Fant-design%2Fbabel-plugin-import">Babel 插件</a>将这种情况 Hack 掉了</p>
+<p>而<code>material-ui</code>并不存在这种情况,他不需要显示引入 css,这个最流行的 React 前端组件库里面只有 js 和 ts 两种代码,并不存在 css 相关的代码,为什么呢?</p>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167c7ebf0abe55f9~tplv-t2oaga2asx-watermark.awebp" /></p>
+<p>他们用 <code>jss</code> 作为css-in-js 的解决方案,jsx 的引入已经将 js 和 html 耦合,css-in-js将 css 也耦合进去,此时组件便不需要显示引入 css,而是直接引用 js 即可.</p>
+<p>这不是退化到史前前端那种写内联样式的时代了吗?</p>
+<p>并不是,史前前端的内联样式是整个项目耦合的状态,当然要被抛弃到历史的垃圾堆中,后来的样式和逻辑分离,实际上是以页面为维度将 js css html 解耦的过程,如今的时代是组件化的时代了,jsx 已经将 js 和 html 框定到一个组件中,css 依然处于分离状态,这就导致了每次引用组件却还需要显示引入 css,css-in-js 正式彻底组件化的解决方案.</p>
+<p>当然,我个人目前在用 styled-components,其优点<a href="https://link.juejin.cn/?target=https%3A%2F%2Fzhuanlan.zhihu.com%2Fp%2F26878157">引用</a>如下:</p>
+<ol>
+<li>首先，styled-components 所有语法都是标准 css 语法，同时支持 scss 嵌套等常用语法，覆盖了所有 css 场景。</li>
+<li>在样式复写场景下，styled-components 支持在任何地方注入全局 css，就像写普通 css 一样</li>
+<li>styled-components 支持自定义 className，两种方式，一种是用 <a href="https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Fstyled-components%2Fbabel-plugin-styled-components">babel 插件</a>, 另一种方式是使用 styled.div.withConfig({ componentId: "prefix-button-container" }) 相当于添加 className="prefix-button-container"</li>
+<li>className 语义化更轻松，这也是 class 起名的初衷</li>
+<li>更适合组件库使用，直接引用 import "module" 即可，否则你有三条路可以走：像 antd 一样，单独引用 css，你需要给 node_modules 添加 css-loader；组件内部直接 import css 文件，如果任何业务项目没有 css-loader 就会报错；组件使用 scss 引用，所有业务项目都要配置一份 scss-loader 给 node_modules；这三种对组件库来说，都没有直接引用来的友好</li>
+<li>当你写一套组件库，需要单独发包，又有统一样式的配置文件需求，如果这个配置文件是 js 的，所有组件直接引用，对外完全不用关注。否则，如果是 scss 配置文件，摆在面前还是三条路：每个组件单独引用 scss 文件，需要每个业务项目给 node_modules 添加 scss-loader（如果业务用了 less，还要装一份 scss 是不）；或者业务方只要使用了你的组件库，就要在入口文件引用你的 scss 文件，比如你的组件叫 button，scss 可能叫 common-css，别人听都没听过，还要查文档；或者业务方在 webpack 配置中单独引用你的 common-css，这也不科学，如果用了3个组件库，天天改 webpack 配置也很不方便。</li>
+<li>当 css 设置了一半样式，另一半真的需要 js 动态传入，你不得不 css + css-in-js 混合使用，项目久了，维护的时候发现某些 css-in-js 不变了，可以固化在 css 里，css 里固定的值又因为新去求变得可变了，你又得拿出来放在 css-in-js 里，实践过就知道有多么烦心。</li>
+</ol>
+<h4 id="22-js">2.2 js 解决方案<a class="headerlink" href="#22-js" title="Permanent link">&para;</a></h4>
+<p>选 Typescript ,因为巨硬大法好...</p>
+<p>可以看看知乎问题下我的回答<a href="https://link.juejin.cn/?target=https%3A%2F%2Fwww.zhihu.com%2Fquestion%2F273619114%2Fanswer%2F369180721">你为什么不用 Typescript</a></p>
+<p>或者看此文<a href="https://juejin.cn/post/6844903497205448711">TypeScript体系调研报告</a></p>
+<hr />
+<h3 id="3">3. 如何快速启动一个组件库项目<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>组件的具体实现部分当然是组件库的核心,但是在现代前端库中其他部分也必不可少,我们需要一堆工具来辅助我们开发,例如编译工具、代码检测工具、打包工具等等。</p>
+<h4 id="31-rollup-vs-webpack">3.1 打包工具(rollup vs webpack)<a class="headerlink" href="#31-rollup-vs-webpack" title="Permanent link">&para;</a></h4>
+<p>市面上打包工具数不胜数,最火爆的当然是需要*配置工程师*专门配置的webpack,但是在类库开发领域它有一个强大的对手就是 rollup。</p>
+<p>现代市面上主流的库基本都选择了 rollup 作为打包工具，包括Angular React 和 Vue, 作为基础类库的打包工具 rollup 的优势如下:</p>
+<ul>
+<li>Tree Shaking: 自动移除未使用的代码, 输出更小的文件</li>
+<li>Scope Hoisting: 所有模块构建在一个函数内, 执行效率更高</li>
+<li>Config 文件支持通过 ESM 模块格式书写 可以一次输出多种格式:</li>
+<li>模块规范: IIFE, AMD, CJS, UMD, ESM Development 与 production 版本: .js, .min.js</li>
+</ul>
+<p>虽然上面部分功能已经被 webpack 实现了,但是 rollup 明显引入得更早,而Scope Hoisting更是杀手锏,由于 webpack 不得不在打包代码中构建模块系统来适应 app 开发(模块系统对于单一类库用处很小),Scope Hoisting将模块构建在一个函数内的做法更适合类库的打包.</p>
+<h4 id="32">3.2 代码检测<a class="headerlink" href="#32" title="Permanent link">&para;</a></h4>
+<p>由于 JavaScript 各种诡异的特性和大型前端项目的出现,代码检测工具已经是前端开发者的标配了,Douglas Crockford最早于2002创造出了 JSLint,但是其无法拓展,具有极强的Douglas Crockford个人色彩,Anton Kovalyov由于无法忍受 JSLint 无法拓展的行为在2011年发布了可拓展的JSHint,一时之间JSHint成为了前端代码检测的流行解决方案.</p>
+<p>随后的2013年,Nicholas C. Zakas鉴于JSHint拓展的灵活度不够的问题开发了全新的基于 AST 的 Lint 工具 ESLint,并随着 ES6的流行统治了前端界,ESLint 基于Esprima进行 JavaScript 解析的特性极易拓展,JSHint 在很长一段时间无法支持 ES6语法导致被 ESLint 超越.</p>
+<p>但是在 Typescript 领域 ESLint 却处于弱势地位,TSLint 的出现要比 ESLint 正式支持 Typescript 早很多,目前 TSLint 似乎是 TS 的事实上的代码检测工具.</p>
+<blockquote>
+<p>注: 文章成文较早,我也没想到前阵子 TS 官方钦点了 ESLint,TSLint 失宠了,面向未来的官方标配的代码检测工具肯定是 ESLint 了,但是 TSLint 目前依然被大量使用,现在仍然可以放心使用</p>
+</blockquote>
+<p>代码检测工具是一方面,代码检测风格也需要我们做选择,市面上最流行的代码检测风格应该是 Airbnb 出品的<code>eslint-config-airbnb</code>,其最大的特点就是极其严格,没有给开发者任何选择的余地,当然在大型前端项目的开发中这种严格的代码风格是有利于协作的,但是作为一个类库的代码检测工具而言并不适合,所以我们选择了<code>eslint-config-standard</code>这种相对更为宽松的代码检测风格.</p>
+<h4 id="33-commit">3.3 commit 规范<a class="headerlink" href="#33-commit" title="Permanent link">&para;</a></h4>
+<p>以下两种 commit 哪个更严谨且易于维护?</p>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167ca31603fcf26e~tplv-t2oaga2asx-watermark.awebp" /></p>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167ca324293d58e5~tplv-t2oaga2asx-watermark.awebp" /></p>
+<p>最开始使用 commit 的时候我也经常犯下图的错误,直到看到很多明星类库的 commit 才意识到自己的错误,写好 commit message 不仅有助于他人 review, 还可以有效的输出 CHANGELOG, 对项目的管理实际至关重要.</p>
+<p>目前流行的方案是 Angular 团队的<a href="https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Fangular%2Fangular.js%2Fblob%2Fmaster%2FDEVELOPERS.md%23-git-commit-guidelines">规范</a>,其关于 head 的大致规范如下:</p>
+<ul>
+<li>type: commit 的类型</li>
+<li>feat: 新特性</li>
+<li>fix: 修改问题</li>
+<li>refactor: 代码重构</li>
+<li>docs: 文档修改</li>
+<li>style: 代码格式修改, 注意不是 css 修改</li>
+<li>test: 测试用例修改</li>
+<li>chore: 其他修改, 比如构建流程, 依赖管理.</li>
+<li>scope: commit 影响的范围, 比如: route, component, utils, build...</li>
+<li>subject: commit 的概述, 建议符合 50/72 formatting</li>
+<li>body: commit 具体修改内容, 可以分为多行, 建议符合 50/72 formatting</li>
+<li>footer: 一些备注, 通常是 BREAKING CHANGE 或修复的 bug 的链接.</li>
+</ul>
+<p>当然规范人们不一定会遵守,我最初知道此类规范的时候也并没有严格遵循,因为人总会偷懒,直到用<code>commitizen</code>将此规范集成到工具流中,每个 commit 就不得不遵循规范了.</p>
+<p>我具体参考了这篇文章: <a href="https://juejin.cn/post/6844903606815064077">优雅的提交你的 Git Commit Message</a></p>
+<h4 id="34">3.4 测试工具<a class="headerlink" href="#34" title="Permanent link">&para;</a></h4>
+<p>业务开发中由于前端需求变动频繁的特性,导致前端对测试的要求并没有后端那么高,后端业务逻辑一旦定型变动很少,比较适合测试.</p>
+<p>但是基础类库作为被反复依赖的模块和较为稳定的需求是必须做测试的,前端测试库也可谓是种类繁多了,经过比对之后我还是选择了目前最流行也是被三大框架同时选择了的 Jest 作为测试工具,其优点很明显:</p>
+<ol>
+<li>开箱即用,内置断言、测试覆盖率工具,如果你用 MoCha 那可得自己手动配置 n 多了</li>
+<li>快照功能,Jest 可以利用其特有的快照测试功能，通过比对 UI 代码生成的快照文件</li>
+<li>速度优势,Jest 的测试用例是并行执行的，而且只执行发生改变的文件所对应的测试，提升了测试速度</li>
+</ol>
+<h4 id="35">3.5 其它<a class="headerlink" href="#35" title="Permanent link">&para;</a></h4>
+<p>当然以上是主要工具的选择,还有一些比如:</p>
+<ul>
+<li>代码美化工具 prettier,解放人肉美化,同时利于不同人协作的风格一致</li>
+<li>持续集成工具 travis-ci,解放人肉测试 lint,利于保证每次 push 的可靠程度</li>
+</ul>
+<h4 id="36">3.6 快速启动脚手架<a class="headerlink" href="#36" title="Permanent link">&para;</a></h4>
+<p>那么以上这么多配置难道要我们每次都自己写吗?组件的具体实现才是组件库的核心,我们为什么要花这么多时间在配置上面?</p>
+<p>我们在建立 APP 项目时通常会用到框架官方提供的脚手架,比如 React 的 create-react-app,Angular 的 Angular-Cli 等等,那么能不能有一个专门用于组件开发的快速启动的脚手架呢?</p>
+<p>有的,我最近开发了一款快速启动组件库开发的命令行工具--<a href="https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Fxiaomuzhu%2Fcreate-component">create-component</a></p>
+<p>利用</p>
+<div class="highlight"><pre><span></span><code>create-component init &lt;name&gt;
+</code></pre></div>
+<p>来快速启动项目,我们提供了丰富的可选配置,只要你做好技术选型后,根据提示去选择配置即可,create-component 会自动根据配置生成脚手架,其灵感就来源于 vue-cli和 Angular-cli.</p>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167ca5470645ad89~tplv-t2oaga2asx-watermark.awebp" /></p>
+<hr />
+<h3 id="4">4. 如何设计一个轮播图组件<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<p>说了很多理论,那么实战如何呢?设计一个通用组件试试吧!</p>
+<h4 id="41">4.1 轮播图基本原理<a class="headerlink" href="#41" title="Permanent link">&para;</a></h4>
+<p>轮播图(Carousel),在 Antd 中被称为走马灯,可能是前端开发者最常见的组件之一了,不管是在 PC 端还是在移动端我们总能见到他的身影.</p>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167caa14649bedf2~tplv-t2oaga2asx-watermark.awebp" /></p>
+<p>那么我们通常是如何使用轮播图的呢?Antd 的代码如下</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="p">&lt;</span><span class="nt">Carousel</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">h3</span><span class="p">&gt;</span><span class="mf">1</span><span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">h3</span><span class="p">&gt;</span><span class="mf">2</span><span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">h3</span><span class="p">&gt;</span><span class="mf">3</span><span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">h3</span><span class="p">&gt;</span><span class="mf">4</span><span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">&lt;/</span><span class="nt">Carousel</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>问题是我们在<code>Carousel</code>中放入了四组<code>div</code>为什么一次只显示一组呢?</p>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167caaa4c8a34613~tplv-t2oaga2asx-watermark.awebp" /></p>
+<p>图中被红框圈住的为可视区域,可视区域的位置是固定的,我们只需要移动后面<code>div</code>的位置就可以做到1 2 3 4四个子组件轮播的效果,那么子组件2目前在可视区域是可以被看到的,1 3 4应该被隐藏,这就需要我们设置overflow 属性为 hidden来隐藏非可视区域的子组件.</p>
+<blockquote>
+<p>复制查看动图: <a href="https://link.juejin.cn/?target=https%3A%2F%2Fimages2015.cnblogs.com%2Fblog%2F979044%2F201707%2F979044-20170710105934040-1007626405.gif">images2015.cnblogs.com/blog/979044…</a></p>
+</blockquote>
+<p>因此就比较明显了,我们设计一个可视窗口组件<code>Frame</code>,然后将四个 <code>div</code>共同放入幻灯片组合组件<code>SlideList</code>中,并用<code>SlideItem</code>分别将 <code>div</code>包裹起来,实际代码应该是这样的:</p>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="p">&lt;</span><span class="nt">Frame</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nt">SlideList</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">SlideItem</span><span class="p">&gt;</span>
+<span class="w">            </span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">h3</span><span class="p">&gt;</span><span class="mf">1</span><span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><span class="w">  </span>
+<span class="w">        </span><span class="p">&lt;/</span><span class="nt">SlideItem</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">SlideItem</span><span class="p">&gt;</span>
+<span class="w">            </span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">h3</span><span class="p">&gt;</span><span class="mf">2</span><span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><span class="w">  </span>
+<span class="w">        </span><span class="p">&lt;/</span><span class="nt">SlideItem</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">SlideItem</span><span class="p">&gt;</span>
+<span class="w">            </span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">h3</span><span class="p">&gt;</span><span class="mf">3</span><span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><span class="w">  </span>
+<span class="w">        </span><span class="p">&lt;/</span><span class="nt">SlideItem</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">&lt;</span><span class="nt">SlideItem</span><span class="p">&gt;</span>
+<span class="w">            </span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">h3</span><span class="p">&gt;</span><span class="mf">4</span><span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span><span class="w">  </span>
+<span class="w">        </span><span class="p">&lt;/</span><span class="nt">SlideItem</span><span class="p">&gt;</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">SlideList</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">&lt;/</span><span class="nt">Frame</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>我们不断利用<code>translateX</code>来改变<code>SlideList</code>的位置来达到轮播效果,如下图所示,每次轮播的触发都是通过改变<code>transform: translateX()</code>来操作的</p>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167cab805b1bb385~tplv-t2oaga2asx-watermark.awebp" /></p>
+<h4 id="42">4.2 轮播图基础实现<a class="headerlink" href="#42" title="Permanent link">&para;</a></h4>
+<p>搞清楚基本原理那么实现起来相对容易了,我们以移动端的实现为例,来实现一个基础的移动端轮播图.</p>
+<p>首先我们要确定==可视窗口==的宽度,因为我们需要这个宽度来计算出<code>SlideList</code>的长度(<code>SlideList</code>的长度通常是可视窗口的倍数,比如要放三张图片,那么<code>SlideList</code>应该为可视窗口的至少3倍),不然我们无法通过<code>translateX</code>来移动它.</p>
+<p>我们通过<code>getBoundingClientRect</code>来获取可视区域真实的长度,<code>SlideList</code>的长度那么为:</p>
+<p><code>slideListWidth = (len + 2) * width</code>(len 为传入子组件的数量,width 为可视区域宽度)</p>
+<p>至于为什么要<code>+2</code>后面会提到.</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="err">/==</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="nx">设置轮播区域尺寸</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="err">@</span><span class="nx">param</span><span class="w"> </span><span class="nx">x</span>
+<span class="w">   </span><span class="o">*</span><span class="err">/</span>
+<span class="w">  </span><span class="kr">private</span><span class="w"> </span><span class="nx">setSize</span><span class="p">(</span><span class="nx">x</span><span class="o">?:</span><span class="w"> </span><span class="nx">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">width</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">frameRef</span><span class="p">.</span><span class="nx">current</span><span class="o">!</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">React</span><span class="p">.</span><span class="nx">Children</span><span class="p">.</span><span class="nx">count</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">len</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">2</span>
+
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">slideItemWidth</span><span class="o">:</span><span class="w"> </span><span class="nx">width</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">slideListWidth</span><span class="o">:</span><span class="w"> </span><span class="nx">total</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">width</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">total</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">translateX</span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="nx">width</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">currentIndex</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">startPositionX</span><span class="o">:</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="kc">undefined</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="w">  </span><span class="p">}</span>
+</code></pre></div>
+<p>获取到了总长度之后如何实现轮播呢?我们需要根据用户反馈来触发轮播,在移动端通常是通过手指滑动来触发轮播,这就需要三个事件<code>onTouchStart</code> <code>onTouchMove</code> <code>onTouchEnd</code>.</p>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167cac7f4ecc8312~tplv-t2oaga2asx-watermark.awebp" /></p>
+<p><code>onTouchStart</code>顾名思义是在手指触摸到屏幕时触发的事件,在这个事件里我们只需要记录下手指触摸屏幕的横轴坐标 x 即可,因为我们会通过其横向滑动的距离大小来判断是否触发轮播</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="err">/==</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="nx">处理触摸起始时的事件</span>
+<span class="w">   </span><span class="o">*</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="err">@</span><span class="kr">private</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="err">@</span><span class="nx">param</span><span class="w"> </span><span class="p">{</span><span class="nx">React</span><span class="p">.</span><span class="nx">TouchEvent</span><span class="p">}</span><span class="w"> </span><span class="nx">e</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="err">@</span><span class="nx">memberof</span><span class="w"> </span><span class="nx">Carousel</span>
+<span class="w">   </span><span class="o">*</span><span class="err">/</span>
+<span class="w">  </span><span class="kr">private</span><span class="w"> </span><span class="nx">onTouchStart</span><span class="p">(</span><span class="nx">e</span><span class="o">:</span><span class="w"> </span><span class="nx">React</span><span class="p">.</span><span class="nx">TouchEvent</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">clearInterval</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">autoPlayTimer</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// 获取起始的横轴坐标</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getPosition</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">setSize</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">startPositionX</span><span class="o">:</span><span class="w"> </span><span class="nx">x</span><span class="p">,</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="w">  </span><span class="p">}</span>
+</code></pre></div>
+<p><code>onTouchMove</code>顾名思义是处于滑动状态下的事件,此事件在<code>onTouchStart</code>触发后,<code>onTouchEnd</code>触发前,在这个事件中我们主要做两件事,一件事是判断滑动方向,因为用户可能向左或者向右滑动,另一件事是让轮播图跟随手指移动,这是必要的用户反馈.</p>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="err">/==</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="nx">当触摸滑动时处理事件</span>
+<span class="w">   </span><span class="o">*</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="err">@</span><span class="kr">private</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="err">@</span><span class="nx">param</span><span class="w"> </span><span class="p">{</span><span class="nx">React</span><span class="p">.</span><span class="nx">TouchEvent</span><span class="p">}</span><span class="w"> </span><span class="nx">e</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="err">@</span><span class="nx">memberof</span><span class="w"> </span><span class="nx">Carousel</span>
+<span class="w">   </span><span class="o">*</span><span class="err">/</span>
+<span class="w">  </span><span class="kr">private</span><span class="w"> </span><span class="nx">onTouchMove</span><span class="p">(</span><span class="nx">e</span><span class="o">:</span><span class="w"> </span><span class="nx">React</span><span class="p">.</span><span class="nx">TouchEvent</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">slideItemWidth</span><span class="p">,</span><span class="w"> </span><span class="nx">currentIndex</span><span class="p">,</span><span class="w"> </span><span class="nx">startPositionX</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">state</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getPosition</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">deltaX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">startPositionX</span>
+<span class="w">    </span><span class="c1">// 判断滑动方向</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">deltaX</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s1">&#39;right&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;left&#39;</span>
+
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">direction</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">moveDeltaX</span><span class="o">:</span><span class="w"> </span><span class="nx">deltaX</span><span class="p">,</span>
+<span class="w">      </span><span class="c1">// 改变translateX来达到轮播组件跟随手指移动的效果</span>
+<span class="w">      </span><span class="nx">translateX</span><span class="o">:</span><span class="w"> </span><span class="o">-</span><span class="p">(</span><span class="nx">slideItemWidth</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">currentIndex</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">deltaX</span><span class="p">,</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="w">  </span><span class="p">}</span>
+</code></pre></div>
+<p><code>onTouchEnd</code>顾名思义是滑动完毕时触发的事件,在此事件中我们主要做一个件事情,就是判断是否触发轮播,我们会设置一个阈值<code>threshold</code>,当滑动距离超过这个阈值时才会触发轮播,毕竟没有阈值的话用户稍微触碰轮播图就造成轮播,误操作会造成很差的用户体验.</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="err">/==</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="nx">滑动结束处理的事件</span>
+<span class="w">   </span><span class="o">*</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="err">@</span><span class="kr">private</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="err">@</span><span class="nx">memberof</span><span class="w"> </span><span class="nx">Carousel</span>
+<span class="w">   </span><span class="o">*</span><span class="err">/</span>
+<span class="w">  </span><span class="kr">private</span><span class="w"> </span><span class="nx">onTouchEnd</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">autoPlay</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">moveDeltaX</span><span class="p">,</span><span class="w"> </span><span class="nx">slideItemWidth</span><span class="p">,</span><span class="w"> </span><span class="nx">direction</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">state</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">threshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">slideItemWidth</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">THRESHOLD_PERCENTAGE</span>
+<span class="w">    </span><span class="c1">// 判断是否轮播</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">moveToNext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">moveDeltaX</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nx">threshold</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">moveToNext</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 如果轮播触发那么进行轮播操作</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">handleSwipe</span><span class="p">(</span><span class="nx">direction</span><span class="o">!</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 轮播不触发,那么轮播图回到原位</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">handleMisoperation</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+</code></pre></div>
+<h4 id="43">4.3 轮播图的动画效果<a class="headerlink" href="#43" title="Permanent link">&para;</a></h4>
+<p>我们常见的轮播图肯定不是生硬的切换,一般在轮播中会有一个渐变或者缓动的动画,这就需要我们加入动画效果.</p>
+<p>我们制作动画通常有两个选择,一个是用 css3自带的动画效果,另一个是用浏览器提供的<a href="https://link.juejin.cn/?target=https%3A%2F%2Fdeveloper.mozilla.org%2Fzh-CN%2Fdocs%2FWeb%2FAPI%2FWindow%2FrequestAnimationFrame">requestAnimationFrame API</a></p>
+<p>孰优孰劣?css3简单易用上手快,兼容性好,<code>requestAnimationFrame</code> 灵活性更高,能实现 css3实现不了的动画,比如众多缓动动画 css3都束手无策,因此我们毫无疑问地选择了<code>requestAnimationFrame</code>.</p>
+<blockquote>
+<p>双方对比请看张鑫旭大神的<a href="https://link.juejin.cn/?target=https%3A%2F%2Fwww.zhangxinxu.com%2Fwordpress%2F2013%2F09%2Fcss3-animation-requestanimationframe-tween-%E5%8A%A8%E7%94%BB%E7%AE%97%E6%B3%95%2F">CSS3动画那么强，requestAnimationFrame还有毛线用？</a></p>
+</blockquote>
+<p>想用<code>requestAnimationFrame</code>实现缓动效果就需要特定的缓动函数,下面就是典型的缓动函数</p>
+<div class="highlight"><pre><span></span><code><span class="kr">type</span><span class="w"> </span><span class="nx">tweenFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">t</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="nx">_c</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kt">number</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">easeInOutQuad</span><span class="o">:</span><span class="w"> </span><span class="kt">tweenFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">t</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">,</span><span class="w"> </span><span class="nx">_c</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">_c</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">b</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="nx">t</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">c</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">t</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="nx">c</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">((</span><span class="o">--</span><span class="nx">t</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">2</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>缓动函数接收四个参数,分别是:</p>
+<ul>
+<li>t: 时间</li>
+<li>b:初始位置</li>
+<li>_c:结束的位置</li>
+<li>d:速度</li>
+</ul>
+<p>通过这个函数我们能算出每一帧轮播图所在的位置, 如下:</p>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167caed22ca506a3~tplv-t2oaga2asx-watermark.awebp" /></p>
+<p>在获取每一帧对应的位置后,我们需要用<code>requestAnimationFrame</code>不断递归调用依次移动位置,我们不断调用<code>animation</code>函数是其触发函数体内的<code>this.setState({ translateX: tweenQueue[0], })</code>来达到移动轮播图位置的目的,此时将这数组内的30个位置依次快速执行就是一个缓动动画效果.</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="err">/==</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="nx">递归调用</span><span class="p">,</span><span class="nx">根据轨迹运动</span>
+<span class="w">   </span><span class="o">*</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="kd">@private</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="kd">@param</span><span class="w"> </span><span class="p">{</span><span class="kt">number</span><span class="p">[]}</span><span class="w"> </span><span class="nx">tweenQueue</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="kd">@param</span><span class="w"> </span><span class="p">{</span><span class="kt">number</span><span class="p">}</span><span class="w"> </span><span class="nx">newIndex</span>
+<span class="w">   </span><span class="o">*</span><span class="w"> </span><span class="kd">@memberof</span><span class="w"> </span><span class="nx">Carousel</span>
+<span class="w">   </span><span class="o">*</span><span class="err">/</span>
+<span class="w">  </span><span class="k">private</span><span class="w"> </span><span class="nx">animation</span><span class="p">(</span><span class="nx">tweenQueue</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">[],</span><span class="w"> </span><span class="nx">newIndex</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">tweenQueue</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">handleOperationEnd</span><span class="p">(</span><span class="nx">newIndex</span><span class="p">)</span>
+<span class="w">      </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">translateX</span><span class="o">:</span><span class="w"> </span><span class="kt">tweenQueue</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="w">    </span><span class="nx">tweenQueue</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">rafId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">requestAnimationFrame</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">animation</span><span class="p">(</span><span class="nx">tweenQueue</span><span class="p">,</span><span class="w"> </span><span class="nx">newIndex</span><span class="p">))</span>
+<span class="w">  </span><span class="p">}</span>
+</code></pre></div>
+<p>但是我们发现了一个问题,当我们移动轮播图到最后的时候,动画出现了问题,<em>当我们向左滑动最后一个轮播图<code>div4</code>时,这种情况下应该是图片向左滑动,然后第一张轮播图<code>div1</code>进入可视区域,但是反常的是图片快速向右滑动<code>div1</code>出现在可是区域...</em></p>
+<p>因为我们此时将位置4设置为了位置1,这样才能达到不断循环的目的,但是也造成了这个副作用,图片行为与用户行为产生了相悖的情况(用户向左划动,图片向右走).</p>
+<p>目前业界的普遍做法是将图片首尾相连,例如图片1前面连接一个图片4,图片4后跟着一个图片1,这就是为什么之前计算长度时要<code>+2</code></p>
+<p><code>slideListWidth = (len + 2) * width</code>(len 为传入子组件的数量,width 为可视区域宽度)</p>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167caf9df54367bd~tplv-t2oaga2asx-watermark.awebp" /></p>
+<p>当我们移动图片4时就不会出现上述向左滑图片却向右滑的情况,因为真实情况是:</p>
+<p><code>图片4 -- 滑动为 -&gt; 伪图片1</code> 也就是位置 5 变成了位置 6</p>
+<p>当动画结束之后,我们迅速把<code>伪图片1</code>的位置设置为<code>真图片1</code>,这其实是个障眼法,也就是说动画执行过程中实际上是<code>图片4</code>到<code>伪图片1</code>的过程,当结束后我们偷偷把<code>伪图片1</code>换成<code>真图片1</code>,因为两个图一模一样,所以这个转换的过程用户根本看不出来...</p>
+<p>如此一来我们就可以实现无缝切换的轮播图了</p>
+<h4 id="44">4.4 改进方向<a class="headerlink" href="#44" title="Permanent link">&para;</a></h4>
+<p>我们实现了轮播图的基本功能,但是其通用性依然存在缺陷:</p>
+<ol>
+<li>提示点的自定义: 我的实现是一个小点,而 antd 是用的条,这个地方完全可以将 dom 结构的决定权交给开发者.</li>
+</ol>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167cb035bb7c4896~tplv-t2oaga2asx-watermark.awebp" /></p>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167cb03bdb4f1dcd~tplv-t2oaga2asx-watermark.awebp" /></p>
+<ol>
+<li>方向的自定义: 本轮播图只有水平方向的实现,其实也可以有纵向轮播</li>
+</ol>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167cb052530fbaee~tplv-t2oaga2asx-watermark.awebp" /></p>
+<ol>
+<li>多张轮播:除了单张轮播也可以多张轮播</li>
+</ol>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167cb07b7c8f848a~tplv-t2oaga2asx-watermark.awebp" /></p>
+<p>以上都是可以对轮播图进行拓展的方向,相关的还有性能优化方面</p>
+<p>我们的具体代码中有一个相关实现,我们的轮播图其实是有自动轮播功能的,但是很多时候页面并不在用户的可视页面中,我们可以根据是否页面被隐藏来取消定时器终止自动播放.</p>
+<p><img alt="img" src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2018/12/20/167cb0a069892023~tplv-t2oaga2asx-watermark.awebp" /></p>
+<p>github<a href="https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Fxiaomuzhu%2Frc-carousel">项目地址</a></p>
+<blockquote>
+<p>以上 demo 仅供参考,实际项目开发中最好还是使用成熟的开源组件,要有造轮子的能力和不造轮子的觉悟</p>
+</blockquote>
+<hr />
+<h3 id="_3">参考链接<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Fakiran%2Freact-slick">react-slick</a>（react 轮播图组件）</li>
+<li><a href="https://link.juejin.cn/?target=https%3A%2F%2Fzhuanlan.zhihu.com%2Fp%2F26878157">精读《请停止 css-in-js 的行为》</a></li>
+<li><a href="https://link.juejin.cn/?target=https%3A%2F%2Fzhuanlan.zhihu.com%2Fp%2F34218678">使用 rollup</a>（Rollup, 和 Webpack, Parcel 都是模块打包工具(module bundler tool), 但是侧重点不同, 我们要聊的 Rollup 更加适合用于构建 Library, 而 Webpack, Precel 更加适合开发 Application.）</li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+  </span>
+
+    
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:1822852997@qq.com">Michael An</a>, 
+        <a href="mailto:2331806369@qq.com">Michael An</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>

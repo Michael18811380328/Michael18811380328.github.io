@@ -1,0 +1,4550 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/ebook-JS-basic/10-4-IndexedDB/">
+      
+      
+        <link rel="prev" href="../10-3-%E8%A1%A8%E5%8D%95/">
+      
+      
+        <link rel="next" href="../10-5-web-worker/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>10-4-IndexedDB - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bom" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              10-4-IndexedDB
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    book-JS-The-good-parts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            book-JS-The-good-parts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book-JS-The-good-parts/JS-the-good-parts.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS-the-good-parts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../book-JS-The-good-parts/curry-function.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    curry-function
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-JS-basic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-JS-basic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-数据类型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-运算符
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-%E8%AF%AD%E6%B3%95%E4%B8%93%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-语法专题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-%E6%A0%87%E5%87%86%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-标准库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-面向对象编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-异步操作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-DOM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-DOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-Event/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-Event
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-1-BOM/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-1-BOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-2-%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-2-同源策略
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-3-%E8%A1%A8%E5%8D%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-3-表单
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    10-4-IndexedDB
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    10-4-IndexedDB
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bom" class="md-nav__link">
+    <span class="md-ellipsis">
+      第十章 BOM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第十章 BOM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1014-indexeddb-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.14 IndexedDB API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.14 IndexedDB API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1indexeddb" class="md-nav__link">
+    <span class="md-ellipsis">
+      1、IndexedDB
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1、IndexedDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      出现原因
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      特点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      分类
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2idb" class="md-nav__link">
+    <span class="md-ellipsis">
+      2、IDB 基本操作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2、IDB 基本操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 打开数据库
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 新建数据库
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 新增数据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 读取数据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 遍历数据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 更新数据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7 删除数据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8 使用索引
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3indexeddb-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      3、indexedDB 对象 API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3、indexedDB 对象 API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#indexeddbopen" class="md-nav__link">
+    <span class="md-ellipsis">
+      indexedDB.open()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indexeddbdeletedatabase" class="md-nav__link">
+    <span class="md-ellipsis">
+      indexedDB.deleteDatabase()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indexeddbcmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      indexedDB.cmp()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idbrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDBRequest 对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idbdatabase" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDBDatabase 对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idb-object-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDB Object Store 对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idb-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDB Transaction 对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idbindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDBIndex 对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idbcursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDBCursor 对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idbkeyrange" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDBKeyRange 对象
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-5-web-worker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-5-web-worker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-%E7%BD%91%E9%A1%B5%E5%85%83%E7%B4%A0%E6%8E%A5%E5%8F%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-网页元素接口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-JSES6-RYF
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-JSES6-RYF
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/01-%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/02-%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-变量赋值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/03-%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-解构赋值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/04-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%89%A9%E5%B1%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-字符串的扩展
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/05-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-字符串方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/06-%E6%AD%A3%E5%88%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-正则
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/07-%E6%95%B0%E5%80%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-数值
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/08-%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/09-%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-数组
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/10-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E5%B1%9E%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-对象的新增属性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/11-%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-对象的新增方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/12-Symbol/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-Symbol
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/13-Set%20%E5%92%8C%20Map%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-Set 和 Map 数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/14-Proxy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14-Proxy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/15-Reflect/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15-Reflect
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/16-Promise/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-Promise
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/17-%E9%81%8D%E5%8E%86%E5%99%A8%E7%9A%84%E5%BE%AA%E7%8E%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-遍历器的循环
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/18-Generator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18-Generator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/19-Generator%E5%BC%82%E6%AD%A5%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19-Generator异步应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/20-async%20%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-async 函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/21-Class%20%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-Class 的基本语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/22-Class%20%E7%9A%84%E7%BB%A7%E6%89%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22-Class 的继承
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/23-Module%20%E7%9A%84%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23-Module 的语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/24-Module%20%E7%9A%84%E5%8A%A0%E8%BD%BD%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24-Module 的加载实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/25-%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25-编程风格
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-JSES6-RYF/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-Principles of Computer Composition
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-Principles of Computer Composition
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-Principles of Computer Composition/计算机组成原理知识点总结.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机组成原理知识点总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-heima-nodejs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-heima-nodejs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/00/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    00
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-heima-nodejs/03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-javascript-secret-garden
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-javascript-secret-garden
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-javascript-secret-garden/JavaScript 秘密花园-zh.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript 秘密花园-zh
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-kaikeba-frontend
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-kaikeba-frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/01%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 性能优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/02%20%E5%89%8D%E7%AB%AF%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02 前端测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/03%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03 设计模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/04%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 数据结构与算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/05%20%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05 面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/06%20%E9%9D%A2%E8%AF%95%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06 面试技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/07%20%E9%A1%B9%E7%9B%AE%E8%AF%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07 项目课
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/08-React%E9%A2%84%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-React预习笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/09-React%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-React面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/10-React%E7%BB%84%E4%BB%B6%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-React组件化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/11-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-自动化测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/12-webpack-01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-webpack-01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/13-webpack-02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-webpack-02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/14-webpack-03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14-webpack-03
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/15-webpack%E4%BC%98%E5%8C%96%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    15-webpack优化笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/16-webpack%E4%BC%98%E5%8C%96%E5%AE%98%E6%96%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-webpack优化官方
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/17-webpack-05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-webpack-05
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/18-webpack-06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    18-webpack-06
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/19-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8-%E5%B8%B8%E8%A7%81Web%E6%94%BB%E5%87%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    19-前端安全-常见Web攻击
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-kaikeba-frontend/20-%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8-%E9%98%B2%E5%BE%A1%E6%89%8B%E6%AE%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-前端安全-防御手段
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-netease-senior-frontend
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-netease-senior-frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/02-v8%E5%BC%95%E6%93%8E%E5%9B%9E%E6%94%B6%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-v8引擎回收内存简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/03-node%E4%B8%8B%E9%9D%A2%E7%9A%84Restful%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-node下面的Restful实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/04-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3%E7%9A%84%E6%8F%90%E5%8D%87%E2%80%94%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E6%88%91%E4%BB%AC%E4%BB%A3%E7%A0%81%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-编程思想的提升—如何提高我们代码的可扩展性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/06-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86%E5%92%8Cssr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-浏览器渲染原理和ssr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/07-%E7%BD%91%E6%98%93%E7%9C%9F%E5%AE%9E%E9%A1%B9%E7%9B%AEwebpack%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-网易真实项目webpack配置解析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/08-%E4%BB%8E%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90API%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-从架构分析API层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/09-%E5%89%8D%E7%AB%AF%E8%B4%9F%E8%B4%A3%E4%BA%BA%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-前端负责人的工作内容
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/10-%E5%88%86%E6%9E%90%E6%BA%90%E7%A0%81%E5%AD%A6%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-分析源码学架构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/11-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E9%AB%98%E8%B4%A8%E9%87%8F%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-设计模式高质量代码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/12-nodeJS%2BMongoDB%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-nodeJS+MongoDB登录系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/12-nodejs-mongodb-mongoose/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12-nodejs-mongodb-mongoose
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/13-%E4%BD%BF%E7%94%A8VUE%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13-使用VUE创建组件（没学完）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/16-%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E8%84%9A%E6%89%8B%E6%9E%B6%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    16-构建自己的脚手架工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/17-webpack%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    17-webpack编译原理分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/20-%E7%BB%84%E4%BB%B6%E5%B0%81%E8%A3%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%8A%80%E8%83%BD-VUE%EF%BC%88%E6%B2%A1%E5%AD%A6%E5%AE%8C%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-组件封装的基本技能-VUE（没学完）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/21-ssr/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-ssr
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/24-%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%A6%82%E4%BD%95%E5%81%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24-单元测试如何做
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/25-%E5%9F%BA%E4%BA%8ENodeJS%E6%89%93%E9%80%A0Web%E6%9E%B6%E6%9E%84%E4%B8%AD%E9%97%B4%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25-基于NodeJS打造Web架构中间层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-netease-senior-frontend/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-network-basic
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-network-basic
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/01%20%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/02%20%E7%89%A9%E7%90%86%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02 物理层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/03%20%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03 数据链路层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/04%20%E7%BD%91%E7%BB%9C%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04 网络层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/05%20%E8%BF%90%E8%BE%93%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05 运输层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/06%20%E5%BA%94%E7%94%A8%E5%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06 应用层
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-network-basic/todo%20%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%E5%85%A5%E9%97%A8-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    todo 互联网协议入门-阮一峰
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-qianfeng-express
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-qianfeng-express
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-qianfeng-express/01.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ebook-upguigu-nodejs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            ebook-upguigu-nodejs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ebook-upguigu-nodejs/nodeJS-basic.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nodeJS-basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/H5C3%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    H5C3从入门到精通
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/JS%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS 数据结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/data%20structure%20basic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    data structure basic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/express%E5%9B%BE%E4%B9%A6%E9%A6%86%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    express图书馆项目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    代码整洁之道 读书笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%85%B6%E4%BB%96%E4%B9%A6%E5%8D%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    其他书单
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E7%AC%94%E8%AE%B0-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端工程化笔记-阮一峰
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%B0%9A%E7%A1%85%E8%B0%B7-React%E6%8A%80%E6%9C%AF%E5%85%A8%E5%AE%B6%E6%A1%B62021%E7%89%88%E7%AC%94%E8%AE%B001/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    尚硅谷-React技术全家桶2021版笔记01
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E5%B0%9A%E7%A1%85%E8%B0%B7-React%E6%8A%80%E6%9C%AF%E5%85%A8%E5%AE%B6%E6%A1%B62021%E7%89%88%E7%AC%94%E8%AE%B002/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    尚硅谷-React技术全家桶2021版笔记02
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JS%E4%B8%8A%E5%8D%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-你不知道的JS上卷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84JS%E4%B8%AD%E5%8D%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-你不知道的JS中卷
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E5%9B%BE%E8%A7%A3HTTP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-图解HTTP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E7%B2%BE%E8%AF%BB-%E9%AB%98%E6%80%A7%E8%83%BDJS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    精读-高性能JS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%98%AF%E6%80%8E%E6%A0%B7%E8%B7%91%E8%B5%B7%E6%9D%A5%E7%9A%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机是怎样跑起来的
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bom" class="md-nav__link">
+    <span class="md-ellipsis">
+      第十章 BOM
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="第十章 BOM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1014-indexeddb-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      10.14 IndexedDB API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.14 IndexedDB API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1indexeddb" class="md-nav__link">
+    <span class="md-ellipsis">
+      1、IndexedDB
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1、IndexedDB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      出现原因
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      特点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      分类
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2idb" class="md-nav__link">
+    <span class="md-ellipsis">
+      2、IDB 基本操作
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2、IDB 基本操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 打开数据库
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 新建数据库
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 新增数据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 读取数据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 遍历数据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 更新数据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7 删除数据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8 使用索引
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3indexeddb-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      3、indexedDB 对象 API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3、indexedDB 对象 API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#indexeddbopen" class="md-nav__link">
+    <span class="md-ellipsis">
+      indexedDB.open()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indexeddbdeletedatabase" class="md-nav__link">
+    <span class="md-ellipsis">
+      indexedDB.deleteDatabase()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#indexeddbcmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      indexedDB.cmp()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idbrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDBRequest 对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idbdatabase" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDBDatabase 对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idb-object-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDB Object Store 对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idb-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDB Transaction 对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idbindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDBIndex 对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idbcursor" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDBCursor 对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#idbkeyrange" class="md-nav__link">
+    <span class="md-ellipsis">
+      IDBKeyRange 对象
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>10-4-IndexedDB</h1>
+
+<h2 id="bom">第十章 BOM<a class="headerlink" href="#bom" title="Permanent link">&para;</a></h2>
+<p>统计信息：字数 37417  阅读75分钟</p>
+<p>2021-11-24 IndexedDB实际工作中没用过，面试题中没遇到过，简单过一次。</p>
+<h3 id="1014-indexeddb-api">10.14 IndexedDB API<a class="headerlink" href="#1014-indexeddb-api" title="Permanent link">&para;</a></h3>
+<h4 id="1indexeddb">1、IndexedDB<a class="headerlink" href="#1indexeddb" title="Permanent link">&para;</a></h4>
+<h5 id="_1">出现原因<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
+<p>数据量增大，如果数据存储在浏览器，那么不需要从服务器发送很多信息，直接从本地获取信息。现在本地存储中，cookie数据量很小（4k），每次请求必须携带cookie。LocalStorage 数据量2.5-10MB，不能搜索，不能建立自定义的索引。IndexedDB 类似浏览器提供的数据库，JS脚本可以操作数据库，不属于关系型数据库（不能用SQL语言查询），属于NoSQL数据库。</p>
+<h5 id="_2">特点<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
+<ul>
+<li>键值对存储，所有类型的数据（包括JS对象）可以转化成键值对（类似JSON？）存储。每一条数据记录对应唯一的主键</li>
+<li>异步：数据库的读写和JS脚本是异步的，LocalStorage是同步任务，所以操作数据库不会阻塞脚本</li>
+<li>支持事务 transaction 如果一个操作出现错误，那么整个事务会取消，已修改的数据会复原，不会出现修改一半的数据</li>
+<li>同源限制，数据库对应单独的域名</li>
+<li>存储量大，一半大于250MB</li>
+<li>支持二进制数据 ArrayBuffer 或者Blob数据 </li>
+</ul>
+<h5 id="_3">分类<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
+<p>IndexDB 很复杂，包括下面的各种子对象和API。数据库中名词对应这个的对象。</p>
+<ul>
+<li>数据库：IDB Database 对象：每一个URL可以对应多个数据库。IDB 有数据库的版本，同一时间内只能出现一个数据库，如果修改数据库的结构（增删数据表、索引或者主键）只有升级数据库的版本。</li>
+<li>对象仓库：IDB ObjectStore 对象：一个数据库包括多个对象仓库（类似于关系型数据库中的数据表）</li>
+<li>数据记录：类似于关系型数据库的行，包括主键和数据体，主键是默认的唯一的索引，可以是记录中的一个属性（ID），或者是一个自增长的整数编号。数据体的数据类型不限制。<code>{ id: 'qo9u', text: 'foo' }</code> 例如这个数据记录的主键是id，数据体是text。</li>
+<li>索引： IDB Index 对象：为了加速数据检索，在数据表中为不同的属性建立索引。</li>
+<li>事务： IDB Transaction 对象：数据的增删改通过事务完成</li>
+<li>操作请求：IDB Request 对象</li>
+<li>指针： IDB Cursor 对象</li>
+<li>主键集合：IDB KeyRange 对象</li>
+</ul>
+<h4 id="2idb">2、IDB 基本操作<a class="headerlink" href="#2idb" title="Permanent link">&para;</a></h4>
+<h5 id="21">2.1 打开数据库<a class="headerlink" href="#21" title="Permanent link">&para;</a></h5>
+<p>使用 IndexedDB 的第一步是打开数据库，使用<code>indexedDB.open()</code>方法。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">let</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">dbName</span><span class="p">,</span><span class="w"> </span><span class="nx">version</span><span class="p">);</span>
+</code></pre></div>
+<p>这个方法接受两个参数，第一个参数是字符串，表示数据库的名字。如果指定的数据库不存在，就会新建数据库。第二个参数是整数，表示数据库的版本。如果省略，打开已有数据库时，默认为当前版本；新建数据库时，默认为<code>1</code>。</p>
+<p><code>indexedDB.open()</code>方法返回一个 IDBRequest 对象。这个对象通过三种事件<code>error</code>、<code>success</code>、<code>upgradeneeded</code>，处理打开数据库的操作结果。</p>
+<p><strong>（1）error 事件</strong></p>
+<p><code>error</code>事件表示打开数据库失败。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">request</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;数据库打开报错&#39;</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div>
+<p><strong>（2）success 事件</strong></p>
+<p><code>success</code>事件表示成功打开数据库。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">db</span><span class="p">;</span>
+<span class="nx">request</span><span class="p">.</span><span class="nx">onsuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;数据库打开成功&#39;</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>这时，通过<code>request</code>对象的<code>result</code>属性拿到数据库对象。</p>
+<p><strong>（3）upgradeneeded 事件</strong></p>
+<p>如果指定的版本号，大于数据库的实际版本号，就会发生数据库升级事件<code>upgradeneeded</code>。这时通过事件对象的<code>target.result</code>属性，拿到数据库实例。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">db</span><span class="p">;</span>
+<span class="nx">request</span><span class="p">.</span><span class="nx">onupgradeneeded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="22">2.2 新建数据库<a class="headerlink" href="#22" title="Permanent link">&para;</a></h5>
+<p>新建数据库与打开数据库是同一个操作。如果指定的数据库不存在，就会新建。不同之处在于，后续的操作主要在<code>upgradeneeded</code>事件的监听函数里面完成，因为这时版本从无到有，所以会触发这个事件。</p>
+<p>通常，新建数据库以后，第一件事是新建对象仓库（即新建表）。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">request</span><span class="p">.</span><span class="nx">onupgradeneeded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">  </span><span class="nx">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">objectStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;person&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">keyPath</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;id&#39;</span><span class="w"> </span><span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码中，数据库新建成功以后，新增一张叫做<code>person</code>的表，主键是<code>id</code>。</p>
+<p>更好的写法是先判断一下，这张表格是否存在，如果不存在再新建。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">request</span><span class="p">.</span><span class="nx">onupgradeneeded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">objectStore</span><span class="p">;</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">db</span><span class="p">.</span><span class="nx">objectStoreNames</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="s1">&#39;person&#39;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">objectStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;person&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">keyPath</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;id&#39;</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>主键（key）是默认建立索引的属性。比如，数据记录是<code>{ id: 1, name: '张三' }</code>，那么<code>id</code>属性可以作为主键。主键也可以指定为下一层对象的属性，比如<code>{ foo: { bar: 'baz' } }</code>的<code>foo.bar</code>也可以指定为主键。</p>
+<p>如果数据记录里面没有合适作为主键的属性，那么可以让 IndexedDB 自动生成主键（自增长）。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">objectStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;person&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">autoIncrement</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">});</span>
+</code></pre></div>
+<p>上面代码中，指定主键为一个递增的整数。</p>
+<p>新建对象仓库以后，下一步可以新建索引。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">request</span><span class="p">.</span><span class="nx">onupgradeneeded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">objectStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;person&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">keyPath</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;id&#39;</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="nx">objectStore</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">unique</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="nx">objectStore</span><span class="p">.</span><span class="nx">createIndex</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;email&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">unique</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码中，<code>IDBObject.createIndex()</code>的三个参数分别为索引名称、索引所在的属性、配置对象（说明该属性是否包含重复的值）。</p>
+<h5 id="23">2.3 新增数据<a class="headerlink" href="#23" title="Permanent link">&para;</a></h5>
+<p>新增数据指的是向对象仓库写入数据记录。这需要通过事务完成。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">add</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">([</span><span class="s1">&#39;person&#39;</span><span class="p">],</span><span class="w"> </span><span class="s1">&#39;readwrite&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s1">&#39;person&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">add</span><span class="p">({</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;张三&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">age</span><span class="o">:</span><span class="w"> </span><span class="mf">24</span><span class="p">,</span><span class="w"> </span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;zhangsan@example.com&#39;</span><span class="w"> </span><span class="p">});</span>
+
+<span class="w">  </span><span class="nx">request</span><span class="p">.</span><span class="nx">onsuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;数据写入成功&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="nx">request</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;数据写入失败&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">add</span><span class="p">();</span>
+</code></pre></div>
+<p>上面代码中，写入数据需要新建一个事务。新建时必须指定表格名称和操作模式（“只读”或“读写”）。新建事务以后，通过<code>IDBTransaction.objectStore(name)</code>方法，拿到 IDBObjectStore 对象，再通过表格对象的<code>add()</code>方法，向表格写入一条记录。</p>
+<p>写入操作是一个异步操作，通过监听连接对象的<code>success</code>事件和<code>error</code>事件，了解是否写入成功。</p>
+<h5 id="24">2.4 读取数据<a class="headerlink" href="#24" title="Permanent link">&para;</a></h5>
+<p>读取数据也是通过事务完成。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">read</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="kd">var</span><span class="w"> </span><span class="nx">transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">([</span><span class="s1">&#39;person&#39;</span><span class="p">]);</span>
+<span class="w">   </span><span class="kd">var</span><span class="w"> </span><span class="nx">objectStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s1">&#39;person&#39;</span><span class="p">);</span>
+<span class="w">   </span><span class="kd">var</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">objectStore</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+
+<span class="w">   </span><span class="nx">request</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;事务失败&#39;</span><span class="p">);</span>
+<span class="w">   </span><span class="p">};</span>
+
+<span class="w">   </span><span class="nx">request</span><span class="p">.</span><span class="nx">onsuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Name: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Age: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Email: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">request</span><span class="p">.</span><span class="nx">result</span><span class="p">.</span><span class="nx">email</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;未获得数据记录&#39;</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="nx">read</span><span class="p">();</span>
+</code></pre></div>
+<p>上面代码中，<code>objectStore.get()</code>方法用于读取数据，参数是主键的值。</p>
+<h5 id="25">2.5 遍历数据<a class="headerlink" href="#25" title="Permanent link">&para;</a></h5>
+<p>遍历数据表格的所有记录，要使用指针对象 IDBCursor。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">readAll</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">objectStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="s1">&#39;person&#39;</span><span class="p">).</span><span class="nx">objectStore</span><span class="p">(</span><span class="s1">&#39;person&#39;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="nx">objectStore</span><span class="p">.</span><span class="nx">openCursor</span><span class="p">().</span><span class="nx">onsuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">cursor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">cursor</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Id: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">cursor</span><span class="p">.</span><span class="nx">key</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Name: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">cursor</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Age: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">cursor</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Email: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">cursor</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">email</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">cursor</span><span class="p">.</span><span class="k">continue</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;没有更多数据了！&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="nx">readAll</span><span class="p">();</span>
+</code></pre></div>
+<p>上面代码中，新建指针对象的<code>openCursor()</code>方法是一个异步操作，所以要监听<code>success</code>事件。</p>
+<h5 id="26">2.6 更新数据<a class="headerlink" href="#26" title="Permanent link">&para;</a></h5>
+<p>更新数据要使用<code>IDBObject.put()</code>方法。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">update</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">([</span><span class="s1">&#39;person&#39;</span><span class="p">],</span><span class="w"> </span><span class="s1">&#39;readwrite&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s1">&#39;person&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">put</span><span class="p">({</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;李四&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">age</span><span class="o">:</span><span class="w"> </span><span class="mf">35</span><span class="p">,</span><span class="w"> </span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;lisi@example.com&#39;</span><span class="w"> </span><span class="p">});</span>
+
+<span class="w">  </span><span class="nx">request</span><span class="p">.</span><span class="nx">onsuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;数据更新成功&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="nx">request</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;数据更新失败&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">update</span><span class="p">();</span>
+</code></pre></div>
+<p>上面代码中，<code>put()</code>方法自动更新了主键为<code>1</code>的记录。</p>
+<h5 id="27">2.7 删除数据<a class="headerlink" href="#27" title="Permanent link">&para;</a></h5>
+<p><code>IDBObjectStore.delete()</code>方法用于删除记录。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">remove</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">([</span><span class="s1">&#39;person&#39;</span><span class="p">],</span><span class="w"> </span><span class="s1">&#39;readwrite&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s1">&#39;person&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="ow">delete</span><span class="p">(</span><span class="mf">1</span><span class="p">);</span>
+
+<span class="w">  </span><span class="nx">request</span><span class="p">.</span><span class="nx">onsuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;数据删除成功&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="nx">remove</span><span class="p">();</span>
+</code></pre></div>
+<h5 id="28">2.8 使用索引<a class="headerlink" href="#28" title="Permanent link">&para;</a></h5>
+<p>索引的意义在于，可以让你搜索任意字段，也就是说从任意字段拿到数据记录。如果不建立索引，默认只能搜索主键（即从主键取值）。</p>
+<p>假定新建表格的时候，对<code>name</code>字段建立了索引。</p>
+<div class="highlight"><pre><span></span><code>objectStore.createIndex(&#39;name&#39;, &#39;name&#39;, { unique: false });
+</code></pre></div>
+<p>现在，就可以从<code>name</code>找到对应的数据记录了。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">([</span><span class="s1">&#39;person&#39;</span><span class="p">],</span><span class="w"> </span><span class="s1">&#39;readonly&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">store</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s1">&#39;person&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">store</span><span class="p">.</span><span class="nx">index</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">index</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;李四&#39;</span><span class="p">);</span>
+
+<span class="nx">request</span><span class="p">.</span><span class="nx">onsuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="3indexeddb-api">3、indexedDB 对象 API<a class="headerlink" href="#3indexeddb-api" title="Permanent link">&para;</a></h4>
+<h5 id="indexeddbopen">indexedDB.open()<a class="headerlink" href="#indexeddbopen" title="Permanent link">&para;</a></h5>
+<p><code>indexedDB.open()</code>方法用于打开数据库。这是一个异步操作，但是会立刻返回一个 IDBOpenDBRequest 对象。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">openRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+</code></pre></div>
+<p>上面代码表示，打开一个名为<code>test</code>、版本为<code>1</code>的数据库。如果该数据库不存在，则会新建该数据库。</p>
+<p><code>open()</code>方法的第一个参数是数据库名称，格式为字符串，不可省略；第二个参数是数据库版本，是一个大于<code>0</code>的正整数（<code>0</code>将报错），如果该参数大于当前版本，会触发数据库升级。第二个参数可省略，如果数据库已存在，将打开当前版本的数据库；如果数据库不存在，将创建该版本的数据库，默认版本为<code>1</code>。</p>
+<p>打开数据库是异步操作，通过各种事件通知客户端。下面是有可能触发的4种事件。</p>
+<ul>
+<li><strong>success</strong>：打开成功。</li>
+<li><strong>error</strong>：打开失败。</li>
+<li><strong>upgradeneeded</strong>：第一次打开该数据库，或者数据库版本发生变化。</li>
+<li><strong>blocked</strong>：上一次的数据库连接还未关闭。</li>
+</ul>
+<p>第一次打开数据库时，会先触发<code>upgradeneeded</code>事件，然后触发<code>success</code>事件。</p>
+<p>根据不同的需要，对上面4种事件监听函数。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">openRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">db</span><span class="p">;</span>
+
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onupgradeneeded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Upgrading...&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onsuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Success!&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">openRequest</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">openRequest</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码有两个地方需要注意。首先，<code>open()</code>方法返回的是一个对象（IDBOpenDBRequest），监听函数就定义在这个对象上面。其次，<code>success</code>事件发生后，从<code>openRequest.result</code>属性可以拿到已经打开的<code>IndexedDB</code>数据库对象。</p>
+<h5 id="indexeddbdeletedatabase">indexedDB.deleteDatabase()<a class="headerlink" href="#indexeddbdeletedatabase" title="Permanent link">&para;</a></h5>
+<p><code>indexedDB.deleteDatabase()</code>方法用于删除一个数据库，参数为数据库的名字。它会立刻返回一个<code>IDBOpenDBRequest</code>对象，然后对数据库执行异步删除。删除操作的结果会通过事件通知，<code>IDBOpenDBRequest</code>对象可以监听以下事件。</p>
+<ul>
+<li><code>success</code>：删除成功</li>
+<li><code>error</code>：删除报错</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">DBDeleteRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">indexedDB</span><span class="p">.</span><span class="nx">deleteDatabase</span><span class="p">(</span><span class="s1">&#39;demo&#39;</span><span class="p">);</span>
+
+<span class="nx">DBDeleteRequest</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">DBDeleteRequest</span><span class="p">.</span><span class="nx">onsuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>调用<code>deleteDatabase()</code>方法以后，当前数据库的其他已经打开的连接都会接收到<code>versionchange</code>事件。</p>
+<p>注意，删除不存在的数据库并不会报错。</p>
+<h5 id="indexeddbcmp">indexedDB.cmp()<a class="headerlink" href="#indexeddbcmp" title="Permanent link">&para;</a></h5>
+<p><code>indexedDB.cmp()</code>方法比较两个值是否为 indexedDB 的相同的主键。它返回一个整数，表示比较的结果：<code>0</code>表示相同，<code>1</code>表示第一个主键大于第二个主键，<code>-1</code>表示第一个主键小于第二个主键。</p>
+<div class="highlight"><pre><span></span><code>window.indexedDB.cmp(1, 2) // -1
+</code></pre></div>
+<p>注意，这个方法不能用来比较任意的 JavaScript 值。如果参数是布尔值或对象，它会报错。</p>
+<div class="highlight"><pre><span></span><code>window.indexedDB.cmp(1, true) // 报错
+window.indexedDB.cmp({}, {}) // 报错
+</code></pre></div>
+<h5 id="idbrequest">IDBRequest 对象<a class="headerlink" href="#idbrequest" title="Permanent link">&para;</a></h5>
+<p><mark>IDBRequest 对象表示打开的数据库连接</mark>，<code>indexedDB.open()</code>方法和<code>indexedDB.deleteDatabase()</code>方法会返回这个对象。数据库的操作都是通过这个对象完成的。</p>
+<p>这个对象的所有操作都是异步操作，要通过<code>readyState</code>属性判断是否完成，如果为<code>pending</code>就表示操作正在进行，如果为<code>done</code>就表示操作完成，可能成功也可能失败。</p>
+<p>操作完成以后，触发<code>success</code>事件或<code>error</code>事件，这时可以通过<code>result</code>属性和<code>error</code>属性拿到操作结果。如果在<code>pending</code>阶段，就去读取这两个属性，是会报错的。</p>
+<p>IDBRequest 对象有以下属性。</p>
+<ul>
+<li><code>IDBRequest.readyState</code>：等于<code>pending</code>表示操作正在进行，等于<code>done</code>表示操作正在完成。</li>
+<li><code>IDBRequest.result</code>：返回请求的结果。如果请求失败、结果不可用，读取该属性会报错。</li>
+<li><code>IDBRequest.error</code>：请求失败时，返回错误对象。</li>
+<li><code>IDBRequest.source</code>：返回请求的来源（比如索引对象或 ObjectStore）。</li>
+<li><code>IDBRequest.transaction</code>：返回当前请求正在进行的事务，如果不包含事务，返回<code>null</code>。</li>
+<li><code>IDBRequest.onsuccess</code>：指定<code>success</code>事件的监听函数。</li>
+<li><code>IDBRequest.onerror</code>：指定<code>error</code>事件的监听函数。</li>
+</ul>
+<p>IDBOpenDBRequest 对象继承了 IDBRequest 对象，提供了两个额外的事件监听属性。</p>
+<ul>
+<li><code>IDBOpenDBRequest.onblocked</code>：指定<code>blocked</code>事件（<code>upgradeneeded</code>事件触发时，数据库仍然在使用）的监听函数。</li>
+<li><code>IDBOpenDBRequest.onupgradeneeded</code>：<code>upgradeneeded</code>事件的监听函数。</li>
+</ul>
+<h5 id="idbdatabase">IDBDatabase 对象<a class="headerlink" href="#idbdatabase" title="Permanent link">&para;</a></h5>
+<p>打开数据成功以后，可以从<code>IDBOpenDBRequest</code>对象的<code>result</code>属性上面，拿到一个<code>IDBDatabase</code>对象，它表示连接的数据库。后面对数据库的操作，都通过这个对象完成。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">db</span><span class="p">;</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">DBOpenRequest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;demo&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span>
+
+<span class="nx">DBOpenRequest</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">DBOpenRequest</span><span class="p">.</span><span class="nx">onsuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">DBOpenRequest</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>IDBDatabase 对象有以下属性。</p>
+<ul>
+<li><code>IDBDatabase.name</code>：字符串，数据库名称。</li>
+<li><code>IDBDatabase.version</code>：整数，数据库版本。数据库第一次创建时，该属性为空字符串。</li>
+<li><code>IDBDatabase.objectStoreNames</code>：DOMStringList 对象（字符串的集合），包含当前数据的所有 object store 的名字。</li>
+<li><code>IDBDatabase.onabort</code>：指定 abort 事件（事务中止）的监听函数。</li>
+<li><code>IDBDatabase.onclose</code>：指定 close 事件（数据库意外关闭）的监听函数。</li>
+<li><code>IDBDatabase.onerror</code>：指定 error 事件（访问数据库失败）的监听函数。</li>
+<li><code>IDBDatabase.onversionchange</code>：数据库版本变化时触发（发生<code>upgradeneeded</code>事件，或调用<code>indexedDB.deleteDatabase()</code>）。</li>
+</ul>
+<p>下面是<code>objectStoreNames</code>属性的例子。该属性返回一个 DOMStringList 对象，包含了当前数据库所有对象仓库的名称（即表名），可以使用 DOMStringList 对象的<code>contains</code>方法，检查数据库是否包含某个对象仓库。</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">db</span><span class="p">.</span><span class="nx">objectStoreNames</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="s1">&#39;firstOS&#39;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;firstOS&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码先判断某个对象仓库是否存在，如果不存在就创建该对象仓库。</p>
+<p>IDBDatabase 对象有以下方法。</p>
+<ul>
+<li><code>IDBDatabase.close()</code>：关闭数据库连接，实际会等所有事务完成后再关闭。</li>
+<li><code>IDBDatabase.createObjectStore()</code>：创建存放数据的对象仓库，类似于传统关系型数据库的表格，返回一个 IDBObjectStore 对象。该方法只能在<code>versionchange</code>事件监听函数中调用。</li>
+<li><code>IDBDatabase.deleteObjectStore()</code>：删除指定的对象仓库。该方法只能在<code>versionchange</code>事件监听函数中调用。</li>
+<li><code>IDBDatabase.transaction()</code>：返回一个 IDBTransaction 事务对象。</li>
+</ul>
+<p>下面是<code>createObjectStore()</code>方法的例子。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">indexedDB</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;demo&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span>
+
+<span class="nx">request</span><span class="p">.</span><span class="nx">onupgradeneeded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+
+<span class="w">  </span><span class="nx">db</span><span class="p">.</span><span class="nx">onerror</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">objectStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">createObjectStore</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>上面代码创建了一个名为<code>items</code>的对象仓库，如果该对象仓库已经存在，就会抛出一个错误。为了避免出错，需要用到下文的<code>objectStoreNames</code>属性，检查已有哪些对象仓库。</p>
+<p><code>createObjectStore()</code>方法还可以接受第二个对象参数，用来设置对象仓库的属性。</p>
+<div class="highlight"><pre><span></span><code>db.createObjectStore(&#39;test&#39;, { keyPath: &#39;email&#39; });
+db.createObjectStore(&#39;test2&#39;, { autoIncrement: true });
+</code></pre></div>
+<p>上面代码中，<code>keyPath</code>属性表示主键（由于主键的值不能重复，所以上例存入之前，必须保证数据的<code>email</code>属性值都是不一样的），默认值为<code>null</code>；<code>autoIncrement</code>属性表示，是否使用自动递增的整数作为主键（第一个数据记录为1，第二个数据记录为2，以此类推），默认为<code>false</code>。一般来说，<code>keyPath</code>和<code>autoIncrement</code>属性只要使用一个就够了，如果两个同时使用，表示主键为递增的整数，且对象不得缺少<code>keyPath</code>指定的属性。</p>
+<p>下面是<code>deleteObjectStore()</code>方法的例子。</p>
+<div class="highlight"><pre><span></span><code>var dbName = &#39;sampleDB&#39;;
+var dbVersion = 2;
+var request = indexedDB.open(dbName, dbVersion);
+
+request.onupgradeneeded = function(e) {
+  var db = request.result;
+  if (e.oldVersion &lt; 1) {
+    db.createObjectStore(&#39;store1&#39;);
+  }
+
+  if (e.oldVersion &lt; 2) {
+    db.deleteObjectStore(&#39;store1&#39;);
+    db.createObjectStore(&#39;store2&#39;);
+  }
+
+  // ...
+};
+</code></pre></div>
+<p>下面是<code>transaction()</code>方法的例子，该方法用于创建一个数据库事务，返回一个 IDBTransaction 对象。向数据库添加数据之前，必须先创建数据库事务。</p>
+<div class="highlight"><pre><span></span><code>var t = db.transaction([&#39;items&#39;], &#39;readwrite&#39;);
+</code></pre></div>
+<p><code>transaction()</code>方法接受两个参数：第一个参数是一个数组，里面是所涉及的对象仓库，通常是只有一个；第二个参数是一个表示操作类型的字符串。目前，操作类型只有两种：<code>readonly</code>（只读）和<code>readwrite</code>（读写）。添加数据使用<code>readwrite</code>，读取数据使用<code>readonly</code>。第二个参数是可选的，省略时默认为<code>readonly</code>模式。</p>
+<h5 id="idb-object-store">IDB Object Store 对象<a class="headerlink" href="#idb-object-store" title="Permanent link">&para;</a></h5>
+<p>IDBObjectStore 对象对应一个对象仓库（object store）。<code>IDBDatabase.createObjectStore()</code>方法返回的就是一个 IDBObjectStore 对象。</p>
+<p>IDBDatabase 对象的<code>transaction()</code>返回一个事务对象，该对象的<code>objectStore()</code>方法返回 IDBObjectStore 对象，因此可以采用下面的链式写法。</p>
+<div class="highlight"><pre><span></span><code>db.transaction([&#39;test&#39;], &#39;readonly&#39;)
+  .objectStore(&#39;test&#39;)
+  .get(X)
+  .onsuccess = function (e) {}
+</code></pre></div>
+<p>IDBObjectStore 对象有以下属性。</p>
+<ul>
+<li><code>IDBObjectStore.indexNames</code>：返回一个类似数组的对象（DOMStringList），包含了当前对象仓库的所有索引。</li>
+<li><code>IDBObjectStore.keyPath</code>：返回当前对象仓库的主键。</li>
+<li><code>IDBObjectStore.name</code>：返回当前对象仓库的名称。</li>
+<li><code>IDBObjectStore.transaction</code>：返回当前对象仓库所属的事务对象。</li>
+<li><code>IDBObjectStore.autoIncrement</code>：布尔值，表示主键是否会自动递增。</li>
+</ul>
+<p>IDBObjectStore 对象有以下方法。</p>
+<p><strong>（1）IDBObjectStore.add()</strong></p>
+<p><code>IDBObjectStore.add()</code>用于向对象仓库添加数据，返回一个 IDBRequest 对象。该方法只用于添加数据，如果主键相同会报错，因此更新数据必须使用<code>put()</code>方法。</p>
+<div class="highlight"><pre><span></span><code>objectStore.add(value, key)
+</code></pre></div>
+<p>该方法接受两个参数，第一个参数是键值，第二个参数是主键，该参数可选，如果省略默认为<code>null</code>。</p>
+<p>创建事务以后，就可以获取对象仓库，然后使用<code>add()</code>方法往里面添加数据了。</p>
+<div class="highlight"><pre><span></span><code>var db;
+var DBOpenRequest = window.indexedDB.open(&#39;demo&#39;, 1);
+
+DBOpenRequest.onsuccess = function (event) {
+  db = DBOpenRequest.result;
+  var transaction = db.transaction([&#39;items&#39;], &#39;readwrite&#39;);
+
+  transaction.oncomplete = function (event) {
+    console.log(&#39;transaction success&#39;);
+  };
+
+  transaction.onerror = function (event) {
+    console.log(&#39;transaction error: &#39; + transaction.error);
+  };
+
+  var objectStore = transaction.objectStore(&#39;items&#39;);
+  var objectStoreRequest = objectStore.add({ foo: 1 });
+
+  objectStoreRequest.onsuccess = function (event) {
+    console.log(&#39;add data success&#39;);
+  };
+
+};
+</code></pre></div>
+<p><strong>（2）IDBObjectStore.put()</strong></p>
+<p><code>IDBObjectStore.put()</code>方法用于更新某个主键对应的数据记录，如果对应的键值不存在，则插入一条新的记录。该方法返回一个 IDBRequest 对象。</p>
+<div class="highlight"><pre><span></span><code>objectStore.put(item, key)
+</code></pre></div>
+<p>该方法接受两个参数，第一个参数为新数据，第二个参数为主键，该参数可选，且只在自动递增时才有必要提供，因为那时主键不包含在数据值里面。</p>
+<p><strong>（3）IDBObjectStore.clear()</strong></p>
+<p><code>IDBObjectStore.clear()</code>删除当前对象仓库的所有记录。该方法返回一个 IDBRequest 对象。</p>
+<div class="highlight"><pre><span></span><code>objectStore.clear()
+</code></pre></div>
+<p>该方法不需要参数。</p>
+<p><strong>（4）IDBObjectStore.delete()</strong></p>
+<p><code>IDBObjectStore.delete()</code>方法用于删除指定主键的记录。该方法返回一个 IDBRequest 对象。</p>
+<div class="highlight"><pre><span></span><code>objectStore.delete(Key)
+</code></pre></div>
+<p>该方法的参数为主键的值。</p>
+<p><strong>（5）IDBObjectStore.count()</strong></p>
+<p><code>IDBObjectStore.count()</code>方法用于计算记录的数量。该方法返回一个 IDBRequest 对象。</p>
+<div class="highlight"><pre><span></span><code>IDBObjectStore.count(key)
+</code></pre></div>
+<p>不带参数时，该方法返回当前对象仓库的所有记录数量。如果主键或 IDBKeyRange 对象作为参数，则返回对应的记录数量。</p>
+<p><strong>（6）IDBObjectStore.getKey()</strong></p>
+<p><code>IDBObjectStore.getKey()</code>用于获取主键。该方法返回一个 IDBRequest 对象。</p>
+<div class="highlight"><pre><span></span><code>objectStore.getKey(key)
+</code></pre></div>
+<p>该方法的参数可以是主键值或 IDBKeyRange 对象。</p>
+<p><strong>（7）IDBObjectStore.get()</strong></p>
+<p><code>IDBObjectStore.get()</code>用于获取主键对应的数据记录。该方法返回一个 IDBRequest 对象。</p>
+<div class="highlight"><pre><span></span><code>objectStore.get(key)
+</code></pre></div>
+<p><strong>（8）IDBObjectStore.getAll()</strong></p>
+<p><code>DBObjectStore.getAll()</code>用于获取对象仓库的记录。该方法返回一个 IDBRequest 对象。</p>
+<div class="highlight"><pre><span></span><code>// 获取所有记录
+objectStore.getAll()
+
+// 获取所有符合指定主键或 IDBKeyRange 的记录
+objectStore.getAll(query)
+
+// 指定获取记录的数量
+objectStore.getAll(query, count)
+</code></pre></div>
+<p><strong>（9）IDBObjectStore.getAllKeys()</strong></p>
+<p><code>IDBObjectStore.getAllKeys()</code>用于获取所有符合条件的主键。该方法返回一个 IDBRequest 对象。</p>
+<div class="highlight"><pre><span></span><code>// 获取所有记录的主键
+objectStore.getAllKeys()
+
+// 获取所有符合条件的主键
+objectStore.getAllKeys(query)
+
+// 指定获取主键的数量
+objectStore.getAllKeys(query, count)
+</code></pre></div>
+<p><strong>（10）IDBObjectStore.index()</strong></p>
+<p><code>IDBObjectStore.index()</code>方法返回指定名称的索引对象 IDBIndex。</p>
+<div class="highlight"><pre><span></span><code>objectStore.index(name)
+</code></pre></div>
+<p>有了索引以后，就可以针对索引所在的属性读取数据。</p>
+<div class="highlight"><pre><span></span><code>var t = db.transaction([&#39;people&#39;], &#39;readonly&#39;);
+var store = t.objectStore(&#39;people&#39;);
+var index = store.index(&#39;name&#39;);
+
+var request = index.get(&#39;foo&#39;);
+</code></pre></div>
+<p>上面代码打开对象仓库以后，先用<code>index()</code>方法指定获取<code>name</code>属性的索引，然后用<code>get()</code>方法读取某个<code>name</code>属性(<code>foo</code>)对应的数据。如果<code>name</code>属性不是对应唯一值，这时<code>get()</code>方法有可能取回多个数据对象。另外，<code>get()</code>是异步方法，读取成功以后，只能在<code>success</code>事件的监听函数中处理数据。</p>
+<p><strong>（11）IDBObjectStore.createIndex()</strong></p>
+<p><code>IDBObjectStore.createIndex()</code>方法用于新建当前数据库的一个索引。该方法只能在<code>VersionChange</code>监听函数里面调用。</p>
+<div class="highlight"><pre><span></span><code>objectStore.createIndex(indexName, keyPath, objectParameters)
+</code></pre></div>
+<p>该方法可以接受三个参数。</p>
+<ul>
+<li>indexName：索引名</li>
+<li>keyPath：主键</li>
+<li>objectParameters：配置对象（可选）</li>
+</ul>
+<p>第三个参数可以配置以下属性。</p>
+<ul>
+<li>unique：如果设为<code>true</code>，将不允许重复的值</li>
+<li>multiEntry：如果设为<code>true</code>，对于有多个值的主键数组，每个值将在索引里面新建一个条目，否则主键数组对应一个条目。</li>
+</ul>
+<p>假定对象仓库中的数据记录都是如下的<code>person</code>类型。</p>
+<div class="highlight"><pre><span></span><code>var person = {
+  name: name,
+  email: email,
+  created: new Date()
+};
+</code></pre></div>
+<p>可以指定这个对象的某个属性来建立索引。</p>
+<div class="highlight"><pre><span></span><code>var store = db.createObjectStore(&#39;people&#39;, { autoIncrement: true });
+
+store.createIndex(&#39;name&#39;, &#39;name&#39;, { unique: false });
+store.createIndex(&#39;email&#39;, &#39;email&#39;, { unique: true });
+</code></pre></div>
+<p>上面代码告诉索引对象，<code>name</code>属性不是唯一值，<code>email</code>属性是唯一值。</p>
+<p><strong>（12）IDBObjectStore.deleteIndex()</strong></p>
+<p><code>IDBObjectStore.deleteIndex()</code>方法用于删除指定的索引。该方法只能在<code>VersionChange</code>监听函数里面调用。</p>
+<div class="highlight"><pre><span></span><code>objectStore.deleteIndex(indexName)
+</code></pre></div>
+<p><strong>（13）IDBObjectStore.openCursor()</strong></p>
+<p><code>IDBObjectStore.openCursor()</code>用于获取一个指针对象。</p>
+<div class="highlight"><pre><span></span><code>IDBObjectStore.openCursor()
+</code></pre></div>
+<p>指针对象可以用来遍历数据。该对象也是异步的，有自己的<code>success</code>和<code>error</code>事件，可以对它们指定监听函数。</p>
+<div class="highlight"><pre><span></span><code>var t = db.transaction([&#39;test&#39;], &#39;readonly&#39;);
+var store = t.objectStore(&#39;test&#39;);
+
+var cursor = store.openCursor();
+
+cursor.onsuccess = function (event) {
+  var res = event.target.result;
+  if (res) {
+    console.log(&#39;Key&#39;, res.key);
+    console.dir(&#39;Data&#39;, res.value);
+    res.continue();
+  }
+}
+</code></pre></div>
+<p>监听函数接受一个事件对象作为参数，该对象的<code>target.result</code>属性指向当前数据记录。该记录的<code>key</code>和<code>value</code>分别返回主键和键值（即实际存入的数据）。<code>continue()</code>方法将光标移到下一个数据对象，如果当前数据对象已经是最后一个数据了，则光标指向<code>null</code>。</p>
+<p><code>openCursor()</code>方法的第一个参数是主键值，或者一个 IDBKeyRange 对象。如果指定该参数，将只处理包含指定主键的记录；如果省略，将处理所有的记录。该方法还可以接受第二个参数，表示遍历方向，默认值为<code>next</code>，其他可能的值为<code>prev</code>、<code>nextunique</code>和<code>prevunique</code>。后两个值表示如果遇到重复值，会自动跳过。</p>
+<p><strong>（14）IDBObjectStore.openKeyCursor()</strong></p>
+<p><code>IDBObjectStore.openKeyCursor()</code>用于获取一个主键指针对象。</p>
+<div class="highlight"><pre><span></span><code>IDBObjectStore.openKeyCursor()
+</code></pre></div>
+<h5 id="idb-transaction">IDB Transaction 对象<a class="headerlink" href="#idb-transaction" title="Permanent link">&para;</a></h5>
+<p>IDBTransaction 对象用来异步操作数据库事务，所有的读写操作都要通过这个对象进行。</p>
+<p><code>IDBDatabase.transaction()</code>方法返回的就是一个 IDBTransaction 对象。</p>
+<div class="highlight"><pre><span></span><code>var db;
+var DBOpenRequest = window.indexedDB.open(&#39;demo&#39;, 1);
+
+DBOpenRequest.onsuccess = function(event) {
+  db = DBOpenRequest.result;
+  var transaction = db.transaction([&#39;demo&#39;], &#39;readwrite&#39;);
+
+  transaction.oncomplete = function (event) {
+    console.log(&#39;transaction success&#39;);
+  };
+
+  transaction.onerror = function (event) {
+    console.log(&#39;transaction error: &#39; + transaction.error);
+  };
+
+  var objectStore = transaction.objectStore(&#39;demo&#39;);
+  var objectStoreRequest = objectStore.add({ foo: 1 });
+
+  objectStoreRequest.onsuccess = function (event) {
+    console.log(&#39;add data success&#39;);
+  };
+
+};
+</code></pre></div>
+<p>事务的执行顺序是按照创建的顺序，而不是发出请求的顺序。</p>
+<div class="highlight"><pre><span></span><code>var trans1 = db.transaction(&#39;foo&#39;, &#39;readwrite&#39;);
+var trans2 = db.transaction(&#39;foo&#39;, &#39;readwrite&#39;);
+var objectStore2 = trans2.objectStore(&#39;foo&#39;)
+var objectStore1 = trans1.objectStore(&#39;foo&#39;)
+objectStore2.put(&#39;2&#39;, &#39;key&#39;);
+objectStore1.put(&#39;1&#39;, &#39;key&#39;);
+</code></pre></div>
+<p>上面代码中，<code>key</code>对应的键值最终是<code>2</code>，而不是<code>1</code>。因为事务<code>trans1</code>先于<code>trans2</code>创建，所以首先执行。</p>
+<p>注意，事务有可能失败，只有监听到事务的<code>complete</code>事件，才能保证事务操作成功。</p>
+<p>IDBTransaction 对象有以下属性。</p>
+<ul>
+<li><code>IDBTransaction.db</code>：返回当前事务所在的数据库对象 IDBDatabase。</li>
+<li><code>IDBTransaction.error</code>：返回当前事务的错误。如果事务没有结束，或者事务成功结束，或者被手动终止，该方法返回<code>null</code>。</li>
+<li><code>IDBTransaction.mode</code>：返回当前事务的模式，默认是<code>readonly</code>（只读），另一个值是<code>readwrite</code>。</li>
+<li><code>IDBTransaction.objectStoreNames</code>：返回一个类似数组的对象 DOMStringList，成员是当前事务涉及的对象仓库的名字。</li>
+<li><code>IDBTransaction.onabort</code>：指定<code>abort</code>事件（事务中断）的监听函数。</li>
+<li><code>IDBTransaction.oncomplete</code>：指定<code>complete</code>事件（事务成功）的监听函数。</li>
+<li><code>IDBTransaction.onerror</code>：指定<code>error</code>事件（事务失败）的监听函数。</li>
+</ul>
+<p>IDBTransaction 对象有以下方法。</p>
+<ul>
+<li><code>IDBTransaction.abort()</code>：终止当前事务，回滚所有已经进行的变更。</li>
+<li><code>IDBTransaction.objectStore(name)</code>：返回指定名称的对象仓库 IDBObjectStore。</li>
+</ul>
+<h5 id="idbindex">IDBIndex 对象<a class="headerlink" href="#idbindex" title="Permanent link">&para;</a></h5>
+<p>IDBIndex 对象代表数据库的索引，通过这个对象可以获取数据库里面的记录。数据记录的主键默认就是带有索引，IDBIndex 对象主要用于通过除主键以外的其他键，建立索引获取对象。</p>
+<p>IDBIndex 是持久性的键值对存储。只要插入、更新或删除数据记录，引用的对象库中的记录，索引就会自动更新。</p>
+<p><code>IDBObjectStore.index()</code>方法可以获取 IDBIndex 对象。</p>
+<div class="highlight"><pre><span></span><code>var transaction = db.transaction([&#39;contactsList&#39;], &#39;readonly&#39;);
+var objectStore = transaction.objectStore(&#39;contactsList&#39;);
+var myIndex = objectStore.index(&#39;lName&#39;);
+
+myIndex.openCursor().onsuccess = function (event) {
+  var cursor = event.target.result;
+  if (cursor) {
+    var tableRow = document.createElement(&#39;tr&#39;);
+    tableRow.innerHTML =   &#39;&lt;td&gt;&#39; + cursor.value.id + &#39;&lt;/td&gt;&#39;
+                         + &#39;&lt;td&gt;&#39; + cursor.value.lName + &#39;&lt;/td&gt;&#39;
+                         + &#39;&lt;td&gt;&#39; + cursor.value.fName + &#39;&lt;/td&gt;&#39;
+                         + &#39;&lt;td&gt;&#39; + cursor.value.jTitle + &#39;&lt;/td&gt;&#39;
+                         + &#39;&lt;td&gt;&#39; + cursor.value.company + &#39;&lt;/td&gt;&#39;
+                         + &#39;&lt;td&gt;&#39; + cursor.value.eMail + &#39;&lt;/td&gt;&#39;
+                         + &#39;&lt;td&gt;&#39; + cursor.value.phone + &#39;&lt;/td&gt;&#39;
+                         + &#39;&lt;td&gt;&#39; + cursor.value.age + &#39;&lt;/td&gt;&#39;;
+    tableEntry.appendChild(tableRow);
+
+    cursor.continue();
+  } else {
+    console.log(&#39;Entries all displayed.&#39;);
+  }
+};
+</code></pre></div>
+<p>IDBIndex 对象有以下属性。</p>
+<ul>
+<li><code>IDBIndex.name</code>：字符串，索引的名称。</li>
+<li><code>IDBIndex.objectStore</code>：索引所在的对象仓库。</li>
+<li><code>IDBIndex.keyPath</code>：索引的主键。</li>
+<li><code>IDBIndex.multiEntry</code>：布尔值，针对<code>keyPath</code>为数组的情况，如果设为<code>true</code>，创建数组时，每个数组成员都会有一个条目，否则每个数组都只有一个条目。</li>
+<li><code>IDBIndex.unique</code>：布尔值，表示创建索引时是否允许相同的主键。</li>
+</ul>
+<p>IDBIndex 对象有以下方法，它们都是异步的，立即返回的都是一个 IDBRequest 对象。</p>
+<ul>
+<li><code>IDBIndex.count()</code>：用来获取记录的数量。它可以接受主键或 IDBKeyRange 对象作为参数，这时只返回符合主键的记录数量，否则返回所有记录的数量。</li>
+<li><code>IDBIndex.get(key)</code>：用来获取符合指定主键的数据记录。</li>
+<li><code>IDBIndex.getKey(key)</code>：用来获取指定的主键。</li>
+<li><code>IDBIndex.getAll()</code>：用来获取所有的数据记录。它可以接受两个参数，都是可选的，第一个参数用来指定主键，第二个参数用来指定返回记录的数量。如果省略这两个参数，则返回所有记录。由于获取成功时，浏览器必须生成所有对象，所以对性能有影响。如果数据集比较大，建议使用 IDBCursor 对象。</li>
+<li><code>IDBIndex.getAllKeys()</code>：该方法与<code>IDBIndex.getAll()</code>方法相似，区别是获取所有主键。</li>
+<li><code>IDBIndex.openCursor()</code>：用来获取一个 IDBCursor 对象，用来遍历索引里面的所有条目。</li>
+<li><code>IDBIndex.openKeyCursor()</code>：该方法与<code>IDBIndex.openCursor()</code>方法相似，区别是遍历所有条目的主键。</li>
+</ul>
+<h5 id="idbcursor">IDBCursor 对象<a class="headerlink" href="#idbcursor" title="Permanent link">&para;</a></h5>
+<p>IDBCursor 对象代表指针对象，用来遍历数据仓库（IDBObjectStore）或索引（IDBIndex）的记录。</p>
+<p>IDBCursor 对象一般通过<code>IDBObjectStore.openCursor()</code>方法获得。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">transaction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">([</span><span class="s1">&#39;rushAlbumList&#39;</span><span class="p">],</span><span class="w"> </span><span class="s1">&#39;readonly&#39;</span><span class="p">);</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">objectStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">transaction</span><span class="p">.</span><span class="nx">objectStore</span><span class="p">(</span><span class="s1">&#39;rushAlbumList&#39;</span><span class="p">);</span>
+
+<span class="nx">objectStore</span><span class="p">.</span><span class="nx">openCursor</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;next&#39;</span><span class="p">).</span><span class="nx">onsuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">cursor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">cursor</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">listItem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">listItem</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cursor</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">albumTitle</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;, &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">cursor</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">year</span><span class="p">;</span>
+<span class="w">      </span><span class="nx">list</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">listItem</span><span class="p">);</span>
+
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">cursor</span><span class="p">.</span><span class="nx">source</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">cursor</span><span class="p">.</span><span class="k">continue</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Entries all displayed.&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>IDBCursor 对象的属性。</p>
+<ul>
+<li><code>IDBCursor.source</code>：返回正在遍历的对象仓库或索引。</li>
+<li><code>IDBCursor.direction</code>：字符串，表示指针遍历的方向。共有四个可能的值：next（从头开始向后遍历）、nextunique（从头开始向后遍历，重复的值只遍历一次）、prev（从尾部开始向前遍历）、prevunique（从尾部开始向前遍历，重复的值只遍历一次）。该属性通过<code>IDBObjectStore.openCursor()</code>方法的第二个参数指定，一旦指定就不能改变了。</li>
+<li><code>IDBCursor.key</code>：返回当前记录的主键。</li>
+<li><code>IDBCursor.value</code>：返回当前记录的数据值。</li>
+<li>IDBCursor.primaryKey：返回当前记录的主键。对于数据仓库（objectStore）来说，这个属性等同于 IDBCursor.key；对于索引，IDBCursor.key 返回索引的位置值，该属性返回数据记录的主键。</li>
+</ul>
+<p>IDBCursor 对象有如下方法。</p>
+<ul>
+<li><code>IDBCursor.advance(n)</code>：指针向前移动 n 个位置。</li>
+<li><code>IDBCursor.continue()</code>：指针向前移动一个位置。它可以接受一个主键作为参数，这时会跳转到这个主键。</li>
+<li><code>IDBCursor.continuePrimaryKey()</code>：该方法需要两个参数，第一个是<code>key</code>，第二个是<code>primaryKey</code>，将指针移到符合这两个参数的位置。</li>
+<li><code>IDBCursor.delete()</code>：用来删除当前位置的记录，返回一个 IDBRequest 对象。该方法不会改变指针的位置。</li>
+<li><code>IDBCursor.update()</code>：用来更新当前位置的记录，返回一个 IDBRequest 对象。它的参数是要写入数据库的新的值。</li>
+</ul>
+<h5 id="idbkeyrange">IDBKeyRange 对象<a class="headerlink" href="#idbkeyrange" title="Permanent link">&para;</a></h5>
+<p>IDBKeyRange 对象代表数据仓库（object store）里面的一组主键。根据这组主键，可以获取数据仓库或索引里面的一组记录。</p>
+<p>IDBKeyRange 可以只包含一个值，也可以指定上限和下限。它有四个静态方法，用来指定主键的范围。</p>
+<ul>
+<li><code>IDBKeyRange.lowerBound()</code>：指定下限。</li>
+<li><code>IDBKeyRange.upperBound()</code>：指定上限。</li>
+<li><code>IDBKeyRange.bound()</code>：同时指定上下限。</li>
+<li><code>IDBKeyRange.only()</code>：指定只包含一个值。</li>
+</ul>
+<p>下面是一些代码实例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// All keys ≤ x</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">r1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">upperBound</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+
+<span class="c1">// All keys &lt; x</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">r2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">upperBound</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
+
+<span class="c1">// All keys ≥ y</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">r3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">lowerBound</span><span class="p">(</span><span class="nx">y</span><span class="p">);</span>
+
+<span class="c1">// All keys &gt; y</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">r4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">lowerBound</span><span class="p">(</span><span class="nx">y</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
+
+<span class="c1">// All keys ≥ x &amp;&amp; ≤ y</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">r5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">bound</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="p">);</span>
+
+<span class="c1">// All keys &gt; x &amp;&amp;&lt; y</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">r6</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">bound</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
+
+<span class="c1">// All keys &gt; x &amp;&amp; ≤ y</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">r7</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">bound</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span>
+
+<span class="c1">// All keys ≥ x &amp;&amp;&lt; y</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">r8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">bound</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
+
+<span class="c1">// The key = z</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">r9</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">IDBKeyRange</span><span class="p">.</span><span class="nx">only</span><span class="p">(</span><span class="nx">z</span><span class="p">);</span>
+</code></pre></div>
+<p><code>IDBKeyRange.lowerBound()</code>、<code>IDBKeyRange.upperBound()</code>、<code>IDBKeyRange.bound()</code>这三个方法默认包括端点值，可以传入一个布尔值，修改这个属性。</p>
+<p>与之对应，IDBKeyRange 对象有四个只读属性。</p>
+<ul>
+<li><code>IDBKeyRange.lower</code>：返回下限</li>
+<li><code>IDBKeyRange.lowerOpen</code>：布尔值，表示下限是否为开区间（即下限是否排除在范围之外）</li>
+<li><code>IDBKeyRange.upper</code>：返回上限</li>
+<li><code>IDBKeyRange.upperOpen</code>：布尔值，表示上限是否为开区间（即上限是否排除在范围之外）</li>
+</ul>
+<p>IDBKeyRange 实例对象生成以后，将它作为参数输入 IDBObjectStore 或 IDBIndex 对象的<code>openCursor()</code>方法，就可以在所设定的范围内读取数据。</p>
+<div class="highlight"><pre><span></span><code>var t = db.transaction([&#39;people&#39;], &#39;readonly&#39;);
+var store = t.objectStore(&#39;people&#39;);
+var index = store.index(&#39;name&#39;);
+
+var range = IDBKeyRange.bound(&#39;B&#39;, &#39;D&#39;);
+
+index.openCursor(range).onsuccess = function (e) {
+  var cursor = e.target.result;
+  if (cursor) {
+    console.log(cursor.key + &#39;:&#39;);
+
+    for (var field in cursor.value) {
+      console.log(cursor.value[field]);
+    }
+    cursor.continue();
+  }
+}
+</code></pre></div>
+<p>IDBKeyRange 有一个实例方法<code>includes(key)</code>，返回一个布尔值，表示某个主键是否包含在当前这个主键组之内。</p>
+<div class="highlight"><pre><span></span><code>var keyRangeValue = IDBKeyRange.bound(&#39;A&#39;, &#39;K&#39;, false, false);
+
+keyRangeValue.includes(&#39;F&#39;) // true
+keyRangeValue.includes(&#39;W&#39;) // false
+</code></pre></div>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+  </span>
+
+    
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:1822852997@qq.com">Michael An</a>, 
+        <a href="mailto:2331806369@qq.com">Michael An</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>

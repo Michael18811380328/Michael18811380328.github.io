@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="Rspress v1.38.0">
+  <title data-rh="true">带你深度解锁Webpack系列(优化篇) - 前端工程化</title><meta data-rh="true" name="description" content="介绍前端工程化常用工具"/>
+<script>{;const saved = localStorage.getItem('rspress-theme-appearance');const preferDark = window.matchMedia('(prefers-color-scheme: dark)').matches;const isDark = !saved || saved === 'auto' ? preferDark : saved === 'dark';document.documentElement.classList.toggle('dark', isDark);document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';}</script><script defer src="/site/webpack/site/static/js/styles.03324596.js"></script><script defer src="/site/webpack/site/static/js/lib-react.82d8ec79.js"></script><script defer src="/site/webpack/site/static/js/lib-router.fdbdb348.js"></script><script defer src="/site/webpack/site/static/js/index.35af798f.js"></script><link href="/site/webpack/site/static/css/styles.c26b7a64.css" rel="stylesheet"></head>
+
+<body >
+  <div id="root"><div><div class="navContainer_f6cde rspress-nav px-6 " style="position:sticky"><div class="container_f6cde flex justify-between items-center h-full"><div class="navBarTitle_f6cde"><a class="link_03735 flex items-center w-full h-full text-base font-semibold transition-opacity duration-300 hover:opacity-60 cursor-pointer" target="" href="/site/webpack/site/index.html"><span>前端工程化</span></a></div><div class="flex flex-1 justify-end items-center"><div class="rightNav_f6cde"><div class="flex sm:flex-1 items-center sm:pl-4 sm:pr-2"><div class="rspress-nav-search-button navSearchButton_6e282"><button><svg width="18" height="18" viewBox="0 0 32 32"><path fill="var(--rp-c-gray)" d="m29 27.586-7.552-7.552a11.018 11.018 0 1 0-1.414 1.414L27.586 29ZM4 13a9 9 0 1 1 9 9 9.01 9.01 0 0 1-9-9Z"></path></svg><p class="searchWord_6e282">Search Docs</p><div style="opacity:0"><span></span><span>K</span></div></button></div><div class="mobileNavSearchButton_6e282"><svg width="24" height="24" viewBox="0 0 32 32"><path fill="var(--rp-c-gray)" d="m29 27.586-7.552-7.552a11.018 11.018 0 1 0-1.414 1.414L27.586 29ZM4 13a9 9 0 1 1 9 9 9.01 9.01 0 0 1-9-9Z"></path></svg></div></div><div class="rspress-nav-menu menu h-14"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/index.html"><div class="rspress-nav-menu-item singleItem_f6cde activeItem_f6cde text-sm font-medium mx-1.5 px-3 py-2 flex items-center">首页</div></a><div class="mx-3 last:mr-0"><div class="relative flex-center h-14"><button class="rspress-nav-menu-group-button flex-center items-center font-medium text-sm text-text-1 hover:text-text-2 transition-colors duration-200"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/rollup/28-rollup完全入门指南.html"><div class="rspress-nav-menu-item singleItem_f6cde  text-sm font-medium mx-1.5 px-3 py-2 flex items-center">rollup<svg width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M16 22 6 12l1.4-1.4 8.6 8.6 8.6-8.6L26 12z"></path></svg></div></a></button><div class="rspress-nav-menu-group-content absolute mx-0.8 transition-opacity duration-300" style="opacity:0;visibility:hidden;right:0;top:52px"><div class="p-3 pr-2 w-full h-full max-h-100vh whitespace-nowrap" style="box-shadow:var(--rp-shadow-3);z-index:100;border:1px solid var(--rp-c-divider-light);border-radius:var(--rp-radius-large);background:var(--rp-c-bg)"><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/rollup/demo01-note.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>Demo 01 Note</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/rollup/demo02-note.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>Demo 02 Note</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/rollup/demo03-note.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>Demo 03 Note</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/rollup/demo04-note.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>Demo 04 Note</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/rollup/28-rollup完全入门指南.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>rollup </span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/rollup/29-rollup打包工具基础配置使用详解.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>rollup </span></div></div></a></div></div></div></div></div></div><div class="mx-3 last:mr-0"><div class="relative flex-center h-14"><button class="rspress-nav-menu-group-button flex-center items-center font-medium text-sm text-text-1 hover:text-text-2 transition-colors duration-200"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/babel/21-Babel is what.html"><div class="rspress-nav-menu-item singleItem_f6cde  text-sm font-medium mx-1.5 px-3 py-2 flex items-center">babel<svg width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M16 22 6 12l1.4-1.4 8.6 8.6 8.6-8.6L26 12z"></path></svg></div></a></button><div class="rspress-nav-menu-group-content absolute mx-0.8 transition-opacity duration-300" style="opacity:0;visibility:hidden;right:0;top:52px"><div class="p-3 pr-2 w-full h-full max-h-100vh whitespace-nowrap" style="box-shadow:var(--rp-shadow-3);z-index:100;border:1px solid var(--rp-c-divider-light);border-radius:var(--rp-radius-large);background:var(--rp-c-bg)"><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/babel/21-Babel is what.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>21-Babel is what</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/babel/22-Babel Usage Guide.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>22-Babel Usage Guide</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/babel/23-Babel-Configure.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>23-Babel-Configure</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/babel/24-Babel-Learn ES2015.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>24-Babel-Learn ES2015</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/babel/25-babel-preset-env.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>25-babel-preset-env使用指南</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/babel/26-babel-preset-env 作用.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>26-babel-preset-env 作用</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/babel/27-babel-plugin-transform-runtime 说明.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>27-babel-plugin-transform-runtime 说明</span></div></div></a></div></div></div></div></div></div><div class="mx-3 last:mr-0"><div class="relative flex-center h-14"><button class="rspress-nav-menu-group-button flex-center items-center font-medium text-sm text-text-1 hover:text-text-2 transition-colors duration-200"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/00-readme.html"><div class="rspress-nav-menu-item singleItem_f6cde  text-sm font-medium mx-1.5 px-3 py-2 flex items-center">webpack<svg width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M16 22 6 12l1.4-1.4 8.6 8.6 8.6-8.6L26 12z"></path></svg></div></a></button><div class="rspress-nav-menu-group-content absolute mx-0.8 transition-opacity duration-300" style="opacity:0;visibility:hidden;right:0;top:52px"><div class="p-3 pr-2 w-full h-full max-h-100vh whitespace-nowrap" style="box-shadow:var(--rp-shadow-3);z-index:100;border:1px solid var(--rp-c-divider-light);border-radius:var(--rp-radius-large);background:var(--rp-c-bg)"><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/00-readme.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>00-readme</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/01-webpack基本概念.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>01-webpack基本概念</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/02-create-react-app入门教程.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>02-create-react-app入门教程</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/03-网易webpack配置解析.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>03-网易webpack配置解析</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/04-网易webpack编译原理分析.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>04-网易webpack编译原理分析</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/05-网易webpack的高级技巧.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>05-网易webpack的高级技巧</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/06-网易 webpack 打包工具使用.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>06-网易 webpack 打包工具使用</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/07-webpack 官方起步.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>07-webpack 官方起步</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/08-webpack5 和 webpack4 的区别有哪些.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>08-webpack5 和 webpack4 的区别有哪些</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/09-webpack主要概念.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>09-webpack主要概念</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/10-深度解锁Webpack系列(基础篇) 01.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>10-深度解锁Webpack系列(基础篇) 01</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/11-深度解锁Webpack系列(进阶篇)02.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>11-深度解锁Webpack系列(进阶篇)02</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/12-深度解锁Webpack系列(优化篇)03.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>12-深度解锁Webpack系列(优化篇)03</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/13-webpack5 SplitChunksPlugin 实用指南.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>13-webpack5 SplitChunksPlugin 实用指南</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/41-webpack更新版本后报错Starting the development server.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>41-webpack更新版本后报错Starting the development server</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/42-webpack设置devServer启动项目为https协议.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>42-webpack设置devServer启动项目为https协议</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/43-webpack 打包 antd-mobile 按需加载样式问题.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>43-webpack 打包 antd-mobile 按需加载样式问题</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/44-TS-React-Webpack.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>44-TS-React-Webpack</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/45-TS项目使用Webpack.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>45-TS项目使用Webpack</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/46-webpack 项目配置学习.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>46-webpack 项目配置学习</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/47-webpack 项目配置学习2.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>47-webpack 项目配置学习2</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/48-webpack 项目配置学习3.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>48-webpack 项目配置学习3</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/Preset files are not allowed to export objects.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>Preset files are not allowed to export objects</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/stalled-webpack3基本使用.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>stalled-webpack3基本使用</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/stalled-webpack4 babel配置文件.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>stalled-webpack4 babel配置文件</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/stalled-webpack4DevServer配置项.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>stalled-webpack4DevServer配置项</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/stalled-webpack4入门介绍.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>stalled-webpack4入门介绍</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/stalled-webpack4基本配置.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>stalled-webpack4基本配置</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/stalled-webpack4打包很慢处理.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>stalled-webpack4打包很慢处理</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/webpack-setting.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>webpack-setting</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/webpack04-01README.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>webpack04-01README</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/webpack04-02-README.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>webpack04-02-README</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/webpack04-03-README.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>webpack04-03-README</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/webpack3-readme.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>webpack3-readme</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/插件 mini-css-extract-plugin.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>插件 mini-css-extract-plugin</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/插件 react-webpack-template.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>插件 react-webpack-template</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/插件 webpack Code Splitting.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>插件 webpack Code Splitting</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/插件 webpack HappyPack多个进程处理loader.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>插件 webpack HappyPack多个进程处理loader</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/插件 webpack 常用插件.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>插件 webpack 常用插件</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/插件 webpack-howto.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>插件 webpack-howto</span></div></div></a></div></div><div><div class="font-medium my-1"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/插件-HappyPack plugin for the loader could not be found.html"><div class="rounded-2xl hover:bg-mute" style="padding:0.4rem 1.5rem 0.4rem 0.75rem"><div class="flex"><span>插件-HappyPack plugin for the loader could not be found</span></div></div></a></div></div></div></div></div></div></div><div class="flex-center flex-row"><div class="mx-2"><div class="md:mr-2 rspress-nav-appearance"><div class="p-1 border border-solid border-gray-300 text-gray-400  cursor-pointer rounded-md hover:border-gray-600 hover:text-gray-600 dark:hover:border-gray-200 dark:hover:text-gray-200 transition-all duration-300 w-7 h-7"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 24 24" class="dark:hidden" width="18" height="18" fill="currentColor"><path d="M12 18c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6zm0-10c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zM12 4c-.6 0-1-.4-1-1V1c0-.6.4-1 1-1s1 .4 1 1v2c0 .6-.4 1-1 1zM12 24c-.6 0-1-.4-1-1v-2c0-.6.4-1 1-1s1 .4 1 1v2c0 .6-.4 1-1 1zM5.6 6.6c-.3 0-.5-.1-.7-.3L3.5 4.9c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l1.4 1.4c.4.4.4 1 0 1.4-.1.2-.4.3-.7.3zM19.8 20.8c-.3 0-.5-.1-.7-.3l-1.4-1.4c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l1.4 1.4c.4.4.4 1 0 1.4-.2.2-.5.3-.7.3zM3 13H1c-.6 0-1-.4-1-1s.4-1 1-1h2c.6 0 1 .4 1 1s-.4 1-1 1zM23 13h-2c-.6 0-1-.4-1-1s.4-1 1-1h2c.6 0 1 .4 1 1s-.4 1-1 1zM4.2 20.8c-.3 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l1.4-1.4c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-1.4 1.4c-.2.2-.4.3-.7.3zM18.4 6.6c-.3 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l1.4-1.4c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-1.4 1.4c-.2.2-.5.3-.7.3z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 24 24" class="hidden dark:block" width="18" height="18" fill="currentColor"><path d="M12.1 22h-.9c-5.5-.5-9.5-5.4-9-10.9.4-4.8 4.2-8.6 9-9 .4 0 .8.2 1 .5.2.3.2.8-.1 1.1-2 2.7-1.4 6.4 1.3 8.4 2.1 1.6 5 1.6 7.1 0 .3-.2.7-.3 1.1-.1.3.2.5.6.5 1-.2 2.7-1.5 5.1-3.6 6.8-1.9 1.4-4.1 2.2-6.4 2.2zM9.3 4.4c-2.9 1-5 3.6-5.2 6.8-.4 4.4 2.8 8.3 7.2 8.7 2.1.2 4.2-.4 5.8-1.8 1.1-.9 1.9-2.1 2.4-3.4-2.5.9-5.3.5-7.5-1.1-2.8-2.2-3.9-5.9-2.7-9.2z"></path></svg></div></div></div></div></div><div class="mobileNavMenu_f6cde"><div class="navScreen_457e8 " id="navScreen"><div class="container_457e8"><div class="navMenu_457e8"><div class="navMenuItem_457e8 w-full"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/index.html"><div class="rspress-nav-menu-item singleItem_f6cde activeItem_f6cde text-sm font-medium mx-1.5 px-3 py-2 flex items-center">首页</div></a></div><div class="navMenuItem_457e8 w-full"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/rollup/28-rollup完全入门指南.html"><div class="rspress-nav-menu-item singleItem_f6cde  text-sm font-medium mx-1.5 px-3 py-2 flex items-center">rollup</div></a></div><div class="navMenuItem_457e8 w-full"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/babel/21-Babel is what.html"><div class="rspress-nav-menu-item singleItem_f6cde  text-sm font-medium mx-1.5 px-3 py-2 flex items-center">babel</div></a></div><div class="navMenuItem_457e8 w-full"><a class="link_03735  cursor-pointer" target="" href="/site/webpack/site/webpack/00-readme.html"><div class="rspress-nav-menu-item singleItem_f6cde  text-sm font-medium mx-1.5 px-3 py-2 flex items-center">webpack</div></a></div></div><div class="flex-center flex-col gap-2"><div class="mt-2 navAppearance_457e8 flex justify-center"></div></div></div></div><button aria-label="mobile hamburger" class=" navHamburger_e7b06 text-gray-500"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="currentColor"><circle cx="8" cy="16" r="2" fill="currentColor"></circle><circle cx="16" cy="16" r="2" fill="currentColor"></circle><circle cx="24" cy="16" r="2" fill="currentColor"></circle></svg></button></div></div></div></div><section><div class="docLayout_edeb4 pt-0"><div class="rspress-sidebar-menu"><button class="flex-center ml-auto"><span class="text-sm">ON THIS PAGE</span><div class="text-md mr-2" style="transform:rotate(0deg);transition:transform 0.2s ease-out;margin-top:2px"><svg width="1em" height="1em" viewBox="0 0 32 32"><path fill="currentColor" d="M22 16 12 26l-1.4-1.4 8.6-8.6-8.6-8.6L12 6z"></path></svg></div></button><div class="rspress-local-toc-container "><ul><li><a href="#量化" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:12px"><span class="rspress-toc-link-text block">量化</span></a></li><li><a href="#1excludeinclude" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:12px"><span class="rspress-toc-link-text block">1.exclude/include</span></a></li><li><a href="#2-cache-loader" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:12px"><span class="rspress-toc-link-text block">2. cache-loader</span></a></li><li><a href="#3happypack" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:12px"><span class="rspress-toc-link-text block">3.happypack</span></a></li><li><a href="#4thread-loader" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:12px"><span class="rspress-toc-link-text block">4.thread-loader</span></a></li><li><a href="#5开启-js-多进程压缩" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:12px"><span class="rspress-toc-link-text block">5.开启 JS 多进程压缩</span></a></li><li><a href="#6hardsourcewebpackplugin" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:12px"><span class="rspress-toc-link-text block">6.HardSourceWebpackPlugin</span></a></li><li><a href="#7noparse" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:12px"><span class="rspress-toc-link-text block">7.noParse</span></a></li><li><a href="#8resolve" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:12px"><span class="rspress-toc-link-text block">8.resolve</span></a></li><li><a href="#9ignoreplugin" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:12px"><span class="rspress-toc-link-text block">9.IgnorePlugin</span></a></li><li><a href="#10externals" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:12px"><span class="rspress-toc-link-text block">10.externals</span></a></li><li><a href="#11dllplugin" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:12px"><span class="rspress-toc-link-text block">11.DllPlugin</span></a></li><li><a href="#12抽离公共代码" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:12px"><span class="rspress-toc-link-text block">12.抽离公共代码</span></a></li><li><a href="#借助-webpack-bundle-analyzer-进一步优化" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:24px"><span class="rspress-toc-link-text block">借助 webpack-bundle-analyzer 进一步优化</span></a></li><li><a href="#13webpack自身的优化" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:12px"><span class="rspress-toc-link-text block">13.webpack自身的优化</span></a></li><li><a href="#tree-shaking" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:24px"><span class="rspress-toc-link-text block">tree-shaking</span></a></li><li><a href="#scope-hosting-作用域提升" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:24px"><span class="rspress-toc-link-text block">scope hosting 作用域提升</span></a></li><li><a href="#babel-配置的优化" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:24px"><span class="rspress-toc-link-text block">babel 配置的优化</span></a></li><li><a href="#最后" class="rspress-toc-link sm:text-normal text-sm" style="margin-left:12px"><span class="rspress-toc-link-text block">最后</span></a></li></ul></div></div><div class="content_edeb4 rspress-doc-container flex flex-shrink-0 mx-auto"><div class="w-full flex-1"><div><div class="rspress-doc"><!--$--><h1 id="带你深度解锁webpack系列优化篇" class="text-3xl mb-10 leading-10 tracking-tight title_3b154">带你深度解锁Webpack系列(优化篇)<a class="link_3b154 header-anchor" aria-hidden="true" href="#带你深度解锁webpack系列优化篇">#</a></h1>
+<p class="my-4 leading-7">统计信息：字数 24100  阅读49分钟</p>
+<p class="my-4 leading-7"><a target="_blank" rel="noopener noreferrer" href="https://juejin.cn/user/3368559358523944/posts" class="link_03735  link_3b154 inline-link_3b154">无名之苝</a></p>
+<p class="my-4 leading-7">2020-03-1672,326阅读9分钟</p>
+<p class="my-4 leading-7"><a target="_blank" rel="noopener noreferrer" href="https://juejin.cn/post/6844904079219490830" class="link_03735  link_3b154 inline-link_3b154">带你深度解锁Webpack系列(基础篇)</a> 和 <a target="_blank" rel="noopener noreferrer" href="https://juejin.cn/post/6844904084927938567" class="link_03735  link_3b154 inline-link_3b154">带你深度解锁Webpack系列(进阶篇)</a>，主要是讲解了 <code>Webpack</code> 的配置，但是随着项目越来越大，构建速度可能会越来越慢，构建出来的js的体积也越来越大，此时就需要对 <code>Webpack</code> 的配置进行优化。</p>
+<p class="my-4 leading-7">本文罗列出了十多种优化方式，大家可以结合自己的项目，选择适当的方式进行优化。这些 <code>Webpack</code> 插件的源码我大多也没有看过，主要是结合 <code>Webpack</code> 官方文档以及项目实践，并且花了大量的时间验证后输出了本文，如果文中有错误的地方，欢迎在评论区指正。</p>
+<p class="my-4 leading-7">鉴于前端技术变更迅速，祭出本篇文章基于 <code>Webpack</code> 的版本号:</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>├── webpack@4.41.5 
+└── webpack-cli@3.3.10 
+</code></div></div>
+<p class="my-4 leading-7">本文对应的项目地址(编写本文时使用)供参考：<a target="_blank" rel="noopener noreferrer" href="https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2FYvetteLau%2Fwebpack%2Ftree%2Fmaster%2Fwebpack-optimize" class="link_03735  link_3b154 inline-link_3b154">github.com/YvetteLau/w…</a></p>
+<p class="my-4 leading-7"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/9/170bae7ee866b278~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" alt="img"/></p>
+<h3 id="量化" class="mt-10 mb-2 leading-7 text-xl title_3b154">量化<a class="link_3b154 header-anchor" aria-hidden="true" href="#量化">#</a></h3>
+<p class="my-4 leading-7">有时，我们以为的优化是负优化，这时，如果有一个量化的指标可以看出前后对比，那将会是再好不过的一件事。</p>
+<p class="my-4 leading-7"><code>speed-measure-webpack-plugin</code> 插件可以测量各个插件和<code>loader</code>所花费的时间，使用之后，构建时，会得到类似下面这样的信息：</p>
+<p class="my-4 leading-7"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/14/170d9bf274c164c1~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" alt="smp.jpeg"/></p>
+<p class="my-4 leading-7">对比前后的信息，来确定优化的效果。</p>
+<p class="my-4 leading-7"><a target="_blank" rel="noopener noreferrer" href="https://link.juejin.cn/?target=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2Fspeed-measure-webpack-plugin" class="link_03735  link_3b154 inline-link_3b154">speed-measure-webpack-plugin</a> 的使用很简单，可以直接用其来包裹 <code>Webpack</code> 的配置:</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>//webpack.config.js
+const SpeedMeasurePlugin = require(&quot;speed-measure-webpack-plugin&quot;);
+const smp = new SpeedMeasurePlugin();
+
+const config = {
+    //...webpack配置
+}
+
+module.exports = smp.wrap(config);
+</code></div></div>
+<h3 id="1excludeinclude" class="mt-10 mb-2 leading-7 text-xl title_3b154">1.exclude/include<a class="link_3b154 header-anchor" aria-hidden="true" href="#1excludeinclude">#</a></h3>
+<p class="my-4 leading-7">我们可以通过 <code>exclude</code>、<code>include</code> 配置来确保转译尽可能少的文件。顾名思义，<code>exclude</code> 指定要排除的文件，<code>include</code> 指定要包含的文件。</p>
+<p class="my-4 leading-7"><code>exclude</code> 的优先级高于 <code>include</code>，在 <code>include</code> 和 <code>exclude</code> 中使用绝对路径数组，尽量避免 <code>exclude</code>，更倾向于使用 <code>include</code>。</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>//webpack.config.js
+const path = require(&#x27;path&#x27;);
+module.exports = {
+    //...
+    module: {
+        rules: [
+            {
+                test: /\.js[x]?$/,
+                use: [&#x27;babel-loader&#x27;],
+                include: [path.resolve(__dirname, &#x27;src&#x27;)]
+            }
+        ]
+    },
+}
+</code></div></div>
+<p class="my-4 leading-7">下图是我未配置 <code>include</code> 和配置了 <code>include</code> 的构建结果对比：</p>
+<p class="my-4 leading-7"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/14/170d9bf279131194~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" alt="include:exclude.jpeg"/></p>
+<h3 id="2-cache-loader" class="mt-10 mb-2 leading-7 text-xl title_3b154">2. cache-loader<a class="link_3b154 header-anchor" aria-hidden="true" href="#2-cache-loader">#</a></h3>
+<p class="my-4 leading-7">在一些性能开销较大的 <code>loader</code> 之前添加 <code>cache-loader</code>，将结果缓存中磁盘中。默认保存在 <code>node_modueles/.cache/cache-loader</code> 目录下。</p>
+<p class="my-4 leading-7">首先安装依赖：</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>npm install cache-loader -D
+</code></div></div>
+<p class="my-4 leading-7"><code>cache-loader</code> 的配置很简单，放在其他 <code>loader</code> 之前即可。修改<code>Webpack</code> 的配置如下:</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>module.exports = {
+    //...
+    
+    module: {
+        //我的项目中,babel-loader耗时比较长，所以我给它配置了`cache-loader`
+        rules: [
+            {
+                test: /\.jsx?$/,
+                use: [&#x27;cache-loader&#x27;,&#x27;babel-loader&#x27;]
+            }
+        ]
+    }
+}
+</code></div></div>
+<p class="my-4 leading-7">如果你跟我一样，只打算给 <code>babel-loader</code> 配置 <code>cache</code> 的话，也可以不使用 <code>cache-loader</code>，给 <code>babel-loader</code> 增加选项 <code>cacheDirectory</code>。</p>
+<p class="my-4 leading-7"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/14/170d9bf279c1cd59~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" alt="cache-loader.jpeg"/></p>
+<p class="my-4 leading-7"><code>cacheDirectory</code>：默认值为 <code>false</code>。当有设置时，指定的目录将用来缓存 <code>loader</code> 的执行结果。之后的 <code>Webpack</code> 构建，将会尝试读取缓存，来避免在每次执行时，可能产生的、高性能消耗的 <code>Babel</code> 重新编译过程。设置空值或者 <code>true</code> 的话，使用默认缓存目录：<code>node_modules/.cache/babel-loader</code>。开启 <code>babel-loader</code>的缓存和配置 <code>cache-loader</code>，我比对了下，构建时间很接近。</p>
+<h3 id="3happypack" class="mt-10 mb-2 leading-7 text-xl title_3b154">3.happypack<a class="link_3b154 header-anchor" aria-hidden="true" href="#3happypack">#</a></h3>
+<p class="my-4 leading-7">由于有大量文件需要解析和处理，构建是文件读写和计算密集型的操作，特别是当文件数量变多后，<code>Webpack</code> 构建慢的问题会显得严重。文件读写和计算操作是无法避免的，那能不能让 <code>Webpack</code> 同一时刻处理多个任务，发挥多核 CPU 电脑的威力，以提升构建速度呢？</p>
+<p class="my-4 leading-7"><code>HappyPack</code> 就能让 <code>Webpack</code> 做到这点，它把任务分解给多个子进程去并发的执行，子进程处理完后再把结果发送给主进程。</p>
+<p class="my-4 leading-7">首先需要安装 <code>happypack</code>:</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>npm install happypack -D
+</code></div></div>
+<p class="my-4 leading-7">修改配置文件:</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>const Happypack = require(&#x27;happypack&#x27;);
+module.exports = {
+    //...
+    module: {
+        rules: [
+            {
+                test: /\.js[x]?$/,
+                use: &#x27;Happypack/loader?id=js&#x27;,
+                include: [path.resolve(__dirname, &#x27;src&#x27;)]
+            },
+            {
+                test: /\.css$/,
+                use: &#x27;Happypack/loader?id=css&#x27;,
+                include: [
+                    path.resolve(__dirname, &#x27;src&#x27;),
+                    path.resolve(__dirname, &#x27;node_modules&#x27;, &#x27;bootstrap&#x27;, &#x27;dist&#x27;)
+                ]
+            }
+        ]
+    },
+    plugins: [
+        new Happypack({
+            id: &#x27;js&#x27;, //和rule中的id=js对应
+            //将之前 rule 中的 loader 在此配置
+            use: [&#x27;babel-loader&#x27;] //必须是数组
+        }),
+        new Happypack({
+            id: &#x27;css&#x27;,//和rule中的id=css对应
+            use: [&#x27;style-loader&#x27;, &#x27;css-loader&#x27;,&#x27;postcss-loader&#x27;],
+        })
+    ]
+}
+</code></div></div>
+<p class="my-4 leading-7"><code>happypack</code> 默认开启 <code>CPU核数 - 1</code> 个进程，当然，我们也可以传递 <code>threads</code> 给 <code>Happypack</code>。</p>
+<p class="my-4 leading-7"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/14/170d9bf27caaa71c~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" alt="happypack.jpeg"/></p>
+<p class="my-4 leading-7">说明：当 <code>postcss-loader</code> 配置在 <code>Happypack</code> 中，必须要在项目中创建 <code>postcss.config.js</code>。</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>//postcss.config.js
+module.exports = {
+    plugins: [
+        require(&#x27;autoprefixer&#x27;)()
+    ]
+}
+</code></div></div>
+<p class="my-4 leading-7">否则，会抛出错误: <code>Error: No PostCSS Config found</code></p>
+<p class="my-4 leading-7">另外，当你的项目不是很复杂时，不需要配置 <code>happypack</code>，因为进程的分配和管理也需要时间，并不能有效提升构建速度，甚至会变慢。</p>
+<h3 id="4thread-loader" class="mt-10 mb-2 leading-7 text-xl title_3b154">4.thread-loader<a class="link_3b154 header-anchor" aria-hidden="true" href="#4thread-loader">#</a></h3>
+<p class="my-4 leading-7">除了使用 <code>Happypack</code> 外，我们也可以使用 <code>thread-loader</code> ，把 <code>thread-loader</code> 放置在其它 <code>loader</code> 之前，那么放置在这个 <code>loader</code> 之后的 <code>loader</code> 就会在一个单独的 <code>worker</code> 池中运行。</p>
+<p class="my-4 leading-7">在 worker 池(worker pool)中运行的 loader 是受到限制的。例如：</p>
+<ul class="list-disc pl-5 my-4 leading-7">
+<li class="[&amp;:not(:first-child)]:mt-2">这些 <code>loader</code> 不能产生新的文件。</li>
+<li class="[&amp;:not(:first-child)]:mt-2">这些 <code>loader</code> 不能使用定制的 <code>loader</code> API（也就是说，通过插件）。</li>
+<li class="[&amp;:not(:first-child)]:mt-2">这些 <code>loader</code> 无法获取 <code>webpack</code> 的选项设置。</li>
+</ul>
+<p class="my-4 leading-7">首先安装依赖：</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>npm install thread-loader -D
+</code></div></div>
+<p class="my-4 leading-7">修改配置:</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>module.exports = {
+    module: {
+        //我的项目中,babel-loader耗时比较长，所以我给它配置 thread-loader
+        rules: [
+            {
+                test: /\.jsx?$/,
+                use: [&#x27;thread-loader&#x27;, &#x27;cache-loader&#x27;, &#x27;babel-loader&#x27;]
+            }
+        ]
+    }
+}
+</code></div></div>
+<p class="my-4 leading-7"><code>thread-loader</code> 和 <code>Happypack</code> 我对比了一下，构建时间基本没什么差别。不过 <code>thread-loader</code> 配置起来为简单。</p>
+<h3 id="5开启-js-多进程压缩" class="mt-10 mb-2 leading-7 text-xl title_3b154">5.开启 JS 多进程压缩<a class="link_3b154 header-anchor" aria-hidden="true" href="#5开启-js-多进程压缩">#</a></h3>
+<p class="my-4 leading-7">虽然很多 <code>webpack</code> 优化的文章上会提及多进程压缩的优化，不管是 <code>webpack-parallel-uglify-plugin</code> 或者是 <code>uglifyjs-webpack-plugin</code> 配置 <code>parallel</code>。不过这里我要说一句，没必要单独安装这些插件，它们并不会让你的 <code>Webpack</code> 构建速度提升。</p>
+<p class="my-4 leading-7">当前 <code>Webpack</code> 默认使用的是 <code>TerserWebpackPlugin</code>，默认就开启了多进程和缓存，构建时，你的项目中可以看到 <code>terser</code> 的缓存文件 <code>node_modules/.cache/terser-webpack-plugin</code>。</p>
+<h3 id="6hardsourcewebpackplugin" class="mt-10 mb-2 leading-7 text-xl title_3b154">6.HardSourceWebpackPlugin<a class="link_3b154 header-anchor" aria-hidden="true" href="#6hardsourcewebpackplugin">#</a></h3>
+<p class="my-4 leading-7"><code>HardSourceWebpackPlugin</code> 为模块提供中间缓存，缓存默认的存放路径是: <code>node_modules/.cache/hard-source</code>。</p>
+<p class="my-4 leading-7">配置 <code>hard-source-webpack-plugin</code>，首次构建时间没有太大变化，但是第二次开始，构建时间大约可以节约 80%。</p>
+<p class="my-4 leading-7">首先安装依赖:</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>npm install hard-source-webpack-plugin -D
+</code></div></div>
+<p class="my-4 leading-7">修改 <code>webpack</code> 的配置：</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>//webpack.config.js
+var HardSourceWebpackPlugin = require(&#x27;hard-source-webpack-plugin&#x27;);
+module.exports = {
+    //...
+    plugins: [
+        new HardSourceWebpackPlugin()
+    ]
+}
+</code></div></div>
+<p class="my-4 leading-7"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/14/170d9bf27e20fd0e~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" alt="img"/></p>
+<p class="my-4 leading-7">用另外一个比较大的项目测试了下，配置了 <code>HardSourceWebpackPlugin</code>，构建时间从 8S 左右降到了 2S 左右。</p>
+<p class="my-4 leading-7"><a target="_blank" rel="noopener noreferrer" href="https://link.juejin.cn/?target=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2Fhard-source-webpack-plugin" class="link_03735  link_3b154 inline-link_3b154">HardSourceWebpackPlugin文档中</a> 列出了一些你可能会遇到的问题以及如何解决，例如热更新失效，或者某些配置不生效等。</p>
+<h3 id="7noparse" class="mt-10 mb-2 leading-7 text-xl title_3b154">7.noParse<a class="link_3b154 header-anchor" aria-hidden="true" href="#7noparse">#</a></h3>
+<p class="my-4 leading-7">如果一些第三方模块没有AMD/CommonJS规范版本，可以使用 <code>noParse</code> 来标识这个模块，这样 <code>Webpack</code> 会引入这些模块，但是不进行转化和解析，从而提升 <code>Webpack</code> 的构建性能 ，例如：<code>jquery</code> 、<code>lodash</code>。</p>
+<p class="my-4 leading-7"><a target="_blank" rel="noopener noreferrer" href="https://link.juejin.cn/?target=http%3A%2F%2Fwebpack.html.cn%2Fconfiguration%2Fmodule.html" class="link_03735  link_3b154 inline-link_3b154">noParse</a> 属性的值是一个正则表达式或者是一个 <code>function</code>。</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>//webpack.config.js
+module.exports = {
+    //...
+    module: {
+        noParse: /jquery|lodash/
+    }
+}
+</code></div></div>
+<p class="my-4 leading-7">我当前的 <code>webpack-optimize</code> 项目中，没有使用 <code>jquery</code> 或者是 <code>lodash</code>。</p>
+<p class="my-4 leading-7">因此新建一个项目测试，只引入 <code>jquery</code> 和 <code>loadsh</code>，然后配置 <code>noParse</code> 和不配置 <code>noParse</code>，分别构建比对时间。</p>
+<p class="my-4 leading-7">配置<code>noParse</code> 前，构建需要 <code>2392ms</code>。配置了 <code>noParse</code> 之后，构建需要 <code>1613ms</code>。 如果你使用到了不需要解析的第三方依赖，那么配置 <code>noParse</code> 很显然是一定会起到优化作用的。</p>
+<h3 id="8resolve" class="mt-10 mb-2 leading-7 text-xl title_3b154">8.resolve<a class="link_3b154 header-anchor" aria-hidden="true" href="#8resolve">#</a></h3>
+<p class="my-4 leading-7"><code>resolve</code> 配置 <code>webpack</code> 如何寻找模块所对应的文件。假设我们确定模块都从根目录下的 <code>node_modules</code> 中查找，我们可以配置:</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>//webpack.config.js
+const path = require(&#x27;path&#x27;);
+module.exports = {
+    //...
+    resolve: {
+        modules: [path.resolve(__dirname, &#x27;node_modules&#x27;)],
+    }
+}
+</code></div></div>
+<p class="my-4 leading-7">需要记住的是，如果你配置了上述的 <code>resolve.moudles</code> ，可能会出现问题，例如，你的依赖中还存在 <code>node_modules</code> 目录，那么就会出现，对应的文件明明在，但是却提示找不到。因此呢，个人不推荐配置这个。如果其他同事不熟悉这个配置，遇到这个问题时，会摸不着头脑。</p>
+<p class="my-4 leading-7">另外，<code>resolve</code> 的 <code>extensions</code> 配置，默认是 <code>[&#x27;.js&#x27;, &#x27;.json&#x27;]</code>，如果你要对它进行配置，记住将频率最高的后缀放在第一位，并且控制列表的长度，以减少尝试次数。</p>
+<p class="my-4 leading-7">本项目较小，因此测试时，此处优化效果不明显。</p>
+<h3 id="9ignoreplugin" class="mt-10 mb-2 leading-7 text-xl title_3b154">9.IgnorePlugin<a class="link_3b154 header-anchor" aria-hidden="true" href="#9ignoreplugin">#</a></h3>
+<p class="my-4 leading-7"><code>webpack</code> 的内置插件，作用是忽略第三方包指定目录。</p>
+<p class="my-4 leading-7">例如: <code>moment</code> (2.24.0版本) 会将所有本地化内容和核心功能一起打包，我们就可以使用 <code>IgnorePlugin</code> 在打包时忽略本地化内容。</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>//webpack.config.js
+module.exports = {
+    //...
+    plugins: [
+        //忽略 moment 下的 ./locale 目录
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+    ]
+}
+</code></div></div>
+<p class="my-4 leading-7">在使用的时候，如果我们需要指定语言，那么需要我们手动的去引入语言包，例如，引入中文语言包:</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>import moment from &#x27;moment&#x27;;
+import &#x27;moment/locale/zh-cn&#x27;;// 手动引入
+</code></div></div>
+<p class="my-4 leading-7"><code>index.js</code> 中只引入 <code>moment</code>，打包出来的 <code>bundle.js</code> 大小为 <code>263KB</code>，如果配置了 <code>IgnorePlugin</code>，单独引入 <code>moment/locale/zh-cn</code>，构建出来的包大小为 <code>55KB</code>。</p>
+<h3 id="10externals" class="mt-10 mb-2 leading-7 text-xl title_3b154">10.externals<a class="link_3b154 header-anchor" aria-hidden="true" href="#10externals">#</a></h3>
+<p class="my-4 leading-7">我们可以将一些JS文件存储在 <code>CDN</code> 上(减少 <code>Webpack</code>打包出来的 <code>js</code> 体积)，在 <code>index.html</code> 中通过 <code>&lt;script&gt;</code> 标签引入，如:</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;root&quot;&gt;root&lt;/div&gt;
+    &lt;script src=&quot;http://libs.baidu.com/jquery/2.0.0/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></div></div>
+<p class="my-4 leading-7">我们希望在使用时，仍然可以通过 <code>import</code> 的方式去引用(如 <code>import $ from &#x27;jquery&#x27;</code>)，并且希望 <code>webpack</code> 不会对其进行打包，此时就可以配置 <code>externals</code>。</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>//webpack.config.js
+module.exports = {
+    //...
+    externals: {
+        //jquery通过script引入之后，全局中即有了 jQuery 变量
+        &#x27;jquery&#x27;: &#x27;jQuery&#x27;
+    }
+}
+</code></div></div>
+<h3 id="11dllplugin" class="mt-10 mb-2 leading-7 text-xl title_3b154">11.DllPlugin<a class="link_3b154 header-anchor" aria-hidden="true" href="#11dllplugin">#</a></h3>
+<p class="my-4 leading-7">有些时候，如果所有的JS文件都打成一个JS文件，会导致最终生成的JS文件很大，这个时候，我们就要考虑拆分 <code>bundles</code>。</p>
+<p class="my-4 leading-7"><code>DllPlugin</code> 和 <code>DLLReferencePlugin</code> 可以实现拆分 <code>bundles</code>，并且可以大大提升构建速度，<code>DllPlugin</code> 和 <code>DLLReferencePlugin</code> 都是 <code>webpack</code> 的内置模块。</p>
+<p class="my-4 leading-7">我们使用 <code>DllPlugin</code> 将不会频繁更新的库进行编译，当这些依赖的版本没有变化时，就不需要重新编译。我们新建一个 <code>webpack</code> 的配置文件，来专门用于编译动态链接库，例如名为: <code>webpack.config.dll.js</code>，这里我们将 <code>react</code> 和 <code>react-dom</code> 单独打包成一个动态链接库。</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>//webpack.config.dll.js
+const webpack = require(&#x27;webpack&#x27;);
+const path = require(&#x27;path&#x27;);
+
+module.exports = {
+    entry: {
+        react: [&#x27;react&#x27;, &#x27;react-dom&#x27;]
+    },
+    mode: &#x27;production&#x27;,
+    output: {
+        filename: &#x27;[name].dll.[hash:6].js&#x27;,
+        path: path.resolve(__dirname, &#x27;dist&#x27;, &#x27;dll&#x27;),
+        library: &#x27;[name]_dll&#x27; //暴露给外部使用
+        //libraryTarget 指定如何暴露内容，缺省时就是 var
+    },
+    plugins: [
+        new webpack.DllPlugin({
+            //name和library一致
+            name: &#x27;[name]_dll&#x27;, 
+            path: path.resolve(__dirname, &#x27;dist&#x27;, &#x27;dll&#x27;, &#x27;manifest.json&#x27;) //manifest.json的生成路径
+        })
+    ]
+}
+</code></div></div>
+<p class="my-4 leading-7">在 <code>package.json</code> 的 <code>scripts</code> 中增加:</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>{
+    &quot;scripts&quot;: {
+        &quot;dev&quot;: &quot;NODE_ENV=development webpack-dev-server&quot;,
+        &quot;build&quot;: &quot;NODE_ENV=production webpack&quot;,
+        &quot;build:dll&quot;: &quot;webpack --config webpack.config.dll.js&quot;
+    },
+}
+</code></div></div>
+<p class="my-4 leading-7">执行 <code>npm run build:all</code>，可以看到 <code>dist</code> 目录如下，之所以将动态链接库单独放在 <code>dll</code> 目录下，主要是为了使用 <code>CleanWebpackPlugin</code> 更为方便的过滤掉动态链接库。</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>dist
+└── dll
+    ├── manifest.json
+    └── react.dll.9dcd9d.js
+</code></div></div>
+<p class="my-4 leading-7"><code>manifest.json</code> 用于让 <code>DLLReferencePlugin</code> 映射到相关依赖上。</p>
+<p class="my-4 leading-7">修改 <code>webpack</code> 的主配置文件: <code>webpack.config.js</code> 的配置：</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>//webpack.config.js
+const webpack = require(&#x27;webpack&#x27;);
+const path = require(&#x27;path&#x27;);
+module.exports = {
+    //...
+    devServer: {
+        contentBase: path.resolve(__dirname, &#x27;dist&#x27;)
+    },
+    plugins: [
+        new webpack.DllReferencePlugin({
+            manifest: path.resolve(__dirname, &#x27;dist&#x27;, &#x27;dll&#x27;, &#x27;manifest.json&#x27;)
+        }),
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: [&#x27;**/*&#x27;, &#x27;!dll&#x27;, &#x27;!dll/**&#x27;] //不删除dll目录
+        }),
+        //...
+    ]
+}
+</code></div></div>
+<p class="my-4 leading-7">使用 <code>npm run build</code> 构建，可以看到 <code>bundle.js</code> 的体积大大减少。</p>
+<p class="my-4 leading-7">修改 <code>public/index.html</code> 文件，在其中引入 <code>react.dll.js</code></p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>&lt;script src=&quot;/dll/react.dll.9dcd9d.js&quot;&gt;&lt;/script&gt;
+</code></div></div>
+<blockquote class="border-l-2 border-solid border-divider pl-4 my-6 transition-colors duration-500 blockquote_3b154">
+<p class="my-4 leading-7">构建速度</p>
+</blockquote>
+<p class="my-4 leading-7"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/14/170d9bf27efef7f5~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" alt="DllPlugin.jpeg"/></p>
+<blockquote class="border-l-2 border-solid border-divider pl-4 my-6 transition-colors duration-500 blockquote_3b154">
+<p class="my-4 leading-7">包体积</p>
+</blockquote>
+<p class="my-4 leading-7"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/14/170d9bf2f995e7e2~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" alt="dll-size.jpeg"/></p>
+<h3 id="12抽离公共代码" class="mt-10 mb-2 leading-7 text-xl title_3b154">12.抽离公共代码<a class="link_3b154 header-anchor" aria-hidden="true" href="#12抽离公共代码">#</a></h3>
+<p class="my-4 leading-7">抽离公共代码是对于多页应用来说的，如果多个页面引入了一些公共模块，那么可以把这些公共的模块抽离出来，单独打包。公共代码只需要下载一次就缓存起来了，避免了重复下载。</p>
+<p class="my-4 leading-7">抽离公共代码对于单页应用和多页应该在配置上没有什么区别，都是配置在 <code>optimization.splitChunks</code> 中。</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>//webpack.config.js
+module.exports = {
+    optimization: {
+        splitChunks: {//分割代码块
+            cacheGroups: {
+                vendor: {
+                    //第三方依赖
+                    priority: 1, //设置优先级，首先抽离第三方模块
+                    name: &#x27;vendor&#x27;,
+                    test: /node_modules/,
+                    chunks: &#x27;initial&#x27;,
+                    minSize: 0,
+                    minChunks: 1 //最少引入了1次
+                },
+                //缓存组
+                common: {
+                    //公共模块
+                    chunks: &#x27;initial&#x27;,
+                    name: &#x27;common&#x27;,
+                    minSize: 100, //大小超过100个字节
+                    minChunks: 3 //最少引入了3次
+                }
+            }
+        }
+    }
+}
+</code></div></div>
+<p class="my-4 leading-7">即使是单页应用，同样可以使用这个配置，例如，打包出来的 bundle.js 体积过大，我们可以将一些依赖打包成动态链接库，然后将剩下的第三方依赖拆出来。这样可以有效减小 bundle.js 的体积大小。当然，你还可以继续提取业务代码的公共模块，此处，因为我项目中源码较少，所以没有配置。</p>
+<p class="my-4 leading-7"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/14/170d9bf31f45e7a4~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" alt="splitChunks.jpeg"/></p>
+<blockquote class="border-l-2 border-solid border-divider pl-4 my-6 transition-colors duration-500 blockquote_3b154">
+<p class="my-4 leading-7">runtimeChunk</p>
+</blockquote>
+<p class="my-4 leading-7"><code>runtimeChunk</code> 的作用是将包含 <code>chunk</code> 映射关系的列表从 <code>main.js</code> 中抽离出来，在配置了 <code>splitChunk</code> 时，记得配置 <code>runtimeChunk</code>.</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>module.exports = {
+    //...
+    optimization: {
+        runtimeChunk: {
+            name: &#x27;manifest&#x27;
+        }
+    }
+}
+</code></div></div>
+<p class="my-4 leading-7">最终构建出来的文件中会生成一个 <code>manifest.js</code>。</p>
+<h4 id="借助-webpack-bundle-analyzer-进一步优化" class="mt-8 leading-6 text-lg title_3b154">借助 webpack-bundle-analyzer 进一步优化<a class="link_3b154 header-anchor" aria-hidden="true" href="#借助-webpack-bundle-analyzer-进一步优化">#</a></h4>
+<p class="my-4 leading-7">在做 <code>webpack</code> 构建优化的时候，<code>vendor</code> 打出来超过了1M，<code>react</code> 和 <code>react-dom</code> 已经打包成了DLL。</p>
+<p class="my-4 leading-7">因此需要借助 <code>webpack-bundle-analyzer</code> 查看一下是哪些包的体积较大。</p>
+<p class="my-4 leading-7">首先安装依赖：</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>npm install webpack-bundle-analyzer -D
+</code></div></div>
+<p class="my-4 leading-7">使用也很简单，修改下我们的配置：</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>//webpack.config.prod.js
+const BundleAnalyzerPlugin = require(&#x27;webpack-bundle-analyzer&#x27;).BundleAnalyzerPlugin;
+const merge = require(&#x27;webpack-merge&#x27;);
+const baseWebpackConfig = require(&#x27;./webpack.config.base&#x27;);
+module.exports = merge(baseWebpackConfig, {
+    //....
+    plugins: [
+        //...
+        new BundleAnalyzerPlugin(),
+    ]
+})
+</code></div></div>
+<p class="my-4 leading-7"><code>npm run build</code> 构建，会默认打开： <code>http://127.0.0.1:8888/</code>，可以看到各个包的体积：</p>
+<p class="my-4 leading-7"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/14/170d9bf330fb2a0b~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" alt="W1.jpeg"/></p>
+<p class="my-4 leading-7">进一步对 <code>vendor</code> 进行拆分，将 <code>vendor</code> 拆分成了4个(使用 <code>splitChunks</code> 进行拆分即可)。</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>module.exports = {
+    optimization: {
+    concatenateModules: false,
+    splitChunks: {//分割代码块
+      maxInitialRequests:6, //默认是5
+      cacheGroups: {
+        vendor: {
+          //第三方依赖
+          priority: 1,
+          name: &#x27;vendor&#x27;,
+          test: /node_modules/,
+          chunks: &#x27;initial&#x27;,
+          minSize: 100,
+          minChunks: 1 //重复引入了几次
+        },
+        &#x27;lottie-web&#x27;: {
+          name: &quot;lottie-web&quot;, // 单独将 react-lottie 拆包
+          priority: 5, // 权重需大于`vendor`
+          test: /[\/]node_modules[\/]lottie-web[\/]/,
+          chunks: &#x27;initial&#x27;,
+          minSize: 100,
+          minChunks: 1 //重复引入了几次
+        },
+        //...
+      }
+    },
+  },
+}
+</code></div></div>
+<p class="my-4 leading-7">重新构建，结果如下所示：</p>
+<p class="my-4 leading-7"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/14/170d9bf36fcad19c~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" alt="W2.jpeg"/></p>
+<h3 id="13webpack自身的优化" class="mt-10 mb-2 leading-7 text-xl title_3b154">13.webpack自身的优化<a class="link_3b154 header-anchor" aria-hidden="true" href="#13webpack自身的优化">#</a></h3>
+<h4 id="tree-shaking" class="mt-8 leading-6 text-lg title_3b154">tree-shaking<a class="link_3b154 header-anchor" aria-hidden="true" href="#tree-shaking">#</a></h4>
+<p class="my-4 leading-7">如果使用ES6的<code>import</code> 语法，那么在生产环境下，会自动移除没有使用到的代码。</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>//math.js
+const add = (a, b) =&gt; {
+    console.log(&#x27;aaaaaa&#x27;)
+    return a + b;
+}
+
+const minus = (a, b) =&gt; {
+    console.log(&#x27;bbbbbb&#x27;)
+    return a - b;
+}
+
+export {
+    add,
+    minus
+}
+//index.js
+import {add, minus} from &#x27;./math&#x27;;
+add(2,3);
+</code></div></div>
+<p class="my-4 leading-7">构建的最终代码里，<code>minus</code> 函数不会被打包进去。</p>
+<h4 id="scope-hosting-作用域提升" class="mt-8 leading-6 text-lg title_3b154">scope hosting 作用域提升<a class="link_3b154 header-anchor" aria-hidden="true" href="#scope-hosting-作用域提升">#</a></h4>
+<p class="my-4 leading-7">变量提升，可以减少一些变量声明。在生产环境下，默认开启。</p>
+<p class="my-4 leading-7">另外，大家测试的时候注意一下，<code>speed-measure-webpack-plugin</code> 和 <code>HotModuleReplacementPlugin</code> 不能同时使用，否则会报错:</p>
+<p class="my-4 leading-7"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/14/170d9bf389ae1379~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" alt="img"/></p>
+<h4 id="babel-配置的优化" class="mt-8 leading-6 text-lg title_3b154">babel 配置的优化<a class="link_3b154 header-anchor" aria-hidden="true" href="#babel-配置的优化">#</a></h4>
+<p class="my-4 leading-7">如果你对 <code>babel</code> 还不太熟悉的话，那么可以阅读这篇文章：<a target="_blank" rel="noopener noreferrer" href="https://juejin.cn/post/6844904008679686152" class="link_03735  link_3b154 inline-link_3b154">不容错过的 Babel7 知识</a>。</p>
+<p class="my-4 leading-7">在不配置 <code>@babel/plugin-transform-runtime</code> 时，<code>babel</code> 会使用很小的辅助函数来实现类似 <code>_createClass</code> 等公共方法。默认情况下，它将被注入(<code>inject</code>)到需要它的每个文件中。但是这样的结果就是导致构建出来的JS体积变大。</p>
+<p class="my-4 leading-7">我们也并不需要在每个 <code>js</code> 中注入辅助函数，因此我们可以使用 <code>@babel/plugin-transform-runtime</code>，<code>@babel/plugin-transform-runtime</code> 是一个可以重复使用 <code>Babel</code> 注入的帮助程序，以节省代码大小的插件。</p>
+<p class="my-4 leading-7">因此我们可以在 <code>.babelrc</code> 中增加 <code>@babel/plugin-transform-runtime</code> 的配置。</p>
+<div class="language-bash"><div class="rspress-code-content rspress-scrollbar"><code>{
+    &quot;presets&quot;: [],
+    &quot;plugins&quot;: [
+        [
+            &quot;@babel/plugin-transform-runtime&quot;
+        ]
+    ]
+}
+</code></div></div>
+<p class="my-4 leading-7">以上就是我目前为止使用到的一些优化，如果你有更好的优化方式，欢迎在评论区留言，感谢阅读。</p>
+<p class="my-4 leading-7">看完这篇文之后，是时候去撸个脚手架了：<a target="_blank" rel="noopener noreferrer" href="https://juejin.cn/post/6844903896163303438" class="link_03735  link_3b154 inline-link_3b154">【中高级前端必备】手摸手教你撸一个脚手架</a></p>
+<h3 id="最后" class="mt-10 mb-2 leading-7 text-xl title_3b154">最后<a class="link_3b154 header-anchor" aria-hidden="true" href="#最后">#</a></h3>
+<p class="my-4 leading-7"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2020/3/14/170d9bf3c5cff80b~tplv-t2oaga2asx-jj-mark:3024:0:0:0:q75.png" alt="掘金使用"/></p>
+<blockquote class="border-l-2 border-solid border-divider pl-4 my-6 transition-colors duration-500 blockquote_3b154">
+<p class="my-4 leading-7">参考文档：</p>
+</blockquote>
+<ul class="list-disc pl-5 my-4 leading-7">
+<li class="[&amp;:not(:first-child)]:mt-2"><a target="_blank" rel="noopener noreferrer" href="https://juejin.cn/post/6844903974810681358" class="link_03735  link_3b154 inline-link_3b154">webpack优化的一些基本方法</a></li>
+<li class="[&amp;:not(:first-child)]:mt-2"><a target="_blank" rel="noopener noreferrer" href="https://link.juejin.cn/?target=http%3A%2F%2Fwebpack.html.cn%2Fconfiguration%2Fmodule.html" class="link_03735  link_3b154 inline-link_3b154">模块(Module)</a></li>
+<li class="[&amp;:not(:first-child)]:mt-2"><a target="_blank" rel="noopener noreferrer" href="https://link.juejin.cn/?target=http%3A%2F%2Fwebpack.html.cn%2Fplugins%2Fignore-plugin.html" class="link_03735  link_3b154 inline-link_3b154">IgnorePlugin</a></li>
+<li class="[&amp;:not(:first-child)]:mt-2"><a target="_blank" rel="noopener noreferrer" href="https://link.juejin.cn/?target=http%3A%2F%2Fwebpack.html.cn%2Fplugins%2Fdll-plugin.html" class="link_03735  link_3b154 inline-link_3b154">DllPlugin</a></li>
+<li class="[&amp;:not(:first-child)]:mt-2"><a target="_blank" rel="noopener noreferrer" href="https://juejin.cn/post/6844903777296728072" class="link_03735  link_3b154 inline-link_3b154">使用 Webpack 的 DllPlugin 提升项目构建速度</a></li>
+<li class="[&amp;:not(:first-child)]:mt-2"><a target="_blank" rel="noopener noreferrer" href="https://link.juejin.cn/?target=http%3A%2F%2Fwww.xbhub.com%2Fwiki%2Fwebpack%2F4%E4%BC%98%E5%8C%96%2F4-3%E4%BD%BF%E7%94%A8HappyPack.html" class="link_03735  link_3b154 inline-link_3b154">使用 HappyPack</a></li>
+<li class="[&amp;:not(:first-child)]:mt-2"><a target="_blank" rel="noopener noreferrer" href="https://link.juejin.cn/?target=https%3A%2F%2Fwww.cnblogs.com%2Fxieqian%2Fp%2F10973039.html" class="link_03735  link_3b154 inline-link_3b154">webapck4抽取公共模块“SplitChunksPlugin”</a></li>
+<li class="[&amp;:not(:first-child)]:mt-2"><a target="_blank" rel="noopener noreferrer" href="https://link.juejin.cn/?target=https%3A%2F%2Fblog.csdn.net%2Fhope_It%2Farticle%2Fdetails%2F102691300" class="link_03735  link_3b154 inline-link_3b154">webpack之优化篇（四）：hard-source-webpack-plugin,webpack DllPlugin配置的代替方案</a></li>
+</ul><!--/$--></div><div class="rspress-doc-footer"><footer class="mt-8"><div class="xs:flex pb-5 px-2 justify-end items-center"></div><div class="flex flex-col"></div><div class="flex flex-col sm:flex-row sm:justify-around gap-4 pt-6"><div class="prev_e7091 flex flex-col"></div><div class="next_e7091 flex flex-col"></div></div></footer></div></div></div><div class="aside-container_edeb4"><div><div class="flex flex-col"><div class="&lt;lg:hidden"><div id="aside-container" class="relative text-sm font-medium"><div class="leading-7 block text-sm font-semibold pl-3">ON THIS PAGE</div><nav class="mt-1"><ul class="relative"><li><a href="#量化" title="量化" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:0;font-weight:semibold"><span class="aside-link-text block">量化</span></a></li><li><a href="#1excludeinclude" title="1.exclude/include" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:0;font-weight:semibold"><span class="aside-link-text block">1.exclude/include</span></a></li><li><a href="#2-cache-loader" title="2. cache-loader" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:0;font-weight:semibold"><span class="aside-link-text block">2. cache-loader</span></a></li><li><a href="#3happypack" title="3.happypack" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:0;font-weight:semibold"><span class="aside-link-text block">3.happypack</span></a></li><li><a href="#4thread-loader" title="4.thread-loader" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:0;font-weight:semibold"><span class="aside-link-text block">4.thread-loader</span></a></li><li><a href="#5开启-js-多进程压缩" title="5.开启 JS 多进程压缩" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:0;font-weight:semibold"><span class="aside-link-text block">5.开启 JS 多进程压缩</span></a></li><li><a href="#6hardsourcewebpackplugin" title="6.HardSourceWebpackPlugin" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:0;font-weight:semibold"><span class="aside-link-text block">6.HardSourceWebpackPlugin</span></a></li><li><a href="#7noparse" title="7.noParse" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:0;font-weight:semibold"><span class="aside-link-text block">7.noParse</span></a></li><li><a href="#8resolve" title="8.resolve" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:0;font-weight:semibold"><span class="aside-link-text block">8.resolve</span></a></li><li><a href="#9ignoreplugin" title="9.IgnorePlugin" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:0;font-weight:semibold"><span class="aside-link-text block">9.IgnorePlugin</span></a></li><li><a href="#10externals" title="10.externals" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:0;font-weight:semibold"><span class="aside-link-text block">10.externals</span></a></li><li><a href="#11dllplugin" title="11.DllPlugin" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:0;font-weight:semibold"><span class="aside-link-text block">11.DllPlugin</span></a></li><li><a href="#12抽离公共代码" title="12.抽离公共代码" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:0;font-weight:semibold"><span class="aside-link-text block">12.抽离公共代码</span></a></li><li><a href="#借助-webpack-bundle-analyzer-进一步优化" title="借助 webpack-bundle-analyzer 进一步优化" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:12px;font-weight:semibold"><span class="aside-link-text block">借助 webpack-bundle-analyzer 进一步优化</span></a></li><li><a href="#13webpack自身的优化" title="13.webpack自身的优化" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:0;font-weight:semibold"><span class="aside-link-text block">13.webpack自身的优化</span></a></li><li><a href="#tree-shaking" title="tree-shaking" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:12px;font-weight:semibold"><span class="aside-link-text block">tree-shaking</span></a></li><li><a href="#scope-hosting-作用域提升" title="scope hosting 作用域提升" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:12px;font-weight:semibold"><span class="aside-link-text block">scope hosting 作用域提升</span></a></li><li><a href="#babel-配置的优化" title="babel 配置的优化" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:12px;font-weight:semibold"><span class="aside-link-text block">babel 配置的优化</span></a></li><li><a href="#最后" title="最后" class="aside-link transition-all duration-300 hover:text-text-1 text-text-2 block" style="margin-left:0;font-weight:semibold"><span class="aside-link-text block">最后</span></a></li></ul></nav></div></div></div></div></div></div></div></section></div></div>
+  <div id="search-container"></div>
+</body>
+
+</html>

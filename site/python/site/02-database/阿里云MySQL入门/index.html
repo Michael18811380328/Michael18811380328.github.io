@@ -1,0 +1,2643 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/02-database/%E9%98%BF%E9%87%8C%E4%BA%91MySQL%E5%85%A5%E9%97%A8/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.7">
+    
+    
+      
+        <title>阿里云MySQL入门 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.20d9efc8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ff6e42">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="deep-orange" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mysql" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              阿里云MySQL入门
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        index
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          00-introduction
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="00-introduction" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          00-introduction
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-introduction/log/" class="md-nav__link">
+        log
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../00-introduction/structure/" class="md-nav__link">
+        structure
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          01-basic
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="01-basic" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          01-basic
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/01-%E6%90%AD%E5%BB%BApython3%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" class="md-nav__link">
+        01-搭建python3开发环境
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/02-linux%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        02-linux基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/03-python%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        03-python基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/12-Python3%20%E5%BA%8F%E5%88%97%E8%A7%A3%E5%8C%85/" class="md-nav__link">
+        12-Python3 序列解包
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/22-%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A0/" class="md-nav__link">
+        22-基础练习
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/50-python3-subporcess%20%E5%AD%90%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        50-python3-subporcess 子进程管理模块
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/Python3%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        Python3 多线程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/curl/" class="md-nav__link">
+        curl
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-basic/linux-basic/" class="md-nav__link">
+        linux-basic
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          02-database
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="02-database" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          02-database
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-readme/" class="md-nav__link">
+        00-readme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mac%20pip%20install%20mysql-python%20unsuccessful/" class="md-nav__link">
+        Mac pip install mysql-python unsuccessful
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mac%E5%AE%89%E8%A3%85MySQLdb%EF%BC%88python-mysql%EF%BC%89%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        Mac安装MySQLdb（python-mysql）模块
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%E6%93%8D%E4%BD%9C%20MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        Python操作 MySQL数据库
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQLite-API-Python/" class="md-nav__link">
+        SQLite-API-Python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        数据库概念
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%B7%B1%E5%85%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        深入MySQL数据库
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          阿里云MySQL入门
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        阿里云MySQL入门
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#01" class="md-nav__link">
+    01 简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#02" class="md-nav__link">
+    02 安装
+  </a>
+  
+    <nav class="md-nav" aria-label="02 安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    windows 安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    linux 安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mac" class="md-nav__link">
+    Mac 安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#03" class="md-nav__link">
+    03 配置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#04" class="md-nav__link">
+    04 数据库操作
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#05" class="md-nav__link">
+    05 数据类型
+  </a>
+  
+    <nav class="md-nav" aria-label="05 数据类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    文本类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    日期类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    数值类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#06-table" class="md-nav__link">
+    06 数据表操作（table）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#07" class="md-nav__link">
+    07 列操作
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#08" class="md-nav__link">
+    08 表数据操作
+  </a>
+  
+    <nav class="md-nav" aria-label="08 表数据操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#insert" class="md-nav__link">
+    insert 插入
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#select" class="md-nav__link">
+    select 查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where" class="md-nav__link">
+    where 筛选
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distinct" class="md-nav__link">
+    distinct 去重
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#order-by" class="md-nav__link">
+    order by 排序
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limit" class="md-nav__link">
+    limit 限制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insert-select" class="md-nav__link">
+    组合使用 insert select
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    update 更新
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where_1" class="md-nav__link">
+    where 高级用法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          03-docker
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="03-docker" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          03-docker
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-docker/01%20Docker%20%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        01 Docker 入门教程-阮一峰
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-docker/02%20Docker%20%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%95%99%E7%A8%8B-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        02 Docker 微服务教程-阮一峰
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-docker/03%20Docker%20%E5%8D%A0%E7%94%A8%E5%86%85%E5%AD%98%E5%A4%AA%E5%A4%A7%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        03 Docker 占用内存太大的解决方法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-docker/04%20Docker%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        04 Docker笔记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-docker/05%20docker%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        05 docker入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-docker/06%20Docker-download/" class="md-nav__link">
+        06 Docker-download
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-docker/07%20docker-basic-use/" class="md-nav__link">
+        07 docker-basic-use
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-docker/08%20docker-basic-RYF/" class="md-nav__link">
+        08 docker-basic-RYF
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-docker/09%20Nginx%20%E5%AE%B9%E5%99%A8%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        09 Nginx 容器教程
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          04-django
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="04-django" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          04-django
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04-django/01-Django%20%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        01-Django 框架介绍
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          05-flask/Flask_todo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="05-flask/Flask_todo" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          05-flask/Flask_todo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/01-Flask%20%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        01-Flask 概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/02-Flask%20%E7%8E%AF%E5%A2%83/" class="md-nav__link">
+        02-Flask 环境
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/03-Flask%20%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        03-Flask 应用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/04-Flask%20%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        04-Flask 路由
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/05-Flask%20%E5%8F%98%E9%87%8F%E8%A7%84%E5%88%99/" class="md-nav__link">
+        05-Flask 变量规则
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/06-Flask%20URL%E6%9E%84%E5%BB%BA/" class="md-nav__link">
+        06-Flask URL构建
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/07-Flask%20HTTP%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        07-Flask HTTP方法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/08-Flask%20%E6%A8%A1%E6%9D%BF/" class="md-nav__link">
+        08-Flask 模板
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/09-Flask%20%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        09-Flask 静态文件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/10-Flask%20Request%E5%AF%B9%E8%B1%A1/" class="md-nav__link">
+        10-Flask Request对象
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/11-Flask%20%E5%B0%86%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E5%8F%91%E9%80%81%E5%88%B0%E6%A8%A1%E6%9D%BF/" class="md-nav__link">
+        11-Flask 将表单数据发送到模板
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/12-Flask%20Cookies/" class="md-nav__link">
+        12-Flask Cookies
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/13-Flask%20%E4%BC%9A%E8%AF%9D/" class="md-nav__link">
+        13-Flask 会话
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/14-Flask%20%E9%87%8D%E5%AE%9A%E5%90%91%E5%92%8C%E9%94%99%E8%AF%AF/" class="md-nav__link">
+        14-Flask 重定向和错误
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/15-Flask%20%E6%B6%88%E6%81%AF%E9%97%AA%E7%8E%B0/" class="md-nav__link">
+        15-Flask 消息闪现
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/16-Flask%20%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" class="md-nav__link">
+        16-Flask 文件上传
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/17-Flask%20%E6%89%A9%E5%B1%95/" class="md-nav__link">
+        17-Flask 扩展
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/18-Flask%20%E9%82%AE%E4%BB%B6/" class="md-nav__link">
+        18-Flask 邮件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/19-Flask%20WTF/" class="md-nav__link">
+        19-Flask WTF
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/20-Flask%20SQLite/" class="md-nav__link">
+        20-Flask SQLite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/21-Flask%20SQLAlchemy/" class="md-nav__link">
+        21-Flask SQLAlchemy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/22-Flask%20Sijax/" class="md-nav__link">
+        22-Flask Sijax
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/23-Flask%20%E9%83%A8%E7%BD%B2/" class="md-nav__link">
+        23-Flask 部署
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo/24-Flask%20FastCGI/" class="md-nav__link">
+        24-Flask FastCGI
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          05-flask/Flask_todo_2
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="05-flask/Flask_todo_2" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          05-flask/Flask_todo_2
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo_2/Flask1%E2%80%93Hello%20World/" class="md-nav__link">
+        Flask1–Hello World
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo_2/Flask2%E2%80%93%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        Flask2–路由
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo_2/Flask3-%E6%A8%A1%E6%9D%BF/" class="md-nav__link">
+        Flask3-模板
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo_2/Flask4-%E8%AF%B7%E6%B1%82%EF%BC%8C%E5%93%8D%E5%BA%94%E5%8F%8A%E4%BC%9A%E8%AF%9D/" class="md-nav__link">
+        Flask4-请求，响应及会话
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo_2/Flask5%E2%80%93%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E5%8F%8A%E6%B6%88%E6%81%AF%E9%97%AA%E7%8E%B0/" class="md-nav__link">
+        Flask5–错误处理及消息闪现
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/Flask_todo_2/Flask6-%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9B%86%E6%88%90/" class="md-nav__link">
+        Flask6-数据库集成
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          05-flask/netease/08-db-demo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="05-flask/netease/08-db-demo" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          05-flask/netease/08-db-demo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/netease/readme/" class="md-nav__link">
+        readme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/no-flask-basic/" class="md-nav__link">
+        no-flask-basic
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/no-flask%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        no-flask网易云课堂笔记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05-flask/readme-zh/" class="md-nav__link">
+        readme-zh
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10">
+          06-third-part-lib
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="06-third-part-lib" data-md-level="1">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          06-third-part-lib
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/001-Beautiful-Soup/" class="md-nav__link">
+        001-Beautiful-Soup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/002-Requests/" class="md-nav__link">
+        002-Requests
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/003-pandas/" class="md-nav__link">
+        003-pandas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/004-matplotlib/" class="md-nav__link">
+        004-matplotlib
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/005-numpy/" class="md-nav__link">
+        005-numpy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/006-seaborn/" class="md-nav__link">
+        006-seaborn
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/007-autopep8/" class="md-nav__link">
+        007-autopep8
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/008-virtualenv/" class="md-nav__link">
+        008-virtualenv
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/009-Black/" class="md-nav__link">
+        009-Black
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/01-Detect%20mobile%20devices%20with%20Django%20and%20Python%203/" class="md-nav__link">
+        01-Detect mobile devices with Django and Python 3
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/010-pypinyin/" class="md-nav__link">
+        010-pypinyin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/011-Jinja2/" class="md-nav__link">
+        011-Jinja2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/012-UnicodeDecodeError%20utf8%20codec%20cant%20decode%20invalid%20start%20byte/" class="md-nav__link">
+        012-UnicodeDecodeError utf8 codec cant decode invalid start byte
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/100-Python%E6%9C%89%E5%93%AA%E4%BA%9B%E7%BB%8F%E5%85%B8%E7%9A%84%E5%B8%B8%E7%94%A8%E5%BA%93/" class="md-nav__link">
+        100-Python有哪些经典的常用库
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/30-%E5%A6%82%E4%BD%95%E4%BC%98%E9%9B%85%E7%9A%84%E7%BB%B4%E6%8A%A4%20Python%20%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
+        30-如何优雅的维护 Python 项目
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/31-Python%20%E7%9A%84%E4%B8%BB%E8%A6%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF/" class="md-nav__link">
+        31-Python 的主要应用场景
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/32-python-socket/" class="md-nav__link">
+        32-python-socket
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/33-Python%E7%9B%AE%E5%89%8D%E5%BB%BA%E8%AE%AE%E6%9C%80%E5%A5%BD%E5%AE%89%E8%A3%85%E4%BB%80%E4%B9%88%E7%89%88%E6%9C%AC/" class="md-nav__link">
+        33-Python目前建议最好安装什么版本
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/Chrome%E6%8A%93%E5%8C%85%E5%88%86%E6%9E%90/" class="md-nav__link">
+        Chrome抓包分析
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/Could%20not%20find%20a%20version%20that%20satisfies%20the%20requirement%20requirements/" class="md-nav__link">
+        Could not find a version that satisfies the requirement requirements
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/K-means%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        K-means聚类算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/Python%20SimpleHTTPServer/" class="md-nav__link">
+        Python SimpleHTTPServer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/Python-%E7%88%AC%E8%99%AB/" class="md-nav__link">
+        Python-爬虫
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/Python3%20%E6%A0%87%E5%87%86%E5%BA%93%E6%A6%82%E8%A7%88/" class="md-nav__link">
+        Python3 标准库概览
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/Python3%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E5%AE%9E%E6%88%98%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        Python3网络爬虫快速入门实战解析
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/Simple%20Minecraft-inspired%20program%20using%20Python%20and%20Pyglet/" class="md-nav__link">
+        Simple Minecraft-inspired program using Python and Pyglet
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/mkdocs/" class="md-nav__link">
+        mkdocs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/no-%E4%BD%BF%E7%94%A8%20Mkdocs%20%E5%9C%A8%20Github%20%E4%B8%8A%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2%E6%96%87%E7%AB%A0/" class="md-nav__link">
+        no-使用 Mkdocs 在 Github 上快速部署文章
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/pip%20%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        pip 安装与使用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/unittest%E5%85%A5%E9%97%A8%E7%94%A8%E6%B3%95/" class="md-nav__link">
+        unittest入门用法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/wechat-robot-demo-02/" class="md-nav__link">
+        wechat-robot-demo-02
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/wechat-robot-demo01/" class="md-nav__link">
+        wechat-robot-demo01
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/%E5%B8%B8%E7%94%A8%E7%9A%84python%E5%BA%93/" class="md-nav__link">
+        常用的python库
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/%E6%A1%88%E4%BE%8B-Python%E5%8F%AF%E8%A7%86%E5%8C%96%E4%BA%A4%E9%80%9A%E6%8B%A5%E5%A0%B5%E6%83%85%E5%86%B5/" class="md-nav__link">
+        案例-Python可视化交通拥堵情况
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/%E7%88%AC%E8%99%AB%E6%8A%80%E6%9C%AF%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        爬虫技术介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06-third-part-lib/%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        网络爬虫简介
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#01" class="md-nav__link">
+    01 简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#02" class="md-nav__link">
+    02 安装
+  </a>
+  
+    <nav class="md-nav" aria-label="02 安装">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    windows 安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux" class="md-nav__link">
+    linux 安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mac" class="md-nav__link">
+    Mac 安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#03" class="md-nav__link">
+    03 配置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#04" class="md-nav__link">
+    04 数据库操作
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#05" class="md-nav__link">
+    05 数据类型
+  </a>
+  
+    <nav class="md-nav" aria-label="05 数据类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    文本类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    日期类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    数值类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#06-table" class="md-nav__link">
+    06 数据表操作（table）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#07" class="md-nav__link">
+    07 列操作
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#08" class="md-nav__link">
+    08 表数据操作
+  </a>
+  
+    <nav class="md-nav" aria-label="08 表数据操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#insert" class="md-nav__link">
+    insert 插入
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#select" class="md-nav__link">
+    select 查询
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where" class="md-nav__link">
+    where 筛选
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distinct" class="md-nav__link">
+    distinct 去重
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#order-by" class="md-nav__link">
+    order by 排序
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limit" class="md-nav__link">
+    limit 限制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insert-select" class="md-nav__link">
+    组合使用 insert select
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    update 更新
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where_1" class="md-nav__link">
+    where 高级用法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/02-database/阿里云MySQL入门.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="mysql">MySQL 数据库入门学习<a class="headerlink" href="#mysql" title="Permanent link">&para;</a></h1>
+<p>阿里云大学 链接地址：<a href="https://edu.aliyun.com/course/153/lesson/list">https://edu.aliyun.com/course/153/lesson/list</a></p>
+<p>mysql 数据库的简单介绍，安装配置MYSQL，基本的SQL命令。</p>
+<h2 id="01">01 简介<a class="headerlink" href="#01" title="Permanent link">&para;</a></h2>
+<p>SQL：一种编程语言，strcutured query language 结构化的查询语言，主要用于数据库中的增删改查</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">tb</span>
+</code></pre></div>
+<p>MySQL 关系型数据库，是数据库的一种（其他的Oracle）。MYSQL是开源数据库。</p>
+<h2 id="02">02 安装<a class="headerlink" href="#02" title="Permanent link">&para;</a></h2>
+<p>官网：dev.mysql.com/downloads/mysql</p>
+<h3 id="windows">windows 安装<a class="headerlink" href="#windows" title="Permanent link">&para;</a></h3>
+<p>在官网下载安装包后，选择默认的developer安装方式进行安装；</p>
+<p>安装过程中如果检测到office中缺少插件，可以不用处理，因为主要在CLI模式下使用MYSQL</p>
+<p>安装中需要设置root用户的密码，其他类型的用户（不添加其他用户）</p>
+<p>按照安装包的流程安装完成后，可以在任务管理器下面看到服务正在运行，需要在cmd下面确认安装.</p>
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<span class="c1"># -u 表示用户 -p 表示需要密码</span>
+</code></pre></div>
+<h3 id="linux">linux 安装<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>mysql<span class="w"> </span>mysql-server
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>mysql<span class="w"> </span>mysql-server<span class="w"> </span><span class="o">(</span>ubuntu<span class="o">)</span>
+mysqladmin<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>password<span class="w"> </span><span class="s1">&#39;root&#39;</span>
+<span class="c1"># 设置新密码是root</span>
+</code></pre></div>
+<h3 id="mac">Mac 安装<a class="headerlink" href="#mac" title="Permanent link">&para;</a></h3>
+<p>安装包的格式是 dmg 安装完毕后需要设置root密码</p>
+<div class="highlight"><pre><span></span><code>/usr/local/mysql/bin/mysqladmin<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>password<span class="w"> </span>root
+<span class="c1"># 安装测试成功，密码和开机密码一致</span>
+
+/usr/local/mysql/bin/mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+<span class="c1"># 打开mysql的密码是 root</span>
+</code></pre></div>
+<p>开启或者关闭服务有两种方法</p>
+<p>CLI</p>
+<p>sudo /Library/StartupItems/MySQLCOM/MYSQLCOM start | stop | restart</p>
+<p>GUI</p>
+<p>系统配置 - MYSQL - stop |start</p>
+<p><mark>注意</mark>：安装过程中，会选择强密码或者是弱密码。现在本地测试使用弱密码。密码最少是8位，这里设置12345678 作为root的密码。 现在密码是 root </p>
+<p><mark>注意2</mark>：</p>
+<p>如果mysql已经运行，但是输入 mysql 显示命令不存在：遇上-bash: mysql: command not found的情况别着急</p>
+<p>这个是因为/usr/local/bin目录下缺失mysql导致，只需要一下方法建立软链接，即可以解决：
+把mysql安装目录，比如MYSQLPATH/bin/mysql，映射到/usr/local/bin目录下： </p>
+<p># cd /usr/local/bin
+# ln -fs /MYSQLPATH/bin/mysql mysql</p>
+<p>还有其它常用命令mysqladmin、mysqldump等不可用时候都可按用此方法解决。
+注：其中MYSQLPATH是mysql的实际安装路径（MAC 默认路径 /usr/local/mysql/bin/mysql）</p>
+<p>原文链接：<a href="https://www.cnblogs.com/yang1314/p/9288767.html">https://www.cnblogs.com/yang1314/p/9288767.html</a></p>
+<h2 id="03">03 配置<a class="headerlink" href="#03" title="Permanent link">&para;</a></h2>
+<p>MYSQL 的配置文件是一个文本文件 my.cof</p>
+<p>Mac 的文件路径是 /usr/local/mysql/my.cof 默认的配置文件是空的</p>
+<p>可以配置字符集，缓存大小等</p>
+<div class="highlight"><pre><span></span><code>[client]
+default-character-set=utf8
+# 添加字符集，避免乱码
+
+[mysqld]
+character-set-server=utf8
+default-storage-engine=INNODB
+# 默认存储引擎 INNODB
+</code></pre></div>
+<p>修改配置后，需要重启 mysql (或者在设置中重启)</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>/Library/StartupItems/MySQLCOM/MYSQLCOM<span class="w"> </span>restart
+</code></pre></div>
+<p>自己配置的问题：使用vim编辑器保存的时候，不能保存配置；使用sudo也不行</p>
+<p>"/usr/local/mysql-8.0.18-macos10.14-x86_64/my.cof" E212: Can't open file for writing</p>
+<p>Warning: Changing a readonly file</p>
+<h2 id="04">04 数据库操作<a class="headerlink" href="#04" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="k">show</span><span class="w"> </span><span class="k">databases</span><span class="p">;</span>
+<span class="k">create</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">gc</span><span class="p">;</span>
+<span class="k">drop</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">gc</span><span class="p">;</span>
+</code></pre></div>
+<p>不同数据库的数据是不会干扰的。数据库是数据库软件中基本的单位</p>
+<h2 id="05">05 数据类型<a class="headerlink" href="#05" title="Permanent link">&para;</a></h2>
+<p>database 包括 tables 表中每一行就是一条数据；列就是不同的字段，不同的字段对应不同的数据类型和数据结构（例如ID是自增长的整形，Name是长字符串），是否有默认值等。下面是常见的数据类型。根据实际业务逻辑使用不同的数据类型。</p>
+<h4 id="_1">文本类<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<p>VARCHAR(size) 长度小于255的可变长度字符串：varchar 长度小于65535字符（通常文本足够使用），长度可以改变（mqsql 5.0.3 之前表示65535字节），查询速度中等</p>
+<p>TEXT 长度中等的字符串，text 字符串长度不受限制，查询速度最慢，通常优先使用varchar</p>
+<p>LONGTEXT 长度很长的字符串</p>
+<p>CHAR：char 表示传统的字符串，字符串的长度小于255字符，长度固定，适用于较短固定长度的数据（身份证号和电话号），查询表速度最快</p>
+<p>Foreign key 外键</p>
+<p>primary key 主键</p>
+<p>在mysql中，如果把表的主键设为auto_increment类型，数据库就会自动为主键赋值。</p>
+<h4 id="_2">日期类<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>DATETIME 年月日时分秒</p>
+<h4 id="_3">数值类<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>TINYINT -128~127 或者存储布尔值</p>
+<p>INT 小数字</p>
+<p>BIGINT 大数字（ID，自增长）</p>
+<p>DOUBLE 浮点型（不使用FLOAT）</p>
+<h2 id="06-table">06 数据表操作（table）<a class="headerlink" href="#06-table" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">account</span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="kt">bigint</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+<span class="w">  </span><span class="n">createTime</span><span class="w"> </span><span class="kt">datetime</span><span class="p">,</span>
+<span class="w">  </span><span class="n">ip</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="w">  </span><span class="n">mobile</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="w">  </span><span class="k">name</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="w">  </span><span class="n">brief</span><span class="w"> </span><span class="kt">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">comments</span><span class="w"> </span><span class="kt">text</span><span class="p">,</span>
+<span class="w">  </span><span class="n">location</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="w">  </span><span class="n">qq</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="w">  </span><span class="n">gender</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="mi">11</span><span class="p">),</span>
+<span class="w">  </span><span class="n">city</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="w">  </span><span class="n">province</span><span class="w"> </span><span class="kt">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">account</span><span class="p">;</span>
+
+<span class="k">describe</span><span class="w"> </span><span class="k">account</span><span class="p">;</span>
+<span class="c1"># 查看当前的表的内部结构</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">Michael</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="n">Michael</span><span class="p">;</span>
+<span class="k">show</span><span class="w"> </span><span class="k">tables</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">gc</span><span class="p">(...);</span>
+<span class="k">describe</span><span class="w"> </span><span class="n">gc</span><span class="p">;</span>
+<span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">gc</span><span class="p">;</span>
+</code></pre></div>
+<p>表重命名</p>
+<div class="highlight"><pre><span></span><code><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">表名</span><span class="w"> </span><span class="k">rename</span><span class="w"> </span><span class="n">新表名</span>
+</code></pre></div>
+<h2 id="07">07 列操作<a class="headerlink" href="#07" title="Permanent link">&para;</a></h2>
+<p>增加删除表的列
+<div class="highlight"><pre><span></span><code><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">表名</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="n">新列名</span><span class="w"> </span><span class="n">列数据类型</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="c1"># 后面的 not null default 1 是可选参数</span>
+<span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">表名</span><span class="w"> </span><span class="k">drop</span><span class="w"> </span><span class="n">已有列名</span><span class="p">;</span>
+</code></pre></div></p>
+<p>修改列名或者数据类型: 可以单独修改列名后者数据类型，可以一起修改列名和数据类型</p>
+<div class="highlight"><pre><span></span><code><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">表名</span><span class="w"> </span><span class="k">change</span><span class="w"> </span><span class="n">旧列名</span><span class="w"> </span><span class="n">新列名</span><span class="w"> </span><span class="n">新的数据类型</span>
+</code></pre></div>
+<h2 id="08">08 表数据操作<a class="headerlink" href="#08" title="Permanent link">&para;</a></h2>
+<h4 id="insert">insert 插入<a class="headerlink" href="#insert" title="Permanent link">&para;</a></h4>
+<p>增加（插入）表数据</p>
+<div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">表名</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="n">key1</span><span class="p">,</span><span class="w"> </span><span class="n">key2</span><span class="p">,</span><span class="w"> </span><span class="n">key3</span><span class="p">...)</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">tableName</span><span class="w"> </span><span class="p">(</span><span class="n">column1</span><span class="p">,</span><span class="w"> </span><span class="n">column2</span><span class="p">)</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="n">key1</span><span class="p">,</span><span class="w"> </span><span class="n">key2</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="select">select 查询<a class="headerlink" href="#select" title="Permanent link">&para;</a></h4>
+<p>查询表数据</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">表名</span>
+<span class="k">select</span><span class="w"> </span><span class="n">列名1</span><span class="p">,</span><span class="w"> </span><span class="n">列名2</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">表名</span>
+</code></pre></div>
+<h4 id="where">where 筛选<a class="headerlink" href="#where" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">tableName</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;t&#39;</span><span class="p">;</span>
+<span class="c1"># 查询条件可以是大于小于等于不等于，或者between范围</span>
+<span class="c1"># 可以通过 and or 进行多元选择，括号增加优先级</span>
+<span class="c1"># 注意：判断相等是 = 不是两个等号</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">gc</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Michael&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">22</span><span class="p">);</span>
+</code></pre></div>
+<p>判断 null 是特殊的，需要通过 is  is not 判断，不能通过 = != 判断</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">gc</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="no">null</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">name</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="p">;</span>
+</code></pre></div>
+<h4 id="distinct">distinct 去重<a class="headerlink" href="#distinct" title="Permanent link">&para;</a></h4>
+<p>如果筛选过程中有重复的数据，那么可以加上关键字 distinct 去除重复的行。下面的查询结果中，如果name和age相同的数据有多行，那么结果中只显示一行</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="k">name</span><span class="p">,</span><span class="n">age</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">gc</span><span class="p">;</span>
+</code></pre></div>
+<h4 id="order-by">order by 排序<a class="headerlink" href="#order-by" title="Permanent link">&para;</a></h4>
+<p>升序或者降序</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 查询结果排序(升序或者降序) order by columnName desc/asc</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">gc</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="k">asc</span><span class="p">;</span>
+<span class="c1"># 将查询的结果按照ID升序的情况进行排序</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">gc</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="k">asc</span><span class="p">,</span><span class="w"> </span><span class="k">name</span><span class="w"> </span><span class="k">desc</span><span class="p">;</span>
+</code></pre></div>
+<h4 id="limit">limit 限制<a class="headerlink" href="#limit" title="Permanent link">&para;</a></h4>
+<p>使用 limit 截取查询结果（类似于splice函数）limit 第一个参数是开始的位置（默认是0，可以不选），第二个参数是截取的数量。</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">gc</span><span class="w"> </span><span class="err">[</span><span class="k">where</span><span class="w"> </span><span class="k">name</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="err">]</span><span class="w"> </span><span class="err">[</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="k">asc</span><span class="err">]</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">gc</span><span class="w"> </span><span class="err">[</span><span class="k">where</span><span class="w"> </span><span class="k">name</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="err">]</span><span class="w"> </span><span class="err">[</span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="k">asc</span><span class="err">]</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="c1"># 中括号内部是可选参数（order必须在where后面）</span>
+<span class="c1"># 第一句：在获取的结果中，截取前五条记录（index = 0 到 index = 4）</span>
+<span class="c1"># 第二句：limit 从index=3 开始截取，截取5条记录</span>
+</code></pre></div>
+<h4 id="insert-select">组合使用 insert select<a class="headerlink" href="#insert-select" title="Permanent link">&para;</a></h4>
+<p>可以在一个表中查询数据，select * from table， 然后把查询的结果插入到另一个表中（数据迁移会用到）</p>
+<div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="k">account</span><span class="w"> </span><span class="k">values</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="k">account</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">name</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">oldAccount</span><span class="p">;</span>
+</code></pre></div>
+<h4 id="update">update 更新<a class="headerlink" href="#update" title="Permanent link">&para;</a></h4>
+<p>update tableName set columnName = newValue where XXX</p>
+<p>如果使用where添加，那么修改满足条件的部分；否则修改整列的数据；</p>
+<div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="k">account</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="k">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Tom&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;123@qq.com&#39;</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</code></pre></div>
+<h4 id="where_1">where 高级用法<a class="headerlink" href="#where_1" title="Permanent link">&para;</a></h4>
+<p>in 字符串范围（离散值）</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">account</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="n">value1</span><span class="p">,</span><span class="w"> </span><span class="n">value2</span><span class="p">...);</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">account</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">oldAccount</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w">  </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span>
+</code></pre></div>
+<p>从一个集合中选择另一个集合（选择的可以使字符串范围，是数值范围的扩大）</p>
+<p>between 数值范围（连续）</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">account</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="k">between</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="c1"># 这里的选择是[5, 10]</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">account</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">between</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+
+<span class="c1"># Like 字符串的模糊匹配</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">account</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="k">name</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%ab%&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 20, 2024</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../%E6%B7%B1%E5%85%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 深入MySQL数据库" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              深入MySQL数据库
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../03-docker/01%20Docker%20%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-footer__link md-footer__link--next" aria-label="Next: 01 Docker 入门教程-阮一峰" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              01 Docker 入门教程-阮一峰
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.8492ddcf.min.js"></script>
+      
+    
+  </body>
+</html>

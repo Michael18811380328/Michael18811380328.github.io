@@ -1,0 +1,5150 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/javascript/12-%E5%A4%A7%E5%9E%8B%E9%A1%B9%E7%9B%AE%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%E6%B5%85%E8%B0%88/">
+      
+      
+        <link rel="prev" href="../11-%E5%B8%B8%E8%A7%81%E7%9A%84%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%E9%A3%8E%E6%A0%BC%E5%92%8C%E6%A1%88%E4%BE%8B/">
+      
+      
+        <link rel="next" href="../14-web-worker/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>12-大型项目前端架构浅谈 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              12-大型项目前端架构浅谈
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    about
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            about
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    README
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    ant-design
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            ant-design
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/01-color/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-color
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/02-border/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-border
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/03-font/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-font
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/04-unit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-unit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/05-react-%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-react-介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/06-react-%E5%9C%A8%20create-react-app%20%E4%B8%AD%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-react-在 create-react-app 中使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/07-react-%E5%AE%9A%E5%88%B6%E4%B8%BB%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-react-定制主题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/08-%E6%A0%B7%E5%BC%8F%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-样式按需加载
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/09-%E7%BB%84%E4%BB%B6%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-组件使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/10-%E5%B8%B8%E8%A7%81%E7%9A%84%E7%BD%91%E9%A1%B5%E5%B8%83%E5%B1%80%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-常见的网页布局设计
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ant-design/11-ps%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-ps常用快捷键
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    css
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            css
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/01%20font-smoothing%20%E4%BC%98%E5%8C%96%E5%AD%97%E4%BD%93%E6%98%BE%E7%A4%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01 font-smoothing 优化字体显示
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/Bilibili-%E6%A8%A1%E7%B3%8A%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C%E5%88%86%E6%9E%90-css-filter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bilibili-模糊实现效果分析-css-filter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/CSS%20Modules%20%E7%94%A8%E6%B3%95%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSS Modules 用法教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/CSS%20%E5%AE%9A%E4%BD%8D%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSS 定位详解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/CSS%20%E5%AE%9E%E7%8E%B0%20table%20%E8%A1%A8%E5%A4%B4%E5%9B%BA%E5%AE%9A%20tbody%20%E6%98%BE%E7%A4%BA%E5%9E%82%E7%9B%B4%E6%BB%9A%E5%8A%A8%E6%9D%A1%E5%B9%B6%E8%87%AA%E5%AE%9A%E4%B9%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E6%A0%B7%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSS 实现 table 表头固定 tbody 显示垂直滚动条并自定义滚动条样式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/CSS3%E5%88%A4%E6%96%AD%E6%89%8B%E6%9C%BA%E6%A8%AA%E7%AB%96%E5%B1%8F%20/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CSS3判断手机横竖屏 
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/Grid%E5%B8%83%E5%B1%80/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Grid布局
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/SVG%20%E9%81%BF%E5%85%8D%E9%94%AF%E9%BD%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SVG 避免锯齿
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/Sass-Mix%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sass-Mix函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/UnCSS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UnCSS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/css-sweeper%20from%20PropJockey/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    css-sweeper from PropJockey
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/flex%20%E8%A1%A5%E5%85%85/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    flex 补充
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/word-breakbreak-all%E5%92%8Cword-wrapbreak-word%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    word-breakbreak-all和word-wrapbreak-word的区别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/z-index%E6%97%A0%E6%95%88%E8%A7%A3%E5%86%B3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    z-index无效解决
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/zindex%E5%9C%A8iOS%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zindex在iOS系统中的兼容性问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/%E5%8F%8C%E8%89%B2%E5%9B%BE%E6%A0%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    双色图标
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87%E5%B9%B3%E6%BB%91%E6%98%BE%E7%A4%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    字体图标平滑显示
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/%E7%B2%98%E6%80%A7%E5%AE%9A%E4%BD%8Dposition-sticky/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    粘性定位position-sticky
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../css/%E8%A1%A8%E6%83%85emoji/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    表情emoji
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    interview/01 技术题目-重要
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            interview/01 技术题目-重要
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/01%20%E6%8A%80%E6%9C%AF%E9%A2%98%E7%9B%AE-%E9%87%8D%E8%A6%81/%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    知识体系
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    interview/02 中等
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            interview/02 中等
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/02%20%E4%B8%AD%E7%AD%89/HR%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HR面试题目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    interview/04 不重要
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            interview/04 不重要
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/04%20%E4%B8%8D%E9%87%8D%E8%A6%81/facebook%20%E5%9B%BD%E5%A4%96%E9%9D%A2%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    facebook 国外面试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/04%20%E4%B8%8D%E9%87%8D%E8%A6%81/%E8%B1%AA%E6%83%85%E5%A4%A7%E4%BD%AC%E6%97%A5%E5%B8%B8%E5%B7%A5%E4%BD%9C%E6%84%9F%E6%82%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    豪情大佬日常工作感悟
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    interview/large-companies
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            interview/large-companies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/2019/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2019
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/leetcode/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    leetcode
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E4%BB%8A%E6%97%A5%E5%A4%B4%E6%9D%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    今日头条
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E5%85%A8%E6%A0%88%E9%9D%A2%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    全栈面试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E5%85%B6%E4%BB%96%E5%85%AC%E5%8F%B8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    其他公司
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端知识体系
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端面试题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E5%B0%8F%E7%B1%B3%E9%9D%A2%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    小米面试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E6%8B%9B%E8%81%98%E8%A6%81%E6%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    招聘要求
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E6%8B%9B%E8%81%98%E8%A6%81%E6%B1%822/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    招聘要求2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E7%99%BE%E5%BA%A6%E9%9D%A2%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    百度面试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E9%85%B7%E7%8B%97%E9%9D%A2%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    酷狗面试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E9%98%BF%E9%87%8C%E9%9D%A2%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    阿里面试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interview/large-companies/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%8F%8A%E7%AD%94%E6%A1%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    面试题及答案
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    javascript
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            javascript
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-Resize%20Observer%20%E4%BB%8B%E7%BB%8D%E5%8F%8A%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-Resize Observer 介绍及原理浅析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1%20%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%89%8D%E7%AB%AF%E9%80%82%E9%85%8D%E6%96%B9%E6%A1%88%EF%BC%88%E6%80%BB%E7%BB%93%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1 移动端前端适配方案（总结）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E6%95%99%E7%A8%8B-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-移动端开发教程-移动端事件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-%E5%B8%B8%E8%A7%81%E7%9A%84%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%E9%A3%8E%E6%A0%BC%E5%92%8C%E6%A1%88%E4%BE%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11-常见的前端架构风格和案例
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    12-大型项目前端架构浅谈
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-web-worker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    14-web-worker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2%20%E5%89%8D%E7%AB%AF%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%80%82%E9%85%8D%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2 前端移动端适配总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2022%E5%B9%B4%E5%89%8D%E7%AB%AF%E6%96%B0%E6%8A%80%E6%9C%AF%E6%B1%87%E6%80%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2022年前端新技术汇总
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3%20%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%80%82%E9%85%8D%E6%96%B9%E6%A1%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3 移动端适配方案
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E7%94%A8%20vite%20%2B%20vue3%20%2B%20ts%20%2B%20pinia%20%2B%20vueuse%20%E6%89%93%E9%80%A0%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    30-手把手教你用 vite + vue3 + ts + pinia + vueuse 打造企业级前端项目
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4%20%E7%A7%BB%E5%8A%A8WEB%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E8%B5%84%E6%BA%90%E6%95%B4%E5%90%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4 移动WEB前端开发资源整合
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../40-%E7%BD%91%E6%98%93%E4%BA%91%E8%AF%BE%E5%A0%82%20Service%20Worker%20%E8%BF%90%E7%94%A8%E4%B8%8E%E5%AE%9E%E8%B7%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    40-网易云课堂 Service Worker 运用与实践
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ActionSheet%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F%E6%94%B9%E8%BF%9B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ActionSheet回调函数享元模式改进
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CommonJS-AMD-CMD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CommonJS-AMD-CMD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Creating%20and%20triggering%20events/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Creating and triggering events
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ECMA7%E6%96%B0%E6%8F%90%E6%A1%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ECMA7新提案
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ES2020%20%E6%96%B0%E6%A0%87%E5%87%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ES2020 新标准
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ES6%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ES6 迭代器与生成器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ES6-%E9%98%AE%E4%B8%80%E5%B3%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ES6-阮一峰
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ES6newFeature/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ES6newFeature
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ES7%E6%96%B0%E7%89%B9%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ES7新特性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Element.scrollIntoView%28%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Element.scrollIntoView()
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FE-Cookbook/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FE-Cookbook
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Favicon%20dimensions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Favicon dimensions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../File%20browser/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File browser
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FileReader/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FileReader
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Formula%20Parser/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formula Parser
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GRASP%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E7%9A%84%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%8E%9F%E5%88%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GRASP软件设计的模式和原则
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../H5%E6%8B%96%E6%8B%BDfirefox%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    H5拖拽firefox浏览器兼容问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HTML5%E8%A7%A6%E6%91%B8%E4%BA%8B%E4%BB%B6%28touchstart%E3%80%81touchmove%E5%92%8Ctouchend%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTML5触摸事件(touchstart、touchmove和touchend)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HTTP%20%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTTP 教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../HTTP%20%E6%95%99%E7%A8%8B%E7%9A%84%E5%89%AF%E6%9C%AC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTTP 教程的副本
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../How%20to%20clean%20your%20Docker%20data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How to clean your Docker data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%20%E5%8A%A0%E6%B3%95%E4%B9%98%E6%B3%95%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3-number-precision/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS 加法乘法错误解决-number-precision
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%20%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS 性能优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS 设计模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS-testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS-testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%E5%88%A4%E6%96%AD%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1%E7%88%B6%E5%AD%90%E5%85%B3%E7%B3%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS判断事件对象父子关系
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3%E5%8C%96%28flat%29%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS数组扁平化(flat)方法总结详解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JS%E7%9A%84%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C%EF%BC%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%97%B4%E7%9A%84%E5%8D%8F%E4%BD%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JS的异步操作，浏览器的多线程间的协作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JavaScript%20JSON.stringify%28%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript JSON.stringify()
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../JavaScript%20%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3%EF%BC%9A%E5%86%8D%E8%B0%88Event%20Loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JavaScript 运行机制详解：再谈Event Loop
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Javascript%E4%B8%ADdocument.execCommand%28%29%E7%9A%84%E7%94%A8%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Javascript中document.execCommand()的用法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Javascript%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%95%B0%E7%BB%84%E9%99%8D%E7%BB%B4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Javascript实现的数组降维
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LocalStorage%E7%9A%84%E5%89%AF%E6%9C%AC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LocalStorage的副本
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Math-trunk/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Math-trunk
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MkDocs%20%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MkDocs 中文文档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PWA%20%E7%9A%84%E4%BC%98%E5%8A%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PWA 的优势
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../PWA-%E6%B8%90%E8%BF%9B%E5%BC%8FWeb%E5%BA%94%E7%94%A8%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PWA-渐进式Web应用简介
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ReferenceError%20primordials%20is%20not%20defined%20%E6%8A%A5%E9%94%99%E5%92%8C%E8%A7%A3%E5%86%B3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ReferenceError primordials is not defined 报错和解决
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Resumable%20%E5%A4%A7%E6%96%87%E4%BB%B6%E5%88%86%E5%9D%97%E4%B8%8A%E4%BC%A0%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Resumable 大文件分块上传介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Smart%20PNG%20and%20JPEG%20compression/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Smart PNG and JPEG compression
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Swagger%E4%BB%8B%E7%BB%8D%E5%8F%8A%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Swagger介绍及使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Synchronous%20XMLHttpRequest%20on%20the%20main%20thread%20is%20deprecated/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Synchronous XMLHttpRequest on the main thread is deprecated
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Tencent-review-code/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tencent-review-code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Uncaught%20TypeError%20Cannot%20set%20property/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Uncaught TypeError Cannot set property
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Window.getComputedStyle%28%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Window.getComputedStyle()
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appendChild%28%29%20%E6%96%B9%E6%B3%95%E7%A7%BB%E9%99%A4DOM%E8%8A%82%E7%82%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    appendChild() 方法移除DOM节点
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../babel%E6%89%93%E5%8C%85%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    babel打包使用说明
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../caniuse-lite%20browserslis%20%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    caniuse-lite browserslis 报错解决
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../console.log%E5%90%8C%E6%AD%A5%E4%B8%8E%E5%BC%82%E6%AD%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    console.log同步与异步
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contentEditable%20%E5%AE%9E%E7%8E%B0%E5%AF%8C%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    contentEditable 实现富文本编辑器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document-id-bug/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    document-id-bug
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../document.execCommand/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    document.execCommand
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iOS%20safari%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8Aoverflow%20scroll%E5%85%83%E7%B4%A0%E6%97%A0%E6%B3%95%E6%BB%9A%E5%8A%A8bug%E6%B7%B1%E7%A9%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    iOS safari浏览器上overflow scroll元素无法滚动bug深究
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iframe/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    iframe
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../javascript%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    javascript的内存泄漏
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../js%20%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%AF%B9%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    js 移动端对键盘监听
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../js%E4%B8%AD%E9%80%9A%E8%BF%87Object.prototype.toString%E6%96%B9%E6%B3%95----%E7%B2%BE%E7%A1%AE%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    js中通过Object.prototype.toString方法----精确判断对象的类型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../localstorage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    localstorage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../markdown-emoji/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    markdown-emoji
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../markdown%E8%AF%AD%E6%B3%95%E7%BB%BC%E5%90%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    markdown语法综合
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../onbeforeunload/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    onbeforeunload
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ssh%20connect%20to%20host%20github.com%20port%2022%20Connection%20refused%20fatal%20Could%20not%20read%20from%20remote%20repository%20%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ssh connect to host github.com port 22 Connection refused fatal Could not read from remote repository 报错解决
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../video%E6%A0%87%E7%AD%BE%E7%9A%84poster%E5%B1%9E%E6%80%A7%E5%9B%BE%E7%89%87%E9%93%BA%E6%BB%A1%E6%95%B4%E4%B8%AA%E5%B1%8F%E5%B9%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    video标签的poster属性图片铺满整个屏幕
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../window.requestAnimationFrame/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    window.requestAnimationFrame
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95composition/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    中文输入法composition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%B8%BAJS%20%E7%A8%8B%E5%BA%8F%E5%91%98%E5%87%86%E5%A4%87%E7%9A%84%20ts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为JS 程序员准备的 ts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    代码规范
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%8E%E4%BB%A3%E7%A0%81%E6%97%A0%E4%BB%A3%E7%A0%81%E7%9A%84%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E7%A0%94%E7%A9%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    低代码无代码的深入浅出研究
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%A0%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%20javascript%20%E7%9A%84%E7%BB%86%E8%8A%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    你需要知道的 javascript 的细节
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%A0%E9%9D%A0%E5%93%AA%E4%BA%9B%E8%AE%B2%E8%A7%A3%E5%AD%A6%E4%BC%9A%E4%BA%86%E6%9B%BE%E7%BB%8F%E6%80%8E%E4%B9%88%E4%B9%9F%E5%AD%A6%E4%B8%8D%E4%BC%9A%E7%9A%84%E7%AE%97%E6%B3%95%EF%BC%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    你靠哪些讲解学会了曾经怎么也学不会的算法？
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8%20nvm%20%E7%AE%A1%E7%90%86%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E7%9A%84%20node%20%E4%B8%8E%20npm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用 nvm 管理不同版本的 node 与 npm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8nodejs%E8%BF%9E%E6%8E%A5mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用nodejs连接mysql数据库实现增删改查
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    内存泄漏
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%88%A4%E6%96%AD%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AFpc%E7%AB%AF%E8%BF%98%E6%98%AF%E6%89%8B%E6%9C%BA%E7%AB%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    判断浏览器是pc端还是手机端
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E4%BD%BF%E7%94%A8js%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端使用js读取文件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8Cseo%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端如何进行seo优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端常用工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%BF%85%E8%AF%BB%E4%B9%A6%E7%B1%8D%E6%9C%89%E5%93%AA%E4%BA%9B%E5%80%BC%E5%BE%97%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端开发工程师必读书籍有哪些值得推荐
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E4%B8%AD%E9%98%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端技术中阶
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E6%8F%90%E5%8D%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端技术提升
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E6%9C%AA%E6%9D%A5%E5%8F%91%E5%B1%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端未来发展
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E5%BC%80%E5%8F%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端模块化开发
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E7%9B%91%E6%8E%A7%E7%90%86%E8%AE%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端监控理论
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E8%8B%B1%E8%AF%AD%E5%8D%95%E8%AF%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端英语单词
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端项目结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E9%A6%96%E5%B1%8F%E4%BC%98%E5%8C%96%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端首屏优化的一些总结
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E2%80%94%E2%80%94Taskwarrior/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    命令行任务管理工具——Taskwarrior
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%9A%E4%B8%AA%E8%BF%9E%E7%BB%AD%E7%9A%84%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%8E%E6%9F%AF%E9%87%8C%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    多个连续的箭头函数与柯里化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%A7%E5%85%AC%E5%8F%B8%E9%87%8C%E6%80%8E%E6%A0%B7%E5%BC%80%E5%8F%91%E5%92%8C%E9%83%A8%E7%BD%B2%E5%89%8D%E7%AB%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    大公司里怎样开发和部署前端
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A6%82%E4%BD%95%E5%86%99%E9%80%9A%E7%94%A8%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何写通用组件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E4%BF%AE%E5%A4%8D%20NPM%20audit%20%E4%B8%AD%E7%9A%84%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何快速修复 NPM audit 中的安全问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%EF%BC%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何理解最小二乘法？
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7%E7%BD%91%E9%A1%B5%E5%B4%A9%E6%BA%83%EF%BC%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    如何监控网页崩溃？
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%B8%B8%E7%94%A8%E5%88%B0%E7%9A%84ES6%E8%AF%AD%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用到的ES6语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%B8%B8%E7%94%A8%E7%9A%84JS%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常用的JS库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%2025%20%E4%B8%AAJavaScript%20%E5%8D%95%E8%A1%8C%E4%BB%A3%E7%A0%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    开发中常用的 25 个JavaScript 单行代码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BD%BB%E5%BA%95%E5%BC%84%E6%87%82%E5%BC%BA%E7%BC%93%E5%AD%98%E4%B8%8E%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    彻底弄懂强缓存与协商缓存
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%89%8B%E6%9C%BAweb%E5%89%8D%E7%AB%AF%E8%B0%83%E8%AF%95%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    手机web前端调试页面的几种方式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%8B%96%E6%8B%BD%E5%85%83%E7%B4%A0%E4%BE%8B%E5%AD%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    拖拽元素例子
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%94%B9%E5%8F%98%E6%90%9C%E7%B4%A2%E7%9A%84%E5%87%BD%E6%95%B0%20demo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    改变搜索的函数 demo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    数组去重的几种方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文件上传
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%97%B6%E9%97%B4%E6%97%B6%E5%8C%BA%E9%94%99%E8%AF%AF%E4%BF%AE%E5%A4%8Dmoment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    时间时区错误修复moment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%9B%B4%E6%94%B9%20CheckBox%20%E9%A2%9C%E8%89%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    更改 CheckBox 颜色
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%A8%A1%E6%8B%9F%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%94%AE%E7%9B%98%E7%9B%91%E5%90%AC%E4%BA%8B%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    模拟移动端键盘监听事件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    正则表达式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%B9%E5%87%BA%E6%8F%90%E9%86%92/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    浏览器弹出提醒
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%B5%8F%E8%A7%88%E5%99%A8%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    浏览器进程和线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%20SVN/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    版本控制 SVN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A4%BE%E5%8C%BA%E7%BB%84%E4%BB%B6%E6%8E%A8%E8%8D%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    社区组件推荐
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A7%92%E5%BC%80%E6%B5%8F%E8%A7%88%E5%99%A8%E5%AE%9E%E7%8E%B0%E8%B5%B7%E6%9D%A5%E6%9C%89%E5%A4%9A%E9%9A%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    秒开浏览器实现起来有多难
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A7%BB%E5%8A%A8%E7%AB%AFtouch%E4%BA%8B%E4%BB%B6%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    移动端touch事件详解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%A7%A6%E5%B1%8F%E6%BB%91%E5%8A%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    移动端触屏滑动
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93-mermaid-live-editor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第三方库-mermaid-live-editor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%20Tango%20%E4%BD%8E%E4%BB%A3%E7%A0%81%E5%BC%95%E6%93%8E/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网易云音乐 Tango 低代码引擎
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%BD%91%E9%A1%B5%E6%80%A7%E8%83%BD%E7%AE%A1%E7%90%86%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网页性能管理详解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%85%BE%E8%AE%AF%E9%9D%A2%E8%AF%95%E5%9B%9B%E9%97%AE%EF%BC%8CAre%20you%20OK/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    腾讯面试四问，Are you OK
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%87%AA%E5%AE%9A%E4%B9%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E5%AE%9E%E7%8E%B0-%E8%8D%89%E7%A8%BF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    自定义滚动条实现-草稿
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%8B%B9%E6%9E%9C%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E6%B1%A0%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    苹果笔记本电池优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%A7%A3%E5%86%B3%20primordials%20is%20not%20defined%20bug/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    解决 primordials is not defined bug
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%A7%A3%E5%86%B3%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E7%82%B9%E5%87%BBBackspace%E5%9B%9E%E9%80%80%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    解决浏览器中点击Backspace回退问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E7%9A%84%E6%95%B0%E5%AD%97%E6%A0%BC%E5%BC%8F%20Intl.NumberFormat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设置不同的数字格式 Intl.NumberFormat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%AF%A6%E8%A7%A3TCP%E8%BF%9E%E6%8E%A5%E7%9A%84%E2%80%9C%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E2%80%9D%E4%B8%8E%E2%80%9C%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E2%80%9D%28%E4%B8%8A%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    详解TCP连接的“三次握手”与“四次挥手”(上)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%80%9A%E7%94%A8%E7%BB%84%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    通用组件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%98%BF%E9%87%8C%E6%9C%AA%E6%9D%A5%E5%89%8D%E7%AB%AF%E7%9A%84%E6%9C%BA%E4%BC%9A%E5%9C%A8%E5%93%AA%E9%87%8C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    阿里未来前端的机会在哪里
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9B%85%E8%99%8E%E5%86%9B%E8%A7%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    雅虎军规
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    面向对象设计模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%AB%98%E9%98%B6%E7%BB%84%E4%BB%B6%E4%BC%A0%E5%80%BC%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    高阶组件传值问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    markdown
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            markdown
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../markdown/Markdown%E8%AF%AD%E6%B3%95%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Markdown语法规范
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../markdown/md-Emoji/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    md-Emoji
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../markdown/md-image-size/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    md-image-size
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../markdown/md-new-style/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    md-new-style
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="_1">大型项目前端架构浅谈<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>统计信息：字数 25561  阅读52分钟</p>
+<p><a href="https://juejin.cn/post/6844903853859536903">https://juejin.cn/post/6844903853859536903</a></p>
+<p><a href="https://juejin.cn/user/2348212566372104/posts">零零水</a></p>
+<p>2019-05-26188,038阅读24分钟</p>
+<h1 id="_2">大型项目前端架构浅谈<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
+<p>update：2019.06.17更新2.4文章链接</p>
+<p>目录：</p>
+<ul>
+<li>1、综合</li>
+<li>1.1、使用场景</li>
+<li>1.2、核心思想</li>
+<li>1.3、切入角度</li>
+<li>1.4、其他</li>
+<li>2、基础层设计</li>
+<li>2.1、自建Gitlab</li>
+<li>2.2、版本管理</li>
+<li>2.3、自动编译发布Jenkins</li>
+<li>2.4、纯前端版本发布</li>
+<li>2.5、统一脚手架</li>
+<li>2.6、Node中间层</li>
+<li>2.7、埋点系统</li>
+<li>2.8、监控和报警系统</li>
+<li>2.9、安全管理</li>
+<li>2.10、Eslint</li>
+<li>2.11、灰度发布</li>
+<li>2.12、前后端分离</li>
+<li>2.13、Mock</li>
+<li>2.14、定期备份</li>
+<li>3、应用层设计</li>
+<li>3.1、多页和单页</li>
+<li>3.2、以应用为单位划分前端项目</li>
+<li>3.3、基础组件库的建设</li>
+<li>3.4、技术栈统一</li>
+<li>3.5、浏览器兼容</li>
+<li>3.6、内容平_台建设</li>
+<li>3.7、权限管理平_台</li>
+<li>3.8、登录系统设计（单点登录）</li>
+<li>3.9、CDN</li>
+<li>3.10、负载均衡</li>
+<li>3.11、多端共用一套接口</li>
+<li>4、总结</li>
+</ul>
+<h2 id="1">1、综合<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>我在2年之前，写过一篇中小型项目的前端架构浅谈。随着能力的上升，以及在阿里巴巴工作的经验，是时候写一篇大型项目的前端架构分析了。</p>
+<p>本篇文章不会更多侧重于具体技术实现，而是尝试从更高角度出发，分析为什么要这么做，这些设计能解决什么问题，成本和收益如何。</p>
+<p>由于作者能力有限，可能会有所缺漏或者部分错误，欢迎读者指出。</p>
+<h3 id="11">1.1、适用场景：<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<p>本篇文章，适用于单个/多个大型项目、拥有超过10个以上的前端开发的场景。</p>
+<p>前端项目的规模不同，成本收益比也会有所差别。通常来说，人员越多、项目复杂度越高，那么收益/成本的比值越大。</p>
+<p>对于人数较少、项目简单的开发团队，可能有部分措施不适用，因此应该根据具体情况来选用。</p>
+<h3 id="12">1.2、核心思想：<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<p>【1】解决问题：前端架构的设计，应是用于解决已存在或者未来可能发生的技术问题，增加项目的可管理性、稳定性、可扩展性。</p>
+<p>【2】人效比：对于需要额外开发工作量的事务（本文中存在一些需要一定开发量的内容），我们在决定是否去做的时候，应该考虑到两个要素：第一个是花费的人力成本，第二个是未来可能节约的时间和金钱、避免的项目风险与资损、提高对业务的支撑能力以带来在业务上可衡量的更高的价值、以及其他价值。</p>
+<p>【3】定性和定量：架构里设计的内容，一定要有是可衡量的意义的，最好是可以定量的——即可以衡量带来的收益或减少的成本，至少是可以定性的——即虽然无法用数字阐述收益，但我们可以明确这个是有意义的，例如增加安全性降低风险。</p>
+<p>【4】数据敏感：专门写这一条强调数据作为依据的重要性。当我们需要说服其他部门/上级管理者，以推动我们设计的内容时，只有数据——特别是跟钱有关的数据，才是最有说服力的证明。</p>
+<p>由于篇幅所限，本文很难直接给出定量的值，因此建议架构设计者，先确保项目中设计使用2.7里的埋点系统，根据埋点系统获取的数据，对项目效果进行定量分析，并以此写成PPT和其他部门/上级管理者进行协调。</p>
+<h3 id="13">1.3、切入角度：<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<p>分为基础层和应用层。</p>
+<p>基础层偏基础设施建设，与业务相关性较低。</p>
+<p>应用层更贴近用户，用于解决某一个问题。</p>
+<p>部分两个都沾边的，根据经验划分到其中一个。</p>
+<h3 id="14">1.4、其他<a class="headerlink" href="#14" title="Permanent link">&para;</a></h3>
+<p>由于已经谈到架构层级，因此很多内容，并不仅仅只属于前端领域，有很多内容是复合领域（前端、后端、运维、测试），因此需要负责架构的人，技术栈足够全面，对未来发展有足够的前瞻性。</p>
+<p>文章的内容结构为：【项目】—&gt;【解决的问题和带来的好处】—&gt;【项目的实际意义】</p>
+<h2 id="2">2、基础层设计<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="21gitlab">2.1、自建Gitlab<a class="headerlink" href="#21gitlab" title="Permanent link">&para;</a></h3>
+<p>这个是基础的基础了。本不应该提的，不过考虑到我最近面试的几家公司，有的公司（人数并不少）并没有使用Gitlab，因此专门提一下，并且使用这个的难度非常低。</p>
+<p>强烈建议使用Gitlab进行版本管理，自建Gitlab难度并不大，方便管理，包括代码管理、权限管理、提交日志查询，以及联动一些第三方插件。</p>
+<p>意义：</p>
+<p>公司代码是公司的重要资产，使用自建Gitlab可以有效保护公司资产。</p>
+<h3 id="22">2.2、版本管理<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<p>版本管理的几个关键点：</p>
+<ul>
+<li>发布后分支锁死，不可再更改：指当例如0.0.1版本成功发布后，不可再更改0.0.1分支上的代码，否则可能会导致版本管理混乱。</li>
+<li>全自动流程发布；指应避免开发者提交后，手动编译打包等操作，换句话说，开发人员发布后，将自动发布到预发布/生产环境。开发人员不和相关环境直接接触。实现这个需要参考下面的2.3。</li>
+<li>多版本并存；指当例如发布0.0.2版本后，0.0.1版本的代码应仍保存在线上（例如CDN），这样当出现线上bug时，方便快速回滚到上一个版本。</li>
+</ul>
+<p>意义：</p>
+<p>提高项目的可控性。</p>
+<h3 id="23jenkins">2.3、自动编译发布Jenkins<a class="headerlink" href="#23jenkins" title="Permanent link">&para;</a></h3>
+<p>这个工具用于在代码发布后，执行一系列流程，例如自动编译打包合并，然后再从Gitlab发布到CDN或者静态资源服务器。</p>
+<p>使用这个工具，可以让一般研发人员不关心代码传到Gitlab后会发生什么事情，只需要专心于开发就可以了。</p>
+<p>意义：</p>
+<p>让研发人员专心于研发，和环境、运维等事情脱钩。</p>
+<h3 id="24">2.4、纯前端版本发布<a class="headerlink" href="#24" title="Permanent link">&para;</a></h3>
+<p>纯前端版本发布分为两步：</p>
+<ul>
+<li>前端发布到生产环境——此时可以通过外网链接加正确的版本号访问到新版本的代码，但页面上的资源还是旧版本；</li>
+<li>前端通过配置工具（或者是直接更新html文件），将html中引入的资源，改为新版本。</li>
+</ul>
+<p>解决的问题是：当前端需要发布新版本时，可以不依赖于后端（根据实际情况，也可以不依赖于运维）。毕竟有很多需求并不需要后端介入，单纯改个前端版本后就要后端发布一次，显然是一件非常麻烦的事情。</p>
+<p>这个需要专门的工具，用于配置版本发布，我最近就在写这个。</p>
+<p>意义：</p>
+<p>提高发布效率，降低发布带来的人员时间损耗（这些都是钱），也可以在前端版本回滚的时候，速度更快。</p>
+<p>文章链接：</p>
+<p><a href="https://juejin.cn/post/6844903869554622478">juejin.cn/post/684490…</a></p>
+<h3 id="25">2.5、统一脚手架<a class="headerlink" href="#25" title="Permanent link">&para;</a></h3>
+<p>适用场景：有比较多独立中小项目。好处：</p>
+<ul>
+<li>可以减少开发人员配置脚手架带来的时间损耗（特殊功能可以fork脚手架后再自行定制）；</li>
+<li>统一项目结构，方便管理，也降低项目交接时带来的需要熟悉项目的时间；</li>
+<li>方便统一技术栈，可以预先引入固定的组件库；</li>
+</ul>
+<p>意义：</p>
+<p>提高开发人员在多个项目之间的快速切换能力，提高项目可维护性，统一公司技术栈，避免因为环境不同导致奇怪的问题。</p>
+<h3 id="26node">2.6、Node中间层<a class="headerlink" href="#26node" title="Permanent link">&para;</a></h3>
+<p>适用场景：需要SEO且前端使用React、vue，或前端介入后端逻辑，直接读取后端服务或者数据库的情况。</p>
+<ul>
+<li>SEO：仁者见仁智者见智，虽然很多公司已经不做了，但通常认为，还是有一定意义的（特别是需要搜索引擎引流的时候），因此React或者Vue的同构是必须的。并且同构还可以降低首页白屏时间；</li>
+<li>前端读取后端服务/数据库：好处是提高前端的开发效率和对业务的支持能力，缺点是可能导致P0级故障。</li>
+</ul>
+<p>意义：</p>
+<p>让前端可以侵入后端领域，质的提升对业务的支持能力。</p>
+<h3 id="27">2.7、埋点系统<a class="headerlink" href="#27" title="Permanent link">&para;</a></h3>
+<p>强烈推荐前端做自己的埋点系统。这个不同于后端的日志系统。</p>
+<p>前端埋点系统的好处：</p>
+<ul>
+<li>记录每个页面的访问量（日周月年的UV、PV）；</li>
+<li>记录每个功能的使用量；</li>
+<li>捕捉报错情况；</li>
+<li>图表化显示，方便给其他部门展示；</li>
+</ul>
+<p>埋点系统是前端高度介入业务，把握业务发展情况的一把利剑，通过这个系统，我们可以比后端更深刻的把握用户的习惯，以及给产品经理、运营等人员提供准确的数据依据。当有了数据后，前端人员就可以针对性的优化功能、布局、页面交互逻辑、用户使用流程。</p>
+<p>埋点系统应和业务解耦，开发人员使用时注册，然后在项目中引入。然后在埋点系统里查看相关数据（例如以小时、日、周、月、年为周期查看）[原创水印-作者：零零水(王冬)，微信：qq20004604]。</p>
+<p>意义：</p>
+<p>数据是money，数据是公司的生命线，数据是最好的武器。</p>
+<h3 id="28">2.8、监控和报警系统<a class="headerlink" href="#28" title="Permanent link">&para;</a></h3>
+<p>监控和报警系统应基于埋点系统而建立，在如以下场景时[原创水印-作者：零零水(王冬)，微信：qq20004604]触发：</p>
+<ul>
+<li>当访问量有比较大的变化（比如日PV/UV只有之前20%以下）时，自动触发报警，发送邮件到相关人员邮箱；</li>
+<li>比如报错量大幅度上升（比如200%或更高），则触发报警；</li>
+<li>当一段时间内没有任何访问量（不符合之前的情况），则触发报警；</li>
+<li>每过一段时间，自动汇总访问者/报错触发者的相关信息（例如系统、浏览器版本等）；</li>
+</ul>
+<p>建设这个系统的好处在于，提前发现一些不容易发现的bug（需要埋点做的比较扎实）。有一些线上bug，因为用户环境特殊，导致无法被开发人员和测试人员发现。但其中一部分bug又因为不涉及资金，并不会导致资损（因此也不会被后端的监控系统所发现），这样的bug非常容易影响项目里某个链路的正常使用。</p>
+<p>意义：</p>
+<p>提高项目的稳定性，提高对业务的把控能力。降低bug数，降低资损的可能性，提前发现某些功能的bug（在工单到来之前）。</p>
+<h3 id="29">2.9、安全管理<a class="headerlink" href="#29" title="Permanent link">&para;</a></h3>
+<p>前端的安全管理，通常要依赖于后端，至于只跟单纯有关系的例如dom.innerHTML= 'xxx '这种太基础，就不提了。</p>
+<p>安全管理的很难从架构设计上完全避免，但还是有一定解决方案的，常见安全问题如下：</p>
+<ul>
+<li>XSS注入：对用户输入的内容，需要转码（大部分时候要server端来处理，偶尔也需要前端处理），禁止使用eval函数；</li>
+<li>https：这个显然是必须的，好处非常多；</li>
+<li>CSRF：要求server端加入CSRF的处理方法（至少在关键页面加入）；</li>
+</ul>
+<p>意义：</p>
+<p>减少安全漏洞，避免用户受到损失，避免遭遇恶意攻击，增加系统的稳定性和安全性。</p>
+<h3 id="210eslint">2.10、Eslint<a class="headerlink" href="#210eslint" title="Permanent link">&para;</a></h3>
+<p>Eslint的好处很多，强烈推荐使用：</p>
+<ul>
+<li>降低低级bug（例如拼写问题）出现的概率；</li>
+<li>增加代码的可维护性，可阅读性；</li>
+<li>硬性统一代码风格，团队协作起来时更轻松；</li>
+</ul>
+<p>总的来说，eslint推荐直接配置到脚手架之中，对我们提高代码的可维护性的帮助会很大。可以考虑在上传到gitlab时，硬性要求eslint校验，通过的才允许上传。</p>
+<p>意义：</p>
+<p>提高代码的可维护性，降低团队协作的成本。</p>
+<h3 id="211">2.11、灰度发布<a class="headerlink" href="#211" title="Permanent link">&para;</a></h3>
+<p>灰度发布是大型项目在发布时的常见方法，指在发布版本时，初始情况下，只允许小比例（比如1~5%比例的用户使用），若出现问题时，可以快速回滚使用老版本，适用于主链路和访问量极大的页面。</p>
+<p>好处有以下几点：</p>
+<ul>
+<li>生产环境比开发环境复杂，灰度发布时可以在生产环境小范围尝试观察新版本是否可以正常运行，即使出问题，也可以控制损失。</li>
+<li>对于大版本更新，可以先灰度一部分，观察埋点效果和用户反馈（即所谓的抢先试用版）。假如效果并不好，那么回滚到老版本也可以及时止损；</li>
+<li>当我们需要验证某些想法或问题的时候，可以先灰度一部分，快速验证效果如何，然后查漏补缺或者针对性优化；</li>
+</ul>
+<p>灰度发布通常分为多个阶段：【1】1%；【2】5<sub>~10%；【3】30</sub>~50%；【4】全量推送（100%）。灰度发布一定要允许配置某些IP/账号访问时，可以直接访问到灰度版本。</p>
+<p>意义：</p>
+<p>降低风险，提高发布灵活度。</p>
+<h3 id="212">2.12、前后端分离<a class="headerlink" href="#212" title="Permanent link">&para;</a></h3>
+<p>这个并不是指常见的前后端分离，而是指在分配前后端管控的领域。</p>
+<p>中小项目常见的情况是后端只提供接口和让某个url指向某个html，前端负责html、css、js等静态资源。</p>
+<p>但大型项目并不建议这么做，建议前端负责除html以外的静态资源，而html交给后端处理，理由有很多：</p>
+<ul>
+<li>后端进行渲染，方便统一插入一些代码和资源，例如埋点js，监控js，国际化文本资源，页面标识符等。这些通常是后端通过调用某些服务直接写入的；</li>
+<li>当页面需要统一的头尾时（参考淘宝里我的淘宝页面），前端不应该关注这些跟当前页面无关的东西；</li>
+<li>某些东西，如果通过html来管理，那么耦合度太高了，违背了解耦和分离的原则；</li>
+<li>前端版本发布在后端引入某种功能模块后，可以从单独的页面控制前端发布内容，比更新html更方便，也利于灰度发布；</li>
+</ul>
+<p>意义：</p>
+<p>更规范的进行页面管理，降低页面和功能的耦合度，减少复杂页面的环境配置时间。</p>
+<h3 id="213mock">2.13、Mock<a class="headerlink" href="#213mock" title="Permanent link">&para;</a></h3>
+<p>Mock也是常见前端系统之一，用于解决在后端接口未好时，生成返回的数据。</p>
+<p>我个人不太建议开发一个专门的系统来Mock，更好的Mock手法是直接嵌入到脚手架之中。思路如下：</p>
+<ul>
+<li>
+<p>当在开发环境下，访问链接通常是localhost:8000/index.html，此时加入后缀 ?debug=true；</p>
+</li>
+<li>
+<p>封装好的异步请求在发现当前链接有以上标志时，认为是测试环境，访问/userinfo 时，不去读取线上的数据（因为也读取不到），去本地环境读取 src/test_ajax/userinfo.json，并将内容返回给用户；</p>
+</li>
+<li>
+<p>异步请求正常拿到数据，在页面中显示[原创水印-作者：零零水(王冬)，微信：qq20004604]；</p>
+</li>
+<li>
+<p>当线上接口可以获取到数据后，从network里找到返回的数据，放入/ src/test_ajax/userinfo.json中，此时再次本地调试的话，相当于使用的是线上的真实数据。</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>bash
+
+代码解读
+复制代码&lt;/li&gt;
+</code></pre></div>
+<p>这种处理，可以降低mock的复杂度，随时更改mock时返回的数据，比单独开发一个mock系统性价比更高。</p>
+<p>意义：</p>
+<p>在前后端并行开发时，降低沟通交流成本，方便开发完毕后直接对接。</p>
+<h3 id="214">2.14、定期备份<a class="headerlink" href="#214" title="Permanent link">&para;</a></h3>
+<p>备份是常被忽略的一件事情，但当我们遇见毁灭性场景时，缺少备份带来的损失是非常大的，常见场景：</p>
+<ul>
+<li>服务器损坏，导致存在该服务器上的内容全部完蛋；</li>
+<li>触发某致命bug或者错误操作（例如rm -f），导致文件和数据全部消失；</li>
+<li>数据库出现错误操作或出现问题，导致用户数据、公司资产遭受严重损失；</li>
+</ul>
+<p>总的来说，没人想遇见这样的场景，但我们必须考虑这种极端情况的发生，因此需要从架构层面解决这个问题。常见方法是定期备份、多机备份、容灾系统建设等。</p>
+<p>意义：</p>
+<p>避免在遭遇极端场景时，给公司带来不可估量的损失。</p>
+<h2 id="3">3、应用层设计<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1、多页和单页<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<p>除了特殊场景，通常推荐使用多页架构。理由如下：</p>
+<ul>
+<li>多页项目，页面和页面之间是独立的，不存在交互，因此当一个页面需要单独重构时，不会影响其他页面，对于有长期历史的项目来说，可维护性、可重构性要高很多；</li>
+<li>多页项目的缺点是不同页面切换时，会有一个白屏时间，但通常来说，这个时间并不长，大部分现有大公司的线上网页，都是这样的，因此认为是可以接受的；</li>
+<li>多页项目可以单次只更新一个页面的版本，而单页项目如果其中一个功能模块要更新（特别是公共组件更新），很容易让所有页面都需要更新版本；</li>
+<li>多页项目的版本控制更简单，如果需要页面拆分，调整部分页面的使用流程，难度也会更低；</li>
+<li>灰度发布更友好；</li>
+</ul>
+<p>之前面试的一家，采用了单页的形式，之前因为种种原因，同时采用了ng和react。由于项目历史也比较久（3年以上），结果导致目前继续维护更新的难度很大，即使想部分重构，也很麻烦。</p>
+<p>意义：</p>
+<p>降低长期项目迭代维护的难度，</p>
+<h3 id="32">3.2、以应用为单位划分前端项目<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<p>在项目比较大的时候，将所有页面的前端文件放入到同一个代码仓库里，我之前参与过一家企业的前端项目开发，发现其就是这么做的。根据使用经验来看[原创水印-作者：零零水(王冬)，微信：qq20004604]，存在很多问题：</p>
+<ul>
+<li>会极大的增加代码的维护难度；</li>
+<li>项目会变得很丑陋；</li>
+<li>不方便权限管理，容易造成页面误更改或代码泄密；</li>
+<li>任何人都有权利改任何他能看到的页面（在合并代码的时候，管理人员并不能确定他本次修改的页面是否是需求里他应该改的页面）；</li>
+<li>发布成本高，即使改一个页面，也需要发布所有资源；</li>
+</ul>
+<p>因此，我们应该避免这种现象的发生，个人推荐以应用为单位进行开发、发布。所谓应用即指一个业务涉及到的前后端代码，好处很多：</p>
+<ul>
+<li>方便进行管理，当某个业务有需求变更时，可以只给研发人员该业务前端应用的developer权限；</li>
+<li>在需要发布某业务时，只需要发布该业务的所属应用即可；</li>
+</ul>
+<p>意义：</p>
+<p>规范项目，增加代码的安全性，降低项目维护成本。</p>
+<h3 id="33">3.3、基础组件库的建设<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<p>这个蛮基础的，对于组件库的建设，不建议研发人员较少时去做这件事情，专职前端开发人数少于10人时，建议使用比较靠谱的第三方UI库，例如Antd，这样性价比更高。</p>
+<p>设计基础组件库的前提，是要求统一技术栈，这样才能最大化基础组件库的效益。组件库建议以使用以下参考标准：</p>
+<ul>
+<li>使用ts；</li>
+<li>可扩展性强；</li>
+<li>适用程度高；</li>
+<li>文档清楚详细；</li>
+<li>版本隔离，小版本优化加功能，大改需要大版本更新；</li>
+<li>和UI协调统一，要求UI交互参与进来；</li>
+</ul>
+<p>总的来说，建设起来后，利大于弊，但是需要专人维护，因此还是有一定成本的。</p>
+<p>意义：</p>
+<p>统一不同/相同产品线之间的风格，给用户更好的体验，减少单次开发中写UI组件时浪费的时间和人力，提高开发效率。</p>
+<h3 id="34">3.4、技术栈统一<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
+<p>前端有三大主流框架，还有兼容性最强jQuery，以及各种第三方库，UI框架。因此项目需求如果复杂一些，很容易形成一个大杂烩。因此前端的技术栈必须统一，具体来说，建议实现以下举措：</p>
+<ul>
+<li>三大框架选型其一，团队水平一般推荐Vue、水平较好推荐React，对外项目选React或者ng；</li>
+<li>需要兼容IE8或更老版本时，建议使用jQuery；</li>
+<li>组件库自建或者统一选择一个固定的第三方；</li>
+<li>一些特殊第三方库统一使用一个版本，例如需要使用地图时，固定使用高德或百度或腾讯地图；</li>
+<li>基础设施建设应避免重复造轮子，所有团队尽量共用，并有专门的前端平_台负责统一这些东西，对于特殊需求，可以新建，但应当有说服力；</li>
+</ul>
+<p>总的来说，技术栈统一的好处很多，可以有效提高开发效率，降低重复造轮子产生的成本。</p>
+<p>意义：</p>
+<p>方便招人，简化团队成员培养成本，以及提高项目的可持续性。</p>
+<h3 id="35">3.5、浏览器兼容<a class="headerlink" href="#35" title="Permanent link">&para;</a></h3>
+<p>常见的问题是IE6、7、8，以及部分小众浏览器（PC和手机）产生的奇怪问题。因此应该考虑统一解决方案，避免bug的重复产生。常见解决方案有：</p>
+<ul>
+<li>配置postcss，让某些css增加兼容性前缀；</li>
+<li>写一个wepback的loader，处理某些特殊场景；</li>
+<li>规范团队代码，使用更稳定的写法（例如移动端避免使用fixed进行布局）；</li>
+<li>对常见问题、疑难问题，总结解决方案并团队共享；</li>
+<li>建议或引导用户使用高版本浏览器（比如chrome）；</li>
+</ul>
+<p>意义：</p>
+<p>避免浏览器环境产生的bug，以及排查此类bug所浪费的大量时间。</p>
+<h3 id="36_">3.6、内容平_台建设<a class="headerlink" href="#36_" title="Permanent link">&para;</a></h3>
+<p>为了提高公司内部的沟通效率，总结经验，以及保密原因。应建设一个内部论坛+博客站点。其具备的好处如下：</p>
+<ul>
+<li>可以记录公司的历史；</li>
+<li>研发同学之间分享经验；</li>
+<li>总结转载一些外界比较精品的文章，提高大家的眼界；</li>
+<li>增加公司内部同学的交流，有利于公司的团队和文化建设；</li>
+<li>对某些技术问题可以进行讨论，减少因没有达成共识带来的沟通损耗；</li>
+</ul>
+<p>众所周知，大型互联网公司通常都有这样一个内部论坛和博客站点。其降低了公司的沟通和交流成本，也增加了公司的技术积累。</p>
+<p>意义：</p>
+<p>博客增强技术积累，论坛增强公司内部沟通能力。</p>
+<h3 id="37_">3.7、权限管理平_台<a class="headerlink" href="#37_" title="Permanent link">&para;</a></h3>
+<p>当公司内部人员较多时，应有一个专门的平_台，来管理、规范用户的权限以及可访问内容[原创水印-作者：零零水(王冬)，微信：qq20004604]。权限管理平_台有几个特点：</p>
+<ul>
+<li>必然和Server端天然高耦合度，因此需要有专门的控制模块负责处理权限问题（负责Server端开发处理，或者前端通过中间层例如Node层介入处理）；</li>
+<li>自动化流程控制，即用户创建、申请、审批、离职自动删除，都应该是由系统推进并提醒相关人士，必要时应能触发报警；</li>
+<li>权限应有时效性，减少永久性权限的产生；</li>
+<li>审批流程应清晰可见，每一阶段流程应具体明确；</li>
+<li>应与公司流程紧密结合，并且提高可修改性，方便公司后期进行流程优化；</li>
+</ul>
+<p>意义：</p>
+<p>使得公司内部流程正规化、信息化。</p>
+<h3 id="38">3.8、登录系统设计（单点登录）<a class="headerlink" href="#38" title="Permanent link">&para;</a></h3>
+<p>当公司内部业务线比较复杂但相互之间的耦合度比较高时，我们应该考虑设计添加单点登录系统。具体来说，用户在一处登录，即可以在任何页面访问，登出时，也同样在任何页面都失去登录状态。SSO的好处很多：</p>
+<ul>
+<li>增强用户体验；</li>
+<li>打通了不同业务系统之间的用户数据；</li>
+<li>方便统一管理用户；</li>
+<li>有利于引流；</li>
+<li>降低开发系统的成本（不需要每个业务都开发一次登录系统和用户状态控制）；</li>
+</ul>
+<p>总的来说，大中型web应用，SSO可以带来很多好处，缺点却很少。</p>
+<p>意义：</p>
+<p>用户体验增强，打通不同业务之间的间隔，降低开发成本和用户管理成本。</p>
+<h3 id="39cdn">3.9、CDN<a class="headerlink" href="#39cdn" title="Permanent link">&para;</a></h3>
+<p>前端资源的加载速度是衡量用户体验的重要指标之一。而现实中，因为种种因素，用户在加载页面资源时，会受到很多限制。因此上CDN是非常有意义的，好处如下：</p>
+<ul>
+<li>用户来自不同地区，加入CDN可以使用户访问资源时，访问离自己比较近的CDN服务器，降低访问延迟；</li>
+<li>降低服务器带宽使用成本；</li>
+<li>支持视频、静态资源、大文件、小文件、直播等多种业务场景；</li>
+<li>消除跨运营商造成的网络速度较慢的问题；</li>
+<li>降低DDOS攻击造成的对网站的影响；</li>
+</ul>
+<p>CDN是一种比较成熟的技术，各大云平_台都有提供CDN服务，价格也不贵，因此CDN的性价比很高。</p>
+<p>意义：</p>
+<p>增加用户访问速度，降低网络延迟，带宽优化，减少服务器负载，增强对攻击的抵抗能力。</p>
+<h3 id="310">3.10、负载均衡<a class="headerlink" href="#310" title="Permanent link">&para;</a></h3>
+<p>目前来看，负载均衡通常使用Nginx比较多，以前也有使用Apache。当遇见大型项目的时候，负载均衡和分布式几乎是必须的。负载均衡有以下好处：</p>
+<ul>
+<li>降低单台server的压力，提高业务承载能力；</li>
+<li>方便应对峰值流量，扩容方便（如举办某些活动时）；</li>
+<li>增强业务的可用性、扩展性、稳定性；</li>
+</ul>
+<p>负载均衡已经是蛮常见的技术了，好处不用多说，很容易理解。</p>
+<p>意义：</p>
+<p>增强业务的可用性、扩展性、稳定性，可以支持更多用户的访问。</p>
+<h3 id="311">3.11、多端共用一套接口<a class="headerlink" href="#311" title="Permanent link">&para;</a></h3>
+<p>目前常见场景是一个业务，同时有PC页面和H5页面，由于业务是一样的，因此应避免同一个业务有多套接口分别适用于PC和H5端。[原创の水印-作者：零零水(王冬)，QQ：20004604]因此解决方案如下：</p>
+<ul>
+<li>后端提供的接口，应该同时包含PC和H5的数据（即单独对一个存在亢余数据）；</li>
+<li>接口应当稳定，即当业务变更时，应尽量采取追加数据的形式；</li>
+<li>只有在单独一端需要特殊业务流程时，设计单端独有接口；</li>
+</ul>
+<p>多端共用接口，是减少开发工作量，并且提高业务可维护性的重要解决方案。</p>
+<p>意义：</p>
+<p>降低开发工作量，增强可维护性。</p>
+<h2 id="4">4、总结<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<p>由于各个公司具体情况不同，项目也具有特殊性，因此以上设计不可强行套入，应根据自己公司规模、项目进展、人员数量等，先添加比较重要的功能和设计。并需要考虑到长期项目的可维护性和发展需要，对部分基础设施进行提前研发设计。</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+  </span>
+
+    
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:2331806369@qq.com">Michael An</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>

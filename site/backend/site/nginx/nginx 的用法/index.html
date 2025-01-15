@@ -1,0 +1,3263 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/nginx/nginx%20%E7%9A%84%E7%94%A8%E6%B3%95/">
+      
+      
+        <link rel="prev" href="../Nginx%E5%9C%A8%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8/">
+      
+      
+        <link rel="next" href="../%E5%89%8D%E7%AB%AFNginx%20%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>nginx 的用法 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#nginx" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              nginx 的用法
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    backend-sql
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            backend-sql
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/01-redis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-redis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/02-%E9%98%BF%E9%87%8C%E4%BA%91MySQL%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-阿里云MySQL入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/03-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-数据库概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/04-%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95SSO/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-单点登录SSO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/05-websocket/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-websocket
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/06-socket-io/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-socket-io
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/07-SQLite-API-Python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-SQLite-API-Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/08-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-进程和线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/09-%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E8%A7%A3%E9%87%8A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-进程与线程的一个简单解释
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/10-Mysql%E8%A7%86%E5%9B%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-Mysql视图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/20-%E6%B7%B1%E5%85%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-深入MySQL数据库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/21-Mac-%E5%AE%89%E8%A3%85-python-mysql-%E6%8A%A5%E9%94%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-Mac-安装-python-mysql-报错
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/22-Python%E6%93%8D%E4%BD%9C%20MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22-Python操作 MySQL数据库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/23-Mac%20pip%20install%20mysql-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23-Mac pip install mysql-python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/24-node%E8%BF%9E%E6%8E%A5Mysql%E6%8A%A5%E9%94%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24-node连接Mysql报错
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/25-mysql%E6%94%AF%E6%8C%81emoji%E8%A1%A8%E6%83%85%E5%82%A8%E5%AD%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25-mysql支持emoji表情储存
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/26-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%9A%E8%A1%A8%E9%93%BE%E6%8E%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26-数据库多表链接
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    express
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            express
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../express/express%20%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    express 入门笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    network
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            network
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/2017-12-19-travis-ci-tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2017-12-19-travis-ci-tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/2018-07-04-indexeddb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2018-07-04-indexeddb
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/2018-07-09-web-worker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2018-07-09-web-worker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/CDN/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CDN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/Token/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Token
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/Visual%20Studio%20Code%E5%BF%85%E5%A4%87%E6%8F%92%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visual Studio Code必备插件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/chrome/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    chrome
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/ddos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ddos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/dns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/http/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    http
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/mac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    mac
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/serviceworker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    serviceworker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/ssl%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ssl协议
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E4%B8%80%E4%B8%AA%20TCP%20%E8%BF%9E%E6%8E%A5%E4%B8%8A%E9%9D%A2%E8%83%BD%E5%8F%91%E5%A4%9A%E5%B0%91%E4%B8%AA%20HTTP%20%E8%AF%B7%E6%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一个 TCP 连接上面能发多少个 HTTP 请求
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E5%89%8D%E7%AB%AF%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端需要了解的计算机网络知识
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E5%9F%BA%E6%9C%AC%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基本网络安全
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    虚拟机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机网络基础知识
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E8%B7%A8%E5%9F%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    跨域
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E8%B7%A8%E5%9F%9F2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    跨域2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    nginx
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            nginx
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mac%E4%B8%8A%E6%90%AD%E5%BB%BAnginx%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mac上搭建nginx教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Nginx%20%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nginx 从入门到实践
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Nginx%E5%9C%A8%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nginx在应用程序中的作用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    nginx 的用法
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    nginx 的用法
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      简介
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="简介">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#web" class="md-nav__link">
+    <span class="md-ellipsis">
+      Web 根目录
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      配置文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      内置模块
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      外部模块
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用方法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      配置
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server" class="md-nav__link">
+    <span class="md-ellipsis">
+      server 区块
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Agent 限制
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      限制访问
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      SSL 支持
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      均衡负载
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考链接
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AFNginx%20%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端Nginx 入门指南
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%89%8D%E7%AB%AF%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3Nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端如何理解Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%B8%A6%E4%BD%A0%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E6%90%9E%E6%87%82Nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    带你深入浅出搞懂Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%8A%80%E6%9C%AF%E8%83%96-%E5%89%8D%E7%AB%AF%20Nginx%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    技术胖-前端 Nginx入门教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    nodejs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            nodejs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node%20%E4%B8%8B%20LDAP%20%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node 下 LDAP 实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node-LDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node-LDAP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js-path/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node.js-path
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node.js-全局变量
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/Node.js%E4%BD%BF%E7%94%A8Nodemailer%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node.js使用Nodemailer发送邮件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/NodeJS%E4%B8%AD%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NodeJS中进程和线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    nodejs/demo-node-mysql
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            nodejs/demo-node-mysql
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/fs.createReadStream/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    fs.createReadStream
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/node-debug/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    node-debug
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/nodeJS%2Bmysql%2B%E8%BF%9E%E6%8E%A5%E6%B1%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nodeJS+mysql+连接池
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    nodejs/nodeJS高频词
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            nodejs/nodeJS高频词
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/nodeJS%E9%AB%98%E9%A2%91%E8%AF%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    README
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/node%E5%AE%9A%E6%97%B6%E5%99%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    node定时器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E4%BD%BF%E7%94%A8nodejs%E8%BF%9E%E6%8E%A5mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用nodejs连接mysql数据库实现增删改查
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84nodeJS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    命令行的nodeJS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E5%BB%96%E9%9B%AA%E5%B3%B0%20NodeJS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    廖雪峰 NodeJS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nodejs/%E8%B0%88%E8%B0%88Node%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    谈谈Node中的常见概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    server
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            server
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/GraphQL%20vs%20REST%20API%20%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GraphQL vs REST API 架构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/LAMP%E5%B9%B3%E5%8F%B0%E7%9A%84%E9%83%A8%E7%BD%B2%E5%8F%8A%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LAMP平台的部署及应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/Linux%20%E5%AE%89%E8%A3%85%20MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux 安装 MySQL数据库系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/Linux%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BAApache%E7%BD%91%E7%AB%99%E6%9C%8D%E5%8A%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux如何搭建Apache网站服务
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/RESTful%20API%20%E8%AE%BE%E8%AE%A1%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RESTful API 设计指南
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/SSH%E5%8E%9F%E7%90%86%E4%B8%8E%E8%BF%90%E7%94%A8-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSH原理与运用-远程登录
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/bzip2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bzip2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    server/docker-compose-demo
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            server/docker-compose-demo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/docker-compose-demo/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    server/docker-compose-demo/web
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            server/docker-compose-demo/web
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/ipad%20%E4%BD%BF%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ipad 使用小技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BD%BF%E7%94%A8%20GraphQL%20%E8%80%8C%E6%94%BE%E5%BC%83%20REST/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么我使用 GraphQL 而放弃 REST
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/%E4%BB%8E%E8%B4%AD%E4%B9%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%B0%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA%E6%88%90%E5%8A%9F%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    从购买服务器到网站搭建成功教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/%E5%88%86%E5%B8%83%E5%BC%8F%E5%92%8C%E9%9B%86%E7%BE%A4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    分布式和集群
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机组成原理知识
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      简介
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="简介">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#web" class="md-nav__link">
+    <span class="md-ellipsis">
+      Web 根目录
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      配置文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      内置模块
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      外部模块
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用方法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      配置
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server" class="md-nav__link">
+    <span class="md-ellipsis">
+      server 区块
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Agent 限制
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      限制访问
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssl" class="md-nav__link">
+    <span class="md-ellipsis">
+      SSL 支持
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      均衡负载
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考链接
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="nginx">nginx 的用法<a class="headerlink" href="#nginx" title="Permanent link">&para;</a></h1>
+<p>统计信息：字数 19577  阅读40分钟</p>
+<h2 id="_1">简介<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Nginx（发音/engine x/）是一个轻量级的开源 HTTP 服务器软件，可以用来取代 Apache，或者与 Apache 配合使用。</p>
+<p>它与 Apache 的区别在于：它的设计基于事件和异步操作，而 Apache 完全依赖线程。当访问量很大的时候，大量新增的线程 很快会耗尽内存，而基于事件的非阻塞设计能够轻松处理。</p>
+<p>Nginx 的安装。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>nginx
+</code></pre></div>
+<p>重启 nginx。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>nginx<span class="w"> </span>restart
+<span class="c1"># 或者</span>
+$<span class="w"> </span>nginx<span class="w"> </span>-s<span class="w"> </span>reload
+</code></pre></div>
+<p>nginx 有一个主进程和几个 worker 进程。有多少个 CPU，就有多少个 worker 进程。每一个 worker 进程能够处理几千个连接。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ps<span class="w"> </span>-ef<span class="w"> </span>--forest<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nginx
+</code></pre></div>
+<p>上面的命令可以查看所有 nginx 进程，一般是 1 个主进程，与 CPU 内核数对应的 worker 进程，1 个 cache manager 进程，1 个 cache loader 进程。</p>
+<p>nginx 进程分工如下。</p>
+<ul>
+<li>主进程：读取配置，绑定端口，创造子进程。</li>
+<li>worker 进程：执行实际任务的进程，包括处理网络请求，读取或写入硬盘，与上游服务器通信。</li>
+<li>cache loader 进程：将硬盘上的缓存读入内存，然后退出。</li>
+<li>cache manager 进程：周期性执行，从缓存清除过时的条目。</li>
+</ul>
+<p>worker 进程在创建时，根据配置文件初始化，并且留有多个 socket 用于与主进程通信。每当有新的网络请求，worker 进程就会监听到事件，从而启动。</p>
+<h3 id="web">Web 根目录<a class="headerlink" href="#web" title="Permanent link">&para;</a></h3>
+<p>新建一个目录作为 Web 服务的根目录。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/www/example.com/public_html
+$<span class="w"> </span>sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span>www-data:www-data<span class="w"> </span>/var/www/example.com/public_html
+$<span class="w"> </span>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>/var/www
+</code></pre></div>
+<p>然后，可以在该目录下写入一个首页文件<code>index.html</code>。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>nano<span class="w"> </span>/var/www/example.com/public_html/index.html
+</code></pre></div>
+<h3 id="_2">配置文件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>将默认的配置文件，拷贝成一份指定站点的配置文件。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>cp<span class="w"> </span>/etc/nginx/sites-available/default<span class="w"> </span>/etc/nginx/sites-available/example.com
+</code></pre></div>
+<p>编辑该文件。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/nginx/sites-available/example.com
+</code></pre></div>
+<p>下面是一份简单的配置。</p>
+<div class="highlight"><pre><span></span><code><span class="k">server</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">listen</span><span class="w">   </span><span class="mi">80</span><span class="p">;</span><span class="w"> </span><span class="c1">## listen for ipv4; this line is default and implied</span>
+<span class="w">        </span><span class="c1">#listen   [::]:80 default ipv6only=on; ## listen for ipv6</span>
+
+<span class="w">        </span><span class="kn">root</span><span class="w"> </span><span class="s">/var/www/example.com/public_html</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">index</span><span class="w"> </span><span class="s">index.html</span><span class="w"> </span><span class="s">index.htm</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1"># Make site accessible from http://localhost/</span>
+<span class="w">        </span><span class="kn">server_name</span><span class="w"> </span><span class="s">example.com</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>最后，激活这个配置文件。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/etc/nginx/sites-available/example.com<span class="w"> </span>/etc/nginx/sites-enabled/example.com
+</code></pre></div>
+<p>然后，重启 nginx。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>nginx<span class="w"> </span>restart
+</code></pre></div>
+<h3 id="_3">内置模块<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>nginx 采用模块式设计，通过加载模块扩展功能。目前，nginx 不支持动态加载模块，模块必须和内核一起编译。所有的模块都是中间件，即接收上一个模块的输入，处理后再将输出传给下一个模块。</p>
+<p>下面是一些默认编译的模块。</p>
+<ul>
+<li>Access (ngx_http_access_module)：限制访问某些 IP 地址。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>location / {
+    deny  192.168.1.1;
+    allow 192.168.1.0/24;
+    allow 10.1.1.0/16;
+    allow 2001:0db8::/32;
+    deny  all;
+}
+</code></pre></div>
+<ul>
+<li>HTTP Auth (ngx_http_auth_basic_module)：启用 HTTP Basic Auth。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>location / {
+    auth_basic           &quot;password&quot;;
+    auth_basic_user_file conf/htpasswd;
+}
+</code></pre></div>
+<ul>
+<li>Subrequest Auth (ngx_http_auth_request_module)：客户端认证基于一个子请求的结果。</li>
+<li>Limit connections (ngx_http_limit_conn_module)：允许设置单个 IP 地址的同一时间的最大连接数（connection）。</li>
+<li>Limit requests (ngx_http_limit_req_module)：允许设置单个 IP 地址的最大请求数。</li>
+</ul>
+<h3 id="_4">外部模块<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>外部模块需要在编译时指定。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>./configure<span class="w"> </span>--add-module<span class="o">=</span>/path/to/module/source
+<span class="c1"># 或者不安装某些模块</span>
+$<span class="w"> </span>./configure<span class="w">  </span>--without-http_dav_module<span class="w"> </span>--withouthttp_spdy_module
+</code></pre></div>
+<p>下面是一些有用的外部模块。</p>
+<ul>
+<li>ngx_pagespeed：Google 的 PageSpeed 项目的一个产品，用于提高网页加载速度。</li>
+<li>nginx-rtmp-module：实时流（stream）操作的模块。</li>
+<li>nginx-push-stream-module：基于流操作的一个推送（push）模块，支持 EventSource 长轮询（Long polling），一个例子就是 WebSocket。</li>
+</ul>
+<h2 id="_5">使用方法<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># 启动</span>
+$<span class="w"> </span>/etc/init.d/nginx<span class="w"> </span>start
+
+<span class="c1"># 停止</span>
+$<span class="w"> </span>/etc/init.d/nginx<span class="w"> </span>stop
+
+<span class="c1"># 重启</span>
+$<span class="w"> </span>/etc/init.d/nginx<span class="w"> </span>reload
+
+<span class="c1"># 验证配置文件</span>
+$<span class="w"> </span>nginx<span class="w"> </span>-t
+</code></pre></div>
+<h2 id="_6">配置<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="server">server 区块<a class="headerlink" href="#server" title="Permanent link">&para;</a></h3>
+<p>基本配置。</p>
+<div class="highlight"><pre><span></span><code>server<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>listen<span class="w">       </span><span class="m">80</span><span class="p">;</span>
+<span class="w">    </span>server_name<span class="w">  </span>tecmintlovesnginx.com<span class="w"> </span>www.tecmintlovesnginx.com<span class="p">;</span>
+<span class="w">    </span>access_log<span class="w">  </span>/var/www/logs/tecmintlovesnginx.access.log<span class="p">;</span>
+<span class="w">    </span>error_log<span class="w">  </span>/var/www/logs/tecmintlovesnginx.error.log<span class="w"> </span>error<span class="p">;</span>
+<span class="w">        </span>root<span class="w">   </span>/var/www/tecmintlovesnginx.com/public_html<span class="p">;</span>
+<span class="w">        </span>index<span class="w">  </span>index.html<span class="w"> </span>index.htm<span class="p">;</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>（1）server_tokens</p>
+<p>server_tokens 指定发生错误时，是否显示 nginx 错误信息。</p>
+<div class="highlight"><pre><span></span><code>server<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>listen<span class="w">       </span><span class="m">192</span>.168.0.25:80<span class="p">;</span>
+<span class="w">    </span>Server_tokens<span class="w">        </span>off<span class="p">;</span>
+<span class="w">    </span>server_name<span class="w">  </span>tecmintlovesnginx.com<span class="w"> </span>www.tecmintlovesnginx.com<span class="p">;</span>
+<span class="w">    </span>access_log<span class="w">  </span>/var/www/logs/tecmintlovesnginx.access.log<span class="p">;</span>
+<span class="w">    </span>error_log<span class="w">  </span>/var/www/logs/tecmintlovesnginx.error.log<span class="w"> </span>error<span class="p">;</span>
+<span class="w">        </span>root<span class="w">   </span>/var/www/tecmintlovesnginx.com/public_html<span class="p">;</span>
+<span class="w">        </span>index<span class="w">  </span>index.html<span class="w"> </span>index.htm<span class="p">;</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>（2）屏蔽指定的 HTTP 动词</p>
+<p>在 server 区块内部，指定可以接受的 HTTP 动词。</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$request_method</span><span class="w"> </span>!~<span class="w"> </span>^<span class="o">(</span>GET<span class="p">|</span>HEAD<span class="p">|</span>POST<span class="o">)</span>$<span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="m">444</span><span class="p">;</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>然后，下面的命令就会返回 444 错误。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>-X<span class="w"> </span>DELETE<span class="w"> </span>http://192.168.0.25/index.html
+</code></pre></div>
+<p>（3）指定 SSL 版本</p>
+<div class="highlight"><pre><span></span><code>server<span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>listen<span class="w"> </span>*:443<span class="p">;</span>
+<span class="w">  </span>ssl<span class="w"> </span>on<span class="p">;</span>
+<span class="w">  </span>server_name<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">;</span>
+<span class="w">  </span>ssl_protocols<span class="w">       </span>TLSv1<span class="w"> </span>TLSv1.1<span class="w"> </span>TLSv1.2<span class="p">;</span>
+
+<span class="w">  </span>ssl_certificate<span class="w">        </span>/etc/nginx/certs/server.crt<span class="p">;</span>
+<span class="w">  </span>ssl_certificate_key<span class="w">    </span>/etc/nginx/certs/server.key<span class="p">;</span>
+<span class="w">  </span>ssl_client_certificate<span class="w"> </span>/etc/nginx/certs/ca.crt<span class="p">;</span>
+<span class="w">  </span>ssl_verify_client<span class="w">      </span>on<span class="p">;</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>（4）指定 SSL 证书</p>
+<p>首先，删除或注释掉下面指定监听 80 端口的两行。</p>
+<div class="highlight"><pre><span></span><code>listen<span class="w"> </span><span class="m">80</span><span class="w"> </span>default_server<span class="p">;</span>
+listen<span class="w"> </span><span class="o">[</span>::<span class="o">]</span>:80<span class="w"> </span>default_server<span class="w"> </span><span class="nv">ipv6only</span><span class="o">=</span>on<span class="p">;</span>
+</code></pre></div>
+<p>改成下面的样子。</p>
+<div class="highlight"><pre><span></span><code>listen<span class="w"> </span><span class="m">443</span><span class="w"> </span>ssl<span class="p">;</span>
+
+server_name<span class="w"> </span>example.com<span class="p">;</span>
+
+ssl_certificate<span class="w"> </span>/etc/letsencrypt/live/example.com/fullchain.pem<span class="p">;</span>
+ssl_certificate_key<span class="w"> </span>/etc/letsencrypt/live/example.com/privkey.pem<span class="p">;</span>
+</code></pre></div>
+<p>还可以加上三行附加设置。</p>
+<div class="highlight"><pre><span></span><code>ssl_protocols<span class="w"> </span>TLSv1<span class="w"> </span>TLSv1.1<span class="w"> </span>TLSv1.2<span class="p">;</span>
+ssl_prefer_server_ciphers<span class="w"> </span>on<span class="p">;</span>
+ssl_ciphers<span class="w"> </span>AES256+EECDH:AES256+EDH:!aNULL<span class="p">;</span>
+</code></pre></div>
+<p>然后，在原来的<code>server</code>区块外面，再加一个<code>server</code>区块。</p>
+<div class="highlight"><pre><span></span><code>server<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>listen<span class="w"> </span><span class="m">80</span><span class="p">;</span>
+<span class="w">    </span>server_name<span class="w"> </span>example.com<span class="p">;</span>
+<span class="w">    </span>rewrite<span class="w"> </span>^/<span class="o">(</span>.*<span class="o">)</span><span class="w"> </span>https://example.com/<span class="nv">$1</span><span class="w"> </span>permanent<span class="p">;</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>下面是另一个例子。</p>
+<div class="highlight"><pre><span></span><code>server<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>listen<span class="w"> </span><span class="m">192</span>.168.0.25:443<span class="w"> </span>ssl<span class="p">;</span>
+<span class="w">    </span>server_tokens<span class="w"> </span>off<span class="p">;</span>
+<span class="w">    </span>server_name<span class="w">  </span>tecmintlovesnginx.com<span class="w"> </span>www.tecmintlovesnginx.com<span class="p">;</span>
+<span class="w">    </span>root<span class="w">   </span>/var/www/tecmintlovesnginx.com/public_html<span class="p">;</span>
+<span class="w">    </span>ssl_certificate<span class="w"> </span>/etc/nginx/sites-enabled/certs/tecmintlovesnginx.crt<span class="p">;</span>
+<span class="w">    </span>ssl_certificate_key<span class="w"> </span>/etc/nginx/sites-enabled/certs/tecmintlovesnginx.key<span class="p">;</span>
+<span class="w">    </span>ssl_protocols<span class="w">       </span>TLSv1<span class="w"> </span>TLSv1.1<span class="w"> </span>TLSv1.2<span class="p">;</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>最后，重启<code>nginx</code>。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>sudo<span class="w"> </span>service<span class="w"> </span>nginx<span class="w"> </span>restart
+</code></pre></div>
+<p>生成证书的命令。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># openssl genrsa -aes256 -out tecmintlovesnginx.key 1024</span>
+<span class="c1"># openssl req -new -key tecmintlovesnginx.key -out tecmintlovesnginx.csr</span>
+<span class="c1"># cp tecmintlovesnginx.key tecmintlovesnginx.key.org</span>
+<span class="c1"># openssl rsa -in tecmintlovesnginx.key.org -out tecmintlovesnginx.key</span>
+<span class="c1"># openssl x509 -req -days 365 -in tecmintlovesnginx.csr -signkey tecmintlovesnginx.key -out tecmintlovesnginx.crt</span>
+</code></pre></div>
+<p>（5）HTTP 导向 HTTPS</p>
+<div class="highlight"><pre><span></span><code>server<span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="m">301</span><span class="w"> </span>https://<span class="nv">$server_name$request_uri</span><span class="p">;</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>（6）反向代理，转发请求</p>
+<div class="highlight"><pre><span></span><code>http {
+
+  server {
+    location /app/ {
+      proxy_pass http://app/;
+      proxy_set_header X-ClientCert-DN $ssl_client_s_dn;
+    }
+  }
+}
+</code></pre></div>
+<p>上面代码中，用户对<code>/app</code>路径的访问请求，会被转发到后端服务。这时，nginx 会增加一个 HTTP 信息头<code>X-ClientCert-DN</code>，它的值就是 nginx 变量<code>$ssl_client_s_dn</code>，这个值从客户端证书的 Common Name 部分获取。</p>
+<p>另一个例子。</p>
+<div class="highlight"><pre><span></span><code>location / {
+    proxy_pass http://localhost:15301/;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+}
+</code></pre></div>
+<h3 id="user-agent">User Agent 限制<a class="headerlink" href="#user-agent" title="Permanent link">&para;</a></h3>
+<p>新建一个文件<code>/etc/nginx/blockuseragents.rules</code>，定义屏蔽 User Agent 的规则。</p>
+<div class="highlight"><pre><span></span><code>map<span class="w"> </span><span class="nv">$http_user_agent</span><span class="w"> </span><span class="nv">$blockedagent</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span>default<span class="w">         </span><span class="m">0</span><span class="p">;</span>
+<span class="w">        </span>~*malicious<span class="w">     </span><span class="m">1</span><span class="p">;</span>
+<span class="w">        </span>~*bot<span class="w">           </span><span class="m">1</span><span class="p">;</span>
+<span class="w">        </span>~*backdoor<span class="w">      </span><span class="m">1</span><span class="p">;</span>
+<span class="w">        </span>~*crawler<span class="w">       </span><span class="m">1</span><span class="p">;</span>
+<span class="w">        </span>~*bandit<span class="w">        </span><span class="m">1</span><span class="p">;</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>然后，在 server 区块之前包含这个文件。</p>
+<div class="highlight"><pre><span></span><code>include<span class="w"> </span>/etc/nginx/blockuseragents.rules<span class="p">;</span>
+</code></pre></div>
+<p>接着，在 server 区块里面启用屏蔽功能。</p>
+<div class="highlight"><pre><span></span><code>server<span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="k">if</span><span class="o">(</span><span class="nv">$blockedagent</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="m">403</span><span class="p">;</span>
+<span class="w">  </span><span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>重新启动以后，使用被屏蔽的 user agent 访问，就会返回 403 错误。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>wget<span class="w"> </span>--user-agent<span class="w"> </span><span class="s2">&quot;I am a bandit haha&quot;</span><span class="w"> </span>http://192.168.0.25/index.html
+</code></pre></div>
+<h2 id="_7">限制访问<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>全局拦截。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>vi<span class="w"> </span>/etc/nginx/sites-enabled/blockips.conf
+</code></pre></div>
+<p>写入所要拦截的 IP。</p>
+<div class="highlight"><pre><span></span><code>deny 123.123.123.123;
+</code></pre></div>
+<p>然后，重启 nginx。</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>/etc/init.d/nginx<span class="w"> </span>restart
+</code></pre></div>
+<p><code>blockips.conf</code>里面，如果想要拦掉某个网段，可以写成下面这样。</p>
+<div class="highlight"><pre><span></span><code>deny 123.123.123.0/24;
+</code></pre></div>
+<p>如果只允许某个网段，可以写成下面这样。</p>
+<div class="highlight"><pre><span></span><code>allow 1.2.3.4/24;
+deny all;
+</code></pre></div>
+<p>nginx 配置文件里面限制 IP 段。</p>
+<div class="highlight"><pre><span></span><code>location / {
+    allow 192.168.1.1/24;
+    allow 127.0.0.1;
+    deny 192.168.1.2;
+    deny all;
+}
+</code></pre></div>
+<p>启用访问认证。</p>
+<div class="highlight"><pre><span></span><code>server {
+    ...
+    auth_basic &quot;closed website&quot;;
+    auth_basic_user_file conf/htpasswd;
+}
+</code></pre></div>
+<p>全站启用访问认证，某些路径允许自由访问。</p>
+<div class="highlight"><pre><span></span><code>server {
+    ...
+    auth_basic &quot;closed website&quot;;
+    auth_basic_user_file conf/htpasswd;
+
+    location /public/ {
+        auth_basic off;
+    }
+}
+</code></pre></div>
+<p>认证和 IP 地址之中，只要满足一个条件即可。</p>
+<div class="highlight"><pre><span></span><code>location / {
+    satisfy any;
+
+    allow 192.168.1.0/24;
+    deny  all;
+
+    auth_basic           &quot;closed site&quot;;
+    auth_basic_user_file conf/htpasswd;
+}
+</code></pre></div>
+<p>限制单个 IP 地址的带宽，以及能够建立的连接数。</p>
+<div class="highlight"><pre><span></span><code>location /download/ {
+    limit_conn addr 1;
+    limit_rate 50k;
+}
+</code></pre></div>
+<h2 id="ssl">SSL 支持<a class="headerlink" href="#ssl" title="Permanent link">&para;</a></h2>
+<p>下面的命令用来生成自签名证书，生成的证书为<code>/etc/nginx/ssl/ssl.crt</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">$</span><span class="w"> </span><span class="nx">sudo</span><span class="w"> </span><span class="nx">openssl</span><span class="w"> </span><span class="nx">req</span><span class="w"> </span><span class="o">-</span><span class="nx">x509</span><span class="w"> </span><span class="o">-</span><span class="nx">nodes</span><span class="w"> </span><span class="o">-</span><span class="nx">days</span><span class="w"> </span><span class="mf">365</span><span class="w"> </span><span class="o">-</span><span class="nx">newkey</span><span class="w"> </span><span class="nx">rsa</span><span class="o">:</span><span class="mf">2048</span><span class="w"> </span><span class="o">-</span><span class="nx">keyout</span><span class="w"> </span><span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">nginx</span><span class="o">/</span><span class="nx">ssl</span><span class="o">/</span><span class="nx">ssl</span><span class="p">.</span><span class="nx">key</span><span class="w"> </span><span class="o">-</span><span class="nx">out</span><span class="w"> </span><span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">nginx</span><span class="o">/</span><span class="nx">ssl</span><span class="o">/</span><span class="nx">ssl</span><span class="p">.</span><span class="nx">crt</span>
+</code></pre></div>
+<p>将数字证书放在/etc/nginx/certificates/目录。</p>
+<p>修改配置文件，打开 HTTPs 端口。</p>
+<div class="highlight"><pre><span></span><code>server {
+    listen              443 ssl;
+    server_name         www.example.com;
+    ssl_certificate     www.example.com.crt;
+    ssl_certificate_key www.example.com.key;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+    ...
+}
+</code></pre></div>
+<p>重启 nginx 服务。</p>
+<p>修改配置文件，将 HTTP 流量导向 HTTPs。</p>
+<div class="highlight"><pre><span></span><code>server {
+    listen 80;
+    server_name www.example.com;
+    rewrite ^(.*) https://$host$1 permanent;
+}
+</code></pre></div>
+<p>增加 ssl session 的缓存时间。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">worker_processes</span><span class="w"> </span><span class="nx">auto</span><span class="p">;</span>
+
+<span class="nx">http</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">ssl_session_cache</span><span class="w">   </span><span class="nx">shared</span><span class="o">:</span><span class="nx">SSL</span><span class="o">:</span><span class="mf">10</span><span class="nx">m</span><span class="p">;</span>
+<span class="w">    </span><span class="nx">ssl_session_timeout</span><span class="w"> </span><span class="mf">10</span><span class="nx">m</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nx">server</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">listen</span><span class="w">              </span><span class="mf">443</span><span class="w"> </span><span class="nx">ssl</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">server_name</span><span class="w">         </span><span class="nx">www</span><span class="p">.</span><span class="nx">example</span><span class="p">.</span><span class="nx">com</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">keepalive_timeout</span><span class="w">   </span><span class="mf">70</span><span class="p">;</span>
+
+<span class="w">        </span><span class="nx">ssl_certificate</span><span class="w">     </span><span class="nx">www</span><span class="p">.</span><span class="nx">example</span><span class="p">.</span><span class="nx">com</span><span class="p">.</span><span class="nx">crt</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">ssl_certificate_key</span><span class="w"> </span><span class="nx">www</span><span class="p">.</span><span class="nx">example</span><span class="p">.</span><span class="nx">com</span><span class="p">.</span><span class="nx">key</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">ssl_protocols</span><span class="w">       </span><span class="nx">TLSv1</span><span class="w"> </span><span class="nx">TLSv1</span><span class="mf">.1</span><span class="w"> </span><span class="nx">TLSv1</span><span class="mf">.2</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">ssl_ciphers</span><span class="w">         </span><span class="nx">HIGH</span><span class="o">:!</span><span class="nx">aNULL</span><span class="o">:!</span><span class="nx">MD5</span><span class="p">;</span>
+<span class="w">        </span><span class="p">...</span>
+</code></pre></div>
+<p>同一台服务器同时处理 HTTP 和 HTTPs 请求。</p>
+<div class="highlight"><pre><span></span><code>server {
+    listen              80;
+    listen              443 ssl;
+    server_name         www.example.com;
+    ssl_certificate     www.example.com.crt;
+    ssl_certificate_key www.example.com.key;
+    ...
+}
+</code></pre></div>
+<p>同一张证书支持多个域名（比如，同时支持www.example.com和www.example.org）。</p>
+<div class="highlight"><pre><span></span><code>ssl_certificate     common.crt;
+ssl_certificate_key common.key;
+
+server {
+    listen          443 ssl;
+    server_name     www.example.com;
+    ...
+}
+
+server {
+    listen          443 ssl;
+    server_name     www.example.org;
+    ...
+}
+</code></pre></div>
+<p>如果浏览器支持 TLS Server Name Indication 扩展，就可以一台服务器支持多个证书。</p>
+<div class="highlight"><pre><span></span><code>server {
+    listen          443 ssl;
+    server_name     www.example.com;
+    ssl_certificate www.example.com.crt;
+    ...
+}
+
+server {
+    listen          443 ssl;
+    server_name     www.example.org;
+    ssl_certificate www.example.org.crt;
+    ...
+}
+</code></pre></div>
+<p>检查 nginx 是否支持 SNI 扩展。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>NGINX<span class="w"> </span>-V
+...
+TLS<span class="w"> </span>SNI<span class="w"> </span>support<span class="w"> </span>enabled
+...
+</code></pre></div>
+<h2 id="_8">均衡负载<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>http {
+  upstream cluster {
+      server 127.0.0.1:3000;
+      server 127.0.0.1:3001;
+      server 127.0.0.1:3002;
+      server 127.0.0.1:3003;
+  }
+  server {
+       listen 80;
+       server_name www.domain.com;
+       location / {
+            proxy_pass http://cluster;
+       }
+  }
+}
+</code></pre></div>
+<h2 id="_9">参考链接<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li>nginx Document, <a href="http://nginx.com/resources/admin-guide/restricting-access/">Restricting Access</a></li>
+<li>fcambus, <a href="https://github.com/fcambus/nginx-resources">Nginx Resources</a></li>
+<li>Nishant Modak, <a href="http://code.tutsplus.com/articles/nginx-guide-essentials--cms-22880">Nginx Guide: Essentials</a></li>
+<li>H5BP, <a href="https://github.com/h5bp/server-configs-nginx/blob/master/doc/TOC.md">Server Configs Nginx</a></li>
+</ul>
+<h1 id="_10">配置<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h1>
+<p>Nginx 的主配置文件是<code>nginx.conf</code>，通常位于<code>/usr/local/etc/nginx</code>或者<code>/etc/nginx</code>。官方网站提供范例配置<a href="https://gist.github.com/nishantmodak/d08aae033775cb1a0f8a">nginx.conf.default</a>）可以查看。</p>
+<p>虚拟主机的默认配置文件是<code>/etc/nginx/sites-available/default</code>。一般的做法是，在<code>sites-available</code>目录里面，根据每个站点的名字，新建配置文件，比如<code>/etc/nginx/sites-available/example.com.conf</code>。</p>
+<p>虚拟主机的配置文件通常带有一个或多个<code>server</code>区块。</p>
+<div class="highlight"><pre><span></span><code>server<span class="w"> </span><span class="o">{</span>
+<span class="w">  </span>listen<span class="w"> </span><span class="m">80</span><span class="w"> </span>default_server<span class="p">;</span>
+<span class="w">  </span>listen<span class="w"> </span><span class="o">[</span>::<span class="o">]</span>:80<span class="w"> </span>default_server<span class="w"> </span><span class="nv">ipv6only</span><span class="o">=</span>on<span class="p">;</span>
+
+<span class="w">  </span>root<span class="w"> </span>/usr/share/nginx/html<span class="p">;</span>
+<span class="w">  </span>index<span class="w"> </span>index.html<span class="w"> </span>index.htm<span class="p">;</span>
+
+<span class="w">  </span>location<span class="w"> </span>/<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>try_files<span class="w"> </span><span class="nv">$uri</span><span class="w"> </span><span class="nv">$uri</span>/<span class="w"> </span><span class="o">=</span><span class="m">404</span><span class="p">;</span>
+<span class="w">  </span><span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>修改配置后，可以使用下面的命令重新加载配置。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>nginx<span class="w"> </span>–s<span class="w"> </span>reload
+</code></pre></div>
+<p>除了<code>nginx.conf</code>，还有<code>sites-available</code>和<code>sites-enabled</code>两个目录，前者包括所有可用的网站配置，后者只包括前者的符号链接，指向那些已经激活的网站。</p>
+<p><code>sites-available</code>目录里面的配置文件，加上 660 权限。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># chmod 660 /etc/nginx/sites-available/example.com.conf</span>
+</code></pre></div>
+<p>修改它们所属的用户组。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Debian and Derivatives</span>
+$<span class="w"> </span>chgrp<span class="w"> </span>www-data<span class="w">  </span>/etc/nginx/sites-available/tecmintlovesnginx.com.conf
+
+<span class="c1"># CentOS and RHEL</span>
+$<span class="w"> </span>chgrp<span class="w"> </span>nginx<span class="w">  </span>/etc/nginx/sites-available/tecmintlovesnginx.com.conf
+</code></pre></div>
+<p>另外，需要修改日志目录的用户组，与 nginx 属于同一个用户组。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># mkdir /var/www/logs</span>
+<span class="c1"># chmod -R 660 /var/www/logs</span>
+<span class="c1"># chgrp &lt;nginx user&gt; /var/www/logs</span>
+</code></pre></div>
+<p>然后，建立<code>sites-enabled</code>目录到<code>site-available</code>的符号链接。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ln -s /etc/nginx/sites-available/example.com.conf /etc/nginx/sites-enabled/example.com.conf</span>
+</code></pre></div>
+<p>接着，在<code>/var/www/&lt;domain name&gt;/public_html</code>目录里面，放置一个<code>index.html</code>。</p>
+<p>最后，测试配置，并重启 nginx。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># nginx -t &amp;&amp; systemctl start nginx</span>
+</code></pre></div>
+<p>修改<code>/etc/hosts</code>，增加域名解析。</p>
+<div class="highlight"><pre><span></span><code><span class="m">192</span>.168.0.25<span class="w"> </span>example.com
+</code></pre></div>
+<p><code>sites-enabled</code>下的文件自动加载。激活新网站的做法是，符号链接<code>sites-enabled</code>目录的配置文件，然后重启 nginx。</p>
+<div class="highlight"><pre><span></span><code>$ cd /etc/nginx/sites-available
+# ... create newproject.com ...
+$ cd /etc/nginx/sites-enabled
+$ ln -s ../sites-available/newproject.com .
+$ /etc/init.d/nginx reload
+[....] Reloading nginx configuration: nginx.
+$
+</code></pre></div>
+<p>停用某个网站的做法是从 sites-enabled 目录移除符号链接，重启 nginx。</p>
+<div class="highlight"><pre><span></span><code>$ cd /etc/nginx/sites-enabled
+$ rm newproject.com
+$ /etc/init.d/nginx reload
+[....] Reloading nginx configuration: nginx.
+$
+</code></pre></div>
+<h2 id="_11">负载均衡<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<p>Nginx 可以用作负载均衡。</p>
+<div class="highlight"><pre><span></span><code>upstream backend  {
+  server backend1.example.com;
+  server backend2.example.com;
+  server backend3.example.com;
+}
+</code></pre></div>
+<p>上面代码会将流量分配到三台服务器。具体的分配规则，由 Nginx 自动完成。</p>
+<p>Nginx 允许调整不同服务器的权重。</p>
+<div class="highlight"><pre><span></span><code>upstream backend  {
+  server backend1.example.com weight=1;
+  server backend2.example.com weight=2;
+  server backend3.example.com weight=4;
+}
+</code></pre></div>
+<p>如果有一台服务器有连接失败的可能，可以在配置中指明。</p>
+<div class="highlight"><pre><span></span><code>upstream backend  {
+  server backend1.example.com max_fails=3  fail_timeout=15s;
+  server backend2.example.com weight=2;
+  server backend3.example.com weight=4;
+}
+</code></pre></div>
+<p>上面代码指定，连续三次失败或 15 秒超时，Nginx 会不再给这台服务器分配流量。</p>
+<p>如果某台服务器下线，可以手动指定。</p>
+<div class="highlight"><pre><span></span><code>upstream backend  {
+  server backend1.example.com weight=1;
+  server backend2.example.com weight=2;
+  server backend3.example.com down;
+}
+</code></pre></div>
+<p>最后，建立一个到<code>backend</code>的代理。</p>
+<div class="highlight"><pre><span></span><code>server {
+  location / {
+    proxy_pass  http://backend;
+  }
+}
+</code></pre></div>
+<h1 id="_12">反向代理<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h1>
+<p>编辑<code>/etc/nginx/sites-available/default</code>，或者在该目录下新建一个配置文件<code>/etc/nginx/sites-available/my-site</code>。</p>
+<p>下面是简单的配置。</p>
+<div class="highlight"><pre><span></span><code>server {
+  listen 80;
+  server_name my.domain.com;
+  location / {
+    proxy_pass http://localhost:3000;
+  }
+}
+</code></pre></div>
+<p>下面是复杂的配置。</p>
+<div class="highlight"><pre><span></span><code>server {
+    listen 80;
+
+    server_name example.com;
+
+    location / {
+        proxy_pass http://APP_PRIVATE_IP_ADDRESS:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection &#39;upgrade&#39;;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+</code></pre></div>
+<p>上面的字段含义如下。</p>
+<ul>
+<li>server_name：你的域名或 IP 地址</li>
+<li>proxy_pass：私有 IP 地址</li>
+</ul>
+<p>可以增加<code>location</code>区块，为不同的路径代理不同的后端地址。</p>
+<div class="highlight"><pre><span></span><code>    location /app2 {
+        proxy_pass http://APP_PRIVATE_IP_ADDRESS:8081;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection &#39;upgrade&#39;;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+</code></pre></div>
+<h1 id="_13">重定向<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h1>
+<p>Nginx 的重定向命令较为简单。</p>
+<div class="highlight"><pre><span></span><code>server {
+    listen 80;
+    server_name domain1.com;
+    return 301 $scheme://domain2.com$request_uri;
+}
+</code></pre></div>
+<p>上面的代码将所有请求，301 重定向到另一个域名。</p>
+<p>如果只要重定向某个目录的请求，可以像下面这样写。</p>
+<div class="highlight"><pre><span></span><code># 301 重定向
+rewrite ^/images/(.*)$ http://images.example.com/$1 redirect;
+
+# 302 重定向
+rewrite ^/images/(.*)$ http://images.example.com/$1 permanent;
+</code></pre></div>
+<h1 id="tls">TLS 设置<a class="headerlink" href="#tls" title="Permanent link">&para;</a></h1>
+<h2 id="http2">启用 HTTP/2<a class="headerlink" href="#http2" title="Permanent link">&para;</a></h2>
+<p>打开配置文件（比如<code>/etc/nginx/sites-enabled/sitename</code>)，将下面的一行改掉。</p>
+<div class="highlight"><pre><span></span><code>listen<span class="w"> </span><span class="m">443</span><span class="w"> </span>ssl<span class="p">;</span>
+</code></pre></div>
+<p>改成</p>
+<div class="highlight"><pre><span></span><code>listen<span class="w"> </span><span class="m">443</span><span class="w"> </span>ssl<span class="w"> </span>http2<span class="p">;</span>
+</code></pre></div>
+<p>改完以后，可以使用下面的命令验证。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>curl<span class="w"> </span>--http2<span class="w"> </span>-I<span class="w"> </span>https://domain.com/
+</code></pre></div>
+<h2 id="tls-10">弃用 TLS 1.0<a class="headerlink" href="#tls-10" title="Permanent link">&para;</a></h2>
+<p>如果要放弃使用 TLS 协议 1.0 版本，就要把下面一行改掉。</p>
+<div class="highlight"><pre><span></span><code>ssl_protocols<span class="w"> </span>TLSv1<span class="w"> </span>TLSv1.1<span class="w"> </span>TLSv1.2<span class="p">;</span>
+</code></pre></div>
+<p>改成</p>
+<div class="highlight"><pre><span></span><code>ssl_protocols<span class="w"> </span>TLSv1.1<span class="w"> </span>TLSv1.2<span class="p">;</span>
+</code></pre></div>
+<h2 id="_14">参考链接<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Hayden James, <a href="https://haydenjames.io/nginx-tuning-tips-tls-ssl-https-ttfb-latency/">Nginx tuning tips: TLS/SSL HTTPS – Improved TTFB/latency</a></li>
+</ul>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+  </span>
+
+    
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:2331806369@qq.com">Michael An</a>, 
+        <a href="mailto:1822852997@qq.com">Michael An</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>

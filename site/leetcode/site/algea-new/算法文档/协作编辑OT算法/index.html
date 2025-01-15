@@ -1,0 +1,2823 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/algea-new/%E7%AE%97%E6%B3%95%E6%96%87%E6%A1%A3/%E5%8D%8F%E4%BD%9C%E7%BC%96%E8%BE%91OT%E7%AE%97%E6%B3%95/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.7">
+    
+    
+      
+        <title>协作编辑OT算法 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.20d9efc8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#ef5552">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="red" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ot" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              协作编辑OT算法
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          algea-new
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="algea-new" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          algea-new
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../API%20%E6%96%87%E6%A1%A3%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0/" class="md-nav__link">
+        API 文档自动更新
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          algea-new/算法介绍/二叉树
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="algea-new/算法介绍/二叉树" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          algea-new/算法介绍/二叉树
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E4%BA%8C%E5%8F%89%E6%A0%91/%E4%BA%8C%E5%8F%89%E6%A0%91/" class="md-nav__link">
+        二叉树
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E4%BA%8C%E5%8F%89%E6%A0%91/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/" class="md-nav__link">
+        二叉树的中序遍历
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E4%BA%8C%E5%8F%89%E6%A0%91/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/" class="md-nav__link">
+        二叉树的前序遍历
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E4%BA%8C%E5%8F%89%E6%A0%91/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/" class="md-nav__link">
+        二叉树的后序遍历
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E4%BA%8C%E5%8F%89%E6%A0%91/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/" class="md-nav__link">
+        二叉树的最大深度
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E4%BA%8C%E5%8F%89%E6%A0%91/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6/" class="md-nav__link">
+        二叉树的最小深度
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E4%BA%8C%E5%8F%89%E6%A0%91/%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/" class="md-nav__link">
+        重建二叉树
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          algea-new/算法介绍/动态规划
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="algea-new/算法介绍/动态规划" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          algea-new/算法介绍/动态规划
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/198.%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/" class="md-nav__link">
+        198.打家劫舍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E5%93%88%E5%B8%8C%E8%A1%A8/" class="md-nav__link">
+        哈希表
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          algea-new/算法介绍/字符串
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="algea-new/算法介绍/字符串" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          algea-new/算法介绍/字符串
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E5%AD%97%E7%AC%A6%E4%B8%B2/%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%98%AF%E5%90%A6%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC/" class="md-nav__link">
+        判断字符串是否表示数值
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E5%AD%97%E7%AC%A6%E4%B8%B2/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%85%A8%E9%83%A8%E6%8E%92%E5%88%97/" class="md-nav__link">
+        字符串的全部排列
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E5%AD%97%E7%AC%A6%E4%B8%B2/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BF%BB%E8%BD%AC/" class="md-nav__link">
+        字符串翻转
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E5%AD%97%E7%AC%A6%E4%B8%B2/%E5%AD%97%E7%AC%A6%E6%B5%81%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%B8%8D%E9%87%8D%E5%A4%8D%E7%9A%84%E5%AD%97%E7%AC%A6/" class="md-nav__link">
+        字符流中第一个不重复的字符
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E5%AD%97%E7%AC%A6%E4%B8%B2/%E6%9B%BF%E6%8D%A2%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%A9%BA%E6%A0%BC/" class="md-nav__link">
+        替换字符串中空格
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E5%AD%A6%E4%B9%A0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E7%9A%84%E9%AB%98%E6%95%88%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        学习数据结构和算法的高效方法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="md-nav__link">
+        并查集
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          algea-new/算法介绍/数学
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="algea-new/算法介绍/数学" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          algea-new/算法介绍/数学
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E6%95%B0%E5%AD%A6/%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81%E8%A7%A3%E5%86%B3%E7%9A%84%E6%99%BA%E5%8A%9B%E9%A2%98/" class="md-nav__link">
+        一行代码解决的智力题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E6%95%B0%E5%AD%A6/%E5%9F%BA%E6%9C%AC%E6%95%B0%E5%AD%A6%E8%80%83%E7%82%B9/" class="md-nav__link">
+        基本数学考点
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E6%95%B0%E5%AD%A6/%E6%9F%A5%E6%89%BE%E7%B4%A0%E6%95%B0/" class="md-nav__link">
+        查找素数
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          algea-new/算法介绍/数组
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="algea-new/算法介绍/数组" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          algea-new/算法介绍/数组
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E6%95%B0%E7%BB%84/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="md-nav__link">
+        两数之和
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E6%95%B0%E7%BB%84/%E5%9B%9B%E6%95%B0%E4%B9%8B%E5%92%8C/" class="md-nav__link">
+        四数之和
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E6%95%B0%E7%BB%84/%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E6%95%B0%E5%AD%97/" class="md-nav__link">
+        在排序数组中查找数字
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E6%95%B0%E7%BB%84/%E5%A6%82%E4%BD%95%E5%8E%BB%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0/" class="md-nav__link">
+        如何去除有序数组的重复元素
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E6%95%B0%E7%BB%84/%E6%8A%8A%E6%95%B0%E7%BB%84%E6%8E%92%E6%88%90%E6%9C%80%E5%B0%8F%E7%9A%84%E6%95%B0/" class="md-nav__link">
+        把数组排成最小的数
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%AE%97%E6%B3%95%E4%BB%8B%E7%BB%8D/%E6%95%B0%E7%BB%84/%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E5%AD%97%E7%AC%A6/" class="md-nav__link">
+        第一个只出现一次的字符
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          algea-new/算法文档
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="algea-new/算法文档" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          algea-new/算法文档
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%87%A0%E4%BD%95%E7%AE%97%E6%B3%95-%E7%9F%A9%E5%BD%A2%E7%A2%B0%E6%92%9E%E5%92%8C%E5%8C%85%E5%90%AB%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        几何算法-矩形碰撞和包含检测算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%88%86%E7%89%87%E6%B8%B2%E6%9F%93%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/" class="md-nav__link">
+        分片渲染算法概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          协作编辑OT算法
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        协作编辑OT算法
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1 背景
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2 举个栗子
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3 尝试解决
+  </a>
+  
+    <nav class="md-nav" aria-label="3 尝试解决">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    解决方案一：丢了丢了
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    解决方案二：锁
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ot" class="md-nav__link">
+    4 OT 算法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-ot" class="md-nav__link">
+    5 OT 算法的实现
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ot" class="md-nav__link">
+    6 OT 算法的时序
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    结语
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    参考资料
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    另一个简单的小案例
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%8D%8F%E5%90%8C%E7%BC%96%E8%BE%91%E7%AE%97%E6%B3%95%E5%92%8C%20DIFF%20%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF/" class="md-nav__link">
+        协同编辑算法和 DIFF 算法实现思路
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%9F%BA%E4%BA%8EDom%20Diff%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90React%E5%88%B7%E6%96%B0%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        基于Dom Diff算法分析React刷新机制
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%8B%96%E6%8B%BD%E9%87%8A%E6%94%BE%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        拖拽释放算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E6%9C%AC%E9%83%A8%E5%88%86%E9%AB%98%E4%BA%AE%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        文本部分高亮算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%9B%AE%E5%BD%95%E6%A0%91%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        目录树结构算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AE%97%E6%B3%95%E6%96%87%E6%A1%A3%E6%80%8E%E4%B9%88%E5%86%99/" class="md-nav__link">
+        算法文档怎么写
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2%E7%9A%84%E6%80%9D%E8%B7%AF/" class="md-nav__link">
+        自定义页面的思路
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%A1%8C%E5%88%86%E7%BB%84%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        行分组算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%A1%8C%E5%8A%A8%E7%94%BB%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        行动画算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%A1%8C%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        行排序算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%A1%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        行过滤算法
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          algre
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="algre" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          algre
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/00-%E7%BB%83%E4%B9%A0%E4%B9%8B%E5%89%8D%EF%BC%8C%E4%BD%A0%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84/" class="md-nav__link">
+        00-练习之前，你需要了解的
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/01-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" class="md-nav__link">
+        01-反转链表
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/02-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/" class="md-nav__link">
+        02-环形链表
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/03-%E9%93%BE%E8%A1%A8%E5%90%88%E5%B9%B6/" class="md-nav__link">
+        03-链表合并
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/04-%E6%B1%82%E9%93%BE%E8%A1%A8%E4%B8%AD%E9%97%B4%E8%8A%82%E7%82%B9/" class="md-nav__link">
+        04-求链表中间节点
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/05-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/" class="md-nav__link">
+        05-二叉树层序遍历
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/06-%E6%97%A0%E6%9D%83%E5%9B%BE%20BFS%20%E9%81%8D%E5%8E%86/" class="md-nav__link">
+        06-无权图 BFS 遍历
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/07-%E5%AE%9E%E7%8E%B0%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" class="md-nav__link">
+        07-实现优先队列
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/08-%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97%E5%8F%8A%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        08-双端队列及应用
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/09-%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97%E7%9A%84%E7%9B%B8%E4%BA%92%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        09-栈和队列的相互实现
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/10-n%20%E6%95%B0%E4%B9%8B%E5%92%8C/" class="md-nav__link">
+        10-n 数之和
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/11-%E4%BA%8C%E5%8F%89%E6%A0%91/" class="md-nav__link">
+        11-二叉树
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/2021-10-14-%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        2021-10-14-分治算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/2021-10-14-%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        2021-10-14-原地算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/DH%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        DH算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/K-means%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        K-means聚类算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/LeetCode%E5%88%B7%E9%A2%98%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        LeetCode刷题方法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/LintCode%E5%88%B7%E9%A2%98%E9%A1%BA%E5%BA%8F/" class="md-nav__link">
+        LintCode刷题顺序
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/all-leetcode/" class="md-nav__link">
+        all-leetcode
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/data%20structure%20basic/" class="md-nav__link">
+        data structure basic
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/double-pointer/" class="md-nav__link">
+        double-pointer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/js%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E6%9F%90%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="md-nav__link">
+        js判断字符串中是否包含某个字符串
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/js%E5%8F%8C%E6%8C%87%E9%92%88/" class="md-nav__link">
+        js双指针
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/slide-window/" class="md-nav__link">
+        slide-window
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E4%BA%8C%E5%88%86%E6%B3%95/" class="md-nav__link">
+        二分法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E4%BB%8A%E6%97%A5%E5%A4%B4%E6%9D%A1%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95%E7%AE%80%E4%BB%8B/" class="md-nav__link">
+        今日头条推荐算法简介
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        分治算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E5%88%B7%E9%A2%98%E7%AA%8D%E9%97%A8/" class="md-nav__link">
+        刷题窍门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E5%8F%8C%E6%8C%87%E9%92%88/" class="md-nav__link">
+        双指针
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E5%9B%BE%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        图算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E5%AD%97%E5%85%B8%E6%A0%91/" class="md-nav__link">
+        字典树
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        字符串算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/" class="md-nav__link">
+        常见算法思想
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="md-nav__link">
+        归并排序
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        排序算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E6%95%B0%E5%AD%A6%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        数学算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E6%95%B0%E6%8D%AE%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/" class="md-nav__link">
+        数据兼容性问题解决
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E6%95%B0%E7%BB%84%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        数组算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E6%A0%88%E9%98%9F%E5%88%97%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        栈队列算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E6%A0%91%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        树算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        贪心算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E9%93%BE%E8%A1%A8%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        链表算法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algre/%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" class="md-nav__link">
+        验证二叉搜索树
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../all/" class="md-nav__link">
+        all
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          book/JavaScript 数据结构与算法
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="book/JavaScript 数据结构与算法" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          book/JavaScript 数据结构与算法
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/JavaScript%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/readme/" class="md-nav__link">
+        readme
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10">
+          book/book-Algorithms/01-basic
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="book/book-Algorithms/01-basic" data-md-level="1">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          book/book-Algorithms/01-basic
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/book-Algorithms/readme/" class="md-nav__link">
+        readme
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_11" type="checkbox" id="__nav_11" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_11">
+          book/book-aha-algorithms
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="book/book-aha-algorithms" data-md-level="1">
+        <label class="md-nav__title" for="__nav_11">
+          <span class="md-nav__icon md-icon"></span>
+          book/book-aha-algorithms
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/book-aha-algorithms/01-sort/" class="md-nav__link">
+        01-sort
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/book-aha-algorithms/02-stack%20queue%20linked-list/" class="md-nav__link">
+        02-stack queue linked-list
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/book-aha-algorithms/03-enumeration/" class="md-nav__link">
+        03-enumeration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/book-aha-algorithms/04-search/" class="md-nav__link">
+        04-search
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/book-aha-algorithms/05-traverse-graph/" class="md-nav__link">
+        05-traverse-graph
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/book-aha-algorithms/06-shortest-path/" class="md-nav__link">
+        06-shortest-path
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/book-aha-algorithms/07-tree/" class="md-nav__link">
+        07-tree
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/book-aha-algorithms/08-more/" class="md-nav__link">
+        08-more
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../book/book-aha-algorithms/readme/" class="md-nav__link">
+        readme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        index
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_12" type="checkbox" id="__nav_12" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_12">
+          interview
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="interview" data-md-level="1">
+        <label class="md-nav__title" for="__nav_12">
+          <span class="md-nav__icon md-icon"></span>
+          interview
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/01%20%E9%9D%A2%E8%AF%95%E9%A2%981-%281-30%29/" class="md-nav__link">
+        01 面试题1-(1-30)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/02%20%E9%9D%A2%E8%AF%95%E9%A2%981-%2830-60%29/" class="md-nav__link">
+        02 面试题1-(30-60)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/03%20%E9%9D%A2%E8%AF%95%E9%A2%981-%2860-100%29/" class="md-nav__link">
+        03 面试题1-(60-100)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/05%20%E9%9D%A2%E8%AF%95%E9%A2%985-%E6%9C%89%E7%AD%94%E6%A1%88/" class="md-nav__link">
+        05 面试题5-有答案
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/06%20%E5%A4%A7%E5%8E%82%E8%A6%81%E6%B1%82/" class="md-nav__link">
+        06 大厂要求
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/07%20%E9%9D%A2%E8%AF%95%E9%A2%981-%28101-136%29/" class="md-nav__link">
+        07 面试题1-(101-136)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/10%20HR%E9%9D%A2%E8%AF%95%E9%A2%98%E7%9B%AE-%E6%AD%A3%E5%9C%A8%E5%81%9A/" class="md-nav__link">
+        10 HR面试题目-正在做
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/11%20%E8%B1%AA%E6%83%85%E5%A4%A7%E4%BD%AC%E6%97%A5%E5%B8%B8%E5%B7%A5%E4%BD%9C%E6%84%9F%E6%82%9F/" class="md-nav__link">
+        11 豪情大佬日常工作感悟
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/12%20%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB/" class="md-nav__link">
+        12 知识体系
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/13%20%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB2/" class="md-nav__link">
+        13 知识体系2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/14%20facebook%20%E5%9B%BD%E5%A4%96%E9%9D%A2%E8%AF%95/" class="md-nav__link">
+        14 facebook 国外面试
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/15%20JavaScript%20%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        15 JavaScript 基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/16%20%E5%AD%97%E8%8A%82%E9%9D%A2%E8%AF%95/" class="md-nav__link">
+        16 字节面试
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/17%20%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B%E9%9D%A2%E8%AF%95/" class="md-nav__link">
+        17 菜鸟教程面试
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/18%20%E5%89%8D%E7%AB%AF%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91%E5%BF%85%E8%83%8C%E7%9F%A5%E8%AF%86%E7%82%B9/" class="md-nav__link">
+        18 前端日常开发必背知识点
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/19%20%E7%9F%A5%E4%B9%8E%E9%9D%A2%E8%AF%951/" class="md-nav__link">
+        19 知乎面试1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/19%20%E7%9F%A5%E4%B9%8E%E9%9D%A2%E8%AF%952/" class="md-nav__link">
+        19 知乎面试2
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/20%20%E6%90%9C%E7%8B%97%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        20 搜狗前端面试题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../interview/21%20%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98/" class="md-nav__link">
+        21 前端面试题
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1 背景
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2 举个栗子
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3 尝试解决
+  </a>
+  
+    <nav class="md-nav" aria-label="3 尝试解决">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    解决方案一：丢了丢了
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    解决方案二：锁
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ot" class="md-nav__link">
+    4 OT 算法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-ot" class="md-nav__link">
+    5 OT 算法的实现
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ot" class="md-nav__link">
+    6 OT 算法的时序
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    结语
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    参考资料
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    另一个简单的小案例
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/Michael18811380328/Michael18811380328.github.io/edit/master/docs/algea-new/算法文档/协作编辑OT算法.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="ot">协同算法OT算法<a class="headerlink" href="#ot" title="Permanent link">&para;</a></h1>
+<p>统计信息：字数 17981  阅读36分钟</p>
+<p>协同编辑需要考虑下面几个问题：</p>
+<p>1、怎样协同，在哪里协同（本地还是服务端）</p>
+<p>2、OP 怎么发，不可能每次把全部的 value 发送到服务端？——刚开始假设全部发送到服务端</p>
+<p>3、富文本以什么数据结构存储，DIFF 算法需要转换成树节点</p>
+<p>4、冲突怎么处理？</p>
+<div class="codehilite"><pre><span></span><code>对于在线协同文档，假设 A 和 B 在同时编辑同一个内容，我们处理冲突的方式有：
+
+4.1 加锁。用户 A 在编辑时，就锁住文档，只能 A 进行更新。用户 B 就不能编辑，或编辑后提交修改被服务器丢弃；加锁体验太差，一个人在编辑时其他人就要干等着。
+
+4.2 覆盖。谁最后修改，就全量使用他的修改，更早一些的其他人的修改会被丢弃。 覆盖则是导致用户的修改来回彼此覆盖，辛苦编辑的内容突然被别人覆盖掉了心情低落。
+
+4.3 用户自行处理冲突。就像 git merge 导致的冲突一样，会提示哪个地方被同时修改了，让合并者手动选择使用哪一个修改；自行处理冲突则需要额外的操作步骤和成本，实时性很差，不适合高频同时修改的场景。
+
+4.4使用一致性算法。比如我们要介绍的 OT 算法，可以让用户编辑进行算法处理进行调整，在多个客户端生成一致的修改结果。一致性算法是最好的选择，对用户最友好，不过带来了实现的复杂。
+</code></pre></div>
+
+<p>服务器端有冲突时，可以加个锁（例如腾讯文档中的表格，某个用户编辑某个单元格，那么其他人不能编辑，这样就避免冲突）如果多人协同，某个 OP 因为冲突没有合并到主分支，那么可以返回这个用户，由于冲突，当前结果未保存，建议刷新界面。</p>
+<p>协同编辑主要的算法是 OT，简介如下：</p>
+<p>OT 算法全名叫 Operation Transformation，你看从名字就对应了上面我说的转变算法。</p>
+<p>假如我们把 A 提交的行为叫做 A，B 提交的行为叫做 B，现在后台就是一个简单的转发功能，告诉 A 的是 B，告诉 B 的是 A，然后就出现问题了</p>
+<p>正确：所以后台是把每个人提交的行为转变一下再告诉别人，其实这个技术就是 OT 算法（在第三个节点还是第三个节点插入新的节点）。</p>
+<p>也就是说你输入两个先后执行的行为，它会告诉你两个转换过后的行为，然后把 A'行为告诉 B，把 B'行为告诉 A，这样大家再应用就相安无事了。</p>
+<p>参考腾讯前端团队的文档：转载自AlloyTeam：<a href="http://www.alloyteam.com/2019/07/13659/">http://www.alloyteam.com/2019/07/13659/</a>，原文如下：</p>
+<hr />
+<p>相信大家或多或少都有使用过在线文档，国内的像我们在做的<a href="http://https//docs.qq.com/desktop/">腾讯文档</a>还有其他家的很多类似产品。今天主要为大家揭开在线协作的神秘面纱，那就是 OT 算法。</p>
+<h3 id="1">1 背景<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>在线文档，抽象一下，这些产品的模式都是富文本编辑器+后台，富文本编辑器产生内容，展示内容，然后后台负责保存。
+富文本编辑器现在业界已经有很多成熟的产品，像 <a href="https://codemirror.net/">codeMirror</a>，这一块本身也是很复杂的一块，也不是咱们这次关注的重点方向。
+不知道大家平常在用这些产品的时候有没有思考过一个问题，在线文档编辑的时候产生冲突怎么办？</p>
+<h3 id="2">2 举个栗子<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>举个很简单的例子，现在大家的文本都是 ‘aaab’，A 用户在第 3 个字符行后面插入了一个 ‘c’，B 用户在第 3 个字符行后面插入了一个 ‘d’，这个时候 A 这边看到的是 ‘aaacb’，B 这边看到的是 ‘aaadb’, 我们假设 A 用户先提交了数据，那其实最后预期的数据其实应该是 ‘aaacdb’，这样就最大的保存了每个人的输入。
+那我们现在来看看正常情况下这里会发生什么：
+A 用户：</p>
+<blockquote>
+<p>A 本地已经是 ‘aaacb’ 了，过一会儿，后台告诉它 B 也编辑了，编辑的行为就是**第 3 个字符行后面插入了一个 ‘d’**，那 A 这边执行了这个行为，最终变成了 ‘aaadcb’</p>
+</blockquote>
+<p>B 用户：</p>
+<blockquote>
+<p>B 本地已经是 ‘aaadb’ 了，过一会儿，后台告诉它 A 也编辑了，编辑的行为就是**第 3 个字符行后面插入了一个 ‘c’**，那 B 这边执行了这个行为，最终变成了 ‘aaacdb’</p>
+</blockquote>
+<p>从上面的模拟过程可以看到，A 用户最后的结果其实是不正确的，但是 B 是正确的。</p>
+<p>这里先解释一下大家可能会疑惑的地方：为什么 B 是过一会儿后台告诉它 A 编辑了，不是说 A 先提交了数据吗？
+其实这里针对的是冲突场景，这里如果 B 在提交之前，已经收到后台告诉它 A 编辑了，那其实就是顺序编辑了，也就不是冲突了。所以这里指的是 A，B 几乎同时提交，但是 A 到达后台还是快一点的，也就是 A，B 在编辑的时候是不知道彼此的存在的。</p>
+<p>真实的冲突场景其实不是这种简单的时序问题，这里我后面再介绍。</p>
+<h3 id="3">3 尝试解决<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>这里可能有一些聪明的小伙伴有了一些想法。</p>
+<h4 id="_1">解决方案一：丢了丢了<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<p>这可能是最简单粗暴的方法了，我发现有冲突，就告诉用户，主子，咱这里有冲突了，臣妾解决不了啊。但是显然这会经常出现，然后主子就把你打入冷宫了。</p>
+<h4 id="_2">解决方案二：锁<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>有些小伙伴想到，上面出现问题，还不是因为大家编辑了都立即应用了，我们编辑后不立即应用不就好了，而且历史告诉我们，有冲突加锁应该可以解决。那我们看看假如不立即应用，咱有没有什么处理办法：
+A 用户：</p>
+<blockquote>
+<p>A 本地已经是 ‘aaab’ 了，A 编辑了，但是不应用，先发后台</p>
+</blockquote>
+<p>B 用户：</p>
+<blockquote>
+<p>B 本地已经是 ‘aaab’ 了，B 编辑了，但是不应用，先发后台</p>
+</blockquote>
+<p>后台：</p>
+<blockquote>
+<p>后台先收到 A 请求，然后加了一个锁，然后收到了 B 请求，这时侯应该是加锁的状态，所以接受了 A，拒绝了 B</p>
+</blockquote>
+<p>A 用户：</p>
+<blockquote>
+<p>A 用户收到了后台的回复，告诉它你的提交我接收了</p>
+</blockquote>
+<p>B 用户：</p>
+<blockquote>
+<p>B 用户收到了后台的回复，告诉它你的提交被我拒绝了，因为冲突了</p>
+</blockquote>
+<p>这样虽然能继续下去，但是好像还是不太行的亚子啊，B 的提交还是丢了，所以好像和第一种简单粗暴的方法没啥区别</p>
+<h3 id="4-ot">4 OT 算法<a class="headerlink" href="#4-ot" title="Permanent link">&para;</a></h3>
+<p>顺其自然的，这个时候你会看到 OT 算法驾着七彩祥云来救你了～
+其实回到上面的例子，本质问题还是因为后台通知大家的 B 的编辑行为看起来不太对。现在后台通知大家的是:</p>
+<blockquote>
+<p>B 的编辑的行为就是**第 3 个字符行后面插入了一个 ‘d’**</p>
+</blockquote>
+<p>但是在 A 已经接受的情况下，正确的通知应该是：</p>
+<blockquote>
+<p>B 的编辑的行为就是**第 4 个字符行后面插入了一个 ‘d’**</p>
+</blockquote>
+<p>假如我们把 A 提交的行为叫做 A，B 提交的行为叫做 B，现在后台就是一个简单的转发功能，告诉 A 的是 B，告诉 B 的是 A，然后就出现问题了。所以后台应该更聪明一点，它应该学会一个招术，那就是把每个人提交的行为转变一下再告诉别人，其实这个技术就是 OT 算法。</p>
+<p>OT 算法全名叫 <strong>Operation Transformation</strong>，你看从名字就对应了上面我说的转变算法。
+假设我们的 OT 算法的转换功能叫 transform，那 transform（A，B）= A',B'。
+也就是说你输入两个先后执行的行为，它会告诉你两个转换过后的行为，然后把 A'行为告诉 B，把 B'行为告诉 A，这样大家再应用就相安无事了。
+<a href="http://www.alloyteam.com/wp-content/uploads/2019/07/0973dffd-399c-48e9-8fcf-77ff3a6809e6-272x300.png"><img alt="img" src="http://www.alloyteam.com/wp-content/uploads/2019/07/0973dffd-399c-48e9-8fcf-77ff3a6809e6-272x300.png" /></a>
+上面的图是 OT 的经典菱形图，也就是说 A 会变成 A'在 B 这边执行，B 会变成 B'在 A 这边执行。
+这里实际抽象一下，用户永远就只有两个人，一个是自己，一个是服务端，只是服务端的操作可能来自很多人，如果不这样抽象，那一个个进行冲突处理可能会让你觉得无法理解。
+那我们现在再来看看后台有了 OT 这个能力之后会发生什么：</p>
+<p>A 用户：</p>
+<blockquote>
+<p>A 本地已经是 ‘aaacb’ 了，过一会儿，后台告诉它 B 也编辑了，编辑的行为就是**第 4 个字符行后面插入了一个 ‘d’**，那 A 这边执行了这个行为，最终变成了 ‘aaacdb’</p>
+</blockquote>
+<p>B 用户：</p>
+<blockquote>
+<p>B 本地已经是 ‘aaadb’ 了，过一会儿，后台告诉它 A 也编辑了，编辑的行为就是**第 3 个字符行后面插入了一个 ‘c’**，那 B 这边执行了这个行为，最终变成了 ‘aaacdb’</p>
+</blockquote>
+<p>现在 A、B 就一致了！</p>
+<h3 id="5-ot">5 OT 算法的实现<a class="headerlink" href="#5-ot" title="Permanent link">&para;</a></h3>
+<p>现在 OT 算法对我们来说就是一个黑盒，我们知道给一定的输入，它会有正确的输出，但是它是如何做到的呢？
+在介绍它的实现之前，我们需要抽象一下我们的操作行为，在之前我们的描述都是</p>
+<blockquote>
+<p><strong>第 3 个字符行后面插入了一个 ‘d’</strong></p>
+</blockquote>
+<p>这里怎么转换成程序识别或者能用代码表达的呢？其实这也是 OT 的关键。
+这里我直接揭晓答案：
+所有对文本的操作都可以抽象成三个原子行为：</p>
+<blockquote>
+<p>R = Retain，保持操作
+I = Insert，插入操作
+D = Delete，删除操作</p>
+</blockquote>
+<p>那之前的行为</p>
+<blockquote>
+<p><strong>第 3 个字符行后面插入了一个 ‘d’</strong></p>
+</blockquote>
+<p>就会变成</p>
+<blockquote>
+<p>R(3), I('d')</p>
+</blockquote>
+<p>也就是保持三个字符后插入 1 个 ‘d’，其实应该也很好理解，这里的操作就像操作数组一样，不管干什么，第一步你得先找到操作的下标。
+有了这三个原子以后，我们就可以看到：</p>
+<blockquote>
+<p>A = R(3),I('c')
+B = R(3), I('d')</p>
+</blockquote>
+<p>一切准备就绪，我们可以开始看 OT 了，这里 OT 算法现在已经很成熟了，这里我以一个 github 上的 repo 为例：<a href="https://github.com/Operational-Transformation/ot.js">ot.js</a>
+我们可以看看它的核心代码 (有删减，理解起来可能会比较复杂，感兴趣的可以深入思考一下)：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Transform takes two operations A and B that happened concurrently and</span>
+<span class="c1">// produces two operations A&#39; and B&#39; (in an array) such that</span>
+<span class="c1">// `apply(apply(S, A), B&#39;) = apply(apply(S, B), A&#39;)`. This function is the heart of OT.</span>
+<span class="c1">// 上面这个公式就是OT的核心，它产生了A&#39;,B&#39;,同时保证执行结果一致，S就是我们开始的状态，可以把这个和菱形图对应起来</span>
+<span class="c1">// 整体执行流程有点像合并排序的过程。两个下标指针分别往前走</span>
+
+<span class="nx">TextOperation</span><span class="p">.</span><span class="nx">transform</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">operation1</span><span class="p">,</span><span class="w"> </span><span class="nx">operation2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// operation1， operation2就是我们的A，B</span>
+
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">operation1prime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">TextOperation</span><span class="p">();</span><span class="w"> </span><span class="c1">// 就是A&#39;</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">operation2prime</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">TextOperation</span><span class="p">();</span><span class="w"> </span><span class="c1">// 就是B&#39;</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">ops1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">operation1</span><span class="p">.</span><span class="nx">ops</span><span class="p">,</span><span class="w"> </span><span class="nx">ops2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">operation2</span><span class="p">.</span><span class="nx">ops</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">i1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">i2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">op1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ops1</span><span class="p">[</span><span class="nx">i1</span><span class="o">++</span><span class="p">],</span><span class="w"> </span><span class="nx">op2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ops2</span><span class="p">[</span><span class="nx">i2</span><span class="o">++</span><span class="p">];</span>
+<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// At every iteration of the loop, the imaginary cursor that both</span>
+<span class="w">    </span><span class="c1">// operation1 and operation2 have that operates on the input string must</span>
+<span class="w">    </span><span class="c1">// have the same position in the input string.</span>
+<span class="w">    </span><span class="c1">// 其实这里就是说transform的核心是保证两者的下标一致，这样操作的才是同一个位置的数据</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="c1">// next two cases: one or both ops are insert ops</span>
+<span class="w">    </span><span class="c1">// =&gt; insert the string in the corresponding prime operation, skip it in</span>
+<span class="w">    </span><span class="c1">// the other one. If both op1 and op2 are insert ops, prefer op1.</span>
+<span class="w">    </span><span class="c1">// 如果A是插入操作，A&#39;一定也是插入，但是B&#39;就不一样了，因为A是插入，不管你B是啥，你先等等，所以retain一下，保证下标一致</span>
+<span class="w">    </span><span class="c1">// 这里实际上有三种情况，A是插入，B可能是R，I，D</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">isInsert</span><span class="p">(</span><span class="nx">op1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">operation1prime</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="nx">op1</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">operation2prime</span><span class="p">.</span><span class="nx">retain</span><span class="p">(</span><span class="nx">op1</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">op1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ops1</span><span class="p">[</span><span class="nx">i1</span><span class="o">++</span><span class="p">];</span>
+<span class="w">      </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// 如果B也是插入，那B’就是插入，但是你的A&#39;也得retain一下，保证下标一致</span>
+<span class="w">    </span><span class="c1">// 这里可能有两者情况，A可能是R，D</span>
+<span class="w">    </span><span class="c1">// 实例化思考一下，A [R(3),I(&#39;a&#39;)],B [I(&#39;b&#39;)],那对于A&#39;来说就应该是[R(4),I(&#39;a&#39;)]</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">isInsert</span><span class="p">(</span><span class="nx">op2</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">operation1prime</span><span class="p">.</span><span class="nx">retain</span><span class="p">(</span><span class="nx">op2</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">operation2prime</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="nx">op2</span><span class="p">);</span>
+<span class="w">      </span><span class="nx">op2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ops2</span><span class="p">[</span><span class="nx">i2</span><span class="o">++</span><span class="p">];</span>
+<span class="w">      </span><span class="k">continue</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">minl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">isRetain</span><span class="p">(</span><span class="nx">op1</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">isRetain</span><span class="p">(</span><span class="nx">op2</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// R和R处理</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">isDelete</span><span class="p">(</span><span class="nx">op1</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">isDelete</span><span class="p">(</span><span class="nx">op2</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">//D和D处理</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">isDelete</span><span class="p">(</span><span class="nx">op1</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">isRetain</span><span class="p">(</span><span class="nx">op2</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// D和R处理</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">isRetain</span><span class="p">(</span><span class="nx">op1</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">isDelete</span><span class="p">(</span><span class="nx">op2</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">//R和D处理</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">[</span><span class="nx">operation1prime</span><span class="p">,</span><span class="w"> </span><span class="nx">operation2prime</span><span class="p">];</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>这里就是 OT 的 transform 实现，本质上就是把用户的原子操作数组拿到以后，然后做 transform 操作，这里我只选了一小段来大概解析下，具体的可以看注释，其实原本的注释已经很全了。
+其实上面那段代码，因为我们的原子操作只有三种，根据排列组合，最多只会有 9 种情况，只是上面把很多情况合并了，你要是不理解，也可以拆开，帮助理解。
+其实上面的文件还有 compose，invert 等方法，但是其实 transform 才是我们理解的核心，其他方法大家感兴趣可以看看注释和下面贴的一些关于 OT 更详细介绍的文章。</p>
+<h3 id="6-ot">6 OT 算法的时序<a class="headerlink" href="#6-ot" title="Permanent link">&para;</a></h3>
+<p>简单的 OT 大家只要理解了，好像也并不是很难，但是其实真实情况下 OT 会比想象的还要复杂，因为之前说的菱形会无限拓展。
+<a href="http://www.alloyteam.com/wp-content/uploads/2019/07/6E64DEED-65D3-42F9-8485-59C84C0FCD6C-300x124.jpg"><img alt="img" src="http://www.alloyteam.com/wp-content/uploads/2019/07/6E64DEED-65D3-42F9-8485-59C84C0FCD6C-300x124.jpg" /></a>
+简单理解一下，就是 A 本地产生了两次编辑，B 产生了一次。这里就必须要和大家解释一下之前遗留的时序问题了，不然可能无法理解。</p>
+<p>之前说的时序都是指时间先后顺序，冲突也是指同时产生编辑。但是其实这里的同时不是时间上的同时，而是<code>版本上的同时</code>。
+也就是说我们需要用一个东西表示每一个版本，类似 git 的每次提交，每次提交到服务端的时候就要告诉后端，我的修改是基于哪个版本的修改。
+最简单的标志位就是<code>递增的数字</code>。那基于版本的冲突，可以简单理解为我们都是基于 100 版本的提交，那就是冲突了，也许我们并不是同时，<code>谁先到后台决定了谁先被接受而已</code>。这里最夸张的就是离线编辑，可能正常版本已经到了 1000 了，某个用户因为离线了，本地的版本一直停留在 100，提交上来的版本是基于 100 的。</p>
+<p>那有了时序的概念，我们再看上面这个菱形，它可以理解成 A 和 B 都基于 100 提交了数据，但是在 A 的提交还没被后台确认的时候，A 又编辑了，但是因为上一次提交没被确认，所以这次不会发到后台，这时服务器告诉它 B 基于 100 做了提交。</p>
+<p>这种情况下如何处理，就有点类似于 OT 落地到实践当中，你怎么实现了，上面提到的 github 的那个 repo 的实现其实非常巧妙，你看完注释应该就能全部理解，这里给出<a href="https://github.com/Operational-Transformation/ot.js/blob/8873b7e28e83f9adbf6c3a28ec639c9151a838ae/lib/client.js">代码链接</a></p>
+<p>精华就在于它把本地分成了几个状态：</p>
+<blockquote>
+<p>Synchronized 没有正在提交并且等待回包的 operation
+AwaitingConfirm 有一个 operation 提交了但是等后台确认，本地没有编辑数据
+AwaitingWithBuffer 有一个 operation 提交了但是等后台确认，本地有编辑数据</p>
+</blockquote>
+<p>剩下的就是在这三种状态下，收到了本地和服务端的数据，分别应该怎么处理</p>
+<h3 id="_3">结语<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>其实 OT 对应的只是一种思想，具体怎么实现是根据具体情况来区分的，比如我们现在讨论的就是文本的 OT，那有可能图的 OT、表格的 OT 又是其他的实现。OT 的核心就是 transform，而 transform 的核心就在于你怎么找到这样的原子操作了，然后原子操作的复杂度决定了 transform 实现的复杂度。</p>
+<p>上面这个 repo 只是帮你实现了文本的协同处理，其实对于在线文档来说，还有样式的冲突处理，感兴趣的可以自己搜索相关资料了解一下，建议精读一下 ot.js 这个库。</p>
+<p>最后如果读完这篇文章你对在线协作有了一定的认知，那这篇文章的使命也就达到了，最后如果有写的不正确的地方，欢迎斧正～</p>
+<h3 id="_4">参考资料<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><a href="http://www.alloyteam.com/2019/07/13659/">http://www.alloyteam.com/2019/07/13659/</a></p>
+</li>
+<li>
+<p><a href="http://www.codecommit.com/blog/java/understanding-and-applying-operational-transformation">http://www.codecommit.com/blog/java/understanding-and-applying-operational-transformation</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Operational-Transformation/ot.js">https://github.com/Operational-Transformation/ot.js</a></p>
+</li>
+<li>
+<p><a href="https://blog.csdn.net/fe_watermelon/article/details/126617039">https://blog.csdn.net/fe_watermelon/article/details/126617039</a></p>
+</li>
+</ul>
+<h3 id="_5">另一个简单的小案例<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>从起始版本 T 开始，它接受了两个 <strong>并发操作</strong> A 和 B。我们使用 trasform 方法生成 A’ 和 B’。我们有：</p>
+<div class="highlight"><pre><span></span><code><span class="nx">S</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">B</span><span class="s1">&#39; = T</span>
+<span class="s1">S + B + A&#39;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">T</span>
+</code></pre></div>
+<p>这样，从 S 得到相同的 T，保证了一致性。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;12&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1">// 原始文案（版本 1）</span>
+
+<span class="c1">// 在位置 3 插入 &#39;A&#39;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">oA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">TextOperation</span><span class="p">().</span><span class="nx">retain</span><span class="p">(</span><span class="mf">2</span><span class="p">).</span><span class="nx">insert</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">);</span>
+
+<span class="c1">// 上述操作后得到结果 &#39;12A&#39;（版本 2）</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">t1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">oA</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+
+<span class="c1">// 收到 oB 操作：在位置 2 插入 &#39;B&#39;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">oB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">TextOperation</span><span class="p">().</span><span class="nx">retain</span><span class="p">(</span><span class="mf">2</span><span class="p">).</span><span class="nx">insert</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">);</span>
+
+<span class="c1">// transform 拿到修正后的 [oA&#39;, oB&#39;] 这是核心算法</span>
+<span class="c1">// 我们这里只需要 oB&#39;，它被修正为在位置 3 插入 &#39;B&#39;</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">oAp</span><span class="p">,</span><span class="w"> </span><span class="nx">oBp</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">TextOperation</span><span class="p">.</span><span class="nx">transform</span><span class="p">(</span><span class="nx">oA</span><span class="p">,</span><span class="w"> </span><span class="nx">oB</span><span class="p">);</span>
+
+<span class="c1">// 应用 oB&#39;，结果为：12AB （版本 3）</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">t2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">oBp</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">t1</span><span class="p">);</span>
+
+<span class="c1">// 另一个人执行 oAp 得到相同的 T 结果，协同算法满足结果</span>
+</code></pre></div>
+<p>当然，如果数据结构是树，图等复杂的操作，不同原子操作需要不同的 transform 函数实现，以及考虑时序多个 ops 的合并。</p>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../%E5%88%86%E7%89%87%E6%B8%B2%E6%9F%93%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 分片渲染算法概述" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              分片渲染算法概述
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../%E5%8D%8F%E5%90%8C%E7%BC%96%E8%BE%91%E7%AE%97%E6%B3%95%E5%92%8C%20DIFF%20%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF/" class="md-footer__link md-footer__link--next" aria-label="Next: 协同编辑算法和 DIFF 算法实现思路" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              协同编辑算法和 DIFF 算法实现思路
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.8492ddcf.min.js"></script>
+      
+        <script src="../../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2756 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/nodejs/Node%20%E4%B8%8B%20LDAP%20%E5%AE%9E%E7%8E%B0/">
+      
+      
+        <link rel="prev" href="../../nginx/%E6%8A%80%E6%9C%AF%E8%83%96-%E5%89%8D%E7%AB%AF%20Nginx%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">
+      
+      
+        <link rel="next" href="../Node-LDAP/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>Node 下 LDAP 实现 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#node-ldap" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Node 下 LDAP 实现
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    backend-sql
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            backend-sql
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/01-redis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01-redis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/02-%E9%98%BF%E9%87%8C%E4%BA%91MySQL%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02-阿里云MySQL入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/03-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    03-数据库概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/04-%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95SSO/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04-单点登录SSO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/05-websocket/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05-websocket
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/06-socket-io/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06-socket-io
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/07-SQLite-API-Python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07-SQLite-API-Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/08-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08-进程和线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/09-%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E8%A7%A3%E9%87%8A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09-进程与线程的一个简单解释
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/10-Mysql%E8%A7%86%E5%9B%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10-Mysql视图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/20-%E6%B7%B1%E5%85%A5MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    20-深入MySQL数据库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/21-Mac-%E5%AE%89%E8%A3%85-python-mysql-%E6%8A%A5%E9%94%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    21-Mac-安装-python-mysql-报错
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/22-Python%E6%93%8D%E4%BD%9C%20MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    22-Python操作 MySQL数据库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/23-Mac%20pip%20install%20mysql-python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    23-Mac pip install mysql-python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/24-node%E8%BF%9E%E6%8E%A5Mysql%E6%8A%A5%E9%94%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    24-node连接Mysql报错
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/25-mysql%E6%94%AF%E6%8C%81emoji%E8%A1%A8%E6%83%85%E5%82%A8%E5%AD%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    25-mysql支持emoji表情储存
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backend-sql/26-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%9A%E8%A1%A8%E9%93%BE%E6%8E%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    26-数据库多表链接
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    express
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            express
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../express/express%20%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    express 入门笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    network
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            network
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/2017-12-19-travis-ci-tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2017-12-19-travis-ci-tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/2018-07-04-indexeddb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2018-07-04-indexeddb
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/2018-07-09-web-worker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2018-07-09-web-worker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/CDN/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CDN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/Token/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Token
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/Visual%20Studio%20Code%E5%BF%85%E5%A4%87%E6%8F%92%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visual Studio Code必备插件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/chrome/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    chrome
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/ddos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ddos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/dns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    dns
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/http/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    http
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/mac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    mac
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/serviceworker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    serviceworker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/ssl%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ssl协议
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E4%B8%80%E4%B8%AA%20TCP%20%E8%BF%9E%E6%8E%A5%E4%B8%8A%E9%9D%A2%E8%83%BD%E5%8F%91%E5%A4%9A%E5%B0%91%E4%B8%AA%20HTTP%20%E8%AF%B7%E6%B1%82/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一个 TCP 连接上面能发多少个 HTTP 请求
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E5%89%8D%E7%AB%AF%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3%E7%9A%84%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端需要了解的计算机网络知识
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E5%9F%BA%E6%9C%AC%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基本网络安全
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    虚拟机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机网络基础知识
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E8%B7%A8%E5%9F%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    跨域
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/%E8%B7%A8%E5%9F%9F2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    跨域2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    nginx
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            nginx
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nginx/Mac%E4%B8%8A%E6%90%AD%E5%BB%BAnginx%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mac上搭建nginx教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nginx/Nginx%20%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E8%B7%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nginx 从入门到实践
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nginx/Nginx%E5%9C%A8%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nginx在应用程序中的作用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nginx/nginx%20%E7%9A%84%E7%94%A8%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nginx 的用法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nginx/%E5%89%8D%E7%AB%AFNginx%20%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端Nginx 入门指南
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nginx/%E5%89%8D%E7%AB%AF%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3Nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    前端如何理解Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nginx/%E5%B8%A6%E4%BD%A0%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%E6%90%9E%E6%87%82Nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    带你深入浅出搞懂Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../nginx/%E6%8A%80%E6%9C%AF%E8%83%96-%E5%89%8D%E7%AB%AF%20Nginx%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    技术胖-前端 Nginx入门教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    nodejs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            nodejs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Node 下 LDAP 实现
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Node 下 LDAP 实现
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#node-ldap_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      node-ldap
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github" class="md-nav__link">
+    <span class="md-ellipsis">
+      github
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      安装
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Node-LDAP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node-LDAP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Node.js-path/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node.js-path
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Node.js-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node.js-全局变量
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Node.js%E4%BD%BF%E7%94%A8Nodemailer%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Node.js使用Nodemailer发送邮件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NodeJS%E4%B8%AD%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NodeJS中进程和线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    nodejs/demo-node-mysql
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            nodejs/demo-node-mysql
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fs.createReadStream/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    fs.createReadStream
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../node-debug/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    node-debug
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nodeJS%2Bmysql%2B%E8%BF%9E%E6%8E%A5%E6%B1%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nodeJS+mysql+连接池
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    nodejs/nodeJS高频词
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            nodejs/nodeJS高频词
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nodeJS%E9%AB%98%E9%A2%91%E8%AF%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    README
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../node%E5%AE%9A%E6%97%B6%E5%99%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    node定时器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8nodejs%E8%BF%9E%E6%8E%A5mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9E%E7%8E%B0%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用nodejs连接mysql数据库实现增删改查
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84nodeJS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    命令行的nodeJS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%BB%96%E9%9B%AA%E5%B3%B0%20NodeJS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    廖雪峰 NodeJS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%B0%88%E8%B0%88Node%E4%B8%AD%E7%9A%84%E5%B8%B8%E8%A7%81%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    谈谈Node中的常见概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    server
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            server
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/GraphQL%20vs%20REST%20API%20%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GraphQL vs REST API 架构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/LAMP%E5%B9%B3%E5%8F%B0%E7%9A%84%E9%83%A8%E7%BD%B2%E5%8F%8A%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LAMP平台的部署及应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/Linux%20%E5%AE%89%E8%A3%85%20MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux 安装 MySQL数据库系统
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/Linux%E5%A6%82%E4%BD%95%E6%90%AD%E5%BB%BAApache%E7%BD%91%E7%AB%99%E6%9C%8D%E5%8A%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux如何搭建Apache网站服务
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/RESTful%20API%20%E8%AE%BE%E8%AE%A1%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RESTful API 设计指南
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/SSH%E5%8E%9F%E7%90%86%E4%B8%8E%E8%BF%90%E7%94%A8-%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSH原理与运用-远程登录
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/bzip2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    bzip2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    server/docker-compose-demo
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            server/docker-compose-demo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/docker-compose-demo/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    server/docker-compose-demo/web
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            server/docker-compose-demo/web
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/ipad%20%E4%BD%BF%E7%94%A8%E5%B0%8F%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ipad 使用小技巧
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BD%BF%E7%94%A8%20GraphQL%20%E8%80%8C%E6%94%BE%E5%BC%83%20REST/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么我使用 GraphQL 而放弃 REST
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/%E4%BB%8E%E8%B4%AD%E4%B9%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%B0%E7%BD%91%E7%AB%99%E6%90%AD%E5%BB%BA%E6%88%90%E5%8A%9F%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    从购买服务器到网站搭建成功教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/%E5%88%86%E5%B8%83%E5%BC%8F%E5%92%8C%E9%9B%86%E7%BE%A4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    分布式和集群
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../server/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    计算机组成原理知识
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#node-ldap_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      node-ldap
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github" class="md-nav__link">
+    <span class="md-ellipsis">
+      github
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      安装
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="node-ldap">Node 下 LDAP 实现<a class="headerlink" href="#node-ldap" title="Permanent link">&para;</a></h1>
+<p>统计信息：字数 11266  阅读23分钟</p>
+<p>LDAP 入门</p>
+<p>首先要先理解什么是 LDAP，当时我看了很多解释，也是云里雾里，弄不清楚。在这里给大家稍微捋一捋。</p>
+<p>首先 LDAP 是一种通讯协议，LDAP 支持 TCP/IP。协议就是标准，并且是抽象的。在这套标准下，AD（Active Directory）是微软出的一套实现。</p>
+<p>那 AD 是什么呢？暂且把它理解成是个数据库。也有很多人直接把 LDAP 说成数据库(可以把 LDAP 理解成存储数据的数据库)。像是其他数据库一样，LDAP 也是有 client 端和 server 端。server 端是用来存放资源，client 端用来操作增删改查等操作。</p>
+<div class="codehilite"><pre><span></span><code> 而我们通常说的LDAP是指运行这个数据库的服务器。
+
+ 可以简单理解AD =LDAP服务器＋LDAP应用。
+
+
+
+
+ 那LDAP这种数据库有什么特殊的呢？
+</code></pre></div>
+
+<p>我们知道，像 MySQL 数据库，数据都是按记录一条条记录存在表中。而 LDAP 数据库，是树结构的，数据存储在叶子节点上。看看下面的比喻：</p>
+<p>假设你要树上的一个苹果（一条记录），你怎么告诉园丁它的位置呢？当然首先要说明是哪一棵树（dc，相当于 MYSQL 的 DB），然后是从树根到那个苹果所经过的所有“分叉”（ou），最后就是这个苹果的名字（uid，相当于 MySQL 表主键 id）。好了！这时我们可以清晰的指明这个苹果的位置了，就是那棵“歪脖树”的东边那个分叉上的靠西边那个分叉的再靠北边的分叉上的半红半绿的……，晕了！你直接爬上去吧！</p>
+<p>就这样就可以描述清楚“树结构”上的一条记录了。</p>
+<p>说一下 LDAP 里如何定义一个记录的位置吧。</p>
+<div class="codehilite"><pre><span></span><code>树（dc=ljheee)
+
+分叉（ou=bei,ou=xi,ou= dong）
+
+苹果（cn=redApple），
+</code></pre></div>
+
+<p>好了，redApple 的位置出来了：</p>
+<div class="codehilite"><pre><span></span><code> dn:cn=honglv,ou=bei,ou=xi,ou=dong,dc=ljheee
+</code></pre></div>
+
+<p>其中 dn 标识一条记录，描述了一条数据的详细路径。</p>
+<p>咦!有人疑问，为什么 ou 会有多个值？你想想，从树根到达苹果的位置，可能要经过好几个树杈，所有 ou 可能有多个值。关于 dn 后面一长串，分别是 cn，ou,dc；中间用逗号隔开。</p>
+<p>总结一下 LDAP 树形数据库如下：</p>
+<p>dn ：一条记录的详细位置</p>
+<p>dc ：一条记录所属区域 (哪一颗树)</p>
+<p>ou ：一条记录所属组织 （哪一个分支）</p>
+<p>cn/uid：一条记录的名字/ID (哪一个苹果名字)</p>
+<p>LDAP 目录树的最顶部就是根，也就是所谓的“基准 DN"。</p>
+<p>为什么要用 LDAP 目录树来存储数据，用 MySQL 不行吗，为什么非要搞出一个树形的数据库呢？</p>
+<p>这是因为用树形结构存储数据，查询效率更高（具体为什么，可以看一下关系型数据库索引的实现原理——B 树/B+树）。在某些特定的场景下，使用树形数据库更理想。比如：需要储存大量的数据，而且数据不是经常更改，需要很快速的查找。</p>
+<p>把它与传统的关系型数据库相比，LDAP 除了快速查找的特点，它还有很多的运用场景，比如域验证等。</p>
+<p>LDAP 编程操作
+我们可以用 JDBC 操作 MySQL 数据库，进行对数据的增删改查。同样，LDAP 树形数据库，也可以通过 JDBC 方式；除此之外，还可以用 JNDI 的方式（更推荐），因为树形可以看做是目录，树结构的枝杈相当于目录的层级。</p>
+<p>还有 LDAP 数据库展示数据也是树形的，如下图是用 ApacheDirectoryStudio 连接的公司 LDAP 服务器：</p>
+<p>可以把 ApacheDirectoryStudio 看做是连接数据库服务器的界面化的 client，相当于 Navicat、WorkBench。新建连接，连接数据库服务器的操作类似。</p>
+<p>ApacheDirectoryStudio 下载地址</p>
+<p><a href="http://download.csdn.net/download/ljheee/10145654">http://download.csdn.net/download/ljheee/10145654</a></p>
+<p>JNDI 连接 LDAP 服务器</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">com.xxx.csb.ldap.config.LdapConfiguration</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="p">;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.util.Hashtable</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">javax.naming.*</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">javax.naming.directory.Attribute</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">javax.naming.directory.Attributes</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">javax.naming.directory.DirContext</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">javax.naming.directory.InitialDirContext</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * author:lijianhua</span>
+<span class="cm"> * Date:2017\12\4 0004</span>
+<span class="cm"> */</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">LdapJNDI</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="nd">@Autowired</span>
+<span class="w">    </span><span class="n">LdapConfiguration</span><span class="w"> </span><span class="n">ldapConfiguration</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">JNDILookup</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">rootFilter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;o=xxx.com,o=isp&quot;</span><span class="p">;</span>
+<span class="c1">//        String filter = &quot;(&amp;(smart-type=E1)(smart-status=1))&quot;;</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;(&amp;(smart-type=E1)(uid=00012047))&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;uid=USER_NAME,ou=Authorization,ou=People,o=cc.com,o=isp&quot;</span><span class="p">;</span><span class="c1">//xxx为申请的对接账户</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;PASSW&quot;</span><span class="p">;</span>
+
+
+
+<span class="w">        </span><span class="n">Hashtable</span><span class="w"> </span><span class="n">env</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Hashtable</span><span class="p">();</span>
+<span class="w">        </span><span class="n">env</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">Context</span><span class="p">.</span><span class="na">INITIAL_CONTEXT_FACTORY</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;com.sun.jndi.ldap.LdapCtxFactory&quot;</span><span class="p">);</span><span class="c1">//设置连接LDAP的实现工厂</span>
+<span class="w">        </span><span class="n">env</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">Context</span><span class="p">.</span><span class="na">PROVIDER_URL</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ldap://172.16.32.19:389/&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rootFilter</span><span class="p">);</span><span class="c1">// 指定LDAP服务器的主机名和端口号</span>
+<span class="w">        </span><span class="n">env</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">Context</span><span class="p">.</span><span class="na">SECURITY_AUTHENTICATION</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;simple&quot;</span><span class="p">);</span><span class="c1">//给环境提供认证方法,有SIMPLE、SSL/TLS和SASL</span>
+<span class="w">        </span><span class="n">env</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">Context</span><span class="p">.</span><span class="na">SECURITY_PRINCIPAL</span><span class="p">,</span><span class="w"> </span><span class="n">username</span><span class="p">);</span><span class="c1">//指定进入的目录识别名DN</span>
+<span class="w">        </span><span class="n">env</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">Context</span><span class="p">.</span><span class="na">SECURITY_CREDENTIALS</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">);</span><span class="w"> </span><span class="c1">//进入的目录密码</span>
+<span class="w">        </span><span class="n">env</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&quot;filter&quot;</span><span class="p">,</span><span class="n">filter</span><span class="p">);</span>
+<span class="w">        </span><span class="n">DirContext</span><span class="w"> </span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// 得到初始目录环境的一个引用</span>
+<span class="w">            </span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">InitialDirContext</span><span class="p">(</span><span class="n">env</span><span class="p">);</span>
+
+<span class="w">            </span><span class="c1">//The search base entry &#39;uid=00012047,ou=Internal,ou=People,o=xxx.com,o=isp&#39; does not exist]; remaining name &#39;uid=00012047,ou=Internal&#39;</span>
+<span class="c1">//            Attributes attrs = ctx.getAttributes(&quot;uid=00012047,ou=Internal,ou=People&quot;);//获取到一个人员，</span>
+
+
+<span class="w">            </span><span class="n">NamingEnumeration</span><span class="w"> </span><span class="n">bindings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="p">.</span><span class="na">listBindings</span><span class="p">(</span><span class="s">&quot;ou=Internal,ou=People&quot;</span><span class="p">);</span><span class="c1">//列举 内部人员</span>
+
+<span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">bindings</span><span class="p">.</span><span class="na">hasMore</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Binding</span><span class="w"> </span><span class="n">bd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">Binding</span><span class="p">)</span><span class="n">bindings</span><span class="p">.</span><span class="na">next</span><span class="p">();</span>
+<span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">bd</span><span class="p">.</span><span class="na">getName</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">bd</span><span class="p">.</span><span class="na">getObject</span><span class="p">());</span>
+<span class="w">            </span><span class="p">}</span>
+
+
+<span class="w">             </span><span class="cm">/*根据结点的DN来查找它的所有属性, 然后再从属性中得到所有的值,注意一个属性可以有多个值*/</span>
+<span class="c1">//            for (NamingEnumeration ae = attrs.getAll(); ae.hasMore(); ) {</span>
+<span class="c1">//                //获取一个属性</span>
+<span class="c1">//                Attribute attr = (Attribute) ae.next();</span>
+<span class="c1">//                for (NamingEnumeration ve = attr.getAll(); ve.hasMore(); ) {</span>
+<span class="c1">//                    System.out.println(String.format(&quot;Attribute=%s,Value=%s&quot;,attr.getID(),ve.next()) );</span>
+<span class="c1">//                }</span>
+<span class="c1">//            }</span>
+
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">javax</span><span class="p">.</span><span class="na">naming</span><span class="p">.</span><span class="na">AuthenticationException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;认证失败&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;认证出错：&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span><span class="k">finally</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ctx</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">ctx</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+<span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">NamingException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">LdapJNDI</span><span class="w"> </span><span class="n">ldapJNDI</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">LdapJNDI</span><span class="p">();</span>
+<span class="w">        </span><span class="n">ldapJNDI</span><span class="p">.</span><span class="na">JNDILookup</span><span class="p">();</span>
+
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>最后总结一下 LDAP：</p>
+<p>1、LDAP 的结构用树来表示，而不是用表格。正因为这样，就不能用 SQL 语句了。</p>
+<p>2、LDAP 可以很快地得到查询结果，不过在写方面，就慢得多。</p>
+<p>3、LDAP 提供了静态数据的快速查询方式。</p>
+<p>4、Client/server 模型，Server 用于存储数据，Client 提供操作目录信息树的工具。</p>
+<p>5、LDAP 是一种开放 Internet 标准，LDAP 协议是跨平台的 Interent 协议。</p>
+<h2 id="node-ldap_1">node-ldap<a class="headerlink" href="#node-ldap_1" title="Permanent link">&para;</a></h2>
+<p>node ldap client</p>
+<h2 id="github">github<a class="headerlink" href="#github" title="Permanent link">&para;</a></h2>
+<p><a href="https://github.com/ymyang/node-ldap">https://github.com/ymyang/node-ldap</a></p>
+<h2 id="_1">安装<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>npm install node-ldap</p>
+<h2 id="_2">使用<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>已通过 Windows Server 2008 测试</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">LdapClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">RedisClient</span><span class="p">(</span><span class="s2">&quot;node-ldap&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">LdapClient</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">ldapUrl</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;ldap://192.168.1.81:389&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">userDn</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;administrator@yliyun.com&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;yliyun@123&quot;</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="c1">// 用户认证</span>
+<span class="nx">client</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">auth</span><span class="p">(</span><span class="s2">&quot;administrator@yliyun.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;yliyun@123&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;success&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="p">})</span>
+<span class="w">  </span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="c1">// 搜索部门</span>
+<span class="nx">client</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">searchOU</span><span class="p">(</span><span class="s2">&quot;cn=Users,dc=yliyun,dc=com&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">ous</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ous</span><span class="p">);</span>
+<span class="w">  </span><span class="p">})</span>
+<span class="w">  </span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="c1">// 搜索群组</span>
+<span class="nx">client</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">searchGroup</span><span class="p">(</span><span class="s2">&quot;cn=Users,dc=yliyun,dc=com&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">groups</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">groups</span><span class="p">);</span>
+<span class="w">  </span><span class="p">})</span>
+<span class="w">  </span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="c1">// 搜索用户</span>
+<span class="nx">client</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">searchUser</span><span class="p">(</span><span class="s2">&quot;cn=Users,dc=yliyun,dc=com&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">users</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">users</span><span class="p">);</span>
+<span class="w">  </span><span class="p">})</span>
+<span class="w">  </span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="c1">// 搜索</span>
+<span class="nx">client</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">search</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">base</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;dc=yliyun,dc=com&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sub&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// 默认为&#39;one&#39;</span>
+<span class="w">    </span><span class="nx">paged</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;true&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// 默认为true</span>
+<span class="w">    </span><span class="nx">filter</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;(objectclass=organizationalUnit)&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="p">})</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">rows</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">rows</span><span class="p">);</span>
+<span class="w">  </span><span class="p">})</span>
+<span class="w">  </span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="c1">// 断开连接</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">();</span>
+</code></pre></div>
+<h1 id="nodejs-ldap"><a href="https://www.cnblogs.com/kongxianghai/p/4847265.html">node.js 下 LDAP 查询实践</a><a class="headerlink" href="#nodejs-ldap" title="Permanent link">&para;</a></h1>
+<p>目标：</p>
+<p>从一个 LDAP Server 获取 uid=kxh 的用户数据</p>
+<p>LDAP 地址为：ldap://10.233.21.116:389</p>
+<p>在工程根目录中，先 npm 一个 LDAP 的访问库 ldpajs npm install ldapjs</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">ldap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;ldapjs&quot;</span><span class="p">);</span>
+
+<span class="c1">//创建LDAP client，把服务器url传入</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ldap</span><span class="p">.</span><span class="nx">createClient</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;ldap://10.203.24.216:389&quot;</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="c1">//创建LDAP查询选项</span>
+<span class="c1">//filter的作用就是相当于SQL的条件</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">filter</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;(uid=kxh)&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">//查询条件过滤器，查找uid=kxh的用户节点</span>
+<span class="w">  </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sub&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">//查询范围</span>
+<span class="w">  </span><span class="nx">timeLimit</span><span class="o">:</span><span class="w"> </span><span class="mf">500</span><span class="p">,</span><span class="w"> </span><span class="c1">//查询超时</span>
+<span class="p">};</span>
+
+<span class="c1">//将client绑定LDAP Server</span>
+<span class="c1">//第一个参数：是用户，必须是从根节点到用户节点的全路径</span>
+<span class="c1">//第二个参数：用户密码</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span>
+<span class="w">  </span><span class="s2">&quot;uid=supbind,cn=users,dc=tiger,dc=com&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;123456&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="nx">res1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">//开始查询</span>
+<span class="w">    </span><span class="c1">//第一个参数：查询基础路径，代表在查询用户信心将在这个路径下进行，这个路径是由根节开始</span>
+<span class="w">    </span><span class="c1">//第二个参数：查询选项</span>
+<span class="w">    </span><span class="nx">client</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="s2">&quot;DC=tiger,DC=com&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">opts</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="nx">res2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">//查询结果事件响应</span>
+<span class="w">      </span><span class="nx">res2</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;searchEntry&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">entry</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">//获取查询的对象</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">entry</span><span class="p">.</span><span class="nx">object</span><span class="p">;</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">userText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">);</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">userText</span><span class="p">);</span>
+<span class="w">      </span><span class="p">});</span>
+
+<span class="w">      </span><span class="nx">res2</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;searchReference&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">referral</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;referral: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">referral</span><span class="p">.</span><span class="nx">uris</span><span class="p">.</span><span class="nx">join</span><span class="p">());</span>
+<span class="w">      </span><span class="p">});</span>
+
+<span class="w">      </span><span class="c1">//查询错误事件</span>
+<span class="w">      </span><span class="nx">res2</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;error: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">//unbind操作，必须要做</span>
+<span class="w">        </span><span class="nx">client</span><span class="p">.</span><span class="nx">unbind</span><span class="p">();</span>
+<span class="w">      </span><span class="p">});</span>
+
+<span class="w">      </span><span class="c1">//查询结束</span>
+<span class="w">      </span><span class="nx">res2</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;end&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;search status: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">//unbind操作，必须要做</span>
+<span class="w">        </span><span class="nx">client</span><span class="p">.</span><span class="nx">unbind</span><span class="p">();</span>
+<span class="w">      </span><span class="p">});</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">);</span>
+</code></pre></div>
+<p>参考资料</p>
+<p>filter 语法：<a href="http://www.ldapexplorer.com/en/manual/109010000-ldap-filter-syntax.htm">http://www.ldapexplorer.com/en/manual/109010000-ldap-filter-syntax.htm</a></p>
+<p>ldapjs：<a href="https://www.npmjs.com/package/ldapjs">https://www.npmjs.com/package/ldapjs</a></p>
+<p><a href="https://blog.csdn.net/ljheee/article/details/78746037?utm_source=copy">https://blog.csdn.net/ljheee/article/details/78746037?utm_source=copy</a></p>
+<p><a href="https://blog.csdn.net/weixin_34208283/article/details/89375085">https://blog.csdn.net/weixin_34208283/article/details/89375085</a></p>
+<p><a href="https://www.cnblogs.com/kongxianghai/p/4847265.html">https://www.cnblogs.com/kongxianghai/p/4847265.html</a></p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+  </span>
+
+    
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:1822852997@qq.com">Michael An</a>, 
+        <a href="mailto:2331806369@qq.com">Michael An</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>
