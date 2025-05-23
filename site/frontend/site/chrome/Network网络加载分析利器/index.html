@@ -1,0 +1,975 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/chrome/Network%E7%BD%91%E7%BB%9C%E5%8A%A0%E8%BD%BD%E5%88%86%E6%9E%90%E5%88%A9%E5%99%A8/">
+      
+      
+        <link rel="prev" href="../Chrome%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">
+      
+      
+        <link rel="next" href="../Profiles%E6%B7%B1%E5%BA%A6%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%BF%85%E5%A4%87/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>Network网络加载分析利器 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chrome-devtools-network" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Network网络加载分析利器
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    about
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            about
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    README
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    frontend
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%94%E5%B9%B4%E4%B9%8B%E5%90%8E%E7%9A%84%E5%89%8D%E7%AB%AF%E4%BC%9A%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    五年之后的前端会是什么样
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%85%BE%E8%AE%AF14W%E8%A1%8C%E4%BB%A3%E7%A0%81%E9%87%8F%E7%9A%84%E5%89%8D%E7%AB%AF%E9%A1%B5%E9%9D%A2%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    腾讯14W行代码量的前端页面长什么样
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    chrome
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            chrome
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chrome%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chrome开发者工具使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Network网络加载分析利器
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Network网络加载分析利器
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network 有哪些功能？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      怎么录制页面快照？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#domcontentloaded-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      DOMContentLoaded 事件/Load 事件的区别？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      资源请求明细包含了哪些信息？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何查看资源请求的上游和下游？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      想对请求列表排序？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      想对请求进行筛选？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何模拟不同的网络环境？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cookie" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何清除缓存和 Cookie？
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Profiles%E6%B7%B1%E5%BA%A6%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%BF%85%E5%A4%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Profiles深度性能优化必备
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Timeline%E5%BF%AB%E6%8D%B7%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Timeline快捷性能优化工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%B7%B1%E5%BA%A6%E5%89%96%E6%9E%90%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%80%A7%E8%83%BD%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    深度剖析浏览器渲染性能原理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#network" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network 有哪些功能？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      怎么录制页面快照？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#domcontentloaded-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      DOMContentLoaded 事件/Load 事件的区别？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      资源请求明细包含了哪些信息？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何查看资源请求的上游和下游？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      想对请求列表排序？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      想对请求进行筛选？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何模拟不同的网络环境？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cookie" class="md-nav__link">
+    <span class="md-ellipsis">
+      如何清除缓存和 Cookie？
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="chrome-devtools-network">Chrome DevTools 之 Network，网络加载分析利器<a class="headerlink" href="#chrome-devtools-network" title="Permanent link">&para;</a></h1>
+<p>虽然一直在用 Chrome DevTools，但大多停留在常用的功能和调试上，比如<code>Elements/Network/Sources/Console</code>等主要功能，而对于性能分析/优化相关的<code>Timeline/Profiles</code>一直敬而远之，深感其门槛高，于是潜心阅读文档，以望窥得一二，以解决实际问题。</p>
+<p>不同版本的 Chrome DevTools 差别很大，这篇文章基于最新版的 Mac Chrome 完成，主要介绍<code>Network/Timeline/Profiles</code>三个方面的内容，为后续的加载优化，性能优化做准备。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-724857975d1e91ea.png?imageMogr2/auto-orient/strip|imageView2/2/w/597/format/webp" /></p>
+<p>系统版本 &amp; Chrome 版本</p>
+<p>之前写过一篇关于<a href="https://www.jianshu.com/p/a32b890c29b1">渲染性能</a>的长文章，有兴趣的可以先阅读阅读。</p>
+<h2 id="network">Network 有哪些功能？<a class="headerlink" href="#network" title="Permanent link">&para;</a></h2>
+<p>Network 主要有 5 个视窗，分别有不同的功能：
+<code>Controls 工具栏</code>：用来控制 Network 的功能及外观。
+<code>Filters 筛选栏</code>：根据筛选条件筛选请求列表，按住<code>command/ctrl</code>键可多选。
+<code>Overviews 概览</code>：资源被加载过来的时间线，如果多条时间线垂直堆叠，表示多个资源被并行加载。
+<code>Request Table 请求列表</code>：该视窗列出了所有的资源请求，默认按时间顺序排序，点击某个资源，可以查看更详细的信息。
+<code>Summary 总览</code>：汇总了请求数量，传输数据大小，加载时间等信息。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-a0acdb55ed801dd3.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>Network 视窗</p>
+<p>默认情况下，<code>Request Table 请求列表</code>展示如下信息，当然，在请求列表的表头右键可以配置请求列表显示的内容。
+<code>Name</code>：资源的名称。
+<code>Status</code>：HTTP 的状态码。
+<code>Type</code>：资源的 MIME 类型。
+<code>Initiator</code>：表示请求的上游，即发起者。<code>Parser</code>表示是 HTML 解析器发起的请求；<code>Redirect</code>表示是 HTTP 跳转发起的请求；<code>Script</code>表示是由脚本发起的请求；<code>Other</code>表示是由其他动作发起的请求，比如用户跳转或者在导航栏输入地址等。
+<code>Size</code>：请求的大小，包括响应头和响应体的内容。
+<code>Time</code>：请求的时间，从请求开始到请求完全结束。
+<code>Timeline</code>：请求的时间线。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-77f7bed246b26c0f.png?imageMogr2/auto-orient/strip|imageView2/2/w/920/format/webp" /></p>
+<p>右键配置请求列表</p>
+<h2 id="_1">怎么录制页面快照？<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>选中工具栏的快照图标，可以录制页面快照。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-221af961b60fae9c.png?imageMogr2/auto-orient/strip|imageView2/2/w/1106/format/webp" /></p>
+<p>录制快照</p>
+<p>选中某一个快照，在概览/请求列表出现的黄色竖线，就是该快照被捕捉的真实时间，双击快照可以放大。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-1a17bea9bbbfa890.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>快照捕获时间</p>
+<h2 id="domcontentloaded-load">DOMContentLoaded 事件/Load 事件的区别？<a class="headerlink" href="#domcontentloaded-load" title="Permanent link">&para;</a></h2>
+<p><code>DOMContentLoaded事件</code> 页面文档完全加载并解析完毕之后，会触发<code>DOMContentLoaded事件</code>，它在两个地方都有体现：概览视窗的蓝色竖线，总览视窗的触发时间。
+<code>Load事件</code> 当所有资源加载完成后触发的，它在三个地方有体现：概览视窗的红色竖线，请求列表视窗的红色竖线，总览视窗的触发时间。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-30bb537a98528721.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>DOMContentLoaded/Load 事件</p>
+<p>结合 DOM 文档加载的加载步骤，<code>DOMContentLoaded事件/Load事件</code>触发时机如下：</p>
+<ol>
+<li>解析 HTML 结构。</li>
+<li>加载外部脚本和样式表文件。</li>
+<li>解析并执行脚本代码。// 部分脚本会阻塞页面的加载</li>
+<li>DOM 树构建完成。//<code>DOMContentLoaded 事件</code></li>
+<li>加载图片等外部文件。</li>
+<li>页面加载完毕。//<code>load 事件</code></li>
+</ol>
+<h2 id="_2">资源请求明细包含了哪些信息？<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>点击请求列表某个请求的名称，可以查看该请求的详细信息。详细信息主要有 4 个方面：
+<code>Headers</code>：资源的 HTTP 头
+<code>Preview</code>：预览 JSON/image/text 资源
+<code>Response</code>：资源的 HTTP 响应头
+<code>Timing</code>：资源的请求生命周期
+<code>Cookies</code>：查看 HTTP 请求头和响应头附带的 cookie 信息</p>
+<p>查看 HTTP 头：包含了资源的请求 URL，HTTP 方法，响应的状态码。此外，还列出了 HTTP 请求头和响应头及其值，以及请求参数。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-c45e34c8f075fc23.png?imageMogr2/auto-orient/strip|imageView2/2/w/951/format/webp" /></p>
+<p>HTTP 头</p>
+<p>查看 HTTP 响应内容：可以清楚的看到 HTTP 请求的返回结果。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-5357d204393b09ad.png?imageMogr2/auto-orient/strip|imageView2/2/w/373/format/webp" /></p>
+<p>HTTP 响应</p>
+<p>资源预览：没什么好讲的，可以查看 JSON/image/text 等资源。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-8df16a776acfabaf.png?imageMogr2/auto-orient/strip|imageView2/2/w/879/format/webp" /></p>
+<p>资源预览</p>
+<p>Cookies：该域名下存储的 cookie 信息，其中包含了 cookie 的特性。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-fc61c1aab20b2b3f.png?imageMogr2/auto-orient/strip|imageView2/2/w/931/format/webp" /></p>
+<p>Cookies</p>
+<p><code>Name</code>：cookie 的名称。
+<code>Value</code>：cookie 的值。
+<code>Domain</code>：cookie 所属域名。
+<code>Path</code>：cookie 所属 URL。
+<code>Expire/Max-Age</code>：cookie 的存活时间。
+<code>Size</code>：cookie 的字节大小。
+<code>HTTP</code>：表示 cookie 只能被浏览器设置，而且 JS 不能修改。
+<code>Secure</code>：表示 cookie 只能在安全连接上传输。</p>
+<p>Timing：查看资源请求的生命周期，包含<code>Queing</code>/<code>Stalled</code>/<code>Request/Response</code>/<code>Request sent</code>/<code>Waiting</code>/<code>Content Download</code>各个阶段。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-ca8ecc55a513c254.png?imageMogr2/auto-orient/strip|imageView2/2/w/952/format/webp" /></p>
+<p>Timeing</p>
+<h2 id="_3">如何查看资源请求的上游和下游？<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>按时 shift 键，鼠标 hover 在请求上，可以查看请求的上游和下游，如下图所示，hover 在<code>common.js</code>上，可以看到有一个绿色请求、一个红色请求。其中绿色请求表示<code>common.js</code>的上游请求，即谁触发了<code>common.js</code>请求，红色请求表示<code>common.js</code>的下游请求，即<code>common.js</code>又触发了什么请求。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-038dbaa07c55b3d8.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>查看上下游请求</p>
+<h2 id="_4">想对请求列表排序？<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>请求列表的资源默认是按照起始时间排序，最上面的请求最先发起。点击表头的<code>Timeline</code>可以重新排序，主要有如下几个维度。
+<code>Timline - Start Time</code>：按请求的发起时间排序。
+<code>Timline - Response Time</code>：按请求的响应时间排序。
+<code>Timline - End Time</code>：按请求的结束时间排序。
+<code>Timline - Total Duration</code>：按请求的总耗时排序，可以快捷的找出耗时最多的资源。
+<code>Timline - Latency</code>：按请求的延迟排序，延迟是指请求发起的时间到响应开始的时间，可以快捷的找出请求等待时间最长（TTFB）的资源。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-ae3718b8e228ed25.png?imageMogr2/auto-orient/strip|imageView2/2/w/1181/format/webp" /></p>
+<p>按 Timeline 排序</p>
+<h2 id="_5">想对请求进行筛选？<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>通过筛选视窗可以对请求进行多维度的筛选，按住<code>Command/Ctrl</code>键可以同时选择多个筛选条件。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-b8baae92a64a4bfe.png?imageMogr2/auto-orient/strip|imageView2/2/w/771/format/webp" /></p>
+<p>多个筛选条件</p>
+<p>此外，筛选框可以实现很多定制化的筛选，比如字符串匹配，关键词筛选等，其中关键词筛选主要有如下几种：
+<code>domain</code>：筛选出指定域名的请求，不仅支持自动补全，还支持*匹配。
+<code>has-response-header</code>：筛选出包含指定响应头的请求。
+<code>is</code>：通过 is:running 找出 WebSocket 请求。
+<code>larger-than</code>：筛选出请求大于指定字节大小的请求，其中 1000 表示 1k。
+<code>method</code>：筛选出指定 HTTP 方法的请求，比如 GET 请求、POST 请求等。
+<code>mime-type</code>：筛选出指定文件类型的请求。
+<code>mixed-content</code>：筛选出混合内容的请求（不懂啥意思）。
+<code>scheme</code>：筛选出指定协议的请求，比如 scheme:http、scheme:https。
+<code>set-cookie-domain</code>：筛选出指定 cookie 域名属性的包含 Set-Cookie 的请求。
+<code>set-cookie-name</code>：筛选出指定 cookie 名称属性的包含 Set-Cookie 的请求。
+<code>set-cookie-value</code>：筛选出指定 cookie 值属性的包含 Set-Cookie 的请求。
+<code>status-code</code>：筛选出指定 HTTP 状态码的请求。</p>
+<p>主流的几个筛选截图如下：</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-80c7a7bf1cee9218.png?imageMogr2/auto-orient/strip|imageView2/2/w/765/format/webp" /></p>
+<p>domain 筛选</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-a8c1d4fd42b89935.png?imageMogr2/auto-orient/strip|imageView2/2/w/749/format/webp" /></p>
+<p>has-response-header 筛选</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-1eb084e3a1b7d102.png?imageMogr2/auto-orient/strip|imageView2/2/w/765/format/webp" /></p>
+<p>larger-than 筛选</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-854e7909eb1f7f62.png?imageMogr2/auto-orient/strip|imageView2/2/w/871/format/webp" /></p>
+<p>method 筛选</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-7de1e7a50b283371.png?imageMogr2/auto-orient/strip|imageView2/2/w/916/format/webp" /></p>
+<p>Mime-type 筛选</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-a3c301b1960ecd26.png?imageMogr2/auto-orient/strip|imageView2/2/w/853/format/webp" /></p>
+<p>set-cookie-name 筛选</p>
+<h2 id="_6">如何模拟不同的网络环境？<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p><code>Network &gt; Filters 筛选栏</code>下有可以模拟不同网络环境下的选项，对于模拟测试低网速环境，以及针对低网速环境做加载优化很有帮助。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-1d537366a436ec2d.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>模拟网络环境</p>
+<h2 id="cookie">如何清除缓存和 Cookie？<a class="headerlink" href="#cookie" title="Permanent link">&para;</a></h2>
+<p>在 Network 的请求列表视窗中，右键也提供了清除 Cookie 和缓存的选项。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-f9d28e2ef41f452d.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>Paste_Image.png</p>
+<p>另外，调试模式下，强烈建议勾选<code>Disable cache</code>选项，以避免缓存引起的一些诡异问题。</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 5, 2023</span>
+  </span>
+
+    
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:1822852997@qq.com">Michael An</a>, 
+        <a href="mailto:2331806369@qq.com">Michael An</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>

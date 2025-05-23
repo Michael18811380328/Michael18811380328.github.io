@@ -1,0 +1,1203 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/chrome/Profiles%E6%B7%B1%E5%BA%A6%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%BF%85%E5%A4%87/">
+      
+      
+        <link rel="prev" href="../Network%E7%BD%91%E7%BB%9C%E5%8A%A0%E8%BD%BD%E5%88%86%E6%9E%90%E5%88%A9%E5%99%A8/">
+      
+      
+        <link rel="next" href="../Timeline%E5%BF%AB%E6%8D%B7%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>Profiles深度性能优化必备 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chrome-devtools-profiles" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Profiles深度性能优化必备
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    about
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            about
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    README
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    frontend
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%94%E5%B9%B4%E4%B9%8B%E5%90%8E%E7%9A%84%E5%89%8D%E7%AB%AF%E4%BC%9A%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    五年之后的前端会是什么样
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%85%BE%E8%AE%AF14W%E8%A1%8C%E4%BB%A3%E7%A0%81%E9%87%8F%E7%9A%84%E5%89%8D%E7%AB%AF%E9%A1%B5%E9%9D%A2%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    腾讯14W行代码量的前端页面长什么样
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    chrome
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            chrome
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chrome%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chrome开发者工具使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Network%E7%BD%91%E7%BB%9C%E5%8A%A0%E8%BD%BD%E5%88%86%E6%9E%90%E5%88%A9%E5%99%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Network网络加载分析利器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Profiles深度性能优化必备
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Profiles深度性能优化必备
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiles 有哪些功能？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profiles-collect-javascript-cpu-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiles 下 Collect Javascript CPU Profile，可以做什么？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Profiles 下 Collect Javascript CPU Profile，可以做什么？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      查看录制结果
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chart" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chart 图表视图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heavybottom-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      Heavy(Bottom Up)视窗
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#treetop-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tree(Top Down)视窗
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profiles-take-heap-snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiles 下 Take Heap Snapshot，可以做什么？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Profiles 下 Take Heap Snapshot，可以做什么？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      录制快照
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sumary-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      查看快照Sumary view 总览视图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      查看快照Comparison view 对比视图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#containment-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      查看快照Containment view 内容视图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      查看快照Statistics 统计视图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      搜索指定对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      举个内存泄露的栗子
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profiles-record-heap-allocations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiles 下 Record Heap Allocations ，可以做什么？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Profiles 下 Record Heap Allocations ，可以做什么？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      堆分配分析器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Timeline%E5%BF%AB%E6%8D%B7%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Timeline快捷性能优化工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%B7%B1%E5%BA%A6%E5%89%96%E6%9E%90%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%80%A7%E8%83%BD%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    深度剖析浏览器渲染性能原理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiles 有哪些功能？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profiles-collect-javascript-cpu-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiles 下 Collect Javascript CPU Profile，可以做什么？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Profiles 下 Collect Javascript CPU Profile，可以做什么？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      查看录制结果
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chart" class="md-nav__link">
+    <span class="md-ellipsis">
+      Chart 图表视图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heavybottom-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      Heavy(Bottom Up)视窗
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#treetop-down" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tree(Top Down)视窗
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profiles-take-heap-snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiles 下 Take Heap Snapshot，可以做什么？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Profiles 下 Take Heap Snapshot，可以做什么？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      录制快照
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sumary-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      查看快照Sumary view 总览视图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      查看快照Comparison view 对比视图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#containment-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      查看快照Containment view 内容视图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      查看快照Statistics 统计视图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      搜索指定对象
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      举个内存泄露的栗子
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profiles-record-heap-allocations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiles 下 Record Heap Allocations ，可以做什么？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Profiles 下 Record Heap Allocations ，可以做什么？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      堆分配分析器
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="chrome-devtools-profiles">Chrome DevTools 之 Profiles，深度性能优化必备<a class="headerlink" href="#chrome-devtools-profiles" title="Permanent link">&para;</a></h1>
+<p>虽然一直在用 Chrome DevTools，但大多停留在常用的功能和调试上，比如<code>Elements/Network/Sources/Console</code>等主要功能，而对于性能分析/优化相关的<code>Timeline/Profiles</code>一直敬而远之，深感其门槛高，于是潜心阅读文档，以望窥得一二，以解决实际问题。</p>
+<p>不同版本的 Chrome DevTools 差别很大，这篇文章基于最新版的 Mac Chrome 完成，主要介绍<code>Network/Timeline/Profiles</code>三个方面的内容。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-724857975d1e91ea.png?imageMogr2/auto-orient/strip|imageView2/2/w/597/format/webp" /></p>
+<p>系统版本 &amp; Chrome 版本</p>
+<p>之前写过一篇关于<a href="https://www.jianshu.com/p/a32b890c29b1">渲染性能</a>的长文章，有兴趣的可以先阅读阅读。</p>
+<h2 id="profiles">Profiles 有哪些功能？<a class="headerlink" href="#profiles" title="Permanent link">&para;</a></h2>
+<p>Profiles 用来更深入的分析性能问题、内存问题。之前介绍的 Timeline 可以直观的发现问题所在，但是要深入分析，定位问题原因，还得靠 Profiles。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-881ed60aff79c364.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>Profiles 功能</p>
+<p>如截图所示，Profiles 提供了三个主要功能：
+<code>Collect Javascript CPU Profile</code>：用于找出耗时较长的 JS 函数。
+<code>Take Heap Snapshot</code>：用于分析 JS 对象及其关联的 DOM 节点的内存分布。
+<code>Record Heap Allocations</code>：记录内存分配信息，用于分析内存泄露的情况。</p>
+<h2 id="profiles-collect-javascript-cpu-profile">Profiles 下 <code>Collect Javascript CPU Profile</code>，可以做什么？<a class="headerlink" href="#profiles-collect-javascript-cpu-profile" title="Permanent link">&para;</a></h2>
+<p>如果你在 Timeline 中发现 JS 代码存在 jank，jank 在<a href="https://www.jianshu.com/p/a32b890c29b1">渲染性能</a>提到过，主要指运行时间过长而丢帧的问题。使用 Profiles 可以找出耗时较长的 JS 函数，Profiles 的使用步骤如下：
+1、勾选<code>Profiles &gt; Collect Javascript CPU Profile</code>。
+2、点击 Start，开始录制。
+3、结合具体要分析的场景，做一些操作，比如：刷新页面，点击某个按钮，滑动某个图片，甚至不操作。
+4、点击 Stop，结束录制。</p>
+<p>选中函数，点击<code>X</code>符号，可以移除该函数，通过这种方式可以避免一些无用函数或者插件代码对结果分析造成干扰。也可以点击<code>刷新</code>符号，恢复移除的函数。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-fb8c366acf4dbffc.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>Paste_Image.png</p>
+<h6 id="_1">查看录制结果<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h6>
+<p>录制结束之后，我们来查看录制的结果，<code>Chrome DevTools</code>提供了三种不同的查看方式：
+<code>Chart 图表</code>：按时间顺序展示的火焰图。
+<code>Heavy(Bottom Up) 从下至上</code>：按对性能的影响列出函数，也可以查看函数的调用路径，默认视图。
+<code>Tree(Top Down) 从上至下</code>：从调用栈的顶端开始，展示调用结构的树状图。</p>
+<h6 id="chart"><code>Chart 图表</code>视图<a class="headerlink" href="#chart" title="Permanent link">&para;</a></h6>
+<p><code>Chart</code>：按时间顺序展示的火焰图。包含两部分：<code>Overview 总览</code>和<code>Call Stacks调用栈</code>。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-45b21c5d9a3a5d40.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>Paste_Image.png</p>
+<p><code>Overview 总览</code>：录制结果的概览，该图中的条形高度表示调用堆栈的深度。
+<code>Call Stacks调用栈</code>：录制结果的调用堆栈，横向表示时间，垂直方向表示调用栈，从上往下表示函数调用。
+通常来说，垂直方向并没有太大的意义，仅仅表示函数嵌套比较深而已，但是横向表示调用时间，如果调用时间太长，那么就需要优化优化了。</p>
+<p>把鼠标放到调用<code>Call Stacks调用栈</code>的某个函数上面，会出现带有更多详情的浮窗：</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-7891b75261d123dd.png?imageMogr2/auto-orient/strip|imageView2/2/w/1144/format/webp" /></p>
+<p>函数详情</p>
+<p><code>Name</code>：函数名称。
+<code>Self time</code>：本次该函数调用运行的时间，不包含子函数的时间。
+<code>Total time</code>：本次该函数调用运行的总时间，包括子函数的时间。
+<code>URL</code>：函数定义在文件中的位置，比如 file.js:100，表示函数在 file.js 文件的第 100 行定义。
+<code>Aggregated self time</code>：汇总所有该函数调用运行的时间，不包含子函数的时间。
+<code>Aggregated total time</code>：汇总所有该函数调用运行的时间，包含子函数的时间。
+<code>Not optimized</code>：优化器检查到该函数有可优化的空间。</p>
+<h6 id="heavybottom-up"><code>Heavy(Bottom Up)</code>视窗<a class="headerlink" href="#heavybottom-up" title="Permanent link">&para;</a></h6>
+<p>按对性能的影响列出函数，也可以查看函数的调用路径，默认视图。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-b36ffba3d9bc657c.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>Heavy 查看方式</p>
+<h6 id="treetop-down"><code>Tree(Top Down)</code>视窗<a class="headerlink" href="#treetop-down" title="Permanent link">&para;</a></h6>
+<p>从最初调用的位置开始，展示调用结构的树状图。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-04b0fa66fa56493f.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>Tree 查看方式</p>
+<h2 id="profiles-take-heap-snapshot">Profiles 下 <code>Take Heap Snapshot</code>，可以做什么？<a class="headerlink" href="#profiles-take-heap-snapshot" title="Permanent link">&para;</a></h2>
+<p>通过<code>Profiles &gt; Take Heap Snapshot</code>可以查看堆快照，进而发现内存泄露问题。</p>
+<p><code>Chorme DevTools</code>的堆分析器可展示出 JS 对象及其关联的 DOM 节点的内存分布情况，可以利用该工具来录制堆快照、分析内存图、对比堆快照、定位内存泄漏。</p>
+<h6 id="_2">录制快照<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h6>
+<p>选中<code>Take Heap Snapshot</code>，点击开始即可获取快照（它会自动停止），每次获取快照之前都会自动执行垃圾回收操作。
+快照最初是存储在渲染进程的内存中的，当我们录制的时候才会传输到<code>Chrome DevTools</code>，快照加载进来并解析，我们可以看到其具体信息，每个快照底部的数字就是可达的 JS 对象的大小。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-888726a444ce655a.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>录制快照</p>
+<p>点击清除按钮可以清除快照，如果直接关闭<code>Chrome DevTools</code>窗口是不会清除快照的，重新打开<code>Chrome DevTools</code>窗口，之前的快照都还保留着。</p>
+<p>不同类型的任务可以使用不同的方式来查看，堆快照有三种查看方式。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-b5f9c5f23bc577c9.png?imageMogr2/auto-orient/strip|imageView2/2/w/861/format/webp" /></p>
+<p>Paste_Image.png</p>
+<p><code>Summary 总览视图</code>：按构造函数分组。用于捕捉对象及其使用的内存。对于定位 DOM 内存泄露特别有用。
+<code>Comparison 对比视图</code>：对比两个快照。用于对比不同操作之后的堆快照，查看内存的释放及引用计数，来分析内存是否泄露及其原因。
+<code>Containment 内容视图</code>：查看堆内容。更适合查看对象结构，有助于分析对象的引用情况。适用于分析闭包以及深入分析对象。
+<code>Statistics 统计视图</code>：总览堆的统计信息。</p>
+<h6 id="sumary-view">查看快照<code>Sumary view 总览视图</code><a class="headerlink" href="#sumary-view" title="Permanent link">&para;</a></h6>
+<p>默认视图，按对象统计，点击某个对象，展开查看更多的实例信息。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-1ad523016624309b.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>Paste_Image.png</p>
+<p><code>Constructor</code>：构造函数，节点下的对象都是由改构造函数创建而来。
+<code>Distance</code>：与根节点的距离。
+<code>Objects Count</code>：对象个数及百分占比。
+<code>Shallow size</code>：对象的直接内存总数，直接内存是指对象自身占用的内存大小。
+<code>Retained size</code>：对象的最大保留内存，保留内存是指对象被删除后可以释放的那部分内存。</p>
+<p>点击展开构造函数，可以看到所有构造函数相关的对象实例，@后面的数字是该对象实例的唯一标识符。
+记住，黄色的对象实例表示它被 JS 代码引用，红色的对象实例表示被黄色节点引用的游离节点。</p>
+<p>那么，常见的顶层构造函数分别代表什么呢？
+<code>(global property)</code>：全局对象和普通对象的中间对象，和常规思路不同。比如在 Window 上定义了一个 Person 对象，那么他们之间的关系就是<code>[global] =&gt; (global property) =&gt; Person</code>。之所以使用中间对象，是出于性能的考虑。
+<code>(closure)</code>：使用函数闭包的对象。
+<code>(array, string, number, regexp)</code>：一系列对象类型，其属性指向<code>Array/String/Number/Regexp</code>。
+<code>HTMLDivElement/HTMLAnchorElement/DocumentFragment</code>：元素的引用或者代码引用的指定文档对象。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-c1a86f3fd58a2f93.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>Paste_Image.png</p>
+<h6 id="comparison-view">查看快照<code>Comparison view 对比视图</code><a class="headerlink" href="#comparison-view" title="Permanent link">&para;</a></h6>
+<p>对比两个快照的不同，找出内存泄露的对象。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-19cb49d4e92ca6a6.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>Comparison view 对照视图</p>
+<p>为了验证特定操作会不会引起内存泄露，对比快照的步骤如下：
+1、无任何操作，拍第一个堆快照
+2、执行一个操作，通常是你觉得可能造成内存泄露的操作
+3、执行相反的操作，比如打开文档，然后关闭它
+4、拍第二个堆快照，切换到对照视图，并且指定与第一个堆快照进行对比</p>
+<h6 id="containment-view">查看快照<code>Containment view 内容视图</code><a class="headerlink" href="#containment-view" title="Permanent link">&para;</a></h6>
+<p>内容视图其实就是应用对象结构的鸟瞰图。它能让你深入分析函数闭包，观察 VM 内部对象，查看应用底层的内存使用情况。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-e1d7c983db8f50d1.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>Paste_Image.png</p>
+<p>该视图提供了几个常见入口：
+<code>DOMWindow objects</code>：JavaScript 代码的全局对象
+<code>Native objects</code>：浏览器的原生对象，整合到 JS 虚拟机中便于操作，比如 DOM 节点，CSS 规则。</p>
+<p>关于闭包的一个小建议：命名函数的闭包相对匿名函数的闭包更易于分析调试。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 匿名闭包</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">createLargeClosure</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">largeStr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Array</span><span class="p">(</span><span class="mf">1000000</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">lC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">largeStr</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">lC</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 命名闭包</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">createLargeClosure</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">largeStr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Array</span><span class="p">(</span><span class="mf">1000000</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">lC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">lC</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">largeStr</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">lC</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-751012243312ad93.png?imageMogr2/auto-orient/strip|imageView2/2/w/686/format/webp" /></p>
+<p>Paste_Image.png</p>
+<h6 id="statistics">查看快照<code>Statistics 统计视图</code><a class="headerlink" href="#statistics" title="Permanent link">&para;</a></h6>
+<p>总览堆栈的统计信息。可以清楚的看出堆快照的分布情况。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-8e07f50d363e9366.png?imageMogr2/auto-orient/strip|imageView2/2/w/504/format/webp" /></p>
+<p>Statistics 统计</p>
+<h6 id="_3">搜索指定对象<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h6>
+<p>当然，chrome 提供了<code>command + F</code>，可以让你搜索指定的对象。</p>
+<h6 id="_4">举个内存泄露的栗子<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h6>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">document</span><span class="p">.</span><span class="n">querySelector</span><span class="p">;</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">treeRef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">select</span><span class="p">(</span><span class="s">&quot;#tree&quot;</span><span class="p">);</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">leafRef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">select</span><span class="p">(</span><span class="s">&quot;#leaf&quot;</span><span class="p">);</span>
+<span class="kt">var</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">select</span><span class="p">(</span><span class="s">&quot;body&quot;</span><span class="p">);</span>
+
+<span class="n">body</span><span class="p">.</span><span class="n">removeChild</span><span class="p">(</span><span class="n">treeRef</span><span class="p">);</span>
+<span class="c1">//由于treeRef，#tree不能被释放</span>
+
+<span class="n">treeRef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
+<span class="c1">//由于leafRef，#tree仍然不能被释放</span>
+
+<span class="n">leafRef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
+<span class="c1">//完全没有被引用，#tree终于可以被释放</span>
+</code></pre></div>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-d56ceaa1ff4b95c1.png?imageMogr2/auto-orient/strip|imageView2/2/w/387/format/webp" /></p>
+<p>Paste_Image.png</p>
+<p>#leaf 节点递归引用了#tree 节点，所以，只有当 leafRef 被设置成 null 后，#tree 代表的整个树节点才会被垃圾回收器回收。</p>
+<h2 id="profiles-record-heap-allocations">Profiles 下 <code>Record Heap Allocations</code> ，可以做什么？<a class="headerlink" href="#profiles-record-heap-allocations" title="Permanent link">&para;</a></h2>
+<p>通过<code>Profiles &gt; Record Heap Allocations</code>可以持续的记录堆分配的情况，显示了对象在什么时候被创建、什么时候存在内存泄漏等。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-da6f11b27c08a988.png?imageMogr2/auto-orient/strip|imageView2/2/w/909/format/webp" /></p>
+<p>Paste_Image.png</p>
+<h6 id="_5">堆分配分析器<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h6>
+<p>要想了解对象的堆分配情况，和其他工具类似：选中<code>Record Heap Allocations</code>=&gt;点击 Start 开始录制=&gt;做一系列操作=&gt;停止录制=&gt;分析。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-90d5338502557fc5.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>堆分配</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-4b0ab1bd57f7300a.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>Paste_Image.png</p>
+<p>上面的柱条表示堆中生成的新对象。高度表示这个对象的大小，颜色表示这个对象的内存释放情况：蓝色柱表示这个对象在 timeline 中生成，结束前仍然存在；灰色柱表示这个对象在 timeline 中生成，但结束前已经被回收了。
+我们可以重复执行某个动作，如果最后有不少蓝色柱被保留，这些蓝色柱就是潜在的内存泄露问题。
+如果左边的意料之外的蓝条，那么极有可能存在内存泄露。</p>
+<p>上面总共录制了 6 次堆分配行为，我们可以聚焦到某一次堆分配，查看具体对象的保留路径信息。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-5ef99c9b28b4d0ec.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>Paste_Image.png</p>
+<p>通过检查对象的保留路径可以弄清楚为什么对象没有被回收，从而移除一些没必要的引用，释放内存。</p>
+<h2 id="_6">总结<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>该系列主要介绍了<code>Chrome DevTools</code>中的几个硬骨头<code>Network</code>/<code>Timeline</code>/<code>Profiles</code>，详细的介绍了他们的功能及一些使用技巧。希望大家读了这个系列后会对 Chrome DevTools 有一个大致的了解，并且能够亲身使用。当然，网站性能优化的话题还没有结束，后面还要结合实战讲讲：</p>
+<p>怎么去发现 jank 并解决？</p>
+<p>怎么发现强制同步布局并解决？</p>
+<p>怎么发现内存泄露并解决？</p>
+<p>怎么分析网页加载并优化加载速度？</p>
+<p>等等...</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 5, 2023</span>
+  </span>
+
+    
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:1822852997@qq.com">Michael An</a>, 
+        <a href="mailto:2331806369@qq.com">Michael An</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>

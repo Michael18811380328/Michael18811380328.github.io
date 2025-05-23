@@ -1,0 +1,1544 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Michael An">
+      
+      
+        <link rel="canonical" href="https://michael18811380328.github.io/chrome/%E6%B7%B1%E5%BA%A6%E5%89%96%E6%9E%90%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%80%A7%E8%83%BD%E5%8E%9F%E7%90%86/">
+      
+      
+        <link rel="prev" href="../Timeline%E5%BF%AB%E6%8D%B7%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7/">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>深度剖析浏览器渲染性能原理 - Michale An Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Michale An Blog" class="md-header__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Michale An Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              深度剖析浏览器渲染性能原理
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Michale An Blog" class="md-nav__button md-logo" aria-label="Michale An Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Michale An Blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Michael18811380328/Michael18811380328.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Michael18811380328/Michael18811380328.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    about
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            about
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    README
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    index
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    frontend
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            frontend
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%94%E5%B9%B4%E4%B9%8B%E5%90%8E%E7%9A%84%E5%89%8D%E7%AB%AF%E4%BC%9A%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    五年之后的前端会是什么样
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%85%BE%E8%AE%AF14W%E8%A1%8C%E4%BB%A3%E7%A0%81%E9%87%8F%E7%9A%84%E5%89%8D%E7%AB%AF%E9%A1%B5%E9%9D%A2%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    腾讯14W行代码量的前端页面长什么样
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    chrome
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            chrome
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Chrome%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chrome开发者工具使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Network%E7%BD%91%E7%BB%9C%E5%8A%A0%E8%BD%BD%E5%88%86%E6%9E%90%E5%88%A9%E5%99%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Network网络加载分析利器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Profiles%E6%B7%B1%E5%BA%A6%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%BF%85%E5%A4%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Profiles深度性能优化必备
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Timeline%E5%BF%AB%E6%8D%B7%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Timeline快捷性能优化工具
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    深度剖析浏览器渲染性能原理
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    深度剖析浏览器渲染性能原理
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      渲染卡顿是怎么回事？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      渲染流程分为几步？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      结合渲染流程怎么优化渲染性能呢？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化 JavaScript 的执行效率，具体可以做什么？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="优化 JavaScript 的执行效率，具体可以做什么？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#settimeout-setinterval-requestanimationframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      动画实现，避免使用 setTimeout 或 setInterval，尽量使用 requestAnimationFrame
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#javascript-web-workers" class="md-nav__link">
+    <span class="md-ellipsis">
+      把耗时长的 JavaScript 代码放到 Web Workers 中去做
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dom-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      把 DOM 元素的更新划分为多个小任务，分别在多个 frame 中去完成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chrome-devtools-timeline-javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用 Chrome DevTools 的 Timeline 来分析 JavaScript 的性能
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      降低样式计算的范围和复杂度
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="降低样式计算的范围和复杂度">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      降低样式选择器的复杂度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      减少需要执行样式计算的元素个数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      避免大规模、复杂的布局
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="避免大规模、复杂的布局">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      尽可能避免触发布局
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flexbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用 flexbox 替代老的布局模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      避免强制同步布局事件的发生
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      避免连续的强制同步布局发生
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      简化绘制的复杂度、减少绘制区域，具体可以做什么？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="简化绘制的复杂度、减少绘制区域，具体可以做什么？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      提升移动或渐变元素的绘制层
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      减少绘制区域
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      简化绘制的复杂度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chrome-devtools" class="md-nav__link">
+    <span class="md-ellipsis">
+      通过 Chrome DevTools 来分析绘制复杂度和时间消耗，尽可能降低这些指标
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      优先使用渲染层合并属性、控制层数量，具体可以做什么？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="优先使用渲染层合并属性、控制层数量，具体可以做什么？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transformopacity" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用 transform/opacity 实现动画效果
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      提升动画效果中的元素
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      管理渲染层、避免过多数量的层
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chrome-devtools_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用 Chrome DevTools 来了解页面的渲染层情况
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      对用户输入事件的处理函数去抖动（移动设备），具体可以做什么？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="对用户输入事件的处理函数去抖动（移动设备），具体可以做什么？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      避免使用运行时间过长的输入事件处理函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      避免在输入事件处理函数中修改样式属性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      对滚动事件处理函数去抖动
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结点什么？
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      渲染卡顿是怎么回事？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      渲染流程分为几步？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      结合渲染流程怎么优化渲染性能呢？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      优化 JavaScript 的执行效率，具体可以做什么？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="优化 JavaScript 的执行效率，具体可以做什么？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#settimeout-setinterval-requestanimationframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      动画实现，避免使用 setTimeout 或 setInterval，尽量使用 requestAnimationFrame
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#javascript-web-workers" class="md-nav__link">
+    <span class="md-ellipsis">
+      把耗时长的 JavaScript 代码放到 Web Workers 中去做
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dom-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      把 DOM 元素的更新划分为多个小任务，分别在多个 frame 中去完成
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chrome-devtools-timeline-javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用 Chrome DevTools 的 Timeline 来分析 JavaScript 的性能
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      降低样式计算的范围和复杂度
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="降低样式计算的范围和复杂度">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      降低样式选择器的复杂度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      减少需要执行样式计算的元素个数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      避免大规模、复杂的布局
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="避免大规模、复杂的布局">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      尽可能避免触发布局
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flexbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用 flexbox 替代老的布局模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      避免强制同步布局事件的发生
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      避免连续的强制同步布局发生
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      简化绘制的复杂度、减少绘制区域，具体可以做什么？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="简化绘制的复杂度、减少绘制区域，具体可以做什么？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      提升移动或渐变元素的绘制层
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      减少绘制区域
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      简化绘制的复杂度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chrome-devtools" class="md-nav__link">
+    <span class="md-ellipsis">
+      通过 Chrome DevTools 来分析绘制复杂度和时间消耗，尽可能降低这些指标
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      优先使用渲染层合并属性、控制层数量，具体可以做什么？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="优先使用渲染层合并属性、控制层数量，具体可以做什么？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transformopacity" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用 transform/opacity 实现动画效果
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      提升动画效果中的元素
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      管理渲染层、避免过多数量的层
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chrome-devtools_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用 Chrome DevTools 来了解页面的渲染层情况
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      对用户输入事件的处理函数去抖动（移动设备），具体可以做什么？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="对用户输入事件的处理函数去抖动（移动设备），具体可以做什么？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      避免使用运行时间过长的输入事件处理函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      避免在输入事件处理函数中修改样式属性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      对滚动事件处理函数去抖动
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      总结点什么？
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="_1">深度剖析浏览器渲染性能原理，你到底知道多少？<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">渲染卡顿是怎么回事？<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>网页不仅应该被快速加载，同时还应该流畅运行，比如快速响应的交互，如丝般顺滑的动画等。
+大多数设备的刷新频率是 60 次/秒，也就说是浏览器对每一帧画面的渲染工作要在 16ms 内完成，超出这个时间，页面的渲染就会出现卡顿现象，影响用户体验。
+为了保证页面的渲染效果，需要充分了解浏览器是如何处理 HTML/JavaScript/CSS 的。</p>
+<h2 id="_3">渲染流程分为几步？<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-6c6f3bf9f9b2c5eb.png?imageMogr2/auto-orient/strip|imageView2/2/w/742/format/webp" /></p>
+<p>渲染流程</p>
+<p><code>JavaScript</code>：JavaScript 实现动画效果，DOM 元素操作等。
+<code>Style（计算样式）</code>：确定每个 DOM 元素应该应用什么 CSS 规则。
+<code>Layout（布局）</code>：计算每个 DOM 元素在最终屏幕上显示的大小和位置。由于 web 页面的元素布局是相对的，所以其中任意一个元素的位置发生变化，都会联动的引起其他元素发生变化，这个过程叫 reflow。
+<code>Paint（绘制）</code>：在多个层上绘制 DOM 元素的的文字、颜色、图像、边框和阴影等。
+<code>Composite（渲染层合并）</code>：按照合理的顺序合并图层然后显示到屏幕上。</p>
+<p>实际场景下，大概会有三种常见的渲染流程（也即是<code>Layout</code>和<code>Paint</code>步骤是可避免的）：</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-35dabdd33093e413.png?imageMogr2/auto-orient/strip|imageView2/2/w/580/format/webp" /></p>
+<p>三种常见的渲染流程</p>
+<h2 id="_4">结合渲染流程怎么优化渲染性能呢？<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>结合上述的渲染流程，我们可以去针对性的分析并优化每个步骤。</p>
+<ul>
+<li>优化 JavaScript 的执行效率</li>
+<li>降低样式计算的范围和复杂度</li>
+<li>避免大规模、复杂的布局</li>
+<li>简化绘制的复杂度、减少绘制区域</li>
+<li>优先使用渲染层合并属性、控制层数量</li>
+<li>对用户输入事件的处理函数去抖动（移动设备）</li>
+</ul>
+<h2 id="javascript">优化 JavaScript 的执行效率，具体可以做什么？<a class="headerlink" href="#javascript" title="Permanent link">&para;</a></h2>
+<h3 id="settimeout-setinterval-requestanimationframe">动画实现，避免使用 setTimeout 或 setInterval，尽量使用 requestAnimationFrame<a class="headerlink" href="#settimeout-setinterval-requestanimationframe" title="Permanent link">&para;</a></h3>
+<p><code>setTimeout(callback)</code>和<code>setInterval(callback)</code>无法保证 callback 函数的执行时机，很可能在帧结束的时候执行，从而导致丢帧，如下图：</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-e144d3fcbe900a0c.png?imageMogr2/auto-orient/strip|imageView2/2/w/762/format/webp" /></p>
+<p>时机不对，导致丢帧</p>
+<p><code>requestAnimationFrame(callback)</code>可以保证 callback 函数在每帧动画开始的时候执行。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// requestAnimationFrame将保证updateScreen函数在每帧的开始运行</span>
+<span class="n">requestAnimationFrame</span><span class="p">(</span><span class="n">updateScreen</span><span class="p">);</span>
+</code></pre></div>
+<p>注意：jQuery 的 animate 函数就是用 setTimeout 来实现动画，可以通过<a href="https://link.jianshu.com/?t=https://github.com/gnarf/jquery-requestAnimationFrame">jquery-requestAnimationFrame</a>这个补丁来用 requestAnimationFrame 替代 setTimeout</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-8dae2c7253ac528a.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>requestAnimationFrame 兼容性</p>
+<h3 id="javascript-web-workers">把耗时长的 JavaScript 代码放到 Web Workers 中去做<a class="headerlink" href="#javascript-web-workers" title="Permanent link">&para;</a></h3>
+<p>JavaScript 代码运行在浏览器的主线程上，与此同时，浏览器的主线程还负责样式计算、布局、绘制的工作，如果 JavaScript 代码运行时间过长，就会阻塞其他渲染工作，很可能会导致丢帧。
+前面提到每帧的渲染应该在 16ms 内完成，但在动画过程中，由于已经被占用了不少时间，所以 JavaScript 代码运行耗时应该控制在 3-4 毫秒。
+如果真的有特别耗时且不操作 DOM 元素的纯计算工作，可以考虑放到 Web Workers 中执行。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">dataSortWorker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Worker</span><span class="p">(</span><span class="s2">&quot;sort-worker.js&quot;</span><span class="p">);</span>
+
+<span class="nx">dataSortWorker</span><span class="p">.</span><span class="nx">postMesssage</span><span class="p">(</span><span class="nx">dataToSort</span><span class="p">);</span>
+
+<span class="c1">// 主线程不受Web Workers线程干扰</span>
+<span class="nx">dataSortWorker</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">evt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">sortedData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// Web Workers线程执行结束</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-1ee4fb14aa7cb919.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>Web Workers 兼容性</p>
+<h3 id="dom-frame">把 DOM 元素的更新划分为多个小任务，分别在多个 frame 中去完成<a class="headerlink" href="#dom-frame" title="Permanent link">&para;</a></h3>
+<p>由于 Web Workers 不能操作 DOM 元素的限制，所以只能做一些纯计算的工作，对于很多需要操作 DOM 元素的逻辑，可以考虑分步处理，把任务分为若干个小任务，每个任务都放到 requestAnimationFrame 中回调执行</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">taskList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">breakBigTaskIntoMicroTasks</span><span class="p">(</span><span class="nx">monsterTaskList</span><span class="p">);</span>
+
+<span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">processTaskList</span><span class="p">);</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">processTaskList</span><span class="p">(</span><span class="nx">taskStartTime</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">nextTask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">taskList</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+
+<span class="w">  </span><span class="c1">// 执行小任务</span>
+<span class="w">  </span><span class="nx">processTask</span><span class="p">(</span><span class="nx">nextTask</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">taskList</span><span class="p">.</span><span class="nx">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">processTaskList</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="chrome-devtools-timeline-javascript">使用 Chrome DevTools 的 Timeline 来分析 JavaScript 的性能<a class="headerlink" href="#chrome-devtools-timeline-javascript" title="Permanent link">&para;</a></h3>
+<p>打开<code>Chrome DevTools &gt; Timeline &gt; JS Profile</code>，录制一次动作，然后分析得到的细节信息，从而发现问题并修复问题。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-54b798d8c5a21a0a.png?imageMogr2/auto-orient/strip|imageView2/2/w/1145/format/webp" /></p>
+<p>使用 Chrome DevTools 的 Timeline 来分析 JavaScript 的性能</p>
+<h2 id="_5">降低样式计算的范围和复杂度<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>添加或移除一个 DOM 元素、修改元素属性和样式类、应用动画效果等操作，都会引起 DOM 结构的改变，从而导致浏览器需要重新计算每个元素的样式，对整个页面或部分页面重新布局，这就是所谓的样式计算。
+样式计算主要分为两步：创建一套匹配的样式选择器，为匹配的样式选择器计算具体的样式规则</p>
+<h3 id="_6">降低样式选择器的复杂度<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>尽量保持 class 的简短，或者使用 Web Components 框架。</p>
+<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="k">box</span><span class="p">:</span><span class="nc">nth</span><span class="o">-</span><span class="n">last</span><span class="o">-</span><span class="n">child</span><span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">.</span><span class="n">title</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
+<span class="c1">// 改善后</span>
+<span class="p">.</span><span class="kr">final</span><span class="o">-</span><span class="k">box</span><span class="o">-</span><span class="n">title</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="_7">减少需要执行样式计算的元素个数<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>由于浏览器的优化，现代浏览器的样式计算直接对目标元素执行，而不是对整个页面执行，所以我们应该尽可能减少需要执行样式计算的元素的个数</p>
+<h2 id="_8">避免大规模、复杂的布局<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>布局就是计算 DOM 元素的大小和位置的过程，如果你的页面中包含很多元素，那么计算这些元素的位置将耗费很长时间。
+布局的主要消耗在于：1. 需要布局的 DOM 元素的数量；2. 布局过程的复杂程度</p>
+<h3 id="_9">尽可能避免触发布局<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>当你修改了元素的属性之后，浏览器将会检查为了使这个修改生效是否需要重新计算布局以及更新渲染树，对于 DOM 元素的“<a href="https://link.jianshu.com/?t=https://csstriggers.com/">几何属性</a>”修改，比如 width/height/left/top 等，都需要重新计算布局。
+对于不能避免的布局，可以使用 Chrome DevTools 工具的 Timeline 查看明细。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-fc183b595e916186.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>使用 Chrome DevTools 工具的 Timeline 查看明细</p>
+<p>可以查看布局的耗时，以及受影响的 DOM 元素数量。</p>
+<h3 id="flexbox">使用 flexbox 替代老的布局模型<a class="headerlink" href="#flexbox" title="Permanent link">&para;</a></h3>
+<p>老的布局模型以相对/绝对/浮动的方式将元素定位到屏幕上</p>
+<p>Floxbox 布局模型用流式布局的方式将元素定位到屏幕上</p>
+<p>通过一个小实验可以看出两种布局模型的性能差距，同样对 1300 个元素布局，浮动布局耗时 14.3ms，Flexbox 布局耗时 3.5ms</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-f87cb5e6f24ac659.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>Paste_Image.png</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-b8741208ef48fa68.png?imageMogr2/auto-orient/strip|imageView2/2/w/1044/format/webp" /></p>
+<p>Flexbox 兼容性</p>
+<h3 id="_10">避免强制同步布局事件的发生<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>前面提过，将一帧画面渲染的屏幕上的流程是：</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-f4fa66b6cb882133.png?imageMogr2/auto-orient/strip|imageView2/2/w/740/format/webp" /></p>
+<p>Paste_Image.png</p>
+<p>首先是 JavaScript 脚本，然后是 Style，然后是 Layout，但是我们可以强制浏览器在执行 JavaScript 脚本之前先执行布局过程，这就是所谓的强制同步布局。</p>
+<div class="highlight"><pre><span></span><code><span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">logBoxHeight</span><span class="p">);</span>
+
+<span class="c1">// 先写后读，触发强制布局</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">logBoxHeight</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// 更新box样式</span>
+<span class="w">  </span><span class="nx">box</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s2">&quot;super-big&quot;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// 为了返回box的offersetHeight值</span>
+<span class="w">  </span><span class="c1">// 浏览器必须先应用属性修改，接着执行布局过程</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">box</span><span class="p">.</span><span class="nx">offsetHeight</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 先读后写，避免强制布局</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">logBoxHeight</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// 获取box.offsetHeight</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">box</span><span class="p">.</span><span class="nx">offsetHeight</span><span class="p">);</span>
+
+<span class="w">  </span><span class="c1">// 更新box样式</span>
+<span class="w">  </span><span class="nx">box</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s2">&quot;super-big&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>在 JavaScript 脚本运行的时候，它能获取到的元素样式属性值都是上一帧画面的，都是旧的值。因此，如果你在当前帧获取属性之前又对元素节点有改动，那就会导致浏览器必须先应用属性修改，结果执行布局过程，最后再执行 JavaScript 逻辑。</p>
+<h3 id="_11">避免连续的强制同步布局发生<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>如果连续快速的多次触发强制同步布局，那么结果更糟糕。
+比如下面的例子，获取 box 的属性，设置到 paragraphs 上，由于每次设置 paragraphs 都会触发样式计算和布局过程，而下一次获取 box 的属性必须等到上一步设置结束之后才能触发。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">resizeWidth</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// 会让浏览器陷入&#39;读写读写&#39;循环</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">paragraphs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">paragraphs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">box</span><span class="p">.</span><span class="nx">offsetWidth</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;px&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// 改善后方案</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">box</span><span class="p">.</span><span class="nx">offsetWidth</span><span class="p">;</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">resizeWidth</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">paragraphs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">paragraphs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">width</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;px&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>注意：可以使用<a href="https://link.jianshu.com/?t=https://github.com/wilsonpage/fastdom">FastDOM</a>来确保读写操作的安全，从而帮你自动完成读写操作的批处理，还能避免意外地触发强制同步布局或快速连续布局</p>
+<h2 id="_12">简化绘制的复杂度、减少绘制区域，具体可以做什么？<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p>绘制就是填充像素的过程，通常这个过程是整个渲染流程中耗时最长的一环，因此也是最需要避免发生的一环。
+如果 Layout 被触发，那么接下来元素的 Paint 一定会被触发。当然纯粹改变元素的非几何属性，也可能会触发 Paint，比如背景、文字颜色、阴影效果等。</p>
+<h3 id="_13">提升移动或渐变元素的绘制层<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<p>绘制并非总是在内存中的单层画面里完成的，实际上，浏览器在必要时会将一帧画面绘制成多层画面，然后将这若干层画面合并成一张图片显示到屏幕上。
+这种绘制方式的好处是，使用 transform 来实现移动效果的元素将会被正常绘制，同时不会触发其他元素的绘制。</p>
+<h3 id="_14">减少绘制区域<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<p>浏览器会把相邻区域的渲染任务合并在一起进行，所以需要对动画效果进行精密设计，以保证各自的绘制区域不会有太多重叠。</p>
+<h3 id="_15">简化绘制的复杂度<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h3>
+<p>可以实现同样效果的不同方式，我们应该采用性能更好的那种。</p>
+<h3 id="chrome-devtools">通过 Chrome DevTools 来分析绘制复杂度和时间消耗，尽可能降低这些指标<a class="headerlink" href="#chrome-devtools" title="Permanent link">&para;</a></h3>
+<p>打开 DevTools，按下键盘的 ESC 键，在弹出的面板中，选中<code>rendering</code>选项卡下的<code>Enable paint flashing</code>，这样每当页面发生绘制的时候，屏幕就会闪现绿色的方框。通过该工具可以检查 Paint 发生的区域和时机是不是可以被优化。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-ca3438f49daeac9e.png?imageMogr2/auto-orient/strip|imageView2/2/w/819/format/webp" /></p>
+<p>Paste_Image.png</p>
+<p>通过 Chrome DevTools 中的<code>Timeline &gt; Paint</code>选项可以查看更细节的 Paint 信息</p>
+<h2 id="_16">优先使用渲染层合并属性、控制层数量，具体可以做什么？<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<h3 id="transformopacity">使用 transform/opacity 实现动画效果<a class="headerlink" href="#transformopacity" title="Permanent link">&para;</a></h3>
+<p>使用 transform/opacity 实现动画效果，会跳过渲染流程的布局和绘制环节，只做渲染层的合并。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-90f9314d63898e05.png?imageMogr2/auto-orient/strip|imageView2/2/w/698/format/webp" /></p>
+<p>transform/opacity 可以实现的功能</p>
+<p>使用 transform/opacity 的元素必须独占一个渲染层，所以必须提升该元素到单独的渲染层。</p>
+<h3 id="_17">提升动画效果中的元素<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<p>应用动画效果的元素应该被提升到其自有的渲染层，但不要滥用。
+在页面中创建一个新的渲染层最好的方式就是使用 CSS 属性 winll-change，对于目前还不支持 will-change 属性、但支持创建渲染层的浏览器，可以通过 3D transform 属性来强制浏览器创建一个新的渲染层。需要注意的是，不要创建过多的渲染层，这意味着新的内存分配和更复杂的层管理。</p>
+<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="nc">moving-element</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">will-change</span><span class="p">:</span><span class="w"> </span><span class="k">transform</span><span class="p">;</span>
+<span class="w">  </span><span class="k">transform</span><span class="p">:</span><span class="w"> </span><span class="nb">translateZ</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-e7b72f71f7a2f6ef.png?imageMogr2/auto-orient/strip|imageView2/2/w/1118/format/webp" /></p>
+<p>will-change 兼容性</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-6b0b60dd78cd1d60.png?imageMogr2/auto-orient/strip|imageView2/2/w/1118/format/webp" /></p>
+<p>transform2D 兼容性</p>
+<h3 id="_18">管理渲染层、避免过多数量的层<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<p>尽管提升渲染层看起来很诱人，但不能滥用，因为更多的渲染层意味着更多的额外的内存和管理资源，所以当且仅当需要的时候才为元素创建渲染层。</p>
+<div class="highlight"><pre><span></span><code><span class="o">*</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">will-change</span><span class="p">:</span><span class="w"> </span><span class="k">transform</span><span class="p">;</span>
+<span class="w">  </span><span class="k">transform</span><span class="p">:</span><span class="w"> </span><span class="nb">translateZ</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="chrome-devtools_1">使用 Chrome DevTools 来了解页面的渲染层情况<a class="headerlink" href="#chrome-devtools_1" title="Permanent link">&para;</a></h3>
+<p>开启<code>Chrome DevTools &gt; Timeline &gt; Paint</code>选项，然后录制一段时间的操作，选择单独的帧，看到每个帧的渲染细节，在 ESC 弹出框有个<code>Layers</code>选项，可以看到渲染层的细节，有多少渲染层？为何被创建？</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-dbda89c8c5164004.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp" /></p>
+<p>Paste_Image.png</p>
+<h2 id="_19">对用户输入事件的处理函数去抖动（移动设备），具体可以做什么？<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
+<p>用户输入事件处理函数会在运行时阻塞帧的渲染，并且会导致额外的布局发生。</p>
+<h3 id="_20">避免使用运行时间过长的输入事件处理函数<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<p>理想情况下，当用户和页面交互，页面的渲染层合并线程将接收到这个事件并移动元素。这个响应过程是不需要主线程参与，不会导致 JavaScript、布局和绘制过程发生。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-6319341e465f476e.png?imageMogr2/auto-orient/strip|imageView2/2/w/714/format/webp" /></p>
+<p>Paste_Image.png</p>
+<p>但是如果被触摸的元素绑定了输入事件处理函数，比如 touchstart/touchmove/touchend，那么渲染层合并线程必须等待这些被绑定的处理函数执行完毕才能执行，也就是用户的滚动页面操作被阻塞了，表现出的行为就是滚动出现延迟或者卡顿。</p>
+<p>简而言之就是你必须确保用户输入事件绑定的任何处理函数都能够快速的执行完毕，以便腾出时间来让渲染层合并线程完成他的工作。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-41800f496ee088c6.png?imageMogr2/auto-orient/strip|imageView2/2/w/725/format/webp" /></p>
+<p>Paste_Image.png</p>
+<h3 id="_21">避免在输入事件处理函数中修改样式属性<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<p>输入事件处理函数，比如 scroll/touch 事件的处理，都会在 requestAnimationFrame 之前被调用执行。
+因此，如果你在上述输入事件的处理函数中做了修改样式属性的操作，那么这些操作就会被浏览器暂存起来，然后在调用 requestAnimationFrame 的时候，如果你在一开始就做了读取样式属性的操作，那么将会触发浏览器的强制同步布局操作。</p>
+<p><img alt="img" src="https://upload-images.jianshu.io/upload_images/1158202-6c595c5282847c14.png?imageMogr2/auto-orient/strip|imageView2/2/w/749/format/webp" /></p>
+<p>Paste_Image.png</p>
+<h3 id="_22">对滚动事件处理函数去抖动<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<p>通过 requestAnimationFrame 可以对样式修改操作去抖动，同时也可以使你的事件处理函数变得更轻</p>
+<div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">onScroll</span><span class="p">(</span><span class="nx">evt</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Store the scroll value for laterz.</span>
+<span class="w">  </span><span class="nx">lastScrollY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">scrollY</span><span class="p">;</span>
+
+<span class="w">  </span><span class="c1">// Prevent multiple rAF callbacks.</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">scheduledAnimationFrame</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nx">scheduledAnimationFrame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">readAndUpdatePage</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;scroll&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">onScroll</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="_23">总结点什么？<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h2>
+<p>网站性能优化是一个有一定门槛的细致活，需要对浏览器的机制有很好的理解，同时也应该学会利用 Chrome DevTools 去分析并解决实际问题，关于 Chrome DevTools 的学习我会专门开一篇博客来讲解，同时会结合具体的性能问题来分析。</p>
+
+
+
+
+
+
+
+  
+    
+  
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Last update">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 5, 2023</span>
+  </span>
+
+    
+    
+    
+      
+  
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="Contributors">
+      
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
+      
+    </span>
+    <nav>
+      
+        <a href="mailto:1822852997@qq.com">Michael An</a>, 
+        <a href="mailto:2331806369@qq.com">Michael An</a>
+    </nav>
+  </span>
+
+    
+    
+  </aside>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Michael An
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../../js/baidu-statistics.min.js"></script>
+      
+        <script src="../../js/history.min.js"></script>
+      
+    
+  </body>
+</html>
