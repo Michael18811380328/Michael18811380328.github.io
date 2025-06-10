@@ -6,9 +6,9 @@ sounds.forEach(sound => {
 
     btn.innerText = sound
 
+    // 点击某个按钮，关闭其他声音，播放对应的声音
     btn.addEventListener('click', () => {
         stopSongs()
-
         document.getElementById(sound).play()
     })
 
@@ -18,7 +18,6 @@ sounds.forEach(sound => {
 function stopSongs() {
     sounds.forEach(sound => {
         const song = document.getElementById(sound)
-
         song.pause()
         song.currentTime = 0;
     })
