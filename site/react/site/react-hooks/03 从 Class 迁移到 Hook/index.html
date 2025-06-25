@@ -7155,7 +7155,9 @@
 <div class="highlight"><pre><span></span><code><span class="c1">// ...</span>
 <span class="w">  </span><span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">handleWindowMouseMove</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="c1">// 展开 「...state」 以确保我们没有 「丢失」 width 和 height      setState(state =&gt; ({ ...state, left: e.pageX, top: e.pageY }));    }</span>
+<span class="w">      </span><span class="c1">// 展开 「...state」 以确保我们没有 「丢失」 width 和 height      </span>
+<span class="w">      </span><span class="nx">setState</span><span class="p">(</span><span class="nx">state</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="p">...</span><span class="nx">state</span><span class="p">,</span><span class="w"> </span><span class="nx">left</span><span class="o">:</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">pageX</span><span class="p">,</span><span class="w"> </span><span class="nx">top</span><span class="o">:</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">pageY</span><span class="w"> </span><span class="p">}));</span><span class="w">    </span>
+<span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="c1">// 注意：这是个简化版的实现</span>
 <span class="w">    </span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;mousemove&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">handleWindowMouseMove</span><span class="p">);</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;mousemove&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">handleWindowMouseMove</span><span class="p">);</span>
@@ -7171,34 +7173,45 @@
 
 <span class="w">  </span><span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">function</span><span class="w"> </span><span class="nx">handleWindowMouseMove</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">setPosition</span><span class="p">({</span><span class="w"> </span><span class="nx">left</span><span class="o">:</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">pageX</span><span class="p">,</span><span class="w"> </span><span class="nx">top</span><span class="o">:</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">pageY</span><span class="w"> </span><span class="p">});</span><span class="w">    </span><span class="p">}</span>
+<span class="w">      </span><span class="nx">setPosition</span><span class="p">({</span><span class="w"> </span><span class="nx">left</span><span class="o">:</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">pageX</span><span class="p">,</span><span class="w"> </span><span class="nx">top</span><span class="o">:</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">pageY</span><span class="w"> </span><span class="p">});</span><span class="w">    </span>
+<span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="c1">// ...</span>
 </code></pre></div>
-<p>把独立的 state 变量拆分开还有另外的好处。这使得后期把一些相关的逻辑抽取到一个自定义 Hook 变得容易，比如说:</p>
+<p>把独立的 state 变量拆分开还有另外的好处。</p>
+<p>这使得后期把一些相关的逻辑抽取到一个自定义 Hook 变得容易，比如说:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">Box</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useWindowPosition</span><span class="p">();</span><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">size</span><span class="p">,</span><span class="w"> </span><span class="nx">setSize</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">({</span><span class="w"> </span><span class="nx">width</span><span class="o">:</span><span class="w"> </span><span class="mf">100</span><span class="p">,</span><span class="w"> </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="mf">100</span><span class="w"> </span><span class="p">});</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useWindowPosition</span><span class="p">();</span><span class="w">  </span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">size</span><span class="p">,</span><span class="w"> </span><span class="nx">setSize</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">({</span><span class="w"> </span><span class="nx">width</span><span class="o">:</span><span class="w"> </span><span class="mf">100</span><span class="p">,</span><span class="w"> </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="mf">100</span><span class="w"> </span><span class="p">});</span>
 <span class="w">  </span><span class="c1">// ...</span>
 <span class="p">}</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">useWindowPosition</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">position</span><span class="p">,</span><span class="w"> </span><span class="nx">setPosition</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">({</span><span class="w"> </span><span class="nx">left</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">top</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="p">});</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">useWindowPosition</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">  </span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">position</span><span class="p">,</span><span class="w"> </span><span class="nx">setPosition</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">({</span><span class="w"> </span><span class="nx">left</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="nx">top</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="p">});</span>
 <span class="w">  </span><span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// ...</span>
 <span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="p">[]);</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">position</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>注意看我们是如何做到不改动代码就把对 <code>position</code> 这个 state 变量的 <code>useState</code> 调用和相关的 effect 移动到一个自定义 Hook 的。如果所有的 state 都存在同一个对象中，想要抽取出来就比较难了。</p>
-<p>把所有 state 都放在同一个 <code>useState</code> 调用中，或是每一个字段都对应一个 <code>useState</code> 调用，这两方式都能跑通。当你在这两个极端之间找到平衡，然后把相关 state 组合到几个独立的 state 变量时，组件就会更加的可读。</p>
+<p>注意看我们是如何做到不改动代码就把对 <code>position</code> 这个 state 变量的 <code>useState</code> 调用和相关的 effect 移动到一个自定义 Hook 的。</p>
+<p>如果所有的 state 都存在同一个对象中，想要抽取出来就比较难了。</p>
+<p>把所有 state 都放在同一个 <code>useState</code> 调用中，或是每一个字段都对应一个 <code>useState</code> 调用，这两方式都能跑通。</p>
+<p>当你在这两个极端之间找到平衡，然后把相关 state 组合到几个独立的 state 变量时，组件就会更加的可读。</p>
 <h3 id="props-state">如何获取上一轮的 props 或 state？<a class="headerlink" href="#props-state" title="Permanent link">&para;</a></h3>
 <p>在以下两种场景下，你可以能会需要获取上一轮的 props 或 state。</p>
-<p>有时，你需要获取之前的 props 来 <strong>进行副作用的清理</strong>。例如，你可能有这样一个副作用，依赖 <code>userId</code> props 来订阅 socket。如果 <code>userId</code> 发生了变化，你需要取消 <strong>之前</strong> <code>userId</code> 的订阅，再进行后续订阅。这种情况下，你无需做额外操作即可实现：</p>
+<p>有时，你需要获取之前的 props 来 <strong>进行副作用的清理</strong>。</p>
+<p>例如，你可能有这样一个副作用，依赖 <code>userId</code> props 来订阅 socket。</p>
+<p>如果 <code>userId</code> 发生了变化，你需要取消 <strong>之前</strong> <code>userId</code> 的订阅，再进行后续订阅。</p>
+<p>这种情况下，你无需做额外操作即可实现：</p>
 <div class="highlight"><pre><span></span><code><span class="nx">useEffect</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">ChatAPI</span><span class="p">.</span><span class="nx">subscribeToSocket</span><span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">userId</span><span class="p">);</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">ChatAPI</span><span class="p">.</span><span class="nx">unsubscribeFromSocket</span><span class="p">(</span><span class="nx">props</span><span class="p">.</span><span class="nx">userId</span><span class="p">);</span>
 <span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="nx">props</span><span class="p">.</span><span class="nx">userId</span><span class="p">]);</span>
 </code></pre></div>
-<p>在上述示例中，如果 <code>userId</code> 从 <code>3</code> 变为 <code>4</code>，<code>ChatAPI.unsubscribeFromSocket(3)</code> 将会优先运行，然后才会执行 <code>ChatAPI.subscribeToSocket(4)</code>。这种情况下，你没必要获取之前的 <code>userId</code>，因为清理函数将在闭包中捕获它，</p>
-<p>我们之前曾建议使用 <code>usePrevious</code> 的自定义 Hook 来保持前值。然后，我们发现大多数用例，都属于上述两种场景。如果你的用例与上述两种情况不同，你可以在 <a href="https://zh-hans.legacy.reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables">Ref 中对该值进行存储</a> 并在需要时手动更新它。注意，应避免在渲染过程中读取和更新 refs，因为这使得你组件的行为难以预测，且难以理解。</p>
+<p>在上述示例中，如果 <code>userId</code> 从 <code>3</code> 变为 <code>4</code>，<code>ChatAPI.unsubscribeFromSocket(3)</code> 将会优先运行，然后才会执行 <code>ChatAPI.subscribeToSocket(4)</code>。</p>
+<p>这种情况下，你没必要获取之前的 <code>userId</code>，因为清理函数将在闭包中捕获它，</p>
+<p>我们之前曾建议使用 <code>usePrevious</code> 的自定义 Hook 来保持前值。然后，我们发现大多数用例，都属于上述两种场景。</p>
+<p>如果你的用例与上述两种情况不同，你可以在 <a href="https://zh-hans.legacy.reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables">Ref 中对该值进行存储</a> 并在需要时手动更新它。注意，应避免在渲染过程中读取和更新 refs，因为这使得你组件的行为难以预测，且难以理解。</p>
 <h3 id="props-state_1">为什么我会在我的函数中看到陈旧的 props 和 state ？<a class="headerlink" href="#props-state_1" title="Permanent link">&para;</a></h3>
 <p>组件内部的任何函数，包括事件处理函数和 effect，都是从它被创建的那次渲染中被「看到」的。例如，考虑这样的代码：</p>
 <div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">Example</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -7223,7 +7236,8 @@
 <span class="w">  </span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>如果你先点击「Show alert」然后增加计数器的计数，那这个 alert 会显示**在你点击『Show alert』按钮时**的 <code>count</code> 变量。这避免了那些因为假设 props 和 state 没有改变的代码引起问题。</p>
+<p>如果你先点击「Show alert」然后增加计数器的计数，那这个 alert 会显示**在你点击『Show alert』按钮时**的 <code>count</code> 变量。</p>
+<p>这避免了那些因为假设 props 和 state 没有改变的代码引起问题。</p>
 <p>如果你刻意地想要从某些异步回调中读取 <em>最新的</em> state，你可以用 <a href="https://zh-hans.legacy.reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables">一个 ref</a> 来保存它，修改它，并从中读取。</p>
 <p>最后，你看到陈旧的 props 和 state 的另一个可能的原因，是你使用了「依赖数组」优化但没有正确地指定所有的依赖。举个例子，如果一个 effect 指定了 <code>[]</code> 作为第二个参数，但在内部读取了 <code>someProp</code>，它会一直「看到」 <code>someProp</code> 的初始值。解决办法是要么移除依赖数组，要么修正它。 这里介绍了 <a href="https://zh-hans.legacy.reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies">你该如何处理函数</a>，而这里介绍了关于如何减少 effect 的运行而不必错误的跳过依赖的 <a href="https://zh-hans.legacy.reactjs.org/docs/hooks-faq.html#what-can-i-do-if-my-effect-dependencies-change-too-often">一些常见策略</a>。</p>
 <blockquote>
@@ -7248,15 +7262,20 @@
 </code></pre></div>
 <p>初看这或许有点奇怪，但渲染期间的一次更新恰恰就是 <code>getDerivedStateFromProps</code> 一直以来的概念。</p>
 <h3 id="dom">我该如何测量 DOM 节点？<a class="headerlink" href="#dom" title="Permanent link">&para;</a></h3>
-<p>获取 DOM 节点的位置或是大小的基本方式是使用 <a href="https://zh-hans.legacy.reactjs.org/docs/refs-and-the-dom.html#callback-refs">callback ref</a>。每当 ref 被附加到一个另一个节点，React 就会调用 callback。</p>
+<p>获取 DOM 节点的位置或是大小的基本方式是使用 <a href="https://zh-hans.legacy.reactjs.org/docs/refs-and-the-dom.html#callback-refs">callback ref</a>。</p>
+<p>每当 ref 被附加到一个另一个节点，React 就会调用 callback。</p>
 <div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">MeasureExample</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">height</span><span class="p">,</span><span class="w"> </span><span class="nx">setHeight</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
 
-<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">measuredRef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useCallback</span><span class="p">(</span><span class="nx">node</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">node</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">      </span><span class="nx">setHeight</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">().</span><span class="nx">height</span><span class="p">);</span><span class="w">    </span><span class="p">}</span><span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="p">[]);</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">measuredRef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useCallback</span><span class="p">(</span><span class="nx">node</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">    </span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">node</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">      </span>
+<span class="w">        </span><span class="nx">setHeight</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">getBoundingClientRect</span><span class="p">().</span><span class="nx">height</span><span class="p">);</span><span class="w">    </span>
+<span class="w">    </span><span class="p">}</span><span class="w">  </span>
+<span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="p">[]);</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="o">&lt;&gt;</span>
 <span class="w">      </span><span class="o">&lt;</span><span class="nx">h1</span><span class="w"> </span><span class="nx">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">measuredRef</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="p">,</span><span class="w"> </span><span class="nx">world</span><span class="o">&lt;</span><span class="err">/h1&gt;      </span>
-<span class="w">            </span><span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span><span class="nx">The</span><span class="w"> </span><span class="nx">above</span><span class="w"> </span><span class="nx">header</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="p">{</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">height</span><span class="p">)}</span><span class="nx">px</span><span class="w"> </span><span class="nx">tall</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
+<span class="w">      </span><span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span><span class="nx">The</span><span class="w"> </span><span class="nx">above</span><span class="w"> </span><span class="nx">header</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="p">{</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">height</span><span class="p">)}</span><span class="nx">px</span><span class="w"> </span><span class="nx">tall</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
 <span class="w">    </span><span class="o">&lt;</span><span class="err">/&gt;</span>
 <span class="w">  </span><span class="p">);</span>
 <span class="p">}</span>
@@ -7642,7 +7661,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 9, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 6, 2025</span>
   </span>
 
     
@@ -7653,12 +7672,13 @@
   <span class="md-source-file__fact">
     <span class="md-icon" title="Contributors">
       
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9 3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3 3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3 3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65 2.56.34 4.45 1.51 4.45 2.9z"/></svg>
       
     </span>
     <nav>
       
-        <a href="mailto:2331806369@qq.com">Michael An</a>
+        <a href="mailto:2331806369@qq.com">Michael An</a>, 
+        <a href="mailto:1822852997@qq.com">Michael An</a>
     </nav>
   </span>
 

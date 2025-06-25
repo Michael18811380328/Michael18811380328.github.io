@@ -2208,6 +2208,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#0875-react" class="md-nav__link">
+    <span class="md-ellipsis">
+      0875 React 库什么时候不需要引入
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0467-react" class="md-nav__link">
     <span class="md-ellipsis">
       0467 React 细节
@@ -4002,6 +4011,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#0875-react" class="md-nav__link">
+    <span class="md-ellipsis">
+      0875 React 库什么时候不需要引入
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#0467-react" class="md-nav__link">
     <span class="md-ellipsis">
       0467 React 细节
@@ -4047,7 +4065,7 @@
 
 
 <h1 id="react">React笔记<a class="headerlink" href="#react" title="Permanent link">&para;</a></h1>
-<p>2025-4-24</p>
+<p>2025-6-25</p>
 <p>原始笔记链接：<a href="https://cloud.seatable.cn/dtable/external-links/59b453a8639945478de2/">https://cloud.seatable.cn/dtable/external-links/59b453a8639945478de2/</a></p>
 <h2 id="0001-vue-react-key">0001 Vue 和 react 中的 key 作用<a class="headerlink" href="#0001-vue-react-key" title="Permanent link">&para;</a></h2>
 <p>便于在虚拟DOM中进行 diff 的前后比较，如果 Key 相同的话，这两个节点就可以不用更换，直接复用原来的节点，所以Key 需要用某一个固定的值，例如 ID 或者 column key 这样来表示，不能用 index 来表示。</p>
@@ -4661,6 +4679,22 @@ this.refs.inoutRef.focus();
 </li>
 </ul>
 <p>其他参考：<a href="https://juejin.cn/post/6844903668446134286">https://juejin.cn/post/6844903668446134286</a></p>
+<h2 id="0875-react">0875 React 库什么时候不需要引入<a class="headerlink" href="#0875-react" title="Permanent link">&para;</a></h2>
+<p>在 React 16 和之前的版本中，需要在开头引入 react 然后才能使用 jsx 语法。</p>
+<p>在 React 17 和之后的版本中，不需要引入 react 也可以使用 jsx 语法（需要使用新 JSX 转换的打包工具，像 Babel 7.9.0 及以上版本或者 TypeScript 2.1 及以上版本）。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 新版本 JSX 转换（不需要引入 React）</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">App</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="w"> </span><span class="nx">World</span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
+<span class="p">}</span>
+
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">App</span><span class="p">;</span>
+</code></pre></div>
+<p>原因：React 17+ 不再强制引入 <code>React</code> 的核心原因是 JSX 转换机制的升级。新转换直接使用 <code>react/jsx-runtime</code> 中的辅助函数，避免了对 <code>React.createElement</code> 的依赖，从而消除了对 <code>React</code> 导入的强制要求。这一变化不仅简化了代码，还优化了构建结果。</p>
+<p>如果有的项目 react 版本超过 17 但是不引入 react 会出错，那么检查一下配置的 babel 版本是否正确。</p>
+<p>在 babelrc 文件中</p>
+<div class="highlight"><pre><span></span><code>&quot;runtime&quot;: &quot;automatic&quot;
+</code></pre></div>
+<p>​</p>
 <h2 id="0467-react">0467 React 细节<a class="headerlink" href="#0467-react" title="Permanent link">&para;</a></h2>
 <p>Props 和 子组件更新：如果一个子组件的 state 是父组件的 props 计算出来，那么当父组件的 props 变化后，子组件必须更改 state。否则界面无法更改成最新的状态。最佳方案：store 和 view 完全分离，React jsx 只负责渲染组件。</p>
 <p>setState 在react 合成事件 (onClick) 和JS代码中是异步的；在原生JS事件（addeventListener）和定时器中是同步的、第一个参数可以是对象，或者是一个函数（返回新的state对象）。</p>
@@ -4777,7 +4811,7 @@ this.refs.inoutRef.focus();
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 24, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 25, 2025</span>
   </span>
 
     
