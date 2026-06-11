@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      用户ID查询：<input type="text" id="user" />
+      <button id="btn">提交</button>
+      <div id="result"></div>
+    </div>
+    <script>
+      var btn = document.getElementById("btn");
+      btn.onclick = function (e) {
+        var id = document.getElementById("user").value;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            document.getElementById("result").innerHTML = xmlhttp.responseText;
+          }
+        };
+        xmlhttp.open("GET", "localhost:3000", true);
+        xmlhttp.send();
+      };
+      // 现在跨域了，需要部署在同一个域中
+    </script>
+  </body>
+</html>
